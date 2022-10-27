@@ -20,10 +20,10 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { SyncListListInstance } from "./service/syncList";
-import { SyncStreamListInstance } from "./service/syncStream";
-import { SyncMapListInstance } from "./service/syncMap";
 import { DocumentListInstance } from "./service/document";
+import { SyncListListInstance } from "./service/syncList";
+import { SyncMapListInstance } from "./service/syncMap";
+import { SyncStreamListInstance } from "./service/syncStream";
 
 
 
@@ -357,10 +357,10 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  syncLists: SyncListListInstance;
-  syncStreams: SyncStreamListInstance;
-  syncMaps: SyncMapListInstance;
   documents: DocumentListInstance;
+  syncLists: SyncListListInstance;
+  syncMaps: SyncMapListInstance;
+  syncStreams: SyncStreamListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -417,14 +417,19 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
-  protected _syncLists?: SyncListListInstance;
-  protected _syncStreams?: SyncStreamListInstance;
-  protected _syncMaps?: SyncMapListInstance;
   protected _documents?: DocumentListInstance;
+  protected _syncLists?: SyncListListInstance;
+  protected _syncMaps?: SyncMapListInstance;
+  protected _syncStreams?: SyncStreamListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
+  }
+
+  get documents(): DocumentListInstance {
+    this._documents = this._documents || DocumentListInstance(this._version, this._solution.sid);
+    return this._documents;
   }
 
   get syncLists(): SyncListListInstance {
@@ -432,19 +437,14 @@ export class ServiceContextImpl implements ServiceContext {
     return this._syncLists;
   }
 
-  get syncStreams(): SyncStreamListInstance {
-    this._syncStreams = this._syncStreams || SyncStreamListInstance(this._version, this._solution.sid);
-    return this._syncStreams;
-  }
-
   get syncMaps(): SyncMapListInstance {
     this._syncMaps = this._syncMaps || SyncMapListInstance(this._version, this._solution.sid);
     return this._syncMaps;
   }
 
-  get documents(): DocumentListInstance {
-    this._documents = this._documents || DocumentListInstance(this._version, this._solution.sid);
-    return this._documents;
+  get syncStreams(): SyncStreamListInstance {
+    this._syncStreams = this._syncStreams || SyncStreamListInstance(this._version, this._solution.sid);
+    return this._syncStreams;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -672,17 +672,17 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the documents.
+   */
+  documents(): DocumentListInstance {
+    return this._proxy.documents;
+  }
+
+  /**
    * Access the syncLists.
    */
   syncLists(): SyncListListInstance {
     return this._proxy.syncLists;
-  }
-
-  /**
-   * Access the syncStreams.
-   */
-  syncStreams(): SyncStreamListInstance {
-    return this._proxy.syncStreams;
   }
 
   /**
@@ -693,10 +693,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the documents.
+   * Access the syncStreams.
    */
-  documents(): DocumentListInstance {
-    return this._proxy.documents;
+  syncStreams(): SyncStreamListInstance {
+    return this._proxy.syncStreams;
   }
 
   /**

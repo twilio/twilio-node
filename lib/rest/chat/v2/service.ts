@@ -21,9 +21,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 import { BindingListInstance } from "./service/binding";
+import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
-import { ChannelListInstance } from "./service/channel";
 
 
 
@@ -381,9 +381,9 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 export interface ServiceContext {
 
   bindings: BindingListInstance;
+  channels: ChannelListInstance;
   roles: RoleListInstance;
   users: UserListInstance;
-  channels: ChannelListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -441,9 +441,9 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _bindings?: BindingListInstance;
+  protected _channels?: ChannelListInstance;
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
-  protected _channels?: ChannelListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -455,6 +455,11 @@ export class ServiceContextImpl implements ServiceContext {
     return this._bindings;
   }
 
+  get channels(): ChannelListInstance {
+    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
+    return this._channels;
+  }
+
   get roles(): RoleListInstance {
     this._roles = this._roles || RoleListInstance(this._version, this._solution.sid);
     return this._roles;
@@ -463,11 +468,6 @@ export class ServiceContextImpl implements ServiceContext {
   get users(): UserListInstance {
     this._users = this._users || UserListInstance(this._version, this._solution.sid);
     return this._users;
-  }
-
-  get channels(): ChannelListInstance {
-    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
-    return this._channels;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -780,6 +780,13 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the channels.
+   */
+  channels(): ChannelListInstance {
+    return this._proxy.channels;
+  }
+
+  /**
    * Access the roles.
    */
   roles(): RoleListInstance {
@@ -791,13 +798,6 @@ export class ServiceInstance {
    */
   users(): UserListInstance {
     return this._proxy.users;
-  }
-
-  /**
-   * Access the channels.
-   */
-  channels(): ChannelListInstance {
-    return this._proxy.channels;
   }
 
   /**

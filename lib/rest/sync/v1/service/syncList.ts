@@ -20,8 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
 import { SyncListItemListInstance } from "./syncList/syncListItem";
+import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
 
 
 
@@ -334,8 +334,8 @@ export function SyncListListInstance(version: V1, serviceSid: string): SyncListL
 
 export interface SyncListContext {
 
-  syncListPermissions: SyncListPermissionListInstance;
   syncListItems: SyncListItemListInstance;
+  syncListPermissions: SyncListPermissionListInstance;
 
   /**
    * Remove a SyncListInstance
@@ -393,22 +393,22 @@ export class SyncListContextImpl implements SyncListContext {
   protected _solution: SyncListContextSolution;
   protected _uri: string;
 
-  protected _syncListPermissions?: SyncListPermissionListInstance;
   protected _syncListItems?: SyncListItemListInstance;
+  protected _syncListPermissions?: SyncListPermissionListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Lists/${sid}`;
   }
 
-  get syncListPermissions(): SyncListPermissionListInstance {
-    this._syncListPermissions = this._syncListPermissions || SyncListPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncListPermissions;
-  }
-
   get syncListItems(): SyncListItemListInstance {
     this._syncListItems = this._syncListItems || SyncListItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._syncListItems;
+  }
+
+  get syncListPermissions(): SyncListPermissionListInstance {
+    this._syncListPermissions = this._syncListPermissions || SyncListPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncListPermissions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -613,17 +613,17 @@ export class SyncListInstance {
   }
 
   /**
-   * Access the syncListPermissions.
-   */
-  syncListPermissions(): SyncListPermissionListInstance {
-    return this._proxy.syncListPermissions;
-  }
-
-  /**
    * Access the syncListItems.
    */
   syncListItems(): SyncListItemListInstance {
     return this._proxy.syncListItems;
+  }
+
+  /**
+   * Access the syncListPermissions.
+   */
+  syncListPermissions(): SyncListPermissionListInstance {
+    return this._proxy.syncListPermissions;
   }
 
   /**

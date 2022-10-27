@@ -17,23 +17,23 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
-import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { BundleListInstance } from "./regulatoryCompliance/bundle";
+import { EndUserListInstance } from "./regulatoryCompliance/endUser";
 import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType";
 import { RegulationListInstance } from "./regulatoryCompliance/regulation";
-import { EndUserListInstance } from "./regulatoryCompliance/endUser";
+import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
+import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
 
 
 export interface RegulatoryComplianceListInstance {
 
-  supportingDocumentTypes: SupportingDocumentTypeListInstance;
-  supportingDocuments: SupportingDocumentListInstance;
   bundles: BundleListInstance;
+  endUsers: EndUserListInstance;
   endUserTypes: EndUserTypeListInstance;
   regulations: RegulationListInstance;
-  endUsers: EndUserListInstance;
+  supportingDocuments: SupportingDocumentListInstance;
+  supportingDocumentTypes: SupportingDocumentTypeListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -51,12 +51,12 @@ class RegulatoryComplianceListInstanceImpl implements RegulatoryComplianceListIn
   _solution?: RegulatoryComplianceSolution;
   _uri?: string;
 
-  _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
-  _supportingDocuments?: SupportingDocumentListInstance;
   _bundles?: BundleListInstance;
+  _endUsers?: EndUserListInstance;
   _endUserTypes?: EndUserTypeListInstance;
   _regulations?: RegulationListInstance;
-  _endUsers?: EndUserListInstance;
+  _supportingDocuments?: SupportingDocumentListInstance;
+  _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
 }
 
 export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplianceListInstance {
@@ -66,30 +66,21 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
   instance._solution = {  };
   instance._uri = `/RegulatoryCompliance`;
 
-  Object.defineProperty(instance, "supportingDocumentTypes", {
-    get: function supportingDocumentTypes() {
-      if (!this._supportingDocumentTypes) {
-        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(this._version);
-      }
-      return this._supportingDocumentTypes;
-    }
-  });
-
-  Object.defineProperty(instance, "supportingDocuments", {
-    get: function supportingDocuments() {
-      if (!this._supportingDocuments) {
-        this._supportingDocuments = SupportingDocumentListInstance(this._version);
-      }
-      return this._supportingDocuments;
-    }
-  });
-
   Object.defineProperty(instance, "bundles", {
     get: function bundles() {
       if (!this._bundles) {
         this._bundles = BundleListInstance(this._version);
       }
       return this._bundles;
+    }
+  });
+
+  Object.defineProperty(instance, "endUsers", {
+    get: function endUsers() {
+      if (!this._endUsers) {
+        this._endUsers = EndUserListInstance(this._version);
+      }
+      return this._endUsers;
     }
   });
 
@@ -111,12 +102,21 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
     }
   });
 
-  Object.defineProperty(instance, "endUsers", {
-    get: function endUsers() {
-      if (!this._endUsers) {
-        this._endUsers = EndUserListInstance(this._version);
+  Object.defineProperty(instance, "supportingDocuments", {
+    get: function supportingDocuments() {
+      if (!this._supportingDocuments) {
+        this._supportingDocuments = SupportingDocumentListInstance(this._version);
       }
-      return this._endUsers;
+      return this._supportingDocuments;
+    }
+  });
+
+  Object.defineProperty(instance, "supportingDocumentTypes", {
+    get: function supportingDocumentTypes() {
+      if (!this._supportingDocumentTypes) {
+        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(this._version);
+      }
+      return this._supportingDocumentTypes;
     }
   });
 

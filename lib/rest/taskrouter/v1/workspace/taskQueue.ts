@@ -19,8 +19,8 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
+import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
@@ -135,8 +135,8 @@ export interface TaskQueueListInstancePageOptions {
 
 export interface TaskQueueContext {
 
-  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
   cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
+  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
   statistics: TaskQueueStatisticsListInstance;
 
   /**
@@ -195,8 +195,8 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   protected _solution: TaskQueueContextSolution;
   protected _uri: string;
 
-  protected _realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
   protected _cumulativeStatistics?: TaskQueueCumulativeStatisticsListInstance;
+  protected _realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
   protected _statistics?: TaskQueueStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
@@ -204,14 +204,14 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${sid}`;
   }
 
-  get realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
-    this._realTimeStatistics = this._realTimeStatistics || TaskQueueRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._realTimeStatistics;
-  }
-
   get cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
     this._cumulativeStatistics = this._cumulativeStatistics || TaskQueueCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._cumulativeStatistics;
+  }
+
+  get realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
+    this._realTimeStatistics = this._realTimeStatistics || TaskQueueRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._realTimeStatistics;
   }
 
   get statistics(): TaskQueueStatisticsListInstance {
@@ -446,17 +446,17 @@ export class TaskQueueInstance {
   }
 
   /**
-   * Access the realTimeStatistics.
-   */
-  realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
-    return this._proxy.realTimeStatistics;
-  }
-
-  /**
    * Access the cumulativeStatistics.
    */
   cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
     return this._proxy.cumulativeStatistics;
+  }
+
+  /**
+   * Access the realTimeStatistics.
+   */
+  realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
+    return this._proxy.realTimeStatistics;
   }
 
   /**

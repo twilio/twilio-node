@@ -19,10 +19,10 @@ import Response from "../../../http/response";
 import DeployedDevices from "../DeployedDevices";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { DeviceListInstance } from "./fleet/device";
-import { DeploymentListInstance } from "./fleet/deployment";
-import { KeyListInstance } from "./fleet/key";
 import { CertificateListInstance } from "./fleet/certificate";
+import { DeploymentListInstance } from "./fleet/deployment";
+import { DeviceListInstance } from "./fleet/device";
+import { KeyListInstance } from "./fleet/key";
 
 
 
@@ -97,10 +97,10 @@ export interface FleetListInstancePageOptions {
 
 export interface FleetContext {
 
-  devices: DeviceListInstance;
-  deployments: DeploymentListInstance;
-  keys: KeyListInstance;
   certificates: CertificateListInstance;
+  deployments: DeploymentListInstance;
+  devices: DeviceListInstance;
+  keys: KeyListInstance;
 
   /**
    * Remove a FleetInstance
@@ -157,19 +157,19 @@ export class FleetContextImpl implements FleetContext {
   protected _solution: FleetContextSolution;
   protected _uri: string;
 
-  protected _devices?: DeviceListInstance;
-  protected _deployments?: DeploymentListInstance;
-  protected _keys?: KeyListInstance;
   protected _certificates?: CertificateListInstance;
+  protected _deployments?: DeploymentListInstance;
+  protected _devices?: DeviceListInstance;
+  protected _keys?: KeyListInstance;
 
   constructor(protected _version: DeployedDevices, sid: string) {
     this._solution = { sid };
     this._uri = `/Fleets/${sid}`;
   }
 
-  get devices(): DeviceListInstance {
-    this._devices = this._devices || DeviceListInstance(this._version, this._solution.sid);
-    return this._devices;
+  get certificates(): CertificateListInstance {
+    this._certificates = this._certificates || CertificateListInstance(this._version, this._solution.sid);
+    return this._certificates;
   }
 
   get deployments(): DeploymentListInstance {
@@ -177,14 +177,14 @@ export class FleetContextImpl implements FleetContext {
     return this._deployments;
   }
 
+  get devices(): DeviceListInstance {
+    this._devices = this._devices || DeviceListInstance(this._version, this._solution.sid);
+    return this._devices;
+  }
+
   get keys(): KeyListInstance {
     this._keys = this._keys || KeyListInstance(this._version, this._solution.sid);
     return this._keys;
-  }
-
-  get certificates(): CertificateListInstance {
-    this._certificates = this._certificates || CertificateListInstance(this._version, this._solution.sid);
-    return this._certificates;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -377,10 +377,10 @@ export class FleetInstance {
   }
 
   /**
-   * Access the devices.
+   * Access the certificates.
    */
-  devices(): DeviceListInstance {
-    return this._proxy.devices;
+  certificates(): CertificateListInstance {
+    return this._proxy.certificates;
   }
 
   /**
@@ -391,17 +391,17 @@ export class FleetInstance {
   }
 
   /**
+   * Access the devices.
+   */
+  devices(): DeviceListInstance {
+    return this._proxy.devices;
+  }
+
+  /**
    * Access the keys.
    */
   keys(): KeyListInstance {
     return this._proxy.keys;
-  }
-
-  /**
-   * Access the certificates.
-   */
-  certificates(): CertificateListInstance {
-    return this._proxy.certificates;
   }
 
   /**

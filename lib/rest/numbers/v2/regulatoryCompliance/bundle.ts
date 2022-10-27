@@ -20,9 +20,9 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+import { BundleCopyListInstance } from "./bundle/bundleCopy";
 import { EvaluationListInstance } from "./bundle/evaluation";
 import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
-import { BundleCopyListInstance } from "./bundle/bundleCopy";
 import { ReplaceItemsListInstance } from "./bundle/replaceItems";
 
 
@@ -433,9 +433,9 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
 export interface BundleContext {
 
+  bundleCopies: BundleCopyListInstance;
   evaluations: EvaluationListInstance;
   itemAssignments: ItemAssignmentListInstance;
-  bundleCopies: BundleCopyListInstance;
   replaceItems: ReplaceItemsListInstance;
 
   /**
@@ -493,14 +493,19 @@ export class BundleContextImpl implements BundleContext {
   protected _solution: BundleContextSolution;
   protected _uri: string;
 
+  protected _bundleCopies?: BundleCopyListInstance;
   protected _evaluations?: EvaluationListInstance;
   protected _itemAssignments?: ItemAssignmentListInstance;
-  protected _bundleCopies?: BundleCopyListInstance;
   protected _replaceItems?: ReplaceItemsListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
     this._uri = `/RegulatoryCompliance/Bundles/${sid}`;
+  }
+
+  get bundleCopies(): BundleCopyListInstance {
+    this._bundleCopies = this._bundleCopies || BundleCopyListInstance(this._version, this._solution.sid);
+    return this._bundleCopies;
   }
 
   get evaluations(): EvaluationListInstance {
@@ -511,11 +516,6 @@ export class BundleContextImpl implements BundleContext {
   get itemAssignments(): ItemAssignmentListInstance {
     this._itemAssignments = this._itemAssignments || ItemAssignmentListInstance(this._version, this._solution.sid);
     return this._itemAssignments;
-  }
-
-  get bundleCopies(): BundleCopyListInstance {
-    this._bundleCopies = this._bundleCopies || BundleCopyListInstance(this._version, this._solution.sid);
-    return this._bundleCopies;
   }
 
   get replaceItems(): ReplaceItemsListInstance {
@@ -730,6 +730,13 @@ export class BundleInstance {
   }
 
   /**
+   * Access the bundleCopies.
+   */
+  bundleCopies(): BundleCopyListInstance {
+    return this._proxy.bundleCopies;
+  }
+
+  /**
    * Access the evaluations.
    */
   evaluations(): EvaluationListInstance {
@@ -741,13 +748,6 @@ export class BundleInstance {
    */
   itemAssignments(): ItemAssignmentListInstance {
     return this._proxy.itemAssignments;
-  }
-
-  /**
-   * Access the bundleCopies.
-   */
-  bundleCopies(): BundleCopyListInstance {
-    return this._proxy.bundleCopies;
   }
 
   /**

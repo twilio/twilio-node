@@ -14,29 +14,29 @@
 
 import SupersimBase from "../SupersimBase";
 import Version from "../../base/Version";
-import { IpCommandListInstance } from "./v1/ipCommand";
-import { FleetListInstance } from "./v1/fleet";
-import { SimListInstance } from "./v1/sim";
-import { NetworkListInstance } from "./v1/network";
-import { SettingsUpdateListInstance } from "./v1/settingsUpdate";
-import { UsageRecordListInstance } from "./v1/usageRecord";
-import { NetworkAccessProfileListInstance } from "./v1/networkAccessProfile";
-import { SmsCommandListInstance } from "./v1/smsCommand";
 import { EsimProfileListInstance } from "./v1/esimProfile";
+import { FleetListInstance } from "./v1/fleet";
+import { IpCommandListInstance } from "./v1/ipCommand";
+import { NetworkListInstance } from "./v1/network";
+import { NetworkAccessProfileListInstance } from "./v1/networkAccessProfile";
+import { SettingsUpdateListInstance } from "./v1/settingsUpdate";
+import { SimListInstance } from "./v1/sim";
+import { SmsCommandListInstance } from "./v1/smsCommand";
+import { UsageRecordListInstance } from "./v1/usageRecord";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Supersim
    *
-   * @property { Twilio.Supersim.V1.IpCommandListInstance } ipCommands - ipCommands resource
-   * @property { Twilio.Supersim.V1.FleetListInstance } fleets - fleets resource
-   * @property { Twilio.Supersim.V1.SimListInstance } sims - sims resource
-   * @property { Twilio.Supersim.V1.NetworkListInstance } networks - networks resource
-   * @property { Twilio.Supersim.V1.SettingsUpdateListInstance } settingsUpdates - settingsUpdates resource
-   * @property { Twilio.Supersim.V1.UsageRecordListInstance } usageRecords - usageRecords resource
-   * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } networkAccessProfiles - networkAccessProfiles resource
-   * @property { Twilio.Supersim.V1.SmsCommandListInstance } smsCommands - smsCommands resource
    * @property { Twilio.Supersim.V1.EsimProfileListInstance } esimProfiles - esimProfiles resource
+   * @property { Twilio.Supersim.V1.FleetListInstance } fleets - fleets resource
+   * @property { Twilio.Supersim.V1.IpCommandListInstance } ipCommands - ipCommands resource
+   * @property { Twilio.Supersim.V1.NetworkListInstance } networks - networks resource
+   * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } networkAccessProfiles - networkAccessProfiles resource
+   * @property { Twilio.Supersim.V1.SettingsUpdateListInstance } settingsUpdates - settingsUpdates resource
+   * @property { Twilio.Supersim.V1.SimListInstance } sims - sims resource
+   * @property { Twilio.Supersim.V1.SmsCommandListInstance } smsCommands - smsCommands resource
+   * @property { Twilio.Supersim.V1.UsageRecordListInstance } usageRecords - usageRecords resource
    *
    * @param { Twilio.Supersim } domain - The Twilio domain
    */
@@ -44,19 +44,19 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _ipCommands?: IpCommandListInstance;
-  protected _fleets?: FleetListInstance;
-  protected _sims?: SimListInstance;
-  protected _networks?: NetworkListInstance;
-  protected _settingsUpdates?: SettingsUpdateListInstance;
-  protected _usageRecords?: UsageRecordListInstance;
-  protected _networkAccessProfiles?: NetworkAccessProfileListInstance;
-  protected _smsCommands?: SmsCommandListInstance;
   protected _esimProfiles?: EsimProfileListInstance;
+  protected _fleets?: FleetListInstance;
+  protected _ipCommands?: IpCommandListInstance;
+  protected _networks?: NetworkListInstance;
+  protected _networkAccessProfiles?: NetworkAccessProfileListInstance;
+  protected _settingsUpdates?: SettingsUpdateListInstance;
+  protected _sims?: SimListInstance;
+  protected _smsCommands?: SmsCommandListInstance;
+  protected _usageRecords?: UsageRecordListInstance;
 
-  get ipCommands(): IpCommandListInstance {
-    this._ipCommands = this._ipCommands || IpCommandListInstance(this);
-    return this._ipCommands;
+  get esimProfiles(): EsimProfileListInstance {
+    this._esimProfiles = this._esimProfiles || EsimProfileListInstance(this);
+    return this._esimProfiles;
   }
 
   get fleets(): FleetListInstance {
@@ -64,9 +64,9 @@ export default class V1 extends Version {
     return this._fleets;
   }
 
-  get sims(): SimListInstance {
-    this._sims = this._sims || SimListInstance(this);
-    return this._sims;
+  get ipCommands(): IpCommandListInstance {
+    this._ipCommands = this._ipCommands || IpCommandListInstance(this);
+    return this._ipCommands;
   }
 
   get networks(): NetworkListInstance {
@@ -74,19 +74,19 @@ export default class V1 extends Version {
     return this._networks;
   }
 
+  get networkAccessProfiles(): NetworkAccessProfileListInstance {
+    this._networkAccessProfiles = this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
+    return this._networkAccessProfiles;
+  }
+
   get settingsUpdates(): SettingsUpdateListInstance {
     this._settingsUpdates = this._settingsUpdates || SettingsUpdateListInstance(this);
     return this._settingsUpdates;
   }
 
-  get usageRecords(): UsageRecordListInstance {
-    this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
-    return this._usageRecords;
-  }
-
-  get networkAccessProfiles(): NetworkAccessProfileListInstance {
-    this._networkAccessProfiles = this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
-    return this._networkAccessProfiles;
+  get sims(): SimListInstance {
+    this._sims = this._sims || SimListInstance(this);
+    return this._sims;
   }
 
   get smsCommands(): SmsCommandListInstance {
@@ -94,9 +94,9 @@ export default class V1 extends Version {
     return this._smsCommands;
   }
 
-  get esimProfiles(): EsimProfileListInstance {
-    this._esimProfiles = this._esimProfiles || EsimProfileListInstance(this);
-    return this._esimProfiles;
+  get usageRecords(): UsageRecordListInstance {
+    this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
+    return this._usageRecords;
   }
 
 }

@@ -20,9 +20,9 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
-import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./customerProfiles/customerProfilesChannelEndpointAssignment";
+import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
+import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
 
 type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
@@ -365,9 +365,9 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
 
 export interface CustomerProfilesContext {
 
-  customerProfilesEvaluations: CustomerProfilesEvaluationsListInstance;
-  customerProfilesEntityAssignments: CustomerProfilesEntityAssignmentsListInstance;
   customerProfilesChannelEndpointAssignment: CustomerProfilesChannelEndpointAssignmentListInstance;
+  customerProfilesEntityAssignments: CustomerProfilesEntityAssignmentsListInstance;
+  customerProfilesEvaluations: CustomerProfilesEvaluationsListInstance;
 
   /**
    * Remove a CustomerProfilesInstance
@@ -424,18 +424,18 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   protected _solution: CustomerProfilesContextSolution;
   protected _uri: string;
 
-  protected _customerProfilesEvaluations?: CustomerProfilesEvaluationsListInstance;
-  protected _customerProfilesEntityAssignments?: CustomerProfilesEntityAssignmentsListInstance;
   protected _customerProfilesChannelEndpointAssignment?: CustomerProfilesChannelEndpointAssignmentListInstance;
+  protected _customerProfilesEntityAssignments?: CustomerProfilesEntityAssignmentsListInstance;
+  protected _customerProfilesEvaluations?: CustomerProfilesEvaluationsListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/CustomerProfiles/${sid}`;
   }
 
-  get customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
-    this._customerProfilesEvaluations = this._customerProfilesEvaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
-    return this._customerProfilesEvaluations;
+  get customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
+    this._customerProfilesChannelEndpointAssignment = this._customerProfilesChannelEndpointAssignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
+    return this._customerProfilesChannelEndpointAssignment;
   }
 
   get customerProfilesEntityAssignments(): CustomerProfilesEntityAssignmentsListInstance {
@@ -443,9 +443,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     return this._customerProfilesEntityAssignments;
   }
 
-  get customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    this._customerProfilesChannelEndpointAssignment = this._customerProfilesChannelEndpointAssignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
-    return this._customerProfilesChannelEndpointAssignment;
+  get customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
+    this._customerProfilesEvaluations = this._customerProfilesEvaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
+    return this._customerProfilesEvaluations;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -655,10 +655,10 @@ export class CustomerProfilesInstance {
   }
 
   /**
-   * Access the customerProfilesEvaluations.
+   * Access the customerProfilesChannelEndpointAssignment.
    */
-  customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
-    return this._proxy.customerProfilesEvaluations;
+  customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
+    return this._proxy.customerProfilesChannelEndpointAssignment;
   }
 
   /**
@@ -669,10 +669,10 @@ export class CustomerProfilesInstance {
   }
 
   /**
-   * Access the customerProfilesChannelEndpointAssignment.
+   * Access the customerProfilesEvaluations.
    */
-  customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    return this._proxy.customerProfilesChannelEndpointAssignment;
+  customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
+    return this._proxy.customerProfilesEvaluations;
   }
 
   /**

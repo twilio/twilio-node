@@ -20,9 +20,9 @@ import Sync from "../Sync";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+import { DocumentListInstance } from "./service/document";
 import { SyncListListInstance } from "./service/syncList";
 import { SyncMapListInstance } from "./service/syncMap";
-import { DocumentListInstance } from "./service/document";
 
 
 
@@ -341,9 +341,9 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
 export interface ServiceContext {
 
+  documents: DocumentListInstance;
   syncLists: SyncListListInstance;
   syncMaps: SyncMapListInstance;
-  documents: DocumentListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -400,13 +400,18 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
+  protected _documents?: DocumentListInstance;
   protected _syncLists?: SyncListListInstance;
   protected _syncMaps?: SyncMapListInstance;
-  protected _documents?: DocumentListInstance;
 
   constructor(protected _version: Sync, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
+  }
+
+  get documents(): DocumentListInstance {
+    this._documents = this._documents || DocumentListInstance(this._version, this._solution.sid);
+    return this._documents;
   }
 
   get syncLists(): SyncListListInstance {
@@ -417,11 +422,6 @@ export class ServiceContextImpl implements ServiceContext {
   get syncMaps(): SyncMapListInstance {
     this._syncMaps = this._syncMaps || SyncMapListInstance(this._version, this._solution.sid);
     return this._syncMaps;
-  }
-
-  get documents(): DocumentListInstance {
-    this._documents = this._documents || DocumentListInstance(this._version, this._solution.sid);
-    return this._documents;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -592,6 +592,13 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the documents.
+   */
+  documents(): DocumentListInstance {
+    return this._proxy.documents;
+  }
+
+  /**
    * Access the syncLists.
    */
   syncLists(): SyncListListInstance {
@@ -603,13 +610,6 @@ export class ServiceInstance {
    */
   syncMaps(): SyncMapListInstance {
     return this._proxy.syncMaps;
-  }
-
-  /**
-   * Access the documents.
-   */
-  documents(): DocumentListInstance {
-    return this._proxy.documents;
   }
 
   /**

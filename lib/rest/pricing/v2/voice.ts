@@ -17,15 +17,15 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { NumberListInstance } from "./voice/number";
 import { CountryListInstance } from "./voice/country";
+import { NumberListInstance } from "./voice/number";
 
 
 
 export interface VoiceListInstance {
 
-  numbers: NumberListInstance;
   countries: CountryListInstance;
+  numbers: NumberListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -43,8 +43,8 @@ class VoiceListInstanceImpl implements VoiceListInstance {
   _solution?: VoiceSolution;
   _uri?: string;
 
-  _numbers?: NumberListInstance;
   _countries?: CountryListInstance;
+  _numbers?: NumberListInstance;
 }
 
 export function VoiceListInstance(version: V2): VoiceListInstance {
@@ -54,21 +54,21 @@ export function VoiceListInstance(version: V2): VoiceListInstance {
   instance._solution = {  };
   instance._uri = `/Voice`;
 
-  Object.defineProperty(instance, "numbers", {
-    get: function numbers() {
-      if (!this._numbers) {
-        this._numbers = NumberListInstance(this._version);
-      }
-      return this._numbers;
-    }
-  });
-
   Object.defineProperty(instance, "countries", {
     get: function countries() {
       if (!this._countries) {
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
+    }
+  });
+
+  Object.defineProperty(instance, "numbers", {
+    get: function numbers() {
+      if (!this._numbers) {
+        this._numbers = NumberListInstance(this._version);
+      }
+      return this._numbers;
     }
   });
 

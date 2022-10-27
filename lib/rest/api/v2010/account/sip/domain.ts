@@ -19,9 +19,9 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping";
-import { CredentialListMappingListInstance } from "./domain/credentialListMapping";
 import { AuthTypesListInstance } from "./domain/authTypes";
+import { CredentialListMappingListInstance } from "./domain/credentialListMapping";
+import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping";
 
 
 
@@ -142,9 +142,9 @@ export interface DomainListInstancePageOptions {
 
 export interface DomainContext {
 
-  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
-  credentialListMappings: CredentialListMappingListInstance;
   auth: AuthTypesListInstance;
+  credentialListMappings: CredentialListMappingListInstance;
+  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
 
   /**
    * Remove a DomainInstance
@@ -202,18 +202,18 @@ export class DomainContextImpl implements DomainContext {
   protected _solution: DomainContextSolution;
   protected _uri: string;
 
-  protected _ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
-  protected _credentialListMappings?: CredentialListMappingListInstance;
   protected _auth?: AuthTypesListInstance;
+  protected _credentialListMappings?: CredentialListMappingListInstance;
+  protected _ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${sid}.json`;
   }
 
-  get ipAccessControlListMappings(): IpAccessControlListMappingListInstance {
-    this._ipAccessControlListMappings = this._ipAccessControlListMappings || IpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._ipAccessControlListMappings;
+  get auth(): AuthTypesListInstance {
+    this._auth = this._auth || AuthTypesListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._auth;
   }
 
   get credentialListMappings(): CredentialListMappingListInstance {
@@ -221,9 +221,9 @@ export class DomainContextImpl implements DomainContext {
     return this._credentialListMappings;
   }
 
-  get auth(): AuthTypesListInstance {
-    this._auth = this._auth || AuthTypesListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._auth;
+  get ipAccessControlListMappings(): IpAccessControlListMappingListInstance {
+    this._ipAccessControlListMappings = this._ipAccessControlListMappings || IpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._ipAccessControlListMappings;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -502,10 +502,10 @@ export class DomainInstance {
   }
 
   /**
-   * Access the ipAccessControlListMappings.
+   * Access the auth.
    */
-  ipAccessControlListMappings(): IpAccessControlListMappingListInstance {
-    return this._proxy.ipAccessControlListMappings;
+  auth(): AuthTypesListInstance {
+    return this._proxy.auth;
   }
 
   /**
@@ -516,10 +516,10 @@ export class DomainInstance {
   }
 
   /**
-   * Access the auth.
+   * Access the ipAccessControlListMappings.
    */
-  auth(): AuthTypesListInstance {
-    return this._proxy.auth;
+  ipAccessControlListMappings(): IpAccessControlListMappingListInstance {
+    return this._proxy.ipAccessControlListMappings;
   }
 
   /**

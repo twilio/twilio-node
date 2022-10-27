@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { VariableListInstance } from "./environment/variable";
-import { LogListInstance } from "./environment/log";
 import { DeploymentListInstance } from "./environment/deployment";
+import { LogListInstance } from "./environment/log";
+import { VariableListInstance } from "./environment/variable";
 
 
 
@@ -87,9 +87,9 @@ export interface EnvironmentListInstancePageOptions {
 
 export interface EnvironmentContext {
 
-  variables: VariableListInstance;
-  logs: LogListInstance;
   deployments: DeploymentListInstance;
+  logs: LogListInstance;
+  variables: VariableListInstance;
 
   /**
    * Remove a EnvironmentInstance
@@ -127,18 +127,18 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   protected _solution: EnvironmentContextSolution;
   protected _uri: string;
 
-  protected _variables?: VariableListInstance;
-  protected _logs?: LogListInstance;
   protected _deployments?: DeploymentListInstance;
+  protected _logs?: LogListInstance;
+  protected _variables?: VariableListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Environments/${sid}`;
   }
 
-  get variables(): VariableListInstance {
-    this._variables = this._variables || VariableListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._variables;
+  get deployments(): DeploymentListInstance {
+    this._deployments = this._deployments || DeploymentListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._deployments;
   }
 
   get logs(): LogListInstance {
@@ -146,9 +146,9 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return this._logs;
   }
 
-  get deployments(): DeploymentListInstance {
-    this._deployments = this._deployments || DeploymentListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._deployments;
+  get variables(): VariableListInstance {
+    this._variables = this._variables || VariableListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._variables;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -303,10 +303,10 @@ export class EnvironmentInstance {
   }
 
   /**
-   * Access the variables.
+   * Access the deployments.
    */
-  variables(): VariableListInstance {
-    return this._proxy.variables;
+  deployments(): DeploymentListInstance {
+    return this._proxy.deployments;
   }
 
   /**
@@ -317,10 +317,10 @@ export class EnvironmentInstance {
   }
 
   /**
-   * Access the deployments.
+   * Access the variables.
    */
-  deployments(): DeploymentListInstance {
-    return this._proxy.deployments;
+  variables(): VariableListInstance {
+    return this._proxy.variables;
   }
 
   /**

@@ -19,14 +19,14 @@ import Response from "../../../http/response";
 import Understand from "../Understand";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { DialogueListInstance } from "./assistant/dialogue";
-import { TaskListInstance } from "./assistant/task";
 import { AssistantFallbackActionsListInstance } from "./assistant/assistantFallbackActions";
 import { AssistantInitiationActionsListInstance } from "./assistant/assistantInitiationActions";
-import { StyleSheetListInstance } from "./assistant/styleSheet";
-import { QueryListInstance } from "./assistant/query";
-import { ModelBuildListInstance } from "./assistant/modelBuild";
+import { DialogueListInstance } from "./assistant/dialogue";
 import { FieldTypeListInstance } from "./assistant/fieldType";
+import { ModelBuildListInstance } from "./assistant/modelBuild";
+import { QueryListInstance } from "./assistant/query";
+import { StyleSheetListInstance } from "./assistant/styleSheet";
+import { TaskListInstance } from "./assistant/task";
 
 
 
@@ -127,14 +127,14 @@ export interface AssistantListInstancePageOptions {
 
 export interface AssistantContext {
 
-  dialogues: DialogueListInstance;
-  tasks: TaskListInstance;
   assistantFallbackActions: AssistantFallbackActionsListInstance;
   assistantInitiationActions: AssistantInitiationActionsListInstance;
-  styleSheet: StyleSheetListInstance;
-  queries: QueryListInstance;
-  modelBuilds: ModelBuildListInstance;
+  dialogues: DialogueListInstance;
   fieldTypes: FieldTypeListInstance;
+  modelBuilds: ModelBuildListInstance;
+  queries: QueryListInstance;
+  styleSheet: StyleSheetListInstance;
+  tasks: TaskListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -191,28 +191,18 @@ export class AssistantContextImpl implements AssistantContext {
   protected _solution: AssistantContextSolution;
   protected _uri: string;
 
-  protected _dialogues?: DialogueListInstance;
-  protected _tasks?: TaskListInstance;
   protected _assistantFallbackActions?: AssistantFallbackActionsListInstance;
   protected _assistantInitiationActions?: AssistantInitiationActionsListInstance;
-  protected _styleSheet?: StyleSheetListInstance;
-  protected _queries?: QueryListInstance;
-  protected _modelBuilds?: ModelBuildListInstance;
+  protected _dialogues?: DialogueListInstance;
   protected _fieldTypes?: FieldTypeListInstance;
+  protected _modelBuilds?: ModelBuildListInstance;
+  protected _queries?: QueryListInstance;
+  protected _styleSheet?: StyleSheetListInstance;
+  protected _tasks?: TaskListInstance;
 
   constructor(protected _version: Understand, sid: string) {
     this._solution = { sid };
     this._uri = `/Assistants/${sid}`;
-  }
-
-  get dialogues(): DialogueListInstance {
-    this._dialogues = this._dialogues || DialogueListInstance(this._version, this._solution.sid);
-    return this._dialogues;
-  }
-
-  get tasks(): TaskListInstance {
-    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
-    return this._tasks;
   }
 
   get assistantFallbackActions(): AssistantFallbackActionsListInstance {
@@ -225,14 +215,14 @@ export class AssistantContextImpl implements AssistantContext {
     return this._assistantInitiationActions;
   }
 
-  get styleSheet(): StyleSheetListInstance {
-    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
-    return this._styleSheet;
+  get dialogues(): DialogueListInstance {
+    this._dialogues = this._dialogues || DialogueListInstance(this._version, this._solution.sid);
+    return this._dialogues;
   }
 
-  get queries(): QueryListInstance {
-    this._queries = this._queries || QueryListInstance(this._version, this._solution.sid);
-    return this._queries;
+  get fieldTypes(): FieldTypeListInstance {
+    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
+    return this._fieldTypes;
   }
 
   get modelBuilds(): ModelBuildListInstance {
@@ -240,9 +230,19 @@ export class AssistantContextImpl implements AssistantContext {
     return this._modelBuilds;
   }
 
-  get fieldTypes(): FieldTypeListInstance {
-    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
-    return this._fieldTypes;
+  get queries(): QueryListInstance {
+    this._queries = this._queries || QueryListInstance(this._version, this._solution.sid);
+    return this._queries;
+  }
+
+  get styleSheet(): StyleSheetListInstance {
+    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
+    return this._styleSheet;
+  }
+
+  get tasks(): TaskListInstance {
+    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
+    return this._tasks;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -453,20 +453,6 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the dialogues.
-   */
-  dialogues(): DialogueListInstance {
-    return this._proxy.dialogues;
-  }
-
-  /**
-   * Access the tasks.
-   */
-  tasks(): TaskListInstance {
-    return this._proxy.tasks;
-  }
-
-  /**
    * Access the assistantFallbackActions.
    */
   assistantFallbackActions(): AssistantFallbackActionsListInstance {
@@ -481,17 +467,17 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the styleSheet.
+   * Access the dialogues.
    */
-  styleSheet(): StyleSheetListInstance {
-    return this._proxy.styleSheet;
+  dialogues(): DialogueListInstance {
+    return this._proxy.dialogues;
   }
 
   /**
-   * Access the queries.
+   * Access the fieldTypes.
    */
-  queries(): QueryListInstance {
-    return this._proxy.queries;
+  fieldTypes(): FieldTypeListInstance {
+    return this._proxy.fieldTypes;
   }
 
   /**
@@ -502,10 +488,24 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the fieldTypes.
+   * Access the queries.
    */
-  fieldTypes(): FieldTypeListInstance {
-    return this._proxy.fieldTypes;
+  queries(): QueryListInstance {
+    return this._proxy.queries;
+  }
+
+  /**
+   * Access the styleSheet.
+   */
+  styleSheet(): StyleSheetListInstance {
+    return this._proxy.styleSheet;
+  }
+
+  /**
+   * Access the tasks.
+   */
+  tasks(): TaskListInstance {
+    return this._proxy.tasks;
   }
 
   /**

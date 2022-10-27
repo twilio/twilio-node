@@ -14,22 +14,22 @@
 
 import VoiceBase from "../VoiceBase";
 import Version from "../../base/Version";
-import { ByocTrunkListInstance } from "./v1/byocTrunk";
-import { IpRecordListInstance } from "./v1/ipRecord";
 import { ArchivedCallListInstance } from "./v1/archivedCall";
+import { ByocTrunkListInstance } from "./v1/byocTrunk";
 import { ConnectionPolicyListInstance } from "./v1/connectionPolicy";
 import { DialingPermissionsListInstance } from "./v1/dialingPermissions";
+import { IpRecordListInstance } from "./v1/ipRecord";
 import { SourceIpMappingListInstance } from "./v1/sourceIpMapping";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Voice
    *
-   * @property { Twilio.Voice.V1.ByocTrunkListInstance } byocTrunks - byocTrunks resource
-   * @property { Twilio.Voice.V1.IpRecordListInstance } ipRecords - ipRecords resource
    * @property { Twilio.Voice.V1.ArchivedCallListInstance } archivedCalls - archivedCalls resource
+   * @property { Twilio.Voice.V1.ByocTrunkListInstance } byocTrunks - byocTrunks resource
    * @property { Twilio.Voice.V1.ConnectionPolicyListInstance } connectionPolicies - connectionPolicies resource
    * @property { Twilio.Voice.V1.DialingPermissionsListInstance } dialingPermissions - dialingPermissions resource
+   * @property { Twilio.Voice.V1.IpRecordListInstance } ipRecords - ipRecords resource
    * @property { Twilio.Voice.V1.SourceIpMappingListInstance } sourceIpMappings - sourceIpMappings resource
    *
    * @param { Twilio.Voice } domain - The Twilio domain
@@ -38,26 +38,21 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _byocTrunks?: ByocTrunkListInstance;
-  protected _ipRecords?: IpRecordListInstance;
   protected _archivedCalls?: ArchivedCallListInstance;
+  protected _byocTrunks?: ByocTrunkListInstance;
   protected _connectionPolicies?: ConnectionPolicyListInstance;
   protected _dialingPermissions?: DialingPermissionsListInstance;
+  protected _ipRecords?: IpRecordListInstance;
   protected _sourceIpMappings?: SourceIpMappingListInstance;
-
-  get byocTrunks(): ByocTrunkListInstance {
-    this._byocTrunks = this._byocTrunks || ByocTrunkListInstance(this);
-    return this._byocTrunks;
-  }
-
-  get ipRecords(): IpRecordListInstance {
-    this._ipRecords = this._ipRecords || IpRecordListInstance(this);
-    return this._ipRecords;
-  }
 
   get archivedCalls(): ArchivedCallListInstance {
     this._archivedCalls = this._archivedCalls || ArchivedCallListInstance(this);
     return this._archivedCalls;
+  }
+
+  get byocTrunks(): ByocTrunkListInstance {
+    this._byocTrunks = this._byocTrunks || ByocTrunkListInstance(this);
+    return this._byocTrunks;
   }
 
   get connectionPolicies(): ConnectionPolicyListInstance {
@@ -68,6 +63,11 @@ export default class V1 extends Version {
   get dialingPermissions(): DialingPermissionsListInstance {
     this._dialingPermissions = this._dialingPermissions || DialingPermissionsListInstance(this);
     return this._dialingPermissions;
+  }
+
+  get ipRecords(): IpRecordListInstance {
+    this._ipRecords = this._ipRecords || IpRecordListInstance(this);
+    return this._ipRecords;
   }
 
   get sourceIpMappings(): SourceIpMappingListInstance {

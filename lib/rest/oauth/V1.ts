@@ -16,8 +16,8 @@ import OauthBase from "../OauthBase";
 import Version from "../../base/Version";
 import { OauthListInstance } from "./v1/oauth";
 import { OpenidDiscoveryListInstance } from "./v1/openidDiscovery";
-import { userinfoListInstance } from "./v1/userinfo";
 import { tokenListInstance } from "./v1/token";
+import { userinfoListInstance } from "./v1/userinfo";
 
 export default class V1 extends Version {
   /**
@@ -25,8 +25,8 @@ export default class V1 extends Version {
    *
    * @property { Twilio.Oauth.V1.OauthListInstance } oauth - oauth resource
    * @property { Twilio.Oauth.V1.OpenidDiscoveryListInstance } openidDiscovery - openidDiscovery resource
-   * @property { Twilio.Oauth.V1.userinfoListInstance } userinfo - userinfo resource
    * @property { Twilio.Oauth.V1.tokenListInstance } token - token resource
+   * @property { Twilio.Oauth.V1.userinfoListInstance } userinfo - userinfo resource
    *
    * @param { Twilio.Oauth } domain - The Twilio domain
    */
@@ -36,8 +36,8 @@ export default class V1 extends Version {
 
   protected _oauth?: OauthListInstance;
   protected _openidDiscovery?: OpenidDiscoveryListInstance;
-  protected _userinfo?: userinfoListInstance;
   protected _token?: tokenListInstance;
+  protected _userinfo?: userinfoListInstance;
 
   get oauth(): OauthListInstance {
     this._oauth = this._oauth || OauthListInstance(this);
@@ -49,14 +49,14 @@ export default class V1 extends Version {
     return this._openidDiscovery;
   }
 
-  get userinfo(): userinfoListInstance {
-    this._userinfo = this._userinfo || userinfoListInstance(this);
-    return this._userinfo;
-  }
-
   get token(): tokenListInstance {
     this._token = this._token || tokenListInstance(this);
     return this._token;
+  }
+
+  get userinfo(): userinfoListInstance {
+    this._userinfo = this._userinfo || userinfoListInstance(this);
+    return this._userinfo;
   }
 
 }

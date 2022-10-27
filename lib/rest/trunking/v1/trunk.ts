@@ -20,8 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList";
 import { CredentialListListInstance } from "./trunk/credentialList";
+import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList";
 import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
@@ -367,8 +367,8 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
 export interface TrunkContext {
 
-  ipAccessControlLists: IpAccessControlListListInstance;
   credentialsLists: CredentialListListInstance;
+  ipAccessControlLists: IpAccessControlListListInstance;
   originationUrls: OriginationUrlListInstance;
   phoneNumbers: PhoneNumberListInstance;
   recordings: RecordingListInstance;
@@ -428,8 +428,8 @@ export class TrunkContextImpl implements TrunkContext {
   protected _solution: TrunkContextSolution;
   protected _uri: string;
 
-  protected _ipAccessControlLists?: IpAccessControlListListInstance;
   protected _credentialsLists?: CredentialListListInstance;
+  protected _ipAccessControlLists?: IpAccessControlListListInstance;
   protected _originationUrls?: OriginationUrlListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _recordings?: RecordingListInstance;
@@ -439,14 +439,14 @@ export class TrunkContextImpl implements TrunkContext {
     this._uri = `/Trunks/${sid}`;
   }
 
-  get ipAccessControlLists(): IpAccessControlListListInstance {
-    this._ipAccessControlLists = this._ipAccessControlLists || IpAccessControlListListInstance(this._version, this._solution.sid);
-    return this._ipAccessControlLists;
-  }
-
   get credentialsLists(): CredentialListListInstance {
     this._credentialsLists = this._credentialsLists || CredentialListListInstance(this._version, this._solution.sid);
     return this._credentialsLists;
+  }
+
+  get ipAccessControlLists(): IpAccessControlListListInstance {
+    this._ipAccessControlLists = this._ipAccessControlLists || IpAccessControlListListInstance(this._version, this._solution.sid);
+    return this._ipAccessControlLists;
   }
 
   get originationUrls(): OriginationUrlListInstance {
@@ -703,17 +703,17 @@ export class TrunkInstance {
   }
 
   /**
-   * Access the ipAccessControlLists.
-   */
-  ipAccessControlLists(): IpAccessControlListListInstance {
-    return this._proxy.ipAccessControlLists;
-  }
-
-  /**
    * Access the credentialsLists.
    */
   credentialsLists(): CredentialListListInstance {
     return this._proxy.credentialsLists;
+  }
+
+  /**
+   * Access the ipAccessControlLists.
+   */
+  ipAccessControlLists(): IpAccessControlListListInstance {
+    return this._proxy.ipAccessControlLists;
   }
 
   /**

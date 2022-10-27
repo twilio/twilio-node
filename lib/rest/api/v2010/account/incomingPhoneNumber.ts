@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
+import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
 import PhoneNumberCapabilities from "../../../../interfaces";
@@ -231,9 +231,9 @@ export interface IncomingPhoneNumberListInstance {
   (sid: string): IncomingPhoneNumberContext;
   get(sid: string): IncomingPhoneNumberContext;
 
-  tollFree: TollFreeListInstance;
   local: LocalListInstance;
   mobile: MobileListInstance;
+  tollFree: TollFreeListInstance;
 
   /**
    * Create a IncomingPhoneNumberInstance
@@ -374,9 +374,9 @@ class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInst
   _solution?: IncomingPhoneNumberSolution;
   _uri?: string;
 
-  _tollFree?: TollFreeListInstance;
   _local?: LocalListInstance;
   _mobile?: MobileListInstance;
+  _tollFree?: TollFreeListInstance;
 }
 
 export function IncomingPhoneNumberListInstance(version: V2010, accountSid: string): IncomingPhoneNumberListInstance {
@@ -389,15 +389,6 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers.json`;
-
-  Object.defineProperty(instance, "tollFree", {
-    get: function tollFree() {
-      if (!this._tollFree) {
-        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
-      }
-      return this._tollFree;
-    }
-  });
 
   Object.defineProperty(instance, "local", {
     get: function local() {
@@ -414,6 +405,15 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
         this._mobile = MobileListInstance(this._version, this._solution.accountSid);
       }
       return this._mobile;
+    }
+  });
+
+  Object.defineProperty(instance, "tollFree", {
+    get: function tollFree() {
+      if (!this._tollFree) {
+        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
+      }
+      return this._tollFree;
     }
   });
 

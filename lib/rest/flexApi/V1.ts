@@ -14,21 +14,21 @@
 
 import FlexApiBase from "../FlexApiBase";
 import Version from "../../base/Version";
-import { WebChannelListInstance } from "./v1/webChannel";
-import { ConfigurationListInstance } from "./v1/configuration";
-import { InteractionListInstance } from "./v1/interaction";
 import { ChannelListInstance } from "./v1/channel";
+import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
+import { InteractionListInstance } from "./v1/interaction";
+import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *
-   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
-   * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
-   * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
    * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
+   * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
+   * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
+   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
    *
    * @param { Twilio.FlexApi } domain - The Twilio domain
    */
@@ -36,15 +36,15 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _webChannel?: WebChannelListInstance;
-  protected _configuration?: ConfigurationListInstance;
-  protected _interaction?: InteractionListInstance;
   protected _channel?: ChannelListInstance;
+  protected _configuration?: ConfigurationListInstance;
   protected _flexFlow?: FlexFlowListInstance;
+  protected _interaction?: InteractionListInstance;
+  protected _webChannel?: WebChannelListInstance;
 
-  get webChannel(): WebChannelListInstance {
-    this._webChannel = this._webChannel || WebChannelListInstance(this);
-    return this._webChannel;
+  get channel(): ChannelListInstance {
+    this._channel = this._channel || ChannelListInstance(this);
+    return this._channel;
   }
 
   get configuration(): ConfigurationListInstance {
@@ -52,19 +52,19 @@ export default class V1 extends Version {
     return this._configuration;
   }
 
+  get flexFlow(): FlexFlowListInstance {
+    this._flexFlow = this._flexFlow || FlexFlowListInstance(this);
+    return this._flexFlow;
+  }
+
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
   }
 
-  get channel(): ChannelListInstance {
-    this._channel = this._channel || ChannelListInstance(this);
-    return this._channel;
-  }
-
-  get flexFlow(): FlexFlowListInstance {
-    this._flexFlow = this._flexFlow || FlexFlowListInstance(this);
-    return this._flexFlow;
+  get webChannel(): WebChannelListInstance {
+    this._webChannel = this._webChannel || WebChannelListInstance(this);
+    return this._webChannel;
   }
 
 }

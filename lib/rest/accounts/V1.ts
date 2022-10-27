@@ -14,17 +14,17 @@
 
 import AccountsBase from "../AccountsBase";
 import Version from "../../base/Version";
+import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
 import { CredentialListInstance } from "./v1/credential";
 import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
-import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Accounts
    *
+   * @property { Twilio.Accounts.V1.AuthTokenPromotionListInstance } authTokenPromotion - authTokenPromotion resource
    * @property { Twilio.Accounts.V1.CredentialListInstance } credentials - credentials resource
    * @property { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } secondaryAuthToken - secondaryAuthToken resource
-   * @property { Twilio.Accounts.V1.AuthTokenPromotionListInstance } authTokenPromotion - authTokenPromotion resource
    *
    * @param { Twilio.Accounts } domain - The Twilio domain
    */
@@ -32,9 +32,14 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
+  protected _authTokenPromotion?: AuthTokenPromotionListInstance;
   protected _credentials?: CredentialListInstance;
   protected _secondaryAuthToken?: SecondaryAuthTokenListInstance;
-  protected _authTokenPromotion?: AuthTokenPromotionListInstance;
+
+  get authTokenPromotion(): AuthTokenPromotionListInstance {
+    this._authTokenPromotion = this._authTokenPromotion || AuthTokenPromotionListInstance(this);
+    return this._authTokenPromotion;
+  }
 
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
@@ -44,11 +49,6 @@ export default class V1 extends Version {
   get secondaryAuthToken(): SecondaryAuthTokenListInstance {
     this._secondaryAuthToken = this._secondaryAuthToken || SecondaryAuthTokenListInstance(this);
     return this._secondaryAuthToken;
-  }
-
-  get authTokenPromotion(): AuthTokenPromotionListInstance {
-    this._authTokenPromotion = this._authTokenPromotion || AuthTokenPromotionListInstance(this);
-    return this._authTokenPromotion;
   }
 
 }

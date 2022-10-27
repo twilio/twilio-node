@@ -14,15 +14,15 @@
 
 import StudioBase from "../StudioBase";
 import Version from "../../base/Version";
-import { FlowValidateListInstance } from "./v2/flowValidate";
 import { FlowListInstance } from "./v2/flow";
+import { FlowValidateListInstance } from "./v2/flowValidate";
 
 export default class V2 extends Version {
   /**
    * Initialize the V2 version of Studio
    *
-   * @property { Twilio.Studio.V2.FlowValidateListInstance } flowValidate - flowValidate resource
    * @property { Twilio.Studio.V2.FlowListInstance } flows - flows resource
+   * @property { Twilio.Studio.V2.FlowValidateListInstance } flowValidate - flowValidate resource
    *
    * @param { Twilio.Studio } domain - The Twilio domain
    */
@@ -30,17 +30,17 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
-  protected _flowValidate?: FlowValidateListInstance;
   protected _flows?: FlowListInstance;
-
-  get flowValidate(): FlowValidateListInstance {
-    this._flowValidate = this._flowValidate || FlowValidateListInstance(this);
-    return this._flowValidate;
-  }
+  protected _flowValidate?: FlowValidateListInstance;
 
   get flows(): FlowListInstance {
     this._flows = this._flows || FlowListInstance(this);
     return this._flows;
+  }
+
+  get flowValidate(): FlowValidateListInstance {
+    this._flowValidate = this._flowValidate || FlowValidateListInstance(this);
+    return this._flowValidate;
   }
 
 }

@@ -14,16 +14,16 @@
 
 import PreviewBase from "../PreviewBase";
 import Version from "../../base/Version";
-import { RatePlanListInstance } from "./wireless/ratePlan";
 import { CommandListInstance } from "./wireless/command";
+import { RatePlanListInstance } from "./wireless/ratePlan";
 import { SimListInstance } from "./wireless/sim";
 
 export default class Wireless extends Version {
   /**
    * Initialize the Wireless version of Preview
    *
-   * @property { Twilio.Preview.Wireless.RatePlanListInstance } ratePlans - ratePlans resource
    * @property { Twilio.Preview.Wireless.CommandListInstance } commands - commands resource
+   * @property { Twilio.Preview.Wireless.RatePlanListInstance } ratePlans - ratePlans resource
    * @property { Twilio.Preview.Wireless.SimListInstance } sims - sims resource
    *
    * @param { Twilio.Preview } domain - The Twilio domain
@@ -32,18 +32,18 @@ export default class Wireless extends Version {
     super(domain, "wireless");
   }
 
-  protected _ratePlans?: RatePlanListInstance;
   protected _commands?: CommandListInstance;
+  protected _ratePlans?: RatePlanListInstance;
   protected _sims?: SimListInstance;
-
-  get ratePlans(): RatePlanListInstance {
-    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
-    return this._ratePlans;
-  }
 
   get commands(): CommandListInstance {
     this._commands = this._commands || CommandListInstance(this);
     return this._commands;
+  }
+
+  get ratePlans(): RatePlanListInstance {
+    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
+    return this._ratePlans;
   }
 
   get sims(): SimListInstance {

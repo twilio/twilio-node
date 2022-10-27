@@ -19,8 +19,8 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { UsageRecordListInstance } from "./sim/usageRecord";
 import { DataSessionListInstance } from "./sim/dataSession";
+import { UsageRecordListInstance } from "./sim/usageRecord";
 
 
 
@@ -152,8 +152,8 @@ export interface SimListInstancePageOptions {
 
 export interface SimContext {
 
-  usageRecords: UsageRecordListInstance;
   dataSessions: DataSessionListInstance;
+  usageRecords: UsageRecordListInstance;
 
   /**
    * Remove a SimInstance
@@ -210,22 +210,22 @@ export class SimContextImpl implements SimContext {
   protected _solution: SimContextSolution;
   protected _uri: string;
 
-  protected _usageRecords?: UsageRecordListInstance;
   protected _dataSessions?: DataSessionListInstance;
+  protected _usageRecords?: UsageRecordListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Sims/${sid}`;
   }
 
-  get usageRecords(): UsageRecordListInstance {
-    this._usageRecords = this._usageRecords || UsageRecordListInstance(this._version, this._solution.sid);
-    return this._usageRecords;
-  }
-
   get dataSessions(): DataSessionListInstance {
     this._dataSessions = this._dataSessions || DataSessionListInstance(this._version, this._solution.sid);
     return this._dataSessions;
+  }
+
+  get usageRecords(): UsageRecordListInstance {
+    this._usageRecords = this._usageRecords || UsageRecordListInstance(this._version, this._solution.sid);
+    return this._usageRecords;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -523,17 +523,17 @@ export class SimInstance {
   }
 
   /**
-   * Access the usageRecords.
-   */
-  usageRecords(): UsageRecordListInstance {
-    return this._proxy.usageRecords;
-  }
-
-  /**
    * Access the dataSessions.
    */
   dataSessions(): DataSessionListInstance {
     return this._proxy.dataSessions;
+  }
+
+  /**
+   * Access the usageRecords.
+   */
+  usageRecords(): UsageRecordListInstance {
+    return this._proxy.usageRecords;
   }
 
   /**

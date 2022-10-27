@@ -21,11 +21,11 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 import { BindingListInstance } from "./service/binding";
+import { ConfigurationListInstance } from "./service/configuration";
+import { ConversationListInstance } from "./service/conversation";
+import { ParticipantConversationListInstance } from "./service/participantConversation";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
-import { ConfigurationListInstance } from "./service/configuration";
-import { ParticipantConversationListInstance } from "./service/participantConversation";
-import { ConversationListInstance } from "./service/conversation";
 
 
 
@@ -314,11 +314,11 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 export interface ServiceContext {
 
   bindings: BindingListInstance;
+  configuration: ConfigurationListInstance;
+  conversations: ConversationListInstance;
+  participantConversations: ParticipantConversationListInstance;
   roles: RoleListInstance;
   users: UserListInstance;
-  configuration: ConfigurationListInstance;
-  participantConversations: ParticipantConversationListInstance;
-  conversations: ConversationListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -356,11 +356,11 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _bindings?: BindingListInstance;
+  protected _configuration?: ConfigurationListInstance;
+  protected _conversations?: ConversationListInstance;
+  protected _participantConversations?: ParticipantConversationListInstance;
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
-  protected _configuration?: ConfigurationListInstance;
-  protected _participantConversations?: ParticipantConversationListInstance;
-  protected _conversations?: ConversationListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -372,6 +372,21 @@ export class ServiceContextImpl implements ServiceContext {
     return this._bindings;
   }
 
+  get configuration(): ConfigurationListInstance {
+    this._configuration = this._configuration || ConfigurationListInstance(this._version, this._solution.sid);
+    return this._configuration;
+  }
+
+  get conversations(): ConversationListInstance {
+    this._conversations = this._conversations || ConversationListInstance(this._version, this._solution.sid);
+    return this._conversations;
+  }
+
+  get participantConversations(): ParticipantConversationListInstance {
+    this._participantConversations = this._participantConversations || ParticipantConversationListInstance(this._version, this._solution.sid);
+    return this._participantConversations;
+  }
+
   get roles(): RoleListInstance {
     this._roles = this._roles || RoleListInstance(this._version, this._solution.sid);
     return this._roles;
@@ -380,21 +395,6 @@ export class ServiceContextImpl implements ServiceContext {
   get users(): UserListInstance {
     this._users = this._users || UserListInstance(this._version, this._solution.sid);
     return this._users;
-  }
-
-  get configuration(): ConfigurationListInstance {
-    this._configuration = this._configuration || ConfigurationListInstance(this._version, this._solution.sid);
-    return this._configuration;
-  }
-
-  get participantConversations(): ParticipantConversationListInstance {
-    this._participantConversations = this._participantConversations || ParticipantConversationListInstance(this._version, this._solution.sid);
-    return this._participantConversations;
-  }
-
-  get conversations(): ConversationListInstance {
-    this._conversations = this._conversations || ConversationListInstance(this._version, this._solution.sid);
-    return this._conversations;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -532,6 +532,27 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the configuration.
+   */
+  configuration(): ConfigurationListInstance {
+    return this._proxy.configuration;
+  }
+
+  /**
+   * Access the conversations.
+   */
+  conversations(): ConversationListInstance {
+    return this._proxy.conversations;
+  }
+
+  /**
+   * Access the participantConversations.
+   */
+  participantConversations(): ParticipantConversationListInstance {
+    return this._proxy.participantConversations;
+  }
+
+  /**
    * Access the roles.
    */
   roles(): RoleListInstance {
@@ -543,27 +564,6 @@ export class ServiceInstance {
    */
   users(): UserListInstance {
     return this._proxy.users;
-  }
-
-  /**
-   * Access the configuration.
-   */
-  configuration(): ConfigurationListInstance {
-    return this._proxy.configuration;
-  }
-
-  /**
-   * Access the participantConversations.
-   */
-  participantConversations(): ParticipantConversationListInstance {
-    return this._proxy.participantConversations;
-  }
-
-  /**
-   * Access the conversations.
-   */
-  conversations(): ConversationListInstance {
-    return this._proxy.conversations;
   }
 
   /**

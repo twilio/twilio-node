@@ -19,13 +19,13 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { TollFreeListInstance } from "./availablePhoneNumberCountry/tollFree";
-import { NationalListInstance } from "./availablePhoneNumberCountry/national";
-import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
 import { LocalListInstance } from "./availablePhoneNumberCountry/local";
 import { MachineToMachineListInstance } from "./availablePhoneNumberCountry/machineToMachine";
 import { MobileListInstance } from "./availablePhoneNumberCountry/mobile";
+import { NationalListInstance } from "./availablePhoneNumberCountry/national";
 import { SharedCostListInstance } from "./availablePhoneNumberCountry/sharedCost";
+import { TollFreeListInstance } from "./availablePhoneNumberCountry/tollFree";
+import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
 
 
 
@@ -80,13 +80,13 @@ export interface AvailablePhoneNumberCountryListInstancePageOptions {
 
 export interface AvailablePhoneNumberCountryContext {
 
-  tollFree: TollFreeListInstance;
-  national: NationalListInstance;
-  voip: VoipListInstance;
   local: LocalListInstance;
   machineToMachine: MachineToMachineListInstance;
   mobile: MobileListInstance;
+  national: NationalListInstance;
   sharedCost: SharedCostListInstance;
+  tollFree: TollFreeListInstance;
+  voip: VoipListInstance;
 
   /**
    * Fetch a AvailablePhoneNumberCountryInstance
@@ -114,32 +114,17 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
   protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _uri: string;
 
-  protected _tollFree?: TollFreeListInstance;
-  protected _national?: NationalListInstance;
-  protected _voip?: VoipListInstance;
   protected _local?: LocalListInstance;
   protected _machineToMachine?: MachineToMachineListInstance;
   protected _mobile?: MobileListInstance;
+  protected _national?: NationalListInstance;
   protected _sharedCost?: SharedCostListInstance;
+  protected _tollFree?: TollFreeListInstance;
+  protected _voip?: VoipListInstance;
 
   constructor(protected _version: V2010, accountSid: string, countryCode: string) {
     this._solution = { accountSid, countryCode };
     this._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}.json`;
-  }
-
-  get tollFree(): TollFreeListInstance {
-    this._tollFree = this._tollFree || TollFreeListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._tollFree;
-  }
-
-  get national(): NationalListInstance {
-    this._national = this._national || NationalListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._national;
-  }
-
-  get voip(): VoipListInstance {
-    this._voip = this._voip || VoipListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._voip;
   }
 
   get local(): LocalListInstance {
@@ -157,9 +142,24 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
     return this._mobile;
   }
 
+  get national(): NationalListInstance {
+    this._national = this._national || NationalListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._national;
+  }
+
   get sharedCost(): SharedCostListInstance {
     this._sharedCost = this._sharedCost || SharedCostListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
     return this._sharedCost;
+  }
+
+  get tollFree(): TollFreeListInstance {
+    this._tollFree = this._tollFree || TollFreeListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._tollFree;
+  }
+
+  get voip(): VoipListInstance {
+    this._voip = this._voip || VoipListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._voip;
   }
 
   fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
@@ -254,27 +254,6 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   /**
-   * Access the tollFree.
-   */
-  tollFree(): TollFreeListInstance {
-    return this._proxy.tollFree;
-  }
-
-  /**
-   * Access the national.
-   */
-  national(): NationalListInstance {
-    return this._proxy.national;
-  }
-
-  /**
-   * Access the voip.
-   */
-  voip(): VoipListInstance {
-    return this._proxy.voip;
-  }
-
-  /**
    * Access the local.
    */
   local(): LocalListInstance {
@@ -296,10 +275,31 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   /**
+   * Access the national.
+   */
+  national(): NationalListInstance {
+    return this._proxy.national;
+  }
+
+  /**
    * Access the sharedCost.
    */
   sharedCost(): SharedCostListInstance {
     return this._proxy.sharedCost;
+  }
+
+  /**
+   * Access the tollFree.
+   */
+  tollFree(): TollFreeListInstance {
+    return this._proxy.tollFree;
+  }
+
+  /**
+   * Access the voip.
+   */
+  voip(): VoipListInstance {
+    return this._proxy.voip;
   }
 
   /**

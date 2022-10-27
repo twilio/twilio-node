@@ -20,9 +20,9 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-import { NewFactorListInstance } from "./entity/newFactor";
-import { FactorListInstance } from "./entity/factor";
 import { ChallengeListInstance } from "./entity/challenge";
+import { FactorListInstance } from "./entity/factor";
+import { NewFactorListInstance } from "./entity/newFactor";
 
 
 
@@ -311,9 +311,9 @@ export function EntityListInstance(version: V2, serviceSid: string): EntityListI
 
 export interface EntityContext {
 
-  newFactors: NewFactorListInstance;
-  factors: FactorListInstance;
   challenges: ChallengeListInstance;
+  factors: FactorListInstance;
+  newFactors: NewFactorListInstance;
 
   /**
    * Remove a EntityInstance
@@ -351,18 +351,18 @@ export class EntityContextImpl implements EntityContext {
   protected _solution: EntityContextSolution;
   protected _uri: string;
 
-  protected _newFactors?: NewFactorListInstance;
-  protected _factors?: FactorListInstance;
   protected _challenges?: ChallengeListInstance;
+  protected _factors?: FactorListInstance;
+  protected _newFactors?: NewFactorListInstance;
 
   constructor(protected _version: V2, serviceSid: string, identity: string) {
     this._solution = { serviceSid, identity };
     this._uri = `/Services/${serviceSid}/Entities/${identity}`;
   }
 
-  get newFactors(): NewFactorListInstance {
-    this._newFactors = this._newFactors || NewFactorListInstance(this._version, this._solution.serviceSid, this._solution.identity);
-    return this._newFactors;
+  get challenges(): ChallengeListInstance {
+    this._challenges = this._challenges || ChallengeListInstance(this._version, this._solution.serviceSid, this._solution.identity);
+    return this._challenges;
   }
 
   get factors(): FactorListInstance {
@@ -370,9 +370,9 @@ export class EntityContextImpl implements EntityContext {
     return this._factors;
   }
 
-  get challenges(): ChallengeListInstance {
-    this._challenges = this._challenges || ChallengeListInstance(this._version, this._solution.serviceSid, this._solution.identity);
-    return this._challenges;
+  get newFactors(): NewFactorListInstance {
+    this._newFactors = this._newFactors || NewFactorListInstance(this._version, this._solution.serviceSid, this._solution.identity);
+    return this._newFactors;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -509,10 +509,10 @@ export class EntityInstance {
   }
 
   /**
-   * Access the newFactors.
+   * Access the challenges.
    */
-  newFactors(): NewFactorListInstance {
-    return this._proxy.newFactors;
+  challenges(): ChallengeListInstance {
+    return this._proxy.challenges;
   }
 
   /**
@@ -523,10 +523,10 @@ export class EntityInstance {
   }
 
   /**
-   * Access the challenges.
+   * Access the newFactors.
    */
-  challenges(): ChallengeListInstance {
-    return this._proxy.challenges;
+  newFactors(): NewFactorListInstance {
+    return this._proxy.newFactors;
   }
 
   /**

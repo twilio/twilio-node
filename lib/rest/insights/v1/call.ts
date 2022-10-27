@@ -17,13 +17,13 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { SettingListInstance } from "./call/setting";
 import { CallSummariesListInstance } from "./call/callSummaries";
+import { SettingListInstance } from "./call/setting";
 
+import { AnnotationListInstance } from "./call/annotation";
 import { CallSummaryListInstance } from "./call/callSummary";
 import { EventListInstance } from "./call/event";
 import { MetricListInstance } from "./call/metric";
-import { AnnotationListInstance } from "./call/annotation";
 
 
 
@@ -31,8 +31,8 @@ export interface CallListInstance {
   (sid: string): CallContext;
   get(sid: string): CallContext;
 
-  settings: SettingListInstance;
   callSummaries: CallSummariesListInstance;
+  settings: SettingListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -50,8 +50,8 @@ class CallListInstanceImpl implements CallListInstance {
   _solution?: CallSolution;
   _uri?: string;
 
-  _settings?: SettingListInstance;
   _callSummaries?: CallSummariesListInstance;
+  _settings?: SettingListInstance;
 }
 
 export function CallListInstance(version: V1): CallListInstance {
@@ -65,21 +65,21 @@ export function CallListInstance(version: V1): CallListInstance {
   instance._solution = {  };
   instance._uri = `/Voice`;
 
-  Object.defineProperty(instance, "settings", {
-    get: function settings() {
-      if (!this._settings) {
-        this._settings = SettingListInstance(this._version);
-      }
-      return this._settings;
-    }
-  });
-
   Object.defineProperty(instance, "callSummaries", {
     get: function callSummaries() {
       if (!this._callSummaries) {
         this._callSummaries = CallSummariesListInstance(this._version);
       }
       return this._callSummaries;
+    }
+  });
+
+  Object.defineProperty(instance, "settings", {
+    get: function settings() {
+      if (!this._settings) {
+        this._settings = SettingListInstance(this._version);
+      }
+      return this._settings;
     }
   });
 
@@ -97,10 +97,10 @@ export function CallListInstance(version: V1): CallListInstance {
 
 export interface CallContext {
 
+  annotation: AnnotationListInstance;
   summary: CallSummaryListInstance;
   events: EventListInstance;
   metrics: MetricListInstance;
-  annotation: AnnotationListInstance;
 
   /**
    * Fetch a CallInstance
@@ -127,14 +127,19 @@ export class CallContextImpl implements CallContext {
   protected _solution: CallContextSolution;
   protected _uri: string;
 
+  protected _annotation?: AnnotationListInstance;
   protected _summary?: CallSummaryListInstance;
   protected _events?: EventListInstance;
   protected _metrics?: MetricListInstance;
-  protected _annotation?: AnnotationListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Voice/${sid}`;
+  }
+
+  get annotation(): AnnotationListInstance {
+    this._annotation = this._annotation || AnnotationListInstance(this._version, this._solution.sid);
+    return this._annotation;
   }
 
   get summary(): CallSummaryListInstance {
@@ -150,11 +155,6 @@ export class CallContextImpl implements CallContext {
   get metrics(): MetricListInstance {
     this._metrics = this._metrics || MetricListInstance(this._version, this._solution.sid);
     return this._metrics;
-  }
-
-  get annotation(): AnnotationListInstance {
-    this._annotation = this._annotation || AnnotationListInstance(this._version, this._solution.sid);
-    return this._annotation;
   }
 
   fetch(callback?: any): Promise<CallInstance> {
@@ -228,6 +228,13 @@ export class CallInstance {
   }
 
   /**
+   * Access the annotation.
+   */
+  annotation(): AnnotationListInstance {
+    return this._proxy.annotation;
+  }
+
+  /**
    * Access the summary.
    */
   summary(): CallSummaryListInstance {
@@ -246,13 +253,6 @@ export class CallInstance {
    */
   metrics(): MetricListInstance {
     return this._proxy.metrics;
-  }
-
-  /**
-   * Access the annotation.
-   */
-  annotation(): AnnotationListInstance {
-    return this._proxy.annotation;
   }
 
   /**

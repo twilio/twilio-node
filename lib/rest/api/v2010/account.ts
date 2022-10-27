@@ -19,30 +19,30 @@ import Response from "../../../http/response";
 import V2010 from "../V2010";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { ShortCodeListInstance } from "./account/shortCode";
-import { CallListInstance } from "./account/call";
-import { UsageListInstance } from "./account/usage";
-import { ConnectAppListInstance } from "./account/connectApp";
-import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp";
-import { MessageListInstance } from "./account/message";
-import { TranscriptionListInstance } from "./account/transcription";
 import { AddressListInstance } from "./account/address";
-import { ValidationRequestListInstance } from "./account/validationRequest";
-import { SigningKeyListInstance } from "./account/signingKey";
-import { TokenListInstance } from "./account/token";
-import { ConferenceListInstance } from "./account/conference";
-import { NotificationListInstance } from "./account/notification";
+import { ApplicationListInstance } from "./account/application";
+import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp";
 import { AvailablePhoneNumberCountryListInstance } from "./account/availablePhoneNumberCountry";
-import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
+import { BalanceListInstance } from "./account/balance";
+import { CallListInstance } from "./account/call";
+import { ConferenceListInstance } from "./account/conference";
+import { ConnectAppListInstance } from "./account/connectApp";
+import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber";
+import { KeyListInstance } from "./account/key";
+import { MessageListInstance } from "./account/message";
+import { NewKeyListInstance } from "./account/newKey";
 import { NewSigningKeyListInstance } from "./account/newSigningKey";
+import { NotificationListInstance } from "./account/notification";
+import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
+import { QueueListInstance } from "./account/queue";
 import { RecordingListInstance } from "./account/recording";
 import { SIPListInstance } from "./account/sip";
-import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber";
-import { ApplicationListInstance } from "./account/application";
-import { BalanceListInstance } from "./account/balance";
-import { QueueListInstance } from "./account/queue";
-import { KeyListInstance } from "./account/key";
-import { NewKeyListInstance } from "./account/newKey";
+import { ShortCodeListInstance } from "./account/shortCode";
+import { SigningKeyListInstance } from "./account/signingKey";
+import { TokenListInstance } from "./account/token";
+import { TranscriptionListInstance } from "./account/transcription";
+import { UsageListInstance } from "./account/usage";
+import { ValidationRequestListInstance } from "./account/validationRequest";
 
 
 
@@ -133,30 +133,30 @@ export interface AccountListInstancePageOptions {
 
 export interface AccountContext {
 
-  shortCodes: ShortCodeListInstance;
-  calls: CallListInstance;
-  usage: UsageListInstance;
-  connectApps: ConnectAppListInstance;
-  authorizedConnectApps: AuthorizedConnectAppListInstance;
-  messages: MessageListInstance;
-  transcriptions: TranscriptionListInstance;
   addresses: AddressListInstance;
-  validationRequests: ValidationRequestListInstance;
-  signingKeys: SigningKeyListInstance;
-  tokens: TokenListInstance;
-  conferences: ConferenceListInstance;
-  notifications: NotificationListInstance;
+  applications: ApplicationListInstance;
+  authorizedConnectApps: AuthorizedConnectAppListInstance;
   availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
-  outgoingCallerIds: OutgoingCallerIdListInstance;
+  balance: BalanceListInstance;
+  calls: CallListInstance;
+  conferences: ConferenceListInstance;
+  connectApps: ConnectAppListInstance;
+  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
+  keys: KeyListInstance;
+  messages: MessageListInstance;
+  newKeys: NewKeyListInstance;
   newSigningKeys: NewSigningKeyListInstance;
+  notifications: NotificationListInstance;
+  outgoingCallerIds: OutgoingCallerIdListInstance;
+  queues: QueueListInstance;
   recordings: RecordingListInstance;
   sip: SIPListInstance;
-  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
-  applications: ApplicationListInstance;
-  balance: BalanceListInstance;
-  queues: QueueListInstance;
-  keys: KeyListInstance;
-  newKeys: NewKeyListInstance;
+  shortCodes: ShortCodeListInstance;
+  signingKeys: SigningKeyListInstance;
+  tokens: TokenListInstance;
+  transcriptions: TranscriptionListInstance;
+  usage: UsageListInstance;
+  validationRequests: ValidationRequestListInstance;
 
   /**
    * Fetch a AccountInstance
@@ -203,69 +203,34 @@ export class AccountContextImpl implements AccountContext {
   protected _solution: AccountContextSolution;
   protected _uri: string;
 
-  protected _shortCodes?: ShortCodeListInstance;
-  protected _calls?: CallListInstance;
-  protected _usage?: UsageListInstance;
-  protected _connectApps?: ConnectAppListInstance;
-  protected _authorizedConnectApps?: AuthorizedConnectAppListInstance;
-  protected _messages?: MessageListInstance;
-  protected _transcriptions?: TranscriptionListInstance;
   protected _addresses?: AddressListInstance;
-  protected _validationRequests?: ValidationRequestListInstance;
-  protected _signingKeys?: SigningKeyListInstance;
-  protected _tokens?: TokenListInstance;
-  protected _conferences?: ConferenceListInstance;
-  protected _notifications?: NotificationListInstance;
+  protected _applications?: ApplicationListInstance;
+  protected _authorizedConnectApps?: AuthorizedConnectAppListInstance;
   protected _availablePhoneNumbers?: AvailablePhoneNumberCountryListInstance;
-  protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
+  protected _balance?: BalanceListInstance;
+  protected _calls?: CallListInstance;
+  protected _conferences?: ConferenceListInstance;
+  protected _connectApps?: ConnectAppListInstance;
+  protected _incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
+  protected _keys?: KeyListInstance;
+  protected _messages?: MessageListInstance;
+  protected _newKeys?: NewKeyListInstance;
   protected _newSigningKeys?: NewSigningKeyListInstance;
+  protected _notifications?: NotificationListInstance;
+  protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
+  protected _queues?: QueueListInstance;
   protected _recordings?: RecordingListInstance;
   protected _sip?: SIPListInstance;
-  protected _incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
-  protected _applications?: ApplicationListInstance;
-  protected _balance?: BalanceListInstance;
-  protected _queues?: QueueListInstance;
-  protected _keys?: KeyListInstance;
-  protected _newKeys?: NewKeyListInstance;
+  protected _shortCodes?: ShortCodeListInstance;
+  protected _signingKeys?: SigningKeyListInstance;
+  protected _tokens?: TokenListInstance;
+  protected _transcriptions?: TranscriptionListInstance;
+  protected _usage?: UsageListInstance;
+  protected _validationRequests?: ValidationRequestListInstance;
 
   constructor(protected _version: V2010, sid: string) {
     this._solution = { sid };
     this._uri = `/Accounts/${sid}.json`;
-  }
-
-  get shortCodes(): ShortCodeListInstance {
-    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
-    return this._shortCodes;
-  }
-
-  get calls(): CallListInstance {
-    this._calls = this._calls || CallListInstance(this._version, this._solution.sid);
-    return this._calls;
-  }
-
-  get usage(): UsageListInstance {
-    this._usage = this._usage || UsageListInstance(this._version, this._solution.sid);
-    return this._usage;
-  }
-
-  get connectApps(): ConnectAppListInstance {
-    this._connectApps = this._connectApps || ConnectAppListInstance(this._version, this._solution.sid);
-    return this._connectApps;
-  }
-
-  get authorizedConnectApps(): AuthorizedConnectAppListInstance {
-    this._authorizedConnectApps = this._authorizedConnectApps || AuthorizedConnectAppListInstance(this._version, this._solution.sid);
-    return this._authorizedConnectApps;
-  }
-
-  get messages(): MessageListInstance {
-    this._messages = this._messages || MessageListInstance(this._version, this._solution.sid);
-    return this._messages;
-  }
-
-  get transcriptions(): TranscriptionListInstance {
-    this._transcriptions = this._transcriptions || TranscriptionListInstance(this._version, this._solution.sid);
-    return this._transcriptions;
   }
 
   get addresses(): AddressListInstance {
@@ -273,29 +238,14 @@ export class AccountContextImpl implements AccountContext {
     return this._addresses;
   }
 
-  get validationRequests(): ValidationRequestListInstance {
-    this._validationRequests = this._validationRequests || ValidationRequestListInstance(this._version, this._solution.sid);
-    return this._validationRequests;
+  get applications(): ApplicationListInstance {
+    this._applications = this._applications || ApplicationListInstance(this._version, this._solution.sid);
+    return this._applications;
   }
 
-  get signingKeys(): SigningKeyListInstance {
-    this._signingKeys = this._signingKeys || SigningKeyListInstance(this._version, this._solution.sid);
-    return this._signingKeys;
-  }
-
-  get tokens(): TokenListInstance {
-    this._tokens = this._tokens || TokenListInstance(this._version, this._solution.sid);
-    return this._tokens;
-  }
-
-  get conferences(): ConferenceListInstance {
-    this._conferences = this._conferences || ConferenceListInstance(this._version, this._solution.sid);
-    return this._conferences;
-  }
-
-  get notifications(): NotificationListInstance {
-    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.sid);
-    return this._notifications;
+  get authorizedConnectApps(): AuthorizedConnectAppListInstance {
+    this._authorizedConnectApps = this._authorizedConnectApps || AuthorizedConnectAppListInstance(this._version, this._solution.sid);
+    return this._authorizedConnectApps;
   }
 
   get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
@@ -303,14 +253,64 @@ export class AccountContextImpl implements AccountContext {
     return this._availablePhoneNumbers;
   }
 
-  get outgoingCallerIds(): OutgoingCallerIdListInstance {
-    this._outgoingCallerIds = this._outgoingCallerIds || OutgoingCallerIdListInstance(this._version, this._solution.sid);
-    return this._outgoingCallerIds;
+  get balance(): BalanceListInstance {
+    this._balance = this._balance || BalanceListInstance(this._version, this._solution.sid);
+    return this._balance;
+  }
+
+  get calls(): CallListInstance {
+    this._calls = this._calls || CallListInstance(this._version, this._solution.sid);
+    return this._calls;
+  }
+
+  get conferences(): ConferenceListInstance {
+    this._conferences = this._conferences || ConferenceListInstance(this._version, this._solution.sid);
+    return this._conferences;
+  }
+
+  get connectApps(): ConnectAppListInstance {
+    this._connectApps = this._connectApps || ConnectAppListInstance(this._version, this._solution.sid);
+    return this._connectApps;
+  }
+
+  get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
+    this._incomingPhoneNumbers = this._incomingPhoneNumbers || IncomingPhoneNumberListInstance(this._version, this._solution.sid);
+    return this._incomingPhoneNumbers;
+  }
+
+  get keys(): KeyListInstance {
+    this._keys = this._keys || KeyListInstance(this._version, this._solution.sid);
+    return this._keys;
+  }
+
+  get messages(): MessageListInstance {
+    this._messages = this._messages || MessageListInstance(this._version, this._solution.sid);
+    return this._messages;
+  }
+
+  get newKeys(): NewKeyListInstance {
+    this._newKeys = this._newKeys || NewKeyListInstance(this._version, this._solution.sid);
+    return this._newKeys;
   }
 
   get newSigningKeys(): NewSigningKeyListInstance {
     this._newSigningKeys = this._newSigningKeys || NewSigningKeyListInstance(this._version, this._solution.sid);
     return this._newSigningKeys;
+  }
+
+  get notifications(): NotificationListInstance {
+    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.sid);
+    return this._notifications;
+  }
+
+  get outgoingCallerIds(): OutgoingCallerIdListInstance {
+    this._outgoingCallerIds = this._outgoingCallerIds || OutgoingCallerIdListInstance(this._version, this._solution.sid);
+    return this._outgoingCallerIds;
+  }
+
+  get queues(): QueueListInstance {
+    this._queues = this._queues || QueueListInstance(this._version, this._solution.sid);
+    return this._queues;
   }
 
   get recordings(): RecordingListInstance {
@@ -323,34 +323,34 @@ export class AccountContextImpl implements AccountContext {
     return this._sip;
   }
 
-  get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
-    this._incomingPhoneNumbers = this._incomingPhoneNumbers || IncomingPhoneNumberListInstance(this._version, this._solution.sid);
-    return this._incomingPhoneNumbers;
+  get shortCodes(): ShortCodeListInstance {
+    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    return this._shortCodes;
   }
 
-  get applications(): ApplicationListInstance {
-    this._applications = this._applications || ApplicationListInstance(this._version, this._solution.sid);
-    return this._applications;
+  get signingKeys(): SigningKeyListInstance {
+    this._signingKeys = this._signingKeys || SigningKeyListInstance(this._version, this._solution.sid);
+    return this._signingKeys;
   }
 
-  get balance(): BalanceListInstance {
-    this._balance = this._balance || BalanceListInstance(this._version, this._solution.sid);
-    return this._balance;
+  get tokens(): TokenListInstance {
+    this._tokens = this._tokens || TokenListInstance(this._version, this._solution.sid);
+    return this._tokens;
   }
 
-  get queues(): QueueListInstance {
-    this._queues = this._queues || QueueListInstance(this._version, this._solution.sid);
-    return this._queues;
+  get transcriptions(): TranscriptionListInstance {
+    this._transcriptions = this._transcriptions || TranscriptionListInstance(this._version, this._solution.sid);
+    return this._transcriptions;
   }
 
-  get keys(): KeyListInstance {
-    this._keys = this._keys || KeyListInstance(this._version, this._solution.sid);
-    return this._keys;
+  get usage(): UsageListInstance {
+    this._usage = this._usage || UsageListInstance(this._version, this._solution.sid);
+    return this._usage;
   }
 
-  get newKeys(): NewKeyListInstance {
-    this._newKeys = this._newKeys || NewKeyListInstance(this._version, this._solution.sid);
-    return this._newKeys;
+  get validationRequests(): ValidationRequestListInstance {
+    this._validationRequests = this._validationRequests || ValidationRequestListInstance(this._version, this._solution.sid);
+    return this._validationRequests;
   }
 
   fetch(callback?: any): Promise<AccountInstance> {
@@ -519,31 +519,17 @@ export class AccountInstance {
   }
 
   /**
-   * Access the shortCodes.
+   * Access the addresses.
    */
-  shortCodes(): ShortCodeListInstance {
-    return this._proxy.shortCodes;
+  addresses(): AddressListInstance {
+    return this._proxy.addresses;
   }
 
   /**
-   * Access the calls.
+   * Access the applications.
    */
-  calls(): CallListInstance {
-    return this._proxy.calls;
-  }
-
-  /**
-   * Access the usage.
-   */
-  usage(): UsageListInstance {
-    return this._proxy.usage;
-  }
-
-  /**
-   * Access the connectApps.
-   */
-  connectApps(): ConnectAppListInstance {
-    return this._proxy.connectApps;
+  applications(): ApplicationListInstance {
+    return this._proxy.applications;
   }
 
   /**
@@ -554,45 +540,24 @@ export class AccountInstance {
   }
 
   /**
-   * Access the messages.
+   * Access the availablePhoneNumbers.
    */
-  messages(): MessageListInstance {
-    return this._proxy.messages;
+  availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
+    return this._proxy.availablePhoneNumbers;
   }
 
   /**
-   * Access the transcriptions.
+   * Access the balance.
    */
-  transcriptions(): TranscriptionListInstance {
-    return this._proxy.transcriptions;
+  balance(): BalanceListInstance {
+    return this._proxy.balance;
   }
 
   /**
-   * Access the addresses.
+   * Access the calls.
    */
-  addresses(): AddressListInstance {
-    return this._proxy.addresses;
-  }
-
-  /**
-   * Access the validationRequests.
-   */
-  validationRequests(): ValidationRequestListInstance {
-    return this._proxy.validationRequests;
-  }
-
-  /**
-   * Access the signingKeys.
-   */
-  signingKeys(): SigningKeyListInstance {
-    return this._proxy.signingKeys;
-  }
-
-  /**
-   * Access the tokens.
-   */
-  tokens(): TokenListInstance {
-    return this._proxy.tokens;
+  calls(): CallListInstance {
+    return this._proxy.calls;
   }
 
   /**
@@ -603,17 +568,52 @@ export class AccountInstance {
   }
 
   /**
+   * Access the connectApps.
+   */
+  connectApps(): ConnectAppListInstance {
+    return this._proxy.connectApps;
+  }
+
+  /**
+   * Access the incomingPhoneNumbers.
+   */
+  incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
+    return this._proxy.incomingPhoneNumbers;
+  }
+
+  /**
+   * Access the keys.
+   */
+  keys(): KeyListInstance {
+    return this._proxy.keys;
+  }
+
+  /**
+   * Access the messages.
+   */
+  messages(): MessageListInstance {
+    return this._proxy.messages;
+  }
+
+  /**
+   * Access the newKeys.
+   */
+  newKeys(): NewKeyListInstance {
+    return this._proxy.newKeys;
+  }
+
+  /**
+   * Access the newSigningKeys.
+   */
+  newSigningKeys(): NewSigningKeyListInstance {
+    return this._proxy.newSigningKeys;
+  }
+
+  /**
    * Access the notifications.
    */
   notifications(): NotificationListInstance {
     return this._proxy.notifications;
-  }
-
-  /**
-   * Access the availablePhoneNumbers.
-   */
-  availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
-    return this._proxy.availablePhoneNumbers;
   }
 
   /**
@@ -624,10 +624,10 @@ export class AccountInstance {
   }
 
   /**
-   * Access the newSigningKeys.
+   * Access the queues.
    */
-  newSigningKeys(): NewSigningKeyListInstance {
-    return this._proxy.newSigningKeys;
+  queues(): QueueListInstance {
+    return this._proxy.queues;
   }
 
   /**
@@ -645,45 +645,45 @@ export class AccountInstance {
   }
 
   /**
-   * Access the incomingPhoneNumbers.
+   * Access the shortCodes.
    */
-  incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
-    return this._proxy.incomingPhoneNumbers;
+  shortCodes(): ShortCodeListInstance {
+    return this._proxy.shortCodes;
   }
 
   /**
-   * Access the applications.
+   * Access the signingKeys.
    */
-  applications(): ApplicationListInstance {
-    return this._proxy.applications;
+  signingKeys(): SigningKeyListInstance {
+    return this._proxy.signingKeys;
   }
 
   /**
-   * Access the balance.
+   * Access the tokens.
    */
-  balance(): BalanceListInstance {
-    return this._proxy.balance;
+  tokens(): TokenListInstance {
+    return this._proxy.tokens;
   }
 
   /**
-   * Access the queues.
+   * Access the transcriptions.
    */
-  queues(): QueueListInstance {
-    return this._proxy.queues;
+  transcriptions(): TranscriptionListInstance {
+    return this._proxy.transcriptions;
   }
 
   /**
-   * Access the keys.
+   * Access the usage.
    */
-  keys(): KeyListInstance {
-    return this._proxy.keys;
+  usage(): UsageListInstance {
+    return this._proxy.usage;
   }
 
   /**
-   * Access the newKeys.
+   * Access the validationRequests.
    */
-  newKeys(): NewKeyListInstance {
-    return this._proxy.newKeys;
+  validationRequests(): ValidationRequestListInstance {
+    return this._proxy.validationRequests;
   }
 
   /**

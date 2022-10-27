@@ -20,8 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
 import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics";
+import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
 import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
 
 
@@ -353,8 +353,8 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
 
 export interface WorkflowContext {
 
-  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
   cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
+  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
   statistics: WorkflowStatisticsListInstance;
 
   /**
@@ -413,8 +413,8 @@ export class WorkflowContextImpl implements WorkflowContext {
   protected _solution: WorkflowContextSolution;
   protected _uri: string;
 
-  protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
   protected _cumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
+  protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
   protected _statistics?: WorkflowStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
@@ -422,14 +422,14 @@ export class WorkflowContextImpl implements WorkflowContext {
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${sid}`;
   }
 
-  get realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
-    this._realTimeStatistics = this._realTimeStatistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._realTimeStatistics;
-  }
-
   get cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
     this._cumulativeStatistics = this._cumulativeStatistics || WorkflowCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._cumulativeStatistics;
+  }
+
+  get realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    this._realTimeStatistics = this._realTimeStatistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._realTimeStatistics;
   }
 
   get statistics(): WorkflowStatisticsListInstance {
@@ -655,17 +655,17 @@ export class WorkflowInstance {
   }
 
   /**
-   * Access the realTimeStatistics.
-   */
-  realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
-    return this._proxy.realTimeStatistics;
-  }
-
-  /**
    * Access the cumulativeStatistics.
    */
   cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
     return this._proxy.cumulativeStatistics;
+  }
+
+  /**
+   * Access the realTimeStatistics.
+   */
+  realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    return this._proxy.realTimeStatistics;
   }
 
   /**

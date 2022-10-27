@@ -15,16 +15,16 @@
 import MediaBase from "../MediaBase";
 import Version from "../../base/Version";
 import { MediaProcessorListInstance } from "./v1/mediaProcessor";
-import { PlayerStreamerListInstance } from "./v1/playerStreamer";
 import { MediaRecordingListInstance } from "./v1/mediaRecording";
+import { PlayerStreamerListInstance } from "./v1/playerStreamer";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Media
    *
    * @property { Twilio.Media.V1.MediaProcessorListInstance } mediaProcessor - mediaProcessor resource
-   * @property { Twilio.Media.V1.PlayerStreamerListInstance } playerStreamer - playerStreamer resource
    * @property { Twilio.Media.V1.MediaRecordingListInstance } mediaRecording - mediaRecording resource
+   * @property { Twilio.Media.V1.PlayerStreamerListInstance } playerStreamer - playerStreamer resource
    *
    * @param { Twilio.Media } domain - The Twilio domain
    */
@@ -33,22 +33,22 @@ export default class V1 extends Version {
   }
 
   protected _mediaProcessor?: MediaProcessorListInstance;
-  protected _playerStreamer?: PlayerStreamerListInstance;
   protected _mediaRecording?: MediaRecordingListInstance;
+  protected _playerStreamer?: PlayerStreamerListInstance;
 
   get mediaProcessor(): MediaProcessorListInstance {
     this._mediaProcessor = this._mediaProcessor || MediaProcessorListInstance(this);
     return this._mediaProcessor;
   }
 
-  get playerStreamer(): PlayerStreamerListInstance {
-    this._playerStreamer = this._playerStreamer || PlayerStreamerListInstance(this);
-    return this._playerStreamer;
-  }
-
   get mediaRecording(): MediaRecordingListInstance {
     this._mediaRecording = this._mediaRecording || MediaRecordingListInstance(this);
     return this._mediaRecording;
+  }
+
+  get playerStreamer(): PlayerStreamerListInstance {
+    this._playerStreamer = this._playerStreamer || PlayerStreamerListInstance(this);
+    return this._playerStreamer;
   }
 
 }

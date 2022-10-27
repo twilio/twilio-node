@@ -14,15 +14,15 @@
 
 import MonitorBase from "../MonitorBase";
 import Version from "../../base/Version";
-import { EventListInstance } from "./v1/event";
 import { AlertListInstance } from "./v1/alert";
+import { EventListInstance } from "./v1/event";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *
-   * @property { Twilio.Monitor.V1.EventListInstance } events - events resource
    * @property { Twilio.Monitor.V1.AlertListInstance } alerts - alerts resource
+   * @property { Twilio.Monitor.V1.EventListInstance } events - events resource
    *
    * @param { Twilio.Monitor } domain - The Twilio domain
    */
@@ -30,17 +30,17 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _events?: EventListInstance;
   protected _alerts?: AlertListInstance;
-
-  get events(): EventListInstance {
-    this._events = this._events || EventListInstance(this);
-    return this._events;
-  }
+  protected _events?: EventListInstance;
 
   get alerts(): AlertListInstance {
     this._alerts = this._alerts || AlertListInstance(this);
     return this._alerts;
+  }
+
+  get events(): EventListInstance {
+    this._events = this._events || EventListInstance(this);
+    return this._events;
   }
 
 }

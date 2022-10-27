@@ -19,8 +19,8 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { ParticipantListInstance } from "./session/participant";
 import { InteractionListInstance } from "./session/interaction";
+import { ParticipantListInstance } from "./session/participant";
 
 
 
@@ -115,8 +115,8 @@ export interface SessionListInstancePageOptions {
 
 export interface SessionContext {
 
-  participants: ParticipantListInstance;
   interactions: InteractionListInstance;
+  participants: ParticipantListInstance;
 
   /**
    * Remove a SessionInstance
@@ -174,22 +174,22 @@ export class SessionContextImpl implements SessionContext {
   protected _solution: SessionContextSolution;
   protected _uri: string;
 
-  protected _participants?: ParticipantListInstance;
   protected _interactions?: InteractionListInstance;
+  protected _participants?: ParticipantListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Sessions/${sid}`;
   }
 
-  get participants(): ParticipantListInstance {
-    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._participants;
-  }
-
   get interactions(): InteractionListInstance {
     this._interactions = this._interactions || InteractionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._interactions;
+  }
+
+  get participants(): ParticipantListInstance {
+    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._participants;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -420,17 +420,17 @@ export class SessionInstance {
   }
 
   /**
-   * Access the participants.
-   */
-  participants(): ParticipantListInstance {
-    return this._proxy.participants;
-  }
-
-  /**
    * Access the interactions.
    */
   interactions(): InteractionListInstance {
     return this._proxy.interactions;
+  }
+
+  /**
+   * Access the participants.
+   */
+  participants(): ParticipantListInstance {
+    return this._proxy.participants;
   }
 
   /**

@@ -19,14 +19,14 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-import { TodayListInstance } from "./record/today";
-import { DailyListInstance } from "./record/daily";
-import { MonthlyListInstance } from "./record/monthly";
 import { AllTimeListInstance } from "./record/allTime";
+import { DailyListInstance } from "./record/daily";
+import { LastMonthListInstance } from "./record/lastMonth";
+import { MonthlyListInstance } from "./record/monthly";
+import { ThisMonthListInstance } from "./record/thisMonth";
+import { TodayListInstance } from "./record/today";
 import { YearlyListInstance } from "./record/yearly";
 import { YesterdayListInstance } from "./record/yesterday";
-import { LastMonthListInstance } from "./record/lastMonth";
-import { ThisMonthListInstance } from "./record/thisMonth";
 
 
 export class ApiV2010AccountUsageUsageRecord {
@@ -167,14 +167,14 @@ export interface RecordListInstancePageOptions {
 
 export interface RecordListInstance {
 
-  today: TodayListInstance;
-  daily: DailyListInstance;
-  monthly: MonthlyListInstance;
   allTime: AllTimeListInstance;
+  daily: DailyListInstance;
+  lastMonth: LastMonthListInstance;
+  monthly: MonthlyListInstance;
+  thisMonth: ThisMonthListInstance;
+  today: TodayListInstance;
   yearly: YearlyListInstance;
   yesterday: YesterdayListInstance;
-  lastMonth: LastMonthListInstance;
-  thisMonth: ThisMonthListInstance;
 
 
   /**
@@ -295,14 +295,14 @@ class RecordListInstanceImpl implements RecordListInstance {
   _solution?: RecordSolution;
   _uri?: string;
 
-  _today?: TodayListInstance;
-  _daily?: DailyListInstance;
-  _monthly?: MonthlyListInstance;
   _allTime?: AllTimeListInstance;
+  _daily?: DailyListInstance;
+  _lastMonth?: LastMonthListInstance;
+  _monthly?: MonthlyListInstance;
+  _thisMonth?: ThisMonthListInstance;
+  _today?: TodayListInstance;
   _yearly?: YearlyListInstance;
   _yesterday?: YesterdayListInstance;
-  _lastMonth?: LastMonthListInstance;
-  _thisMonth?: ThisMonthListInstance;
 }
 
 export function RecordListInstance(version: V2010, accountSid: string): RecordListInstance {
@@ -312,12 +312,12 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Usage/Records.json`;
 
-  Object.defineProperty(instance, "today", {
-    get: function today() {
-      if (!this._today) {
-        this._today = TodayListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "allTime", {
+    get: function allTime() {
+      if (!this._allTime) {
+        this._allTime = AllTimeListInstance(this._version, this._solution.accountSid);
       }
-      return this._today;
+      return this._allTime;
     }
   });
 
@@ -330,6 +330,15 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
     }
   });
 
+  Object.defineProperty(instance, "lastMonth", {
+    get: function lastMonth() {
+      if (!this._lastMonth) {
+        this._lastMonth = LastMonthListInstance(this._version, this._solution.accountSid);
+      }
+      return this._lastMonth;
+    }
+  });
+
   Object.defineProperty(instance, "monthly", {
     get: function monthly() {
       if (!this._monthly) {
@@ -339,12 +348,21 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
     }
   });
 
-  Object.defineProperty(instance, "allTime", {
-    get: function allTime() {
-      if (!this._allTime) {
-        this._allTime = AllTimeListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "thisMonth", {
+    get: function thisMonth() {
+      if (!this._thisMonth) {
+        this._thisMonth = ThisMonthListInstance(this._version, this._solution.accountSid);
       }
-      return this._allTime;
+      return this._thisMonth;
+    }
+  });
+
+  Object.defineProperty(instance, "today", {
+    get: function today() {
+      if (!this._today) {
+        this._today = TodayListInstance(this._version, this._solution.accountSid);
+      }
+      return this._today;
     }
   });
 
@@ -363,24 +381,6 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
         this._yesterday = YesterdayListInstance(this._version, this._solution.accountSid);
       }
       return this._yesterday;
-    }
-  });
-
-  Object.defineProperty(instance, "lastMonth", {
-    get: function lastMonth() {
-      if (!this._lastMonth) {
-        this._lastMonth = LastMonthListInstance(this._version, this._solution.accountSid);
-      }
-      return this._lastMonth;
-    }
-  });
-
-  Object.defineProperty(instance, "thisMonth", {
-    get: function thisMonth() {
-      if (!this._thisMonth) {
-        this._thisMonth = ThisMonthListInstance(this._version, this._solution.accountSid);
-      }
-      return this._thisMonth;
     }
   });
 

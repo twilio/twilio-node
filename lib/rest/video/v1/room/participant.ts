@@ -21,8 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 import { AnonymizeListInstance } from "./participant/anonymize";
-import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { PublishedTrackListInstance } from "./participant/publishedTrack";
+import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
 
@@ -303,8 +303,8 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 export interface ParticipantContext {
 
   anonymize: AnonymizeListInstance;
-  subscribeRules: SubscribeRulesListInstance;
   publishedTracks: PublishedTrackListInstance;
+  subscribeRules: SubscribeRulesListInstance;
   subscribedTracks: SubscribedTrackListInstance;
 
   /**
@@ -354,8 +354,8 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _uri: string;
 
   protected _anonymize?: AnonymizeListInstance;
-  protected _subscribeRules?: SubscribeRulesListInstance;
   protected _publishedTracks?: PublishedTrackListInstance;
+  protected _subscribeRules?: SubscribeRulesListInstance;
   protected _subscribedTracks?: SubscribedTrackListInstance;
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
@@ -368,14 +368,14 @@ export class ParticipantContextImpl implements ParticipantContext {
     return this._anonymize;
   }
 
-  get subscribeRules(): SubscribeRulesListInstance {
-    this._subscribeRules = this._subscribeRules || SubscribeRulesListInstance(this._version, this._solution.roomSid, this._solution.sid);
-    return this._subscribeRules;
-  }
-
   get publishedTracks(): PublishedTrackListInstance {
     this._publishedTracks = this._publishedTracks || PublishedTrackListInstance(this._version, this._solution.roomSid, this._solution.sid);
     return this._publishedTracks;
+  }
+
+  get subscribeRules(): SubscribeRulesListInstance {
+    this._subscribeRules = this._subscribeRules || SubscribeRulesListInstance(this._version, this._solution.roomSid, this._solution.sid);
+    return this._subscribeRules;
   }
 
   get subscribedTracks(): SubscribedTrackListInstance {
@@ -570,17 +570,17 @@ export class ParticipantInstance {
   }
 
   /**
-   * Access the subscribeRules.
-   */
-  subscribeRules(): SubscribeRulesListInstance {
-    return this._proxy.subscribeRules;
-  }
-
-  /**
    * Access the publishedTracks.
    */
   publishedTracks(): PublishedTrackListInstance {
     return this._proxy.publishedTracks;
+  }
+
+  /**
+   * Access the subscribeRules.
+   */
+  subscribeRules(): SubscribeRulesListInstance {
+    return this._proxy.subscribeRules;
   }
 
   /**

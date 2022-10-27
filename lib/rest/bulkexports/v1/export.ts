@@ -19,9 +19,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { JobListInstance } from "./export/job";
 
+import { DayListInstance } from "./export/day";
 import { ExportConfigurationListInstance } from "./export/exportConfiguration";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
-import { DayListInstance } from "./export/day";
 
 
 
@@ -84,9 +84,9 @@ export function ExportListInstance(version: V1): ExportListInstance {
 
 export interface ExportContext {
 
+  days: DayListInstance;
   exportConfiguration: ExportConfigurationListInstance;
   exportCustomJobs: ExportCustomJobListInstance;
-  days: DayListInstance;
 
   /**
    * Fetch a ExportInstance
@@ -113,13 +113,18 @@ export class ExportContextImpl implements ExportContext {
   protected _solution: ExportContextSolution;
   protected _uri: string;
 
+  protected _days?: DayListInstance;
   protected _exportConfiguration?: ExportConfigurationListInstance;
   protected _exportCustomJobs?: ExportCustomJobListInstance;
-  protected _days?: DayListInstance;
 
   constructor(protected _version: V1, resourceType: string) {
     this._solution = { resourceType };
     this._uri = `/Exports/${resourceType}`;
+  }
+
+  get days(): DayListInstance {
+    this._days = this._days || DayListInstance(this._version, this._solution.resourceType);
+    return this._days;
   }
 
   get exportConfiguration(): ExportConfigurationListInstance {
@@ -130,11 +135,6 @@ export class ExportContextImpl implements ExportContext {
   get exportCustomJobs(): ExportCustomJobListInstance {
     this._exportCustomJobs = this._exportCustomJobs || ExportCustomJobListInstance(this._version, this._solution.resourceType);
     return this._exportCustomJobs;
-  }
-
-  get days(): DayListInstance {
-    this._days = this._days || DayListInstance(this._version, this._solution.resourceType);
-    return this._days;
   }
 
   fetch(callback?: any): Promise<ExportInstance> {
@@ -217,6 +217,13 @@ export class ExportInstance {
   }
 
   /**
+   * Access the days.
+   */
+  days(): DayListInstance {
+    return this._proxy.days;
+  }
+
+  /**
    * Access the exportConfiguration.
    */
   exportConfiguration(): ExportConfigurationListInstance {
@@ -228,13 +235,6 @@ export class ExportInstance {
    */
   exportCustomJobs(): ExportCustomJobListInstance {
     return this._proxy.exportCustomJobs;
-  }
-
-  /**
-   * Access the days.
-   */
-  days(): DayListInstance {
-    return this._proxy.days;
   }
 
   /**

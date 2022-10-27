@@ -19,8 +19,8 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { ParticipantListInstance } from "./conversation/participant";
 import { MessageListInstance } from "./conversation/message";
+import { ParticipantListInstance } from "./conversation/participant";
 import { WebhookListInstance } from "./conversation/webhook";
 
 
@@ -143,8 +143,8 @@ export interface ConversationListInstancePageOptions {
 
 export interface ConversationContext {
 
-  participants: ParticipantListInstance;
   messages: MessageListInstance;
+  participants: ParticipantListInstance;
   webhooks: WebhookListInstance;
 
   /**
@@ -213,8 +213,8 @@ export class ConversationContextImpl implements ConversationContext {
   protected _solution: ConversationContextSolution;
   protected _uri: string;
 
-  protected _participants?: ParticipantListInstance;
   protected _messages?: MessageListInstance;
+  protected _participants?: ParticipantListInstance;
   protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V1, chatServiceSid: string, sid: string) {
@@ -222,14 +222,14 @@ export class ConversationContextImpl implements ConversationContext {
     this._uri = `/Services/${chatServiceSid}/Conversations/${sid}`;
   }
 
-  get participants(): ParticipantListInstance {
-    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
-    return this._participants;
-  }
-
   get messages(): MessageListInstance {
     this._messages = this._messages || MessageListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
     return this._messages;
+  }
+
+  get participants(): ParticipantListInstance {
+    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
+    return this._participants;
   }
 
   get webhooks(): WebhookListInstance {
@@ -481,17 +481,17 @@ export class ConversationInstance {
   }
 
   /**
-   * Access the participants.
-   */
-  participants(): ParticipantListInstance {
-    return this._proxy.participants;
-  }
-
-  /**
    * Access the messages.
    */
   messages(): MessageListInstance {
     return this._proxy.messages;
+  }
+
+  /**
+   * Access the participants.
+   */
+  participants(): ParticipantListInstance {
+    return this._proxy.participants;
   }
 
   /**

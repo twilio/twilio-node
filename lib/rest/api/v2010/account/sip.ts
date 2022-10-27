@@ -17,17 +17,17 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
 import { CredentialListListInstance } from "./sip/credentialList";
 import { DomainListInstance } from "./sip/domain";
+import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
 
 
 
 export interface SIPListInstance {
 
-  ipAccessControlLists: IpAccessControlListListInstance;
   credentialLists: CredentialListListInstance;
   domains: DomainListInstance;
+  ipAccessControlLists: IpAccessControlListListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -46,9 +46,9 @@ class SIPListInstanceImpl implements SIPListInstance {
   _solution?: SIPSolution;
   _uri?: string;
 
-  _ipAccessControlLists?: IpAccessControlListListInstance;
   _credentialLists?: CredentialListListInstance;
   _domains?: DomainListInstance;
+  _ipAccessControlLists?: IpAccessControlListListInstance;
 }
 
 export function SIPListInstance(version: V2010, accountSid: string): SIPListInstance {
@@ -57,15 +57,6 @@ export function SIPListInstance(version: V2010, accountSid: string): SIPListInst
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/SIP.json`;
-
-  Object.defineProperty(instance, "ipAccessControlLists", {
-    get: function ipAccessControlLists() {
-      if (!this._ipAccessControlLists) {
-        this._ipAccessControlLists = IpAccessControlListListInstance(this._version, this._solution.accountSid);
-      }
-      return this._ipAccessControlLists;
-    }
-  });
 
   Object.defineProperty(instance, "credentialLists", {
     get: function credentialLists() {
@@ -82,6 +73,15 @@ export function SIPListInstance(version: V2010, accountSid: string): SIPListInst
         this._domains = DomainListInstance(this._version, this._solution.accountSid);
       }
       return this._domains;
+    }
+  });
+
+  Object.defineProperty(instance, "ipAccessControlLists", {
+    get: function ipAccessControlLists() {
+      if (!this._ipAccessControlLists) {
+        this._ipAccessControlLists = IpAccessControlListListInstance(this._version, this._solution.accountSid);
+      }
+      return this._ipAccessControlLists;
     }
   });
 

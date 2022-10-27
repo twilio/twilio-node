@@ -15,18 +15,18 @@
 import WirelessBase from "../WirelessBase";
 import Version from "../../base/Version";
 import { CommandListInstance } from "./v1/command";
+import { RatePlanListInstance } from "./v1/ratePlan";
 import { SimListInstance } from "./v1/sim";
 import { UsageRecordListInstance } from "./v1/usageRecord";
-import { RatePlanListInstance } from "./v1/ratePlan";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Wireless
    *
    * @property { Twilio.Wireless.V1.CommandListInstance } commands - commands resource
+   * @property { Twilio.Wireless.V1.RatePlanListInstance } ratePlans - ratePlans resource
    * @property { Twilio.Wireless.V1.SimListInstance } sims - sims resource
    * @property { Twilio.Wireless.V1.UsageRecordListInstance } usageRecords - usageRecords resource
-   * @property { Twilio.Wireless.V1.RatePlanListInstance } ratePlans - ratePlans resource
    *
    * @param { Twilio.Wireless } domain - The Twilio domain
    */
@@ -35,13 +35,18 @@ export default class V1 extends Version {
   }
 
   protected _commands?: CommandListInstance;
+  protected _ratePlans?: RatePlanListInstance;
   protected _sims?: SimListInstance;
   protected _usageRecords?: UsageRecordListInstance;
-  protected _ratePlans?: RatePlanListInstance;
 
   get commands(): CommandListInstance {
     this._commands = this._commands || CommandListInstance(this);
     return this._commands;
+  }
+
+  get ratePlans(): RatePlanListInstance {
+    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
+    return this._ratePlans;
   }
 
   get sims(): SimListInstance {
@@ -52,11 +57,6 @@ export default class V1 extends Version {
   get usageRecords(): UsageRecordListInstance {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;
-  }
-
-  get ratePlans(): RatePlanListInstance {
-    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
-    return this._ratePlans;
   }
 
 }

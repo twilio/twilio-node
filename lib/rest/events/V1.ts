@@ -14,18 +14,18 @@
 
 import EventsBase from "../EventsBase";
 import Version from "../../base/Version";
-import { SinkListInstance } from "./v1/sink";
 import { EventTypeListInstance } from "./v1/eventType";
 import { SchemaListInstance } from "./v1/schema";
+import { SinkListInstance } from "./v1/sink";
 import { SubscriptionListInstance } from "./v1/subscription";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Events
    *
-   * @property { Twilio.Events.V1.SinkListInstance } sinks - sinks resource
    * @property { Twilio.Events.V1.EventTypeListInstance } eventTypes - eventTypes resource
    * @property { Twilio.Events.V1.SchemaListInstance } schemas - schemas resource
+   * @property { Twilio.Events.V1.SinkListInstance } sinks - sinks resource
    * @property { Twilio.Events.V1.SubscriptionListInstance } subscriptions - subscriptions resource
    *
    * @param { Twilio.Events } domain - The Twilio domain
@@ -34,15 +34,10 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _sinks?: SinkListInstance;
   protected _eventTypes?: EventTypeListInstance;
   protected _schemas?: SchemaListInstance;
+  protected _sinks?: SinkListInstance;
   protected _subscriptions?: SubscriptionListInstance;
-
-  get sinks(): SinkListInstance {
-    this._sinks = this._sinks || SinkListInstance(this);
-    return this._sinks;
-  }
 
   get eventTypes(): EventTypeListInstance {
     this._eventTypes = this._eventTypes || EventTypeListInstance(this);
@@ -52,6 +47,11 @@ export default class V1 extends Version {
   get schemas(): SchemaListInstance {
     this._schemas = this._schemas || SchemaListInstance(this);
     return this._schemas;
+  }
+
+  get sinks(): SinkListInstance {
+    this._sinks = this._sinks || SinkListInstance(this);
+    return this._sinks;
   }
 
   get subscriptions(): SubscriptionListInstance {

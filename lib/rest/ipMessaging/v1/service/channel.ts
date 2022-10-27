@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { MessageListInstance } from "./channel/message";
-import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
+import { MemberListInstance } from "./channel/member";
+import { MessageListInstance } from "./channel/message";
 
 
 
@@ -112,9 +112,9 @@ export interface ChannelListInstancePageOptions {
 
 export interface ChannelContext {
 
-  messages: MessageListInstance;
-  members: MemberListInstance;
   invites: InviteListInstance;
+  members: MemberListInstance;
+  messages: MessageListInstance;
 
   /**
    * Remove a ChannelInstance
@@ -172,18 +172,18 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
-  protected _messages?: MessageListInstance;
-  protected _members?: MemberListInstance;
   protected _invites?: InviteListInstance;
+  protected _members?: MemberListInstance;
+  protected _messages?: MessageListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
   }
 
-  get messages(): MessageListInstance {
-    this._messages = this._messages || MessageListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._messages;
+  get invites(): InviteListInstance {
+    this._invites = this._invites || InviteListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._invites;
   }
 
   get members(): MemberListInstance {
@@ -191,9 +191,9 @@ export class ChannelContextImpl implements ChannelContext {
     return this._members;
   }
 
-  get invites(): InviteListInstance {
-    this._invites = this._invites || InviteListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._invites;
+  get messages(): MessageListInstance {
+    this._messages = this._messages || MessageListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._messages;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -375,10 +375,10 @@ export class ChannelInstance {
   }
 
   /**
-   * Access the messages.
+   * Access the invites.
    */
-  messages(): MessageListInstance {
-    return this._proxy.messages;
+  invites(): InviteListInstance {
+    return this._proxy.invites;
   }
 
   /**
@@ -389,10 +389,10 @@ export class ChannelInstance {
   }
 
   /**
-   * Access the invites.
+   * Access the messages.
    */
-  invites(): InviteListInstance {
-    return this._proxy.invites;
+  messages(): MessageListInstance {
+    return this._proxy.messages;
   }
 
   /**

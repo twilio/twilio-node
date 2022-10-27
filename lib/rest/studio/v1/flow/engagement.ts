@@ -20,8 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-import { StepListInstance } from "./engagement/step";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
+import { StepListInstance } from "./engagement/step";
 
 
 type EngagementStatus = 'active'|'ended';
@@ -322,8 +322,8 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
 
 export interface EngagementContext {
 
-  steps: StepListInstance;
   engagementContext: EngagementContextListInstance;
+  steps: StepListInstance;
 
   /**
    * Remove a EngagementInstance
@@ -361,22 +361,22 @@ export class EngagementContextImpl implements EngagementContext {
   protected _solution: EngagementContextSolution;
   protected _uri: string;
 
-  protected _steps?: StepListInstance;
   protected _engagementContext?: EngagementContextListInstance;
+  protected _steps?: StepListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
     this._solution = { flowSid, sid };
     this._uri = `/Flows/${flowSid}/Engagements/${sid}`;
   }
 
-  get steps(): StepListInstance {
-    this._steps = this._steps || StepListInstance(this._version, this._solution.flowSid, this._solution.sid);
-    return this._steps;
-  }
-
   get engagementContext(): EngagementContextListInstance {
     this._engagementContext = this._engagementContext || EngagementContextListInstance(this._version, this._solution.flowSid, this._solution.sid);
     return this._engagementContext;
+  }
+
+  get steps(): StepListInstance {
+    this._steps = this._steps || StepListInstance(this._version, this._solution.flowSid, this._solution.sid);
+    return this._steps;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -528,17 +528,17 @@ export class EngagementInstance {
   }
 
   /**
-   * Access the steps.
-   */
-  steps(): StepListInstance {
-    return this._proxy.steps;
-  }
-
-  /**
    * Access the engagementContext.
    */
   engagementContext(): EngagementContextListInstance {
     return this._proxy.engagementContext;
+  }
+
+  /**
+   * Access the steps.
+   */
+  steps(): StepListInstance {
+    return this._proxy.steps;
   }
 
   /**

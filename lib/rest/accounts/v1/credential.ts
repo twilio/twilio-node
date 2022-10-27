@@ -17,15 +17,15 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { PublicKeyListInstance } from "./credential/publicKey";
 import { AWSListInstance } from "./credential/aws";
+import { PublicKeyListInstance } from "./credential/publicKey";
 
 
 
 export interface CredentialListInstance {
 
-  publicKey: PublicKeyListInstance;
   aws: AWSListInstance;
+  publicKey: PublicKeyListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -43,8 +43,8 @@ class CredentialListInstanceImpl implements CredentialListInstance {
   _solution?: CredentialSolution;
   _uri?: string;
 
-  _publicKey?: PublicKeyListInstance;
   _aws?: AWSListInstance;
+  _publicKey?: PublicKeyListInstance;
 }
 
 export function CredentialListInstance(version: V1): CredentialListInstance {
@@ -54,21 +54,21 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance._solution = {  };
   instance._uri = `/Credentials`;
 
-  Object.defineProperty(instance, "publicKey", {
-    get: function publicKey() {
-      if (!this._publicKey) {
-        this._publicKey = PublicKeyListInstance(this._version);
-      }
-      return this._publicKey;
-    }
-  });
-
   Object.defineProperty(instance, "aws", {
     get: function aws() {
       if (!this._aws) {
         this._aws = AWSListInstance(this._version);
       }
       return this._aws;
+    }
+  });
+
+  Object.defineProperty(instance, "publicKey", {
+    get: function publicKey() {
+      if (!this._publicKey) {
+        this._publicKey = PublicKeyListInstance(this._version);
+      }
+      return this._publicKey;
     }
   });
 

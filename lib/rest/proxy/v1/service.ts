@@ -20,9 +20,9 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { ShortCodeListInstance } from "./service/shortCode";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
+import { ShortCodeListInstance } from "./service/shortCode";
 
 
 type ServiceNumberSelectionBehavior = 'avoid-sticky'|'prefer-sticky';
@@ -358,9 +358,9 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  shortCodes: ShortCodeListInstance;
   phoneNumbers: PhoneNumberListInstance;
   sessions: SessionListInstance;
+  shortCodes: ShortCodeListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -417,18 +417,13 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
-  protected _shortCodes?: ShortCodeListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _sessions?: SessionListInstance;
+  protected _shortCodes?: ShortCodeListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
-  }
-
-  get shortCodes(): ShortCodeListInstance {
-    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
-    return this._shortCodes;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
@@ -439,6 +434,11 @@ export class ServiceContextImpl implements ServiceContext {
   get sessions(): SessionListInstance {
     this._sessions = this._sessions || SessionListInstance(this._version, this._solution.sid);
     return this._sessions;
+  }
+
+  get shortCodes(): ShortCodeListInstance {
+    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    return this._shortCodes;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -661,13 +661,6 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the shortCodes.
-   */
-  shortCodes(): ShortCodeListInstance {
-    return this._proxy.shortCodes;
-  }
-
-  /**
    * Access the phoneNumbers.
    */
   phoneNumbers(): PhoneNumberListInstance {
@@ -679,6 +672,13 @@ export class ServiceInstance {
    */
   sessions(): SessionListInstance {
     return this._proxy.sessions;
+  }
+
+  /**
+   * Access the shortCodes.
+   */
+  shortCodes(): ShortCodeListInstance {
+    return this._proxy.shortCodes;
   }
 
   /**

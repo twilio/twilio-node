@@ -20,8 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
+import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 
 
 type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
@@ -278,8 +278,8 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
 
 export interface InteractionChannelContext {
 
-  participants: InteractionChannelParticipantListInstance;
   invites: InteractionChannelInviteListInstance;
+  participants: InteractionChannelParticipantListInstance;
 
   /**
    * Fetch a InteractionChannelInstance
@@ -319,22 +319,22 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
   protected _solution: InteractionChannelContextSolution;
   protected _uri: string;
 
-  protected _participants?: InteractionChannelParticipantListInstance;
   protected _invites?: InteractionChannelInviteListInstance;
+  protected _participants?: InteractionChannelParticipantListInstance;
 
   constructor(protected _version: V1, interactionSid: string, sid: string) {
     this._solution = { interactionSid, sid };
     this._uri = `/Interactions/${interactionSid}/Channels/${sid}`;
   }
 
-  get participants(): InteractionChannelParticipantListInstance {
-    this._participants = this._participants || InteractionChannelParticipantListInstance(this._version, this._solution.interactionSid, this._solution.sid);
-    return this._participants;
-  }
-
   get invites(): InteractionChannelInviteListInstance {
     this._invites = this._invites || InteractionChannelInviteListInstance(this._version, this._solution.interactionSid, this._solution.sid);
     return this._invites;
+  }
+
+  get participants(): InteractionChannelParticipantListInstance {
+    this._participants = this._participants || InteractionChannelParticipantListInstance(this._version, this._solution.interactionSid, this._solution.sid);
+    return this._participants;
   }
 
   fetch(callback?: any): Promise<InteractionChannelInstance> {
@@ -478,17 +478,17 @@ export class InteractionChannelInstance {
   }
 
   /**
-   * Access the participants.
-   */
-  participants(): InteractionChannelParticipantListInstance {
-    return this._proxy.participants;
-  }
-
-  /**
    * Access the invites.
    */
   invites(): InteractionChannelInviteListInstance {
     return this._proxy.invites;
+  }
+
+  /**
+   * Access the participants.
+   */
+  participants(): InteractionChannelParticipantListInstance {
+    return this._proxy.participants;
   }
 
   /**

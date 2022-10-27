@@ -20,13 +20,13 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { EntityListInstance } from "./service/entity";
-import { RateLimitListInstance } from "./service/rateLimit";
 import { AccessTokenListInstance } from "./service/accessToken";
-import { VerificationCheckListInstance } from "./service/verificationCheck";
-import { VerificationListInstance } from "./service/verification";
-import { WebhookListInstance } from "./service/webhook";
+import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+import { RateLimitListInstance } from "./service/rateLimit";
+import { VerificationListInstance } from "./service/verification";
+import { VerificationCheckListInstance } from "./service/verificationCheck";
+import { WebhookListInstance } from "./service/webhook";
 
 
 
@@ -403,13 +403,13 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
 export interface ServiceContext {
 
-  entities: EntityListInstance;
-  rateLimits: RateLimitListInstance;
   accessTokens: AccessTokenListInstance;
-  verificationChecks: VerificationCheckListInstance;
-  verifications: VerificationListInstance;
-  webhooks: WebhookListInstance;
+  entities: EntityListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
+  rateLimits: RateLimitListInstance;
+  verifications: VerificationListInstance;
+  verificationChecks: VerificationCheckListInstance;
+  webhooks: WebhookListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -466,27 +466,17 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
-  protected _entities?: EntityListInstance;
-  protected _rateLimits?: RateLimitListInstance;
   protected _accessTokens?: AccessTokenListInstance;
-  protected _verificationChecks?: VerificationCheckListInstance;
-  protected _verifications?: VerificationListInstance;
-  protected _webhooks?: WebhookListInstance;
+  protected _entities?: EntityListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
+  protected _rateLimits?: RateLimitListInstance;
+  protected _verifications?: VerificationListInstance;
+  protected _verificationChecks?: VerificationCheckListInstance;
+  protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
-  }
-
-  get entities(): EntityListInstance {
-    this._entities = this._entities || EntityListInstance(this._version, this._solution.sid);
-    return this._entities;
-  }
-
-  get rateLimits(): RateLimitListInstance {
-    this._rateLimits = this._rateLimits || RateLimitListInstance(this._version, this._solution.sid);
-    return this._rateLimits;
   }
 
   get accessTokens(): AccessTokenListInstance {
@@ -494,9 +484,19 @@ export class ServiceContextImpl implements ServiceContext {
     return this._accessTokens;
   }
 
-  get verificationChecks(): VerificationCheckListInstance {
-    this._verificationChecks = this._verificationChecks || VerificationCheckListInstance(this._version, this._solution.sid);
-    return this._verificationChecks;
+  get entities(): EntityListInstance {
+    this._entities = this._entities || EntityListInstance(this._version, this._solution.sid);
+    return this._entities;
+  }
+
+  get messagingConfigurations(): MessagingConfigurationListInstance {
+    this._messagingConfigurations = this._messagingConfigurations || MessagingConfigurationListInstance(this._version, this._solution.sid);
+    return this._messagingConfigurations;
+  }
+
+  get rateLimits(): RateLimitListInstance {
+    this._rateLimits = this._rateLimits || RateLimitListInstance(this._version, this._solution.sid);
+    return this._rateLimits;
   }
 
   get verifications(): VerificationListInstance {
@@ -504,14 +504,14 @@ export class ServiceContextImpl implements ServiceContext {
     return this._verifications;
   }
 
+  get verificationChecks(): VerificationCheckListInstance {
+    this._verificationChecks = this._verificationChecks || VerificationCheckListInstance(this._version, this._solution.sid);
+    return this._verificationChecks;
+  }
+
   get webhooks(): WebhookListInstance {
     this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.sid);
     return this._webhooks;
-  }
-
-  get messagingConfigurations(): MessagingConfigurationListInstance {
-    this._messagingConfigurations = this._messagingConfigurations || MessagingConfigurationListInstance(this._version, this._solution.sid);
-    return this._messagingConfigurations;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -770,10 +770,24 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the accessTokens.
+   */
+  accessTokens(): AccessTokenListInstance {
+    return this._proxy.accessTokens;
+  }
+
+  /**
    * Access the entities.
    */
   entities(): EntityListInstance {
     return this._proxy.entities;
+  }
+
+  /**
+   * Access the messagingConfigurations.
+   */
+  messagingConfigurations(): MessagingConfigurationListInstance {
+    return this._proxy.messagingConfigurations;
   }
 
   /**
@@ -784,10 +798,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the accessTokens.
+   * Access the verifications.
    */
-  accessTokens(): AccessTokenListInstance {
-    return this._proxy.accessTokens;
+  verifications(): VerificationListInstance {
+    return this._proxy.verifications;
   }
 
   /**
@@ -798,24 +812,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the verifications.
-   */
-  verifications(): VerificationListInstance {
-    return this._proxy.verifications;
-  }
-
-  /**
    * Access the webhooks.
    */
   webhooks(): WebhookListInstance {
     return this._proxy.webhooks;
-  }
-
-  /**
-   * Access the messagingConfigurations.
-   */
-  messagingConfigurations(): MessagingConfigurationListInstance {
-    return this._proxy.messagingConfigurations;
   }
 
   /**

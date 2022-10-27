@@ -21,8 +21,8 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProducts/trustProductsChannelEndpointAssignment";
-import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
+import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
 
 type TrustProductStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
@@ -366,8 +366,8 @@ export function TrustProductsListInstance(version: V1): TrustProductsListInstanc
 export interface TrustProductsContext {
 
   trustProductsChannelEndpointAssignment: TrustProductsChannelEndpointAssignmentListInstance;
-  trustProductsEvaluations: TrustProductsEvaluationsListInstance;
   trustProductsEntityAssignments: TrustProductsEntityAssignmentsListInstance;
+  trustProductsEvaluations: TrustProductsEvaluationsListInstance;
 
   /**
    * Remove a TrustProductsInstance
@@ -425,8 +425,8 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   protected _uri: string;
 
   protected _trustProductsChannelEndpointAssignment?: TrustProductsChannelEndpointAssignmentListInstance;
-  protected _trustProductsEvaluations?: TrustProductsEvaluationsListInstance;
   protected _trustProductsEntityAssignments?: TrustProductsEntityAssignmentsListInstance;
+  protected _trustProductsEvaluations?: TrustProductsEvaluationsListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -438,14 +438,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     return this._trustProductsChannelEndpointAssignment;
   }
 
-  get trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
-    this._trustProductsEvaluations = this._trustProductsEvaluations || TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
-    return this._trustProductsEvaluations;
-  }
-
   get trustProductsEntityAssignments(): TrustProductsEntityAssignmentsListInstance {
     this._trustProductsEntityAssignments = this._trustProductsEntityAssignments || TrustProductsEntityAssignmentsListInstance(this._version, this._solution.sid);
     return this._trustProductsEntityAssignments;
+  }
+
+  get trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
+    this._trustProductsEvaluations = this._trustProductsEvaluations || TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
+    return this._trustProductsEvaluations;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -662,17 +662,17 @@ export class TrustProductsInstance {
   }
 
   /**
-   * Access the trustProductsEvaluations.
-   */
-  trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
-    return this._proxy.trustProductsEvaluations;
-  }
-
-  /**
    * Access the trustProductsEntityAssignments.
    */
   trustProductsEntityAssignments(): TrustProductsEntityAssignmentsListInstance {
     return this._proxy.trustProductsEntityAssignments;
+  }
+
+  /**
+   * Access the trustProductsEvaluations.
+   */
+  trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
+    return this._proxy.trustProductsEvaluations;
   }
 
   /**

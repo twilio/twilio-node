@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
-import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
 import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics";
+import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
+import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
 
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
@@ -162,9 +162,9 @@ export interface WorkerListInstance {
   (sid: string): WorkerContext;
   get(sid: string): WorkerContext;
 
-  statistics: WorkersStatisticsListInstance;
-  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
   cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  statistics: WorkersStatisticsListInstance;
 
   /**
    * Create a WorkerInstance
@@ -297,9 +297,9 @@ class WorkerListInstanceImpl implements WorkerListInstance {
   _solution?: WorkerSolution;
   _uri?: string;
 
-  _statistics?: WorkersStatisticsListInstance;
-  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
   _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
+  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
+  _statistics?: WorkersStatisticsListInstance;
 }
 
 export function WorkerListInstance(version: V1, workspaceSid: string): WorkerListInstance {
@@ -313,12 +313,12 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers`;
 
-  Object.defineProperty(instance, "statistics", {
-    get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "cumulativeStatistics", {
+    get: function cumulativeStatistics() {
+      if (!this._cumulativeStatistics) {
+        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._statistics;
+      return this._cumulativeStatistics;
     }
   });
 
@@ -331,12 +331,12 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
     }
   });
 
-  Object.defineProperty(instance, "cumulativeStatistics", {
-    get: function cumulativeStatistics() {
-      if (!this._cumulativeStatistics) {
-        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "statistics", {
+    get: function statistics() {
+      if (!this._statistics) {
+        this._statistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._cumulativeStatistics;
+      return this._statistics;
     }
   });
 

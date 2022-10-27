@@ -17,8 +17,8 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { WebhookListInstance } from "./configuration/webhook";
 import { NotificationListInstance } from "./configuration/notification";
+import { WebhookListInstance } from "./configuration/webhook";
 
 
 
@@ -39,8 +39,8 @@ export interface ConfigurationListInstanceUpdateOptions {
 
 export interface ConfigurationListInstance {
 
-  webhooks: WebhookListInstance;
   notifications: NotificationListInstance;
+  webhooks: WebhookListInstance;
 
   /**
    * Fetch a ConfigurationInstance
@@ -89,8 +89,8 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _solution?: ConfigurationSolution;
   _uri?: string;
 
-  _webhooks?: WebhookListInstance;
   _notifications?: NotificationListInstance;
+  _webhooks?: WebhookListInstance;
 }
 
 export function ConfigurationListInstance(version: V1, chatServiceSid: string): ConfigurationListInstance {
@@ -100,21 +100,21 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
   instance._solution = { chatServiceSid };
   instance._uri = `/Services/${chatServiceSid}/Configuration`;
 
-  Object.defineProperty(instance, "webhooks", {
-    get: function webhooks() {
-      if (!this._webhooks) {
-        this._webhooks = WebhookListInstance(this._version, this._solution.chatServiceSid);
-      }
-      return this._webhooks;
-    }
-  });
-
   Object.defineProperty(instance, "notifications", {
     get: function notifications() {
       if (!this._notifications) {
         this._notifications = NotificationListInstance(this._version, this._solution.chatServiceSid);
       }
       return this._notifications;
+    }
+  });
+
+  Object.defineProperty(instance, "webhooks", {
+    get: function webhooks() {
+      if (!this._webhooks) {
+        this._webhooks = WebhookListInstance(this._version, this._solution.chatServiceSid);
+      }
+      return this._webhooks;
     }
   });
 

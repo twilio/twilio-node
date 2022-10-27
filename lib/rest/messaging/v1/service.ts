@@ -22,10 +22,10 @@ const serialize = require("../../../base/serialize");
 import { ExternalCampaignListInstance } from "./service/externalCampaign";
 import { UsecaseListInstance } from "./service/usecase";
 
+import { AlphaSenderListInstance } from "./service/alphaSender";
+import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
-import { PhoneNumberListInstance } from "./service/phoneNumber";
-import { AlphaSenderListInstance } from "./service/alphaSender";
 
 
 type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
@@ -421,10 +421,10 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
+  alphaSenders: AlphaSenderListInstance;
+  phoneNumbers: PhoneNumberListInstance;
   shortCodes: ShortCodeListInstance;
   usAppToPerson: UsAppToPersonListInstance;
-  phoneNumbers: PhoneNumberListInstance;
-  alphaSenders: AlphaSenderListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -481,14 +481,24 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
+  protected _alphaSenders?: AlphaSenderListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
   protected _shortCodes?: ShortCodeListInstance;
   protected _usAppToPerson?: UsAppToPersonListInstance;
-  protected _phoneNumbers?: PhoneNumberListInstance;
-  protected _alphaSenders?: AlphaSenderListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
+  }
+
+  get alphaSenders(): AlphaSenderListInstance {
+    this._alphaSenders = this._alphaSenders || AlphaSenderListInstance(this._version, this._solution.sid);
+    return this._alphaSenders;
+  }
+
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    return this._phoneNumbers;
   }
 
   get shortCodes(): ShortCodeListInstance {
@@ -499,16 +509,6 @@ export class ServiceContextImpl implements ServiceContext {
   get usAppToPerson(): UsAppToPersonListInstance {
     this._usAppToPerson = this._usAppToPerson || UsAppToPersonListInstance(this._version, this._solution.sid);
     return this._usAppToPerson;
-  }
-
-  get phoneNumbers(): PhoneNumberListInstance {
-    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
-    return this._phoneNumbers;
-  }
-
-  get alphaSenders(): AlphaSenderListInstance {
-    this._alphaSenders = this._alphaSenders || AlphaSenderListInstance(this._version, this._solution.sid);
-    return this._alphaSenders;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -798,6 +798,20 @@ export class ServiceInstance {
   }
 
   /**
+   * Access the alphaSenders.
+   */
+  alphaSenders(): AlphaSenderListInstance {
+    return this._proxy.alphaSenders;
+  }
+
+  /**
+   * Access the phoneNumbers.
+   */
+  phoneNumbers(): PhoneNumberListInstance {
+    return this._proxy.phoneNumbers;
+  }
+
+  /**
    * Access the shortCodes.
    */
   shortCodes(): ShortCodeListInstance {
@@ -809,20 +823,6 @@ export class ServiceInstance {
    */
   usAppToPerson(): UsAppToPersonListInstance {
     return this._proxy.usAppToPerson;
-  }
-
-  /**
-   * Access the phoneNumbers.
-   */
-  phoneNumbers(): PhoneNumberListInstance {
-    return this._proxy.phoneNumbers;
-  }
-
-  /**
-   * Access the alphaSenders.
-   */
-  alphaSenders(): AlphaSenderListInstance {
-    return this._proxy.alphaSenders;
   }
 
   /**

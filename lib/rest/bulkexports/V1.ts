@@ -14,15 +14,15 @@
 
 import BulkexportsBase from "../BulkexportsBase";
 import Version from "../../base/Version";
-import { ExportConfigurationListInstance } from "./v1/exportConfiguration";
 import { ExportListInstance } from "./v1/export";
+import { ExportConfigurationListInstance } from "./v1/exportConfiguration";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Bulkexports
    *
-   * @property { Twilio.Bulkexports.V1.ExportConfigurationListInstance } exportConfiguration - exportConfiguration resource
    * @property { Twilio.Bulkexports.V1.ExportListInstance } exports - exports resource
+   * @property { Twilio.Bulkexports.V1.ExportConfigurationListInstance } exportConfiguration - exportConfiguration resource
    *
    * @param { Twilio.Bulkexports } domain - The Twilio domain
    */
@@ -30,17 +30,17 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _exportConfiguration?: ExportConfigurationListInstance;
   protected _exports?: ExportListInstance;
-
-  get exportConfiguration(): ExportConfigurationListInstance {
-    this._exportConfiguration = this._exportConfiguration || ExportConfigurationListInstance(this);
-    return this._exportConfiguration;
-  }
+  protected _exportConfiguration?: ExportConfigurationListInstance;
 
   get exports(): ExportListInstance {
     this._exports = this._exports || ExportListInstance(this);
     return this._exports;
+  }
+
+  get exportConfiguration(): ExportConfigurationListInstance {
+    this._exportConfiguration = this._exportConfiguration || ExportConfigurationListInstance(this);
+    return this._exportConfiguration;
   }
 
 }

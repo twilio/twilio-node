@@ -21,13 +21,13 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 
-import { PaymentListInstance } from "./call/payment";
-import { FeedbackListInstance } from "./call/feedback";
-import { SiprecListInstance } from "./call/siprec";
 import { EventListInstance } from "./call/event";
-import { StreamListInstance } from "./call/stream";
-import { RecordingListInstance } from "./call/recording";
+import { FeedbackListInstance } from "./call/feedback";
 import { NotificationListInstance } from "./call/notification";
+import { PaymentListInstance } from "./call/payment";
+import { RecordingListInstance } from "./call/recording";
+import { SiprecListInstance } from "./call/siprec";
+import { StreamListInstance } from "./call/stream";
 
 
 type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
@@ -532,13 +532,13 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
 
 export interface CallContext {
 
-  payments: PaymentListInstance;
-  feedback: FeedbackListInstance;
-  siprec: SiprecListInstance;
   events: EventListInstance;
-  streams: StreamListInstance;
-  recordings: RecordingListInstance;
+  feedback: FeedbackListInstance;
   notifications: NotificationListInstance;
+  payments: PaymentListInstance;
+  recordings: RecordingListInstance;
+  siprec: SiprecListInstance;
+  streams: StreamListInstance;
 
   /**
    * Remove a CallInstance
@@ -596,32 +596,17 @@ export class CallContextImpl implements CallContext {
   protected _solution: CallContextSolution;
   protected _uri: string;
 
-  protected _payments?: PaymentListInstance;
-  protected _feedback?: FeedbackListInstance;
-  protected _siprec?: SiprecListInstance;
   protected _events?: EventListInstance;
-  protected _streams?: StreamListInstance;
-  protected _recordings?: RecordingListInstance;
+  protected _feedback?: FeedbackListInstance;
   protected _notifications?: NotificationListInstance;
+  protected _payments?: PaymentListInstance;
+  protected _recordings?: RecordingListInstance;
+  protected _siprec?: SiprecListInstance;
+  protected _streams?: StreamListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${sid}.json`;
-  }
-
-  get payments(): PaymentListInstance {
-    this._payments = this._payments || PaymentListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._payments;
-  }
-
-  get feedback(): FeedbackListInstance {
-    this._feedback = this._feedback || FeedbackListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._feedback;
-  }
-
-  get siprec(): SiprecListInstance {
-    this._siprec = this._siprec || SiprecListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._siprec;
   }
 
   get events(): EventListInstance {
@@ -629,9 +614,19 @@ export class CallContextImpl implements CallContext {
     return this._events;
   }
 
-  get streams(): StreamListInstance {
-    this._streams = this._streams || StreamListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._streams;
+  get feedback(): FeedbackListInstance {
+    this._feedback = this._feedback || FeedbackListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._feedback;
+  }
+
+  get notifications(): NotificationListInstance {
+    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._notifications;
+  }
+
+  get payments(): PaymentListInstance {
+    this._payments = this._payments || PaymentListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._payments;
   }
 
   get recordings(): RecordingListInstance {
@@ -639,9 +634,14 @@ export class CallContextImpl implements CallContext {
     return this._recordings;
   }
 
-  get notifications(): NotificationListInstance {
-    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._notifications;
+  get siprec(): SiprecListInstance {
+    this._siprec = this._siprec || SiprecListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._siprec;
+  }
+
+  get streams(): StreamListInstance {
+    this._streams = this._streams || StreamListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._streams;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -940,10 +940,10 @@ export class CallInstance {
   }
 
   /**
-   * Access the payments.
+   * Access the events.
    */
-  payments(): PaymentListInstance {
-    return this._proxy.payments;
+  events(): EventListInstance {
+    return this._proxy.events;
   }
 
   /**
@@ -954,24 +954,17 @@ export class CallInstance {
   }
 
   /**
-   * Access the siprec.
+   * Access the notifications.
    */
-  siprec(): SiprecListInstance {
-    return this._proxy.siprec;
+  notifications(): NotificationListInstance {
+    return this._proxy.notifications;
   }
 
   /**
-   * Access the events.
+   * Access the payments.
    */
-  events(): EventListInstance {
-    return this._proxy.events;
-  }
-
-  /**
-   * Access the streams.
-   */
-  streams(): StreamListInstance {
-    return this._proxy.streams;
+  payments(): PaymentListInstance {
+    return this._proxy.payments;
   }
 
   /**
@@ -982,10 +975,17 @@ export class CallInstance {
   }
 
   /**
-   * Access the notifications.
+   * Access the siprec.
    */
-  notifications(): NotificationListInstance {
-    return this._proxy.notifications;
+  siprec(): SiprecListInstance {
+    return this._proxy.siprec;
+  }
+
+  /**
+   * Access the streams.
+   */
+  streams(): StreamListInstance {
+    return this._proxy.streams;
   }
 
   /**

@@ -14,23 +14,23 @@
 
 import MessagingBase from "../MessagingBase";
 import Version from "../../base/Version";
-import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
+import { BrandRegistrationListInstance } from "./v1/brandRegistration";
 import { DeactivationsListInstance } from "./v1/deactivations";
 import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { ServiceListInstance } from "./v1/service";
+import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
 import { UsecaseListInstance } from "./v1/usecase";
-import { BrandRegistrationListInstance } from "./v1/brandRegistration";
 
 export default class V1 extends Version {
   /**
    * Initialize the V1 version of Messaging
    *
-   * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerifications - tollfreeVerifications resource
+   * @property { Twilio.Messaging.V1.BrandRegistrationListInstance } brandRegistrations - brandRegistrations resource
    * @property { Twilio.Messaging.V1.DeactivationsListInstance } deactivations - deactivations resource
    * @property { Twilio.Messaging.V1.ExternalCampaignListInstance } externalCampaign - externalCampaign resource
    * @property { Twilio.Messaging.V1.ServiceListInstance } services - services resource
+   * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerifications - tollfreeVerifications resource
    * @property { Twilio.Messaging.V1.UsecaseListInstance } usecases - usecases resource
-   * @property { Twilio.Messaging.V1.BrandRegistrationListInstance } brandRegistrations - brandRegistrations resource
    *
    * @param { Twilio.Messaging } domain - The Twilio domain
    */
@@ -38,16 +38,16 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _tollfreeVerifications?: TollfreeVerificationListInstance;
+  protected _brandRegistrations?: BrandRegistrationListInstance;
   protected _deactivations?: DeactivationsListInstance;
   protected _externalCampaign?: ExternalCampaignListInstance;
   protected _services?: ServiceListInstance;
+  protected _tollfreeVerifications?: TollfreeVerificationListInstance;
   protected _usecases?: UsecaseListInstance;
-  protected _brandRegistrations?: BrandRegistrationListInstance;
 
-  get tollfreeVerifications(): TollfreeVerificationListInstance {
-    this._tollfreeVerifications = this._tollfreeVerifications || TollfreeVerificationListInstance(this);
-    return this._tollfreeVerifications;
+  get brandRegistrations(): BrandRegistrationListInstance {
+    this._brandRegistrations = this._brandRegistrations || BrandRegistrationListInstance(this);
+    return this._brandRegistrations;
   }
 
   get deactivations(): DeactivationsListInstance {
@@ -65,14 +65,14 @@ export default class V1 extends Version {
     return this._services;
   }
 
+  get tollfreeVerifications(): TollfreeVerificationListInstance {
+    this._tollfreeVerifications = this._tollfreeVerifications || TollfreeVerificationListInstance(this);
+    return this._tollfreeVerifications;
+  }
+
   get usecases(): UsecaseListInstance {
     this._usecases = this._usecases || UsecaseListInstance(this);
     return this._usecases;
-  }
-
-  get brandRegistrations(): BrandRegistrationListInstance {
-    this._brandRegistrations = this._brandRegistrations || BrandRegistrationListInstance(this);
-    return this._brandRegistrations;
   }
 
 }

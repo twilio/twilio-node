@@ -14,16 +14,16 @@
 
 import PricingBase from "../PricingBase";
 import Version from "../../base/Version";
-import { NumberListInstance } from "./v2/number";
 import { CountryListInstance } from "./v2/country";
+import { NumberListInstance } from "./v2/number";
 import { VoiceListInstance } from "./v2/voice";
 
 export default class V2 extends Version {
   /**
    * Initialize the V2 version of Pricing
    *
-   * @property { Twilio.Pricing.V2.NumberListInstance } numbers - numbers resource
    * @property { Twilio.Pricing.V2.CountryListInstance } countries - countries resource
+   * @property { Twilio.Pricing.V2.NumberListInstance } numbers - numbers resource
    * @property { Twilio.Pricing.V2.VoiceListInstance } voice - voice resource
    *
    * @param { Twilio.Pricing } domain - The Twilio domain
@@ -32,18 +32,18 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
-  protected _numbers?: NumberListInstance;
   protected _countries?: CountryListInstance;
+  protected _numbers?: NumberListInstance;
   protected _voice?: VoiceListInstance;
-
-  get numbers(): NumberListInstance {
-    this._numbers = this._numbers || NumberListInstance(this);
-    return this._numbers;
-  }
 
   get countries(): CountryListInstance {
     this._countries = this._countries || CountryListInstance(this);
     return this._countries;
+  }
+
+  get numbers(): NumberListInstance {
+    this._numbers = this._numbers || NumberListInstance(this);
+    return this._numbers;
   }
 
   get voice(): VoiceListInstance {

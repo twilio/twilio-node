@@ -21,8 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { FieldListInstance } from "./task/field";
 import { SampleListInstance } from "./task/sample";
-import { TaskStatisticsListInstance } from "./task/taskStatistics";
 import { TaskActionsListInstance } from "./task/taskActions";
+import { TaskStatisticsListInstance } from "./task/taskStatistics";
 
 
 
@@ -109,8 +109,8 @@ export interface TaskContext {
 
   fields: FieldListInstance;
   samples: SampleListInstance;
-  statistics: TaskStatisticsListInstance;
   taskActions: TaskActionsListInstance;
+  statistics: TaskStatisticsListInstance;
 
   /**
    * Remove a TaskInstance
@@ -170,8 +170,8 @@ export class TaskContextImpl implements TaskContext {
 
   protected _fields?: FieldListInstance;
   protected _samples?: SampleListInstance;
-  protected _statistics?: TaskStatisticsListInstance;
   protected _taskActions?: TaskActionsListInstance;
+  protected _statistics?: TaskStatisticsListInstance;
 
   constructor(protected _version: V1, assistantSid: string, sid: string) {
     this._solution = { assistantSid, sid };
@@ -188,14 +188,14 @@ export class TaskContextImpl implements TaskContext {
     return this._samples;
   }
 
-  get statistics(): TaskStatisticsListInstance {
-    this._statistics = this._statistics || TaskStatisticsListInstance(this._version, this._solution.assistantSid, this._solution.sid);
-    return this._statistics;
-  }
-
   get taskActions(): TaskActionsListInstance {
     this._taskActions = this._taskActions || TaskActionsListInstance(this._version, this._solution.assistantSid, this._solution.sid);
     return this._taskActions;
+  }
+
+  get statistics(): TaskStatisticsListInstance {
+    this._statistics = this._statistics || TaskStatisticsListInstance(this._version, this._solution.assistantSid, this._solution.sid);
+    return this._statistics;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -410,17 +410,17 @@ export class TaskInstance {
   }
 
   /**
-   * Access the statistics.
-   */
-  statistics(): TaskStatisticsListInstance {
-    return this._proxy.statistics;
-  }
-
-  /**
    * Access the taskActions.
    */
   taskActions(): TaskActionsListInstance {
     return this._proxy.taskActions;
+  }
+
+  /**
+   * Access the statistics.
+   */
+  statistics(): TaskStatisticsListInstance {
+    return this._proxy.statistics;
   }
 
   /**

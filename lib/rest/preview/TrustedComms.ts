@@ -14,19 +14,19 @@
 
 import PreviewBase from "../PreviewBase";
 import Version from "../../base/Version";
-import { CurrentCallListInstance } from "./trusted_comms/currentCall";
-import { CpsListInstance } from "./trusted_comms/cps";
-import { BrandsInformationListInstance } from "./trusted_comms/brandsInformation";
 import { BrandedChannelListInstance } from "./trusted_comms/brandedChannel";
+import { BrandsInformationListInstance } from "./trusted_comms/brandsInformation";
+import { CpsListInstance } from "./trusted_comms/cps";
+import { CurrentCallListInstance } from "./trusted_comms/currentCall";
 
 export default class TrustedComms extends Version {
   /**
    * Initialize the TrustedComms version of Preview
    *
-   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } currentCalls - currentCalls resource
-   * @property { Twilio.Preview.TrustedComms.CpsListInstance } cps - cps resource
-   * @property { Twilio.Preview.TrustedComms.BrandsInformationListInstance } brandsInformation - brandsInformation resource
    * @property { Twilio.Preview.TrustedComms.BrandedChannelListInstance } brandedChannels - brandedChannels resource
+   * @property { Twilio.Preview.TrustedComms.BrandsInformationListInstance } brandsInformation - brandsInformation resource
+   * @property { Twilio.Preview.TrustedComms.CpsListInstance } cps - cps resource
+   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } currentCalls - currentCalls resource
    *
    * @param { Twilio.Preview } domain - The Twilio domain
    */
@@ -34,19 +34,14 @@ export default class TrustedComms extends Version {
     super(domain, "TrustedComms");
   }
 
-  protected _currentCalls?: CurrentCallListInstance;
-  protected _cps?: CpsListInstance;
-  protected _brandsInformation?: BrandsInformationListInstance;
   protected _brandedChannels?: BrandedChannelListInstance;
+  protected _brandsInformation?: BrandsInformationListInstance;
+  protected _cps?: CpsListInstance;
+  protected _currentCalls?: CurrentCallListInstance;
 
-  get currentCalls(): CurrentCallListInstance {
-    this._currentCalls = this._currentCalls || CurrentCallListInstance(this);
-    return this._currentCalls;
-  }
-
-  get cps(): CpsListInstance {
-    this._cps = this._cps || CpsListInstance(this);
-    return this._cps;
+  get brandedChannels(): BrandedChannelListInstance {
+    this._brandedChannels = this._brandedChannels || BrandedChannelListInstance(this);
+    return this._brandedChannels;
   }
 
   get brandsInformation(): BrandsInformationListInstance {
@@ -54,9 +49,14 @@ export default class TrustedComms extends Version {
     return this._brandsInformation;
   }
 
-  get brandedChannels(): BrandedChannelListInstance {
-    this._brandedChannels = this._brandedChannels || BrandedChannelListInstance(this);
-    return this._brandedChannels;
+  get cps(): CpsListInstance {
+    this._cps = this._cps || CpsListInstance(this);
+    return this._cps;
+  }
+
+  get currentCalls(): CurrentCallListInstance {
+    this._currentCalls = this._currentCalls || CurrentCallListInstance(this);
+    return this._currentCalls;
   }
 
 }

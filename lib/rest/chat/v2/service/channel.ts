@@ -19,10 +19,10 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { InviteListInstance } from "./channel/invite";
+import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
 import { WebhookListInstance } from "./channel/webhook";
-import { MemberListInstance } from "./channel/member";
-import { InviteListInstance } from "./channel/invite";
 
 
 
@@ -140,10 +140,10 @@ export interface ChannelListInstancePageOptions {
 
 export interface ChannelContext {
 
+  invites: InviteListInstance;
+  members: MemberListInstance;
   messages: MessageListInstance;
   webhooks: WebhookListInstance;
-  members: MemberListInstance;
-  invites: InviteListInstance;
 
   /**
    * Remove a ChannelInstance
@@ -211,14 +211,24 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
+  protected _invites?: InviteListInstance;
+  protected _members?: MemberListInstance;
   protected _messages?: MessageListInstance;
   protected _webhooks?: WebhookListInstance;
-  protected _members?: MemberListInstance;
-  protected _invites?: InviteListInstance;
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
+  }
+
+  get invites(): InviteListInstance {
+    this._invites = this._invites || InviteListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._invites;
+  }
+
+  get members(): MemberListInstance {
+    this._members = this._members || MemberListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._members;
   }
 
   get messages(): MessageListInstance {
@@ -229,16 +239,6 @@ export class ChannelContextImpl implements ChannelContext {
   get webhooks(): WebhookListInstance {
     this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._webhooks;
-  }
-
-  get members(): MemberListInstance {
-    this._members = this._members || MemberListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._members;
-  }
-
-  get invites(): InviteListInstance {
-    this._invites = this._invites || InviteListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._invites;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
@@ -485,6 +485,20 @@ export class ChannelInstance {
   }
 
   /**
+   * Access the invites.
+   */
+  invites(): InviteListInstance {
+    return this._proxy.invites;
+  }
+
+  /**
+   * Access the members.
+   */
+  members(): MemberListInstance {
+    return this._proxy.members;
+  }
+
+  /**
    * Access the messages.
    */
   messages(): MessageListInstance {
@@ -496,20 +510,6 @@ export class ChannelInstance {
    */
   webhooks(): WebhookListInstance {
     return this._proxy.webhooks;
-  }
-
-  /**
-   * Access the members.
-   */
-  members(): MemberListInstance {
-    return this._proxy.members;
-  }
-
-  /**
-   * Access the invites.
-   */
-  invites(): InviteListInstance {
-    return this._proxy.invites;
   }
 
   /**

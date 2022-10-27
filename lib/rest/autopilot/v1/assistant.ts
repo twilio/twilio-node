@@ -19,14 +19,14 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { DialogueListInstance } from "./assistant/dialogue";
-import { TaskListInstance } from "./assistant/task";
 import { DefaultsListInstance } from "./assistant/defaults";
-import { StyleSheetListInstance } from "./assistant/styleSheet";
-import { QueryListInstance } from "./assistant/query";
-import { ModelBuildListInstance } from "./assistant/modelBuild";
-import { WebhookListInstance } from "./assistant/webhook";
+import { DialogueListInstance } from "./assistant/dialogue";
 import { FieldTypeListInstance } from "./assistant/fieldType";
+import { ModelBuildListInstance } from "./assistant/modelBuild";
+import { QueryListInstance } from "./assistant/query";
+import { StyleSheetListInstance } from "./assistant/styleSheet";
+import { TaskListInstance } from "./assistant/task";
+import { WebhookListInstance } from "./assistant/webhook";
 
 import { RestoreAssistantListInstance } from "./assistant/restoreAssistant";
 
@@ -126,14 +126,14 @@ export interface AssistantListInstancePageOptions {
 
 export interface AssistantContext {
 
-  dialogues: DialogueListInstance;
-  tasks: TaskListInstance;
   defaults: DefaultsListInstance;
-  styleSheet: StyleSheetListInstance;
-  queries: QueryListInstance;
-  modelBuilds: ModelBuildListInstance;
-  webhooks: WebhookListInstance;
+  dialogues: DialogueListInstance;
   fieldTypes: FieldTypeListInstance;
+  modelBuilds: ModelBuildListInstance;
+  queries: QueryListInstance;
+  styleSheet: StyleSheetListInstance;
+  tasks: TaskListInstance;
+  webhooks: WebhookListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -190,28 +190,18 @@ export class AssistantContextImpl implements AssistantContext {
   protected _solution: AssistantContextSolution;
   protected _uri: string;
 
-  protected _dialogues?: DialogueListInstance;
-  protected _tasks?: TaskListInstance;
   protected _defaults?: DefaultsListInstance;
-  protected _styleSheet?: StyleSheetListInstance;
-  protected _queries?: QueryListInstance;
-  protected _modelBuilds?: ModelBuildListInstance;
-  protected _webhooks?: WebhookListInstance;
+  protected _dialogues?: DialogueListInstance;
   protected _fieldTypes?: FieldTypeListInstance;
+  protected _modelBuilds?: ModelBuildListInstance;
+  protected _queries?: QueryListInstance;
+  protected _styleSheet?: StyleSheetListInstance;
+  protected _tasks?: TaskListInstance;
+  protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Assistants/${sid}`;
-  }
-
-  get dialogues(): DialogueListInstance {
-    this._dialogues = this._dialogues || DialogueListInstance(this._version, this._solution.sid);
-    return this._dialogues;
-  }
-
-  get tasks(): TaskListInstance {
-    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
-    return this._tasks;
   }
 
   get defaults(): DefaultsListInstance {
@@ -219,14 +209,14 @@ export class AssistantContextImpl implements AssistantContext {
     return this._defaults;
   }
 
-  get styleSheet(): StyleSheetListInstance {
-    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
-    return this._styleSheet;
+  get dialogues(): DialogueListInstance {
+    this._dialogues = this._dialogues || DialogueListInstance(this._version, this._solution.sid);
+    return this._dialogues;
   }
 
-  get queries(): QueryListInstance {
-    this._queries = this._queries || QueryListInstance(this._version, this._solution.sid);
-    return this._queries;
+  get fieldTypes(): FieldTypeListInstance {
+    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
+    return this._fieldTypes;
   }
 
   get modelBuilds(): ModelBuildListInstance {
@@ -234,14 +224,24 @@ export class AssistantContextImpl implements AssistantContext {
     return this._modelBuilds;
   }
 
+  get queries(): QueryListInstance {
+    this._queries = this._queries || QueryListInstance(this._version, this._solution.sid);
+    return this._queries;
+  }
+
+  get styleSheet(): StyleSheetListInstance {
+    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
+    return this._styleSheet;
+  }
+
+  get tasks(): TaskListInstance {
+    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
+    return this._tasks;
+  }
+
   get webhooks(): WebhookListInstance {
     this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.sid);
     return this._webhooks;
-  }
-
-  get fieldTypes(): FieldTypeListInstance {
-    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
-    return this._fieldTypes;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -470,20 +470,6 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the dialogues.
-   */
-  dialogues(): DialogueListInstance {
-    return this._proxy.dialogues;
-  }
-
-  /**
-   * Access the tasks.
-   */
-  tasks(): TaskListInstance {
-    return this._proxy.tasks;
-  }
-
-  /**
    * Access the defaults.
    */
   defaults(): DefaultsListInstance {
@@ -491,17 +477,17 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the styleSheet.
+   * Access the dialogues.
    */
-  styleSheet(): StyleSheetListInstance {
-    return this._proxy.styleSheet;
+  dialogues(): DialogueListInstance {
+    return this._proxy.dialogues;
   }
 
   /**
-   * Access the queries.
+   * Access the fieldTypes.
    */
-  queries(): QueryListInstance {
-    return this._proxy.queries;
+  fieldTypes(): FieldTypeListInstance {
+    return this._proxy.fieldTypes;
   }
 
   /**
@@ -512,17 +498,31 @@ export class AssistantInstance {
   }
 
   /**
+   * Access the queries.
+   */
+  queries(): QueryListInstance {
+    return this._proxy.queries;
+  }
+
+  /**
+   * Access the styleSheet.
+   */
+  styleSheet(): StyleSheetListInstance {
+    return this._proxy.styleSheet;
+  }
+
+  /**
+   * Access the tasks.
+   */
+  tasks(): TaskListInstance {
+    return this._proxy.tasks;
+  }
+
+  /**
    * Access the webhooks.
    */
   webhooks(): WebhookListInstance {
     return this._proxy.webhooks;
-  }
-
-  /**
-   * Access the fieldTypes.
-   */
-  fieldTypes(): FieldTypeListInstance {
-    return this._proxy.fieldTypes;
   }
 
   /**

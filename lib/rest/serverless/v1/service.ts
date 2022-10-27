@@ -20,10 +20,10 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { FunctionListInstance } from "./service/function";
+import { AssetListInstance } from "./service/asset";
 import { BuildListInstance } from "./service/build";
 import { EnvironmentListInstance } from "./service/environment";
-import { AssetListInstance } from "./service/asset";
+import { FunctionListInstance } from "./service/function";
 
 
 
@@ -337,10 +337,10 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  functions: FunctionListInstance;
+  assets: AssetListInstance;
   builds: BuildListInstance;
   environments: EnvironmentListInstance;
-  assets: AssetListInstance;
+  functions: FunctionListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -397,19 +397,19 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceContextSolution;
   protected _uri: string;
 
-  protected _functions?: FunctionListInstance;
+  protected _assets?: AssetListInstance;
   protected _builds?: BuildListInstance;
   protected _environments?: EnvironmentListInstance;
-  protected _assets?: AssetListInstance;
+  protected _functions?: FunctionListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }
 
-  get functions(): FunctionListInstance {
-    this._functions = this._functions || FunctionListInstance(this._version, this._solution.sid);
-    return this._functions;
+  get assets(): AssetListInstance {
+    this._assets = this._assets || AssetListInstance(this._version, this._solution.sid);
+    return this._assets;
   }
 
   get builds(): BuildListInstance {
@@ -422,9 +422,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._environments;
   }
 
-  get assets(): AssetListInstance {
-    this._assets = this._assets || AssetListInstance(this._version, this._solution.sid);
-    return this._assets;
+  get functions(): FunctionListInstance {
+    this._functions = this._functions || FunctionListInstance(this._version, this._solution.sid);
+    return this._functions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -630,10 +630,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the functions.
+   * Access the assets.
    */
-  functions(): FunctionListInstance {
-    return this._proxy.functions;
+  assets(): AssetListInstance {
+    return this._proxy.assets;
   }
 
   /**
@@ -651,10 +651,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the assets.
+   * Access the functions.
    */
-  assets(): AssetListInstance {
-    return this._proxy.assets;
+  functions(): FunctionListInstance {
+    return this._proxy.functions;
   }
 
   /**
