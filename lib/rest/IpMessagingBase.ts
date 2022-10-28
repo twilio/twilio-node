@@ -10,15 +10,15 @@
  */
 
 import Domain from '../base/Domain';
-import V1 from './ip_messaging/V1';
-import V2 from './ip_messaging/V2';
+import V1 from './ipMessaging/V1';
+import V2 from './ipMessaging/V2';
 
 class IpMessagingBase extends Domain {
     _v1?: V1;
     _v2?: V2;
 
     /**
-     * Initialize ip_messaging domain
+     * Initialize ipMessaging domain
      *
      * @param twilio - The twilio client
      */
