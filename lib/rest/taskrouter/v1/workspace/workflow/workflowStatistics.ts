@@ -229,8 +229,8 @@ export class WorkflowStatisticsInstance {
 
 
 export interface WorkflowStatisticsListInstance {
-  (workflowSid: string): WorkflowStatisticsContext;
-  get(workflowSid: string): WorkflowStatisticsContext;
+  (): WorkflowStatisticsContext;
+  get(): WorkflowStatisticsContext;
 
 
   /**
@@ -241,6 +241,8 @@ export interface WorkflowStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  workflowSid?: string;
 }
 
 interface WorkflowStatisticsListInstanceImpl extends WorkflowStatisticsListInstance {}
@@ -251,16 +253,16 @@ class WorkflowStatisticsListInstanceImpl implements WorkflowStatisticsListInstan
 
 }
 
-export function WorkflowStatisticsListInstance(version: V1): WorkflowStatisticsListInstance {
-  const instance = ((workflowSid) => instance.get(workflowSid)) as WorkflowStatisticsListInstanceImpl;
+export function WorkflowStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkflowStatisticsListInstanceImpl;
 
-  instance.get = function get(workflowSid): WorkflowStatisticsContext {
+  instance.get = function get(): WorkflowStatisticsContext {
     return new WorkflowStatisticsContextImpl(version, workspaceSid, workflowSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, workflowSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

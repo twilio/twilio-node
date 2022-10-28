@@ -268,8 +268,8 @@ export class WebhookInstance {
 
 
 export interface WebhookListInstance {
-  (chatServiceSid: string): WebhookContext;
-  get(chatServiceSid: string): WebhookContext;
+  (): WebhookContext;
+  get(): WebhookContext;
 
 
   /**
@@ -280,6 +280,7 @@ export interface WebhookListInstance {
 }
 
 export interface Solution {
+  chatServiceSid?: string;
 }
 
 interface WebhookListInstanceImpl extends WebhookListInstance {}
@@ -290,16 +291,16 @@ class WebhookListInstanceImpl implements WebhookListInstance {
 
 }
 
-export function WebhookListInstance(version: V1): WebhookListInstance {
-  const instance = ((chatServiceSid) => instance.get(chatServiceSid)) as WebhookListInstanceImpl;
+export function WebhookListInstance(version: V1, chatServiceSid: string): WebhookListInstance {
+  const instance = (() => instance.get()) as WebhookListInstanceImpl;
 
-  instance.get = function get(chatServiceSid): WebhookContext {
+  instance.get = function get(): WebhookContext {
     return new WebhookContextImpl(version, chatServiceSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { chatServiceSid };
+  instance._uri = `/Services/${chatServiceSid}/Configuration/Webhooks`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

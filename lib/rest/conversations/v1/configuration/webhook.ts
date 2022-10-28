@@ -300,7 +300,7 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Configuration/Webhooks`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

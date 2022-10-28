@@ -259,8 +259,8 @@ export class FeedbackInstance {
 
 
 export interface FeedbackListInstance {
-  (callSid: string): FeedbackContext;
-  get(callSid: string): FeedbackContext;
+  (): FeedbackContext;
+  get(): FeedbackContext;
 
 
   /**
@@ -271,6 +271,8 @@ export interface FeedbackListInstance {
 }
 
 export interface Solution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 interface FeedbackListInstanceImpl extends FeedbackListInstance {}
@@ -281,16 +283,16 @@ class FeedbackListInstanceImpl implements FeedbackListInstance {
 
 }
 
-export function FeedbackListInstance(version: V2010): FeedbackListInstance {
-  const instance = ((callSid) => instance.get(callSid)) as FeedbackListInstanceImpl;
+export function FeedbackListInstance(version: V2010, accountSid: string, callSid: string): FeedbackListInstance {
+  const instance = (() => instance.get()) as FeedbackListInstanceImpl;
 
-  instance.get = function get(callSid): FeedbackContext {
+  instance.get = function get(): FeedbackContext {
     return new FeedbackContextImpl(version, accountSid, callSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { accountSid, callSid };
+  instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -302,6 +304,3 @@ export function FeedbackListInstance(version: V2010): FeedbackListInstance {
 
   return instance;
 }
-
-
-

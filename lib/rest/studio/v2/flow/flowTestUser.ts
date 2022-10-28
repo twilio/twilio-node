@@ -217,8 +217,8 @@ export class FlowTestUserInstance {
 
 
 export interface FlowTestUserListInstance {
-  (sid: string): FlowTestUserContext;
-  get(sid: string): FlowTestUserContext;
+  (): FlowTestUserContext;
+  get(): FlowTestUserContext;
 
 
   /**
@@ -229,6 +229,7 @@ export interface FlowTestUserListInstance {
 }
 
 export interface Solution {
+  sid?: string;
 }
 
 interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
@@ -239,16 +240,16 @@ class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
 
 }
 
-export function FlowTestUserListInstance(version: V2): FlowTestUserListInstance {
-  const instance = ((sid) => instance.get(sid)) as FlowTestUserListInstanceImpl;
+export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUserListInstance {
+  const instance = (() => instance.get()) as FlowTestUserListInstanceImpl;
 
-  instance.get = function get(sid): FlowTestUserContext {
+  instance.get = function get(): FlowTestUserContext {
     return new FlowTestUserContextImpl(version, sid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { sid };
+  instance._uri = `/Flows/${sid}/TestUsers`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -249,8 +249,8 @@ export class PlaybackGrantInstance {
 
 
 export interface PlaybackGrantListInstance {
-  (sid: string): PlaybackGrantContext;
-  get(sid: string): PlaybackGrantContext;
+  (): PlaybackGrantContext;
+  get(): PlaybackGrantContext;
 
 
   /**
@@ -261,6 +261,7 @@ export interface PlaybackGrantListInstance {
 }
 
 export interface Solution {
+  sid?: string;
 }
 
 interface PlaybackGrantListInstanceImpl extends PlaybackGrantListInstance {}
@@ -271,16 +272,16 @@ class PlaybackGrantListInstanceImpl implements PlaybackGrantListInstance {
 
 }
 
-export function PlaybackGrantListInstance(version: V1): PlaybackGrantListInstance {
-  const instance = ((sid) => instance.get(sid)) as PlaybackGrantListInstanceImpl;
+export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGrantListInstance {
+  const instance = (() => instance.get()) as PlaybackGrantListInstanceImpl;
 
-  instance.get = function get(sid): PlaybackGrantContext {
+  instance.get = function get(): PlaybackGrantContext {
     return new PlaybackGrantContextImpl(version, sid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { sid };
+  instance._uri = `/PlayerStreamers/${sid}/PlaybackGrant`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -211,7 +211,7 @@ export function DeactivationsListInstance(version: V1): DeactivationsListInstanc
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Deactivations`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

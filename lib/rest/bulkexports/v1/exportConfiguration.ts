@@ -252,8 +252,8 @@ export class ExportConfigurationInstance {
 
 
 export interface ExportConfigurationListInstance {
-  (resourceType: string): ExportConfigurationContext;
-  get(resourceType: string): ExportConfigurationContext;
+  (): ExportConfigurationContext;
+  get(): ExportConfigurationContext;
 
 
   /**
@@ -264,6 +264,7 @@ export interface ExportConfigurationListInstance {
 }
 
 export interface Solution {
+  resourceType?: string;
 }
 
 interface ExportConfigurationListInstanceImpl extends ExportConfigurationListInstance {}
@@ -274,16 +275,16 @@ class ExportConfigurationListInstanceImpl implements ExportConfigurationListInst
 
 }
 
-export function ExportConfigurationListInstance(version: V1): ExportConfigurationListInstance {
-  const instance = ((resourceType) => instance.get(resourceType)) as ExportConfigurationListInstanceImpl;
+export function ExportConfigurationListInstance(version: V1, resourceType: string): ExportConfigurationListInstance {
+  const instance = (() => instance.get()) as ExportConfigurationListInstanceImpl;
 
-  instance.get = function get(resourceType): ExportConfigurationContext {
+  instance.get = function get(): ExportConfigurationContext {
     return new ExportConfigurationContextImpl(version, resourceType);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { resourceType };
+  instance._uri = `/Exports/${resourceType}/Configuration`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

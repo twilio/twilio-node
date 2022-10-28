@@ -232,7 +232,7 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/BrandsInformation`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

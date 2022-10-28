@@ -232,7 +232,7 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/AuthTokens/Secondary`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

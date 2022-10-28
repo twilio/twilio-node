@@ -247,8 +247,8 @@ export class TaskActionsInstance {
 
 
 export interface TaskActionsListInstance {
-  (taskSid: string): TaskActionsContext;
-  get(taskSid: string): TaskActionsContext;
+  (): TaskActionsContext;
+  get(): TaskActionsContext;
 
 
   /**
@@ -259,6 +259,8 @@ export interface TaskActionsListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
@@ -269,16 +271,16 @@ class TaskActionsListInstanceImpl implements TaskActionsListInstance {
 
 }
 
-export function TaskActionsListInstance(version: V1): TaskActionsListInstance {
-  const instance = ((taskSid) => instance.get(taskSid)) as TaskActionsListInstanceImpl;
+export function TaskActionsListInstance(version: V1, assistantSid: string, taskSid: string): TaskActionsListInstance {
+  const instance = (() => instance.get()) as TaskActionsListInstanceImpl;
 
-  instance.get = function get(taskSid): TaskActionsContext {
+  instance.get = function get(): TaskActionsContext {
     return new TaskActionsContextImpl(version, assistantSid, taskSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid, taskSid };
+  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

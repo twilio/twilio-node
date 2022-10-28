@@ -177,8 +177,8 @@ export class StepContextInstance {
 
 
 export interface StepContextListInstance {
-  (stepSid: string): StepContextContext;
-  get(stepSid: string): StepContextContext;
+  (): StepContextContext;
+  get(): StepContextContext;
 
 
   /**
@@ -189,6 +189,9 @@ export interface StepContextListInstance {
 }
 
 export interface Solution {
+  flowSid?: string;
+  engagementSid?: string;
+  stepSid?: string;
 }
 
 interface StepContextListInstanceImpl extends StepContextListInstance {}
@@ -199,16 +202,16 @@ class StepContextListInstanceImpl implements StepContextListInstance {
 
 }
 
-export function StepContextListInstance(version: V1): StepContextListInstance {
-  const instance = ((stepSid) => instance.get(stepSid)) as StepContextListInstanceImpl;
+export function StepContextListInstance(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance {
+  const instance = (() => instance.get()) as StepContextListInstanceImpl;
 
-  instance.get = function get(stepSid): StepContextContext {
+  instance.get = function get(): StepContextContext {
     return new StepContextContextImpl(version, flowSid, engagementSid, stepSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { flowSid, engagementSid, stepSid };
+  instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

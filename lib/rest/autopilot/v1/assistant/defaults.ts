@@ -239,8 +239,8 @@ export class DefaultsInstance {
 
 
 export interface DefaultsListInstance {
-  (assistantSid: string): DefaultsContext;
-  get(assistantSid: string): DefaultsContext;
+  (): DefaultsContext;
+  get(): DefaultsContext;
 
 
   /**
@@ -251,6 +251,7 @@ export interface DefaultsListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
 }
 
 interface DefaultsListInstanceImpl extends DefaultsListInstance {}
@@ -261,16 +262,16 @@ class DefaultsListInstanceImpl implements DefaultsListInstance {
 
 }
 
-export function DefaultsListInstance(version: V1): DefaultsListInstance {
-  const instance = ((assistantSid) => instance.get(assistantSid)) as DefaultsListInstanceImpl;
+export function DefaultsListInstance(version: V1, assistantSid: string): DefaultsListInstance {
+  const instance = (() => instance.get()) as DefaultsListInstanceImpl;
 
-  instance.get = function get(assistantSid): DefaultsContext {
+  instance.get = function get(): DefaultsContext {
     return new DefaultsContextImpl(version, assistantSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/Defaults`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -255,7 +255,7 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Settings`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

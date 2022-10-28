@@ -213,8 +213,8 @@ export class UsageInstance {
 
 
 export interface UsageListInstance {
-  (simSid: string): UsageContext;
-  get(simSid: string): UsageContext;
+  (): UsageContext;
+  get(): UsageContext;
 
 
   /**
@@ -225,6 +225,7 @@ export interface UsageListInstance {
 }
 
 export interface Solution {
+  simSid?: string;
 }
 
 interface UsageListInstanceImpl extends UsageListInstance {}
@@ -235,16 +236,16 @@ class UsageListInstanceImpl implements UsageListInstance {
 
 }
 
-export function UsageListInstance(version: Wireless): UsageListInstance {
-  const instance = ((simSid) => instance.get(simSid)) as UsageListInstanceImpl;
+export function UsageListInstance(version: Wireless, simSid: string): UsageListInstance {
+  const instance = (() => instance.get()) as UsageListInstanceImpl;
 
-  instance.get = function get(simSid): UsageContext {
+  instance.get = function get(): UsageContext {
     return new UsageContextImpl(version, simSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { simSid };
+  instance._uri = `/Sims/${simSid}/Usage`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

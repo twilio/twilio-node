@@ -210,8 +210,8 @@ export class AnonymizeInstance {
 
 
 export interface AnonymizeListInstance {
-  (sid: string): AnonymizeContext;
-  get(sid: string): AnonymizeContext;
+  (): AnonymizeContext;
+  get(): AnonymizeContext;
 
 
   /**
@@ -222,6 +222,8 @@ export interface AnonymizeListInstance {
 }
 
 export interface Solution {
+  roomSid?: string;
+  sid?: string;
 }
 
 interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
@@ -232,16 +234,16 @@ class AnonymizeListInstanceImpl implements AnonymizeListInstance {
 
 }
 
-export function AnonymizeListInstance(version: V1): AnonymizeListInstance {
-  const instance = ((sid) => instance.get(sid)) as AnonymizeListInstanceImpl;
+export function AnonymizeListInstance(version: V1, roomSid: string, sid: string): AnonymizeListInstance {
+  const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
 
-  instance.get = function get(sid): AnonymizeContext {
+  instance.get = function get(): AnonymizeContext {
     return new AnonymizeContextImpl(version, roomSid, sid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { roomSid, sid };
+  instance._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

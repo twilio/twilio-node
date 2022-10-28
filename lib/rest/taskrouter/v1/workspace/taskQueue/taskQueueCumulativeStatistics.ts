@@ -341,8 +341,8 @@ export class TaskQueueCumulativeStatisticsInstance {
 
 
 export interface TaskQueueCumulativeStatisticsListInstance {
-  (taskQueueSid: string): TaskQueueCumulativeStatisticsContext;
-  get(taskQueueSid: string): TaskQueueCumulativeStatisticsContext;
+  (): TaskQueueCumulativeStatisticsContext;
+  get(): TaskQueueCumulativeStatisticsContext;
 
 
   /**
@@ -353,6 +353,8 @@ export interface TaskQueueCumulativeStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
 }
 
 interface TaskQueueCumulativeStatisticsListInstanceImpl extends TaskQueueCumulativeStatisticsListInstance {}
@@ -363,16 +365,16 @@ class TaskQueueCumulativeStatisticsListInstanceImpl implements TaskQueueCumulati
 
 }
 
-export function TaskQueueCumulativeStatisticsListInstance(version: V1): TaskQueueCumulativeStatisticsListInstance {
-  const instance = ((taskQueueSid) => instance.get(taskQueueSid)) as TaskQueueCumulativeStatisticsListInstanceImpl;
+export function TaskQueueCumulativeStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance {
+  const instance = (() => instance.get()) as TaskQueueCumulativeStatisticsListInstanceImpl;
 
-  instance.get = function get(taskQueueSid): TaskQueueCumulativeStatisticsContext {
+  instance.get = function get(): TaskQueueCumulativeStatisticsContext {
     return new TaskQueueCumulativeStatisticsContextImpl(version, workspaceSid, taskQueueSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, taskQueueSid };
+  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/CumulativeStatistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

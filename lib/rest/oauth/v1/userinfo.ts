@@ -202,7 +202,7 @@ export function UserinfoListInstance(version: V1): UserinfoListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/userinfo`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

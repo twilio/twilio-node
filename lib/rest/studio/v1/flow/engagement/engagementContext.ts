@@ -169,8 +169,8 @@ export class EngagementContextInstance {
 
 
 export interface EngagementContextListInstance {
-  (engagementSid: string): EngagementContextContext;
-  get(engagementSid: string): EngagementContextContext;
+  (): EngagementContextContext;
+  get(): EngagementContextContext;
 
 
   /**
@@ -181,6 +181,8 @@ export interface EngagementContextListInstance {
 }
 
 export interface Solution {
+  flowSid?: string;
+  engagementSid?: string;
 }
 
 interface EngagementContextListInstanceImpl extends EngagementContextListInstance {}
@@ -191,16 +193,16 @@ class EngagementContextListInstanceImpl implements EngagementContextListInstance
 
 }
 
-export function EngagementContextListInstance(version: V1): EngagementContextListInstance {
-  const instance = ((engagementSid) => instance.get(engagementSid)) as EngagementContextListInstanceImpl;
+export function EngagementContextListInstance(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance {
+  const instance = (() => instance.get()) as EngagementContextListInstanceImpl;
 
-  instance.get = function get(engagementSid): EngagementContextContext {
+  instance.get = function get(): EngagementContextContext {
     return new EngagementContextContextImpl(version, flowSid, engagementSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { flowSid, engagementSid };
+  instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

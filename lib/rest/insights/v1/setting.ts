@@ -304,7 +304,7 @@ export function SettingListInstance(version: V1): SettingListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Voice/Settings`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

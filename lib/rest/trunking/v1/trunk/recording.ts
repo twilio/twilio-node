@@ -226,8 +226,8 @@ export class RecordingInstance {
 
 
 export interface RecordingListInstance {
-  (trunkSid: string): RecordingContext;
-  get(trunkSid: string): RecordingContext;
+  (): RecordingContext;
+  get(): RecordingContext;
 
 
   /**
@@ -238,6 +238,7 @@ export interface RecordingListInstance {
 }
 
 export interface Solution {
+  trunkSid?: string;
 }
 
 interface RecordingListInstanceImpl extends RecordingListInstance {}
@@ -248,16 +249,16 @@ class RecordingListInstanceImpl implements RecordingListInstance {
 
 }
 
-export function RecordingListInstance(version: V1): RecordingListInstance {
-  const instance = ((trunkSid) => instance.get(trunkSid)) as RecordingListInstanceImpl;
+export function RecordingListInstance(version: V1, trunkSid: string): RecordingListInstance {
+  const instance = (() => instance.get()) as RecordingListInstanceImpl;
 
-  instance.get = function get(trunkSid): RecordingContext {
+  instance.get = function get(): RecordingContext {
     return new RecordingContextImpl(version, trunkSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { trunkSid };
+  instance._uri = `/Trunks/${trunkSid}/Recording`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

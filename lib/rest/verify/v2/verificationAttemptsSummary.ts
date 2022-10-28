@@ -253,7 +253,7 @@ export function VerificationAttemptsSummaryListInstance(version: V2): Verificati
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Attempts/Summary`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

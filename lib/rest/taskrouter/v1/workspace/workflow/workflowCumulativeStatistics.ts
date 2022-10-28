@@ -341,8 +341,8 @@ export class WorkflowCumulativeStatisticsInstance {
 
 
 export interface WorkflowCumulativeStatisticsListInstance {
-  (workflowSid: string): WorkflowCumulativeStatisticsContext;
-  get(workflowSid: string): WorkflowCumulativeStatisticsContext;
+  (): WorkflowCumulativeStatisticsContext;
+  get(): WorkflowCumulativeStatisticsContext;
 
 
   /**
@@ -353,6 +353,8 @@ export interface WorkflowCumulativeStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  workflowSid?: string;
 }
 
 interface WorkflowCumulativeStatisticsListInstanceImpl extends WorkflowCumulativeStatisticsListInstance {}
@@ -363,16 +365,16 @@ class WorkflowCumulativeStatisticsListInstanceImpl implements WorkflowCumulative
 
 }
 
-export function WorkflowCumulativeStatisticsListInstance(version: V1): WorkflowCumulativeStatisticsListInstance {
-  const instance = ((workflowSid) => instance.get(workflowSid)) as WorkflowCumulativeStatisticsListInstanceImpl;
+export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkflowCumulativeStatisticsListInstanceImpl;
 
-  instance.get = function get(workflowSid): WorkflowCumulativeStatisticsContext {
+  instance.get = function get(): WorkflowCumulativeStatisticsContext {
     return new WorkflowCumulativeStatisticsContextImpl(version, workspaceSid, workflowSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, workflowSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

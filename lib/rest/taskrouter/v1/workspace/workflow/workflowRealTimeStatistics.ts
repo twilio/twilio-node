@@ -238,8 +238,8 @@ export class WorkflowRealTimeStatisticsInstance {
 
 
 export interface WorkflowRealTimeStatisticsListInstance {
-  (workflowSid: string): WorkflowRealTimeStatisticsContext;
-  get(workflowSid: string): WorkflowRealTimeStatisticsContext;
+  (): WorkflowRealTimeStatisticsContext;
+  get(): WorkflowRealTimeStatisticsContext;
 
 
   /**
@@ -250,6 +250,8 @@ export interface WorkflowRealTimeStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  workflowSid?: string;
 }
 
 interface WorkflowRealTimeStatisticsListInstanceImpl extends WorkflowRealTimeStatisticsListInstance {}
@@ -260,16 +262,16 @@ class WorkflowRealTimeStatisticsListInstanceImpl implements WorkflowRealTimeStat
 
 }
 
-export function WorkflowRealTimeStatisticsListInstance(version: V1): WorkflowRealTimeStatisticsListInstance {
-  const instance = ((workflowSid) => instance.get(workflowSid)) as WorkflowRealTimeStatisticsListInstanceImpl;
+export function WorkflowRealTimeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkflowRealTimeStatisticsListInstanceImpl;
 
-  instance.get = function get(workflowSid): WorkflowRealTimeStatisticsContext {
+  instance.get = function get(): WorkflowRealTimeStatisticsContext {
     return new WorkflowRealTimeStatisticsContextImpl(version, workspaceSid, workflowSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, workflowSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

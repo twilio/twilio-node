@@ -221,8 +221,8 @@ export class WorkspaceStatisticsInstance {
 
 
 export interface WorkspaceStatisticsListInstance {
-  (workspaceSid: string): WorkspaceStatisticsContext;
-  get(workspaceSid: string): WorkspaceStatisticsContext;
+  (): WorkspaceStatisticsContext;
+  get(): WorkspaceStatisticsContext;
 
 
   /**
@@ -233,6 +233,7 @@ export interface WorkspaceStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
 }
 
 interface WorkspaceStatisticsListInstanceImpl extends WorkspaceStatisticsListInstance {}
@@ -243,16 +244,16 @@ class WorkspaceStatisticsListInstanceImpl implements WorkspaceStatisticsListInst
 
 }
 
-export function WorkspaceStatisticsListInstance(version: V1): WorkspaceStatisticsListInstance {
-  const instance = ((workspaceSid) => instance.get(workspaceSid)) as WorkspaceStatisticsListInstanceImpl;
+export function WorkspaceStatisticsListInstance(version: V1, workspaceSid: string): WorkspaceStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkspaceStatisticsListInstanceImpl;
 
-  instance.get = function get(workspaceSid): WorkspaceStatisticsContext {
+  instance.get = function get(): WorkspaceStatisticsContext {
     return new WorkspaceStatisticsContextImpl(version, workspaceSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Statistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

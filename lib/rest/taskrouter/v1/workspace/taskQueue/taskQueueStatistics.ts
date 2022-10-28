@@ -229,8 +229,8 @@ export class TaskQueueStatisticsInstance {
 
 
 export interface TaskQueueStatisticsListInstance {
-  (taskQueueSid: string): TaskQueueStatisticsContext;
-  get(taskQueueSid: string): TaskQueueStatisticsContext;
+  (): TaskQueueStatisticsContext;
+  get(): TaskQueueStatisticsContext;
 
 
   /**
@@ -241,6 +241,8 @@ export interface TaskQueueStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
 }
 
 interface TaskQueueStatisticsListInstanceImpl extends TaskQueueStatisticsListInstance {}
@@ -251,16 +253,16 @@ class TaskQueueStatisticsListInstanceImpl implements TaskQueueStatisticsListInst
 
 }
 
-export function TaskQueueStatisticsListInstance(version: V1): TaskQueueStatisticsListInstance {
-  const instance = ((taskQueueSid) => instance.get(taskQueueSid)) as TaskQueueStatisticsListInstanceImpl;
+export function TaskQueueStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueStatisticsListInstance {
+  const instance = (() => instance.get()) as TaskQueueStatisticsListInstanceImpl;
 
-  instance.get = function get(taskQueueSid): TaskQueueStatisticsContext {
+  instance.get = function get(): TaskQueueStatisticsContext {
     return new TaskQueueStatisticsContextImpl(version, workspaceSid, taskQueueSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, taskQueueSid };
+  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

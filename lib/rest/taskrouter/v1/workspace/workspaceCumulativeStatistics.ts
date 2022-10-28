@@ -333,8 +333,8 @@ export class WorkspaceCumulativeStatisticsInstance {
 
 
 export interface WorkspaceCumulativeStatisticsListInstance {
-  (workspaceSid: string): WorkspaceCumulativeStatisticsContext;
-  get(workspaceSid: string): WorkspaceCumulativeStatisticsContext;
+  (): WorkspaceCumulativeStatisticsContext;
+  get(): WorkspaceCumulativeStatisticsContext;
 
 
   /**
@@ -345,6 +345,7 @@ export interface WorkspaceCumulativeStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
 }
 
 interface WorkspaceCumulativeStatisticsListInstanceImpl extends WorkspaceCumulativeStatisticsListInstance {}
@@ -355,16 +356,16 @@ class WorkspaceCumulativeStatisticsListInstanceImpl implements WorkspaceCumulati
 
 }
 
-export function WorkspaceCumulativeStatisticsListInstance(version: V1): WorkspaceCumulativeStatisticsListInstance {
-  const instance = ((workspaceSid) => instance.get(workspaceSid)) as WorkspaceCumulativeStatisticsListInstanceImpl;
+export function WorkspaceCumulativeStatisticsListInstance(version: V1, workspaceSid: string): WorkspaceCumulativeStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkspaceCumulativeStatisticsListInstanceImpl;
 
-  instance.get = function get(workspaceSid): WorkspaceCumulativeStatisticsContext {
+  instance.get = function get(): WorkspaceCumulativeStatisticsContext {
     return new WorkspaceCumulativeStatisticsContextImpl(version, workspaceSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/CumulativeStatistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

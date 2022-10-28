@@ -17,8 +17,8 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { WebhookListInstance } from "./configuration/webhook";
 
+import { WebhookListInstance } from "./configuration/webhook";
 
 
 
@@ -39,7 +39,6 @@ export interface ConfigurationContextUpdateOptions {
 
 export interface ConfigurationContext {
 
-  webhooks: WebhookListInstance;
 
   /**
    * Fetch a ConfigurationInstance
@@ -85,16 +84,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V1) {
     this._solution = {  };
     this._uri = `/Configuration`;
-  }
-
-  get webhooks(): WebhookListInstance {
-    this._webhooks = this._webhooks || WebhookListInstance(this._version);
-    return this._webhooks;
   }
 
   fetch(callback?: any): Promise<ConfigurationInstance> {
@@ -253,13 +246,6 @@ export class ConfigurationInstance {
   }
 
   /**
-   * Access the webhooks.
-   */
-  webhooks(): WebhookListInstance {
-    return this._proxy.webhooks;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -286,6 +272,7 @@ export interface ConfigurationListInstance {
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
+  webhooks: WebhookListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -303,6 +290,7 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _solution?: Solution;
   _uri?: string;
 
+  _webhooks?: WebhookListInstance;
 }
 
 export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
@@ -314,7 +302,16 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/Configuration`;
+
+  Object.defineProperty(instance, "webhooks", {
+    get: function webhooks() {
+      if (!this._webhooks) {
+        this._webhooks = WebhookListInstance(this._version);
+      }
+      return this._webhooks;
+    }
+  });
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -168,8 +168,8 @@ export class BuildStatusInstance {
 
 
 export interface BuildStatusListInstance {
-  (sid: string): BuildStatusContext;
-  get(sid: string): BuildStatusContext;
+  (): BuildStatusContext;
+  get(): BuildStatusContext;
 
 
   /**
@@ -180,6 +180,8 @@ export interface BuildStatusListInstance {
 }
 
 export interface Solution {
+  serviceSid?: string;
+  sid?: string;
 }
 
 interface BuildStatusListInstanceImpl extends BuildStatusListInstance {}
@@ -190,16 +192,16 @@ class BuildStatusListInstanceImpl implements BuildStatusListInstance {
 
 }
 
-export function BuildStatusListInstance(version: V1): BuildStatusListInstance {
-  const instance = ((sid) => instance.get(sid)) as BuildStatusListInstanceImpl;
+export function BuildStatusListInstance(version: V1, serviceSid: string, sid: string): BuildStatusListInstance {
+  const instance = (() => instance.get()) as BuildStatusListInstanceImpl;
 
-  instance.get = function get(sid): BuildStatusContext {
+  instance.get = function get(): BuildStatusContext {
     return new BuildStatusContextImpl(version, serviceSid, sid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { serviceSid, sid };
+  instance._uri = `/Services/${serviceSid}/Builds/${sid}/Status`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

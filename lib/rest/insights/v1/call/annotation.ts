@@ -297,8 +297,8 @@ export class AnnotationInstance {
 
 
 export interface AnnotationListInstance {
-  (callSid: string): AnnotationContext;
-  get(callSid: string): AnnotationContext;
+  (): AnnotationContext;
+  get(): AnnotationContext;
 
 
   /**
@@ -309,6 +309,7 @@ export interface AnnotationListInstance {
 }
 
 export interface Solution {
+  callSid?: string;
 }
 
 interface AnnotationListInstanceImpl extends AnnotationListInstance {}
@@ -319,16 +320,16 @@ class AnnotationListInstanceImpl implements AnnotationListInstance {
 
 }
 
-export function AnnotationListInstance(version: V1): AnnotationListInstance {
-  const instance = ((callSid) => instance.get(callSid)) as AnnotationListInstanceImpl;
+export function AnnotationListInstance(version: V1, callSid: string): AnnotationListInstance {
+  const instance = (() => instance.get()) as AnnotationListInstanceImpl;
 
-  instance.get = function get(callSid): AnnotationContext {
+  instance.get = function get(): AnnotationContext {
     return new AnnotationContextImpl(version, callSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { callSid };
+  instance._uri = `/Voice/${callSid}/Annotation`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

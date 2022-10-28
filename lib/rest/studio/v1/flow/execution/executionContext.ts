@@ -169,8 +169,8 @@ export class ExecutionContextInstance {
 
 
 export interface ExecutionContextListInstance {
-  (executionSid: string): ExecutionContextContext;
-  get(executionSid: string): ExecutionContextContext;
+  (): ExecutionContextContext;
+  get(): ExecutionContextContext;
 
 
   /**
@@ -181,6 +181,8 @@ export interface ExecutionContextListInstance {
 }
 
 export interface Solution {
+  flowSid?: string;
+  executionSid?: string;
 }
 
 interface ExecutionContextListInstanceImpl extends ExecutionContextListInstance {}
@@ -191,16 +193,16 @@ class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
 
 }
 
-export function ExecutionContextListInstance(version: V1): ExecutionContextListInstance {
-  const instance = ((executionSid) => instance.get(executionSid)) as ExecutionContextListInstanceImpl;
+export function ExecutionContextListInstance(version: V1, flowSid: string, executionSid: string): ExecutionContextListInstance {
+  const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
 
-  instance.get = function get(executionSid): ExecutionContextContext {
+  instance.get = function get(): ExecutionContextContext {
     return new ExecutionContextContextImpl(version, flowSid, executionSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { flowSid, executionSid };
+  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

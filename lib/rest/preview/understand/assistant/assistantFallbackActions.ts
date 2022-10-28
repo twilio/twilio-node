@@ -227,8 +227,8 @@ export class AssistantFallbackActionsInstance {
 
 
 export interface AssistantFallbackActionsListInstance {
-  (assistantSid: string): AssistantFallbackActionsContext;
-  get(assistantSid: string): AssistantFallbackActionsContext;
+  (): AssistantFallbackActionsContext;
+  get(): AssistantFallbackActionsContext;
 
 
   /**
@@ -239,6 +239,7 @@ export interface AssistantFallbackActionsListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
 }
 
 interface AssistantFallbackActionsListInstanceImpl extends AssistantFallbackActionsListInstance {}
@@ -249,16 +250,16 @@ class AssistantFallbackActionsListInstanceImpl implements AssistantFallbackActio
 
 }
 
-export function AssistantFallbackActionsListInstance(version: Understand): AssistantFallbackActionsListInstance {
-  const instance = ((assistantSid) => instance.get(assistantSid)) as AssistantFallbackActionsListInstanceImpl;
+export function AssistantFallbackActionsListInstance(version: Understand, assistantSid: string): AssistantFallbackActionsListInstance {
+  const instance = (() => instance.get()) as AssistantFallbackActionsListInstanceImpl;
 
-  instance.get = function get(assistantSid): AssistantFallbackActionsContext {
+  instance.get = function get(): AssistantFallbackActionsContext {
     return new AssistantFallbackActionsContextImpl(version, assistantSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/FallbackActions`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

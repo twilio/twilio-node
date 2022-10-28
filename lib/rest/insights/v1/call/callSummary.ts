@@ -268,8 +268,8 @@ export class CallSummaryInstance {
 
 
 export interface CallSummaryListInstance {
-  (callSid: string): CallSummaryContext;
-  get(callSid: string): CallSummaryContext;
+  (): CallSummaryContext;
+  get(): CallSummaryContext;
 
 
   /**
@@ -280,6 +280,7 @@ export interface CallSummaryListInstance {
 }
 
 export interface Solution {
+  callSid?: string;
 }
 
 interface CallSummaryListInstanceImpl extends CallSummaryListInstance {}
@@ -290,16 +291,16 @@ class CallSummaryListInstanceImpl implements CallSummaryListInstance {
 
 }
 
-export function CallSummaryListInstance(version: V1): CallSummaryListInstance {
-  const instance = ((callSid) => instance.get(callSid)) as CallSummaryListInstanceImpl;
+export function CallSummaryListInstance(version: V1, callSid: string): CallSummaryListInstance {
+  const instance = (() => instance.get()) as CallSummaryListInstanceImpl;
 
-  instance.get = function get(callSid): CallSummaryContext {
+  instance.get = function get(): CallSummaryContext {
     return new CallSummaryContextImpl(version, callSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { callSid };
+  instance._uri = `/Voice/${callSid}/Summary`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

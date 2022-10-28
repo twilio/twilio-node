@@ -177,8 +177,8 @@ export class ExecutionStepContextInstance {
 
 
 export interface ExecutionStepContextListInstance {
-  (stepSid: string): ExecutionStepContextContext;
-  get(stepSid: string): ExecutionStepContextContext;
+  (): ExecutionStepContextContext;
+  get(): ExecutionStepContextContext;
 
 
   /**
@@ -189,6 +189,9 @@ export interface ExecutionStepContextListInstance {
 }
 
 export interface Solution {
+  flowSid?: string;
+  executionSid?: string;
+  stepSid?: string;
 }
 
 interface ExecutionStepContextListInstanceImpl extends ExecutionStepContextListInstance {}
@@ -199,16 +202,16 @@ class ExecutionStepContextListInstanceImpl implements ExecutionStepContextListIn
 
 }
 
-export function ExecutionStepContextListInstance(version: V2): ExecutionStepContextListInstance {
-  const instance = ((stepSid) => instance.get(stepSid)) as ExecutionStepContextListInstanceImpl;
+export function ExecutionStepContextListInstance(version: V2, flowSid: string, executionSid: string, stepSid: string): ExecutionStepContextListInstance {
+  const instance = (() => instance.get()) as ExecutionStepContextListInstanceImpl;
 
-  instance.get = function get(stepSid): ExecutionStepContextContext {
+  instance.get = function get(): ExecutionStepContextContext {
     return new ExecutionStepContextContextImpl(version, flowSid, executionSid, stepSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { flowSid, executionSid, stepSid };
+  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -174,7 +174,7 @@ export function OauthListInstance(version: V1): OauthListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/certs`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -236,8 +236,8 @@ export class StyleSheetInstance {
 
 
 export interface StyleSheetListInstance {
-  (assistantSid: string): StyleSheetContext;
-  get(assistantSid: string): StyleSheetContext;
+  (): StyleSheetContext;
+  get(): StyleSheetContext;
 
 
   /**
@@ -248,6 +248,7 @@ export interface StyleSheetListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
 }
 
 interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
@@ -258,16 +259,16 @@ class StyleSheetListInstanceImpl implements StyleSheetListInstance {
 
 }
 
-export function StyleSheetListInstance(version: Understand): StyleSheetListInstance {
-  const instance = ((assistantSid) => instance.get(assistantSid)) as StyleSheetListInstanceImpl;
+export function StyleSheetListInstance(version: Understand, assistantSid: string): StyleSheetListInstance {
+  const instance = (() => instance.get()) as StyleSheetListInstanceImpl;
 
-  instance.get = function get(assistantSid): StyleSheetContext {
+  instance.get = function get(): StyleSheetContext {
     return new StyleSheetContextImpl(version, assistantSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/StyleSheet`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

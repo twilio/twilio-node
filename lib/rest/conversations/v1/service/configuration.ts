@@ -17,9 +17,9 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { NotificationListInstance } from "./configuration/notification";
 import { WebhookListInstance } from "./configuration/webhook";
-
 
 
 
@@ -40,8 +40,6 @@ export interface ConfigurationContextUpdateOptions {
 
 export interface ConfigurationContext {
 
-  notifications: NotificationListInstance;
-  webhooks: WebhookListInstance;
 
   /**
    * Fetch a ConfigurationInstance
@@ -88,22 +86,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  protected _notifications?: NotificationListInstance;
-  protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V1, chatServiceSid: string) {
     this._solution = { chatServiceSid };
     this._uri = `/Services/${chatServiceSid}/Configuration`;
-  }
-
-  get notifications(): NotificationListInstance {
-    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.chatServiceSid);
-    return this._notifications;
-  }
-
-  get webhooks(): WebhookListInstance {
-    this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.chatServiceSid);
-    return this._webhooks;
   }
 
   fetch(callback?: any): Promise<ConfigurationInstance> {
@@ -262,20 +248,6 @@ export class ConfigurationInstance {
   }
 
   /**
-   * Access the notifications.
-   */
-  notifications(): NotificationListInstance {
-    return this._proxy.notifications;
-  }
-
-  /**
-   * Access the webhooks.
-   */
-  webhooks(): WebhookListInstance {
-    return this._proxy.webhooks;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -299,9 +271,11 @@ export class ConfigurationInstance {
 
 
 export interface ConfigurationListInstance {
-  (chatServiceSid: string): ConfigurationContext;
-  get(chatServiceSid: string): ConfigurationContext;
+  (): ConfigurationContext;
+  get(): ConfigurationContext;
 
+  notifications: NotificationListInstance;
+  webhooks: WebhookListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -311,6 +285,7 @@ export interface ConfigurationListInstance {
 }
 
 export interface Solution {
+  chatServiceSid?: string;
 }
 
 interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
@@ -319,18 +294,38 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _solution?: Solution;
   _uri?: string;
 
+  _notifications?: NotificationListInstance;
+  _webhooks?: WebhookListInstance;
 }
 
-export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
-  const instance = ((chatServiceSid) => instance.get(chatServiceSid)) as ConfigurationListInstanceImpl;
+export function ConfigurationListInstance(version: V1, chatServiceSid: string): ConfigurationListInstance {
+  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
 
-  instance.get = function get(chatServiceSid): ConfigurationContext {
+  instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version, chatServiceSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { chatServiceSid };
+  instance._uri = `/Services/${chatServiceSid}/Configuration`;
+
+  Object.defineProperty(instance, "notifications", {
+    get: function notifications() {
+      if (!this._notifications) {
+        this._notifications = NotificationListInstance(this._version, this._solution.chatServiceSid);
+      }
+      return this._notifications;
+    }
+  });
+
+  Object.defineProperty(instance, "webhooks", {
+    get: function webhooks() {
+      if (!this._webhooks) {
+        this._webhooks = WebhookListInstance(this._version, this._solution.chatServiceSid);
+      }
+      return this._webhooks;
+    }
+  });
 
   instance.toJSON = function toJSON() {
     return this._solution;

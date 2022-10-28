@@ -174,8 +174,8 @@ export class FunctionVersionContentInstance {
 
 
 export interface FunctionVersionContentListInstance {
-  (sid: string): FunctionVersionContentContext;
-  get(sid: string): FunctionVersionContentContext;
+  (): FunctionVersionContentContext;
+  get(): FunctionVersionContentContext;
 
 
   /**
@@ -186,6 +186,9 @@ export interface FunctionVersionContentListInstance {
 }
 
 export interface Solution {
+  serviceSid?: string;
+  functionSid?: string;
+  sid?: string;
 }
 
 interface FunctionVersionContentListInstanceImpl extends FunctionVersionContentListInstance {}
@@ -196,16 +199,16 @@ class FunctionVersionContentListInstanceImpl implements FunctionVersionContentLi
 
 }
 
-export function FunctionVersionContentListInstance(version: V1): FunctionVersionContentListInstance {
-  const instance = ((sid) => instance.get(sid)) as FunctionVersionContentListInstanceImpl;
+export function FunctionVersionContentListInstance(version: V1, serviceSid: string, functionSid: string, sid: string): FunctionVersionContentListInstance {
+  const instance = (() => instance.get()) as FunctionVersionContentListInstanceImpl;
 
-  instance.get = function get(sid): FunctionVersionContentContext {
+  instance.get = function get(): FunctionVersionContentContext {
     return new FunctionVersionContentContextImpl(version, serviceSid, functionSid, sid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { serviceSid, functionSid, sid };
+  instance._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

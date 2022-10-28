@@ -227,8 +227,8 @@ export class AssistantInitiationActionsInstance {
 
 
 export interface AssistantInitiationActionsListInstance {
-  (assistantSid: string): AssistantInitiationActionsContext;
-  get(assistantSid: string): AssistantInitiationActionsContext;
+  (): AssistantInitiationActionsContext;
+  get(): AssistantInitiationActionsContext;
 
 
   /**
@@ -239,6 +239,7 @@ export interface AssistantInitiationActionsListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
 }
 
 interface AssistantInitiationActionsListInstanceImpl extends AssistantInitiationActionsListInstance {}
@@ -249,16 +250,16 @@ class AssistantInitiationActionsListInstanceImpl implements AssistantInitiationA
 
 }
 
-export function AssistantInitiationActionsListInstance(version: Understand): AssistantInitiationActionsListInstance {
-  const instance = ((assistantSid) => instance.get(assistantSid)) as AssistantInitiationActionsListInstanceImpl;
+export function AssistantInitiationActionsListInstance(version: Understand, assistantSid: string): AssistantInitiationActionsListInstance {
+  const instance = (() => instance.get()) as AssistantInitiationActionsListInstanceImpl;
 
-  instance.get = function get(assistantSid): AssistantInitiationActionsContext {
+  instance.get = function get(): AssistantInitiationActionsContext {
     return new AssistantInitiationActionsContextImpl(version, assistantSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/InitiationActions`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

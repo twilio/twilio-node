@@ -273,8 +273,8 @@ export class TaskQueueRealTimeStatisticsInstance {
 
 
 export interface TaskQueueRealTimeStatisticsListInstance {
-  (taskQueueSid: string): TaskQueueRealTimeStatisticsContext;
-  get(taskQueueSid: string): TaskQueueRealTimeStatisticsContext;
+  (): TaskQueueRealTimeStatisticsContext;
+  get(): TaskQueueRealTimeStatisticsContext;
 
 
   /**
@@ -285,6 +285,8 @@ export interface TaskQueueRealTimeStatisticsListInstance {
 }
 
 export interface Solution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
 }
 
 interface TaskQueueRealTimeStatisticsListInstanceImpl extends TaskQueueRealTimeStatisticsListInstance {}
@@ -295,16 +297,16 @@ class TaskQueueRealTimeStatisticsListInstanceImpl implements TaskQueueRealTimeSt
 
 }
 
-export function TaskQueueRealTimeStatisticsListInstance(version: V1): TaskQueueRealTimeStatisticsListInstance {
-  const instance = ((taskQueueSid) => instance.get(taskQueueSid)) as TaskQueueRealTimeStatisticsListInstanceImpl;
+export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance {
+  const instance = (() => instance.get()) as TaskQueueRealTimeStatisticsListInstanceImpl;
 
-  instance.get = function get(taskQueueSid): TaskQueueRealTimeStatisticsContext {
+  instance.get = function get(): TaskQueueRealTimeStatisticsContext {
     return new TaskQueueRealTimeStatisticsContextImpl(version, workspaceSid, taskQueueSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { workspaceSid, taskQueueSid };
+  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

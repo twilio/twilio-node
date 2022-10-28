@@ -251,7 +251,7 @@ export function OpenidDiscoveryListInstance(version: V1): OpenidDiscoveryListIns
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = ``;
+  instance._uri = `/well-known/openid-configuration`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

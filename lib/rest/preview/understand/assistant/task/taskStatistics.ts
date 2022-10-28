@@ -173,8 +173,8 @@ export class TaskStatisticsInstance {
 
 
 export interface TaskStatisticsListInstance {
-  (taskSid: string): TaskStatisticsContext;
-  get(taskSid: string): TaskStatisticsContext;
+  (): TaskStatisticsContext;
+  get(): TaskStatisticsContext;
 
 
   /**
@@ -185,6 +185,8 @@ export interface TaskStatisticsListInstance {
 }
 
 export interface Solution {
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
@@ -195,16 +197,16 @@ class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
 
 }
 
-export function TaskStatisticsListInstance(version: Understand): TaskStatisticsListInstance {
-  const instance = ((taskSid) => instance.get(taskSid)) as TaskStatisticsListInstanceImpl;
+export function TaskStatisticsListInstance(version: Understand, assistantSid: string, taskSid: string): TaskStatisticsListInstance {
+  const instance = (() => instance.get()) as TaskStatisticsListInstanceImpl;
 
-  instance.get = function get(taskSid): TaskStatisticsContext {
+  instance.get = function get(): TaskStatisticsContext {
     return new TaskStatisticsContextImpl(version, assistantSid, taskSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { assistantSid, taskSid };
+  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -296,8 +296,8 @@ export class NotificationInstance {
 
 
 export interface NotificationListInstance {
-  (chatServiceSid: string): NotificationContext;
-  get(chatServiceSid: string): NotificationContext;
+  (): NotificationContext;
+  get(): NotificationContext;
 
 
   /**
@@ -308,6 +308,7 @@ export interface NotificationListInstance {
 }
 
 export interface Solution {
+  chatServiceSid?: string;
 }
 
 interface NotificationListInstanceImpl extends NotificationListInstance {}
@@ -318,16 +319,16 @@ class NotificationListInstanceImpl implements NotificationListInstance {
 
 }
 
-export function NotificationListInstance(version: V1): NotificationListInstance {
-  const instance = ((chatServiceSid) => instance.get(chatServiceSid)) as NotificationListInstanceImpl;
+export function NotificationListInstance(version: V1, chatServiceSid: string): NotificationListInstance {
+  const instance = (() => instance.get()) as NotificationListInstanceImpl;
 
-  instance.get = function get(chatServiceSid): NotificationContext {
+  instance.get = function get(): NotificationContext {
     return new NotificationContextImpl(version, chatServiceSid);
   }
 
   instance._version = version;
-  instance._solution = {  };
-  instance._uri = ``;
+  instance._solution = { chatServiceSid };
+  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
 
   instance.toJSON = function toJSON() {
     return this._solution;
