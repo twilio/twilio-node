@@ -1,4 +1,4 @@
-import {BaseTwilio, RequestOpts} from "../base/BaseTwilio";
+import {BaseTwilio, RequestOpts} from "./BaseTwilio";
 
 declare class Domain {
   twilio?: BaseTwilio;
