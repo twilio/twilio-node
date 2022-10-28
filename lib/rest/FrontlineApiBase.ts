@@ -10,13 +10,13 @@
  */
 
 import Domain from '../base/Domain';
-import V1 from './frontline/V1';
+import V1 from './frontlineApi/V1';
 
 class FrontlineApiBase extends Domain {
     _v1?: V1;
 
     /**
-     * Initialize frontline domain
+     * Initialize frontlineApi domain
      *
      * @param twilio - The twilio client
      */

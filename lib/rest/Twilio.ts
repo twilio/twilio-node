@@ -23,10 +23,10 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
  * @property (Twilio.Chat) chat - chat domain
  * @property (Twilio.Conversations) conversations - conversations domain
  * @property (Twilio.Events) events - events domain
- * @property (Twilio.Flex) flex - flex domain
- * @property (Twilio.Frontline) frontline - frontline domain
+ * @property (Twilio.FlexApi) flexApi - flexApi domain
+ * @property (Twilio.FrontlineApi) frontlineApi - frontlineApi domain
  * @property (Twilio.Insights) insights - insights domain
- * @property (Twilio.IpMessaging) ipmessaging - ipmessaging domain
+ * @property (Twilio.IpMessaging) ipMessaging - ipMessaging domain
  * @property (Twilio.Lookups) lookups - lookups domain
  * @property (Twilio.Media) media - media domain
  * @property (Twilio.Messaging) messaging - messaging domain
@@ -90,10 +90,10 @@ class Twilio extends BaseTwilio {
   _chat: any
   _conversations: any
   _events: any
-  _flex: any
-  _frontline: any
+  _flexApi: any
+  _frontlineApi: any
   _insights: any
-  _ipmessaging: any
+  _ipMessaging: any
   _lookups: any
   _media: any
   _messaging: any
@@ -128,10 +128,10 @@ class Twilio extends BaseTwilio {
         this.chat;
         this.conversations;
         this.events;
-        this.flex;
-        this.frontline;
+        this.flexApi;
+        this.frontlineApi;
         this.insights;
-        this.ipmessaging;
+        this.ipMessaging;
         this.lookups;
         this.media;
         this.messaging;
@@ -155,7 +155,6 @@ class Twilio extends BaseTwilio {
         this.voice;
         this.wireless;
     }
-
   }
 
   //Domains
@@ -208,19 +207,19 @@ class Twilio extends BaseTwilio {
     }
     return this._events;
   }
-  get flex() {
-    if (!this._flex) {
-      const Flex = require('./Flex');  /* jshint ignore:line */
-      this._flex = new Flex(this);
+  get flexApi() {
+    if (!this._flexApi) {
+      const FlexApi = require('./FlexApi');  /* jshint ignore:line */
+      this._flexApi = new FlexApi(this);
     }
-    return this._flex;
+    return this._flexApi;
   }
-  get frontline() {
-    if (!this._frontline) {
-      const Frontline = require('./Frontline');  /* jshint ignore:line */
-      this._frontline = new Frontline(this);
+  get frontlineApi() {
+    if (!this._frontlineApi) {
+      const FrontlineApi = require('./FrontlineApi');  /* jshint ignore:line */
+      this._frontlineApi = new FrontlineApi(this);
     }
-    return this._frontline;
+    return this._frontlineApi;
   }
   get insights() {
     if (!this._insights) {
@@ -229,12 +228,12 @@ class Twilio extends BaseTwilio {
     }
     return this._insights;
   }
-  get ipmessaging() {
-    if (!this._ipmessaging) {
+  get ipMessaging() {
+    if (!this._ipMessaging) {
       const IpMessaging = require('./IpMessaging');  /* jshint ignore:line */
-      this._ipmessaging = new IpMessaging(this);
+      this._ipMessaging = new IpMessaging(this);
     }
-    return this._ipmessaging;
+    return this._ipMessaging;
   }
   get lookups() {
     if (!this._lookups) {

@@ -10,13 +10,13 @@
  */
 
 import Domain from '../base/Domain';
-import V1 from './flex/V1';
+import V1 from './flexApi/V1';
 
 class FlexApiBase extends Domain {
     _v1?: V1;
 
     /**
-     * Initialize flex domain
+     * Initialize flexApi domain
      *
      * @param twilio - The twilio client
      */
