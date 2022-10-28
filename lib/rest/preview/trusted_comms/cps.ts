@@ -20,16 +20,17 @@ const serialize = require("../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a CpsInstance
  *
  * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
  */
-export interface CpsListInstanceFetchOptions {
+export interface CpsContextFetchOptions {
   xXcnamSensitivePhoneNumber?: string;
 }
 
-export interface CpsListInstance {
+export interface CpsContext {
 
 
   /**
@@ -43,12 +44,12 @@ export interface CpsListInstance {
   /**
    * Fetch a CpsInstance
    *
-   * @param { CpsListInstanceFetchOptions } params - Parameter for request
+   * @param { CpsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CpsInstance
    */
-  fetch(params: CpsListInstanceFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(params: CpsContextFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
   fetch(params?: any, callback?: any): Promise<CpsInstance>
 
 
@@ -59,26 +60,21 @@ export interface CpsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CpsSolution {
+export interface CpsContextSolution {
 }
 
-interface CpsListInstanceImpl extends CpsListInstance {}
-class CpsListInstanceImpl implements CpsListInstance {
-  _version?: TrustedComms;
-  _solution?: CpsSolution;
-  _uri?: string;
+export class CpsContextImpl implements CpsContext {
+  protected _solution: CpsContextSolution;
+  protected _uri: string;
 
-}
 
-export function CpsListInstance(version: TrustedComms): CpsListInstance {
-  const instance = {} as CpsListInstanceImpl;
+  constructor(protected _version: TrustedComms) {
+    this._solution = {  };
+    this._uri = `/CPS`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/CPS`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<CpsInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<CpsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -91,7 +87,7 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
     const headers: any = {};
     if (params.xXcnamSensitivePhoneNumber !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params.xXcnamSensitivePhoneNumber;
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CpsInstance(operationVersion, payload));
@@ -101,17 +97,20 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface CpsPayload extends CpsResource{
@@ -124,12 +123,15 @@ interface CpsResource {
 }
 
 export class CpsInstance {
+  protected _solution: CpsContextSolution;
+  protected _context?: CpsContext;
 
   constructor(protected _version: TrustedComms, payload: CpsPayload) {
     this.cpsUrl = payload.cps_url;
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -144,6 +146,33 @@ export class CpsInstance {
    * The URL of this resource.
    */
   url?: string | null;
+
+  private get _proxy(): CpsContext {
+    this._context = this._context || new CpsContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a CpsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CpsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  /**
+   * Fetch a CpsInstance
+   *
+   * @param { CpsContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CpsInstance
+   */
+  fetch(params: CpsContextFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(params?: any, callback?: any): Promise<CpsInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
 
   /**
    * Provide a user-friendly representation
@@ -162,5 +191,52 @@ export class CpsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface CpsListInstance {
+  (): CpsContext;
+  get(): CpsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface CpsListInstanceImpl extends CpsListInstance {}
+class CpsListInstanceImpl implements CpsListInstance {
+  _version?: TrustedComms;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function CpsListInstance(version: TrustedComms): CpsListInstance {
+  const instance = (() => instance.get()) as CpsListInstanceImpl;
+
+  instance.get = function get(): CpsContext {
+    return new CpsContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

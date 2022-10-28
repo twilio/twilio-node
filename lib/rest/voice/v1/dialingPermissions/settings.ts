@@ -20,16 +20,17 @@ const serialize = require("../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to update a SettingsInstance
  *
  * @property { boolean } [dialingPermissionsInheritance] &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
  */
-export interface SettingsListInstanceUpdateOptions {
+export interface SettingsContextUpdateOptions {
   dialingPermissionsInheritance?: boolean;
 }
 
-export interface SettingsListInstance {
+export interface SettingsContext {
 
 
   /**
@@ -53,12 +54,12 @@ export interface SettingsListInstance {
   /**
    * Update a SettingsInstance
    *
-   * @param { SettingsListInstanceUpdateOptions } params - Parameter for request
+   * @param { SettingsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  update(params: SettingsListInstanceUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
   update(params?: any, callback?: any): Promise<SettingsInstance>
 
 
@@ -69,27 +70,22 @@ export interface SettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsSolution {
+export interface SettingsContextSolution {
 }
 
-interface SettingsListInstanceImpl extends SettingsListInstance {}
-class SettingsListInstanceImpl implements SettingsListInstance {
-  _version?: V1;
-  _solution?: SettingsSolution;
-  _uri?: string;
+export class SettingsContextImpl implements SettingsContext {
+  protected _solution: SettingsContextSolution;
+  protected _uri: string;
 
-}
 
-export function SettingsListInstance(version: V1): SettingsListInstance {
-  const instance = {} as SettingsListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/Settings`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Settings`;
-
-  instance.fetch = function fetch(callback?: any): Promise<SettingsInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<SettingsInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
@@ -99,10 +95,10 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<SettingsInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<SettingsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,7 +112,7 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
@@ -126,17 +122,20 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface SettingsPayload extends SettingsResource{
@@ -148,11 +147,14 @@ interface SettingsResource {
 }
 
 export class SettingsInstance {
+  protected _solution: SettingsContextSolution;
+  protected _context?: SettingsContext;
 
   constructor(protected _version: V1, payload: SettingsPayload) {
     this.dialingPermissionsInheritance = payload.dialing_permissions_inheritance;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -163,6 +165,45 @@ export class SettingsInstance {
    * The absolute URL of this resource
    */
   url?: string | null;
+
+  private get _proxy(): SettingsContext {
+    this._context = this._context || new SettingsContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a SettingsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a SettingsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingsInstance
+   */
+  update(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  /**
+   * Update a SettingsInstance
+   *
+   * @param { SettingsContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingsInstance
+   */
+  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(params?: any, callback?: any): Promise<SettingsInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
 
   /**
    * Provide a user-friendly representation
@@ -180,5 +221,52 @@ export class SettingsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface SettingsListInstance {
+  (): SettingsContext;
+  get(): SettingsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface SettingsListInstanceImpl extends SettingsListInstance {}
+class SettingsListInstanceImpl implements SettingsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function SettingsListInstance(version: V1): SettingsListInstance {
+  const instance = (() => instance.get()) as SettingsListInstanceImpl;
+
+  instance.get = function get(): SettingsContext {
+    return new SettingsContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

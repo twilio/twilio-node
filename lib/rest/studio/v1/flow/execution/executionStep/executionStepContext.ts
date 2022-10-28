@@ -20,7 +20,8 @@ const serialize = require("../../../../../../base/serialize");
 
 
 
-export interface ExecutionStepContextListInstance {
+
+export interface ExecutionStepContextContext {
 
 
   /**
@@ -40,30 +41,25 @@ export interface ExecutionStepContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExecutionStepContextSolution {
+export interface ExecutionStepContextContextSolution {
   flowSid?: string;
   executionSid?: string;
   stepSid?: string;
 }
 
-interface ExecutionStepContextListInstanceImpl extends ExecutionStepContextListInstance {}
-class ExecutionStepContextListInstanceImpl implements ExecutionStepContextListInstance {
-  _version?: V1;
-  _solution?: ExecutionStepContextSolution;
-  _uri?: string;
+export class ExecutionStepContextContextImpl implements ExecutionStepContextContext {
+  protected _solution: ExecutionStepContextContextSolution;
+  protected _uri: string;
 
-}
 
-export function ExecutionStepContextListInstance(version: V1, flowSid: string, executionSid: string, stepSid: string): ExecutionStepContextListInstance {
-  const instance = {} as ExecutionStepContextListInstanceImpl;
+  constructor(protected _version: V1, flowSid: string, executionSid: string, stepSid: string) {
+    this._solution = { flowSid, executionSid, stepSid };
+    this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
+  }
 
-  instance._version = version;
-  instance._solution = { flowSid, executionSid, stepSid };
-  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
-
-  instance.fetch = function fetch(callback?: any): Promise<ExecutionStepContextInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<ExecutionStepContextInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new ExecutionStepContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.executionSid, this._solution.stepSid));
@@ -73,17 +69,20 @@ export function ExecutionStepContextListInstance(version: V1, flowSid: string, e
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface ExecutionStepContextPayload extends ExecutionStepContextResource{
@@ -99,6 +98,8 @@ interface ExecutionStepContextResource {
 }
 
 export class ExecutionStepContextInstance {
+  protected _solution: ExecutionStepContextContextSolution;
+  protected _context?: ExecutionStepContextContext;
 
   constructor(protected _version: V1, payload: ExecutionStepContextPayload, flowSid: string, executionSid: string, stepSid?: string) {
     this.accountSid = payload.account_sid;
@@ -108,6 +109,7 @@ export class ExecutionStepContextInstance {
     this.stepSid = payload.step_sid;
     this.url = payload.url;
 
+    this._solution = { flowSid, executionSid, stepSid: stepSid || this.stepSid };
   }
 
   /**
@@ -135,6 +137,23 @@ export class ExecutionStepContextInstance {
    */
   url?: string | null;
 
+  private get _proxy(): ExecutionStepContextContext {
+    this._context = this._context || new ExecutionStepContextContextImpl(this._version, this._solution.flowSid, this._solution.executionSid, this._solution.stepSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a ExecutionStepContextInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExecutionStepContextInstance
+   */
+  fetch(callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any): Promise<ExecutionStepContextInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -155,5 +174,52 @@ export class ExecutionStepContextInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface ExecutionStepContextListInstance {
+  (stepSid: string): ExecutionStepContextContext;
+  get(stepSid: string): ExecutionStepContextContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface ExecutionStepContextListInstanceImpl extends ExecutionStepContextListInstance {}
+class ExecutionStepContextListInstanceImpl implements ExecutionStepContextListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function ExecutionStepContextListInstance(version: V1): ExecutionStepContextListInstance {
+  const instance = ((stepSid) => instance.get(stepSid)) as ExecutionStepContextListInstanceImpl;
+
+  instance.get = function get(stepSid): ExecutionStepContextContext {
+    return new ExecutionStepContextContextImpl(version, flowSid, executionSid, stepSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

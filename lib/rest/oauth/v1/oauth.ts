@@ -20,7 +20,8 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface OauthListInstance {
+
+export interface OauthContext {
 
 
   /**
@@ -40,27 +41,22 @@ export interface OauthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OauthSolution {
+export interface OauthContextSolution {
 }
 
-interface OauthListInstanceImpl extends OauthListInstance {}
-class OauthListInstanceImpl implements OauthListInstance {
-  _version?: V1;
-  _solution?: OauthSolution;
-  _uri?: string;
+export class OauthContextImpl implements OauthContext {
+  protected _solution: OauthContextSolution;
+  protected _uri: string;
 
-}
 
-export function OauthListInstance(version: V1): OauthListInstance {
-  const instance = {} as OauthListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/certs`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/certs`;
-
-  instance.fetch = function fetch(callback?: any): Promise<OauthInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<OauthInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new OauthInstance(operationVersion, payload));
@@ -70,17 +66,20 @@ export function OauthListInstance(version: V1): OauthListInstance {
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface OauthPayload extends OauthResource{
@@ -92,11 +91,14 @@ interface OauthResource {
 }
 
 export class OauthInstance {
+  protected _solution: OauthContextSolution;
+  protected _context?: OauthContext;
 
   constructor(protected _version: V1, payload: OauthPayload) {
     this.keys = payload.keys;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -104,6 +106,23 @@ export class OauthInstance {
    */
   keys?: any | null;
   url?: string | null;
+
+  private get _proxy(): OauthContext {
+    this._context = this._context || new OauthContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a OauthInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed OauthInstance
+   */
+  fetch(callback?: (error: Error | null, item?: OauthInstance) => any): Promise<OauthInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
 
   /**
    * Provide a user-friendly representation
@@ -121,5 +140,52 @@ export class OauthInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface OauthListInstance {
+  (): OauthContext;
+  get(): OauthContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface OauthListInstanceImpl extends OauthListInstance {}
+class OauthListInstanceImpl implements OauthListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function OauthListInstance(version: V1): OauthListInstance {
+  const instance = (() => instance.get()) as OauthListInstanceImpl;
+
+  instance.get = function get(): OauthContext {
+    return new OauthContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

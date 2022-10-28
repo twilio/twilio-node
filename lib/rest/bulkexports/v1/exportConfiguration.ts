@@ -20,6 +20,7 @@ const serialize = require("../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to update a ExportConfigurationInstance
  *
@@ -27,13 +28,13 @@ const serialize = require("../../../base/serialize");
  * @property { string } [webhookUrl] Stores the URL destination for the method specified in webhook_method.
  * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */
-export interface ExportConfigurationListInstanceUpdateOptions {
+export interface ExportConfigurationContextUpdateOptions {
   enabled?: boolean;
   webhookUrl?: string;
   webhookMethod?: string;
 }
 
-export interface ExportConfigurationListInstance {
+export interface ExportConfigurationContext {
 
 
   /**
@@ -57,12 +58,12 @@ export interface ExportConfigurationListInstance {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { ExportConfigurationListInstanceUpdateOptions } params - Parameter for request
+   * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
-  update(params: ExportConfigurationListInstanceUpdateOptions, callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  update(params: ExportConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
   update(params?: any, callback?: any): Promise<ExportConfigurationInstance>
 
 
@@ -73,28 +74,23 @@ export interface ExportConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportConfigurationSolution {
+export interface ExportConfigurationContextSolution {
   resourceType?: string;
 }
 
-interface ExportConfigurationListInstanceImpl extends ExportConfigurationListInstance {}
-class ExportConfigurationListInstanceImpl implements ExportConfigurationListInstance {
-  _version?: V1;
-  _solution?: ExportConfigurationSolution;
-  _uri?: string;
+export class ExportConfigurationContextImpl implements ExportConfigurationContext {
+  protected _solution: ExportConfigurationContextSolution;
+  protected _uri: string;
 
-}
 
-export function ExportConfigurationListInstance(version: V1, resourceType: string): ExportConfigurationListInstance {
-  const instance = {} as ExportConfigurationListInstanceImpl;
+  constructor(protected _version: V1, resourceType: string) {
+    this._solution = { resourceType };
+    this._uri = `/Exports/${resourceType}/Configuration`;
+  }
 
-  instance._version = version;
-  instance._solution = { resourceType };
-  instance._uri = `/Exports/${resourceType}/Configuration`;
-
-  instance.fetch = function fetch(callback?: any): Promise<ExportConfigurationInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<ExportConfigurationInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
@@ -104,10 +100,10 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -123,7 +119,7 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
@@ -133,17 +129,20 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface ExportConfigurationPayload extends ExportConfigurationResource{
@@ -158,6 +157,8 @@ interface ExportConfigurationResource {
 }
 
 export class ExportConfigurationInstance {
+  protected _solution: ExportConfigurationContextSolution;
+  protected _context?: ExportConfigurationContext;
 
   constructor(protected _version: V1, payload: ExportConfigurationPayload, resourceType?: string) {
     this.enabled = payload.enabled;
@@ -166,6 +167,7 @@ export class ExportConfigurationInstance {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
 
+    this._solution = { resourceType: resourceType || this.resourceType };
   }
 
   /**
@@ -189,6 +191,45 @@ export class ExportConfigurationInstance {
    */
   url?: string | null;
 
+  private get _proxy(): ExportConfigurationContext {
+    this._context = this._context || new ExportConfigurationContextImpl(this._version, this._solution.resourceType);
+    return this._context;
+  }
+
+  /**
+   * Fetch a ExportConfigurationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a ExportConfigurationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  update(callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  /**
+   * Update a ExportConfigurationInstance
+   *
+   * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  update(params: ExportConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ExportConfigurationInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -208,5 +249,52 @@ export class ExportConfigurationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface ExportConfigurationListInstance {
+  (resourceType: string): ExportConfigurationContext;
+  get(resourceType: string): ExportConfigurationContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface ExportConfigurationListInstanceImpl extends ExportConfigurationListInstance {}
+class ExportConfigurationListInstanceImpl implements ExportConfigurationListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function ExportConfigurationListInstance(version: V1): ExportConfigurationListInstance {
+  const instance = ((resourceType) => instance.get(resourceType)) as ExportConfigurationListInstanceImpl;
+
+  instance.get = function get(resourceType): ExportConfigurationContext {
+    return new ExportConfigurationContextImpl(version, resourceType);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

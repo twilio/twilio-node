@@ -20,6 +20,7 @@ const serialize = require("../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to create a CompositionSettingsInstance
  *
@@ -30,7 +31,7 @@ const serialize = require("../../../base/serialize");
  * @property { boolean } [awsStorageEnabled] Whether all compositions should be written to the &#x60;aws_s3_url&#x60;. When &#x60;false&#x60;, all compositions are stored in our cloud.
  * @property { boolean } [encryptionEnabled] Whether all compositions should be stored in an encrypted form. The default is &#x60;false&#x60;.
  */
-export interface CompositionSettingsListInstanceCreateOptions {
+export interface CompositionSettingsContextCreateOptions {
   friendlyName: string;
   awsCredentialsSid?: string;
   encryptionKeySid?: string;
@@ -39,18 +40,18 @@ export interface CompositionSettingsListInstanceCreateOptions {
   encryptionEnabled?: boolean;
 }
 
-export interface CompositionSettingsListInstance {
+export interface CompositionSettingsContext {
 
 
   /**
    * Create a CompositionSettingsInstance
    *
-   * @param { CompositionSettingsListInstanceCreateOptions } params - Parameter for request
+   * @param { CompositionSettingsContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CompositionSettingsInstance
    */
-  create(params: CompositionSettingsListInstanceCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
   create(params: any, callback?: any): Promise<CompositionSettingsInstance>
 
 
@@ -71,26 +72,21 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsSolution {
+export interface CompositionSettingsContextSolution {
 }
 
-interface CompositionSettingsListInstanceImpl extends CompositionSettingsListInstance {}
-class CompositionSettingsListInstanceImpl implements CompositionSettingsListInstance {
-  _version?: V1;
-  _solution?: CompositionSettingsSolution;
-  _uri?: string;
+export class CompositionSettingsContextImpl implements CompositionSettingsContext {
+  protected _solution: CompositionSettingsContextSolution;
+  protected _uri: string;
 
-}
 
-export function CompositionSettingsListInstance(version: V1): CompositionSettingsListInstance {
-  const instance = {} as CompositionSettingsListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/CompositionSettings/Default`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/CompositionSettings/Default`;
-
-  instance.create = function create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
-    if (params === null || params === undefined) {
+  create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
@@ -110,7 +106,7 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
@@ -120,11 +116,11 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
     return operationPromise;
 
 
-    }
+  }
 
-  instance.fetch = function fetch(callback?: any): Promise<CompositionSettingsInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<CompositionSettingsInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
@@ -134,17 +130,20 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface CompositionSettingsPayload extends CompositionSettingsResource{
@@ -162,6 +161,8 @@ interface CompositionSettingsResource {
 }
 
 export class CompositionSettingsInstance {
+  protected _solution: CompositionSettingsContextSolution;
+  protected _context?: CompositionSettingsContext;
 
   constructor(protected _version: V1, payload: CompositionSettingsPayload) {
     this.accountSid = payload.account_sid;
@@ -173,6 +174,7 @@ export class CompositionSettingsInstance {
     this.encryptionEnabled = payload.encryption_enabled;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -208,6 +210,37 @@ export class CompositionSettingsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): CompositionSettingsContext {
+    this._context = this._context || new CompositionSettingsContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Create a CompositionSettingsInstance
+   *
+   * @param { CompositionSettingsContextCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   */
+  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  create(params: any, callback?: any): Promise<CompositionSettingsInstance>
+     {
+    return this._proxy.create(params, callback);
+  }
+
+  /**
+   * Fetch a CompositionSettingsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -230,5 +263,52 @@ export class CompositionSettingsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface CompositionSettingsListInstance {
+  (): CompositionSettingsContext;
+  get(): CompositionSettingsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface CompositionSettingsListInstanceImpl extends CompositionSettingsListInstance {}
+class CompositionSettingsListInstanceImpl implements CompositionSettingsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function CompositionSettingsListInstance(version: V1): CompositionSettingsListInstance {
+  const instance = (() => instance.get()) as CompositionSettingsListInstanceImpl;
+
+  instance.get = function get(): CompositionSettingsContext {
+    return new CompositionSettingsContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

@@ -20,16 +20,17 @@ const serialize = require("../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to update a StyleSheetInstance
  *
  * @property { any } [styleSheet] The JSON string that describes the style sheet object.
  */
-export interface StyleSheetListInstanceUpdateOptions {
+export interface StyleSheetContextUpdateOptions {
   styleSheet?: any;
 }
 
-export interface StyleSheetListInstance {
+export interface StyleSheetContext {
 
 
   /**
@@ -53,12 +54,12 @@ export interface StyleSheetListInstance {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { StyleSheetListInstanceUpdateOptions } params - Parameter for request
+   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
-  update(params: StyleSheetListInstanceUpdateOptions, callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  update(params: StyleSheetContextUpdateOptions, callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
   update(params?: any, callback?: any): Promise<StyleSheetInstance>
 
 
@@ -69,28 +70,23 @@ export interface StyleSheetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StyleSheetSolution {
+export interface StyleSheetContextSolution {
   assistantSid?: string;
 }
 
-interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
-class StyleSheetListInstanceImpl implements StyleSheetListInstance {
-  _version?: V1;
-  _solution?: StyleSheetSolution;
-  _uri?: string;
+export class StyleSheetContextImpl implements StyleSheetContext {
+  protected _solution: StyleSheetContextSolution;
+  protected _uri: string;
 
-}
 
-export function StyleSheetListInstance(version: V1, assistantSid: string): StyleSheetListInstance {
-  const instance = {} as StyleSheetListInstanceImpl;
+  constructor(protected _version: V1, assistantSid: string) {
+    this._solution = { assistantSid };
+    this._uri = `/Assistants/${assistantSid}/StyleSheet`;
+  }
 
-  instance._version = version;
-  instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/StyleSheet`;
-
-  instance.fetch = function fetch(callback?: any): Promise<StyleSheetInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<StyleSheetInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
@@ -100,10 +96,10 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<StyleSheetInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -117,7 +113,7 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
@@ -127,17 +123,20 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface StyleSheetPayload extends StyleSheetResource{
@@ -151,6 +150,8 @@ interface StyleSheetResource {
 }
 
 export class StyleSheetInstance {
+  protected _solution: StyleSheetContextSolution;
+  protected _context?: StyleSheetContext;
 
   constructor(protected _version: V1, payload: StyleSheetPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -158,6 +159,7 @@ export class StyleSheetInstance {
     this.url = payload.url;
     this.data = payload.data;
 
+    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   /**
@@ -177,6 +179,45 @@ export class StyleSheetInstance {
    */
   data?: any | null;
 
+  private get _proxy(): StyleSheetContext {
+    this._context = this._context || new StyleSheetContextImpl(this._version, this._solution.assistantSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a StyleSheetInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  fetch(callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a StyleSheetInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  update(callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  /**
+   * Update a StyleSheetInstance
+   *
+   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  update(params: StyleSheetContextUpdateOptions, callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  update(params?: any, callback?: any): Promise<StyleSheetInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -195,5 +236,52 @@ export class StyleSheetInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface StyleSheetListInstance {
+  (assistantSid: string): StyleSheetContext;
+  get(assistantSid: string): StyleSheetContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
+class StyleSheetListInstanceImpl implements StyleSheetListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function StyleSheetListInstance(version: V1): StyleSheetListInstance {
+  const instance = ((assistantSid) => instance.get(assistantSid)) as StyleSheetListInstanceImpl;
+
+  instance.get = function get(assistantSid): StyleSheetContext {
+    return new StyleSheetContextImpl(version, assistantSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

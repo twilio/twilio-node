@@ -20,18 +20,19 @@ const serialize = require("../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a CurrentCallInstance
  *
  * @property { string } [xXcnamSensitivePhoneNumberFrom] The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400.
  * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
-export interface CurrentCallListInstanceFetchOptions {
+export interface CurrentCallContextFetchOptions {
   xXcnamSensitivePhoneNumberFrom?: string;
   xXcnamSensitivePhoneNumberTo?: string;
 }
 
-export interface CurrentCallListInstance {
+export interface CurrentCallContext {
 
 
   /**
@@ -45,12 +46,12 @@ export interface CurrentCallListInstance {
   /**
    * Fetch a CurrentCallInstance
    *
-   * @param { CurrentCallListInstanceFetchOptions } params - Parameter for request
+   * @param { CurrentCallContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CurrentCallInstance
    */
-  fetch(params: CurrentCallListInstanceFetchOptions, callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(params: CurrentCallContextFetchOptions, callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
   fetch(params?: any, callback?: any): Promise<CurrentCallInstance>
 
 
@@ -61,26 +62,21 @@ export interface CurrentCallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CurrentCallSolution {
+export interface CurrentCallContextSolution {
 }
 
-interface CurrentCallListInstanceImpl extends CurrentCallListInstance {}
-class CurrentCallListInstanceImpl implements CurrentCallListInstance {
-  _version?: TrustedComms;
-  _solution?: CurrentCallSolution;
-  _uri?: string;
+export class CurrentCallContextImpl implements CurrentCallContext {
+  protected _solution: CurrentCallContextSolution;
+  protected _uri: string;
 
-}
 
-export function CurrentCallListInstance(version: TrustedComms): CurrentCallListInstance {
-  const instance = {} as CurrentCallListInstanceImpl;
+  constructor(protected _version: TrustedComms) {
+    this._solution = {  };
+    this._uri = `/CurrentCall`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/CurrentCall`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<CurrentCallInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<CurrentCallInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -94,7 +90,7 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
     if (params.xXcnamSensitivePhoneNumberFrom !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-From'] = params.xXcnamSensitivePhoneNumberFrom;
     if (params.xXcnamSensitivePhoneNumberTo !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-To'] = params.xXcnamSensitivePhoneNumberTo;
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CurrentCallInstance(operationVersion, payload));
@@ -104,17 +100,20 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface CurrentCallPayload extends CurrentCallResource{
@@ -138,6 +137,8 @@ interface CurrentCallResource {
 }
 
 export class CurrentCallInstance {
+  protected _solution: CurrentCallContextSolution;
+  protected _context?: CurrentCallContext;
 
   constructor(protected _version: TrustedComms, payload: CurrentCallPayload) {
     this.bgColor = payload.bg_color;
@@ -155,6 +156,7 @@ export class CurrentCallInstance {
     this.url = payload.url;
     this.useCase = payload.use_case;
 
+    this._solution = {  };
   }
 
   /**
@@ -214,6 +216,33 @@ export class CurrentCallInstance {
    */
   useCase?: string | null;
 
+  private get _proxy(): CurrentCallContext {
+    this._context = this._context || new CurrentCallContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a CurrentCallInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CurrentCallInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  /**
+   * Fetch a CurrentCallInstance
+   *
+   * @param { CurrentCallContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CurrentCallInstance
+   */
+  fetch(params: CurrentCallContextFetchOptions, callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(params?: any, callback?: any): Promise<CurrentCallInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -242,5 +271,52 @@ export class CurrentCallInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface CurrentCallListInstance {
+  (): CurrentCallContext;
+  get(): CurrentCallContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface CurrentCallListInstanceImpl extends CurrentCallListInstance {}
+class CurrentCallListInstanceImpl implements CurrentCallListInstance {
+  _version?: TrustedComms;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function CurrentCallListInstance(version: TrustedComms): CurrentCallListInstance {
+  const instance = (() => instance.get()) as CurrentCallListInstanceImpl;
+
+  instance.get = function get(): CurrentCallContext {
+    return new CurrentCallContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

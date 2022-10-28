@@ -19,6 +19,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
 type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
 
 type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity_issue'|'invalid_number'|'caller_id'|'dropped_call'|'number_reachability';
@@ -35,7 +36,7 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
  * @property { string } [comment] Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
-export interface AnnotationListInstanceUpdateOptions {
+export interface AnnotationContextUpdateOptions {
   answeredBy?: AnnotationAnsweredBy;
   connectivityIssue?: AnnotationConnectivityIssue;
   qualityIssues?: string;
@@ -45,7 +46,7 @@ export interface AnnotationListInstanceUpdateOptions {
   incident?: string;
 }
 
-export interface AnnotationListInstance {
+export interface AnnotationContext {
 
 
   /**
@@ -69,12 +70,12 @@ export interface AnnotationListInstance {
   /**
    * Update a AnnotationInstance
    *
-   * @param { AnnotationListInstanceUpdateOptions } params - Parameter for request
+   * @param { AnnotationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  update(params: AnnotationListInstanceUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
   update(params?: any, callback?: any): Promise<AnnotationInstance>
 
 
@@ -85,28 +86,23 @@ export interface AnnotationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AnnotationSolution {
+export interface AnnotationContextSolution {
   callSid?: string;
 }
 
-interface AnnotationListInstanceImpl extends AnnotationListInstance {}
-class AnnotationListInstanceImpl implements AnnotationListInstance {
-  _version?: V1;
-  _solution?: AnnotationSolution;
-  _uri?: string;
+export class AnnotationContextImpl implements AnnotationContext {
+  protected _solution: AnnotationContextSolution;
+  protected _uri: string;
 
-}
 
-export function AnnotationListInstance(version: V1, callSid: string): AnnotationListInstance {
-  const instance = {} as AnnotationListInstanceImpl;
+  constructor(protected _version: V1, callSid: string) {
+    this._solution = { callSid };
+    this._uri = `/Voice/${callSid}/Annotation`;
+  }
 
-  instance._version = version;
-  instance._solution = { callSid };
-  instance._uri = `/Voice/${callSid}/Annotation`;
-
-  instance.fetch = function fetch(callback?: any): Promise<AnnotationInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<AnnotationInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
@@ -116,10 +112,10 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<AnnotationInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<AnnotationInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -139,7 +135,7 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
@@ -149,17 +145,20 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface AnnotationPayload extends AnnotationResource{
@@ -179,6 +178,8 @@ interface AnnotationResource {
 }
 
 export class AnnotationInstance {
+  protected _solution: AnnotationContextSolution;
+  protected _context?: AnnotationContext;
 
   constructor(protected _version: V1, payload: AnnotationPayload, callSid?: string) {
     this.callSid = payload.call_sid;
@@ -192,6 +193,7 @@ export class AnnotationInstance {
     this.incident = payload.incident;
     this.url = payload.url;
 
+    this._solution = { callSid: callSid || this.callSid };
   }
 
   /**
@@ -229,6 +231,45 @@ export class AnnotationInstance {
    */
   url?: string | null;
 
+  private get _proxy(): AnnotationContext {
+    this._context = this._context || new AnnotationContextImpl(this._version, this._solution.callSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a AnnotationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a AnnotationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  /**
+   * Update a AnnotationInstance
+   *
+   * @param { AnnotationContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(params?: any, callback?: any): Promise<AnnotationInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -253,5 +294,52 @@ export class AnnotationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface AnnotationListInstance {
+  (callSid: string): AnnotationContext;
+  get(callSid: string): AnnotationContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface AnnotationListInstanceImpl extends AnnotationListInstance {}
+class AnnotationListInstanceImpl implements AnnotationListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function AnnotationListInstance(version: V1): AnnotationListInstance {
+  const instance = ((callSid) => instance.get(callSid)) as AnnotationListInstanceImpl;
+
+  instance.get = function get(callSid): AnnotationContext {
+    return new AnnotationContextImpl(version, callSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

@@ -21,6 +21,7 @@ import { WebhookListInstance } from "./configuration/webhook";
 
 
 
+
 /**
  * Options to pass to update a ConfigurationInstance
  *
@@ -29,14 +30,14 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { string } [defaultInactiveTimer] Default ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
  * @property { string } [defaultClosedTimer] Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
  */
-export interface ConfigurationListInstanceUpdateOptions {
+export interface ConfigurationContextUpdateOptions {
   defaultChatServiceSid?: string;
   defaultMessagingServiceSid?: string;
   defaultInactiveTimer?: string;
   defaultClosedTimer?: string;
 }
 
-export interface ConfigurationListInstance {
+export interface ConfigurationContext {
 
   webhooks: WebhookListInstance;
 
@@ -61,12 +62,12 @@ export interface ConfigurationListInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationListInstanceUpdateOptions } params - Parameter for request
+   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  update(params: ConfigurationListInstanceUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   update(params?: any, callback?: any): Promise<ConfigurationInstance>
 
 
@@ -77,37 +78,28 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationSolution {
+export interface ConfigurationContextSolution {
 }
 
-interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
-class ConfigurationListInstanceImpl implements ConfigurationListInstance {
-  _version?: V1;
-  _solution?: ConfigurationSolution;
-  _uri?: string;
+export class ConfigurationContextImpl implements ConfigurationContext {
+  protected _solution: ConfigurationContextSolution;
+  protected _uri: string;
 
-  _webhooks?: WebhookListInstance;
-}
+  protected _webhooks?: WebhookListInstance;
 
-export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
-  const instance = {} as ConfigurationListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/Configuration`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Configuration`;
+  get webhooks(): WebhookListInstance {
+    this._webhooks = this._webhooks || WebhookListInstance(this._version);
+    return this._webhooks;
+  }
 
-  Object.defineProperty(instance, "webhooks", {
-    get: function webhooks() {
-      if (!this._webhooks) {
-        this._webhooks = WebhookListInstance(this._version);
-      }
-      return this._webhooks;
-    }
-  });
-
-  instance.fetch = function fetch(callback?: any): Promise<ConfigurationInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<ConfigurationInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
@@ -117,10 +109,10 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<ConfigurationInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -137,7 +129,7 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
@@ -147,17 +139,20 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface ConfigurationPayload extends ConfigurationResource{
@@ -174,6 +169,8 @@ interface ConfigurationResource {
 }
 
 export class ConfigurationInstance {
+  protected _solution: ConfigurationContextSolution;
+  protected _context?: ConfigurationContext;
 
   constructor(protected _version: V1, payload: ConfigurationPayload) {
     this.accountSid = payload.account_sid;
@@ -184,6 +181,7 @@ export class ConfigurationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
+    this._solution = {  };
   }
 
   /**
@@ -215,6 +213,52 @@ export class ConfigurationInstance {
    */
   links?: object | null;
 
+  private get _proxy(): ConfigurationContext {
+    this._context = this._context || new ConfigurationContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a ConfigurationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ConfigurationInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Access the webhooks.
+   */
+  webhooks(): WebhookListInstance {
+    return this._proxy.webhooks;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -236,5 +280,52 @@ export class ConfigurationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface ConfigurationListInstance {
+  (): ConfigurationContext;
+  get(): ConfigurationContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
+class ConfigurationListInstanceImpl implements ConfigurationListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
+  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
+
+  instance.get = function get(): ConfigurationContext {
+    return new ConfigurationContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

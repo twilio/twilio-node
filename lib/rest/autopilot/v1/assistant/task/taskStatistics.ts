@@ -20,7 +20,8 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-export interface TaskStatisticsListInstance {
+
+export interface TaskStatisticsContext {
 
 
   /**
@@ -40,29 +41,24 @@ export interface TaskStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskStatisticsSolution {
+export interface TaskStatisticsContextSolution {
   assistantSid?: string;
   taskSid?: string;
 }
 
-interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
-class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
-  _version?: V1;
-  _solution?: TaskStatisticsSolution;
-  _uri?: string;
+export class TaskStatisticsContextImpl implements TaskStatisticsContext {
+  protected _solution: TaskStatisticsContextSolution;
+  protected _uri: string;
 
-}
 
-export function TaskStatisticsListInstance(version: V1, assistantSid: string, taskSid: string): TaskStatisticsListInstance {
-  const instance = {} as TaskStatisticsListInstanceImpl;
+  constructor(protected _version: V1, assistantSid: string, taskSid: string) {
+    this._solution = { assistantSid, taskSid };
+    this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
+  }
 
-  instance._version = version;
-  instance._solution = { assistantSid, taskSid };
-  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
-
-  instance.fetch = function fetch(callback?: any): Promise<TaskStatisticsInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<TaskStatisticsInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new TaskStatisticsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
@@ -72,17 +68,20 @@ export function TaskStatisticsListInstance(version: V1, assistantSid: string, ta
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface TaskStatisticsPayload extends TaskStatisticsResource{
@@ -98,6 +97,8 @@ interface TaskStatisticsResource {
 }
 
 export class TaskStatisticsInstance {
+  protected _solution: TaskStatisticsContextSolution;
+  protected _context?: TaskStatisticsContext;
 
   constructor(protected _version: V1, payload: TaskStatisticsPayload, assistantSid: string, taskSid?: string) {
     this.accountSid = payload.account_sid;
@@ -107,6 +108,7 @@ export class TaskStatisticsInstance {
     this.fieldsCount = deserialize.integer(payload.fields_count);
     this.url = payload.url;
 
+    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
   }
 
   /**
@@ -134,6 +136,23 @@ export class TaskStatisticsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): TaskStatisticsContext {
+    this._context = this._context || new TaskStatisticsContextImpl(this._version, this._solution.assistantSid, this._solution.taskSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a TaskStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -154,5 +173,52 @@ export class TaskStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface TaskStatisticsListInstance {
+  (taskSid: string): TaskStatisticsContext;
+  get(taskSid: string): TaskStatisticsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
+class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function TaskStatisticsListInstance(version: V1): TaskStatisticsListInstance {
+  const instance = ((taskSid) => instance.get(taskSid)) as TaskStatisticsListInstanceImpl;
+
+  instance.get = function get(taskSid): TaskStatisticsContext {
+    return new TaskStatisticsContextImpl(version, assistantSid, taskSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

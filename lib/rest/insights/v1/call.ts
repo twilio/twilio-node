@@ -24,8 +24,7 @@ import { MetricListInstance } from "./call/metric";
 
 
 
-
-export interface CallContext {
+export interface CallListInstance {
 
   annotation: AnnotationListInstance;
   summary: CallSummaryListInstance;
@@ -49,70 +48,87 @@ export interface CallContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallContextSolution {
-  sid?: string;
+export interface CallSolution {
 }
 
-export class CallContextImpl implements CallContext {
-  protected _solution: CallContextSolution;
-  protected _uri: string;
+interface CallListInstanceImpl extends CallListInstance {}
+class CallListInstanceImpl implements CallListInstance {
+  _version?: V1;
+  _solution?: CallSolution;
+  _uri?: string;
 
-  protected _annotation?: AnnotationListInstance;
-  protected _summary?: CallSummaryListInstance;
-  protected _events?: EventListInstance;
-  protected _metrics?: MetricListInstance;
+  _annotation?: AnnotationListInstance;
+  _summary?: CallSummaryListInstance;
+  _events?: EventListInstance;
+  _metrics?: MetricListInstance;
+}
 
-  constructor(protected _version: V1, sid: string) {
-    this._solution = { sid };
-    this._uri = `/Voice/${sid}`;
-  }
+export function CallListInstance(version: V1): CallListInstance {
+  const instance = {} as CallListInstanceImpl;
 
-  get annotation(): AnnotationListInstance {
-    this._annotation = this._annotation || AnnotationListInstance(this._version, this._solution.sid);
-    return this._annotation;
-  }
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Voice`;
 
-  get summary(): CallSummaryListInstance {
-    this._summary = this._summary || CallSummaryListInstance(this._version, this._solution.sid);
-    return this._summary;
-  }
+  Object.defineProperty(instance, "annotation", {
+    get: function annotation() {
+      if (!this._annotation) {
+        this._annotation = AnnotationListInstance(this._version);
+      }
+      return this._annotation;
+    }
+  });
 
-  get events(): EventListInstance {
-    this._events = this._events || EventListInstance(this._version, this._solution.sid);
-    return this._events;
-  }
+  Object.defineProperty(instance, "summary", {
+    get: function summary() {
+      if (!this._summary) {
+        this._summary = CallSummaryListInstance(this._version);
+      }
+      return this._summary;
+    }
+  });
 
-  get metrics(): MetricListInstance {
-    this._metrics = this._metrics || MetricListInstance(this._version, this._solution.sid);
-    return this._metrics;
-  }
+  Object.defineProperty(instance, "events", {
+    get: function events() {
+      if (!this._events) {
+        this._events = EventListInstance(this._version);
+      }
+      return this._events;
+    }
+  });
 
-  fetch(callback?: any): Promise<CallInstance> {
-  
-    let operationVersion = this._version,
+  Object.defineProperty(instance, "metrics", {
+    get: function metrics() {
+      if (!this._metrics) {
+        this._metrics = MetricListInstance(this._version);
+      }
+      return this._metrics;
+    }
+  });
+
+  instance.fetch = function fetch(callback?: any): Promise<CallInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.sid));
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface CallPayload extends CallResource{
@@ -125,65 +141,17 @@ interface CallResource {
 }
 
 export class CallInstance {
-  protected _solution: CallContextSolution;
-  protected _context?: CallContext;
 
-  constructor(protected _version: V1, payload: CallPayload, sid?: string) {
+  constructor(protected _version: V1, payload: CallPayload) {
     this.sid = payload.sid;
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   sid?: string | null;
   url?: string | null;
   links?: object | null;
-
-  private get _proxy(): CallContext {
-    this._context = this._context || new CallContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a CallInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Access the annotation.
-   */
-  annotation(): AnnotationListInstance {
-    return this._proxy.annotation;
-  }
-
-  /**
-   * Access the summary.
-   */
-  summary(): CallSummaryListInstance {
-    return this._proxy.summary;
-  }
-
-  /**
-   * Access the events.
-   */
-  events(): EventListInstance {
-    return this._proxy.events;
-  }
-
-  /**
-   * Access the metrics.
-   */
-  metrics(): MetricListInstance {
-    return this._proxy.metrics;
-  }
 
   /**
    * Provide a user-friendly representation
@@ -202,52 +170,5 @@ export class CallInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface CallListInstance {
-  (sid: string): CallContext;
-  get(sid: string): CallContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CallSolution {
-}
-
-interface CallListInstanceImpl extends CallListInstance {}
-class CallListInstanceImpl implements CallListInstance {
-  _version?: V1;
-  _solution?: CallSolution;
-  _uri?: string;
-
-}
-
-export function CallListInstance(version: V1): CallListInstance {
-  const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
-
-  instance.get = function get(sid): CallContext {
-    return new CallContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Voice`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

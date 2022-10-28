@@ -20,7 +20,8 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface UserinfoListInstance {
+
+export interface UserinfoContext {
 
 
   /**
@@ -40,27 +41,22 @@ export interface UserinfoListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserinfoSolution {
+export interface UserinfoContextSolution {
 }
 
-interface UserinfoListInstanceImpl extends UserinfoListInstance {}
-class UserinfoListInstanceImpl implements UserinfoListInstance {
-  _version?: V1;
-  _solution?: UserinfoSolution;
-  _uri?: string;
+export class UserinfoContextImpl implements UserinfoContext {
+  protected _solution: UserinfoContextSolution;
+  protected _uri: string;
 
-}
 
-export function UserinfoListInstance(version: V1): UserinfoListInstance {
-  const instance = {} as UserinfoListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/userinfo`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/userinfo`;
-
-  instance.fetch = function fetch(callback?: any): Promise<UserinfoInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<UserinfoInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new UserinfoInstance(operationVersion, payload));
@@ -70,17 +66,20 @@ export function UserinfoListInstance(version: V1): UserinfoListInstance {
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface UserinfoPayload extends UserinfoResource{
@@ -96,6 +95,8 @@ interface UserinfoResource {
 }
 
 export class UserinfoInstance {
+  protected _solution: UserinfoContextSolution;
+  protected _context?: UserinfoContext;
 
   constructor(protected _version: V1, payload: UserinfoPayload) {
     this.userSid = payload.user_sid;
@@ -105,6 +106,7 @@ export class UserinfoInstance {
     this.email = payload.email;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -129,6 +131,23 @@ export class UserinfoInstance {
   email?: string | null;
   url?: string | null;
 
+  private get _proxy(): UserinfoContext {
+    this._context = this._context || new UserinfoContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Fetch a UserinfoInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserinfoInstance
+   */
+  fetch(callback?: (error: Error | null, item?: UserinfoInstance) => any): Promise<UserinfoInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -149,5 +168,52 @@ export class UserinfoInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface UserinfoListInstance {
+  (): UserinfoContext;
+  get(): UserinfoContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface UserinfoListInstanceImpl extends UserinfoListInstance {}
+class UserinfoListInstanceImpl implements UserinfoListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function UserinfoListInstance(version: V1): UserinfoListInstance {
+  const instance = (() => instance.get()) as UserinfoListInstanceImpl;
+
+  instance.get = function get(): UserinfoContext {
+    return new UserinfoContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

@@ -19,7 +19,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
-
 type UserStateType = 'active'|'deactivated';
 
 
@@ -31,14 +30,14 @@ type UserStateType = 'active'|'deactivated';
  * @property { UserStateType } [state] 
  * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
-export interface UserContextUpdateOptions {
+export interface UserListInstanceUpdateOptions {
   friendlyName?: string;
   avatar?: string;
   state?: UserStateType;
   isAvailable?: boolean;
 }
 
-export interface UserContext {
+export interface UserListInstance {
 
 
   /**
@@ -62,12 +61,12 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
+   * @param { UserListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(params: UserListInstanceUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
   update(params?: any, callback?: any): Promise<UserInstance>
 
 
@@ -78,36 +77,40 @@ export interface UserContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserContextSolution {
-  sid?: string;
+export interface UserSolution {
 }
 
-export class UserContextImpl implements UserContext {
-  protected _solution: UserContextSolution;
-  protected _uri: string;
+interface UserListInstanceImpl extends UserListInstance {}
+class UserListInstanceImpl implements UserListInstance {
+  _version?: V1;
+  _solution?: UserSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, sid: string) {
-    this._solution = { sid };
-    this._uri = `/Users/${sid}`;
-  }
+export function UserListInstance(version: V1): UserListInstance {
+  const instance = {} as UserListInstanceImpl;
 
-  fetch(callback?: any): Promise<UserInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Users`;
+
+  instance.fetch = function fetch(callback?: any): Promise<UserInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<UserInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<UserInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -124,30 +127,27 @@ export class UserContextImpl implements UserContext {
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
+    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface UserPayload extends UserResource{
@@ -164,10 +164,8 @@ interface UserResource {
 }
 
 export class UserInstance {
-  protected _solution: UserContextSolution;
-  protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserPayload, sid?: string) {
+  constructor(protected _version: V1, payload: UserPayload) {
     this.sid = payload.sid;
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;
@@ -176,7 +174,6 @@ export class UserInstance {
     this.isAvailable = payload.is_available;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -205,45 +202,6 @@ export class UserInstance {
    */
   url?: string | null;
 
-  private get _proxy(): UserContext {
-    this._context = this._context || new UserContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a UserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a UserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
-  /**
-   * Update a UserInstance
-   *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -265,52 +223,5 @@ export class UserInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface UserListInstance {
-  (sid: string): UserContext;
-  get(sid: string): UserContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UserSolution {
-}
-
-interface UserListInstanceImpl extends UserListInstance {}
-class UserListInstanceImpl implements UserListInstance {
-  _version?: V1;
-  _solution?: UserSolution;
-  _uri?: string;
-
-}
-
-export function UserListInstance(version: V1): UserListInstance {
-  const instance = ((sid) => instance.get(sid)) as UserListInstanceImpl;
-
-  instance.get = function get(sid): UserContext {
-    return new UserContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Users`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

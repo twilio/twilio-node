@@ -20,7 +20,8 @@ const serialize = require("../../../../../../base/serialize");
 
 
 
-export interface FunctionVersionContentListInstance {
+
+export interface FunctionVersionContentContext {
 
 
   /**
@@ -40,30 +41,25 @@ export interface FunctionVersionContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FunctionVersionContentSolution {
+export interface FunctionVersionContentContextSolution {
   serviceSid?: string;
   functionSid?: string;
   sid?: string;
 }
 
-interface FunctionVersionContentListInstanceImpl extends FunctionVersionContentListInstance {}
-class FunctionVersionContentListInstanceImpl implements FunctionVersionContentListInstance {
-  _version?: V1;
-  _solution?: FunctionVersionContentSolution;
-  _uri?: string;
+export class FunctionVersionContentContextImpl implements FunctionVersionContentContext {
+  protected _solution: FunctionVersionContentContextSolution;
+  protected _uri: string;
 
-}
 
-export function FunctionVersionContentListInstance(version: V1, serviceSid: string, functionSid: string, sid: string): FunctionVersionContentListInstance {
-  const instance = {} as FunctionVersionContentListInstanceImpl;
+  constructor(protected _version: V1, serviceSid: string, functionSid: string, sid: string) {
+    this._solution = { serviceSid, functionSid, sid };
+    this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
+  }
 
-  instance._version = version;
-  instance._solution = { serviceSid, functionSid, sid };
-  instance._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
-
-  instance.fetch = function fetch(callback?: any): Promise<FunctionVersionContentInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<FunctionVersionContentInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new FunctionVersionContentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
@@ -73,17 +69,20 @@ export function FunctionVersionContentListInstance(version: V1, serviceSid: stri
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface FunctionVersionContentPayload extends FunctionVersionContentResource{
@@ -99,6 +98,8 @@ interface FunctionVersionContentResource {
 }
 
 export class FunctionVersionContentInstance {
+  protected _solution: FunctionVersionContentContextSolution;
+  protected _context?: FunctionVersionContentContext;
 
   constructor(protected _version: V1, payload: FunctionVersionContentPayload, serviceSid: string, functionSid: string, sid?: string) {
     this.sid = payload.sid;
@@ -108,6 +109,7 @@ export class FunctionVersionContentInstance {
     this.content = payload.content;
     this.url = payload.url;
 
+    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
   }
 
   /**
@@ -132,6 +134,23 @@ export class FunctionVersionContentInstance {
   content?: string | null;
   url?: string | null;
 
+  private get _proxy(): FunctionVersionContentContext {
+    this._context = this._context || new FunctionVersionContentContextImpl(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a FunctionVersionContentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FunctionVersionContentInstance
+   */
+  fetch(callback?: (error: Error | null, item?: FunctionVersionContentInstance) => any): Promise<FunctionVersionContentInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -152,5 +171,52 @@ export class FunctionVersionContentInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface FunctionVersionContentListInstance {
+  (sid: string): FunctionVersionContentContext;
+  get(sid: string): FunctionVersionContentContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface FunctionVersionContentListInstanceImpl extends FunctionVersionContentListInstance {}
+class FunctionVersionContentListInstanceImpl implements FunctionVersionContentListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function FunctionVersionContentListInstance(version: V1): FunctionVersionContentListInstance {
+  const instance = ((sid) => instance.get(sid)) as FunctionVersionContentListInstanceImpl;
+
+  instance.get = function get(sid): FunctionVersionContentContext {
+    return new FunctionVersionContentContextImpl(version, serviceSid, functionSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

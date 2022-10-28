@@ -20,16 +20,17 @@ const serialize = require("../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to update a FlowTestUserInstance
  *
  * @property { Array<string> } testUsers List of test user identities that can test draft versions of the flow.
  */
-export interface FlowTestUserListInstanceUpdateOptions {
+export interface FlowTestUserContextUpdateOptions {
   testUsers: Array<string>;
 }
 
-export interface FlowTestUserListInstance {
+export interface FlowTestUserContext {
 
 
   /**
@@ -45,12 +46,12 @@ export interface FlowTestUserListInstance {
   /**
    * Update a FlowTestUserInstance
    *
-   * @param { FlowTestUserListInstanceUpdateOptions } params - Parameter for request
+   * @param { FlowTestUserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FlowTestUserInstance
    */
-  update(params: FlowTestUserListInstanceUpdateOptions, callback?: (error: Error | null, item?: FlowTestUserInstance) => any): Promise<FlowTestUserInstance>;
+  update(params: FlowTestUserContextUpdateOptions, callback?: (error: Error | null, item?: FlowTestUserInstance) => any): Promise<FlowTestUserInstance>;
   update(params: any, callback?: any): Promise<FlowTestUserInstance>
 
 
@@ -61,28 +62,23 @@ export interface FlowTestUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlowTestUserSolution {
+export interface FlowTestUserContextSolution {
   sid?: string;
 }
 
-interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
-class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
-  _version?: V2;
-  _solution?: FlowTestUserSolution;
-  _uri?: string;
+export class FlowTestUserContextImpl implements FlowTestUserContext {
+  protected _solution: FlowTestUserContextSolution;
+  protected _uri: string;
 
-}
 
-export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUserListInstance {
-  const instance = {} as FlowTestUserListInstanceImpl;
+  constructor(protected _version: V2, sid: string) {
+    this._solution = { sid };
+    this._uri = `/Flows/${sid}/TestUsers`;
+  }
 
-  instance._version = version;
-  instance._solution = { sid };
-  instance._uri = `/Flows/${sid}/TestUsers`;
-
-  instance.fetch = function fetch(callback?: any): Promise<FlowTestUserInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<FlowTestUserInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new FlowTestUserInstance(operationVersion, payload, this._solution.sid));
@@ -92,10 +88,10 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params: any, callback?: any): Promise<FlowTestUserInstance> {
-    if (params === null || params === undefined) {
+  update(params: any, callback?: any): Promise<FlowTestUserInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
@@ -110,7 +106,7 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowTestUserInstance(operationVersion, payload, this._solution.sid));
@@ -120,17 +116,20 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface FlowTestUserPayload extends FlowTestUserResource{
@@ -143,12 +142,15 @@ interface FlowTestUserResource {
 }
 
 export class FlowTestUserInstance {
+  protected _solution: FlowTestUserContextSolution;
+  protected _context?: FlowTestUserContext;
 
   constructor(protected _version: V2, payload: FlowTestUserPayload, sid?: string) {
     this.sid = payload.sid;
     this.testUsers = payload.test_users;
     this.url = payload.url;
 
+    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -163,6 +165,37 @@ export class FlowTestUserInstance {
    * The URL of this resource.
    */
   url?: string | null;
+
+  private get _proxy(): FlowTestUserContext {
+    this._context = this._context || new FlowTestUserContextImpl(this._version, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a FlowTestUserInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   */
+  fetch(callback?: (error: Error | null, item?: FlowTestUserInstance) => any): Promise<FlowTestUserInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a FlowTestUserInstance
+   *
+   * @param { FlowTestUserContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   */
+  update(params: FlowTestUserContextUpdateOptions, callback?: (error: Error | null, item?: FlowTestUserInstance) => any): Promise<FlowTestUserInstance>;
+  update(params: any, callback?: any): Promise<FlowTestUserInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
 
   /**
    * Provide a user-friendly representation
@@ -181,5 +214,52 @@ export class FlowTestUserInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface FlowTestUserListInstance {
+  (sid: string): FlowTestUserContext;
+  get(sid: string): FlowTestUserContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
+class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
+  _version?: V2;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function FlowTestUserListInstance(version: V2): FlowTestUserListInstance {
+  const instance = ((sid) => instance.get(sid)) as FlowTestUserListInstanceImpl;
+
+  instance.get = function get(sid): FlowTestUserContext {
+    return new FlowTestUserContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

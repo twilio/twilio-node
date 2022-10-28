@@ -20,6 +20,7 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a TaskQueueStatisticsInstance
  *
@@ -29,7 +30,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
  */
-export interface TaskQueueStatisticsListInstanceFetchOptions {
+export interface TaskQueueStatisticsContextFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
@@ -37,7 +38,7 @@ export interface TaskQueueStatisticsListInstanceFetchOptions {
   splitByWaitTime?: string;
 }
 
-export interface TaskQueueStatisticsListInstance {
+export interface TaskQueueStatisticsContext {
 
 
   /**
@@ -51,12 +52,12 @@ export interface TaskQueueStatisticsListInstance {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { TaskQueueStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
    */
-  fetch(params: TaskQueueStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  fetch(params: TaskQueueStatisticsContextFetchOptions, callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance>
 
 
@@ -67,28 +68,23 @@ export interface TaskQueueStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskQueueStatisticsSolution {
+export interface TaskQueueStatisticsContextSolution {
   workspaceSid?: string;
   taskQueueSid?: string;
 }
 
-interface TaskQueueStatisticsListInstanceImpl extends TaskQueueStatisticsListInstance {}
-class TaskQueueStatisticsListInstanceImpl implements TaskQueueStatisticsListInstance {
-  _version?: V1;
-  _solution?: TaskQueueStatisticsSolution;
-  _uri?: string;
+export class TaskQueueStatisticsContextImpl implements TaskQueueStatisticsContext {
+  protected _solution: TaskQueueStatisticsContextSolution;
+  protected _uri: string;
 
-}
 
-export function TaskQueueStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueStatisticsListInstance {
-  const instance = {} as TaskQueueStatisticsListInstanceImpl;
+  constructor(protected _version: V1, workspaceSid: string, taskQueueSid: string) {
+    this._solution = { workspaceSid, taskQueueSid };
+    this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
+  }
 
-  instance._version = version;
-  instance._solution = { workspaceSid, taskQueueSid };
-  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -105,7 +101,7 @@ export function TaskQueueStatisticsListInstance(version: V1, workspaceSid: strin
 
     const headers: any = {};
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueueStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.taskQueueSid));
@@ -115,17 +111,20 @@ export function TaskQueueStatisticsListInstance(version: V1, workspaceSid: strin
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource{
@@ -141,6 +140,8 @@ interface TaskQueueStatisticsResource {
 }
 
 export class TaskQueueStatisticsInstance {
+  protected _solution: TaskQueueStatisticsContextSolution;
+  protected _context?: TaskQueueStatisticsContext;
 
   constructor(protected _version: V1, payload: TaskQueueStatisticsPayload, workspaceSid: string, taskQueueSid?: string) {
     this.accountSid = payload.account_sid;
@@ -150,6 +151,7 @@ export class TaskQueueStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
+    this._solution = { workspaceSid, taskQueueSid: taskQueueSid || this.taskQueueSid };
   }
 
   /**
@@ -177,6 +179,33 @@ export class TaskQueueStatisticsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): TaskQueueStatisticsContext {
+    this._context = this._context || new TaskQueueStatisticsContextImpl(this._version, this._solution.workspaceSid, this._solution.taskQueueSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a TaskQueueStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueStatisticsInstance
+   *
+   * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   */
+  fetch(params: TaskQueueStatisticsContextFetchOptions, callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -197,5 +226,52 @@ export class TaskQueueStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface TaskQueueStatisticsListInstance {
+  (taskQueueSid: string): TaskQueueStatisticsContext;
+  get(taskQueueSid: string): TaskQueueStatisticsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface TaskQueueStatisticsListInstanceImpl extends TaskQueueStatisticsListInstance {}
+class TaskQueueStatisticsListInstanceImpl implements TaskQueueStatisticsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function TaskQueueStatisticsListInstance(version: V1): TaskQueueStatisticsListInstance {
+  const instance = ((taskQueueSid) => instance.get(taskQueueSid)) as TaskQueueStatisticsListInstanceImpl;
+
+  instance.get = function get(taskQueueSid): TaskQueueStatisticsContext {
+    return new TaskQueueStatisticsContextImpl(version, workspaceSid, taskQueueSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = ``;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

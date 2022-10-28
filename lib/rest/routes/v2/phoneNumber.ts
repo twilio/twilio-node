@@ -20,19 +20,18 @@ const serialize = require("../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to update a PhoneNumberInstance
  *
  * @property { string } [voiceRegion] The Inbound Processing Region used for this phone number for voice
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
-export interface PhoneNumberContextUpdateOptions {
+export interface PhoneNumberListInstanceUpdateOptions {
   voiceRegion?: string;
   friendlyName?: string;
 }
 
-export interface PhoneNumberContext {
+export interface PhoneNumberListInstance {
 
 
   /**
@@ -56,12 +55,12 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
+   * @param { PhoneNumberListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
-  update(params: PhoneNumberContextUpdateOptions, callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  update(params: PhoneNumberListInstanceUpdateOptions, callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   update(params?: any, callback?: any): Promise<PhoneNumberInstance>
 
 
@@ -72,36 +71,40 @@ export interface PhoneNumberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+export interface PhoneNumberSolution {
 }
 
-export class PhoneNumberContextImpl implements PhoneNumberContext {
-  protected _solution: PhoneNumberContextSolution;
-  protected _uri: string;
+interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
+class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
+  _version?: V2;
+  _solution?: PhoneNumberSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V2, phoneNumber: string) {
-    this._solution = { phoneNumber };
-    this._uri = `/PhoneNumbers/${phoneNumber}`;
-  }
+export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
+  const instance = {} as PhoneNumberListInstanceImpl;
 
-  fetch(callback?: any): Promise<PhoneNumberInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/PhoneNumbers`;
+
+  instance.fetch = function fetch(callback?: any): Promise<PhoneNumberInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
+    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,30 +119,27 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
-    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
+    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface PhoneNumberPayload extends PhoneNumberResource{
@@ -157,10 +157,8 @@ interface PhoneNumberResource {
 }
 
 export class PhoneNumberInstance {
-  protected _solution: PhoneNumberContextSolution;
-  protected _context?: PhoneNumberContext;
 
-  constructor(protected _version: V2, payload: PhoneNumberPayload, phoneNumber?: string) {
+  constructor(protected _version: V2, payload: PhoneNumberPayload) {
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
     this.sid = payload.sid;
@@ -170,7 +168,6 @@ export class PhoneNumberInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
   }
 
   /**
@@ -206,45 +203,6 @@ export class PhoneNumberInstance {
    */
   dateUpdated?: Date | null;
 
-  private get _proxy(): PhoneNumberContext {
-    this._context = this._context || new PhoneNumberContextImpl(this._version, this._solution.phoneNumber);
-    return this._context;
-  }
-
-  /**
-   * Fetch a PhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  fetch(callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a PhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
-   * Update a PhoneNumberInstance
-   *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(params: PhoneNumberContextUpdateOptions, callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -267,52 +225,5 @@ export class PhoneNumberInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface PhoneNumberListInstance {
-  (phoneNumber: string): PhoneNumberContext;
-  get(phoneNumber: string): PhoneNumberContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PhoneNumberSolution {
-}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V2;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-
-}
-
-export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
-  const instance = ((phoneNumber) => instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
-
-  instance.get = function get(phoneNumber): PhoneNumberContext {
-    return new PhoneNumberContextImpl(version, phoneNumber);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/PhoneNumbers`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 
