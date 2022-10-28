@@ -1,6 +1,5 @@
-import {AnnotationListInstance} from "./insights/v1/annotation";
 import {CallListInstance} from "./insights/v1/call";
-import {CallSummaryListInstance} from "./insights/v1/call/summary";
+import {CallSummariesListInstance} from "./insights/v1/callSummaries";
 import {ConferenceListInstance} from "./insights/v1/conference";
 import {RoomListInstance} from "./insights/v1/room";
 import {SettingListInstance} from "./insights/v1/setting";
@@ -16,14 +15,6 @@ class Insights extends InsightsBase {
     }
 
     /**
-     * @deprecated - Use v1.annotation instead
-     */
-    get annotation(): AnnotationListInstance {
-        console.warn('annotation is deprecated. Use v1.annotation instead.');
-        return this.v1.annotation;
-    }
-
-    /**
      * @deprecated - Use v1.calls instead
      */
     get calls(): CallListInstance {
@@ -34,7 +25,7 @@ class Insights extends InsightsBase {
     /**
      * @deprecated - Use v1.callSummaries instead
      */
-    get callSummaries(): CallSummaryListInstance {
+    get callSummaries(): CallSummariesListInstance {
         console.warn('callSummaries is deprecated. Use v1.callSummaries instead.');
         return this.v1.callSummaries;
     }

@@ -1,6 +1,6 @@
 import {MessagingListInstance} from "./pricing/v1/messaging";
 import {PhoneNumberListInstance} from "./pricing/v1/phoneNumber";
-import {VoiceListInstance} from "./pricing/v1/voice";
+import {VoiceListInstance} from "./pricing/v2/voice";
 import {CountryListInstance} from "./pricing/v2/country";
 import {NumberListInstance} from "./pricing/v2/number";
 import PricingBase from "./PricingBase";

@@ -1,5 +1,5 @@
 import {BrandRegistrationListInstance} from "./messaging/v1/brandRegistration";
-import {DeactivationsListInstance} from "./messaging/v1/deactivation";
+import {DeactivationsListInstance} from "./messaging/v1/deactivations";
 import {ExternalCampaignListInstance} from './messaging/v1/externalCampaign';
 import {ServiceListInstance} from "./messaging/v1/service";
 import {UsecaseListInstance} from "./messaging/v1/usecase";
