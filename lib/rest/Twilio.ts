@@ -456,4 +456,4 @@ class Twilio extends BaseTwilio {
   }
 }
 
-module.exports = Twilio;
+export = Twilio;

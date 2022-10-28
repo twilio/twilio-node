@@ -55,6 +55,7 @@
     "test:typescript": "tsc --noEmit",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
+    "build": "tsc",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
