@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [styleSheet] The JSON Style sheet string
  */
 export interface StyleSheetContextUpdateOptions {
-  styleSheet?: any;
+  'styleSheet'?: any;
 }
 
 export interface StyleSheetContext {
@@ -71,7 +71,7 @@ export interface StyleSheetContext {
 }
 
 export interface StyleSheetContextSolution {
-  assistantSid?: string;
+  'assistantSid'?: string;
 }
 
 export class StyleSheetContextImpl implements StyleSheetContext {
@@ -108,7 +108,7 @@ export class StyleSheetContextImpl implements StyleSheetContext {
 
     const data: any = {};
 
-    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
+    if (params['styleSheet'] !== undefined) data['StyleSheet'] = params['styleSheet'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

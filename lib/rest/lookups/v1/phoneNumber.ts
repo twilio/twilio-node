@@ -29,10 +29,10 @@ const serialize = require("../../../base/serialize");
  * @property { object } [addOnsData] Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
  */
 export interface PhoneNumberListInstanceFetchOptions {
-  countryCode?: string;
-  type?: Array<string>;
-  addOns?: Array<string>;
-  addOnsData?: object;
+  'countryCode'?: string;
+  'type'?: Array<string>;
+  'addOns'?: Array<string>;
+  'addOnsData'?: object;
 }
 
 export interface PhoneNumberListInstance {
@@ -93,10 +93,10 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
 
     const data: any = {};
 
-    if (params.countryCode !== undefined) data['CountryCode'] = params.countryCode;
-    if (params.type !== undefined) data['Type'] = serialize.map(params.type, ((e) => e));
-    if (params.addOns !== undefined) data['AddOns'] = serialize.map(params.addOns, ((e) => e));
-    if (params.addOnsData !== undefined) data['AddOnsData'] = serialize.prefixedCollapsibleMap(params.addOnsData, "AddOns");
+    if (params['countryCode'] !== undefined) data['CountryCode'] = params['countryCode'];
+    if (params['type'] !== undefined) data['Type'] = serialize.map(params['type'], ((e) => e));
+    if (params['addOns'] !== undefined) data['AddOns'] = serialize.map(params['addOns'], ((e) => e));
+    if (params['addOnsData'] !== undefined) data['AddOnsData'] = serialize.prefixedCollapsibleMap(params['addOnsData'], "AddOns");
 
     const headers: any = {};
 

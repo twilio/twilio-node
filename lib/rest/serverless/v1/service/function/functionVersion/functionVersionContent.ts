@@ -42,9 +42,9 @@ export interface FunctionVersionContentContext {
 }
 
 export interface FunctionVersionContentContextSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'functionSid'?: string;
+  'sid'?: string;
 }
 
 export class FunctionVersionContentContextImpl implements FunctionVersionContentContext {

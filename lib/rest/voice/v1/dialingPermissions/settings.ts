@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [dialingPermissionsInheritance] &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
  */
 export interface SettingsContextUpdateOptions {
-  dialingPermissionsInheritance?: boolean;
+  'dialingPermissionsInheritance'?: boolean;
 }
 
 export interface SettingsContext {
@@ -107,7 +107,7 @@ export class SettingsContextImpl implements SettingsContext {
 
     const data: any = {};
 
-    if (params.dialingPermissionsInheritance !== undefined) data['DialingPermissionsInheritance'] = serialize.bool(params.dialingPermissionsInheritance);
+    if (params['dialingPermissionsInheritance'] !== undefined) data['DialingPermissionsInheritance'] = serialize.bool(params['dialingPermissionsInheritance']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

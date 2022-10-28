@@ -42,8 +42,8 @@ export interface EngagementContextContext {
 }
 
 export interface EngagementContextContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
+  'flowSid'?: string;
+  'engagementSid'?: string;
 }
 
 export class EngagementContextContextImpl implements EngagementContextContext {

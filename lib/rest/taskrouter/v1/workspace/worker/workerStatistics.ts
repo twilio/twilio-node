@@ -30,10 +30,10 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface WorkerStatisticsContextFetchOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
+  'minutes'?: number;
+  'startDate'?: Date;
+  'endDate'?: Date;
+  'taskChannel'?: string;
 }
 
 export interface WorkerStatisticsContext {
@@ -67,8 +67,8 @@ export interface WorkerStatisticsContext {
 }
 
 export interface WorkerStatisticsContextSolution {
-  workspaceSid?: string;
-  workerSid?: string;
+  'workspaceSid'?: string;
+  'workerSid'?: string;
 }
 
 export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
@@ -91,10 +91,10 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
 
     const data: any = {};
 
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params['minutes'] !== undefined) data['Minutes'] = params['minutes'];
+    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
+    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
 
     const headers: any = {};
 

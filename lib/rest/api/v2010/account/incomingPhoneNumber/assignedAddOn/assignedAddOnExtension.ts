@@ -92,10 +92,10 @@ export interface AssignedAddOnExtensionContext {
 }
 
 export interface AssignedAddOnExtensionContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'resourceSid'?: string;
+  'assignedAddOnSid'?: string;
+  'sid'?: string;
 }
 
 export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
@@ -397,7 +397,7 @@ export function AssignedAddOnExtensionListInstance(version: V2010, accountSid: s
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

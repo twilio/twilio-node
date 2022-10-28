@@ -28,7 +28,7 @@ type FormFormTypes = 'form-push';
  * @property { FormFormTypes } formType The Type of this Form. Currently only &#x60;form-push&#x60; is supported.
  */
 export interface FormListInstanceFetchOptions {
-  formType: FormFormTypes;
+  'formType': FormFormTypes;
 }
 
 export interface FormListInstance {

@@ -108,7 +108,7 @@ export interface FlowContext {
 }
 
 export interface FlowContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class FlowContextImpl implements FlowContext {
@@ -454,7 +454,7 @@ export function FlowListInstance(version: V1): FlowListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

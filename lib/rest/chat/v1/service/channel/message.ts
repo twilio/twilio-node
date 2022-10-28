@@ -32,8 +32,8 @@ type MessageOrderType = 'asc'|'desc';
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MessageContextUpdateOptions {
-  body?: string;
-  attributes?: string;
+  'body'?: string;
+  'attributes'?: string;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface MessageContextUpdateOptions {
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MessageListInstanceCreateOptions {
-  body: string;
-  from?: string;
-  attributes?: string;
+  'body': string;
+  'from'?: string;
+  'attributes'?: string;
 }
 /**
  * Options to pass to each
@@ -154,9 +154,9 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'channelSid'?: string;
+  'sid'?: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -205,8 +205,8 @@ export class MessageContextImpl implements MessageContext {
 
     const data: any = {};
 
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params['body'] !== undefined) data['Body'] = params['body'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -566,15 +566,15 @@ export function MessageListInstance(version: V1, serviceSid: string, channelSid:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.body === null || params.body === undefined) {
-      throw new Error('Required parameter "params.body" missing.');
+    if (params['body'] === null || params['body'] === undefined) {
+      throw new Error('Required parameter "params[\'body\']" missing.');
     }
 
     const data: any = {};
 
-    data['Body'] = params.body;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    data['Body'] = params['body'];
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -601,8 +601,8 @@ export function MessageListInstance(version: V1, serviceSid: string, channelSid:
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

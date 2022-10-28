@@ -60,7 +60,7 @@ export class ListChannelResponseMeta {
  * @property { any } routing The Interaction\\\&#39;s routing logic.
  */
 export interface InteractionChannelInviteListInstanceCreateOptions {
-  routing: any;
+  'routing': any;
 }
 /**
  * Options to pass to each
@@ -260,13 +260,13 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.routing === null || params.routing === undefined) {
-      throw new Error('Required parameter "params.routing" missing.');
+    if (params['routing'] === null || params['routing'] === undefined) {
+      throw new Error('Required parameter "params[\'routing\']" missing.');
     }
 
     const data: any = {};
 
-    data['Routing'] = params.routing;
+    data['Routing'] = params['routing'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -293,7 +293,7 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

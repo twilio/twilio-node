@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [subaccountSid] 
  */
 export interface SettingContextFetchOptions {
-  subaccountSid?: string;
+  'subaccountSid'?: string;
 }
 
 /**
@@ -38,9 +38,9 @@ export interface SettingContextFetchOptions {
  * @property { string } [subaccountSid] 
  */
 export interface SettingContextUpdateOptions {
-  advancedFeatures?: boolean;
-  voiceTrace?: boolean;
-  subaccountSid?: string;
+  'advancedFeatures'?: boolean;
+  'voiceTrace'?: boolean;
+  'subaccountSid'?: string;
 }
 
 export interface SettingContext {
@@ -116,7 +116,7 @@ export class SettingContextImpl implements SettingContext {
 
     const data: any = {};
 
-    if (params.subaccountSid !== undefined) data['SubaccountSid'] = params.subaccountSid;
+    if (params['subaccountSid'] !== undefined) data['SubaccountSid'] = params['subaccountSid'];
 
     const headers: any = {};
 
@@ -142,9 +142,9 @@ export class SettingContextImpl implements SettingContext {
 
     const data: any = {};
 
-    if (params.advancedFeatures !== undefined) data['AdvancedFeatures'] = serialize.bool(params.advancedFeatures);
-    if (params.voiceTrace !== undefined) data['VoiceTrace'] = serialize.bool(params.voiceTrace);
-    if (params.subaccountSid !== undefined) data['SubaccountSid'] = params.subaccountSid;
+    if (params['advancedFeatures'] !== undefined) data['AdvancedFeatures'] = serialize.bool(params['advancedFeatures']);
+    if (params['voiceTrace'] !== undefined) data['VoiceTrace'] = serialize.bool(params['voiceTrace']);
+    if (params['subaccountSid'] !== undefined) data['SubaccountSid'] = params['subaccountSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

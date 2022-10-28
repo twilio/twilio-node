@@ -104,9 +104,9 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  accountSid?: string;
-  recordingSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'recordingSid'?: string;
+  'sid'?: string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
@@ -456,7 +456,7 @@ export function TranscriptionListInstance(version: V2010, accountSid: string, re
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

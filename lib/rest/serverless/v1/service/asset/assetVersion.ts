@@ -94,9 +94,9 @@ export interface AssetVersionContext {
 }
 
 export interface AssetVersionContextSolution {
-  serviceSid?: string;
-  assetSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'assetSid'?: string;
+  'sid'?: string;
 }
 
 export class AssetVersionContextImpl implements AssetVersionContext {
@@ -387,7 +387,7 @@ export function AssetVersionListInstance(version: V1, serviceSid: string, assetS
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

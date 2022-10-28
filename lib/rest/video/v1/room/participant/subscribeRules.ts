@@ -36,7 +36,7 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
  * @property { any } [rules] A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
-  rules?: any;
+  'rules'?: any;
 }
 
 export interface SubscribeRulesListInstance {
@@ -123,7 +123,7 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
 
     const data: any = {};
 
-    if (params.rules !== undefined) data['Rules'] = params.rules;
+    if (params['rules'] !== undefined) data['Rules'] = params['rules'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

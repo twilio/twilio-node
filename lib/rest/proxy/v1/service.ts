@@ -43,14 +43,14 @@ type ServiceNumberSelectionBehavior = 'avoid-sticky'|'prefer-sticky';
  * @property { string } [chatInstanceSid] The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
  */
 export interface ServiceContextUpdateOptions {
-  uniqueName?: string;
-  defaultTtl?: number;
-  callbackUrl?: string;
-  geoMatchLevel?: ServiceGeoMatchLevel;
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  interceptCallbackUrl?: string;
-  outOfSessionCallbackUrl?: string;
-  chatInstanceSid?: string;
+  'uniqueName'?: string;
+  'defaultTtl'?: number;
+  'callbackUrl'?: string;
+  'geoMatchLevel'?: ServiceGeoMatchLevel;
+  'numberSelectionBehavior'?: ServiceNumberSelectionBehavior;
+  'interceptCallbackUrl'?: string;
+  'outOfSessionCallbackUrl'?: string;
+  'chatInstanceSid'?: string;
 }
 
 /**
@@ -66,14 +66,14 @@ export interface ServiceContextUpdateOptions {
  * @property { string } [chatInstanceSid] The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
  */
 export interface ServiceListInstanceCreateOptions {
-  uniqueName: string;
-  defaultTtl?: number;
-  callbackUrl?: string;
-  geoMatchLevel?: ServiceGeoMatchLevel;
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  interceptCallbackUrl?: string;
-  outOfSessionCallbackUrl?: string;
-  chatInstanceSid?: string;
+  'uniqueName': string;
+  'defaultTtl'?: number;
+  'callbackUrl'?: string;
+  'geoMatchLevel'?: ServiceGeoMatchLevel;
+  'numberSelectionBehavior'?: ServiceNumberSelectionBehavior;
+  'interceptCallbackUrl'?: string;
+  'outOfSessionCallbackUrl'?: string;
+  'chatInstanceSid'?: string;
 }
 /**
  * Options to pass to each
@@ -178,7 +178,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -245,14 +245,14 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.defaultTtl !== undefined) data['DefaultTtl'] = params.defaultTtl;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.geoMatchLevel !== undefined) data['GeoMatchLevel'] = params.geoMatchLevel;
-    if (params.numberSelectionBehavior !== undefined) data['NumberSelectionBehavior'] = params.numberSelectionBehavior;
-    if (params.interceptCallbackUrl !== undefined) data['InterceptCallbackUrl'] = params.interceptCallbackUrl;
-    if (params.outOfSessionCallbackUrl !== undefined) data['OutOfSessionCallbackUrl'] = params.outOfSessionCallbackUrl;
-    if (params.chatInstanceSid !== undefined) data['ChatInstanceSid'] = params.chatInstanceSid;
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['defaultTtl'] !== undefined) data['DefaultTtl'] = params['defaultTtl'];
+    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
+    if (params['geoMatchLevel'] !== undefined) data['GeoMatchLevel'] = params['geoMatchLevel'];
+    if (params['numberSelectionBehavior'] !== undefined) data['NumberSelectionBehavior'] = params['numberSelectionBehavior'];
+    if (params['interceptCallbackUrl'] !== undefined) data['InterceptCallbackUrl'] = params['interceptCallbackUrl'];
+    if (params['outOfSessionCallbackUrl'] !== undefined) data['OutOfSessionCallbackUrl'] = params['outOfSessionCallbackUrl'];
+    if (params['chatInstanceSid'] !== undefined) data['ChatInstanceSid'] = params['chatInstanceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -632,20 +632,20 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.defaultTtl !== undefined) data['DefaultTtl'] = params.defaultTtl;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.geoMatchLevel !== undefined) data['GeoMatchLevel'] = params.geoMatchLevel;
-    if (params.numberSelectionBehavior !== undefined) data['NumberSelectionBehavior'] = params.numberSelectionBehavior;
-    if (params.interceptCallbackUrl !== undefined) data['InterceptCallbackUrl'] = params.interceptCallbackUrl;
-    if (params.outOfSessionCallbackUrl !== undefined) data['OutOfSessionCallbackUrl'] = params.outOfSessionCallbackUrl;
-    if (params.chatInstanceSid !== undefined) data['ChatInstanceSid'] = params.chatInstanceSid;
+    data['UniqueName'] = params['uniqueName'];
+    if (params['defaultTtl'] !== undefined) data['DefaultTtl'] = params['defaultTtl'];
+    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
+    if (params['geoMatchLevel'] !== undefined) data['GeoMatchLevel'] = params['geoMatchLevel'];
+    if (params['numberSelectionBehavior'] !== undefined) data['NumberSelectionBehavior'] = params['numberSelectionBehavior'];
+    if (params['interceptCallbackUrl'] !== undefined) data['InterceptCallbackUrl'] = params['interceptCallbackUrl'];
+    if (params['outOfSessionCallbackUrl'] !== undefined) data['OutOfSessionCallbackUrl'] = params['outOfSessionCallbackUrl'];
+    if (params['chatInstanceSid'] !== undefined) data['ChatInstanceSid'] = params['chatInstanceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -672,7 +672,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

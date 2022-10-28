@@ -282,13 +282,13 @@ export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: stri
 
     const data: any = {};
 
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['minutes'] !== undefined) data['Minutes'] = params['minutes'];
+    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
+    if (params['splitByWaitTime'] !== undefined) data['SplitByWaitTime'] = params['splitByWaitTime'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

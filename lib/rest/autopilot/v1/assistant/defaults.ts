@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [defaults] A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
  */
 export interface DefaultsContextUpdateOptions {
-  defaults?: any;
+  'defaults'?: any;
 }
 
 export interface DefaultsContext {
@@ -71,7 +71,7 @@ export interface DefaultsContext {
 }
 
 export interface DefaultsContextSolution {
-  assistantSid?: string;
+  'assistantSid'?: string;
 }
 
 export class DefaultsContextImpl implements DefaultsContext {
@@ -108,7 +108,7 @@ export class DefaultsContextImpl implements DefaultsContext {
 
     const data: any = {};
 
-    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
+    if (params['defaults'] !== undefined) data['Defaults'] = params['defaults'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

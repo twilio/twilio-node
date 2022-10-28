@@ -41,7 +41,7 @@ export class ProxyV1ServicePhoneNumberCapabilities {
  * @property { boolean } [isReserved] Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
  */
 export interface PhoneNumberContextUpdateOptions {
-  isReserved?: boolean;
+  'isReserved'?: boolean;
 }
 
 /**
@@ -52,9 +52,9 @@ export interface PhoneNumberContextUpdateOptions {
  * @property { boolean } [isReserved] Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
  */
 export interface PhoneNumberListInstanceCreateOptions {
-  sid?: string;
-  phoneNumber?: string;
-  isReserved?: boolean;
+  'sid'?: string;
+  'phoneNumber'?: string;
+  'isReserved'?: boolean;
 }
 /**
  * Options to pass to each
@@ -156,8 +156,8 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -206,7 +206,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const data: any = {};
 
-    if (params.isReserved !== undefined) data['IsReserved'] = serialize.bool(params.isReserved);
+    if (params['isReserved'] !== undefined) data['IsReserved'] = serialize.bool(params['isReserved']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -568,9 +568,9 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
 
     const data: any = {};
 
-    if (params.sid !== undefined) data['Sid'] = params.sid;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.isReserved !== undefined) data['IsReserved'] = serialize.bool(params.isReserved);
+    if (params['sid'] !== undefined) data['Sid'] = params['sid'];
+    if (params['phoneNumber'] !== undefined) data['PhoneNumber'] = params['phoneNumber'];
+    if (params['isReserved'] !== undefined) data['IsReserved'] = serialize.bool(params['isReserved']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -597,7 +597,7 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

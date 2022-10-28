@@ -45,14 +45,14 @@ type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
  * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkContextUpdateOptions {
-  friendlyName?: string;
-  domainName?: string;
-  disasterRecoveryUrl?: string;
-  disasterRecoveryMethod?: string;
-  transferMode?: TrunkTransferSetting;
-  secure?: boolean;
-  cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkTransferCallerId;
+  'friendlyName'?: string;
+  'domainName'?: string;
+  'disasterRecoveryUrl'?: string;
+  'disasterRecoveryMethod'?: string;
+  'transferMode'?: TrunkTransferSetting;
+  'secure'?: boolean;
+  'cnamLookupEnabled'?: boolean;
+  'transferCallerId'?: TrunkTransferCallerId;
 }
 
 /**
@@ -68,14 +68,14 @@ export interface TrunkContextUpdateOptions {
  * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkListInstanceCreateOptions {
-  friendlyName?: string;
-  domainName?: string;
-  disasterRecoveryUrl?: string;
-  disasterRecoveryMethod?: string;
-  transferMode?: TrunkTransferSetting;
-  secure?: boolean;
-  cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkTransferCallerId;
+  'friendlyName'?: string;
+  'domainName'?: string;
+  'disasterRecoveryUrl'?: string;
+  'disasterRecoveryMethod'?: string;
+  'transferMode'?: TrunkTransferSetting;
+  'secure'?: boolean;
+  'cnamLookupEnabled'?: boolean;
+  'transferCallerId'?: TrunkTransferCallerId;
 }
 /**
  * Options to pass to each
@@ -182,7 +182,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -261,14 +261,14 @@ export class TrunkContextImpl implements TrunkContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
-    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
-    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
-    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
-    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['domainName'] !== undefined) data['DomainName'] = params['domainName'];
+    if (params['disasterRecoveryUrl'] !== undefined) data['DisasterRecoveryUrl'] = params['disasterRecoveryUrl'];
+    if (params['disasterRecoveryMethod'] !== undefined) data['DisasterRecoveryMethod'] = params['disasterRecoveryMethod'];
+    if (params['transferMode'] !== undefined) data['TransferMode'] = params['transferMode'];
+    if (params['secure'] !== undefined) data['Secure'] = serialize.bool(params['secure']);
+    if (params['cnamLookupEnabled'] !== undefined) data['CnamLookupEnabled'] = serialize.bool(params['cnamLookupEnabled']);
+    if (params['transferCallerId'] !== undefined) data['TransferCallerId'] = params['transferCallerId'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -697,14 +697,14 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
-    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
-    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
-    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
-    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['domainName'] !== undefined) data['DomainName'] = params['domainName'];
+    if (params['disasterRecoveryUrl'] !== undefined) data['DisasterRecoveryUrl'] = params['disasterRecoveryUrl'];
+    if (params['disasterRecoveryMethod'] !== undefined) data['DisasterRecoveryMethod'] = params['disasterRecoveryMethod'];
+    if (params['transferMode'] !== undefined) data['TransferMode'] = params['transferMode'];
+    if (params['secure'] !== undefined) data['Secure'] = serialize.bool(params['secure']);
+    if (params['cnamLookupEnabled'] !== undefined) data['CnamLookupEnabled'] = serialize.bool(params['cnamLookupEnabled']);
+    if (params['transferCallerId'] !== undefined) data['TransferCallerId'] = params['transferCallerId'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -731,7 +731,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

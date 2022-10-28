@@ -36,10 +36,10 @@ type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; after we have sent the command.
  */
 export interface SmsCommandListInstanceCreateOptions {
-  sim: string;
-  payload: string;
-  callbackMethod?: string;
-  callbackUrl?: string;
+  'sim': string;
+  'payload': string;
+  'callbackMethod'?: string;
+  'callbackUrl'?: string;
 }
 /**
  * Options to pass to each
@@ -129,7 +129,7 @@ export interface SmsCommandContext {
 }
 
 export interface SmsCommandContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class SmsCommandContextImpl implements SmsCommandContext {
@@ -429,20 +429,20 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.sim === null || params.sim === undefined) {
-      throw new Error('Required parameter "params.sim" missing.');
+    if (params['sim'] === null || params['sim'] === undefined) {
+      throw new Error('Required parameter "params[\'sim\']" missing.');
     }
 
-    if (params.payload === null || params.payload === undefined) {
-      throw new Error('Required parameter "params.payload" missing.');
+    if (params['payload'] === null || params['payload'] === undefined) {
+      throw new Error('Required parameter "params[\'payload\']" missing.');
     }
 
     const data: any = {};
 
-    data['Sim'] = params.sim;
-    data['Payload'] = params.payload;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    data['Sim'] = params['sim'];
+    data['Payload'] = params['payload'];
+    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
+    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -469,10 +469,10 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     const data: any = {};
 
-    if (params.sim !== undefined) data['Sim'] = params.sim;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.direction !== undefined) data['Direction'] = params.direction;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['sim'] !== undefined) data['Sim'] = params['sim'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['direction'] !== undefined) data['Direction'] = params['direction'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

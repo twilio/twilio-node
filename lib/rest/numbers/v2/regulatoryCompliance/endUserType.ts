@@ -92,7 +92,7 @@ export interface EndUserTypeContext {
 }
 
 export interface EndUserTypeContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class EndUserTypeContextImpl implements EndUserTypeContext {
@@ -363,7 +363,7 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

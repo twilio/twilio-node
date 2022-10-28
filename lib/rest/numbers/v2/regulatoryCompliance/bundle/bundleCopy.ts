@@ -82,7 +82,7 @@ export class NumbersV2RegulatoryComplianceBundleBundleCopy {
  * @property { string } [friendlyName] The string that you assigned to describe the copied bundle.
  */
 export interface BundleCopyListInstanceCreateOptions {
-  friendlyName?: string;
+  'friendlyName'?: string;
 }
 /**
  * Options to pass to each
@@ -294,7 +294,7 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -321,7 +321,7 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

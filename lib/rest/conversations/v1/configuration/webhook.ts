@@ -35,11 +35,11 @@ type ConfigurationWebhookTarget = 'webhook'|'flex';
  * @property { ConfigurationWebhookTarget } [target] 
  */
 export interface WebhookContextUpdateOptions {
-  method?: string;
-  filters?: Array<string>;
-  preWebhookUrl?: string;
-  postWebhookUrl?: string;
-  target?: ConfigurationWebhookTarget;
+  'method'?: string;
+  'filters'?: Array<string>;
+  'preWebhookUrl'?: string;
+  'postWebhookUrl'?: string;
+  'target'?: ConfigurationWebhookTarget;
 }
 
 export interface WebhookContext {
@@ -119,11 +119,11 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params.method !== undefined) data['Method'] = params.method;
-    if (params.filters !== undefined) data['Filters'] = serialize.map(params.filters, ((e) => e));
-    if (params.preWebhookUrl !== undefined) data['PreWebhookUrl'] = params.preWebhookUrl;
-    if (params.postWebhookUrl !== undefined) data['PostWebhookUrl'] = params.postWebhookUrl;
-    if (params.target !== undefined) data['Target'] = params.target;
+    if (params['method'] !== undefined) data['Method'] = params['method'];
+    if (params['filters'] !== undefined) data['Filters'] = serialize.map(params['filters'], ((e) => e));
+    if (params['preWebhookUrl'] !== undefined) data['PreWebhookUrl'] = params['preWebhookUrl'];
+    if (params['postWebhookUrl'] !== undefined) data['PostWebhookUrl'] = params['postWebhookUrl'];
+    if (params['target'] !== undefined) data['Target'] = params['target'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

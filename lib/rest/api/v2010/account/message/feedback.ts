@@ -28,7 +28,7 @@ type MessageFeedbackOutcome = 'confirmed'|'unconfirmed';
  * @property { MessageFeedbackOutcome } [outcome] 
  */
 export interface FeedbackListInstanceCreateOptions {
-  outcome?: MessageFeedbackOutcome;
+  'outcome'?: MessageFeedbackOutcome;
 }
 
 export interface FeedbackListInstance {
@@ -91,7 +91,7 @@ export function FeedbackListInstance(version: V2010, accountSid: string, message
 
     const data: any = {};
 
-    if (params.outcome !== undefined) data['Outcome'] = params.outcome;
+    if (params['outcome'] !== undefined) data['Outcome'] = params['outcome'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

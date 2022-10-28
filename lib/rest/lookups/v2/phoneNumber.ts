@@ -29,8 +29,8 @@ type PhoneNumberValidationError = 'TOO_SHORT'|'TOO_LONG'|'INVALID_BUT_POSSIBLE'|
  * @property { string } [countryCode] The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
  */
 export interface PhoneNumberListInstanceFetchOptions {
-  fields?: string;
-  countryCode?: string;
+  'fields'?: string;
+  'countryCode'?: string;
 }
 
 export interface PhoneNumberListInstance {
@@ -91,8 +91,8 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
 
     const data: any = {};
 
-    if (params.fields !== undefined) data['Fields'] = params.fields;
-    if (params.countryCode !== undefined) data['CountryCode'] = params.countryCode;
+    if (params['fields'] !== undefined) data['Fields'] = params['fields'];
+    if (params['countryCode'] !== undefined) data['CountryCode'] = params['countryCode'];
 
     const headers: any = {};
 

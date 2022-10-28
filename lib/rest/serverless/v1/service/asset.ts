@@ -30,7 +30,7 @@ import { AssetVersionListInstance } from "./asset/assetVersion";
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetContextUpdateOptions {
-  friendlyName: string;
+  'friendlyName': string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface AssetContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetListInstanceCreateOptions {
-  friendlyName: string;
+  'friendlyName': string;
 }
 /**
  * Options to pass to each
@@ -134,8 +134,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -185,13 +185,13 @@ export class AssetContextImpl implements AssetContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -514,13 +514,13 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -547,7 +547,7 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

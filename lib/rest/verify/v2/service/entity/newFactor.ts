@@ -33,34 +33,34 @@ type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
  *
  * @property { string } friendlyName The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For &#x60;factor_type&#x60; &#x60;push&#x60;, this could be a device name. For &#x60;factor_type&#x60; &#x60;totp&#x60;, this value is used as the “account name” in constructing the &#x60;binding.uri&#x60; property. At the same time, we recommend avoiding providing PII.
  * @property { NewFactorFactorTypes } factorType 
- * @property { string } [bindingAlg] The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60;
- * @property { string } [bindingPublicKey] The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
- * @property { string } [configAppId] The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. It can be up to 100 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
- * @property { NewFactorNotificationPlatforms } [configNotificationPlatform] 
- * @property { string } [configNotificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
- * @property { string } [configSdkVersion] The Verify Push SDK version used to configure the factor  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
- * @property { string } [bindingSecret] The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
- * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
- * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
- * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
- * @property { NewFactorTotpAlgorithms } [configAlg] 
+ * @property { string } [binding.alg] The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60;
+ * @property { string } [binding.publicKey] The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
+ * @property { string } [config.appId] The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. It can be up to 100 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+ * @property { NewFactorNotificationPlatforms } [config.notificationPlatform] 
+ * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+ * @property { string } [config.sdkVersion] The Verify Push SDK version used to configure the factor  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
+ * @property { string } [binding.secret] The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+ * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+ * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+ * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+ * @property { NewFactorTotpAlgorithms } [config.alg] 
  * @property { any } [metadata] Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;os\\\&quot;: \\\&quot;Android\\\&quot;}&#x60;. Can be up to 1024 characters in length.
  */
 export interface NewFactorListInstanceCreateOptions {
-  friendlyName: string;
-  factorType: NewFactorFactorTypes;
-  bindingAlg?: string;
-  bindingPublicKey?: string;
-  configAppId?: string;
-  configNotificationPlatform?: NewFactorNotificationPlatforms;
-  configNotificationToken?: string;
-  configSdkVersion?: string;
-  bindingSecret?: string;
-  configTimeStep?: number;
-  configSkew?: number;
-  configCodeLength?: number;
-  configAlg?: NewFactorTotpAlgorithms;
-  metadata?: any;
+  'friendlyName': string;
+  'factorType': NewFactorFactorTypes;
+  'binding.alg'?: string;
+  'binding.publicKey'?: string;
+  'config.appId'?: string;
+  'config.notificationPlatform'?: NewFactorNotificationPlatforms;
+  'config.notificationToken'?: string;
+  'config.sdkVersion'?: string;
+  'binding.secret'?: string;
+  'config.timeStep'?: number;
+  'config.skew'?: number;
+  'config.codeLength'?: number;
+  'config.alg'?: NewFactorTotpAlgorithms;
+  'metadata'?: any;
 }
 
 export interface NewFactorListInstance {
@@ -110,30 +110,30 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.factorType === null || params.factorType === undefined) {
-      throw new Error('Required parameter "params.factorType" missing.');
+    if (params['factorType'] === null || params['factorType'] === undefined) {
+      throw new Error('Required parameter "params[\'factorType\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['FactorType'] = params.factorType;
-    if (params.bindingAlg !== undefined) data['Binding.Alg'] = params.bindingAlg;
-    if (params.bindingPublicKey !== undefined) data['Binding.PublicKey'] = params.bindingPublicKey;
-    if (params.configAppId !== undefined) data['Config.AppId'] = params.configAppId;
-    if (params.configNotificationPlatform !== undefined) data['Config.NotificationPlatform'] = params.configNotificationPlatform;
-    if (params.configNotificationToken !== undefined) data['Config.NotificationToken'] = params.configNotificationToken;
-    if (params.configSdkVersion !== undefined) data['Config.SdkVersion'] = params.configSdkVersion;
-    if (params.bindingSecret !== undefined) data['Binding.Secret'] = params.bindingSecret;
-    if (params.configTimeStep !== undefined) data['Config.TimeStep'] = params.configTimeStep;
-    if (params.configSkew !== undefined) data['Config.Skew'] = params.configSkew;
-    if (params.configCodeLength !== undefined) data['Config.CodeLength'] = params.configCodeLength;
-    if (params.configAlg !== undefined) data['Config.Alg'] = params.configAlg;
-    if (params.metadata !== undefined) data['Metadata'] = params.metadata;
+    data['FriendlyName'] = params['friendlyName'];
+    data['FactorType'] = params['factorType'];
+    if (params['binding.alg'] !== undefined) data['Binding.Alg'] = params['binding.alg'];
+    if (params['binding.publicKey'] !== undefined) data['Binding.PublicKey'] = params['binding.publicKey'];
+    if (params['config.appId'] !== undefined) data['Config.AppId'] = params['config.appId'];
+    if (params['config.notificationPlatform'] !== undefined) data['Config.NotificationPlatform'] = params['config.notificationPlatform'];
+    if (params['config.notificationToken'] !== undefined) data['Config.NotificationToken'] = params['config.notificationToken'];
+    if (params['config.sdkVersion'] !== undefined) data['Config.SdkVersion'] = params['config.sdkVersion'];
+    if (params['binding.secret'] !== undefined) data['Binding.Secret'] = params['binding.secret'];
+    if (params['config.timeStep'] !== undefined) data['Config.TimeStep'] = params['config.timeStep'];
+    if (params['config.skew'] !== undefined) data['Config.Skew'] = params['config.skew'];
+    if (params['config.codeLength'] !== undefined) data['Config.CodeLength'] = params['config.codeLength'];
+    if (params['config.alg'] !== undefined) data['Config.Alg'] = params['config.alg'];
+    if (params['metadata'] !== undefined) data['Metadata'] = params['metadata'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

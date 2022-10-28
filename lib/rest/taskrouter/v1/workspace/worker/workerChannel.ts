@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } [available] Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
  */
 export interface WorkerChannelContextUpdateOptions {
-  capacity?: number;
-  available?: boolean;
+  'capacity'?: number;
+  'available'?: boolean;
 }
 /**
  * Options to pass to each
@@ -123,9 +123,9 @@ export interface WorkerChannelContext {
 }
 
 export interface WorkerChannelContextSolution {
-  workspaceSid?: string;
-  workerSid?: string;
-  sid?: string;
+  'workspaceSid'?: string;
+  'workerSid'?: string;
+  'sid'?: string;
 }
 
 export class WorkerChannelContextImpl implements WorkerChannelContext {
@@ -162,8 +162,8 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
 
     const data: any = {};
 
-    if (params.capacity !== undefined) data['Capacity'] = params.capacity;
-    if (params.available !== undefined) data['Available'] = serialize.bool(params.available);
+    if (params['capacity'] !== undefined) data['Capacity'] = params['capacity'];
+    if (params['available'] !== undefined) data['Available'] = serialize.bool(params['available']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -504,7 +504,7 @@ export function WorkerChannelListInstance(version: V1, workspaceSid: string, wor
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

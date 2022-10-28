@@ -94,9 +94,9 @@ export interface StepContext {
 }
 
 export interface StepContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  sid?: string;
+  'flowSid'?: string;
+  'engagementSid'?: string;
+  'sid'?: string;
 }
 
 export class StepContextImpl implements StepContext {
@@ -431,7 +431,7 @@ export function StepListInstance(version: V1, flowSid: string, engagementSid: st
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

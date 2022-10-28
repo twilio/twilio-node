@@ -116,9 +116,9 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'callSid'?: string;
+  'sid'?: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
@@ -476,11 +476,11 @@ export function NotificationListInstance(version: V2010, accountSid: string, cal
 
     const data: any = {};
 
-    if (params.log !== undefined) data['Log'] = params.log;
-    if (params.messageDate !== undefined) data['MessageDate'] = serialize.iso8601Date(params.messageDate);
-    if (params.messageDateBefore !== undefined) data['MessageDate<'] = serialize.iso8601Date(params.messageDateBefore);
-    if (params.messageDateAfter !== undefined) data['MessageDate>'] = serialize.iso8601Date(params.messageDateAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['log'] !== undefined) data['Log'] = params['log'];
+    if (params['messageDate'] !== undefined) data['MessageDate'] = serialize.iso8601Date(params['messageDate']);
+    if (params['messageDateBefore'] !== undefined) data['MessageDate<'] = serialize.iso8601Date(params['messageDateBefore']);
+    if (params['messageDateAfter'] !== undefined) data['MessageDate>'] = serialize.iso8601Date(params['messageDateAfter']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

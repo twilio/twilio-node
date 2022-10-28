@@ -30,7 +30,7 @@ import { StreamMessageListInstance } from "./syncStream/streamMessage";
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamContextUpdateOptions {
-  ttl?: number;
+  'ttl'?: number;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface SyncStreamContextUpdateOptions {
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamListInstanceCreateOptions {
-  uniqueName?: string;
-  ttl?: number;
+  'uniqueName'?: string;
+  'ttl'?: number;
 }
 /**
  * Options to pass to each
@@ -144,8 +144,8 @@ export interface SyncStreamContext {
 }
 
 export interface SyncStreamContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class SyncStreamContextImpl implements SyncStreamContext {
@@ -200,7 +200,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -558,8 +558,8 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -586,7 +586,7 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

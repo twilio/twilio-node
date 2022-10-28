@@ -30,7 +30,7 @@ import { CredentialListInstance as CredentialListInstanceImport } from "./creden
  * @property { string } friendlyName A human readable descriptive text for a CredentialList, up to 64 characters long.
  */
 export interface CredentialListContextUpdateOptions {
-  friendlyName: string;
+  'friendlyName': string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface CredentialListContextUpdateOptions {
  * @property { string } friendlyName A human readable descriptive text that describes the CredentialList, up to 64 characters long.
  */
 export interface CredentialListListInstanceCreateOptions {
-  friendlyName: string;
+  'friendlyName': string;
 }
 /**
  * Options to pass to each
@@ -134,8 +134,8 @@ export interface CredentialListContext {
 }
 
 export interface CredentialListContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class CredentialListContextImpl implements CredentialListContext {
@@ -185,13 +185,13 @@ export class CredentialListContextImpl implements CredentialListContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -507,13 +507,13 @@ export function CredentialListListInstance(version: V2010, accountSid: string): 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -540,7 +540,7 @@ export function CredentialListListInstance(version: V2010, accountSid: string): 
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

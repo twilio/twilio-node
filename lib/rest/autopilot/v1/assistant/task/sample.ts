@@ -31,9 +31,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [sourceChannel] The communication channel from which the sample was captured. Can be: &#x60;voice&#x60;, &#x60;sms&#x60;, &#x60;chat&#x60;, &#x60;alexa&#x60;, &#x60;google-assistant&#x60;, &#x60;slack&#x60;, or null if not included.
  */
 export interface SampleContextUpdateOptions {
-  language?: string;
-  taggedText?: string;
-  sourceChannel?: string;
+  'language'?: string;
+  'taggedText'?: string;
+  'sourceChannel'?: string;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface SampleContextUpdateOptions {
  * @property { string } [sourceChannel] The communication channel from which the new sample was captured. Can be: &#x60;voice&#x60;, &#x60;sms&#x60;, &#x60;chat&#x60;, &#x60;alexa&#x60;, &#x60;google-assistant&#x60;, &#x60;slack&#x60;, or null if not included.
  */
 export interface SampleListInstanceCreateOptions {
-  language: string;
-  taggedText: string;
-  sourceChannel?: string;
+  'language': string;
+  'taggedText': string;
+  'sourceChannel'?: string;
 }
 /**
  * Options to pass to each
@@ -154,9 +154,9 @@ export interface SampleContext {
 }
 
 export interface SampleContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  'assistantSid'?: string;
+  'taskSid'?: string;
+  'sid'?: string;
 }
 
 export class SampleContextImpl implements SampleContext {
@@ -205,9 +205,9 @@ export class SampleContextImpl implements SampleContext {
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.taggedText !== undefined) data['TaggedText'] = params.taggedText;
-    if (params.sourceChannel !== undefined) data['SourceChannel'] = params.sourceChannel;
+    if (params['language'] !== undefined) data['Language'] = params['language'];
+    if (params['taggedText'] !== undefined) data['TaggedText'] = params['taggedText'];
+    if (params['sourceChannel'] !== undefined) data['SourceChannel'] = params['sourceChannel'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -546,19 +546,19 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.language === null || params.language === undefined) {
-      throw new Error('Required parameter "params.language" missing.');
+    if (params['language'] === null || params['language'] === undefined) {
+      throw new Error('Required parameter "params[\'language\']" missing.');
     }
 
-    if (params.taggedText === null || params.taggedText === undefined) {
-      throw new Error('Required parameter "params.taggedText" missing.');
+    if (params['taggedText'] === null || params['taggedText'] === undefined) {
+      throw new Error('Required parameter "params[\'taggedText\']" missing.');
     }
 
     const data: any = {};
 
-    data['Language'] = params.language;
-    data['TaggedText'] = params.taggedText;
-    if (params.sourceChannel !== undefined) data['SourceChannel'] = params.sourceChannel;
+    data['Language'] = params['language'];
+    data['TaggedText'] = params['taggedText'];
+    if (params['sourceChannel'] !== undefined) data['SourceChannel'] = params['sourceChannel'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -585,8 +585,8 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['language'] !== undefined) data['Language'] = params['language'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

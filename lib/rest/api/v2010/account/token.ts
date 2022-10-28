@@ -34,7 +34,7 @@ export class ApiV2010AccountTokenIceServers {
  * @property { number } [ttl] The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
  */
 export interface TokenListInstanceCreateOptions {
-  ttl?: number;
+  'ttl'?: number;
 }
 
 export interface TokenListInstance {
@@ -96,7 +96,7 @@ export function TokenListInstance(version: V2010, accountSid: string): TokenList
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

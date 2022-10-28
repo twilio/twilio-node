@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface WorkspaceRealTimeStatisticsContextFetchOptions {
-  taskChannel?: string;
+  'taskChannel'?: string;
 }
 
 export interface WorkspaceRealTimeStatisticsContext {
@@ -61,7 +61,7 @@ export interface WorkspaceRealTimeStatisticsContext {
 }
 
 export interface WorkspaceRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
+  'workspaceSid'?: string;
 }
 
 export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTimeStatisticsContext {
@@ -84,7 +84,7 @@ export class WorkspaceRealTimeStatisticsContextImpl implements WorkspaceRealTime
 
     const data: any = {};
 
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
 
     const headers: any = {};
 

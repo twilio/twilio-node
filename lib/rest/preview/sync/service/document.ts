@@ -31,8 +31,8 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface DocumentContextUpdateOptions {
-  data: any;
-  ifMatch?: string;
+  'data': any;
+  'ifMatch'?: string;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface DocumentContextUpdateOptions {
  * @property { any } [data] 
  */
 export interface DocumentListInstanceCreateOptions {
-  uniqueName?: string;
-  data?: any;
+  'uniqueName'?: string;
+  'data'?: any;
 }
 /**
  * Options to pass to each
@@ -138,8 +138,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -189,17 +189,17 @@ export class DocumentContextImpl implements DocumentContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -520,8 +520,8 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.data !== undefined) data['Data'] = params.data;
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['data'] !== undefined) data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -548,7 +548,7 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

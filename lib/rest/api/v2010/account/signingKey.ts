@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] 
  */
 export interface SigningKeyContextUpdateOptions {
-  friendlyName?: string;
+  'friendlyName'?: string;
 }
 /**
  * Options to pass to each
@@ -131,8 +131,8 @@ export interface SigningKeyContext {
 }
 
 export interface SigningKeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class SigningKeyContextImpl implements SigningKeyContext {
@@ -181,7 +181,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -458,7 +458,7 @@ export function SigningKeyListInstance(version: V2010, accountSid: string): Sign
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

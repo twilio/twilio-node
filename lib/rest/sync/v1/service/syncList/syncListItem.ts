@@ -33,7 +33,7 @@ type SyncListItemQueryResultOrder = 'asc'|'desc';
  * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface SyncListItemContextRemoveOptions {
-  ifMatch?: string;
+  'ifMatch'?: string;
 }
 
 /**
@@ -46,11 +46,11 @@ export interface SyncListItemContextRemoveOptions {
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\&#39;s parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item\\\&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
  */
 export interface SyncListItemContextUpdateOptions {
-  ifMatch?: string;
-  data?: any;
-  ttl?: number;
-  itemTtl?: number;
-  collectionTtl?: number;
+  'ifMatch'?: string;
+  'data'?: any;
+  'ttl'?: number;
+  'itemTtl'?: number;
+  'collectionTtl'?: number;
 }
 
 /**
@@ -62,10 +62,10 @@ export interface SyncListItemContextUpdateOptions {
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\&#39;s parent Sync List expires (time-to-live) and is deleted.
  */
 export interface SyncListItemListInstanceCreateOptions {
-  data: any;
-  ttl?: number;
-  itemTtl?: number;
-  collectionTtl?: number;
+  'data': any;
+  'ttl'?: number;
+  'itemTtl'?: number;
+  'collectionTtl'?: number;
 }
 /**
  * Options to pass to each
@@ -195,9 +195,9 @@ export interface SyncListItemContext {
 }
 
 export interface SyncListItemContextSolution {
-  serviceSid?: string;
-  listSid?: string;
-  index?: number;
+  'serviceSid'?: string;
+  'listSid'?: string;
+  'index'?: number;
 }
 
 export class SyncListItemContextImpl implements SyncListItemContext {
@@ -222,7 +222,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
 
     const headers: any = {};
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -258,14 +258,14 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     const data: any = {};
 
-    if (params.data !== undefined) data['Data'] = params.data;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.itemTtl !== undefined) data['ItemTtl'] = params.itemTtl;
-    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
+    if (params['data'] !== undefined) data['Data'] = params['data'];
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params['itemTtl'] !== undefined) data['ItemTtl'] = params['itemTtl'];
+    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -618,16 +618,16 @@ export function SyncListItemListInstance(version: V1, serviceSid: string, listSi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.itemTtl !== undefined) data['ItemTtl'] = params.itemTtl;
-    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
+    data['Data'] = params['data'];
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params['itemTtl'] !== undefined) data['ItemTtl'] = params['itemTtl'];
+    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -654,10 +654,10 @@ export function SyncListItemListInstance(version: V1, serviceSid: string, listSi
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['bounds'] !== undefined) data['Bounds'] = params['bounds'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

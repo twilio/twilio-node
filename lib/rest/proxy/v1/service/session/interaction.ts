@@ -106,9 +106,9 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sessionSid'?: string;
+  'sid'?: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -494,7 +494,7 @@ export function InteractionListInstance(version: V1, serviceSid: string, session
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

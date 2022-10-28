@@ -34,11 +34,11 @@ import { MessageInteractionListInstance } from "./participant/messageInteraction
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface ParticipantListInstanceCreateOptions {
-  identifier: string;
-  friendlyName?: string;
-  proxyIdentifier?: string;
-  proxyIdentifierSid?: string;
-  failOnParticipantConflict?: boolean;
+  'identifier': string;
+  'friendlyName'?: string;
+  'proxyIdentifier'?: string;
+  'proxyIdentifierSid'?: string;
+  'failOnParticipantConflict'?: boolean;
 }
 /**
  * Options to pass to each
@@ -121,9 +121,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sessionSid'?: string;
+  'sid'?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -496,17 +496,17 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identifier === null || params.identifier === undefined) {
-      throw new Error('Required parameter "params.identifier" missing.');
+    if (params['identifier'] === null || params['identifier'] === undefined) {
+      throw new Error('Required parameter "params[\'identifier\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identifier'] = params.identifier;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.proxyIdentifier !== undefined) data['ProxyIdentifier'] = params.proxyIdentifier;
-    if (params.proxyIdentifierSid !== undefined) data['ProxyIdentifierSid'] = params.proxyIdentifierSid;
-    if (params.failOnParticipantConflict !== undefined) data['FailOnParticipantConflict'] = serialize.bool(params.failOnParticipantConflict);
+    data['Identifier'] = params['identifier'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['proxyIdentifier'] !== undefined) data['ProxyIdentifier'] = params['proxyIdentifier'];
+    if (params['proxyIdentifierSid'] !== undefined) data['ProxyIdentifierSid'] = params['proxyIdentifierSid'];
+    if (params['failOnParticipantConflict'] !== undefined) data['FailOnParticipantConflict'] = serialize.bool(params['failOnParticipantConflict']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -533,7 +533,7 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

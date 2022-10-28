@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { number } [interval] Number of seconds that the rate limit will be enforced over.
  */
 export interface BucketContextUpdateOptions {
-  max?: number;
-  interval?: number;
+  'max'?: number;
+  'interval'?: number;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface BucketContextUpdateOptions {
  * @property { number } interval Number of seconds that the rate limit will be enforced over.
  */
 export interface BucketListInstanceCreateOptions {
-  max: number;
-  interval: number;
+  'max': number;
+  'interval': number;
 }
 /**
  * Options to pass to each
@@ -144,9 +144,9 @@ export interface BucketContext {
 }
 
 export interface BucketContextSolution {
-  serviceSid?: string;
-  rateLimitSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'rateLimitSid'?: string;
+  'sid'?: string;
 }
 
 export class BucketContextImpl implements BucketContext {
@@ -195,8 +195,8 @@ export class BucketContextImpl implements BucketContext {
 
     const data: any = {};
 
-    if (params.max !== undefined) data['Max'] = params.max;
-    if (params.interval !== undefined) data['Interval'] = params.interval;
+    if (params['max'] !== undefined) data['Max'] = params['max'];
+    if (params['interval'] !== undefined) data['Interval'] = params['interval'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -528,18 +528,18 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.max === null || params.max === undefined) {
-      throw new Error('Required parameter "params.max" missing.');
+    if (params['max'] === null || params['max'] === undefined) {
+      throw new Error('Required parameter "params[\'max\']" missing.');
     }
 
-    if (params.interval === null || params.interval === undefined) {
-      throw new Error('Required parameter "params.interval" missing.');
+    if (params['interval'] === null || params['interval'] === undefined) {
+      throw new Error('Required parameter "params[\'interval\']" missing.');
     }
 
     const data: any = {};
 
-    data['Max'] = params.max;
-    data['Interval'] = params.interval;
+    data['Max'] = params['max'];
+    data['Interval'] = params['interval'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -566,7 +566,7 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

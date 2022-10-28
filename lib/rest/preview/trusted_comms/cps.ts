@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
  */
 export interface CpsContextFetchOptions {
-  xXcnamSensitivePhoneNumber?: string;
+  'xXcnamSensitivePhoneNumber'?: string;
 }
 
 export interface CpsContext {
@@ -85,7 +85,7 @@ export class CpsContextImpl implements CpsContext {
 
 
     const headers: any = {};
-    if (params.xXcnamSensitivePhoneNumber !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params.xXcnamSensitivePhoneNumber;
+    if (params['xXcnamSensitivePhoneNumber'] !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params['xXcnamSensitivePhoneNumber'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });

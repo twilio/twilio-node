@@ -38,16 +38,16 @@ const serialize = require("../../../base/serialize");
  * @property { string } [fromDomainSid] The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;.
  */
 export interface ByocTrunkContextUpdateOptions {
-  friendlyName?: string;
-  voiceUrl?: string;
-  voiceMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceFallbackMethod?: string;
-  statusCallbackUrl?: string;
-  statusCallbackMethod?: string;
-  cnamLookupEnabled?: boolean;
-  connectionPolicySid?: string;
-  fromDomainSid?: string;
+  'friendlyName'?: string;
+  'voiceUrl'?: string;
+  'voiceMethod'?: string;
+  'voiceFallbackUrl'?: string;
+  'voiceFallbackMethod'?: string;
+  'statusCallbackUrl'?: string;
+  'statusCallbackMethod'?: string;
+  'cnamLookupEnabled'?: boolean;
+  'connectionPolicySid'?: string;
+  'fromDomainSid'?: string;
 }
 
 /**
@@ -65,16 +65,16 @@ export interface ByocTrunkContextUpdateOptions {
  * @property { string } [fromDomainSid] The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;.
  */
 export interface ByocTrunkListInstanceCreateOptions {
-  friendlyName?: string;
-  voiceUrl?: string;
-  voiceMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceFallbackMethod?: string;
-  statusCallbackUrl?: string;
-  statusCallbackMethod?: string;
-  cnamLookupEnabled?: boolean;
-  connectionPolicySid?: string;
-  fromDomainSid?: string;
+  'friendlyName'?: string;
+  'voiceUrl'?: string;
+  'voiceMethod'?: string;
+  'voiceFallbackUrl'?: string;
+  'voiceFallbackMethod'?: string;
+  'statusCallbackUrl'?: string;
+  'statusCallbackMethod'?: string;
+  'cnamLookupEnabled'?: boolean;
+  'connectionPolicySid'?: string;
+  'fromDomainSid'?: string;
 }
 /**
  * Options to pass to each
@@ -176,7 +176,7 @@ export interface ByocTrunkContext {
 }
 
 export interface ByocTrunkContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class ByocTrunkContextImpl implements ByocTrunkContext {
@@ -225,16 +225,16 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
-    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
-    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
-    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
-    if (params.statusCallbackUrl !== undefined) data['StatusCallbackUrl'] = params.statusCallbackUrl;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.connectionPolicySid !== undefined) data['ConnectionPolicySid'] = params.connectionPolicySid;
-    if (params.fromDomainSid !== undefined) data['FromDomainSid'] = params.fromDomainSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['voiceUrl'] !== undefined) data['VoiceUrl'] = params['voiceUrl'];
+    if (params['voiceMethod'] !== undefined) data['VoiceMethod'] = params['voiceMethod'];
+    if (params['voiceFallbackUrl'] !== undefined) data['VoiceFallbackUrl'] = params['voiceFallbackUrl'];
+    if (params['voiceFallbackMethod'] !== undefined) data['VoiceFallbackMethod'] = params['voiceFallbackMethod'];
+    if (params['statusCallbackUrl'] !== undefined) data['StatusCallbackUrl'] = params['statusCallbackUrl'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['cnamLookupEnabled'] !== undefined) data['CnamLookupEnabled'] = serialize.bool(params['cnamLookupEnabled']);
+    if (params['connectionPolicySid'] !== undefined) data['ConnectionPolicySid'] = params['connectionPolicySid'];
+    if (params['fromDomainSid'] !== undefined) data['FromDomainSid'] = params['fromDomainSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -622,16 +622,16 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
-    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
-    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
-    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
-    if (params.statusCallbackUrl !== undefined) data['StatusCallbackUrl'] = params.statusCallbackUrl;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.connectionPolicySid !== undefined) data['ConnectionPolicySid'] = params.connectionPolicySid;
-    if (params.fromDomainSid !== undefined) data['FromDomainSid'] = params.fromDomainSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['voiceUrl'] !== undefined) data['VoiceUrl'] = params['voiceUrl'];
+    if (params['voiceMethod'] !== undefined) data['VoiceMethod'] = params['voiceMethod'];
+    if (params['voiceFallbackUrl'] !== undefined) data['VoiceFallbackUrl'] = params['voiceFallbackUrl'];
+    if (params['voiceFallbackMethod'] !== undefined) data['VoiceFallbackMethod'] = params['voiceFallbackMethod'];
+    if (params['statusCallbackUrl'] !== undefined) data['StatusCallbackUrl'] = params['statusCallbackUrl'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['cnamLookupEnabled'] !== undefined) data['CnamLookupEnabled'] = serialize.bool(params['cnamLookupEnabled']);
+    if (params['connectionPolicySid'] !== undefined) data['ConnectionPolicySid'] = params['connectionPolicySid'];
+    if (params['fromDomainSid'] !== undefined) data['FromDomainSid'] = params['fromDomainSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -658,7 +658,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

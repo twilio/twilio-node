@@ -31,10 +31,10 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { string } [defaultClosedTimer] Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
  */
 export interface ConfigurationContextUpdateOptions {
-  defaultChatServiceSid?: string;
-  defaultMessagingServiceSid?: string;
-  defaultInactiveTimer?: string;
-  defaultClosedTimer?: string;
+  'defaultChatServiceSid'?: string;
+  'defaultMessagingServiceSid'?: string;
+  'defaultInactiveTimer'?: string;
+  'defaultClosedTimer'?: string;
 }
 
 export interface ConfigurationContext {
@@ -114,10 +114,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     const data: any = {};
 
-    if (params.defaultChatServiceSid !== undefined) data['DefaultChatServiceSid'] = params.defaultChatServiceSid;
-    if (params.defaultMessagingServiceSid !== undefined) data['DefaultMessagingServiceSid'] = params.defaultMessagingServiceSid;
-    if (params.defaultInactiveTimer !== undefined) data['DefaultInactiveTimer'] = params.defaultInactiveTimer;
-    if (params.defaultClosedTimer !== undefined) data['DefaultClosedTimer'] = params.defaultClosedTimer;
+    if (params['defaultChatServiceSid'] !== undefined) data['DefaultChatServiceSid'] = params['defaultChatServiceSid'];
+    if (params['defaultMessagingServiceSid'] !== undefined) data['DefaultMessagingServiceSid'] = params['defaultMessagingServiceSid'];
+    if (params['defaultInactiveTimer'] !== undefined) data['DefaultInactiveTimer'] = params['defaultInactiveTimer'];
+    if (params['defaultClosedTimer'] !== undefined) data['DefaultClosedTimer'] = params['defaultClosedTimer'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -298,11 +298,11 @@ export function DailyListInstance(version: V2010, accountSid: string): DailyList
 
     const data: any = {};
 
-    if (params.category !== undefined) data['Category'] = params.category;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601Date(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601Date(params.endDate);
-    if (params.includeSubaccounts !== undefined) data['IncludeSubaccounts'] = serialize.bool(params.includeSubaccounts);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['category'] !== undefined) data['Category'] = params['category'];
+    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601Date(params['startDate']);
+    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601Date(params['endDate']);
+    if (params['includeSubaccounts'] !== undefined) data['IncludeSubaccounts'] = serialize.bool(params['includeSubaccounts']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

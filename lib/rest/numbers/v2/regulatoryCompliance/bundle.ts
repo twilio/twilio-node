@@ -44,10 +44,10 @@ type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twil
  * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
  */
 export interface BundleContextUpdateOptions {
-  status?: BundleStatus;
-  statusCallback?: string;
-  friendlyName?: string;
-  email?: string;
+  'status'?: BundleStatus;
+  'statusCallback'?: string;
+  'friendlyName'?: string;
+  'email'?: string;
 }
 
 /**
@@ -62,13 +62,13 @@ export interface BundleContextUpdateOptions {
  * @property { string } [numberType] The type of phone number of the Bundle\\\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
  */
 export interface BundleListInstanceCreateOptions {
-  friendlyName: string;
-  email: string;
-  statusCallback?: string;
-  regulationSid?: string;
-  isoCountry?: string;
-  endUserType?: BundleEndUserType;
-  numberType?: string;
+  'friendlyName': string;
+  'email': string;
+  'statusCallback'?: string;
+  'regulationSid'?: string;
+  'isoCountry'?: string;
+  'endUserType'?: BundleEndUserType;
+  'numberType'?: string;
 }
 /**
  * Options to pass to each
@@ -240,7 +240,7 @@ export interface BundleContext {
 }
 
 export interface BundleContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class BundleContextImpl implements BundleContext {
@@ -313,10 +313,10 @@ export class BundleContextImpl implements BundleContext {
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.email !== undefined) data['Email'] = params.email;
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['email'] !== undefined) data['Email'] = params['email'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -692,23 +692,23 @@ export function BundleListInstance(version: V2): BundleListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.email === null || params.email === undefined) {
-      throw new Error('Required parameter "params.email" missing.');
+    if (params['email'] === null || params['email'] === undefined) {
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['Email'] = params.email;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.endUserType !== undefined) data['EndUserType'] = params.endUserType;
-    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
+    data['FriendlyName'] = params['friendlyName'];
+    data['Email'] = params['email'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['regulationSid'] !== undefined) data['RegulationSid'] = params['regulationSid'];
+    if (params['isoCountry'] !== undefined) data['IsoCountry'] = params['isoCountry'];
+    if (params['endUserType'] !== undefined) data['EndUserType'] = params['endUserType'];
+    if (params['numberType'] !== undefined) data['NumberType'] = params['numberType'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -735,18 +735,18 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
-    if (params.hasValidUntilDate !== undefined) data['HasValidUntilDate'] = serialize.bool(params.hasValidUntilDate);
-    if (params.sortBy !== undefined) data['SortBy'] = params.sortBy;
-    if (params.sortDirection !== undefined) data['SortDirection'] = params.sortDirection;
-    if (params.validUntilDate !== undefined) data['ValidUntilDate'] = serialize.iso8601DateTime(params.validUntilDate);
-    if (params.validUntilDateBefore !== undefined) data['ValidUntilDate<'] = serialize.iso8601DateTime(params.validUntilDateBefore);
-    if (params.validUntilDateAfter !== undefined) data['ValidUntilDate>'] = serialize.iso8601DateTime(params.validUntilDateAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['regulationSid'] !== undefined) data['RegulationSid'] = params['regulationSid'];
+    if (params['isoCountry'] !== undefined) data['IsoCountry'] = params['isoCountry'];
+    if (params['numberType'] !== undefined) data['NumberType'] = params['numberType'];
+    if (params['hasValidUntilDate'] !== undefined) data['HasValidUntilDate'] = serialize.bool(params['hasValidUntilDate']);
+    if (params['sortBy'] !== undefined) data['SortBy'] = params['sortBy'];
+    if (params['sortDirection'] !== undefined) data['SortDirection'] = params['sortDirection'];
+    if (params['validUntilDate'] !== undefined) data['ValidUntilDate'] = serialize.iso8601DateTime(params['validUntilDate']);
+    if (params['validUntilDateBefore'] !== undefined) data['ValidUntilDate<'] = serialize.iso8601DateTime(params['validUntilDateBefore']);
+    if (params['validUntilDateAfter'] !== undefined) data['ValidUntilDate>'] = serialize.iso8601DateTime(params['validUntilDateAfter']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

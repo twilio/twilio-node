@@ -30,8 +30,8 @@ type CallFeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'
  * @property { Array<CallFeedbackIssues> } [issue] One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
  */
 export interface FeedbackContextUpdateOptions {
-  qualityScore?: number;
-  issue?: Array<CallFeedbackIssues>;
+  'qualityScore'?: number;
+  'issue'?: Array<CallFeedbackIssues>;
 }
 
 export interface FeedbackContext {
@@ -75,8 +75,8 @@ export interface FeedbackContext {
 }
 
 export interface FeedbackContextSolution {
-  accountSid?: string;
-  callSid?: string;
+  'accountSid'?: string;
+  'callSid'?: string;
 }
 
 export class FeedbackContextImpl implements FeedbackContext {
@@ -113,8 +113,8 @@ export class FeedbackContextImpl implements FeedbackContext {
 
     const data: any = {};
 
-    if (params.qualityScore !== undefined) data['QualityScore'] = params.qualityScore;
-    if (params.issue !== undefined) data['Issue'] = serialize.map(params.issue, ((e) => e));
+    if (params['qualityScore'] !== undefined) data['QualityScore'] = params['qualityScore'];
+    if (params['issue'] !== undefined) data['Issue'] = serialize.map(params['issue'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -304,3 +304,6 @@ export function FeedbackListInstance(version: V2010, accountSid: string, callSid
 
   return instance;
 }
+
+
+

@@ -32,7 +32,7 @@ type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrappi
  * @property { string } [ifMatch] If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface TaskContextRemoveOptions {
-  ifMatch?: string;
+  'ifMatch'?: string;
 }
 
 /**
@@ -46,12 +46,12 @@ export interface TaskContextRemoveOptions {
  * @property { string } [taskChannel] When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface TaskContextUpdateOptions {
-  ifMatch?: string;
-  attributes?: string;
-  assignmentStatus?: TaskStatus;
-  reason?: string;
-  priority?: number;
-  taskChannel?: string;
+  'ifMatch'?: string;
+  'attributes'?: string;
+  'assignmentStatus'?: TaskStatus;
+  'reason'?: string;
+  'priority'?: number;
+  'taskChannel'?: string;
 }
 
 /**
@@ -64,11 +64,11 @@ export interface TaskContextUpdateOptions {
  * @property { string } [attributes] A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\&#39;s &#x60;assignment_callback_url&#x60; when the Task is assigned to a Worker. For example: &#x60;{ \\\&quot;task_type\\\&quot;: \\\&quot;call\\\&quot;, \\\&quot;twilio_call_sid\\\&quot;: \\\&quot;CAxxx\\\&quot;, \\\&quot;customer_ticket_number\\\&quot;: \\\&quot;12345\\\&quot; }&#x60;.
  */
 export interface TaskListInstanceCreateOptions {
-  timeout?: number;
-  priority?: number;
-  taskChannel?: string;
-  workflowSid?: string;
-  attributes?: string;
+  'timeout'?: number;
+  'priority'?: number;
+  'taskChannel'?: string;
+  'workflowSid'?: string;
+  'attributes'?: string;
 }
 /**
  * Options to pass to each
@@ -235,8 +235,8 @@ export interface TaskContext {
 }
 
 export interface TaskContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  'workspaceSid'?: string;
+  'sid'?: string;
 }
 
 export class TaskContextImpl implements TaskContext {
@@ -267,7 +267,7 @@ export class TaskContextImpl implements TaskContext {
 
 
     const headers: any = {};
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -303,15 +303,15 @@ export class TaskContextImpl implements TaskContext {
 
     const data: any = {};
 
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.assignmentStatus !== undefined) data['AssignmentStatus'] = params.assignmentStatus;
-    if (params.reason !== undefined) data['Reason'] = params.reason;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['assignmentStatus'] !== undefined) data['AssignmentStatus'] = params['assignmentStatus'];
+    if (params['reason'] !== undefined) data['Reason'] = params['reason'];
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -750,11 +750,11 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
 
     const data: any = {};
 
-    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.workflowSid !== undefined) data['WorkflowSid'] = params.workflowSid;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params['timeout'] !== undefined) data['Timeout'] = params['timeout'];
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
+    if (params['workflowSid'] !== undefined) data['WorkflowSid'] = params['workflowSid'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -781,16 +781,16 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
 
     const data: any = {};
 
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.assignmentStatus !== undefined) data['AssignmentStatus'] = serialize.map(params.assignmentStatus, ((e) => e));
-    if (params.workflowSid !== undefined) data['WorkflowSid'] = params.workflowSid;
-    if (params.workflowName !== undefined) data['WorkflowName'] = params.workflowName;
-    if (params.taskQueueSid !== undefined) data['TaskQueueSid'] = params.taskQueueSid;
-    if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
-    if (params.evaluateTaskAttributes !== undefined) data['EvaluateTaskAttributes'] = params.evaluateTaskAttributes;
-    if (params.ordering !== undefined) data['Ordering'] = params.ordering;
-    if (params.hasAddons !== undefined) data['HasAddons'] = serialize.bool(params.hasAddons);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['assignmentStatus'] !== undefined) data['AssignmentStatus'] = serialize.map(params['assignmentStatus'], ((e) => e));
+    if (params['workflowSid'] !== undefined) data['WorkflowSid'] = params['workflowSid'];
+    if (params['workflowName'] !== undefined) data['WorkflowName'] = params['workflowName'];
+    if (params['taskQueueSid'] !== undefined) data['TaskQueueSid'] = params['taskQueueSid'];
+    if (params['taskQueueName'] !== undefined) data['TaskQueueName'] = params['taskQueueName'];
+    if (params['evaluateTaskAttributes'] !== undefined) data['EvaluateTaskAttributes'] = params['evaluateTaskAttributes'];
+    if (params['ordering'] !== undefined) data['Ordering'] = params['ordering'];
+    if (params['hasAddons'] !== undefined) data['HasAddons'] = serialize.bool(params['hasAddons']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

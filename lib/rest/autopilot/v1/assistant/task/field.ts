@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } uniqueName An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
  */
 export interface FieldListInstanceCreateOptions {
-  fieldType: string;
-  uniqueName: string;
+  'fieldType': string;
+  'uniqueName': string;
 }
 /**
  * Options to pass to each
@@ -113,9 +113,9 @@ export interface FieldContext {
 }
 
 export interface FieldContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  'assistantSid'?: string;
+  'taskSid'?: string;
+  'sid'?: string;
 }
 
 export class FieldContextImpl implements FieldContext {
@@ -447,18 +447,18 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.fieldType === null || params.fieldType === undefined) {
-      throw new Error('Required parameter "params.fieldType" missing.');
+    if (params['fieldType'] === null || params['fieldType'] === undefined) {
+      throw new Error('Required parameter "params[\'fieldType\']" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FieldType'] = params.fieldType;
-    data['UniqueName'] = params.uniqueName;
+    data['FieldType'] = params['fieldType'];
+    data['UniqueName'] = params['uniqueName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -485,7 +485,7 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

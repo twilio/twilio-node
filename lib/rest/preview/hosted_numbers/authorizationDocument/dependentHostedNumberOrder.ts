@@ -348,12 +348,12 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.incomingPhoneNumberSid !== undefined) data['IncomingPhoneNumberSid'] = params.incomingPhoneNumberSid;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['phoneNumber'] !== undefined) data['PhoneNumber'] = params['phoneNumber'];
+    if (params['incomingPhoneNumberSid'] !== undefined) data['IncomingPhoneNumberSid'] = params['incomingPhoneNumberSid'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

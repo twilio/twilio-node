@@ -29,7 +29,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [buildSid] The SID of the Build for the Deployment.
  */
 export interface DeploymentListInstanceCreateOptions {
-  buildSid?: string;
+  'buildSid'?: string;
 }
 /**
  * Options to pass to each
@@ -101,9 +101,9 @@ export interface DeploymentContext {
 }
 
 export interface DeploymentContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'environmentSid'?: string;
+  'sid'?: string;
 }
 
 export class DeploymentContextImpl implements DeploymentContext {
@@ -417,7 +417,7 @@ export function DeploymentListInstance(version: V1, serviceSid: string, environm
 
     const data: any = {};
 
-    if (params.buildSid !== undefined) data['BuildSid'] = params.buildSid;
+    if (params['buildSid'] !== undefined) data['BuildSid'] = params['buildSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -444,7 +444,7 @@ export function DeploymentListInstance(version: V1, serviceSid: string, environm
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

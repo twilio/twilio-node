@@ -38,13 +38,13 @@ type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'faile
  * @property { string } [contactPhoneNumber] The contact phone number of the person authorized to sign the Authorization Document.
  */
 export interface AuthorizationDocumentContextUpdateOptions {
-  hostedNumberOrderSids?: Array<string>;
-  addressSid?: string;
-  email?: string;
-  ccEmails?: Array<string>;
-  status?: AuthorizationDocumentStatus;
-  contactTitle?: string;
-  contactPhoneNumber?: string;
+  'hostedNumberOrderSids'?: Array<string>;
+  'addressSid'?: string;
+  'email'?: string;
+  'ccEmails'?: Array<string>;
+  'status'?: AuthorizationDocumentStatus;
+  'contactTitle'?: string;
+  'contactPhoneNumber'?: string;
 }
 
 /**
@@ -58,12 +58,12 @@ export interface AuthorizationDocumentContextUpdateOptions {
  * @property { Array<string> } [ccEmails] Email recipients who will be informed when an Authorization Document has been sent and signed.
  */
 export interface AuthorizationDocumentListInstanceCreateOptions {
-  hostedNumberOrderSids: Array<string>;
-  addressSid: string;
-  email: string;
-  contactTitle: string;
-  contactPhoneNumber: string;
-  ccEmails?: Array<string>;
+  'hostedNumberOrderSids': Array<string>;
+  'addressSid': string;
+  'email': string;
+  'contactTitle': string;
+  'contactPhoneNumber': string;
+  'ccEmails'?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -168,7 +168,7 @@ export interface AuthorizationDocumentContext {
 }
 
 export interface AuthorizationDocumentContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class AuthorizationDocumentContextImpl implements AuthorizationDocumentContext {
@@ -211,13 +211,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
 
     const data: any = {};
 
-    if (params.hostedNumberOrderSids !== undefined) data['HostedNumberOrderSids'] = serialize.map(params.hostedNumberOrderSids, ((e) => e));
-    if (params.addressSid !== undefined) data['AddressSid'] = params.addressSid;
-    if (params.email !== undefined) data['Email'] = params.email;
-    if (params.ccEmails !== undefined) data['CcEmails'] = serialize.map(params.ccEmails, ((e) => e));
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.contactTitle !== undefined) data['ContactTitle'] = params.contactTitle;
-    if (params.contactPhoneNumber !== undefined) data['ContactPhoneNumber'] = params.contactPhoneNumber;
+    if (params['hostedNumberOrderSids'] !== undefined) data['HostedNumberOrderSids'] = serialize.map(params['hostedNumberOrderSids'], ((e) => e));
+    if (params['addressSid'] !== undefined) data['AddressSid'] = params['addressSid'];
+    if (params['email'] !== undefined) data['Email'] = params['email'];
+    if (params['ccEmails'] !== undefined) data['CcEmails'] = serialize.map(params['ccEmails'], ((e) => e));
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['contactTitle'] !== undefined) data['ContactTitle'] = params['contactTitle'];
+    if (params['contactPhoneNumber'] !== undefined) data['ContactPhoneNumber'] = params['contactPhoneNumber'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -533,34 +533,34 @@ export function AuthorizationDocumentListInstance(version: HostedNumbers): Autho
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.hostedNumberOrderSids === null || params.hostedNumberOrderSids === undefined) {
-      throw new Error('Required parameter "params.hostedNumberOrderSids" missing.');
+    if (params['hostedNumberOrderSids'] === null || params['hostedNumberOrderSids'] === undefined) {
+      throw new Error('Required parameter "params[\'hostedNumberOrderSids\']" missing.');
     }
 
-    if (params.addressSid === null || params.addressSid === undefined) {
-      throw new Error('Required parameter "params.addressSid" missing.');
+    if (params['addressSid'] === null || params['addressSid'] === undefined) {
+      throw new Error('Required parameter "params[\'addressSid\']" missing.');
     }
 
-    if (params.email === null || params.email === undefined) {
-      throw new Error('Required parameter "params.email" missing.');
+    if (params['email'] === null || params['email'] === undefined) {
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
-    if (params.contactTitle === null || params.contactTitle === undefined) {
-      throw new Error('Required parameter "params.contactTitle" missing.');
+    if (params['contactTitle'] === null || params['contactTitle'] === undefined) {
+      throw new Error('Required parameter "params[\'contactTitle\']" missing.');
     }
 
-    if (params.contactPhoneNumber === null || params.contactPhoneNumber === undefined) {
-      throw new Error('Required parameter "params.contactPhoneNumber" missing.');
+    if (params['contactPhoneNumber'] === null || params['contactPhoneNumber'] === undefined) {
+      throw new Error('Required parameter "params[\'contactPhoneNumber\']" missing.');
     }
 
     const data: any = {};
 
-    data['HostedNumberOrderSids'] = serialize.map(params.hostedNumberOrderSids, ((e) => e));
-    data['AddressSid'] = params.addressSid;
-    data['Email'] = params.email;
-    data['ContactTitle'] = params.contactTitle;
-    data['ContactPhoneNumber'] = params.contactPhoneNumber;
-    if (params.ccEmails !== undefined) data['CcEmails'] = serialize.map(params.ccEmails, ((e) => e));
+    data['HostedNumberOrderSids'] = serialize.map(params['hostedNumberOrderSids'], ((e) => e));
+    data['AddressSid'] = params['addressSid'];
+    data['Email'] = params['email'];
+    data['ContactTitle'] = params['contactTitle'];
+    data['ContactPhoneNumber'] = params['contactPhoneNumber'];
+    if (params['ccEmails'] !== undefined) data['CcEmails'] = serialize.map(params['ccEmails'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -587,9 +587,9 @@ export function AuthorizationDocumentListInstance(version: HostedNumbers): Autho
 
     const data: any = {};
 
-    if (params.email !== undefined) data['Email'] = params.email;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['email'] !== undefined) data['Email'] = params['email'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

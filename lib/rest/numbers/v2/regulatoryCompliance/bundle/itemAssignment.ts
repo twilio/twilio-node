@@ -29,7 +29,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } objectSid The SID of an object bag that holds information of the different items.
  */
 export interface ItemAssignmentListInstanceCreateOptions {
-  objectSid: string;
+  'objectSid': string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface ItemAssignmentContext {
 }
 
 export interface ItemAssignmentContextSolution {
-  bundleSid?: string;
-  sid?: string;
+  'bundleSid'?: string;
+  'sid'?: string;
 }
 
 export class ItemAssignmentContextImpl implements ItemAssignmentContext {
@@ -422,13 +422,13 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.objectSid === null || params.objectSid === undefined) {
-      throw new Error('Required parameter "params.objectSid" missing.');
+    if (params['objectSid'] === null || params['objectSid'] === undefined) {
+      throw new Error('Required parameter "params[\'objectSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['ObjectSid'] = params.objectSid;
+    data['ObjectSid'] = params['objectSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -455,7 +455,7 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

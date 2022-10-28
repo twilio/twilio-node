@@ -33,8 +33,8 @@ import { VariableListInstance } from "./environment/variable";
  * @property { string } [domainSuffix] A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
  */
 export interface EnvironmentListInstanceCreateOptions {
-  uniqueName: string;
-  domainSuffix?: string;
+  'uniqueName': string;
+  'domainSuffix'?: string;
 }
 /**
  * Options to pass to each
@@ -119,8 +119,8 @@ export interface EnvironmentContext {
 }
 
 export interface EnvironmentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class EnvironmentContextImpl implements EnvironmentContext {
@@ -504,14 +504,14 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.domainSuffix !== undefined) data['DomainSuffix'] = params.domainSuffix;
+    data['UniqueName'] = params['uniqueName'];
+    if (params['domainSuffix'] !== undefined) data['DomainSuffix'] = params['domainSuffix'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -538,7 +538,7 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

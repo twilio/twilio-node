@@ -102,10 +102,10 @@ export interface PayloadContext {
 }
 
 export interface PayloadContextSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'referenceSid'?: string;
+  'addOnResultSid'?: string;
+  'sid'?: string;
 }
 
 export class PayloadContextImpl implements PayloadContext {
@@ -445,7 +445,7 @@ export function PayloadListInstance(version: V2010, accountSid: string, referenc
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

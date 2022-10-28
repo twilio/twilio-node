@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface AWSContextUpdateOptions {
-  friendlyName?: string;
+  'friendlyName'?: string;
 }
 
 /**
@@ -40,9 +40,9 @@ export interface AWSContextUpdateOptions {
  * @property { string } [accountSid] The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
  */
 export interface AWSListInstanceCreateOptions {
-  credentials: string;
-  friendlyName?: string;
-  accountSid?: string;
+  'credentials': string;
+  'friendlyName'?: string;
+  'accountSid'?: string;
 }
 /**
  * Options to pass to each
@@ -144,7 +144,7 @@ export interface AWSContext {
 }
 
 export interface AWSContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class AWSContextImpl implements AWSContext {
@@ -193,7 +193,7 @@ export class AWSContextImpl implements AWSContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -502,15 +502,15 @@ export function AWSListInstance(version: V1): AWSListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.credentials === null || params.credentials === undefined) {
-      throw new Error('Required parameter "params.credentials" missing.');
+    if (params['credentials'] === null || params['credentials'] === undefined) {
+      throw new Error('Required parameter "params[\'credentials\']" missing.');
     }
 
     const data: any = {};
 
-    data['Credentials'] = params.credentials;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.accountSid !== undefined) data['AccountSid'] = params.accountSid;
+    data['Credentials'] = params['credentials'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['accountSid'] !== undefined) data['AccountSid'] = params['accountSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -537,7 +537,7 @@ export function AWSListInstance(version: V1): AWSListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

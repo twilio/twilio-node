@@ -47,13 +47,13 @@ type WorkspaceQueueOrder = 'FIFO'|'LIFO';
  * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceContextUpdateOptions {
-  defaultActivitySid?: string;
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  friendlyName?: string;
-  multiTaskEnabled?: boolean;
-  timeoutActivitySid?: string;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  'defaultActivitySid'?: string;
+  'eventCallbackUrl'?: string;
+  'eventsFilter'?: string;
+  'friendlyName'?: string;
+  'multiTaskEnabled'?: boolean;
+  'timeoutActivitySid'?: string;
+  'prioritizeQueueOrder'?: WorkspaceQueueOrder;
 }
 
 /**
@@ -67,12 +67,12 @@ export interface WorkspaceContextUpdateOptions {
  * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceListInstanceCreateOptions {
-  friendlyName: string;
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  multiTaskEnabled?: boolean;
-  template?: string;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  'friendlyName': string;
+  'eventCallbackUrl'?: string;
+  'eventsFilter'?: string;
+  'multiTaskEnabled'?: boolean;
+  'template'?: string;
+  'prioritizeQueueOrder'?: WorkspaceQueueOrder;
 }
 /**
  * Options to pass to each
@@ -190,7 +190,7 @@ export interface WorkspaceContext {
 }
 
 export interface WorkspaceContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class WorkspaceContextImpl implements WorkspaceContext {
@@ -299,13 +299,13 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     const data: any = {};
 
-    if (params.defaultActivitySid !== undefined) data['DefaultActivitySid'] = params.defaultActivitySid;
-    if (params.eventCallbackUrl !== undefined) data['EventCallbackUrl'] = params.eventCallbackUrl;
-    if (params.eventsFilter !== undefined) data['EventsFilter'] = params.eventsFilter;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.multiTaskEnabled !== undefined) data['MultiTaskEnabled'] = serialize.bool(params.multiTaskEnabled);
-    if (params.timeoutActivitySid !== undefined) data['TimeoutActivitySid'] = params.timeoutActivitySid;
-    if (params.prioritizeQueueOrder !== undefined) data['PrioritizeQueueOrder'] = params.prioritizeQueueOrder;
+    if (params['defaultActivitySid'] !== undefined) data['DefaultActivitySid'] = params['defaultActivitySid'];
+    if (params['eventCallbackUrl'] !== undefined) data['EventCallbackUrl'] = params['eventCallbackUrl'];
+    if (params['eventsFilter'] !== undefined) data['EventsFilter'] = params['eventsFilter'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['multiTaskEnabled'] !== undefined) data['MultiTaskEnabled'] = serialize.bool(params['multiTaskEnabled']);
+    if (params['timeoutActivitySid'] !== undefined) data['TimeoutActivitySid'] = params['timeoutActivitySid'];
+    if (params['prioritizeQueueOrder'] !== undefined) data['PrioritizeQueueOrder'] = params['prioritizeQueueOrder'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -744,18 +744,18 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.eventCallbackUrl !== undefined) data['EventCallbackUrl'] = params.eventCallbackUrl;
-    if (params.eventsFilter !== undefined) data['EventsFilter'] = params.eventsFilter;
-    if (params.multiTaskEnabled !== undefined) data['MultiTaskEnabled'] = serialize.bool(params.multiTaskEnabled);
-    if (params.template !== undefined) data['Template'] = params.template;
-    if (params.prioritizeQueueOrder !== undefined) data['PrioritizeQueueOrder'] = params.prioritizeQueueOrder;
+    data['FriendlyName'] = params['friendlyName'];
+    if (params['eventCallbackUrl'] !== undefined) data['EventCallbackUrl'] = params['eventCallbackUrl'];
+    if (params['eventsFilter'] !== undefined) data['EventsFilter'] = params['eventsFilter'];
+    if (params['multiTaskEnabled'] !== undefined) data['MultiTaskEnabled'] = serialize.bool(params['multiTaskEnabled']);
+    if (params['template'] !== undefined) data['Template'] = params['template'];
+    if (params['prioritizeQueueOrder'] !== undefined) data['PrioritizeQueueOrder'] = params['prioritizeQueueOrder'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -782,8 +782,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

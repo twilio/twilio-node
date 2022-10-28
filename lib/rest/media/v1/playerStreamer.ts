@@ -38,7 +38,7 @@ type PlayerStreamerUpdateStatus = 'ended';
  * @property { PlayerStreamerUpdateStatus } status 
  */
 export interface PlayerStreamerContextUpdateOptions {
-  status: PlayerStreamerUpdateStatus;
+  'status': PlayerStreamerUpdateStatus;
 }
 
 /**
@@ -50,10 +50,10 @@ export interface PlayerStreamerContextUpdateOptions {
  * @property { number } [maxDuration] The maximum time, in seconds, that the PlayerStreamer is active (&#x60;created&#x60; or &#x60;started&#x60;) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
  */
 export interface PlayerStreamerListInstanceCreateOptions {
-  video?: boolean;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  maxDuration?: number;
+  'video'?: boolean;
+  'statusCallback'?: string;
+  'statusCallbackMethod'?: string;
+  'maxDuration'?: number;
 }
 /**
  * Options to pass to each
@@ -150,7 +150,7 @@ export interface PlayerStreamerContext {
 }
 
 export interface PlayerStreamerContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class PlayerStreamerContextImpl implements PlayerStreamerContext {
@@ -188,13 +188,13 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params['status'] === null || params['status'] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
+    data['Status'] = params['status'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -540,10 +540,10 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
 
     const data: any = {};
 
-    if (params.video !== undefined) data['Video'] = serialize.bool(params.video);
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
+    if (params['video'] !== undefined) data['Video'] = serialize.bool(params['video']);
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['maxDuration'] !== undefined) data['MaxDuration'] = params['maxDuration'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -570,9 +570,9 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

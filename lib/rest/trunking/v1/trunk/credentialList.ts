@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } credentialListSid The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
  */
 export interface CredentialListListInstanceCreateOptions {
-  credentialListSid: string;
+  'credentialListSid': string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface CredentialListContext {
 }
 
 export interface CredentialListContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  'trunkSid'?: string;
+  'sid'?: string;
 }
 
 export class CredentialListContextImpl implements CredentialListContext {
@@ -429,13 +429,13 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.credentialListSid === null || params.credentialListSid === undefined) {
-      throw new Error('Required parameter "params.credentialListSid" missing.');
+    if (params['credentialListSid'] === null || params['credentialListSid'] === undefined) {
+      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['CredentialListSid'] = params.credentialListSid;
+    data['CredentialListSid'] = params['credentialListSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -462,7 +462,7 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

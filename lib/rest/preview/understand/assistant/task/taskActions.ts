@@ -27,7 +27,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { any } [actions] The JSON actions that instruct the Assistant how to perform this task.
  */
 export interface TaskActionsContextUpdateOptions {
-  actions?: any;
+  'actions'?: any;
 }
 
 export interface TaskActionsContext {
@@ -71,8 +71,8 @@ export interface TaskActionsContext {
 }
 
 export interface TaskActionsContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  'assistantSid'?: string;
+  'taskSid'?: string;
 }
 
 export class TaskActionsContextImpl implements TaskActionsContext {
@@ -109,7 +109,7 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 
     const data: any = {};
 
-    if (params.actions !== undefined) data['Actions'] = params.actions;
+    if (params['actions'] !== undefined) data['Actions'] = params['actions'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

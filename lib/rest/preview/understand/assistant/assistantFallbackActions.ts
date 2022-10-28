@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [fallbackActions] 
  */
 export interface AssistantFallbackActionsContextUpdateOptions {
-  fallbackActions?: any;
+  'fallbackActions'?: any;
 }
 
 export interface AssistantFallbackActionsContext {
@@ -71,7 +71,7 @@ export interface AssistantFallbackActionsContext {
 }
 
 export interface AssistantFallbackActionsContextSolution {
-  assistantSid?: string;
+  'assistantSid'?: string;
 }
 
 export class AssistantFallbackActionsContextImpl implements AssistantFallbackActionsContext {
@@ -108,7 +108,7 @@ export class AssistantFallbackActionsContextImpl implements AssistantFallbackAct
 
     const data: any = {};
 
-    if (params.fallbackActions !== undefined) data['FallbackActions'] = params.fallbackActions;
+    if (params['fallbackActions'] !== undefined) data['FallbackActions'] = params['fallbackActions'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -61,7 +61,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  number?: string;
+  'number'?: string;
 }
 
 export class NumberContextImpl implements NumberContext {

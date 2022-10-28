@@ -29,7 +29,7 @@ const serialize = require("../../../../../../../../base/serialize");
  * @property { string } ipAccessControlListSid The SID of the IpAccessControlList resource to map to the SIP domain.
  */
 export interface AuthCallsIpAccessControlListMappingListInstanceCreateOptions {
-  ipAccessControlListSid: string;
+  'ipAccessControlListSid': string;
 }
 /**
  * Options to pass to each
@@ -111,9 +111,9 @@ export interface AuthCallsIpAccessControlListMappingContext {
 }
 
 export interface AuthCallsIpAccessControlListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'domainSid'?: string;
+  'sid'?: string;
 }
 
 export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCallsIpAccessControlListMappingContext {
@@ -417,13 +417,13 @@ export function AuthCallsIpAccessControlListMappingListInstance(version: V2010, 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.ipAccessControlListSid === null || params.ipAccessControlListSid === undefined) {
-      throw new Error('Required parameter "params.ipAccessControlListSid" missing.');
+    if (params['ipAccessControlListSid'] === null || params['ipAccessControlListSid'] === undefined) {
+      throw new Error('Required parameter "params[\'ipAccessControlListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['IpAccessControlListSid'] = params.ipAccessControlListSid;
+    data['IpAccessControlListSid'] = params['ipAccessControlListSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -450,7 +450,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(version: V2010, 
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -37,108 +37,108 @@ import { UserListInstance } from "./service/user";
  * @property { boolean } [reachabilityEnabled] Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;.
  * @property { number } [typingIndicatorTimeout] How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds.
  * @property { number } [consumptionReportInterval] DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
- * @property { boolean } [notificationsNewMessageEnabled] Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
- * @property { string } [notificationsNewMessageTemplate] The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [notificationsAddedToChannelEnabled] Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
- * @property { string } [notificationsAddedToChannelTemplate] The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [notificationsRemovedFromChannelEnabled] Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
- * @property { string } [notificationsRemovedFromChannelTemplate] The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [notificationsInvitedToChannelEnabled] Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
- * @property { string } [notificationsInvitedToChannelTemplate] The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [notifications.newMessage.enabled] Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
+ * @property { string } [notifications.newMessage.template] The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [notifications.addedToChannel.enabled] Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
+ * @property { string } [notifications.addedToChannel.template] The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [notifications.removedFromChannel.enabled] Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
+ * @property { string } [notifications.removedFromChannel.template] The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [notifications.invitedToChannel.enabled] Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
+ * @property { string } [notifications.invitedToChannel.template] The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;.
  * @property { string } [preWebhookUrl] The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
  * @property { string } [postWebhookUrl] The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
  * @property { string } [webhookMethod] The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
  * @property { Array<string> } [webhookFilters] The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { string } [webhooksOnMessageSendUrl] The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageSendMethod] The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;.
- * @property { string } [webhooksOnMessageUpdateUrl] The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageUpdateMethod] The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;.
- * @property { string } [webhooksOnMessageRemoveUrl] The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageRemoveMethod] The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;.
- * @property { string } [webhooksOnChannelAddUrl] The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelAddMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;.
- * @property { string } [webhooksOnChannelDestroyUrl] The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelDestroyMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;.
- * @property { string } [webhooksOnChannelUpdateUrl] The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelUpdateMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;.
- * @property { string } [webhooksOnMemberAddUrl] The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method.
- * @property { string } [webhooksOnMemberAddMethod] The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;.
- * @property { string } [webhooksOnMemberRemoveUrl] The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method.
- * @property { string } [webhooksOnMemberRemoveMethod] The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;.
- * @property { string } [webhooksOnMessageSentUrl] The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageSentMethod] The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;.
- * @property { string } [webhooksOnMessageUpdatedUrl] The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageUpdatedMethod] The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;.
- * @property { string } [webhooksOnMessageRemovedUrl] The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method.
- * @property { string } [webhooksOnMessageRemovedMethod] The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;.
- * @property { string } [webhooksOnChannelAddedUrl] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelAddedMethod] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;.
- * @property { string } [webhooksOnChannelDestroyedUrl] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelDestroyedMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;.
- * @property { string } [webhooksOnChannelUpdatedUrl] The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
- * @property { string } [webhooksOnChannelUpdatedMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
- * @property { string } [webhooksOnMemberAddedUrl] The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
- * @property { string } [webhooksOnMemberAddedMethod] The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
- * @property { string } [webhooksOnMemberRemovedUrl] The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method.
- * @property { string } [webhooksOnMemberRemovedMethod] The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;.
- * @property { number } [limitsChannelMembers] The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
- * @property { number } [limitsUserChannels] The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+ * @property { string } [webhooks.onMessageSend.url] The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageSend.method] The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;.
+ * @property { string } [webhooks.onMessageUpdate.url] The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageUpdate.method] The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;.
+ * @property { string } [webhooks.onMessageRemove.url] The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageRemove.method] The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;.
+ * @property { string } [webhooks.onChannelAdd.url] The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelAdd.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;.
+ * @property { string } [webhooks.onChannelDestroy.url] The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelDestroy.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;.
+ * @property { string } [webhooks.onChannelUpdate.url] The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelUpdate.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;.
+ * @property { string } [webhooks.onMemberAdd.url] The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMemberAdd.method] The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;.
+ * @property { string } [webhooks.onMemberRemove.url] The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMemberRemove.method] The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;.
+ * @property { string } [webhooks.onMessageSent.url] The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageSent.method] The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;.
+ * @property { string } [webhooks.onMessageUpdated.url] The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageUpdated.method] The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;.
+ * @property { string } [webhooks.onMessageRemoved.url] The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMessageRemoved.method] The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;.
+ * @property { string } [webhooks.onChannelAdded.url] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelAdded.method] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;.
+ * @property { string } [webhooks.onChannelDestroyed.url] The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelDestroyed.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;.
+ * @property { string } [webhooks.onChannelUpdated.url] The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
+ * @property { string } [webhooks.onChannelUpdated.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
+ * @property { string } [webhooks.onMemberAdded.url] The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMemberAdded.method] The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;.
+ * @property { string } [webhooks.onMemberRemoved.url] The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method.
+ * @property { string } [webhooks.onMemberRemoved.method] The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;.
+ * @property { number } [limits.channelMembers] The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+ * @property { number } [limits.userChannels] The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
  */
 export interface ServiceContextUpdateOptions {
-  friendlyName?: string;
-  defaultServiceRoleSid?: string;
-  defaultChannelRoleSid?: string;
-  defaultChannelCreatorRoleSid?: string;
-  readStatusEnabled?: boolean;
-  reachabilityEnabled?: boolean;
-  typingIndicatorTimeout?: number;
-  consumptionReportInterval?: number;
-  notificationsNewMessageEnabled?: boolean;
-  notificationsNewMessageTemplate?: string;
-  notificationsAddedToChannelEnabled?: boolean;
-  notificationsAddedToChannelTemplate?: string;
-  notificationsRemovedFromChannelEnabled?: boolean;
-  notificationsRemovedFromChannelTemplate?: string;
-  notificationsInvitedToChannelEnabled?: boolean;
-  notificationsInvitedToChannelTemplate?: string;
-  preWebhookUrl?: string;
-  postWebhookUrl?: string;
-  webhookMethod?: string;
-  webhookFilters?: Array<string>;
-  webhooksOnMessageSendUrl?: string;
-  webhooksOnMessageSendMethod?: string;
-  webhooksOnMessageUpdateUrl?: string;
-  webhooksOnMessageUpdateMethod?: string;
-  webhooksOnMessageRemoveUrl?: string;
-  webhooksOnMessageRemoveMethod?: string;
-  webhooksOnChannelAddUrl?: string;
-  webhooksOnChannelAddMethod?: string;
-  webhooksOnChannelDestroyUrl?: string;
-  webhooksOnChannelDestroyMethod?: string;
-  webhooksOnChannelUpdateUrl?: string;
-  webhooksOnChannelUpdateMethod?: string;
-  webhooksOnMemberAddUrl?: string;
-  webhooksOnMemberAddMethod?: string;
-  webhooksOnMemberRemoveUrl?: string;
-  webhooksOnMemberRemoveMethod?: string;
-  webhooksOnMessageSentUrl?: string;
-  webhooksOnMessageSentMethod?: string;
-  webhooksOnMessageUpdatedUrl?: string;
-  webhooksOnMessageUpdatedMethod?: string;
-  webhooksOnMessageRemovedUrl?: string;
-  webhooksOnMessageRemovedMethod?: string;
-  webhooksOnChannelAddedUrl?: string;
-  webhooksOnChannelAddedMethod?: string;
-  webhooksOnChannelDestroyedUrl?: string;
-  webhooksOnChannelDestroyedMethod?: string;
-  webhooksOnChannelUpdatedUrl?: string;
-  webhooksOnChannelUpdatedMethod?: string;
-  webhooksOnMemberAddedUrl?: string;
-  webhooksOnMemberAddedMethod?: string;
-  webhooksOnMemberRemovedUrl?: string;
-  webhooksOnMemberRemovedMethod?: string;
-  limitsChannelMembers?: number;
-  limitsUserChannels?: number;
+  'friendlyName'?: string;
+  'defaultServiceRoleSid'?: string;
+  'defaultChannelRoleSid'?: string;
+  'defaultChannelCreatorRoleSid'?: string;
+  'readStatusEnabled'?: boolean;
+  'reachabilityEnabled'?: boolean;
+  'typingIndicatorTimeout'?: number;
+  'consumptionReportInterval'?: number;
+  'notifications.newMessage.enabled'?: boolean;
+  'notifications.newMessage.template'?: string;
+  'notifications.addedToChannel.enabled'?: boolean;
+  'notifications.addedToChannel.template'?: string;
+  'notifications.removedFromChannel.enabled'?: boolean;
+  'notifications.removedFromChannel.template'?: string;
+  'notifications.invitedToChannel.enabled'?: boolean;
+  'notifications.invitedToChannel.template'?: string;
+  'preWebhookUrl'?: string;
+  'postWebhookUrl'?: string;
+  'webhookMethod'?: string;
+  'webhookFilters'?: Array<string>;
+  'webhooks.onMessageSend.url'?: string;
+  'webhooks.onMessageSend.method'?: string;
+  'webhooks.onMessageUpdate.url'?: string;
+  'webhooks.onMessageUpdate.method'?: string;
+  'webhooks.onMessageRemove.url'?: string;
+  'webhooks.onMessageRemove.method'?: string;
+  'webhooks.onChannelAdd.url'?: string;
+  'webhooks.onChannelAdd.method'?: string;
+  'webhooks.onChannelDestroy.url'?: string;
+  'webhooks.onChannelDestroy.method'?: string;
+  'webhooks.onChannelUpdate.url'?: string;
+  'webhooks.onChannelUpdate.method'?: string;
+  'webhooks.onMemberAdd.url'?: string;
+  'webhooks.onMemberAdd.method'?: string;
+  'webhooks.onMemberRemove.url'?: string;
+  'webhooks.onMemberRemove.method'?: string;
+  'webhooks.onMessageSent.url'?: string;
+  'webhooks.onMessageSent.method'?: string;
+  'webhooks.onMessageUpdated.url'?: string;
+  'webhooks.onMessageUpdated.method'?: string;
+  'webhooks.onMessageRemoved.url'?: string;
+  'webhooks.onMessageRemoved.method'?: string;
+  'webhooks.onChannelAdded.url'?: string;
+  'webhooks.onChannelAdded.method'?: string;
+  'webhooks.onChannelDestroyed.url'?: string;
+  'webhooks.onChannelDestroyed.method'?: string;
+  'webhooks.onChannelUpdated.url'?: string;
+  'webhooks.onChannelUpdated.method'?: string;
+  'webhooks.onMemberAdded.url'?: string;
+  'webhooks.onMemberAdded.method'?: string;
+  'webhooks.onMemberRemoved.url'?: string;
+  'webhooks.onMemberRemoved.method'?: string;
+  'limits.channelMembers'?: number;
+  'limits.userChannels'?: number;
 }
 
 /**
@@ -147,7 +147,7 @@ export interface ServiceContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
+  'friendlyName': string;
 }
 /**
  * Options to pass to each
@@ -252,7 +252,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -319,60 +319,60 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.defaultServiceRoleSid !== undefined) data['DefaultServiceRoleSid'] = params.defaultServiceRoleSid;
-    if (params.defaultChannelRoleSid !== undefined) data['DefaultChannelRoleSid'] = params.defaultChannelRoleSid;
-    if (params.defaultChannelCreatorRoleSid !== undefined) data['DefaultChannelCreatorRoleSid'] = params.defaultChannelCreatorRoleSid;
-    if (params.readStatusEnabled !== undefined) data['ReadStatusEnabled'] = serialize.bool(params.readStatusEnabled);
-    if (params.reachabilityEnabled !== undefined) data['ReachabilityEnabled'] = serialize.bool(params.reachabilityEnabled);
-    if (params.typingIndicatorTimeout !== undefined) data['TypingIndicatorTimeout'] = params.typingIndicatorTimeout;
-    if (params.consumptionReportInterval !== undefined) data['ConsumptionReportInterval'] = params.consumptionReportInterval;
-    if (params.notificationsNewMessageEnabled !== undefined) data['Notifications.NewMessage.Enabled'] = serialize.bool(params.notificationsNewMessageEnabled);
-    if (params.notificationsNewMessageTemplate !== undefined) data['Notifications.NewMessage.Template'] = params.notificationsNewMessageTemplate;
-    if (params.notificationsAddedToChannelEnabled !== undefined) data['Notifications.AddedToChannel.Enabled'] = serialize.bool(params.notificationsAddedToChannelEnabled);
-    if (params.notificationsAddedToChannelTemplate !== undefined) data['Notifications.AddedToChannel.Template'] = params.notificationsAddedToChannelTemplate;
-    if (params.notificationsRemovedFromChannelEnabled !== undefined) data['Notifications.RemovedFromChannel.Enabled'] = serialize.bool(params.notificationsRemovedFromChannelEnabled);
-    if (params.notificationsRemovedFromChannelTemplate !== undefined) data['Notifications.RemovedFromChannel.Template'] = params.notificationsRemovedFromChannelTemplate;
-    if (params.notificationsInvitedToChannelEnabled !== undefined) data['Notifications.InvitedToChannel.Enabled'] = serialize.bool(params.notificationsInvitedToChannelEnabled);
-    if (params.notificationsInvitedToChannelTemplate !== undefined) data['Notifications.InvitedToChannel.Template'] = params.notificationsInvitedToChannelTemplate;
-    if (params.preWebhookUrl !== undefined) data['PreWebhookUrl'] = params.preWebhookUrl;
-    if (params.postWebhookUrl !== undefined) data['PostWebhookUrl'] = params.postWebhookUrl;
-    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
-    if (params.webhookFilters !== undefined) data['WebhookFilters'] = serialize.map(params.webhookFilters, ((e) => e));
-    if (params.webhooksOnMessageSendUrl !== undefined) data['Webhooks.OnMessageSend.Url'] = params.webhooksOnMessageSendUrl;
-    if (params.webhooksOnMessageSendMethod !== undefined) data['Webhooks.OnMessageSend.Method'] = params.webhooksOnMessageSendMethod;
-    if (params.webhooksOnMessageUpdateUrl !== undefined) data['Webhooks.OnMessageUpdate.Url'] = params.webhooksOnMessageUpdateUrl;
-    if (params.webhooksOnMessageUpdateMethod !== undefined) data['Webhooks.OnMessageUpdate.Method'] = params.webhooksOnMessageUpdateMethod;
-    if (params.webhooksOnMessageRemoveUrl !== undefined) data['Webhooks.OnMessageRemove.Url'] = params.webhooksOnMessageRemoveUrl;
-    if (params.webhooksOnMessageRemoveMethod !== undefined) data['Webhooks.OnMessageRemove.Method'] = params.webhooksOnMessageRemoveMethod;
-    if (params.webhooksOnChannelAddUrl !== undefined) data['Webhooks.OnChannelAdd.Url'] = params.webhooksOnChannelAddUrl;
-    if (params.webhooksOnChannelAddMethod !== undefined) data['Webhooks.OnChannelAdd.Method'] = params.webhooksOnChannelAddMethod;
-    if (params.webhooksOnChannelDestroyUrl !== undefined) data['Webhooks.OnChannelDestroy.Url'] = params.webhooksOnChannelDestroyUrl;
-    if (params.webhooksOnChannelDestroyMethod !== undefined) data['Webhooks.OnChannelDestroy.Method'] = params.webhooksOnChannelDestroyMethod;
-    if (params.webhooksOnChannelUpdateUrl !== undefined) data['Webhooks.OnChannelUpdate.Url'] = params.webhooksOnChannelUpdateUrl;
-    if (params.webhooksOnChannelUpdateMethod !== undefined) data['Webhooks.OnChannelUpdate.Method'] = params.webhooksOnChannelUpdateMethod;
-    if (params.webhooksOnMemberAddUrl !== undefined) data['Webhooks.OnMemberAdd.Url'] = params.webhooksOnMemberAddUrl;
-    if (params.webhooksOnMemberAddMethod !== undefined) data['Webhooks.OnMemberAdd.Method'] = params.webhooksOnMemberAddMethod;
-    if (params.webhooksOnMemberRemoveUrl !== undefined) data['Webhooks.OnMemberRemove.Url'] = params.webhooksOnMemberRemoveUrl;
-    if (params.webhooksOnMemberRemoveMethod !== undefined) data['Webhooks.OnMemberRemove.Method'] = params.webhooksOnMemberRemoveMethod;
-    if (params.webhooksOnMessageSentUrl !== undefined) data['Webhooks.OnMessageSent.Url'] = params.webhooksOnMessageSentUrl;
-    if (params.webhooksOnMessageSentMethod !== undefined) data['Webhooks.OnMessageSent.Method'] = params.webhooksOnMessageSentMethod;
-    if (params.webhooksOnMessageUpdatedUrl !== undefined) data['Webhooks.OnMessageUpdated.Url'] = params.webhooksOnMessageUpdatedUrl;
-    if (params.webhooksOnMessageUpdatedMethod !== undefined) data['Webhooks.OnMessageUpdated.Method'] = params.webhooksOnMessageUpdatedMethod;
-    if (params.webhooksOnMessageRemovedUrl !== undefined) data['Webhooks.OnMessageRemoved.Url'] = params.webhooksOnMessageRemovedUrl;
-    if (params.webhooksOnMessageRemovedMethod !== undefined) data['Webhooks.OnMessageRemoved.Method'] = params.webhooksOnMessageRemovedMethod;
-    if (params.webhooksOnChannelAddedUrl !== undefined) data['Webhooks.OnChannelAdded.Url'] = params.webhooksOnChannelAddedUrl;
-    if (params.webhooksOnChannelAddedMethod !== undefined) data['Webhooks.OnChannelAdded.Method'] = params.webhooksOnChannelAddedMethod;
-    if (params.webhooksOnChannelDestroyedUrl !== undefined) data['Webhooks.OnChannelDestroyed.Url'] = params.webhooksOnChannelDestroyedUrl;
-    if (params.webhooksOnChannelDestroyedMethod !== undefined) data['Webhooks.OnChannelDestroyed.Method'] = params.webhooksOnChannelDestroyedMethod;
-    if (params.webhooksOnChannelUpdatedUrl !== undefined) data['Webhooks.OnChannelUpdated.Url'] = params.webhooksOnChannelUpdatedUrl;
-    if (params.webhooksOnChannelUpdatedMethod !== undefined) data['Webhooks.OnChannelUpdated.Method'] = params.webhooksOnChannelUpdatedMethod;
-    if (params.webhooksOnMemberAddedUrl !== undefined) data['Webhooks.OnMemberAdded.Url'] = params.webhooksOnMemberAddedUrl;
-    if (params.webhooksOnMemberAddedMethod !== undefined) data['Webhooks.OnMemberAdded.Method'] = params.webhooksOnMemberAddedMethod;
-    if (params.webhooksOnMemberRemovedUrl !== undefined) data['Webhooks.OnMemberRemoved.Url'] = params.webhooksOnMemberRemovedUrl;
-    if (params.webhooksOnMemberRemovedMethod !== undefined) data['Webhooks.OnMemberRemoved.Method'] = params.webhooksOnMemberRemovedMethod;
-    if (params.limitsChannelMembers !== undefined) data['Limits.ChannelMembers'] = params.limitsChannelMembers;
-    if (params.limitsUserChannels !== undefined) data['Limits.UserChannels'] = params.limitsUserChannels;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['defaultServiceRoleSid'] !== undefined) data['DefaultServiceRoleSid'] = params['defaultServiceRoleSid'];
+    if (params['defaultChannelRoleSid'] !== undefined) data['DefaultChannelRoleSid'] = params['defaultChannelRoleSid'];
+    if (params['defaultChannelCreatorRoleSid'] !== undefined) data['DefaultChannelCreatorRoleSid'] = params['defaultChannelCreatorRoleSid'];
+    if (params['readStatusEnabled'] !== undefined) data['ReadStatusEnabled'] = serialize.bool(params['readStatusEnabled']);
+    if (params['reachabilityEnabled'] !== undefined) data['ReachabilityEnabled'] = serialize.bool(params['reachabilityEnabled']);
+    if (params['typingIndicatorTimeout'] !== undefined) data['TypingIndicatorTimeout'] = params['typingIndicatorTimeout'];
+    if (params['consumptionReportInterval'] !== undefined) data['ConsumptionReportInterval'] = params['consumptionReportInterval'];
+    if (params['notifications.newMessage.enabled'] !== undefined) data['Notifications.NewMessage.Enabled'] = serialize.bool(params['notifications.newMessage.enabled']);
+    if (params['notifications.newMessage.template'] !== undefined) data['Notifications.NewMessage.Template'] = params['notifications.newMessage.template'];
+    if (params['notifications.addedToChannel.enabled'] !== undefined) data['Notifications.AddedToChannel.Enabled'] = serialize.bool(params['notifications.addedToChannel.enabled']);
+    if (params['notifications.addedToChannel.template'] !== undefined) data['Notifications.AddedToChannel.Template'] = params['notifications.addedToChannel.template'];
+    if (params['notifications.removedFromChannel.enabled'] !== undefined) data['Notifications.RemovedFromChannel.Enabled'] = serialize.bool(params['notifications.removedFromChannel.enabled']);
+    if (params['notifications.removedFromChannel.template'] !== undefined) data['Notifications.RemovedFromChannel.Template'] = params['notifications.removedFromChannel.template'];
+    if (params['notifications.invitedToChannel.enabled'] !== undefined) data['Notifications.InvitedToChannel.Enabled'] = serialize.bool(params['notifications.invitedToChannel.enabled']);
+    if (params['notifications.invitedToChannel.template'] !== undefined) data['Notifications.InvitedToChannel.Template'] = params['notifications.invitedToChannel.template'];
+    if (params['preWebhookUrl'] !== undefined) data['PreWebhookUrl'] = params['preWebhookUrl'];
+    if (params['postWebhookUrl'] !== undefined) data['PostWebhookUrl'] = params['postWebhookUrl'];
+    if (params['webhookMethod'] !== undefined) data['WebhookMethod'] = params['webhookMethod'];
+    if (params['webhookFilters'] !== undefined) data['WebhookFilters'] = serialize.map(params['webhookFilters'], ((e) => e));
+    if (params['webhooks.onMessageSend.url'] !== undefined) data['Webhooks.OnMessageSend.Url'] = params['webhooks.onMessageSend.url'];
+    if (params['webhooks.onMessageSend.method'] !== undefined) data['Webhooks.OnMessageSend.Method'] = params['webhooks.onMessageSend.method'];
+    if (params['webhooks.onMessageUpdate.url'] !== undefined) data['Webhooks.OnMessageUpdate.Url'] = params['webhooks.onMessageUpdate.url'];
+    if (params['webhooks.onMessageUpdate.method'] !== undefined) data['Webhooks.OnMessageUpdate.Method'] = params['webhooks.onMessageUpdate.method'];
+    if (params['webhooks.onMessageRemove.url'] !== undefined) data['Webhooks.OnMessageRemove.Url'] = params['webhooks.onMessageRemove.url'];
+    if (params['webhooks.onMessageRemove.method'] !== undefined) data['Webhooks.OnMessageRemove.Method'] = params['webhooks.onMessageRemove.method'];
+    if (params['webhooks.onChannelAdd.url'] !== undefined) data['Webhooks.OnChannelAdd.Url'] = params['webhooks.onChannelAdd.url'];
+    if (params['webhooks.onChannelAdd.method'] !== undefined) data['Webhooks.OnChannelAdd.Method'] = params['webhooks.onChannelAdd.method'];
+    if (params['webhooks.onChannelDestroy.url'] !== undefined) data['Webhooks.OnChannelDestroy.Url'] = params['webhooks.onChannelDestroy.url'];
+    if (params['webhooks.onChannelDestroy.method'] !== undefined) data['Webhooks.OnChannelDestroy.Method'] = params['webhooks.onChannelDestroy.method'];
+    if (params['webhooks.onChannelUpdate.url'] !== undefined) data['Webhooks.OnChannelUpdate.Url'] = params['webhooks.onChannelUpdate.url'];
+    if (params['webhooks.onChannelUpdate.method'] !== undefined) data['Webhooks.OnChannelUpdate.Method'] = params['webhooks.onChannelUpdate.method'];
+    if (params['webhooks.onMemberAdd.url'] !== undefined) data['Webhooks.OnMemberAdd.Url'] = params['webhooks.onMemberAdd.url'];
+    if (params['webhooks.onMemberAdd.method'] !== undefined) data['Webhooks.OnMemberAdd.Method'] = params['webhooks.onMemberAdd.method'];
+    if (params['webhooks.onMemberRemove.url'] !== undefined) data['Webhooks.OnMemberRemove.Url'] = params['webhooks.onMemberRemove.url'];
+    if (params['webhooks.onMemberRemove.method'] !== undefined) data['Webhooks.OnMemberRemove.Method'] = params['webhooks.onMemberRemove.method'];
+    if (params['webhooks.onMessageSent.url'] !== undefined) data['Webhooks.OnMessageSent.Url'] = params['webhooks.onMessageSent.url'];
+    if (params['webhooks.onMessageSent.method'] !== undefined) data['Webhooks.OnMessageSent.Method'] = params['webhooks.onMessageSent.method'];
+    if (params['webhooks.onMessageUpdated.url'] !== undefined) data['Webhooks.OnMessageUpdated.Url'] = params['webhooks.onMessageUpdated.url'];
+    if (params['webhooks.onMessageUpdated.method'] !== undefined) data['Webhooks.OnMessageUpdated.Method'] = params['webhooks.onMessageUpdated.method'];
+    if (params['webhooks.onMessageRemoved.url'] !== undefined) data['Webhooks.OnMessageRemoved.Url'] = params['webhooks.onMessageRemoved.url'];
+    if (params['webhooks.onMessageRemoved.method'] !== undefined) data['Webhooks.OnMessageRemoved.Method'] = params['webhooks.onMessageRemoved.method'];
+    if (params['webhooks.onChannelAdded.url'] !== undefined) data['Webhooks.OnChannelAdded.Url'] = params['webhooks.onChannelAdded.url'];
+    if (params['webhooks.onChannelAdded.method'] !== undefined) data['Webhooks.OnChannelAdded.Method'] = params['webhooks.onChannelAdded.method'];
+    if (params['webhooks.onChannelDestroyed.url'] !== undefined) data['Webhooks.OnChannelDestroyed.Url'] = params['webhooks.onChannelDestroyed.url'];
+    if (params['webhooks.onChannelDestroyed.method'] !== undefined) data['Webhooks.OnChannelDestroyed.Method'] = params['webhooks.onChannelDestroyed.method'];
+    if (params['webhooks.onChannelUpdated.url'] !== undefined) data['Webhooks.OnChannelUpdated.Url'] = params['webhooks.onChannelUpdated.url'];
+    if (params['webhooks.onChannelUpdated.method'] !== undefined) data['Webhooks.OnChannelUpdated.Method'] = params['webhooks.onChannelUpdated.method'];
+    if (params['webhooks.onMemberAdded.url'] !== undefined) data['Webhooks.OnMemberAdded.Url'] = params['webhooks.onMemberAdded.url'];
+    if (params['webhooks.onMemberAdded.method'] !== undefined) data['Webhooks.OnMemberAdded.Method'] = params['webhooks.onMemberAdded.method'];
+    if (params['webhooks.onMemberRemoved.url'] !== undefined) data['Webhooks.OnMemberRemoved.Url'] = params['webhooks.onMemberRemoved.url'];
+    if (params['webhooks.onMemberRemoved.method'] !== undefined) data['Webhooks.OnMemberRemoved.Method'] = params['webhooks.onMemberRemoved.method'];
+    if (params['limits.channelMembers'] !== undefined) data['Limits.ChannelMembers'] = params['limits.channelMembers'];
+    if (params['limits.userChannels'] !== undefined) data['Limits.UserChannels'] = params['limits.userChannels'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -807,13 +807,13 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -840,7 +840,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -29,7 +29,7 @@ type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
  * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
  */
 export interface ConfigurationContextFetchOptions {
-  uiVersion?: string;
+  'uiVersion'?: string;
 }
 
 export interface ConfigurationContext {
@@ -85,7 +85,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     const data: any = {};
 
-    if (params.uiVersion !== undefined) data['UiVersion'] = params.uiVersion;
+    if (params['uiVersion'] !== undefined) data['UiVersion'] = params['uiVersion'];
 
     const headers: any = {};
 

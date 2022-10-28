@@ -27,8 +27,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface PhoneNumberListInstanceUpdateOptions {
-  voiceRegion?: string;
-  friendlyName?: string;
+  'voiceRegion'?: string;
+  'friendlyName'?: string;
 }
 
 export interface PhoneNumberListInstance {
@@ -113,8 +113,8 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
 
     const data: any = {};
 
-    if (params.voiceRegion !== undefined) data['VoiceRegion'] = params.voiceRegion;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['voiceRegion'] !== undefined) data['VoiceRegion'] = params['voiceRegion'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

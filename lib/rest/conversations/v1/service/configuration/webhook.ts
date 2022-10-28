@@ -32,10 +32,10 @@ type ServiceWebhookConfigurationMethod = 'GET'|'POST';
  * @property { string } [method] The HTTP method to be used when sending a webhook request. One of &#x60;GET&#x60; or &#x60;POST&#x60;.
  */
 export interface WebhookContextUpdateOptions {
-  preWebhookUrl?: string;
-  postWebhookUrl?: string;
-  filters?: Array<string>;
-  method?: string;
+  'preWebhookUrl'?: string;
+  'postWebhookUrl'?: string;
+  'filters'?: Array<string>;
+  'method'?: string;
 }
 
 export interface WebhookContext {
@@ -79,7 +79,7 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  chatServiceSid?: string;
+  'chatServiceSid'?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -116,10 +116,10 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params.preWebhookUrl !== undefined) data['PreWebhookUrl'] = params.preWebhookUrl;
-    if (params.postWebhookUrl !== undefined) data['PostWebhookUrl'] = params.postWebhookUrl;
-    if (params.filters !== undefined) data['Filters'] = serialize.map(params.filters, ((e) => e));
-    if (params.method !== undefined) data['Method'] = params.method;
+    if (params['preWebhookUrl'] !== undefined) data['PreWebhookUrl'] = params['preWebhookUrl'];
+    if (params['postWebhookUrl'] !== undefined) data['PostWebhookUrl'] = params['postWebhookUrl'];
+    if (params['filters'] !== undefined) data['Filters'] = serialize.map(params['filters'], ((e) => e));
+    if (params['method'] !== undefined) data['Method'] = params['method'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

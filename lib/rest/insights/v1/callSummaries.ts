@@ -358,25 +358,25 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
 
     const data: any = {};
 
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.fromCarrier !== undefined) data['FromCarrier'] = params.fromCarrier;
-    if (params.toCarrier !== undefined) data['ToCarrier'] = params.toCarrier;
-    if (params.fromCountryCode !== undefined) data['FromCountryCode'] = params.fromCountryCode;
-    if (params.toCountryCode !== undefined) data['ToCountryCode'] = params.toCountryCode;
-    if (params.branded !== undefined) data['Branded'] = serialize.bool(params.branded);
-    if (params.verifiedCaller !== undefined) data['VerifiedCaller'] = serialize.bool(params.verifiedCaller);
-    if (params.hasTag !== undefined) data['HasTag'] = serialize.bool(params.hasTag);
-    if (params.startTime !== undefined) data['StartTime'] = params.startTime;
-    if (params.endTime !== undefined) data['EndTime'] = params.endTime;
-    if (params.callType !== undefined) data['CallType'] = params.callType;
-    if (params.callState !== undefined) data['CallState'] = params.callState;
-    if (params.direction !== undefined) data['Direction'] = params.direction;
-    if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
-    if (params.sortBy !== undefined) data['SortBy'] = params.sortBy;
-    if (params.subaccount !== undefined) data['Subaccount'] = params.subaccount;
-    if (params.abnormalSession !== undefined) data['AbnormalSession'] = serialize.bool(params.abnormalSession);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['to'] !== undefined) data['To'] = params['to'];
+    if (params['fromCarrier'] !== undefined) data['FromCarrier'] = params['fromCarrier'];
+    if (params['toCarrier'] !== undefined) data['ToCarrier'] = params['toCarrier'];
+    if (params['fromCountryCode'] !== undefined) data['FromCountryCode'] = params['fromCountryCode'];
+    if (params['toCountryCode'] !== undefined) data['ToCountryCode'] = params['toCountryCode'];
+    if (params['branded'] !== undefined) data['Branded'] = serialize.bool(params['branded']);
+    if (params['verifiedCaller'] !== undefined) data['VerifiedCaller'] = serialize.bool(params['verifiedCaller']);
+    if (params['hasTag'] !== undefined) data['HasTag'] = serialize.bool(params['hasTag']);
+    if (params['startTime'] !== undefined) data['StartTime'] = params['startTime'];
+    if (params['endTime'] !== undefined) data['EndTime'] = params['endTime'];
+    if (params['callType'] !== undefined) data['CallType'] = params['callType'];
+    if (params['callState'] !== undefined) data['CallState'] = params['callState'];
+    if (params['direction'] !== undefined) data['Direction'] = params['direction'];
+    if (params['processingState'] !== undefined) data['ProcessingState'] = params['processingState'];
+    if (params['sortBy'] !== undefined) data['SortBy'] = params['sortBy'];
+    if (params['subaccount'] !== undefined) data['Subaccount'] = params['subaccount'];
+    if (params['abnormalSession'] !== undefined) data['AbnormalSession'] = serialize.bool(params['abnormalSession']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

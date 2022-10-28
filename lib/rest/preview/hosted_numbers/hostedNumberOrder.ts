@@ -54,16 +54,16 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
  * @property { number } [callDelay] The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
  */
 export interface HostedNumberOrderContextUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
-  email?: string;
-  ccEmails?: Array<string>;
-  status?: HostedNumberOrderStatus;
-  verificationCode?: string;
-  verificationType?: HostedNumberOrderVerificationType;
-  verificationDocumentSid?: string;
-  extension?: string;
-  callDelay?: number;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
+  'email'?: string;
+  'ccEmails'?: Array<string>;
+  'status'?: HostedNumberOrderStatus;
+  'verificationCode'?: string;
+  'verificationType'?: HostedNumberOrderVerificationType;
+  'verificationDocumentSid'?: string;
+  'extension'?: string;
+  'callDelay'?: number;
 }
 
 /**
@@ -88,23 +88,23 @@ export interface HostedNumberOrderContextUpdateOptions {
  * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  */
 export interface HostedNumberOrderListInstanceCreateOptions {
-  phoneNumber: string;
-  smsCapability: boolean;
-  accountSid?: string;
-  friendlyName?: string;
-  uniqueName?: string;
-  ccEmails?: Array<string>;
-  smsUrl?: string;
-  smsMethod?: string;
-  smsFallbackUrl?: string;
-  smsFallbackMethod?: string;
-  statusCallbackUrl?: string;
-  statusCallbackMethod?: string;
-  smsApplicationSid?: string;
-  addressSid?: string;
-  email?: string;
-  verificationType?: HostedNumberOrderVerificationType;
-  verificationDocumentSid?: string;
+  'phoneNumber': string;
+  'smsCapability': boolean;
+  'accountSid'?: string;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
+  'ccEmails'?: Array<string>;
+  'smsUrl'?: string;
+  'smsMethod'?: string;
+  'smsFallbackUrl'?: string;
+  'smsFallbackMethod'?: string;
+  'statusCallbackUrl'?: string;
+  'statusCallbackMethod'?: string;
+  'smsApplicationSid'?: string;
+  'addressSid'?: string;
+  'email'?: string;
+  'verificationType'?: HostedNumberOrderVerificationType;
+  'verificationDocumentSid'?: string;
 }
 /**
  * Options to pass to each
@@ -236,7 +236,7 @@ export interface HostedNumberOrderContext {
 }
 
 export interface HostedNumberOrderContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
@@ -285,16 +285,16 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.email !== undefined) data['Email'] = params.email;
-    if (params.ccEmails !== undefined) data['CcEmails'] = serialize.map(params.ccEmails, ((e) => e));
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.verificationCode !== undefined) data['VerificationCode'] = params.verificationCode;
-    if (params.verificationType !== undefined) data['VerificationType'] = params.verificationType;
-    if (params.verificationDocumentSid !== undefined) data['VerificationDocumentSid'] = params.verificationDocumentSid;
-    if (params.extension !== undefined) data['Extension'] = params.extension;
-    if (params.callDelay !== undefined) data['CallDelay'] = params.callDelay;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['email'] !== undefined) data['Email'] = params['email'];
+    if (params['ccEmails'] !== undefined) data['CcEmails'] = serialize.map(params['ccEmails'], ((e) => e));
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['verificationCode'] !== undefined) data['VerificationCode'] = params['verificationCode'];
+    if (params['verificationType'] !== undefined) data['VerificationType'] = params['verificationType'];
+    if (params['verificationDocumentSid'] !== undefined) data['VerificationDocumentSid'] = params['verificationDocumentSid'];
+    if (params['extension'] !== undefined) data['Extension'] = params['extension'];
+    if (params['callDelay'] !== undefined) data['CallDelay'] = params['callDelay'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -713,33 +713,33 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.phoneNumber === null || params.phoneNumber === undefined) {
-      throw new Error('Required parameter "params.phoneNumber" missing.');
+    if (params['phoneNumber'] === null || params['phoneNumber'] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
-    if (params.smsCapability === null || params.smsCapability === undefined) {
-      throw new Error('Required parameter "params.smsCapability" missing.');
+    if (params['smsCapability'] === null || params['smsCapability'] === undefined) {
+      throw new Error('Required parameter "params[\'smsCapability\']" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumber'] = params.phoneNumber;
-    data['SmsCapability'] = serialize.bool(params.smsCapability);
-    if (params.accountSid !== undefined) data['AccountSid'] = params.accountSid;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.ccEmails !== undefined) data['CcEmails'] = serialize.map(params.ccEmails, ((e) => e));
-    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
-    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
-    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
-    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
-    if (params.statusCallbackUrl !== undefined) data['StatusCallbackUrl'] = params.statusCallbackUrl;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.smsApplicationSid !== undefined) data['SmsApplicationSid'] = params.smsApplicationSid;
-    if (params.addressSid !== undefined) data['AddressSid'] = params.addressSid;
-    if (params.email !== undefined) data['Email'] = params.email;
-    if (params.verificationType !== undefined) data['VerificationType'] = params.verificationType;
-    if (params.verificationDocumentSid !== undefined) data['VerificationDocumentSid'] = params.verificationDocumentSid;
+    data['PhoneNumber'] = params['phoneNumber'];
+    data['SmsCapability'] = serialize.bool(params['smsCapability']);
+    if (params['accountSid'] !== undefined) data['AccountSid'] = params['accountSid'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['ccEmails'] !== undefined) data['CcEmails'] = serialize.map(params['ccEmails'], ((e) => e));
+    if (params['smsUrl'] !== undefined) data['SmsUrl'] = params['smsUrl'];
+    if (params['smsMethod'] !== undefined) data['SmsMethod'] = params['smsMethod'];
+    if (params['smsFallbackUrl'] !== undefined) data['SmsFallbackUrl'] = params['smsFallbackUrl'];
+    if (params['smsFallbackMethod'] !== undefined) data['SmsFallbackMethod'] = params['smsFallbackMethod'];
+    if (params['statusCallbackUrl'] !== undefined) data['StatusCallbackUrl'] = params['statusCallbackUrl'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['smsApplicationSid'] !== undefined) data['SmsApplicationSid'] = params['smsApplicationSid'];
+    if (params['addressSid'] !== undefined) data['AddressSid'] = params['addressSid'];
+    if (params['email'] !== undefined) data['Email'] = params['email'];
+    if (params['verificationType'] !== undefined) data['VerificationType'] = params['verificationType'];
+    if (params['verificationDocumentSid'] !== undefined) data['VerificationDocumentSid'] = params['verificationDocumentSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -766,12 +766,12 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.incomingPhoneNumberSid !== undefined) data['IncomingPhoneNumberSid'] = params.incomingPhoneNumberSid;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['phoneNumber'] !== undefined) data['PhoneNumber'] = params['phoneNumber'];
+    if (params['incomingPhoneNumberSid'] !== undefined) data['IncomingPhoneNumberSid'] = params['incomingPhoneNumberSid'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

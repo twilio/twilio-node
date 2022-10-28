@@ -33,11 +33,11 @@ type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
  * @property { string } [statusCallbackMethod] The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
-  startDate: Date;
-  endDate: Date;
-  includeSubaccounts?: boolean;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
+  'startDate': Date;
+  'endDate': Date;
+  'includeSubaccounts'?: boolean;
+  'statusCallback'?: string;
+  'statusCallbackMethod'?: string;
 }
 
 export interface FeedbackSummaryContext {
@@ -71,8 +71,8 @@ export interface FeedbackSummaryContext {
 }
 
 export interface FeedbackSummaryContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
@@ -333,21 +333,21 @@ export function FeedbackSummaryListInstance(version: V2010, accountSid: string):
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.startDate === null || params.startDate === undefined) {
-      throw new Error('Required parameter "params.startDate" missing.');
+    if (params['startDate'] === null || params['startDate'] === undefined) {
+      throw new Error('Required parameter "params[\'startDate\']" missing.');
     }
 
-    if (params.endDate === null || params.endDate === undefined) {
-      throw new Error('Required parameter "params.endDate" missing.');
+    if (params['endDate'] === null || params['endDate'] === undefined) {
+      throw new Error('Required parameter "params[\'endDate\']" missing.');
     }
 
     const data: any = {};
 
-    data['StartDate'] = serialize.iso8601Date(params.startDate);
-    data['EndDate'] = serialize.iso8601Date(params.endDate);
-    if (params.includeSubaccounts !== undefined) data['IncludeSubaccounts'] = serialize.bool(params.includeSubaccounts);
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    data['StartDate'] = serialize.iso8601Date(params['startDate']);
+    data['EndDate'] = serialize.iso8601Date(params['endDate']);
+    if (params['includeSubaccounts'] !== undefined) data['IncludeSubaccounts'] = serialize.bool(params['includeSubaccounts']);
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

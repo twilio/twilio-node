@@ -42,8 +42,8 @@ type ConferenceParticipantRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de
  * @property { string } [metrics] Object. Contains participant call quality metrics.
  */
 export interface ConferenceParticipantContextFetchOptions {
-  events?: string;
-  metrics?: string;
+  'events'?: string;
+  'metrics'?: string;
 }
 /**
  * Options to pass to each
@@ -143,8 +143,8 @@ export interface ConferenceParticipantContext {
 }
 
 export interface ConferenceParticipantContextSolution {
-  conferenceSid?: string;
-  participantSid?: string;
+  'conferenceSid'?: string;
+  'participantSid'?: string;
 }
 
 export class ConferenceParticipantContextImpl implements ConferenceParticipantContext {
@@ -167,8 +167,8 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
 
     const data: any = {};
 
-    if (params.events !== undefined) data['Events'] = params.events;
-    if (params.metrics !== undefined) data['Metrics'] = params.metrics;
+    if (params['events'] !== undefined) data['Events'] = params['events'];
+    if (params['metrics'] !== undefined) data['Metrics'] = params['metrics'];
 
     const headers: any = {};
 
@@ -572,10 +572,10 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
 
     const data: any = {};
 
-    if (params.participantSid !== undefined) data['ParticipantSid'] = params.participantSid;
-    if (params.label !== undefined) data['Label'] = params.label;
-    if (params.events !== undefined) data['Events'] = params.events;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['participantSid'] !== undefined) data['ParticipantSid'] = params['participantSid'];
+    if (params['label'] !== undefined) data['Label'] = params['label'];
+    if (params['events'] !== undefined) data['Events'] = params['events'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

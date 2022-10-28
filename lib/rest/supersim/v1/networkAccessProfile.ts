@@ -30,7 +30,7 @@ import { NetworkAccessProfileNetworkListInstance } from "./networkAccessProfile/
  * @property { string } [uniqueName] The new unique name of the Network Access Profile.
  */
 export interface NetworkAccessProfileContextUpdateOptions {
-  uniqueName?: string;
+  'uniqueName'?: string;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface NetworkAccessProfileContextUpdateOptions {
  * @property { Array<string> } [networks] List of Network SIDs that this Network Access Profile will allow connections to.
  */
 export interface NetworkAccessProfileListInstanceCreateOptions {
-  uniqueName?: string;
-  networks?: Array<string>;
+  'uniqueName'?: string;
+  'networks'?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -134,7 +134,7 @@ export interface NetworkAccessProfileContext {
 }
 
 export interface NetworkAccessProfileContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class NetworkAccessProfileContextImpl implements NetworkAccessProfileContext {
@@ -177,7 +177,7 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -498,8 +498,8 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.networks !== undefined) data['Networks'] = serialize.map(params.networks, ((e) => e));
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['networks'] !== undefined) data['Networks'] = serialize.map(params['networks'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -526,7 +526,7 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

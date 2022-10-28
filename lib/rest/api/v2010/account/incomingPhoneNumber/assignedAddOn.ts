@@ -30,7 +30,7 @@ import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddO
  * @property { string } installedAddOnSid The SID that identifies the Add-on installation.
  */
 export interface AssignedAddOnListInstanceCreateOptions {
-  installedAddOnSid: string;
+  'installedAddOnSid': string;
 }
 /**
  * Options to pass to each
@@ -113,9 +113,9 @@ export interface AssignedAddOnContext {
 }
 
 export interface AssignedAddOnContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'resourceSid'?: string;
+  'sid'?: string;
 }
 
 export class AssignedAddOnContextImpl implements AssignedAddOnContext {
@@ -474,13 +474,13 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.installedAddOnSid === null || params.installedAddOnSid === undefined) {
-      throw new Error('Required parameter "params.installedAddOnSid" missing.');
+    if (params['installedAddOnSid'] === null || params['installedAddOnSid'] === undefined) {
+      throw new Error('Required parameter "params[\'installedAddOnSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['InstalledAddOnSid'] = params.installedAddOnSid;
+    data['InstalledAddOnSid'] = params['installedAddOnSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -507,7 +507,7 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

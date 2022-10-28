@@ -140,7 +140,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  roomSid?: string;
+  'roomSid'?: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -551,12 +551,12 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const data: any = {};
 
-    if (params.roomType !== undefined) data['RoomType'] = serialize.map(params.roomType, ((e) => e));
-    if (params.codec !== undefined) data['Codec'] = serialize.map(params.codec, ((e) => e));
-    if (params.roomName !== undefined) data['RoomName'] = params.roomName;
-    if (params.createdAfter !== undefined) data['CreatedAfter'] = serialize.iso8601DateTime(params.createdAfter);
-    if (params.createdBefore !== undefined) data['CreatedBefore'] = serialize.iso8601DateTime(params.createdBefore);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['roomType'] !== undefined) data['RoomType'] = serialize.map(params['roomType'], ((e) => e));
+    if (params['codec'] !== undefined) data['Codec'] = serialize.map(params['codec'], ((e) => e));
+    if (params['roomName'] !== undefined) data['RoomName'] = params['roomName'];
+    if (params['createdAfter'] !== undefined) data['CreatedAfter'] = serialize.iso8601DateTime(params['createdAfter']);
+    if (params['createdBefore'] !== undefined) data['CreatedBefore'] = serialize.iso8601DateTime(params['createdBefore']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

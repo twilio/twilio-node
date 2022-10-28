@@ -40,10 +40,10 @@ type PaymentsTokenType = 'one-time'|'reusable';
  * @property { PaymentsStatus } [status] 
  */
 export interface PaymentContextUpdateOptions {
-  idempotencyKey: string;
-  statusCallback: string;
-  capture?: PaymentsCapture;
-  status?: PaymentsStatus;
+  'idempotencyKey': string;
+  'statusCallback': string;
+  'capture'?: PaymentsCapture;
+  'status'?: PaymentsStatus;
 }
 
 /**
@@ -67,22 +67,22 @@ export interface PaymentContextUpdateOptions {
  * @property { string } [validCardTypes] Credit card types separated by space that Pay should accept. The default value is &#x60;visa mastercard amex&#x60;
  */
 export interface PaymentListInstanceCreateOptions {
-  idempotencyKey: string;
-  statusCallback: string;
-  bankAccountType?: PaymentsBankAccountType;
-  chargeAmount?: number;
-  currency?: string;
-  description?: string;
-  input?: string;
-  minPostalCodeLength?: number;
-  parameter?: any;
-  paymentConnector?: string;
-  paymentMethod?: PaymentsPaymentMethod;
-  postalCode?: boolean;
-  securityCode?: boolean;
-  timeout?: number;
-  tokenType?: PaymentsTokenType;
-  validCardTypes?: string;
+  'idempotencyKey': string;
+  'statusCallback': string;
+  'bankAccountType'?: PaymentsBankAccountType;
+  'chargeAmount'?: number;
+  'currency'?: string;
+  'description'?: string;
+  'input'?: string;
+  'minPostalCodeLength'?: number;
+  'parameter'?: any;
+  'paymentConnector'?: string;
+  'paymentMethod'?: PaymentsPaymentMethod;
+  'postalCode'?: boolean;
+  'securityCode'?: boolean;
+  'timeout'?: number;
+  'tokenType'?: PaymentsTokenType;
+  'validCardTypes'?: string;
 }
 
 export interface PaymentContext {
@@ -108,9 +108,9 @@ export interface PaymentContext {
 }
 
 export interface PaymentContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'callSid'?: string;
+  'sid'?: string;
 }
 
 export class PaymentContextImpl implements PaymentContext {
@@ -128,20 +128,20 @@ export class PaymentContextImpl implements PaymentContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.idempotencyKey === null || params.idempotencyKey === undefined) {
-      throw new Error('Required parameter "params.idempotencyKey" missing.');
+    if (params['idempotencyKey'] === null || params['idempotencyKey'] === undefined) {
+      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
     }
 
-    if (params.statusCallback === null || params.statusCallback === undefined) {
-      throw new Error('Required parameter "params.statusCallback" missing.');
+    if (params['statusCallback'] === null || params['statusCallback'] === undefined) {
+      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
     }
 
     const data: any = {};
 
-    data['IdempotencyKey'] = params.idempotencyKey;
-    data['StatusCallback'] = params.statusCallback;
-    if (params.capture !== undefined) data['Capture'] = params.capture;
-    if (params.status !== undefined) data['Status'] = params.status;
+    data['IdempotencyKey'] = params['idempotencyKey'];
+    data['StatusCallback'] = params['statusCallback'];
+    if (params['capture'] !== undefined) data['Capture'] = params['capture'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -318,32 +318,32 @@ export function PaymentListInstance(version: V2010, accountSid: string, callSid:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.idempotencyKey === null || params.idempotencyKey === undefined) {
-      throw new Error('Required parameter "params.idempotencyKey" missing.');
+    if (params['idempotencyKey'] === null || params['idempotencyKey'] === undefined) {
+      throw new Error('Required parameter "params[\'idempotencyKey\']" missing.');
     }
 
-    if (params.statusCallback === null || params.statusCallback === undefined) {
-      throw new Error('Required parameter "params.statusCallback" missing.');
+    if (params['statusCallback'] === null || params['statusCallback'] === undefined) {
+      throw new Error('Required parameter "params[\'statusCallback\']" missing.');
     }
 
     const data: any = {};
 
-    data['IdempotencyKey'] = params.idempotencyKey;
-    data['StatusCallback'] = params.statusCallback;
-    if (params.bankAccountType !== undefined) data['BankAccountType'] = params.bankAccountType;
-    if (params.chargeAmount !== undefined) data['ChargeAmount'] = params.chargeAmount;
-    if (params.currency !== undefined) data['Currency'] = params.currency;
-    if (params.description !== undefined) data['Description'] = params.description;
-    if (params.input !== undefined) data['Input'] = params.input;
-    if (params.minPostalCodeLength !== undefined) data['MinPostalCodeLength'] = params.minPostalCodeLength;
-    if (params.parameter !== undefined) data['Parameter'] = params.parameter;
-    if (params.paymentConnector !== undefined) data['PaymentConnector'] = params.paymentConnector;
-    if (params.paymentMethod !== undefined) data['PaymentMethod'] = params.paymentMethod;
-    if (params.postalCode !== undefined) data['PostalCode'] = serialize.bool(params.postalCode);
-    if (params.securityCode !== undefined) data['SecurityCode'] = serialize.bool(params.securityCode);
-    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
-    if (params.tokenType !== undefined) data['TokenType'] = params.tokenType;
-    if (params.validCardTypes !== undefined) data['ValidCardTypes'] = params.validCardTypes;
+    data['IdempotencyKey'] = params['idempotencyKey'];
+    data['StatusCallback'] = params['statusCallback'];
+    if (params['bankAccountType'] !== undefined) data['BankAccountType'] = params['bankAccountType'];
+    if (params['chargeAmount'] !== undefined) data['ChargeAmount'] = params['chargeAmount'];
+    if (params['currency'] !== undefined) data['Currency'] = params['currency'];
+    if (params['description'] !== undefined) data['Description'] = params['description'];
+    if (params['input'] !== undefined) data['Input'] = params['input'];
+    if (params['minPostalCodeLength'] !== undefined) data['MinPostalCodeLength'] = params['minPostalCodeLength'];
+    if (params['parameter'] !== undefined) data['Parameter'] = params['parameter'];
+    if (params['paymentConnector'] !== undefined) data['PaymentConnector'] = params['paymentConnector'];
+    if (params['paymentMethod'] !== undefined) data['PaymentMethod'] = params['paymentMethod'];
+    if (params['postalCode'] !== undefined) data['PostalCode'] = serialize.bool(params['postalCode']);
+    if (params['securityCode'] !== undefined) data['SecurityCode'] = serialize.bool(params['securityCode']);
+    if (params['timeout'] !== undefined) data['Timeout'] = params['timeout'];
+    if (params['tokenType'] !== undefined) data['TokenType'] = params['tokenType'];
+    if (params['validCardTypes'] !== undefined) data['ValidCardTypes'] = params['validCardTypes'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

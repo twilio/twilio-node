@@ -35,7 +35,7 @@ type MediaProcessorUpdateStatus = 'ended';
  * @property { MediaProcessorUpdateStatus } status 
  */
 export interface MediaProcessorContextUpdateOptions {
-  status: MediaProcessorUpdateStatus;
+  'status': MediaProcessorUpdateStatus;
 }
 
 /**
@@ -49,12 +49,12 @@ export interface MediaProcessorContextUpdateOptions {
  * @property { number } [maxDuration] The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
  */
 export interface MediaProcessorListInstanceCreateOptions {
-  extension: string;
-  extensionContext: string;
-  extensionEnvironment?: any;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  maxDuration?: number;
+  'extension': string;
+  'extensionContext': string;
+  'extensionEnvironment'?: any;
+  'statusCallback'?: string;
+  'statusCallbackMethod'?: string;
+  'maxDuration'?: number;
 }
 /**
  * Options to pass to each
@@ -150,7 +150,7 @@ export interface MediaProcessorContext {
 }
 
 export interface MediaProcessorContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class MediaProcessorContextImpl implements MediaProcessorContext {
@@ -182,13 +182,13 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params['status'] === null || params['status'] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
+    data['Status'] = params['status'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -517,22 +517,22 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.extension === null || params.extension === undefined) {
-      throw new Error('Required parameter "params.extension" missing.');
+    if (params['extension'] === null || params['extension'] === undefined) {
+      throw new Error('Required parameter "params[\'extension\']" missing.');
     }
 
-    if (params.extensionContext === null || params.extensionContext === undefined) {
-      throw new Error('Required parameter "params.extensionContext" missing.');
+    if (params['extensionContext'] === null || params['extensionContext'] === undefined) {
+      throw new Error('Required parameter "params[\'extensionContext\']" missing.');
     }
 
     const data: any = {};
 
-    data['Extension'] = params.extension;
-    data['ExtensionContext'] = params.extensionContext;
-    if (params.extensionEnvironment !== undefined) data['ExtensionEnvironment'] = params.extensionEnvironment;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
+    data['Extension'] = params['extension'];
+    data['ExtensionContext'] = params['extensionContext'];
+    if (params['extensionEnvironment'] !== undefined) data['ExtensionEnvironment'] = params['extensionEnvironment'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['maxDuration'] !== undefined) data['MaxDuration'] = params['maxDuration'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -559,9 +559,9 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

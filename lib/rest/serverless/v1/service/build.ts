@@ -37,10 +37,10 @@ type BuildStatus = 'building'|'completed'|'failed';
  * @property { string } [runtime] The Runtime version that will be used to run the Build resource when it is deployed.
  */
 export interface BuildListInstanceCreateOptions {
-  assetVersions?: Array<string>;
-  functionVersions?: Array<string>;
-  dependencies?: string;
-  runtime?: string;
+  'assetVersions'?: Array<string>;
+  'functionVersions'?: Array<string>;
+  'dependencies'?: string;
+  'runtime'?: string;
 }
 /**
  * Options to pass to each
@@ -123,8 +123,8 @@ export interface BuildContext {
 }
 
 export interface BuildContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class BuildContextImpl implements BuildContext {
@@ -493,10 +493,10 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
 
     const data: any = {};
 
-    if (params.assetVersions !== undefined) data['AssetVersions'] = serialize.map(params.assetVersions, ((e) => e));
-    if (params.functionVersions !== undefined) data['FunctionVersions'] = serialize.map(params.functionVersions, ((e) => e));
-    if (params.dependencies !== undefined) data['Dependencies'] = params.dependencies;
-    if (params.runtime !== undefined) data['Runtime'] = params.runtime;
+    if (params['assetVersions'] !== undefined) data['AssetVersions'] = serialize.map(params['assetVersions'], ((e) => e));
+    if (params['functionVersions'] !== undefined) data['FunctionVersions'] = serialize.map(params['functionVersions'], ((e) => e));
+    if (params['dependencies'] !== undefined) data['Dependencies'] = params['dependencies'];
+    if (params['runtime'] !== undefined) data['Runtime'] = params['runtime'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -523,7 +523,7 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

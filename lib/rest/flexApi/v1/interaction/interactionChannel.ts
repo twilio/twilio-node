@@ -38,8 +38,8 @@ type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'mes
  * @property { any } [routing] Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
  */
 export interface InteractionChannelContextUpdateOptions {
-  status: InteractionChannelStatus;
-  routing?: any;
+  'status': InteractionChannelStatus;
+  'routing'?: any;
 }
 /**
  * Options to pass to each
@@ -125,8 +125,8 @@ export interface InteractionChannelContext {
 }
 
 export interface InteractionChannelContextSolution {
-  interactionSid?: string;
-  sid?: string;
+  'interactionSid'?: string;
+  'sid'?: string;
 }
 
 export class InteractionChannelContextImpl implements InteractionChannelContext {
@@ -170,14 +170,14 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params['status'] === null || params['status'] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
-    if (params.routing !== undefined) data['Routing'] = params.routing;
+    data['Status'] = params['status'];
+    if (params['routing'] !== undefined) data['Routing'] = params['routing'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -476,7 +476,7 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

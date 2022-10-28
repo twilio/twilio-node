@@ -94,10 +94,10 @@ export interface DeliveryReceiptContext {
 }
 
 export interface DeliveryReceiptContextSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
+  'chatServiceSid'?: string;
+  'conversationSid'?: string;
+  'messageSid'?: string;
+  'sid'?: string;
 }
 
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
@@ -417,7 +417,7 @@ export function DeliveryReceiptListInstance(version: V1, chatServiceSid: string,
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

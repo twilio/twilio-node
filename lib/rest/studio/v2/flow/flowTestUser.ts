@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { Array<string> } testUsers List of test user identities that can test draft versions of the flow.
  */
 export interface FlowTestUserContextUpdateOptions {
-  testUsers: Array<string>;
+  'testUsers': Array<string>;
 }
 
 export interface FlowTestUserContext {
@@ -63,7 +63,7 @@ export interface FlowTestUserContext {
 }
 
 export interface FlowTestUserContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class FlowTestUserContextImpl implements FlowTestUserContext {
@@ -95,13 +95,13 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.testUsers === null || params.testUsers === undefined) {
-      throw new Error('Required parameter "params.testUsers" missing.');
+    if (params['testUsers'] === null || params['testUsers'] === undefined) {
+      throw new Error('Required parameter "params[\'testUsers\']" missing.');
     }
 
     const data: any = {};
 
-    data['TestUsers'] = serialize.map(params.testUsers, ((e) => e));
+    data['TestUsers'] = serialize.map(params['testUsers'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -33,7 +33,7 @@ type SummaryProcessingState = 'complete'|'partial';
  * @property { SummaryProcessingState } [processingState] 
  */
 export interface CallSummaryContextFetchOptions {
-  processingState?: SummaryProcessingState;
+  'processingState'?: SummaryProcessingState;
 }
 
 export interface CallSummaryContext {
@@ -67,7 +67,7 @@ export interface CallSummaryContext {
 }
 
 export interface CallSummaryContextSolution {
-  callSid?: string;
+  'callSid'?: string;
 }
 
 export class CallSummaryContextImpl implements CallSummaryContext {
@@ -90,7 +90,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
 
     const data: any = {};
 
-    if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
+    if (params['processingState'] !== undefined) data['ProcessingState'] = params['processingState'];
 
     const headers: any = {};
 

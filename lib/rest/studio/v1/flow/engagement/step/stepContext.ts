@@ -42,9 +42,9 @@ export interface StepContextContext {
 }
 
 export interface StepContextContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  stepSid?: string;
+  'flowSid'?: string;
+  'engagementSid'?: string;
+  'stepSid'?: string;
 }
 
 export class StepContextContextImpl implements StepContextContext {

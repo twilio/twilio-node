@@ -32,8 +32,8 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapContextUpdateOptions {
-  ttl?: number;
-  collectionTtl?: number;
+  'ttl'?: number;
+  'collectionTtl'?: number;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface SyncMapContextUpdateOptions {
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapListInstanceCreateOptions {
-  uniqueName?: string;
-  ttl?: number;
-  collectionTtl?: number;
+  'uniqueName'?: string;
+  'ttl'?: number;
+  'collectionTtl'?: number;
 }
 /**
  * Options to pass to each
@@ -150,8 +150,8 @@ export interface SyncMapContext {
 }
 
 export interface SyncMapContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class SyncMapContextImpl implements SyncMapContext {
@@ -212,8 +212,8 @@ export class SyncMapContextImpl implements SyncMapContext {
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -585,9 +585,9 @@ export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapLis
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -614,7 +614,7 @@ export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapLis
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

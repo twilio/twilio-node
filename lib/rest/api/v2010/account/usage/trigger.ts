@@ -37,9 +37,9 @@ type UsageTriggerUsageCategory = 'a2p-registration-fees'|'agent-conference'|'ama
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface TriggerContextUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
+  'callbackMethod'?: string;
+  'callbackUrl'?: string;
+  'friendlyName'?: string;
 }
 
 /**
@@ -54,13 +54,13 @@ export interface TriggerContextUpdateOptions {
  * @property { UsageTriggerTriggerField } [triggerBy] 
  */
 export interface TriggerListInstanceCreateOptions {
-  callbackUrl: string;
-  triggerValue: string;
-  usageCategory: UsageTriggerUsageCategory;
-  callbackMethod?: string;
-  friendlyName?: string;
-  recurring?: UsageTriggerRecurring;
-  triggerBy?: UsageTriggerTriggerField;
+  'callbackUrl': string;
+  'triggerValue': string;
+  'usageCategory': UsageTriggerUsageCategory;
+  'callbackMethod'?: string;
+  'friendlyName'?: string;
+  'recurring'?: UsageTriggerRecurring;
+  'triggerBy'?: UsageTriggerTriggerField;
 }
 /**
  * Options to pass to each
@@ -180,8 +180,8 @@ export interface TriggerContext {
 }
 
 export interface TriggerContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class TriggerContextImpl implements TriggerContext {
@@ -230,9 +230,9 @@ export class TriggerContextImpl implements TriggerContext {
 
     const data: any = {};
 
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
+    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -604,27 +604,27 @@ export function TriggerListInstance(version: V2010, accountSid: string): Trigger
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.callbackUrl === null || params.callbackUrl === undefined) {
-      throw new Error('Required parameter "params.callbackUrl" missing.');
+    if (params['callbackUrl'] === null || params['callbackUrl'] === undefined) {
+      throw new Error('Required parameter "params[\'callbackUrl\']" missing.');
     }
 
-    if (params.triggerValue === null || params.triggerValue === undefined) {
-      throw new Error('Required parameter "params.triggerValue" missing.');
+    if (params['triggerValue'] === null || params['triggerValue'] === undefined) {
+      throw new Error('Required parameter "params[\'triggerValue\']" missing.');
     }
 
-    if (params.usageCategory === null || params.usageCategory === undefined) {
-      throw new Error('Required parameter "params.usageCategory" missing.');
+    if (params['usageCategory'] === null || params['usageCategory'] === undefined) {
+      throw new Error('Required parameter "params[\'usageCategory\']" missing.');
     }
 
     const data: any = {};
 
-    data['CallbackUrl'] = params.callbackUrl;
-    data['TriggerValue'] = params.triggerValue;
-    data['UsageCategory'] = params.usageCategory;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.recurring !== undefined) data['Recurring'] = params.recurring;
-    if (params.triggerBy !== undefined) data['TriggerBy'] = params.triggerBy;
+    data['CallbackUrl'] = params['callbackUrl'];
+    data['TriggerValue'] = params['triggerValue'];
+    data['UsageCategory'] = params['usageCategory'];
+    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['recurring'] !== undefined) data['Recurring'] = params['recurring'];
+    if (params['triggerBy'] !== undefined) data['TriggerBy'] = params['triggerBy'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -651,10 +651,10 @@ export function TriggerListInstance(version: V2010, accountSid: string): Trigger
 
     const data: any = {};
 
-    if (params.recurring !== undefined) data['Recurring'] = params.recurring;
-    if (params.triggerBy !== undefined) data['TriggerBy'] = params.triggerBy;
-    if (params.usageCategory !== undefined) data['UsageCategory'] = params.usageCategory;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['recurring'] !== undefined) data['Recurring'] = params['recurring'];
+    if (params['triggerBy'] !== undefined) data['TriggerBy'] = params['triggerBy'];
+    if (params['usageCategory'] !== undefined) data['UsageCategory'] = params['usageCategory'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -42,8 +42,8 @@ export interface TaskStatisticsContext {
 }
 
 export interface TaskStatisticsContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  'assistantSid'?: string;
+  'taskSid'?: string;
 }
 
 export class TaskStatisticsContextImpl implements TaskStatisticsContext {

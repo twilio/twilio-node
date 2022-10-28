@@ -102,7 +102,7 @@ export interface AppContext {
 }
 
 export interface AppContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class AppContextImpl implements AppContext {
@@ -411,7 +411,7 @@ export function AppListInstance(version: V1): AppListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

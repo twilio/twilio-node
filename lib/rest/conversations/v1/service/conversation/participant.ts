@@ -31,7 +31,7 @@ type ServiceConversationParticipantWebhookEnabledType = 'true'|'false';
  * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ParticipantContextRemoveOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
+  'xTwilioWebhookEnabled'?: ServiceConversationParticipantWebhookEnabledType;
 }
 
 /**
@@ -43,22 +43,22 @@ export interface ParticipantContextRemoveOptions {
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
  * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
  * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
- * @property { string } [messagingBindingProxyAddress] The address of the Twilio phone number that the participant is in contact with. \\\&#39;null\\\&#39; value will remove it.
- * @property { string } [messagingBindingProjectedAddress] The address of the Twilio phone number that is used in Group MMS. \\\&#39;null\\\&#39; value will remove it.
+ * @property { string } [messagingBinding.proxyAddress] The address of the Twilio phone number that the participant is in contact with. \\\&#39;null\\\&#39; value will remove it.
+ * @property { string } [messagingBinding.projectedAddress] The address of the Twilio phone number that is used in Group MMS. \\\&#39;null\\\&#39; value will remove it.
  * @property { number } [lastReadMessageIndex] Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  */
 export interface ParticipantContextUpdateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  identity?: string;
-  attributes?: string;
-  roleSid?: string;
-  messagingBindingProxyAddress?: string;
-  messagingBindingProjectedAddress?: string;
-  lastReadMessageIndex?: number;
-  lastReadTimestamp?: string;
+  'xTwilioWebhookEnabled'?: ServiceConversationParticipantWebhookEnabledType;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'identity'?: string;
+  'attributes'?: string;
+  'roleSid'?: string;
+  'messagingBinding.proxyAddress'?: string;
+  'messagingBinding.projectedAddress'?: string;
+  'lastReadMessageIndex'?: number;
+  'lastReadTimestamp'?: string;
 }
 
 /**
@@ -66,24 +66,24 @@ export interface ParticipantContextUpdateOptions {
  *
  * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
- * @property { string } [messagingBindingAddress] The address of the participant\\\&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
- * @property { string } [messagingBindingProxyAddress] The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
+ * @property { string } [messagingBinding.address] The address of the participant\\\&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
+ * @property { string } [messagingBinding.proxyAddress] The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
  * @property { Date } [dateCreated] The date that this resource was created.
  * @property { Date } [dateUpdated] The date that this resource was last updated.
  * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
- * @property { string } [messagingBindingProjectedAddress] The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+ * @property { string } [messagingBinding.projectedAddress] The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
  * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
  */
 export interface ParticipantListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
-  identity?: string;
-  messagingBindingAddress?: string;
-  messagingBindingProxyAddress?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
-  messagingBindingProjectedAddress?: string;
-  roleSid?: string;
+  'xTwilioWebhookEnabled'?: ServiceConversationParticipantWebhookEnabledType;
+  'identity'?: string;
+  'messagingBinding.address'?: string;
+  'messagingBinding.proxyAddress'?: string;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'attributes'?: string;
+  'messagingBinding.projectedAddress'?: string;
+  'roleSid'?: string;
 }
 /**
  * Options to pass to each
@@ -195,9 +195,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  sid?: string;
+  'chatServiceSid'?: string;
+  'conversationSid'?: string;
+  'sid'?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -222,7 +222,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -258,19 +258,19 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const data: any = {};
 
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.identity !== undefined) data['Identity'] = params.identity;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
-    if (params.messagingBindingProxyAddress !== undefined) data['MessagingBinding.ProxyAddress'] = params.messagingBindingProxyAddress;
-    if (params.messagingBindingProjectedAddress !== undefined) data['MessagingBinding.ProjectedAddress'] = params.messagingBindingProjectedAddress;
-    if (params.lastReadMessageIndex !== undefined) data['LastReadMessageIndex'] = params.lastReadMessageIndex;
-    if (params.lastReadTimestamp !== undefined) data['LastReadTimestamp'] = params.lastReadTimestamp;
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['identity'] !== undefined) data['Identity'] = params['identity'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
+    if (params['messagingBinding.proxyAddress'] !== undefined) data['MessagingBinding.ProxyAddress'] = params['messagingBinding.proxyAddress'];
+    if (params['messagingBinding.projectedAddress'] !== undefined) data['MessagingBinding.ProjectedAddress'] = params['messagingBinding.projectedAddress'];
+    if (params['lastReadMessageIndex'] !== undefined) data['LastReadMessageIndex'] = params['lastReadMessageIndex'];
+    if (params['lastReadTimestamp'] !== undefined) data['LastReadTimestamp'] = params['lastReadTimestamp'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -650,18 +650,18 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
 
     const data: any = {};
 
-    if (params.identity !== undefined) data['Identity'] = params.identity;
-    if (params.messagingBindingAddress !== undefined) data['MessagingBinding.Address'] = params.messagingBindingAddress;
-    if (params.messagingBindingProxyAddress !== undefined) data['MessagingBinding.ProxyAddress'] = params.messagingBindingProxyAddress;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.messagingBindingProjectedAddress !== undefined) data['MessagingBinding.ProjectedAddress'] = params.messagingBindingProjectedAddress;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+    if (params['identity'] !== undefined) data['Identity'] = params['identity'];
+    if (params['messagingBinding.address'] !== undefined) data['MessagingBinding.Address'] = params['messagingBinding.address'];
+    if (params['messagingBinding.proxyAddress'] !== undefined) data['MessagingBinding.ProxyAddress'] = params['messagingBinding.proxyAddress'];
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['messagingBinding.projectedAddress'] !== undefined) data['MessagingBinding.ProjectedAddress'] = params['messagingBinding.projectedAddress'];
+    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
@@ -685,7 +685,7 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

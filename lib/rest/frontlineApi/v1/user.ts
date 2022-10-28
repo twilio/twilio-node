@@ -31,10 +31,10 @@ type UserStateType = 'active'|'deactivated';
  * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserListInstanceUpdateOptions {
-  friendlyName?: string;
-  avatar?: string;
-  state?: UserStateType;
-  isAvailable?: boolean;
+  'friendlyName'?: string;
+  'avatar'?: string;
+  'state'?: UserStateType;
+  'isAvailable'?: boolean;
 }
 
 export interface UserListInstance {
@@ -119,10 +119,10 @@ export function UserListInstance(version: V1): UserListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.avatar !== undefined) data['Avatar'] = params.avatar;
-    if (params.state !== undefined) data['State'] = params.state;
-    if (params.isAvailable !== undefined) data['IsAvailable'] = serialize.bool(params.isAvailable);
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['avatar'] !== undefined) data['Avatar'] = params['avatar'];
+    if (params['state'] !== undefined) data['State'] = params['state'];
+    if (params['isAvailable'] !== undefined) data['IsAvailable'] = serialize.bool(params['isAvailable']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

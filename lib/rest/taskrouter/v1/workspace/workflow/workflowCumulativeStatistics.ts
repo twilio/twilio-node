@@ -31,11 +31,11 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold.
  */
 export interface WorkflowCumulativeStatisticsContextFetchOptions {
-  endDate?: Date;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
+  'endDate'?: Date;
+  'minutes'?: number;
+  'startDate'?: Date;
+  'taskChannel'?: string;
+  'splitByWaitTime'?: string;
 }
 
 export interface WorkflowCumulativeStatisticsContext {
@@ -69,8 +69,8 @@ export interface WorkflowCumulativeStatisticsContext {
 }
 
 export interface WorkflowCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  'workspaceSid'?: string;
+  'workflowSid'?: string;
 }
 
 export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulativeStatisticsContext {
@@ -93,11 +93,11 @@ export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulati
 
     const data: any = {};
 
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
+    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
+    if (params['minutes'] !== undefined) data['Minutes'] = params['minutes'];
+    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
+    if (params['splitByWaitTime'] !== undefined) data['SplitByWaitTime'] = params['splitByWaitTime'];
 
     const headers: any = {};
 

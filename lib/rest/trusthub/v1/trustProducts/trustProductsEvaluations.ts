@@ -31,7 +31,7 @@ type TrustProductEvaluationStatus = 'compliant'|'noncompliant';
  * @property { string } policySid The unique string of a policy that is associated to the customer_profile resource.
  */
 export interface TrustProductsEvaluationsListInstanceCreateOptions {
-  policySid: string;
+  'policySid': string;
 }
 /**
  * Options to pass to each
@@ -103,8 +103,8 @@ export interface TrustProductsEvaluationsContext {
 }
 
 export interface TrustProductsEvaluationsContextSolution {
-  trustProductSid?: string;
-  sid?: string;
+  'trustProductSid'?: string;
+  'sid'?: string;
 }
 
 export class TrustProductsEvaluationsContextImpl implements TrustProductsEvaluationsContext {
@@ -395,13 +395,13 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.policySid === null || params.policySid === undefined) {
-      throw new Error('Required parameter "params.policySid" missing.');
+    if (params['policySid'] === null || params['policySid'] === undefined) {
+      throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
     const data: any = {};
 
-    data['PolicySid'] = params.policySid;
+    data['PolicySid'] = params['policySid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -428,7 +428,7 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

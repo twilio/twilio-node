@@ -25,33 +25,33 @@ const serialize = require("../../../../../base/serialize");
  * Options to pass to update a NotificationInstance
  *
  * @property { boolean } [logEnabled] Weather the notification logging is enabled.
- * @property { boolean } [newMessageEnabled] Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessageTemplate] The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [newMessageSound] The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessageBadgeCountEnabled] Whether the new message badge is enabled. The default is &#x60;false&#x60;.
- * @property { boolean } [addedToConversationEnabled] Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [addedToConversationTemplate] The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [addedToConversationSound] The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [removedFromConversationEnabled] Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
- * @property { string } [removedFromConversationTemplate] The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [removedFromConversationSound] The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessageWithMediaEnabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessageWithMediaTemplate] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessage.enabled] Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [newMessage.template] The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [newMessage.sound] The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessage.badgeCountEnabled] Whether the new message badge is enabled. The default is &#x60;false&#x60;.
+ * @property { boolean } [addedToConversation.enabled] Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [addedToConversation.template] The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [addedToConversation.sound] The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [removedFromConversation.enabled] Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [removedFromConversation.template] The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [removedFromConversation.sound] The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessage.withMedia.enabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [newMessage.withMedia.template] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
  */
 export interface NotificationContextUpdateOptions {
-  logEnabled?: boolean;
-  newMessageEnabled?: boolean;
-  newMessageTemplate?: string;
-  newMessageSound?: string;
-  newMessageBadgeCountEnabled?: boolean;
-  addedToConversationEnabled?: boolean;
-  addedToConversationTemplate?: string;
-  addedToConversationSound?: string;
-  removedFromConversationEnabled?: boolean;
-  removedFromConversationTemplate?: string;
-  removedFromConversationSound?: string;
-  newMessageWithMediaEnabled?: boolean;
-  newMessageWithMediaTemplate?: string;
+  'logEnabled'?: boolean;
+  'newMessage.enabled'?: boolean;
+  'newMessage.template'?: string;
+  'newMessage.sound'?: string;
+  'newMessage.badgeCountEnabled'?: boolean;
+  'addedToConversation.enabled'?: boolean;
+  'addedToConversation.template'?: string;
+  'addedToConversation.sound'?: string;
+  'removedFromConversation.enabled'?: boolean;
+  'removedFromConversation.template'?: string;
+  'removedFromConversation.sound'?: string;
+  'newMessage.withMedia.enabled'?: boolean;
+  'newMessage.withMedia.template'?: string;
 }
 
 export interface NotificationContext {
@@ -95,7 +95,7 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  chatServiceSid?: string;
+  'chatServiceSid'?: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
@@ -132,19 +132,19 @@ export class NotificationContextImpl implements NotificationContext {
 
     const data: any = {};
 
-    if (params.logEnabled !== undefined) data['LogEnabled'] = serialize.bool(params.logEnabled);
-    if (params.newMessageEnabled !== undefined) data['NewMessage.Enabled'] = serialize.bool(params.newMessageEnabled);
-    if (params.newMessageTemplate !== undefined) data['NewMessage.Template'] = params.newMessageTemplate;
-    if (params.newMessageSound !== undefined) data['NewMessage.Sound'] = params.newMessageSound;
-    if (params.newMessageBadgeCountEnabled !== undefined) data['NewMessage.BadgeCountEnabled'] = serialize.bool(params.newMessageBadgeCountEnabled);
-    if (params.addedToConversationEnabled !== undefined) data['AddedToConversation.Enabled'] = serialize.bool(params.addedToConversationEnabled);
-    if (params.addedToConversationTemplate !== undefined) data['AddedToConversation.Template'] = params.addedToConversationTemplate;
-    if (params.addedToConversationSound !== undefined) data['AddedToConversation.Sound'] = params.addedToConversationSound;
-    if (params.removedFromConversationEnabled !== undefined) data['RemovedFromConversation.Enabled'] = serialize.bool(params.removedFromConversationEnabled);
-    if (params.removedFromConversationTemplate !== undefined) data['RemovedFromConversation.Template'] = params.removedFromConversationTemplate;
-    if (params.removedFromConversationSound !== undefined) data['RemovedFromConversation.Sound'] = params.removedFromConversationSound;
-    if (params.newMessageWithMediaEnabled !== undefined) data['NewMessage.WithMedia.Enabled'] = serialize.bool(params.newMessageWithMediaEnabled);
-    if (params.newMessageWithMediaTemplate !== undefined) data['NewMessage.WithMedia.Template'] = params.newMessageWithMediaTemplate;
+    if (params['logEnabled'] !== undefined) data['LogEnabled'] = serialize.bool(params['logEnabled']);
+    if (params['newMessage.enabled'] !== undefined) data['NewMessage.Enabled'] = serialize.bool(params['newMessage.enabled']);
+    if (params['newMessage.template'] !== undefined) data['NewMessage.Template'] = params['newMessage.template'];
+    if (params['newMessage.sound'] !== undefined) data['NewMessage.Sound'] = params['newMessage.sound'];
+    if (params['newMessage.badgeCountEnabled'] !== undefined) data['NewMessage.BadgeCountEnabled'] = serialize.bool(params['newMessage.badgeCountEnabled']);
+    if (params['addedToConversation.enabled'] !== undefined) data['AddedToConversation.Enabled'] = serialize.bool(params['addedToConversation.enabled']);
+    if (params['addedToConversation.template'] !== undefined) data['AddedToConversation.Template'] = params['addedToConversation.template'];
+    if (params['addedToConversation.sound'] !== undefined) data['AddedToConversation.Sound'] = params['addedToConversation.sound'];
+    if (params['removedFromConversation.enabled'] !== undefined) data['RemovedFromConversation.Enabled'] = serialize.bool(params['removedFromConversation.enabled']);
+    if (params['removedFromConversation.template'] !== undefined) data['RemovedFromConversation.Template'] = params['removedFromConversation.template'];
+    if (params['removedFromConversation.sound'] !== undefined) data['RemovedFromConversation.Sound'] = params['removedFromConversation.sound'];
+    if (params['newMessage.withMedia.enabled'] !== undefined) data['NewMessage.WithMedia.Enabled'] = serialize.bool(params['newMessage.withMedia.enabled']);
+    if (params['newMessage.withMedia.template'] !== undefined) data['NewMessage.WithMedia.Template'] = params['newMessage.withMedia.template'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

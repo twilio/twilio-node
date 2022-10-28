@@ -106,9 +106,9 @@ export interface AddOnResultContext {
 }
 
 export interface AddOnResultContextSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'referenceSid'?: string;
+  'sid'?: string;
 }
 
 export class AddOnResultContextImpl implements AddOnResultContext {
@@ -450,7 +450,7 @@ export function AddOnResultListInstance(version: V2010, accountSid: string, refe
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -40,12 +40,12 @@ type TaskQueueTaskOrder = 'FIFO'|'LIFO';
  * @property { TaskQueueTaskOrder } [taskOrder] 
  */
 export interface TaskQueueContextUpdateOptions {
-  friendlyName?: string;
-  targetWorkers?: string;
-  reservationActivitySid?: string;
-  assignmentActivitySid?: string;
-  maxReservedWorkers?: number;
-  taskOrder?: TaskQueueTaskOrder;
+  'friendlyName'?: string;
+  'targetWorkers'?: string;
+  'reservationActivitySid'?: string;
+  'assignmentActivitySid'?: string;
+  'maxReservedWorkers'?: number;
+  'taskOrder'?: TaskQueueTaskOrder;
 }
 
 /**
@@ -59,12 +59,12 @@ export interface TaskQueueContextUpdateOptions {
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned to them.
  */
 export interface TaskQueueListInstanceCreateOptions {
-  friendlyName: string;
-  targetWorkers?: string;
-  maxReservedWorkers?: number;
-  taskOrder?: TaskQueueTaskOrder;
-  reservationActivitySid?: string;
-  assignmentActivitySid?: string;
+  'friendlyName': string;
+  'targetWorkers'?: string;
+  'maxReservedWorkers'?: number;
+  'taskOrder'?: TaskQueueTaskOrder;
+  'reservationActivitySid'?: string;
+  'assignmentActivitySid'?: string;
 }
 /**
  * Options to pass to each
@@ -187,8 +187,8 @@ export interface TaskQueueContext {
 }
 
 export interface TaskQueueContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  'workspaceSid'?: string;
+  'sid'?: string;
 }
 
 export class TaskQueueContextImpl implements TaskQueueContext {
@@ -255,12 +255,12 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.targetWorkers !== undefined) data['TargetWorkers'] = params.targetWorkers;
-    if (params.reservationActivitySid !== undefined) data['ReservationActivitySid'] = params.reservationActivitySid;
-    if (params.assignmentActivitySid !== undefined) data['AssignmentActivitySid'] = params.assignmentActivitySid;
-    if (params.maxReservedWorkers !== undefined) data['MaxReservedWorkers'] = params.maxReservedWorkers;
-    if (params.taskOrder !== undefined) data['TaskOrder'] = params.taskOrder;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['targetWorkers'] !== undefined) data['TargetWorkers'] = params['targetWorkers'];
+    if (params['reservationActivitySid'] !== undefined) data['ReservationActivitySid'] = params['reservationActivitySid'];
+    if (params['assignmentActivitySid'] !== undefined) data['AssignmentActivitySid'] = params['assignmentActivitySid'];
+    if (params['maxReservedWorkers'] !== undefined) data['MaxReservedWorkers'] = params['maxReservedWorkers'];
+    if (params['taskOrder'] !== undefined) data['TaskOrder'] = params['taskOrder'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -662,18 +662,18 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.targetWorkers !== undefined) data['TargetWorkers'] = params.targetWorkers;
-    if (params.maxReservedWorkers !== undefined) data['MaxReservedWorkers'] = params.maxReservedWorkers;
-    if (params.taskOrder !== undefined) data['TaskOrder'] = params.taskOrder;
-    if (params.reservationActivitySid !== undefined) data['ReservationActivitySid'] = params.reservationActivitySid;
-    if (params.assignmentActivitySid !== undefined) data['AssignmentActivitySid'] = params.assignmentActivitySid;
+    data['FriendlyName'] = params['friendlyName'];
+    if (params['targetWorkers'] !== undefined) data['TargetWorkers'] = params['targetWorkers'];
+    if (params['maxReservedWorkers'] !== undefined) data['MaxReservedWorkers'] = params['maxReservedWorkers'];
+    if (params['taskOrder'] !== undefined) data['TaskOrder'] = params['taskOrder'];
+    if (params['reservationActivitySid'] !== undefined) data['ReservationActivitySid'] = params['reservationActivitySid'];
+    if (params['assignmentActivitySid'] !== undefined) data['AssignmentActivitySid'] = params['assignmentActivitySid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -700,10 +700,10 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.evaluateWorkerAttributes !== undefined) data['EvaluateWorkerAttributes'] = params.evaluateWorkerAttributes;
-    if (params.workerSid !== undefined) data['WorkerSid'] = params.workerSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['evaluateWorkerAttributes'] !== undefined) data['EvaluateWorkerAttributes'] = params['evaluateWorkerAttributes'];
+    if (params['workerSid'] !== undefined) data['WorkerSid'] = params['workerSid'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

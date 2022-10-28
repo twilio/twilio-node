@@ -37,13 +37,13 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
 export interface AnnotationContextUpdateOptions {
-  answeredBy?: AnnotationAnsweredBy;
-  connectivityIssue?: AnnotationConnectivityIssue;
-  qualityIssues?: string;
-  spam?: boolean;
-  callScore?: number;
-  comment?: string;
-  incident?: string;
+  'answeredBy'?: AnnotationAnsweredBy;
+  'connectivityIssue'?: AnnotationConnectivityIssue;
+  'qualityIssues'?: string;
+  'spam'?: boolean;
+  'callScore'?: number;
+  'comment'?: string;
+  'incident'?: string;
 }
 
 export interface AnnotationContext {
@@ -87,7 +87,7 @@ export interface AnnotationContext {
 }
 
 export interface AnnotationContextSolution {
-  callSid?: string;
+  'callSid'?: string;
 }
 
 export class AnnotationContextImpl implements AnnotationContext {
@@ -124,13 +124,13 @@ export class AnnotationContextImpl implements AnnotationContext {
 
     const data: any = {};
 
-    if (params.answeredBy !== undefined) data['AnsweredBy'] = params.answeredBy;
-    if (params.connectivityIssue !== undefined) data['ConnectivityIssue'] = params.connectivityIssue;
-    if (params.qualityIssues !== undefined) data['QualityIssues'] = params.qualityIssues;
-    if (params.spam !== undefined) data['Spam'] = serialize.bool(params.spam);
-    if (params.callScore !== undefined) data['CallScore'] = params.callScore;
-    if (params.comment !== undefined) data['Comment'] = params.comment;
-    if (params.incident !== undefined) data['Incident'] = params.incident;
+    if (params['answeredBy'] !== undefined) data['AnsweredBy'] = params['answeredBy'];
+    if (params['connectivityIssue'] !== undefined) data['ConnectivityIssue'] = params['connectivityIssue'];
+    if (params['qualityIssues'] !== undefined) data['QualityIssues'] = params['qualityIssues'];
+    if (params['spam'] !== undefined) data['Spam'] = serialize.bool(params['spam']);
+    if (params['callScore'] !== undefined) data['CallScore'] = params['callScore'];
+    if (params['comment'] !== undefined) data['Comment'] = params['comment'];
+    if (params['incident'] !== undefined) data['Incident'] = params['incident'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

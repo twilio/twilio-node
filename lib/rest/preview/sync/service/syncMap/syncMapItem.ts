@@ -33,7 +33,7 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextRemoveOptions {
-  ifMatch?: string;
+  'ifMatch'?: string;
 }
 
 /**
@@ -43,8 +43,8 @@ export interface SyncMapItemContextRemoveOptions {
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextUpdateOptions {
-  data: any;
-  ifMatch?: string;
+  'data': any;
+  'ifMatch'?: string;
 }
 
 /**
@@ -54,8 +54,8 @@ export interface SyncMapItemContextUpdateOptions {
  * @property { any } data 
  */
 export interface SyncMapItemListInstanceCreateOptions {
-  key: string;
-  data: any;
+  'key': string;
+  'data': any;
 }
 /**
  * Options to pass to each
@@ -177,9 +177,9 @@ export interface SyncMapItemContext {
 }
 
 export interface SyncMapItemContextSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  key?: string;
+  'serviceSid'?: string;
+  'mapSid'?: string;
+  'key'?: string;
 }
 
 export class SyncMapItemContextImpl implements SyncMapItemContext {
@@ -204,7 +204,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
 
     const headers: any = {};
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -235,17 +235,17 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -553,18 +553,18 @@ export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.key === null || params.key === undefined) {
-      throw new Error('Required parameter "params.key" missing.');
+    if (params['key'] === null || params['key'] === undefined) {
+      throw new Error('Required parameter "params[\'key\']" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Key'] = params.key;
-    data['Data'] = params.data;
+    data['Key'] = params['key'];
+    data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -591,10 +591,10 @@ export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSi
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['bounds'] !== undefined) data['Bounds'] = params['bounds'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

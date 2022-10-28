@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateContextUpdateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  'friendlyName'?: string;
+  'deviceSid'?: string;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface CertificateContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateListInstanceCreateOptions {
-  certificateData: string;
-  friendlyName?: string;
-  deviceSid?: string;
+  'certificateData': string;
+  'friendlyName'?: string;
+  'deviceSid'?: string;
 }
 /**
  * Options to pass to each
@@ -152,8 +152,8 @@ export interface CertificateContext {
 }
 
 export interface CertificateContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  'fleetSid'?: string;
+  'sid'?: string;
 }
 
 export class CertificateContextImpl implements CertificateContext {
@@ -202,8 +202,8 @@ export class CertificateContextImpl implements CertificateContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -534,15 +534,15 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.certificateData === null || params.certificateData === undefined) {
-      throw new Error('Required parameter "params.certificateData" missing.');
+    if (params['certificateData'] === null || params['certificateData'] === undefined) {
+      throw new Error('Required parameter "params[\'certificateData\']" missing.');
     }
 
     const data: any = {};
 
-    data['CertificateData'] = params.certificateData;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    data['CertificateData'] = params['certificateData'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -569,8 +569,8 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
 
     const data: any = {};
 
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

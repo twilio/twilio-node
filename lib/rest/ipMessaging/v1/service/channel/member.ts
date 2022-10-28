@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { number } [lastConsumedMessageIndex] 
  */
 export interface MemberContextUpdateOptions {
-  roleSid?: string;
-  lastConsumedMessageIndex?: number;
+  'roleSid'?: string;
+  'lastConsumedMessageIndex'?: number;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface MemberContextUpdateOptions {
  * @property { string } [roleSid] 
  */
 export interface MemberListInstanceCreateOptions {
-  identity: string;
-  roleSid?: string;
+  'identity': string;
+  'roleSid'?: string;
 }
 /**
  * Options to pass to each
@@ -150,9 +150,9 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'channelSid'?: string;
+  'sid'?: string;
 }
 
 export class MemberContextImpl implements MemberContext {
@@ -201,8 +201,8 @@ export class MemberContextImpl implements MemberContext {
 
     const data: any = {};
 
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
-    if (params.lastConsumedMessageIndex !== undefined) data['LastConsumedMessageIndex'] = params.lastConsumedMessageIndex;
+    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
+    if (params['lastConsumedMessageIndex'] !== undefined) data['LastConsumedMessageIndex'] = params['lastConsumedMessageIndex'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -515,14 +515,14 @@ export function MemberListInstance(version: V1, serviceSid: string, channelSid: 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params['identity'] === null || params['identity'] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params.identity;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+    data['Identity'] = params['identity'];
+    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -549,8 +549,8 @@ export function MemberListInstance(version: V1, serviceSid: string, channelSid: 
 
     const data: any = {};
 
-    if (params.identity !== undefined) data['Identity'] = serialize.map(params.identity, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['identity'] !== undefined) data['Identity'] = serialize.map(params['identity'], ((e) => e));
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

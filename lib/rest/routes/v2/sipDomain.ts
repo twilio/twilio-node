@@ -27,8 +27,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] 
  */
 export interface SipDomainListInstanceUpdateOptions {
-  voiceRegion?: string;
-  friendlyName?: string;
+  'voiceRegion'?: string;
+  'friendlyName'?: string;
 }
 
 export interface SipDomainListInstance {
@@ -113,8 +113,8 @@ export function SipDomainListInstance(version: V2): SipDomainListInstance {
 
     const data: any = {};
 
-    if (params.voiceRegion !== undefined) data['VoiceRegion'] = params.voiceRegion;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['voiceRegion'] !== undefined) data['VoiceRegion'] = params['voiceRegion'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

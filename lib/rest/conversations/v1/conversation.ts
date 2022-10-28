@@ -36,7 +36,7 @@ type ConversationWebhookEnabledType = 'true'|'false';
  * @property { ConversationWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ConversationContextRemoveOptions {
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+  'xTwilioWebhookEnabled'?: ConversationWebhookEnabledType;
 }
 
 /**
@@ -49,21 +49,21 @@ export interface ConversationContextRemoveOptions {
  * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @property { ConversationState } [state] 
- * @property { string } [timersInactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
- * @property { string } [timersClosed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
+ * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
+ * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL.
  */
 export interface ConversationContextUpdateOptions {
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
-  friendlyName?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
-  messagingServiceSid?: string;
-  state?: ConversationState;
-  timersInactive?: string;
-  timersClosed?: string;
-  uniqueName?: string;
+  'xTwilioWebhookEnabled'?: ConversationWebhookEnabledType;
+  'friendlyName'?: string;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'attributes'?: string;
+  'messagingServiceSid'?: string;
+  'state'?: ConversationState;
+  'timers.inactive'?: string;
+  'timers.closed'?: string;
+  'uniqueName'?: string;
 }
 
 /**
@@ -77,20 +77,20 @@ export interface ConversationContextUpdateOptions {
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
  * @property { ConversationState } [state] 
- * @property { string } [timersInactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
- * @property { string } [timersClosed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
+ * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
+ * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
  */
 export interface ConversationListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
-  friendlyName?: string;
-  uniqueName?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  messagingServiceSid?: string;
-  attributes?: string;
-  state?: ConversationState;
-  timersInactive?: string;
-  timersClosed?: string;
+  'xTwilioWebhookEnabled'?: ConversationWebhookEnabledType;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'messagingServiceSid'?: string;
+  'attributes'?: string;
+  'state'?: ConversationState;
+  'timers.inactive'?: string;
+  'timers.closed'?: string;
 }
 /**
  * Options to pass to each
@@ -205,7 +205,7 @@ export interface ConversationContext {
 }
 
 export interface ConversationContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class ConversationContextImpl implements ConversationContext {
@@ -248,7 +248,7 @@ export class ConversationContextImpl implements ConversationContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -284,19 +284,19 @@ export class ConversationContextImpl implements ConversationContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.state !== undefined) data['State'] = params.state;
-    if (params.timersInactive !== undefined) data['Timers.Inactive'] = params.timersInactive;
-    if (params.timersClosed !== undefined) data['Timers.Closed'] = params.timersClosed;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['messagingServiceSid'] !== undefined) data['MessagingServiceSid'] = params['messagingServiceSid'];
+    if (params['state'] !== undefined) data['State'] = params['state'];
+    if (params['timers.inactive'] !== undefined) data['Timers.Inactive'] = params['timers.inactive'];
+    if (params['timers.closed'] !== undefined) data['Timers.Closed'] = params['timers.closed'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -696,19 +696,19 @@ export function ConversationListInstance(version: V1): ConversationListInstance 
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.state !== undefined) data['State'] = params.state;
-    if (params.timersInactive !== undefined) data['Timers.Inactive'] = params.timersInactive;
-    if (params.timersClosed !== undefined) data['Timers.Closed'] = params.timersClosed;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['messagingServiceSid'] !== undefined) data['MessagingServiceSid'] = params['messagingServiceSid'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['state'] !== undefined) data['State'] = params['state'];
+    if (params['timers.inactive'] !== undefined) data['Timers.Inactive'] = params['timers.inactive'];
+    if (params['timers.closed'] !== undefined) data['Timers.Closed'] = params['timers.closed'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
@@ -732,7 +732,7 @@ export function ConversationListInstance(version: V1): ConversationListInstance 
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

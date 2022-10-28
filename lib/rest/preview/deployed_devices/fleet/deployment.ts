@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [syncServiceSid] Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
  */
 export interface DeploymentContextUpdateOptions {
-  friendlyName?: string;
-  syncServiceSid?: string;
+  'friendlyName'?: string;
+  'syncServiceSid'?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface DeploymentContextUpdateOptions {
  * @property { string } [syncServiceSid] Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
  */
 export interface DeploymentListInstanceCreateOptions {
-  friendlyName?: string;
-  syncServiceSid?: string;
+  'friendlyName'?: string;
+  'syncServiceSid'?: string;
 }
 /**
  * Options to pass to each
@@ -144,8 +144,8 @@ export interface DeploymentContext {
 }
 
 export interface DeploymentContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  'fleetSid'?: string;
+  'sid'?: string;
 }
 
 export class DeploymentContextImpl implements DeploymentContext {
@@ -194,8 +194,8 @@ export class DeploymentContextImpl implements DeploymentContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.syncServiceSid !== undefined) data['SyncServiceSid'] = params.syncServiceSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['syncServiceSid'] !== undefined) data['SyncServiceSid'] = params['syncServiceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -532,8 +532,8 @@ export function DeploymentListInstance(version: DeployedDevices, fleetSid: strin
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.syncServiceSid !== undefined) data['SyncServiceSid'] = params.syncServiceSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['syncServiceSid'] !== undefined) data['SyncServiceSid'] = params['syncServiceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -560,7 +560,7 @@ export function DeploymentListInstance(version: DeployedDevices, fleetSid: strin
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

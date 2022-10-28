@@ -38,14 +38,14 @@ type ConnectAppPermission = 'get-all'|'post-all';
  * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
  */
 export interface ConnectAppContextUpdateOptions {
-  authorizeRedirectUrl?: string;
-  companyName?: string;
-  deauthorizeCallbackMethod?: string;
-  deauthorizeCallbackUrl?: string;
-  description?: string;
-  friendlyName?: string;
-  homepageUrl?: string;
-  permissions?: Array<ConnectAppPermission>;
+  'authorizeRedirectUrl'?: string;
+  'companyName'?: string;
+  'deauthorizeCallbackMethod'?: string;
+  'deauthorizeCallbackUrl'?: string;
+  'description'?: string;
+  'friendlyName'?: string;
+  'homepageUrl'?: string;
+  'permissions'?: Array<ConnectAppPermission>;
 }
 /**
  * Options to pass to each
@@ -147,8 +147,8 @@ export interface ConnectAppContext {
 }
 
 export interface ConnectAppContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class ConnectAppContextImpl implements ConnectAppContext {
@@ -197,14 +197,14 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     const data: any = {};
 
-    if (params.authorizeRedirectUrl !== undefined) data['AuthorizeRedirectUrl'] = params.authorizeRedirectUrl;
-    if (params.companyName !== undefined) data['CompanyName'] = params.companyName;
-    if (params.deauthorizeCallbackMethod !== undefined) data['DeauthorizeCallbackMethod'] = params.deauthorizeCallbackMethod;
-    if (params.deauthorizeCallbackUrl !== undefined) data['DeauthorizeCallbackUrl'] = params.deauthorizeCallbackUrl;
-    if (params.description !== undefined) data['Description'] = params.description;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.homepageUrl !== undefined) data['HomepageUrl'] = params.homepageUrl;
-    if (params.permissions !== undefined) data['Permissions'] = serialize.map(params.permissions, ((e) => e));
+    if (params['authorizeRedirectUrl'] !== undefined) data['AuthorizeRedirectUrl'] = params['authorizeRedirectUrl'];
+    if (params['companyName'] !== undefined) data['CompanyName'] = params['companyName'];
+    if (params['deauthorizeCallbackMethod'] !== undefined) data['DeauthorizeCallbackMethod'] = params['deauthorizeCallbackMethod'];
+    if (params['deauthorizeCallbackUrl'] !== undefined) data['DeauthorizeCallbackUrl'] = params['deauthorizeCallbackUrl'];
+    if (params['description'] !== undefined) data['Description'] = params['description'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['homepageUrl'] !== undefined) data['HomepageUrl'] = params['homepageUrl'];
+    if (params['permissions'] !== undefined) data['Permissions'] = serialize.map(params['permissions'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -543,7 +543,7 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

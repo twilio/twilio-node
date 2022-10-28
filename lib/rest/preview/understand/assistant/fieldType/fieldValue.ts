@@ -31,9 +31,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [synonymOf] A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
  */
 export interface FieldValueListInstanceCreateOptions {
-  language: string;
-  value: string;
-  synonymOf?: string;
+  'language': string;
+  'value': string;
+  'synonymOf'?: string;
 }
 /**
  * Options to pass to each
@@ -121,9 +121,9 @@ export interface FieldValueContext {
 }
 
 export interface FieldValueContextSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
-  sid?: string;
+  'assistantSid'?: string;
+  'fieldTypeSid'?: string;
+  'sid'?: string;
 }
 
 export class FieldValueContextImpl implements FieldValueContext {
@@ -459,19 +459,19 @@ export function FieldValueListInstance(version: Understand, assistantSid: string
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.language === null || params.language === undefined) {
-      throw new Error('Required parameter "params.language" missing.');
+    if (params['language'] === null || params['language'] === undefined) {
+      throw new Error('Required parameter "params[\'language\']" missing.');
     }
 
-    if (params.value === null || params.value === undefined) {
-      throw new Error('Required parameter "params.value" missing.');
+    if (params['value'] === null || params['value'] === undefined) {
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     const data: any = {};
 
-    data['Language'] = params.language;
-    data['Value'] = params.value;
-    if (params.synonymOf !== undefined) data['SynonymOf'] = params.synonymOf;
+    data['Language'] = params['language'];
+    data['Value'] = params['value'];
+    if (params['synonymOf'] !== undefined) data['SynonymOf'] = params['synonymOf'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -498,8 +498,8 @@ export function FieldValueListInstance(version: Understand, assistantSid: string
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['language'] !== undefined) data['Language'] = params['language'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

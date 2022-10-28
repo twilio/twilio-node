@@ -42,9 +42,9 @@ export interface ExecutionStepContextContext {
 }
 
 export interface ExecutionStepContextContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-  stepSid?: string;
+  'flowSid'?: string;
+  'executionSid'?: string;
+  'stepSid'?: string;
 }
 
 export class ExecutionStepContextContextImpl implements ExecutionStepContextContext {

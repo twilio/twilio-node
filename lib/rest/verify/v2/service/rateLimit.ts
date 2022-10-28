@@ -30,7 +30,7 @@ import { BucketListInstance } from "./rateLimit/bucket";
  * @property { string } [description] Description of this Rate Limit
  */
 export interface RateLimitContextUpdateOptions {
-  description?: string;
+  'description'?: string;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface RateLimitContextUpdateOptions {
  * @property { string } [description] Description of this Rate Limit
  */
 export interface RateLimitListInstanceCreateOptions {
-  uniqueName: string;
-  description?: string;
+  'uniqueName': string;
+  'description'?: string;
 }
 /**
  * Options to pass to each
@@ -144,8 +144,8 @@ export interface RateLimitContext {
 }
 
 export interface RateLimitContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class RateLimitContextImpl implements RateLimitContext {
@@ -200,7 +200,7 @@ export class RateLimitContextImpl implements RateLimitContext {
 
     const data: any = {};
 
-    if (params.description !== undefined) data['Description'] = params.description;
+    if (params['description'] !== undefined) data['Description'] = params['description'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -538,14 +538,14 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.description !== undefined) data['Description'] = params.description;
+    data['UniqueName'] = params['uniqueName'];
+    if (params['description'] !== undefined) data['Description'] = params['description'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -572,7 +572,7 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -33,11 +33,11 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [sipUrl] The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
  */
 export interface OriginationUrlContextUpdateOptions {
-  weight?: number;
-  priority?: number;
-  enabled?: boolean;
-  friendlyName?: string;
-  sipUrl?: string;
+  'weight'?: number;
+  'priority'?: number;
+  'enabled'?: boolean;
+  'friendlyName'?: string;
+  'sipUrl'?: string;
 }
 
 /**
@@ -50,11 +50,11 @@ export interface OriginationUrlContextUpdateOptions {
  * @property { string } sipUrl The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
  */
 export interface OriginationUrlListInstanceCreateOptions {
-  weight: number;
-  priority: number;
-  enabled: boolean;
-  friendlyName: string;
-  sipUrl: string;
+  'weight': number;
+  'priority': number;
+  'enabled': boolean;
+  'friendlyName': string;
+  'sipUrl': string;
 }
 /**
  * Options to pass to each
@@ -156,8 +156,8 @@ export interface OriginationUrlContext {
 }
 
 export interface OriginationUrlContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  'trunkSid'?: string;
+  'sid'?: string;
 }
 
 export class OriginationUrlContextImpl implements OriginationUrlContext {
@@ -206,11 +206,11 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     const data: any = {};
 
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.sipUrl !== undefined) data['SipUrl'] = params.sipUrl;
+    if (params['weight'] !== undefined) data['Weight'] = params['weight'];
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['enabled'] !== undefined) data['Enabled'] = serialize.bool(params['enabled']);
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['sipUrl'] !== undefined) data['SipUrl'] = params['sipUrl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -555,33 +555,33 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.weight === null || params.weight === undefined) {
-      throw new Error('Required parameter "params.weight" missing.');
+    if (params['weight'] === null || params['weight'] === undefined) {
+      throw new Error('Required parameter "params[\'weight\']" missing.');
     }
 
-    if (params.priority === null || params.priority === undefined) {
-      throw new Error('Required parameter "params.priority" missing.');
+    if (params['priority'] === null || params['priority'] === undefined) {
+      throw new Error('Required parameter "params[\'priority\']" missing.');
     }
 
-    if (params.enabled === null || params.enabled === undefined) {
-      throw new Error('Required parameter "params.enabled" missing.');
+    if (params['enabled'] === null || params['enabled'] === undefined) {
+      throw new Error('Required parameter "params[\'enabled\']" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.sipUrl === null || params.sipUrl === undefined) {
-      throw new Error('Required parameter "params.sipUrl" missing.');
+    if (params['sipUrl'] === null || params['sipUrl'] === undefined) {
+      throw new Error('Required parameter "params[\'sipUrl\']" missing.');
     }
 
     const data: any = {};
 
-    data['Weight'] = params.weight;
-    data['Priority'] = params.priority;
-    data['Enabled'] = serialize.bool(params.enabled);
-    data['FriendlyName'] = params.friendlyName;
-    data['SipUrl'] = params.sipUrl;
+    data['Weight'] = params['weight'];
+    data['Priority'] = params['priority'];
+    data['Enabled'] = serialize.bool(params['enabled']);
+    data['FriendlyName'] = params['friendlyName'];
+    data['SipUrl'] = params['sipUrl'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -608,7 +608,7 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

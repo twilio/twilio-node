@@ -107,7 +107,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  isoCountry?: string;
+  'isoCountry'?: string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -385,7 +385,7 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

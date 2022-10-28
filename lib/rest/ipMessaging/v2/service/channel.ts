@@ -37,7 +37,7 @@ type ChannelWebhookEnabledType = 'true'|'false';
  * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  'xTwilioWebhookEnabled'?: ChannelWebhookEnabledType;
 }
 
 /**
@@ -52,13 +52,13 @@ export interface ChannelContextRemoveOptions {
  * @property { string } [createdBy] 
  */
 export interface ChannelContextUpdateOptions {
-  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
-  friendlyName?: string;
-  uniqueName?: string;
-  attributes?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  createdBy?: string;
+  'xTwilioWebhookEnabled'?: ChannelWebhookEnabledType;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
+  'attributes'?: string;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'createdBy'?: string;
 }
 
 /**
@@ -74,14 +74,14 @@ export interface ChannelContextUpdateOptions {
  * @property { string } [createdBy] 
  */
 export interface ChannelListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
-  friendlyName?: string;
-  uniqueName?: string;
-  attributes?: string;
-  type?: ChannelChannelType;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  createdBy?: string;
+  'xTwilioWebhookEnabled'?: ChannelWebhookEnabledType;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
+  'attributes'?: string;
+  'type'?: ChannelChannelType;
+  'dateCreated'?: Date;
+  'dateUpdated'?: Date;
+  'createdBy'?: string;
 }
 /**
  * Options to pass to each
@@ -203,8 +203,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -253,7 +253,7 @@ export class ChannelContextImpl implements ChannelContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -289,16 +289,16 @@ export class ChannelContextImpl implements ChannelContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.createdBy !== undefined) data['CreatedBy'] = params.createdBy;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['createdBy'] !== undefined) data['CreatedBy'] = params['createdBy'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -670,17 +670,17 @@ export function ChannelListInstance(version: V2, serviceSid: string): ChannelLis
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.type !== undefined) data['Type'] = params.type;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.createdBy !== undefined) data['CreatedBy'] = params.createdBy;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params['type'] !== undefined) data['Type'] = params['type'];
+    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params['dateCreated']);
+    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params['dateUpdated']);
+    if (params['createdBy'] !== undefined) data['CreatedBy'] = params['createdBy'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
 
     let operationVersion = version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
@@ -704,8 +704,8 @@ export function ChannelListInstance(version: V2, serviceSid: string): ChannelLis
 
     const data: any = {};
 
-    if (params.type !== undefined) data['Type'] = serialize.map(params.type, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['type'] !== undefined) data['Type'] = serialize.map(params['type'], ((e) => e));
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

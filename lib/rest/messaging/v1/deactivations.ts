@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { Date } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
  */
 export interface DeactivationsContextFetchOptions {
-  date?: Date;
+  'date'?: Date;
 }
 
 export interface DeactivationsContext {
@@ -83,7 +83,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     const data: any = {};
 
-    if (params.date !== undefined) data['Date'] = serialize.iso8601Date(params.date);
+    if (params['date'] !== undefined) data['Date'] = serialize.iso8601Date(params['date']);
 
     const headers: any = {};
 

@@ -33,13 +33,13 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface WorkersStatisticsContextFetchOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskQueueSid?: string;
-  taskQueueName?: string;
-  friendlyName?: string;
-  taskChannel?: string;
+  'minutes'?: number;
+  'startDate'?: Date;
+  'endDate'?: Date;
+  'taskQueueSid'?: string;
+  'taskQueueName'?: string;
+  'friendlyName'?: string;
+  'taskChannel'?: string;
 }
 
 export interface WorkersStatisticsContext {
@@ -73,7 +73,7 @@ export interface WorkersStatisticsContext {
 }
 
 export interface WorkersStatisticsContextSolution {
-  workspaceSid?: string;
+  'workspaceSid'?: string;
 }
 
 export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
@@ -96,13 +96,13 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
 
     const data: any = {};
 
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.taskQueueSid !== undefined) data['TaskQueueSid'] = params.taskQueueSid;
-    if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params['minutes'] !== undefined) data['Minutes'] = params['minutes'];
+    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
+    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
+    if (params['taskQueueSid'] !== undefined) data['TaskQueueSid'] = params['taskQueueSid'];
+    if (params['taskQueueName'] !== undefined) data['TaskQueueName'] = params['taskQueueName'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
 
     const headers: any = {};
 

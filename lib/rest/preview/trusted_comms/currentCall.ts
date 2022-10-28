@@ -28,8 +28,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface CurrentCallContextFetchOptions {
-  xXcnamSensitivePhoneNumberFrom?: string;
-  xXcnamSensitivePhoneNumberTo?: string;
+  'xXcnamSensitivePhoneNumberFrom'?: string;
+  'xXcnamSensitivePhoneNumberTo'?: string;
 }
 
 export interface CurrentCallContext {
@@ -87,8 +87,8 @@ export class CurrentCallContextImpl implements CurrentCallContext {
 
 
     const headers: any = {};
-    if (params.xXcnamSensitivePhoneNumberFrom !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-From'] = params.xXcnamSensitivePhoneNumberFrom;
-    if (params.xXcnamSensitivePhoneNumberTo !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-To'] = params.xXcnamSensitivePhoneNumberTo;
+    if (params['xXcnamSensitivePhoneNumberFrom'] !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-From'] = params['xXcnamSensitivePhoneNumberFrom'];
+    if (params['xXcnamSensitivePhoneNumberTo'] !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-To'] = params['xXcnamSensitivePhoneNumberTo'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });

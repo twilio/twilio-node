@@ -32,10 +32,10 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { boolean } [reachabilityEnabled] Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;.
  */
 export interface ConfigurationContextUpdateOptions {
-  defaultConversationCreatorRoleSid?: string;
-  defaultConversationRoleSid?: string;
-  defaultChatServiceRoleSid?: string;
-  reachabilityEnabled?: boolean;
+  'defaultConversationCreatorRoleSid'?: string;
+  'defaultConversationRoleSid'?: string;
+  'defaultChatServiceRoleSid'?: string;
+  'reachabilityEnabled'?: boolean;
 }
 
 export interface ConfigurationContext {
@@ -79,7 +79,7 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  chatServiceSid?: string;
+  'chatServiceSid'?: string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
@@ -116,10 +116,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     const data: any = {};
 
-    if (params.defaultConversationCreatorRoleSid !== undefined) data['DefaultConversationCreatorRoleSid'] = params.defaultConversationCreatorRoleSid;
-    if (params.defaultConversationRoleSid !== undefined) data['DefaultConversationRoleSid'] = params.defaultConversationRoleSid;
-    if (params.defaultChatServiceRoleSid !== undefined) data['DefaultChatServiceRoleSid'] = params.defaultChatServiceRoleSid;
-    if (params.reachabilityEnabled !== undefined) data['ReachabilityEnabled'] = serialize.bool(params.reachabilityEnabled);
+    if (params['defaultConversationCreatorRoleSid'] !== undefined) data['DefaultConversationCreatorRoleSid'] = params['defaultConversationCreatorRoleSid'];
+    if (params['defaultConversationRoleSid'] !== undefined) data['DefaultConversationRoleSid'] = params['defaultConversationRoleSid'];
+    if (params['defaultChatServiceRoleSid'] !== undefined) data['DefaultChatServiceRoleSid'] = params['defaultChatServiceRoleSid'];
+    if (params['reachabilityEnabled'] !== undefined) data['ReachabilityEnabled'] = serialize.bool(params['reachabilityEnabled']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

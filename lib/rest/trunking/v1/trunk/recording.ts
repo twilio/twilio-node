@@ -32,8 +32,8 @@ type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
  * @property { RecordingRecordingTrim } [trim] 
  */
 export interface RecordingContextUpdateOptions {
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  'mode'?: RecordingRecordingMode;
+  'trim'?: RecordingRecordingTrim;
 }
 
 export interface RecordingContext {
@@ -77,7 +77,7 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  trunkSid?: string;
+  'trunkSid'?: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -114,8 +114,8 @@ export class RecordingContextImpl implements RecordingContext {
 
     const data: any = {};
 
-    if (params.mode !== undefined) data['Mode'] = params.mode;
-    if (params.trim !== undefined) data['Trim'] = params.trim;
+    if (params['mode'] !== undefined) data['Mode'] = params['mode'];
+    if (params['trim'] !== undefined) data['Trim'] = params['trim'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

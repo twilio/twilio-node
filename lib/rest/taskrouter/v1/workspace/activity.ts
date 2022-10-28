@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: &#x60;on-call&#x60;, &#x60;break&#x60;, and &#x60;email&#x60;.
  */
 export interface ActivityContextUpdateOptions {
-  friendlyName?: string;
+  'friendlyName'?: string;
 }
 
 /**
@@ -39,8 +39,8 @@ export interface ActivityContextUpdateOptions {
  * @property { boolean } [available] Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of &#x60;true&#x60;, &#x60;1&#x60;, or &#x60;yes&#x60; specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
  */
 export interface ActivityListInstanceCreateOptions {
-  friendlyName: string;
-  available?: boolean;
+  'friendlyName': string;
+  'available'?: boolean;
 }
 /**
  * Options to pass to each
@@ -154,8 +154,8 @@ export interface ActivityContext {
 }
 
 export interface ActivityContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  'workspaceSid'?: string;
+  'sid'?: string;
 }
 
 export class ActivityContextImpl implements ActivityContext {
@@ -204,7 +204,7 @@ export class ActivityContextImpl implements ActivityContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -532,14 +532,14 @@ export function ActivityListInstance(version: V1, workspaceSid: string): Activit
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.available !== undefined) data['Available'] = serialize.bool(params.available);
+    data['FriendlyName'] = params['friendlyName'];
+    if (params['available'] !== undefined) data['Available'] = serialize.bool(params['available']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -566,9 +566,9 @@ export function ActivityListInstance(version: V1, workspaceSid: string): Activit
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.available !== undefined) data['Available'] = params.available;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['available'] !== undefined) data['Available'] = params['available'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

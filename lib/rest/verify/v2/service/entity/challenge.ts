@@ -39,8 +39,8 @@ type ChallengeListOrders = 'asc'|'desc';
  * @property { any } [metadata] Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;os\\\&quot;: \\\&quot;Android\\\&quot;}&#x60;. Can be up to 1024 characters in length.
  */
 export interface ChallengeContextUpdateOptions {
-  authPayload?: string;
-  metadata?: any;
+  'authPayload'?: string;
+  'metadata'?: any;
 }
 
 /**
@@ -48,18 +48,18 @@ export interface ChallengeContextUpdateOptions {
  *
  * @property { string } factorSid The unique SID identifier of the Factor.
  * @property { Date } [expirationDate] The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
- * @property { string } [detailsMessage] Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. Can be up to 256 characters in length
- * @property { Array<any> } [detailsFields] A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. There can be up to 20 details fields.
+ * @property { string } [details.message] Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. Can be up to 256 characters in length
+ * @property { Array<any> } [details.fields] A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. There can be up to 20 details fields.
  * @property { any } [hiddenDetails] Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;ip\\\&quot;: \\\&quot;172.168.1.234\\\&quot;}&#x60;. Can be up to 1024 characters in length
  * @property { string } [authPayload] Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long.
  */
 export interface ChallengeListInstanceCreateOptions {
-  factorSid: string;
-  expirationDate?: Date;
-  detailsMessage?: string;
-  detailsFields?: Array<any>;
-  hiddenDetails?: any;
-  authPayload?: string;
+  'factorSid': string;
+  'expirationDate'?: Date;
+  'details.message'?: string;
+  'details.fields'?: Array<any>;
+  'hiddenDetails'?: any;
+  'authPayload'?: string;
 }
 /**
  * Options to pass to each
@@ -170,9 +170,9 @@ export interface ChallengeContext {
 }
 
 export interface ChallengeContextSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'identity'?: string;
+  'sid'?: string;
 }
 
 export class ChallengeContextImpl implements ChallengeContext {
@@ -215,8 +215,8 @@ export class ChallengeContextImpl implements ChallengeContext {
 
     const data: any = {};
 
-    if (params.authPayload !== undefined) data['AuthPayload'] = params.authPayload;
-    if (params.metadata !== undefined) data['Metadata'] = params.metadata;
+    if (params['authPayload'] !== undefined) data['AuthPayload'] = params['authPayload'];
+    if (params['metadata'] !== undefined) data['Metadata'] = params['metadata'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -597,18 +597,18 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.factorSid === null || params.factorSid === undefined) {
-      throw new Error('Required parameter "params.factorSid" missing.');
+    if (params['factorSid'] === null || params['factorSid'] === undefined) {
+      throw new Error('Required parameter "params[\'factorSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['FactorSid'] = params.factorSid;
-    if (params.expirationDate !== undefined) data['ExpirationDate'] = serialize.iso8601DateTime(params.expirationDate);
-    if (params.detailsMessage !== undefined) data['Details.Message'] = params.detailsMessage;
-    if (params.detailsFields !== undefined) data['Details.Fields'] = serialize.map(params.detailsFields, ((e) => e));
-    if (params.hiddenDetails !== undefined) data['HiddenDetails'] = params.hiddenDetails;
-    if (params.authPayload !== undefined) data['AuthPayload'] = params.authPayload;
+    data['FactorSid'] = params['factorSid'];
+    if (params['expirationDate'] !== undefined) data['ExpirationDate'] = serialize.iso8601DateTime(params['expirationDate']);
+    if (params['details.message'] !== undefined) data['Details.Message'] = params['details.message'];
+    if (params['details.fields'] !== undefined) data['Details.Fields'] = serialize.map(params['details.fields'], ((e) => e));
+    if (params['hiddenDetails'] !== undefined) data['HiddenDetails'] = params['hiddenDetails'];
+    if (params['authPayload'] !== undefined) data['AuthPayload'] = params['authPayload'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -635,10 +635,10 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
 
     const data: any = {};
 
-    if (params.factorSid !== undefined) data['FactorSid'] = params.factorSid;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['factorSid'] !== undefined) data['FactorSid'] = params['factorSid'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

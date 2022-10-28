@@ -44,8 +44,8 @@ export interface AnonymizeContext {
 }
 
 export interface AnonymizeContextSolution {
-  roomSid?: string;
-  sid?: string;
+  'roomSid'?: string;
+  'sid'?: string;
 }
 
 export class AnonymizeContextImpl implements AnonymizeContext {

@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyContextUpdateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  'friendlyName'?: string;
+  'deviceSid'?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface KeyContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyListInstanceCreateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  'friendlyName'?: string;
+  'deviceSid'?: string;
 }
 /**
  * Options to pass to each
@@ -150,8 +150,8 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  'fleetSid'?: string;
+  'sid'?: string;
 }
 
 export class KeyContextImpl implements KeyContext {
@@ -200,8 +200,8 @@ export class KeyContextImpl implements KeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -545,8 +545,8 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -573,8 +573,8 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     const data: any = {};
 
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['deviceSid'] !== undefined) data['DeviceSid'] = params['deviceSid'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

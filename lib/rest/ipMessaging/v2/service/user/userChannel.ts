@@ -35,9 +35,9 @@ type UserChannelNotificationLevel = 'default'|'muted';
  * @property { Date } [lastConsumptionTimestamp] 
  */
 export interface UserChannelContextUpdateOptions {
-  notificationLevel?: UserChannelNotificationLevel;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
+  'notificationLevel'?: UserChannelNotificationLevel;
+  'lastConsumedMessageIndex'?: number;
+  'lastConsumptionTimestamp'?: Date;
 }
 /**
  * Options to pass to each
@@ -139,9 +139,9 @@ export interface UserChannelContext {
 }
 
 export interface UserChannelContextSolution {
-  serviceSid?: string;
-  userSid?: string;
-  channelSid?: string;
+  'serviceSid'?: string;
+  'userSid'?: string;
+  'channelSid'?: string;
 }
 
 export class UserChannelContextImpl implements UserChannelContext {
@@ -190,9 +190,9 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     const data: any = {};
 
-    if (params.notificationLevel !== undefined) data['NotificationLevel'] = params.notificationLevel;
-    if (params.lastConsumedMessageIndex !== undefined) data['LastConsumedMessageIndex'] = params.lastConsumedMessageIndex;
-    if (params.lastConsumptionTimestamp !== undefined) data['LastConsumptionTimestamp'] = serialize.iso8601DateTime(params.lastConsumptionTimestamp);
+    if (params['notificationLevel'] !== undefined) data['NotificationLevel'] = params['notificationLevel'];
+    if (params['lastConsumedMessageIndex'] !== undefined) data['LastConsumedMessageIndex'] = params['lastConsumedMessageIndex'];
+    if (params['lastConsumptionTimestamp'] !== undefined) data['LastConsumptionTimestamp'] = serialize.iso8601DateTime(params['lastConsumptionTimestamp']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -498,7 +498,7 @@ export function UserChannelListInstance(version: V2, serviceSid: string, userSid
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

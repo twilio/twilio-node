@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } network The SID of the Network resource to be added to the Network Access Profile resource.
  */
 export interface NetworkAccessProfileNetworkListInstanceCreateOptions {
-  network: string;
+  'network': string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface NetworkAccessProfileNetworkContext {
 }
 
 export interface NetworkAccessProfileNetworkContextSolution {
-  networkAccessProfileSid?: string;
-  sid?: string;
+  'networkAccessProfileSid'?: string;
+  'sid'?: string;
 }
 
 export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProfileNetworkContext {
@@ -422,13 +422,13 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.network === null || params.network === undefined) {
-      throw new Error('Required parameter "params.network" missing.');
+    if (params['network'] === null || params['network'] === undefined) {
+      throw new Error('Required parameter "params[\'network\']" missing.');
     }
 
     const data: any = {};
 
-    data['Network'] = params.network;
+    data['Network'] = params['network'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -455,7 +455,7 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

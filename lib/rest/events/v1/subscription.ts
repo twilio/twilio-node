@@ -31,8 +31,8 @@ import { SubscribedEventListInstance } from "./subscription/subscribedEvent";
  * @property { string } [sinkSid] The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
  */
 export interface SubscriptionContextUpdateOptions {
-  description?: string;
-  sinkSid?: string;
+  'description'?: string;
+  'sinkSid'?: string;
 }
 
 /**
@@ -43,9 +43,9 @@ export interface SubscriptionContextUpdateOptions {
  * @property { Array<any> } types An array of objects containing the subscribed Event Types
  */
 export interface SubscriptionListInstanceCreateOptions {
-  description: string;
-  sinkSid: string;
-  types: Array<any>;
+  'description': string;
+  'sinkSid': string;
+  'types': Array<any>;
 }
 /**
  * Options to pass to each
@@ -154,7 +154,7 @@ export interface SubscriptionContext {
 }
 
 export interface SubscriptionContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class SubscriptionContextImpl implements SubscriptionContext {
@@ -209,8 +209,8 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
     const data: any = {};
 
-    if (params.description !== undefined) data['Description'] = params.description;
-    if (params.sinkSid !== undefined) data['SinkSid'] = params.sinkSid;
+    if (params['description'] !== undefined) data['Description'] = params['description'];
+    if (params['sinkSid'] !== undefined) data['SinkSid'] = params['sinkSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -540,23 +540,23 @@ export function SubscriptionListInstance(version: V1): SubscriptionListInstance 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.description === null || params.description === undefined) {
-      throw new Error('Required parameter "params.description" missing.');
+    if (params['description'] === null || params['description'] === undefined) {
+      throw new Error('Required parameter "params[\'description\']" missing.');
     }
 
-    if (params.sinkSid === null || params.sinkSid === undefined) {
-      throw new Error('Required parameter "params.sinkSid" missing.');
+    if (params['sinkSid'] === null || params['sinkSid'] === undefined) {
+      throw new Error('Required parameter "params[\'sinkSid\']" missing.');
     }
 
-    if (params.types === null || params.types === undefined) {
-      throw new Error('Required parameter "params.types" missing.');
+    if (params['types'] === null || params['types'] === undefined) {
+      throw new Error('Required parameter "params[\'types\']" missing.');
     }
 
     const data: any = {};
 
-    data['Description'] = params.description;
-    data['SinkSid'] = params.sinkSid;
-    data['Types'] = serialize.map(params.types, ((e) => e));
+    data['Description'] = params['description'];
+    data['SinkSid'] = params['sinkSid'];
+    data['Types'] = serialize.map(params['types'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -583,8 +583,8 @@ export function SubscriptionListInstance(version: V1): SubscriptionListInstance 
 
     const data: any = {};
 
-    if (params.sinkSid !== undefined) data['SinkSid'] = params.sinkSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['sinkSid'] !== undefined) data['SinkSid'] = params['sinkSid'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

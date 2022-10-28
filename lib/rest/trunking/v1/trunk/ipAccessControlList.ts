@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } ipAccessControlListSid The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
  */
 export interface IpAccessControlListListInstanceCreateOptions {
-  ipAccessControlListSid: string;
+  'ipAccessControlListSid': string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface IpAccessControlListContext {
 }
 
 export interface IpAccessControlListContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  'trunkSid'?: string;
+  'sid'?: string;
 }
 
 export class IpAccessControlListContextImpl implements IpAccessControlListContext {
@@ -429,13 +429,13 @@ export function IpAccessControlListListInstance(version: V1, trunkSid: string): 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.ipAccessControlListSid === null || params.ipAccessControlListSid === undefined) {
-      throw new Error('Required parameter "params.ipAccessControlListSid" missing.');
+    if (params['ipAccessControlListSid'] === null || params['ipAccessControlListSid'] === undefined) {
+      throw new Error('Required parameter "params[\'ipAccessControlListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['IpAccessControlListSid'] = params.ipAccessControlListSid;
+    data['IpAccessControlListSid'] = params['ipAccessControlListSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -462,7 +462,7 @@ export function IpAccessControlListListInstance(version: V1, trunkSid: string): 
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -44,8 +44,8 @@ type MessageUpdateStatus = 'canceled';
  * @property { MessageUpdateStatus } [status] 
  */
 export interface MessageContextUpdateOptions {
-  body?: string;
-  status?: MessageUpdateStatus;
+  'body'?: string;
+  'status'?: MessageUpdateStatus;
 }
 
 /**
@@ -73,26 +73,26 @@ export interface MessageContextUpdateOptions {
  * @property { Array<string> } [mediaUrl] The URL of the media to send with the message. The media can be of type &#x60;gif&#x60;, &#x60;png&#x60;, and &#x60;jpeg&#x60; and will be formatted correctly on the recipient\\\&#39;s device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple &#x60;media_url&#x60; parameters in the POST request. You can include up to 10 &#x60;media_url&#x60; parameters per message. You can send images in an SMS message in only the US and Canada.
  */
 export interface MessageListInstanceCreateOptions {
-  to: string;
-  statusCallback?: string;
-  applicationSid?: string;
-  maxPrice?: number;
-  provideFeedback?: boolean;
-  attempt?: number;
-  validityPeriod?: number;
-  forceDelivery?: boolean;
-  contentRetention?: MessageContentRetention;
-  addressRetention?: MessageAddressRetention;
-  smartEncoded?: boolean;
-  persistentAction?: Array<string>;
-  shortenUrls?: boolean;
-  scheduleType?: MessageScheduleType;
-  sendAt?: Date;
-  sendAsMms?: boolean;
-  from?: string;
-  messagingServiceSid?: string;
-  body?: string;
-  mediaUrl?: Array<string>;
+  'to': string;
+  'statusCallback'?: string;
+  'applicationSid'?: string;
+  'maxPrice'?: number;
+  'provideFeedback'?: boolean;
+  'attempt'?: number;
+  'validityPeriod'?: number;
+  'forceDelivery'?: boolean;
+  'contentRetention'?: MessageContentRetention;
+  'addressRetention'?: MessageAddressRetention;
+  'smartEncoded'?: boolean;
+  'persistentAction'?: Array<string>;
+  'shortenUrls'?: boolean;
+  'scheduleType'?: MessageScheduleType;
+  'sendAt'?: Date;
+  'sendAsMms'?: boolean;
+  'from'?: string;
+  'messagingServiceSid'?: string;
+  'body'?: string;
+  'mediaUrl'?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -226,8 +226,8 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -288,8 +288,8 @@ export class MessageContextImpl implements MessageContext {
 
     const data: any = {};
 
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.status !== undefined) data['Status'] = params.status;
+    if (params['body'] !== undefined) data['Body'] = params['body'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -705,32 +705,32 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
+    if (params['to'] === null || params['to'] === undefined) {
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     const data: any = {};
 
-    data['To'] = params.to;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.applicationSid !== undefined) data['ApplicationSid'] = params.applicationSid;
-    if (params.maxPrice !== undefined) data['MaxPrice'] = params.maxPrice;
-    if (params.provideFeedback !== undefined) data['ProvideFeedback'] = serialize.bool(params.provideFeedback);
-    if (params.attempt !== undefined) data['Attempt'] = params.attempt;
-    if (params.validityPeriod !== undefined) data['ValidityPeriod'] = params.validityPeriod;
-    if (params.forceDelivery !== undefined) data['ForceDelivery'] = serialize.bool(params.forceDelivery);
-    if (params.contentRetention !== undefined) data['ContentRetention'] = params.contentRetention;
-    if (params.addressRetention !== undefined) data['AddressRetention'] = params.addressRetention;
-    if (params.smartEncoded !== undefined) data['SmartEncoded'] = serialize.bool(params.smartEncoded);
-    if (params.persistentAction !== undefined) data['PersistentAction'] = serialize.map(params.persistentAction, ((e) => e));
-    if (params.shortenUrls !== undefined) data['ShortenUrls'] = serialize.bool(params.shortenUrls);
-    if (params.scheduleType !== undefined) data['ScheduleType'] = params.scheduleType;
-    if (params.sendAt !== undefined) data['SendAt'] = serialize.iso8601DateTime(params.sendAt);
-    if (params.sendAsMms !== undefined) data['SendAsMms'] = serialize.bool(params.sendAsMms);
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.mediaUrl !== undefined) data['MediaUrl'] = serialize.map(params.mediaUrl, ((e) => e));
+    data['To'] = params['to'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['applicationSid'] !== undefined) data['ApplicationSid'] = params['applicationSid'];
+    if (params['maxPrice'] !== undefined) data['MaxPrice'] = params['maxPrice'];
+    if (params['provideFeedback'] !== undefined) data['ProvideFeedback'] = serialize.bool(params['provideFeedback']);
+    if (params['attempt'] !== undefined) data['Attempt'] = params['attempt'];
+    if (params['validityPeriod'] !== undefined) data['ValidityPeriod'] = params['validityPeriod'];
+    if (params['forceDelivery'] !== undefined) data['ForceDelivery'] = serialize.bool(params['forceDelivery']);
+    if (params['contentRetention'] !== undefined) data['ContentRetention'] = params['contentRetention'];
+    if (params['addressRetention'] !== undefined) data['AddressRetention'] = params['addressRetention'];
+    if (params['smartEncoded'] !== undefined) data['SmartEncoded'] = serialize.bool(params['smartEncoded']);
+    if (params['persistentAction'] !== undefined) data['PersistentAction'] = serialize.map(params['persistentAction'], ((e) => e));
+    if (params['shortenUrls'] !== undefined) data['ShortenUrls'] = serialize.bool(params['shortenUrls']);
+    if (params['scheduleType'] !== undefined) data['ScheduleType'] = params['scheduleType'];
+    if (params['sendAt'] !== undefined) data['SendAt'] = serialize.iso8601DateTime(params['sendAt']);
+    if (params['sendAsMms'] !== undefined) data['SendAsMms'] = serialize.bool(params['sendAsMms']);
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['messagingServiceSid'] !== undefined) data['MessagingServiceSid'] = params['messagingServiceSid'];
+    if (params['body'] !== undefined) data['Body'] = params['body'];
+    if (params['mediaUrl'] !== undefined) data['MediaUrl'] = serialize.map(params['mediaUrl'], ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -757,12 +757,12 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
 
     const data: any = {};
 
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.dateSent !== undefined) data['DateSent'] = serialize.iso8601DateTime(params.dateSent);
-    if (params.dateSentBefore !== undefined) data['DateSent<'] = serialize.iso8601DateTime(params.dateSentBefore);
-    if (params.dateSentAfter !== undefined) data['DateSent>'] = serialize.iso8601DateTime(params.dateSentAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['to'] !== undefined) data['To'] = params['to'];
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['dateSent'] !== undefined) data['DateSent'] = serialize.iso8601DateTime(params['dateSent']);
+    if (params['dateSentBefore'] !== undefined) data['DateSent<'] = serialize.iso8601DateTime(params['dateSentBefore']);
+    if (params['dateSentAfter'] !== undefined) data['DateSent>'] = serialize.iso8601DateTime(params['dateSentAfter']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -32,11 +32,11 @@ type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
  * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  */
 export interface VerificationCheckListInstanceCreateOptions {
-  code?: string;
-  to?: string;
-  verificationSid?: string;
-  amount?: string;
-  payee?: string;
+  'code'?: string;
+  'to'?: string;
+  'verificationSid'?: string;
+  'amount'?: string;
+  'payee'?: string;
 }
 
 export interface VerificationCheckListInstance {
@@ -98,11 +98,11 @@ export function VerificationCheckListInstance(version: V2, serviceSid: string): 
 
     const data: any = {};
 
-    if (params.code !== undefined) data['Code'] = params.code;
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.verificationSid !== undefined) data['VerificationSid'] = params.verificationSid;
-    if (params.amount !== undefined) data['Amount'] = params.amount;
-    if (params.payee !== undefined) data['Payee'] = params.payee;
+    if (params['code'] !== undefined) data['Code'] = params['code'];
+    if (params['to'] !== undefined) data['To'] = params['to'];
+    if (params['verificationSid'] !== undefined) data['VerificationSid'] = params['verificationSid'];
+    if (params['amount'] !== undefined) data['Amount'] = params['amount'];
+    if (params['payee'] !== undefined) data['Payee'] = params['payee'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

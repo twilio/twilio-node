@@ -34,12 +34,12 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } hasEmbeddedPhone Indicates that this SMS campaign will send messages that contain phone numbers.
  */
 export interface UsAppToPersonListInstanceCreateOptions {
-  brandRegistrationSid: string;
-  description: string;
-  messageSamples: Array<string>;
-  usAppToPersonUsecase: string;
-  hasEmbeddedLinks: boolean;
-  hasEmbeddedPhone: boolean;
+  'brandRegistrationSid': string;
+  'description': string;
+  'messageSamples': Array<string>;
+  'usAppToPersonUsecase': string;
+  'hasEmbeddedLinks': boolean;
+  'hasEmbeddedPhone': boolean;
 }
 /**
  * Options to pass to each
@@ -121,8 +121,8 @@ export interface UsAppToPersonContext {
 }
 
 export interface UsAppToPersonContextSolution {
-  messagingServiceSid?: string;
-  sid?: string;
+  'messagingServiceSid'?: string;
+  'sid'?: string;
 }
 
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
@@ -509,38 +509,38 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.brandRegistrationSid === null || params.brandRegistrationSid === undefined) {
-      throw new Error('Required parameter "params.brandRegistrationSid" missing.');
+    if (params['brandRegistrationSid'] === null || params['brandRegistrationSid'] === undefined) {
+      throw new Error('Required parameter "params[\'brandRegistrationSid\']" missing.');
     }
 
-    if (params.description === null || params.description === undefined) {
-      throw new Error('Required parameter "params.description" missing.');
+    if (params['description'] === null || params['description'] === undefined) {
+      throw new Error('Required parameter "params[\'description\']" missing.');
     }
 
-    if (params.messageSamples === null || params.messageSamples === undefined) {
-      throw new Error('Required parameter "params.messageSamples" missing.');
+    if (params['messageSamples'] === null || params['messageSamples'] === undefined) {
+      throw new Error('Required parameter "params[\'messageSamples\']" missing.');
     }
 
-    if (params.usAppToPersonUsecase === null || params.usAppToPersonUsecase === undefined) {
-      throw new Error('Required parameter "params.usAppToPersonUsecase" missing.');
+    if (params['usAppToPersonUsecase'] === null || params['usAppToPersonUsecase'] === undefined) {
+      throw new Error('Required parameter "params[\'usAppToPersonUsecase\']" missing.');
     }
 
-    if (params.hasEmbeddedLinks === null || params.hasEmbeddedLinks === undefined) {
-      throw new Error('Required parameter "params.hasEmbeddedLinks" missing.');
+    if (params['hasEmbeddedLinks'] === null || params['hasEmbeddedLinks'] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedLinks\']" missing.');
     }
 
-    if (params.hasEmbeddedPhone === null || params.hasEmbeddedPhone === undefined) {
-      throw new Error('Required parameter "params.hasEmbeddedPhone" missing.');
+    if (params['hasEmbeddedPhone'] === null || params['hasEmbeddedPhone'] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedPhone\']" missing.');
     }
 
     const data: any = {};
 
-    data['BrandRegistrationSid'] = params.brandRegistrationSid;
-    data['Description'] = params.description;
-    data['MessageSamples'] = serialize.map(params.messageSamples, ((e) => e));
-    data['UsAppToPersonUsecase'] = params.usAppToPersonUsecase;
-    data['HasEmbeddedLinks'] = serialize.bool(params.hasEmbeddedLinks);
-    data['HasEmbeddedPhone'] = serialize.bool(params.hasEmbeddedPhone);
+    data['BrandRegistrationSid'] = params['brandRegistrationSid'];
+    data['Description'] = params['description'];
+    data['MessageSamples'] = serialize.map(params['messageSamples'], ((e) => e));
+    data['UsAppToPersonUsecase'] = params['usAppToPersonUsecase'];
+    data['HasEmbeddedLinks'] = serialize.bool(params['hasEmbeddedLinks']);
+    data['HasEmbeddedPhone'] = serialize.bool(params['hasEmbeddedPhone']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -567,7 +567,7 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

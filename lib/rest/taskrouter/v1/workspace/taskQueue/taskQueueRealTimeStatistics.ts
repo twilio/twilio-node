@@ -27,7 +27,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface TaskQueueRealTimeStatisticsContextFetchOptions {
-  taskChannel?: string;
+  'taskChannel'?: string;
 }
 
 export interface TaskQueueRealTimeStatisticsContext {
@@ -61,8 +61,8 @@ export interface TaskQueueRealTimeStatisticsContext {
 }
 
 export interface TaskQueueRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  'workspaceSid'?: string;
+  'taskQueueSid'?: string;
 }
 
 export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTimeStatisticsContext {
@@ -85,7 +85,7 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
 
     const data: any = {};
 
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
 
     const headers: any = {};
 

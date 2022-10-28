@@ -44,8 +44,8 @@ export interface BuildStatusContext {
 }
 
 export interface BuildStatusContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  'serviceSid'?: string;
+  'sid'?: string;
 }
 
 export class BuildStatusContextImpl implements BuildStatusContext {

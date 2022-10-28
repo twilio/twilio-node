@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [method] How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters.
  */
 export interface MemberContextUpdateOptions {
-  url: string;
-  method?: string;
+  'url': string;
+  'method'?: string;
 }
 /**
  * Options to pass to each
@@ -115,9 +115,9 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  accountSid?: string;
-  queueSid?: string;
-  callSid?: string;
+  'accountSid'?: string;
+  'queueSid'?: string;
+  'callSid'?: string;
 }
 
 export class MemberContextImpl implements MemberContext {
@@ -149,14 +149,14 @@ export class MemberContextImpl implements MemberContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.url === null || params.url === undefined) {
-      throw new Error('Required parameter "params.url" missing.');
+    if (params['url'] === null || params['url'] === undefined) {
+      throw new Error('Required parameter "params[\'url\']" missing.');
     }
 
     const data: any = {};
 
-    data['Url'] = params.url;
-    if (params.method !== undefined) data['Method'] = params.method;
+    data['Url'] = params['url'];
+    if (params['method'] !== undefined) data['Method'] = params['method'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -440,7 +440,7 @@ export function MemberListInstance(version: V2010, accountSid: string, queueSid:
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

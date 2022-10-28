@@ -98,7 +98,7 @@ export interface EventTypeContext {
 }
 
 export interface EventTypeContextSolution {
-  type?: string;
+  'type'?: string;
 }
 
 export class EventTypeContextImpl implements EventTypeContext {
@@ -380,8 +380,8 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
     const data: any = {};
 
-    if (params.schemaId !== undefined) data['SchemaId'] = params.schemaId;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['schemaId'] !== undefined) data['SchemaId'] = params['schemaId'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

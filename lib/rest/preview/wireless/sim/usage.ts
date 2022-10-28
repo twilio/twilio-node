@@ -28,8 +28,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [start] 
  */
 export interface UsageContextFetchOptions {
-  end?: string;
-  start?: string;
+  'end'?: string;
+  'start'?: string;
 }
 
 export interface UsageContext {
@@ -63,7 +63,7 @@ export interface UsageContext {
 }
 
 export interface UsageContextSolution {
-  simSid?: string;
+  'simSid'?: string;
 }
 
 export class UsageContextImpl implements UsageContext {
@@ -86,8 +86,8 @@ export class UsageContextImpl implements UsageContext {
 
     const data: any = {};
 
-    if (params.end !== undefined) data['End'] = params.end;
-    if (params.start !== undefined) data['Start'] = params.start;
+    if (params['end'] !== undefined) data['End'] = params['end'];
+    if (params['start'] !== undefined) data['Start'] = params['start'];
 
     const headers: any = {};
 

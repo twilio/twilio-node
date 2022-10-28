@@ -33,7 +33,7 @@ type SyncListItemQueryResultOrder = 'asc'|'desc';
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncListItemContextRemoveOptions {
-  ifMatch?: string;
+  'ifMatch'?: string;
 }
 
 /**
@@ -43,8 +43,8 @@ export interface SyncListItemContextRemoveOptions {
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncListItemContextUpdateOptions {
-  data: any;
-  ifMatch?: string;
+  'data': any;
+  'ifMatch'?: string;
 }
 
 /**
@@ -53,7 +53,7 @@ export interface SyncListItemContextUpdateOptions {
  * @property { any } data 
  */
 export interface SyncListItemListInstanceCreateOptions {
-  data: any;
+  'data': any;
 }
 /**
  * Options to pass to each
@@ -175,9 +175,9 @@ export interface SyncListItemContext {
 }
 
 export interface SyncListItemContextSolution {
-  serviceSid?: string;
-  listSid?: string;
-  index?: number;
+  'serviceSid'?: string;
+  'listSid'?: string;
+  'index'?: number;
 }
 
 export class SyncListItemContextImpl implements SyncListItemContext {
@@ -202,7 +202,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
 
     const headers: any = {};
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -233,17 +233,17 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -551,13 +551,13 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params['data'] === null || params['data'] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data['Data'] = params['data'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -584,10 +584,10 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['order'] !== undefined) data['Order'] = params['order'];
+    if (params['from'] !== undefined) data['From'] = params['from'];
+    if (params['bounds'] !== undefined) data['Bounds'] = params['bounds'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

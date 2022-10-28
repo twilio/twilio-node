@@ -28,8 +28,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [accessControlAllowOrigin] The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
  */
 export interface PlaybackGrantContextCreateOptions {
-  ttl?: number;
-  accessControlAllowOrigin?: string;
+  'ttl'?: number;
+  'accessControlAllowOrigin'?: string;
 }
 
 export interface PlaybackGrantContext {
@@ -73,7 +73,7 @@ export interface PlaybackGrantContext {
 }
 
 export interface PlaybackGrantContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class PlaybackGrantContextImpl implements PlaybackGrantContext {
@@ -96,8 +96,8 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.accessControlAllowOrigin !== undefined) data['AccessControlAllowOrigin'] = params.accessControlAllowOrigin;
+    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params['accessControlAllowOrigin'] !== undefined) data['AccessControlAllowOrigin'] = params['accessControlAllowOrigin'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

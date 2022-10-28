@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
  */
 export interface BrandsInformationContextFetchOptions {
-  ifNoneMatch?: string;
+  'ifNoneMatch'?: string;
 }
 
 export interface BrandsInformationContext {
@@ -85,7 +85,7 @@ export class BrandsInformationContextImpl implements BrandsInformationContext {
 
 
     const headers: any = {};
-    if (params.ifNoneMatch !== undefined) headers['If-None-Match'] = params.ifNoneMatch;
+    if (params['ifNoneMatch'] !== undefined) headers['If-None-Match'] = params['ifNoneMatch'];
 
     let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });

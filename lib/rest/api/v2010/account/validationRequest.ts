@@ -31,12 +31,12 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
  */
 export interface ValidationRequestListInstanceCreateOptions {
-  phoneNumber: string;
-  friendlyName?: string;
-  callDelay?: number;
-  extension?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
+  'phoneNumber': string;
+  'friendlyName'?: string;
+  'callDelay'?: number;
+  'extension'?: string;
+  'statusCallback'?: string;
+  'statusCallbackMethod'?: string;
 }
 
 export interface ValidationRequestListInstance {
@@ -85,18 +85,18 @@ export function ValidationRequestListInstance(version: V2010, accountSid: string
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.phoneNumber === null || params.phoneNumber === undefined) {
-      throw new Error('Required parameter "params.phoneNumber" missing.');
+    if (params['phoneNumber'] === null || params['phoneNumber'] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumber'] = params.phoneNumber;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.callDelay !== undefined) data['CallDelay'] = params.callDelay;
-    if (params.extension !== undefined) data['Extension'] = params.extension;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    data['PhoneNumber'] = params['phoneNumber'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['callDelay'] !== undefined) data['CallDelay'] = params['callDelay'];
+    if (params['extension'] !== undefined) data['Extension'] = params['extension'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

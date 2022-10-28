@@ -29,7 +29,7 @@ const serialize = require("../../../../../../base/serialize");
  * @property { string } credentialListSid A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
  */
 export interface CredentialListMappingListInstanceCreateOptions {
-  credentialListSid: string;
+  'credentialListSid': string;
 }
 /**
  * Options to pass to each
@@ -111,9 +111,9 @@ export interface CredentialListMappingContext {
 }
 
 export interface CredentialListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'domainSid'?: string;
+  'sid'?: string;
 }
 
 export class CredentialListMappingContextImpl implements CredentialListMappingContext {
@@ -431,13 +431,13 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.credentialListSid === null || params.credentialListSid === undefined) {
-      throw new Error('Required parameter "params.credentialListSid" missing.');
+    if (params['credentialListSid'] === null || params['credentialListSid'] === undefined) {
+      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['CredentialListSid'] = params.credentialListSid;
+    data['CredentialListSid'] = params['credentialListSid'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -464,7 +464,7 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

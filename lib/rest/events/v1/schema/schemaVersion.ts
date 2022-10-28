@@ -92,8 +92,8 @@ export interface SchemaVersionContext {
 }
 
 export interface SchemaVersionContextSolution {
-  id?: string;
-  schemaVersion?: number;
+  'id'?: string;
+  'schemaVersion'?: number;
 }
 
 export class SchemaVersionContextImpl implements SchemaVersionContext {
@@ -362,7 +362,7 @@ export function SchemaVersionListInstance(version: V1, id: string): SchemaVersio
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

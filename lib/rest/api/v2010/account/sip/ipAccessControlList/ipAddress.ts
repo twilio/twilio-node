@@ -31,9 +31,9 @@ const serialize = require("../../../../../../base/serialize");
  * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressContextUpdateOptions {
-  ipAddress?: string;
-  friendlyName?: string;
-  cidrPrefixLength?: number;
+  'ipAddress'?: string;
+  'friendlyName'?: string;
+  'cidrPrefixLength'?: number;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface IpAddressContextUpdateOptions {
  * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressListInstanceCreateOptions {
-  friendlyName: string;
-  ipAddress: string;
-  cidrPrefixLength?: number;
+  'friendlyName': string;
+  'ipAddress': string;
+  'cidrPrefixLength'?: number;
 }
 /**
  * Options to pass to each
@@ -148,9 +148,9 @@ export interface IpAddressContext {
 }
 
 export interface IpAddressContextSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'ipAccessControlListSid'?: string;
+  'sid'?: string;
 }
 
 export class IpAddressContextImpl implements IpAddressContext {
@@ -199,9 +199,9 @@ export class IpAddressContextImpl implements IpAddressContext {
 
     const data: any = {};
 
-    if (params.ipAddress !== undefined) data['IpAddress'] = params.ipAddress;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
+    if (params['ipAddress'] !== undefined) data['IpAddress'] = params['ipAddress'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['cidrPrefixLength'] !== undefined) data['CidrPrefixLength'] = params['cidrPrefixLength'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -533,19 +533,19 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.ipAddress === null || params.ipAddress === undefined) {
-      throw new Error('Required parameter "params.ipAddress" missing.');
+    if (params['ipAddress'] === null || params['ipAddress'] === undefined) {
+      throw new Error('Required parameter "params[\'ipAddress\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['IpAddress'] = params.ipAddress;
-    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
+    data['FriendlyName'] = params['friendlyName'];
+    data['IpAddress'] = params['ipAddress'];
+    if (params['cidrPrefixLength'] !== undefined) data['CidrPrefixLength'] = params['cidrPrefixLength'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -572,7 +572,7 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

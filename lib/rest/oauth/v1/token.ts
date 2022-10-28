@@ -33,14 +33,14 @@ const serialize = require("../../../base/serialize");
  * @property { string } [deviceId] The Id of the device associated with the token (refresh token).
  */
 export interface TokenListInstanceCreateOptions {
-  grantType: string;
-  clientSid: string;
-  clientSecret?: string;
-  code?: string;
-  codeVerifier?: string;
-  deviceCode?: string;
-  refreshToken?: string;
-  deviceId?: string;
+  'grantType': string;
+  'clientSid': string;
+  'clientSecret'?: string;
+  'code'?: string;
+  'codeVerifier'?: string;
+  'deviceCode'?: string;
+  'refreshToken'?: string;
+  'deviceId'?: string;
 }
 
 export interface TokenListInstance {
@@ -88,24 +88,24 @@ export function TokenListInstance(version: V1): TokenListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.grantType === null || params.grantType === undefined) {
-      throw new Error('Required parameter "params.grantType" missing.');
+    if (params['grantType'] === null || params['grantType'] === undefined) {
+      throw new Error('Required parameter "params[\'grantType\']" missing.');
     }
 
-    if (params.clientSid === null || params.clientSid === undefined) {
-      throw new Error('Required parameter "params.clientSid" missing.');
+    if (params['clientSid'] === null || params['clientSid'] === undefined) {
+      throw new Error('Required parameter "params[\'clientSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['GrantType'] = params.grantType;
-    data['ClientSid'] = params.clientSid;
-    if (params.clientSecret !== undefined) data['ClientSecret'] = params.clientSecret;
-    if (params.code !== undefined) data['Code'] = params.code;
-    if (params.codeVerifier !== undefined) data['CodeVerifier'] = params.codeVerifier;
-    if (params.deviceCode !== undefined) data['DeviceCode'] = params.deviceCode;
-    if (params.refreshToken !== undefined) data['RefreshToken'] = params.refreshToken;
-    if (params.deviceId !== undefined) data['DeviceId'] = params.deviceId;
+    data['GrantType'] = params['grantType'];
+    data['ClientSid'] = params['clientSid'];
+    if (params['clientSecret'] !== undefined) data['ClientSecret'] = params['clientSecret'];
+    if (params['code'] !== undefined) data['Code'] = params['code'];
+    if (params['codeVerifier'] !== undefined) data['CodeVerifier'] = params['codeVerifier'];
+    if (params['deviceCode'] !== undefined) data['DeviceCode'] = params['deviceCode'];
+    if (params['refreshToken'] !== undefined) data['RefreshToken'] = params['refreshToken'];
+    if (params['deviceId'] !== undefined) data['DeviceId'] = params['deviceId'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

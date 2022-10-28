@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
  */
 export interface UsAppToPersonUsecaseListInstanceFetchOptions {
-  brandRegistrationSid?: string;
+  'brandRegistrationSid'?: string;
 }
 
 export interface UsAppToPersonUsecaseListInstance {
@@ -88,7 +88,7 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
 
     const data: any = {};
 
-    if (params.brandRegistrationSid !== undefined) data['BrandRegistrationSid'] = params.brandRegistrationSid;
+    if (params['brandRegistrationSid'] !== undefined) data['BrandRegistrationSid'] = params['brandRegistrationSid'];
 
     const headers: any = {};
 

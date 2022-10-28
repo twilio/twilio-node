@@ -33,11 +33,11 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [enabled] Whether the Target is enabled.
  */
 export interface ConnectionPolicyTargetContextUpdateOptions {
-  friendlyName?: string;
-  target?: string;
-  priority?: number;
-  weight?: number;
-  enabled?: boolean;
+  'friendlyName'?: string;
+  'target'?: string;
+  'priority'?: number;
+  'weight'?: number;
+  'enabled'?: boolean;
 }
 
 /**
@@ -50,11 +50,11 @@ export interface ConnectionPolicyTargetContextUpdateOptions {
  * @property { boolean } [enabled] Whether the Target is enabled. The default is &#x60;true&#x60;.
  */
 export interface ConnectionPolicyTargetListInstanceCreateOptions {
-  target: string;
-  friendlyName?: string;
-  priority?: number;
-  weight?: number;
-  enabled?: boolean;
+  'target': string;
+  'friendlyName'?: string;
+  'priority'?: number;
+  'weight'?: number;
+  'enabled'?: boolean;
 }
 /**
  * Options to pass to each
@@ -156,8 +156,8 @@ export interface ConnectionPolicyTargetContext {
 }
 
 export interface ConnectionPolicyTargetContextSolution {
-  connectionPolicySid?: string;
-  sid?: string;
+  'connectionPolicySid'?: string;
+  'sid'?: string;
 }
 
 export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTargetContext {
@@ -206,11 +206,11 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.target !== undefined) data['Target'] = params.target;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['target'] !== undefined) data['Target'] = params['target'];
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['weight'] !== undefined) data['Weight'] = params['weight'];
+    if (params['enabled'] !== undefined) data['Enabled'] = serialize.bool(params['enabled']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -555,17 +555,17 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.target === null || params.target === undefined) {
-      throw new Error('Required parameter "params.target" missing.');
+    if (params['target'] === null || params['target'] === undefined) {
+      throw new Error('Required parameter "params[\'target\']" missing.');
     }
 
     const data: any = {};
 
-    data['Target'] = params.target;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
+    data['Target'] = params['target'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['priority'] !== undefined) data['Priority'] = params['priority'];
+    if (params['weight'] !== undefined) data['Weight'] = params['weight'];
+    if (params['enabled'] !== undefined) data['Enabled'] = serialize.bool(params['enabled']);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -592,7 +592,7 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

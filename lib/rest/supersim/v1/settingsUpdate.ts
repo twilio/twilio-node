@@ -260,8 +260,8 @@ export function SettingsUpdateListInstance(version: V1): SettingsUpdateListInsta
 
     const data: any = {};
 
-    if (params.sim !== undefined) data['Sim'] = params.sim;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['sim'] !== undefined) data['Sim'] = params['sim'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

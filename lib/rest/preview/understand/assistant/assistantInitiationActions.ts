@@ -27,7 +27,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [initiationActions] 
  */
 export interface AssistantInitiationActionsContextUpdateOptions {
-  initiationActions?: any;
+  'initiationActions'?: any;
 }
 
 export interface AssistantInitiationActionsContext {
@@ -71,7 +71,7 @@ export interface AssistantInitiationActionsContext {
 }
 
 export interface AssistantInitiationActionsContextSolution {
-  assistantSid?: string;
+  'assistantSid'?: string;
 }
 
 export class AssistantInitiationActionsContextImpl implements AssistantInitiationActionsContext {
@@ -108,7 +108,7 @@ export class AssistantInitiationActionsContextImpl implements AssistantInitiatio
 
     const data: any = {};
 
-    if (params.initiationActions !== undefined) data['InitiationActions'] = params.initiationActions;
+    if (params['initiationActions'] !== undefined) data['InitiationActions'] = params['initiationActions'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

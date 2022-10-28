@@ -34,12 +34,12 @@ type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  */
 export interface VerificationAttemptsSummaryContextFetchOptions {
-  verifyServiceSid?: string;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  country?: string;
-  channel?: VerificationAttemptsSummaryChannels;
-  destinationPrefix?: string;
+  'verifyServiceSid'?: string;
+  'dateCreatedAfter'?: Date;
+  'dateCreatedBefore'?: Date;
+  'country'?: string;
+  'channel'?: VerificationAttemptsSummaryChannels;
+  'destinationPrefix'?: string;
 }
 
 export interface VerificationAttemptsSummaryContext {
@@ -95,12 +95,12 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
 
     const data: any = {};
 
-    if (params.verifyServiceSid !== undefined) data['VerifyServiceSid'] = params.verifyServiceSid;
-    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.country !== undefined) data['Country'] = params.country;
-    if (params.channel !== undefined) data['Channel'] = params.channel;
-    if (params.destinationPrefix !== undefined) data['DestinationPrefix'] = params.destinationPrefix;
+    if (params['verifyServiceSid'] !== undefined) data['VerifyServiceSid'] = params['verifyServiceSid'];
+    if (params['dateCreatedAfter'] !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params['dateCreatedAfter']);
+    if (params['dateCreatedBefore'] !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params['dateCreatedBefore']);
+    if (params['country'] !== undefined) data['Country'] = params['country'];
+    if (params['channel'] !== undefined) data['Channel'] = params['channel'];
+    if (params['destinationPrefix'] !== undefined) data['DestinationPrefix'] = params['destinationPrefix'];
 
     const headers: any = {};
 

@@ -29,9 +29,9 @@ const serialize = require("../../../base/serialize");
  * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */
 export interface ExportConfigurationContextUpdateOptions {
-  enabled?: boolean;
-  webhookUrl?: string;
-  webhookMethod?: string;
+  'enabled'?: boolean;
+  'webhookUrl'?: string;
+  'webhookMethod'?: string;
 }
 
 export interface ExportConfigurationContext {
@@ -75,7 +75,7 @@ export interface ExportConfigurationContext {
 }
 
 export interface ExportConfigurationContextSolution {
-  resourceType?: string;
+  'resourceType'?: string;
 }
 
 export class ExportConfigurationContextImpl implements ExportConfigurationContext {
@@ -112,9 +112,9 @@ export class ExportConfigurationContextImpl implements ExportConfigurationContex
 
     const data: any = {};
 
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
-    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
+    if (params['enabled'] !== undefined) data['Enabled'] = serialize.bool(params['enabled']);
+    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
+    if (params['webhookMethod'] !== undefined) data['WebhookMethod'] = params['webhookMethod'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

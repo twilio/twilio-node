@@ -31,8 +31,8 @@ import { FieldValueListInstance } from "./fieldType/fieldValue";
  * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 export interface FieldTypeContextUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
+  'friendlyName'?: string;
+  'uniqueName'?: string;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface FieldTypeContextUpdateOptions {
  * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  */
 export interface FieldTypeListInstanceCreateOptions {
-  uniqueName: string;
-  friendlyName?: string;
+  'uniqueName': string;
+  'friendlyName'?: string;
 }
 /**
  * Options to pass to each
@@ -146,8 +146,8 @@ export interface FieldTypeContext {
 }
 
 export interface FieldTypeContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  'assistantSid'?: string;
+  'sid'?: string;
 }
 
 export class FieldTypeContextImpl implements FieldTypeContext {
@@ -202,8 +202,8 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -535,14 +535,14 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    data['UniqueName'] = params['uniqueName'];
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -569,7 +569,7 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -40,12 +40,12 @@ type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
  * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
  */
 export interface IpCommandListInstanceCreateOptions {
-  sim: string;
-  payload: string;
-  devicePort: number;
-  payloadType?: IpCommandPayloadType;
-  callbackUrl?: string;
-  callbackMethod?: string;
+  'sim': string;
+  'payload': string;
+  'devicePort': number;
+  'payloadType'?: IpCommandPayloadType;
+  'callbackUrl'?: string;
+  'callbackMethod'?: string;
 }
 /**
  * Options to pass to each
@@ -141,7 +141,7 @@ export interface IpCommandContext {
 }
 
 export interface IpCommandContextSolution {
-  sid?: string;
+  'sid'?: string;
 }
 
 export class IpCommandContextImpl implements IpCommandContext {
@@ -466,26 +466,26 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.sim === null || params.sim === undefined) {
-      throw new Error('Required parameter "params.sim" missing.');
+    if (params['sim'] === null || params['sim'] === undefined) {
+      throw new Error('Required parameter "params[\'sim\']" missing.');
     }
 
-    if (params.payload === null || params.payload === undefined) {
-      throw new Error('Required parameter "params.payload" missing.');
+    if (params['payload'] === null || params['payload'] === undefined) {
+      throw new Error('Required parameter "params[\'payload\']" missing.');
     }
 
-    if (params.devicePort === null || params.devicePort === undefined) {
-      throw new Error('Required parameter "params.devicePort" missing.');
+    if (params['devicePort'] === null || params['devicePort'] === undefined) {
+      throw new Error('Required parameter "params[\'devicePort\']" missing.');
     }
 
     const data: any = {};
 
-    data['Sim'] = params.sim;
-    data['Payload'] = params.payload;
-    data['DevicePort'] = params.devicePort;
-    if (params.payloadType !== undefined) data['PayloadType'] = params.payloadType;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
+    data['Sim'] = params['sim'];
+    data['Payload'] = params['payload'];
+    data['DevicePort'] = params['devicePort'];
+    if (params['payloadType'] !== undefined) data['PayloadType'] = params['payloadType'];
+    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
+    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -512,11 +512,11 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     const data: any = {};
 
-    if (params.sim !== undefined) data['Sim'] = params.sim;
-    if (params.simIccid !== undefined) data['SimIccid'] = params.simIccid;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.direction !== undefined) data['Direction'] = params.direction;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['sim'] !== undefined) data['Sim'] = params['sim'];
+    if (params['simIccid'] !== undefined) data['SimIccid'] = params['simIccid'];
+    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params['direction'] !== undefined) data['Direction'] = params['direction'];
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

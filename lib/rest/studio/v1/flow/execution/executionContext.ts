@@ -42,8 +42,8 @@ export interface ExecutionContextContext {
 }
 
 export interface ExecutionContextContextSolution {
-  flowSid?: string;
-  executionSid?: string;
+  'flowSid'?: string;
+  'executionSid'?: string;
 }
 
 export class ExecutionContextContextImpl implements ExecutionContextContext {

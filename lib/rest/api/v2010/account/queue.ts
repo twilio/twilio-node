@@ -31,8 +31,8 @@ import { MemberListInstance } from "./queue/member";
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueContextUpdateOptions {
-  friendlyName?: string;
-  maxSize?: number;
+  'friendlyName'?: string;
+  'maxSize'?: number;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface QueueContextUpdateOptions {
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueListInstanceCreateOptions {
-  friendlyName: string;
-  maxSize?: number;
+  'friendlyName': string;
+  'maxSize'?: number;
 }
 /**
  * Options to pass to each
@@ -146,8 +146,8 @@ export interface QueueContext {
 }
 
 export interface QueueContextSolution {
-  accountSid?: string;
-  sid?: string;
+  'accountSid'?: string;
+  'sid'?: string;
 }
 
 export class QueueContextImpl implements QueueContext {
@@ -202,8 +202,8 @@ export class QueueContextImpl implements QueueContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
+    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params['maxSize'] !== undefined) data['MaxSize'] = params['maxSize'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -541,14 +541,14 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
+    data['FriendlyName'] = params['friendlyName'];
+    if (params['maxSize'] !== undefined) data['MaxSize'] = params['maxSize'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -575,7 +575,7 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

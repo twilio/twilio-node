@@ -42,18 +42,18 @@ type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|
  * @property { string } [callSidToCoach] The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;.
  */
 export interface ParticipantContextUpdateOptions {
-  muted?: boolean;
-  hold?: boolean;
-  holdUrl?: string;
-  holdMethod?: string;
-  announceUrl?: string;
-  announceMethod?: string;
-  waitUrl?: string;
-  waitMethod?: string;
-  beepOnExit?: boolean;
-  endConferenceOnExit?: boolean;
-  coaching?: boolean;
-  callSidToCoach?: string;
+  'muted'?: boolean;
+  'hold'?: boolean;
+  'holdUrl'?: string;
+  'holdMethod'?: string;
+  'announceUrl'?: string;
+  'announceMethod'?: string;
+  'waitUrl'?: string;
+  'waitMethod'?: string;
+  'beepOnExit'?: boolean;
+  'endConferenceOnExit'?: boolean;
+  'coaching'?: boolean;
+  'callSidToCoach'?: string;
 }
 
 /**
@@ -107,52 +107,52 @@ export interface ParticipantContextUpdateOptions {
  * @property { string } [amdStatusCallbackMethod] The HTTP method we should use when calling the &#x60;amd_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
  */
 export interface ParticipantListInstanceCreateOptions {
-  from: string;
-  to: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  statusCallbackEvent?: Array<string>;
-  label?: string;
-  timeout?: number;
-  record?: boolean;
-  muted?: boolean;
-  beep?: string;
-  startConferenceOnEnter?: boolean;
-  endConferenceOnExit?: boolean;
-  waitUrl?: string;
-  waitMethod?: string;
-  earlyMedia?: boolean;
-  maxParticipants?: number;
-  conferenceRecord?: string;
-  conferenceTrim?: string;
-  conferenceStatusCallback?: string;
-  conferenceStatusCallbackMethod?: string;
-  conferenceStatusCallbackEvent?: Array<string>;
-  recordingChannels?: string;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackMethod?: string;
-  sipAuthUsername?: string;
-  sipAuthPassword?: string;
-  region?: string;
-  conferenceRecordingStatusCallback?: string;
-  conferenceRecordingStatusCallbackMethod?: string;
-  recordingStatusCallbackEvent?: Array<string>;
-  conferenceRecordingStatusCallbackEvent?: Array<string>;
-  coaching?: boolean;
-  callSidToCoach?: string;
-  jitterBufferSize?: string;
-  byoc?: string;
-  callerId?: string;
-  callReason?: string;
-  recordingTrack?: string;
-  timeLimit?: number;
-  machineDetection?: string;
-  machineDetectionTimeout?: number;
-  machineDetectionSpeechThreshold?: number;
-  machineDetectionSpeechEndThreshold?: number;
-  machineDetectionSilenceTimeout?: number;
-  amdStatusCallback?: string;
-  amdStatusCallbackMethod?: string;
+  'from': string;
+  'to': string;
+  'statusCallback'?: string;
+  'statusCallbackMethod'?: string;
+  'statusCallbackEvent'?: Array<string>;
+  'label'?: string;
+  'timeout'?: number;
+  'record'?: boolean;
+  'muted'?: boolean;
+  'beep'?: string;
+  'startConferenceOnEnter'?: boolean;
+  'endConferenceOnExit'?: boolean;
+  'waitUrl'?: string;
+  'waitMethod'?: string;
+  'earlyMedia'?: boolean;
+  'maxParticipants'?: number;
+  'conferenceRecord'?: string;
+  'conferenceTrim'?: string;
+  'conferenceStatusCallback'?: string;
+  'conferenceStatusCallbackMethod'?: string;
+  'conferenceStatusCallbackEvent'?: Array<string>;
+  'recordingChannels'?: string;
+  'recordingStatusCallback'?: string;
+  'recordingStatusCallbackMethod'?: string;
+  'sipAuthUsername'?: string;
+  'sipAuthPassword'?: string;
+  'region'?: string;
+  'conferenceRecordingStatusCallback'?: string;
+  'conferenceRecordingStatusCallbackMethod'?: string;
+  'recordingStatusCallbackEvent'?: Array<string>;
+  'conferenceRecordingStatusCallbackEvent'?: Array<string>;
+  'coaching'?: boolean;
+  'callSidToCoach'?: string;
+  'jitterBufferSize'?: string;
+  'byoc'?: string;
+  'callerId'?: string;
+  'callReason'?: string;
+  'recordingTrack'?: string;
+  'timeLimit'?: number;
+  'machineDetection'?: string;
+  'machineDetectionTimeout'?: number;
+  'machineDetectionSpeechThreshold'?: number;
+  'machineDetectionSpeechEndThreshold'?: number;
+  'machineDetectionSilenceTimeout'?: number;
+  'amdStatusCallback'?: string;
+  'amdStatusCallbackMethod'?: string;
 }
 /**
  * Options to pass to each
@@ -272,9 +272,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  accountSid?: string;
-  conferenceSid?: string;
-  callSid?: string;
+  'accountSid'?: string;
+  'conferenceSid'?: string;
+  'callSid'?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -323,18 +323,18 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const data: any = {};
 
-    if (params.muted !== undefined) data['Muted'] = serialize.bool(params.muted);
-    if (params.hold !== undefined) data['Hold'] = serialize.bool(params.hold);
-    if (params.holdUrl !== undefined) data['HoldUrl'] = params.holdUrl;
-    if (params.holdMethod !== undefined) data['HoldMethod'] = params.holdMethod;
-    if (params.announceUrl !== undefined) data['AnnounceUrl'] = params.announceUrl;
-    if (params.announceMethod !== undefined) data['AnnounceMethod'] = params.announceMethod;
-    if (params.waitUrl !== undefined) data['WaitUrl'] = params.waitUrl;
-    if (params.waitMethod !== undefined) data['WaitMethod'] = params.waitMethod;
-    if (params.beepOnExit !== undefined) data['BeepOnExit'] = serialize.bool(params.beepOnExit);
-    if (params.endConferenceOnExit !== undefined) data['EndConferenceOnExit'] = serialize.bool(params.endConferenceOnExit);
-    if (params.coaching !== undefined) data['Coaching'] = serialize.bool(params.coaching);
-    if (params.callSidToCoach !== undefined) data['CallSidToCoach'] = params.callSidToCoach;
+    if (params['muted'] !== undefined) data['Muted'] = serialize.bool(params['muted']);
+    if (params['hold'] !== undefined) data['Hold'] = serialize.bool(params['hold']);
+    if (params['holdUrl'] !== undefined) data['HoldUrl'] = params['holdUrl'];
+    if (params['holdMethod'] !== undefined) data['HoldMethod'] = params['holdMethod'];
+    if (params['announceUrl'] !== undefined) data['AnnounceUrl'] = params['announceUrl'];
+    if (params['announceMethod'] !== undefined) data['AnnounceMethod'] = params['announceMethod'];
+    if (params['waitUrl'] !== undefined) data['WaitUrl'] = params['waitUrl'];
+    if (params['waitMethod'] !== undefined) data['WaitMethod'] = params['waitMethod'];
+    if (params['beepOnExit'] !== undefined) data['BeepOnExit'] = serialize.bool(params['beepOnExit']);
+    if (params['endConferenceOnExit'] !== undefined) data['EndConferenceOnExit'] = serialize.bool(params['endConferenceOnExit']);
+    if (params['coaching'] !== undefined) data['Coaching'] = serialize.bool(params['coaching']);
+    if (params['callSidToCoach'] !== undefined) data['CallSidToCoach'] = params['callSidToCoach'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -698,62 +698,62 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.from === null || params.from === undefined) {
-      throw new Error('Required parameter "params.from" missing.');
+    if (params['from'] === null || params['from'] === undefined) {
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
+    if (params['to'] === null || params['to'] === undefined) {
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
     const data: any = {};
 
-    data['From'] = params.from;
-    data['To'] = params.to;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.statusCallbackEvent !== undefined) data['StatusCallbackEvent'] = serialize.map(params.statusCallbackEvent, ((e) => e));
-    if (params.label !== undefined) data['Label'] = params.label;
-    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
-    if (params.record !== undefined) data['Record'] = serialize.bool(params.record);
-    if (params.muted !== undefined) data['Muted'] = serialize.bool(params.muted);
-    if (params.beep !== undefined) data['Beep'] = params.beep;
-    if (params.startConferenceOnEnter !== undefined) data['StartConferenceOnEnter'] = serialize.bool(params.startConferenceOnEnter);
-    if (params.endConferenceOnExit !== undefined) data['EndConferenceOnExit'] = serialize.bool(params.endConferenceOnExit);
-    if (params.waitUrl !== undefined) data['WaitUrl'] = params.waitUrl;
-    if (params.waitMethod !== undefined) data['WaitMethod'] = params.waitMethod;
-    if (params.earlyMedia !== undefined) data['EarlyMedia'] = serialize.bool(params.earlyMedia);
-    if (params.maxParticipants !== undefined) data['MaxParticipants'] = params.maxParticipants;
-    if (params.conferenceRecord !== undefined) data['ConferenceRecord'] = params.conferenceRecord;
-    if (params.conferenceTrim !== undefined) data['ConferenceTrim'] = params.conferenceTrim;
-    if (params.conferenceStatusCallback !== undefined) data['ConferenceStatusCallback'] = params.conferenceStatusCallback;
-    if (params.conferenceStatusCallbackMethod !== undefined) data['ConferenceStatusCallbackMethod'] = params.conferenceStatusCallbackMethod;
-    if (params.conferenceStatusCallbackEvent !== undefined) data['ConferenceStatusCallbackEvent'] = serialize.map(params.conferenceStatusCallbackEvent, ((e) => e));
-    if (params.recordingChannels !== undefined) data['RecordingChannels'] = params.recordingChannels;
-    if (params.recordingStatusCallback !== undefined) data['RecordingStatusCallback'] = params.recordingStatusCallback;
-    if (params.recordingStatusCallbackMethod !== undefined) data['RecordingStatusCallbackMethod'] = params.recordingStatusCallbackMethod;
-    if (params.sipAuthUsername !== undefined) data['SipAuthUsername'] = params.sipAuthUsername;
-    if (params.sipAuthPassword !== undefined) data['SipAuthPassword'] = params.sipAuthPassword;
-    if (params.region !== undefined) data['Region'] = params.region;
-    if (params.conferenceRecordingStatusCallback !== undefined) data['ConferenceRecordingStatusCallback'] = params.conferenceRecordingStatusCallback;
-    if (params.conferenceRecordingStatusCallbackMethod !== undefined) data['ConferenceRecordingStatusCallbackMethod'] = params.conferenceRecordingStatusCallbackMethod;
-    if (params.recordingStatusCallbackEvent !== undefined) data['RecordingStatusCallbackEvent'] = serialize.map(params.recordingStatusCallbackEvent, ((e) => e));
-    if (params.conferenceRecordingStatusCallbackEvent !== undefined) data['ConferenceRecordingStatusCallbackEvent'] = serialize.map(params.conferenceRecordingStatusCallbackEvent, ((e) => e));
-    if (params.coaching !== undefined) data['Coaching'] = serialize.bool(params.coaching);
-    if (params.callSidToCoach !== undefined) data['CallSidToCoach'] = params.callSidToCoach;
-    if (params.jitterBufferSize !== undefined) data['JitterBufferSize'] = params.jitterBufferSize;
-    if (params.byoc !== undefined) data['Byoc'] = params.byoc;
-    if (params.callerId !== undefined) data['CallerId'] = params.callerId;
-    if (params.callReason !== undefined) data['CallReason'] = params.callReason;
-    if (params.recordingTrack !== undefined) data['RecordingTrack'] = params.recordingTrack;
-    if (params.timeLimit !== undefined) data['TimeLimit'] = params.timeLimit;
-    if (params.machineDetection !== undefined) data['MachineDetection'] = params.machineDetection;
-    if (params.machineDetectionTimeout !== undefined) data['MachineDetectionTimeout'] = params.machineDetectionTimeout;
-    if (params.machineDetectionSpeechThreshold !== undefined) data['MachineDetectionSpeechThreshold'] = params.machineDetectionSpeechThreshold;
-    if (params.machineDetectionSpeechEndThreshold !== undefined) data['MachineDetectionSpeechEndThreshold'] = params.machineDetectionSpeechEndThreshold;
-    if (params.machineDetectionSilenceTimeout !== undefined) data['MachineDetectionSilenceTimeout'] = params.machineDetectionSilenceTimeout;
-    if (params.amdStatusCallback !== undefined) data['AmdStatusCallback'] = params.amdStatusCallback;
-    if (params.amdStatusCallbackMethod !== undefined) data['AmdStatusCallbackMethod'] = params.amdStatusCallbackMethod;
+    data['From'] = params['from'];
+    data['To'] = params['to'];
+    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
+    if (params['statusCallbackEvent'] !== undefined) data['StatusCallbackEvent'] = serialize.map(params['statusCallbackEvent'], ((e) => e));
+    if (params['label'] !== undefined) data['Label'] = params['label'];
+    if (params['timeout'] !== undefined) data['Timeout'] = params['timeout'];
+    if (params['record'] !== undefined) data['Record'] = serialize.bool(params['record']);
+    if (params['muted'] !== undefined) data['Muted'] = serialize.bool(params['muted']);
+    if (params['beep'] !== undefined) data['Beep'] = params['beep'];
+    if (params['startConferenceOnEnter'] !== undefined) data['StartConferenceOnEnter'] = serialize.bool(params['startConferenceOnEnter']);
+    if (params['endConferenceOnExit'] !== undefined) data['EndConferenceOnExit'] = serialize.bool(params['endConferenceOnExit']);
+    if (params['waitUrl'] !== undefined) data['WaitUrl'] = params['waitUrl'];
+    if (params['waitMethod'] !== undefined) data['WaitMethod'] = params['waitMethod'];
+    if (params['earlyMedia'] !== undefined) data['EarlyMedia'] = serialize.bool(params['earlyMedia']);
+    if (params['maxParticipants'] !== undefined) data['MaxParticipants'] = params['maxParticipants'];
+    if (params['conferenceRecord'] !== undefined) data['ConferenceRecord'] = params['conferenceRecord'];
+    if (params['conferenceTrim'] !== undefined) data['ConferenceTrim'] = params['conferenceTrim'];
+    if (params['conferenceStatusCallback'] !== undefined) data['ConferenceStatusCallback'] = params['conferenceStatusCallback'];
+    if (params['conferenceStatusCallbackMethod'] !== undefined) data['ConferenceStatusCallbackMethod'] = params['conferenceStatusCallbackMethod'];
+    if (params['conferenceStatusCallbackEvent'] !== undefined) data['ConferenceStatusCallbackEvent'] = serialize.map(params['conferenceStatusCallbackEvent'], ((e) => e));
+    if (params['recordingChannels'] !== undefined) data['RecordingChannels'] = params['recordingChannels'];
+    if (params['recordingStatusCallback'] !== undefined) data['RecordingStatusCallback'] = params['recordingStatusCallback'];
+    if (params['recordingStatusCallbackMethod'] !== undefined) data['RecordingStatusCallbackMethod'] = params['recordingStatusCallbackMethod'];
+    if (params['sipAuthUsername'] !== undefined) data['SipAuthUsername'] = params['sipAuthUsername'];
+    if (params['sipAuthPassword'] !== undefined) data['SipAuthPassword'] = params['sipAuthPassword'];
+    if (params['region'] !== undefined) data['Region'] = params['region'];
+    if (params['conferenceRecordingStatusCallback'] !== undefined) data['ConferenceRecordingStatusCallback'] = params['conferenceRecordingStatusCallback'];
+    if (params['conferenceRecordingStatusCallbackMethod'] !== undefined) data['ConferenceRecordingStatusCallbackMethod'] = params['conferenceRecordingStatusCallbackMethod'];
+    if (params['recordingStatusCallbackEvent'] !== undefined) data['RecordingStatusCallbackEvent'] = serialize.map(params['recordingStatusCallbackEvent'], ((e) => e));
+    if (params['conferenceRecordingStatusCallbackEvent'] !== undefined) data['ConferenceRecordingStatusCallbackEvent'] = serialize.map(params['conferenceRecordingStatusCallbackEvent'], ((e) => e));
+    if (params['coaching'] !== undefined) data['Coaching'] = serialize.bool(params['coaching']);
+    if (params['callSidToCoach'] !== undefined) data['CallSidToCoach'] = params['callSidToCoach'];
+    if (params['jitterBufferSize'] !== undefined) data['JitterBufferSize'] = params['jitterBufferSize'];
+    if (params['byoc'] !== undefined) data['Byoc'] = params['byoc'];
+    if (params['callerId'] !== undefined) data['CallerId'] = params['callerId'];
+    if (params['callReason'] !== undefined) data['CallReason'] = params['callReason'];
+    if (params['recordingTrack'] !== undefined) data['RecordingTrack'] = params['recordingTrack'];
+    if (params['timeLimit'] !== undefined) data['TimeLimit'] = params['timeLimit'];
+    if (params['machineDetection'] !== undefined) data['MachineDetection'] = params['machineDetection'];
+    if (params['machineDetectionTimeout'] !== undefined) data['MachineDetectionTimeout'] = params['machineDetectionTimeout'];
+    if (params['machineDetectionSpeechThreshold'] !== undefined) data['MachineDetectionSpeechThreshold'] = params['machineDetectionSpeechThreshold'];
+    if (params['machineDetectionSpeechEndThreshold'] !== undefined) data['MachineDetectionSpeechEndThreshold'] = params['machineDetectionSpeechEndThreshold'];
+    if (params['machineDetectionSilenceTimeout'] !== undefined) data['MachineDetectionSilenceTimeout'] = params['machineDetectionSilenceTimeout'];
+    if (params['amdStatusCallback'] !== undefined) data['AmdStatusCallback'] = params['amdStatusCallback'];
+    if (params['amdStatusCallbackMethod'] !== undefined) data['AmdStatusCallbackMethod'] = params['amdStatusCallbackMethod'];
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -780,10 +780,10 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
 
     const data: any = {};
 
-    if (params.muted !== undefined) data['Muted'] = serialize.bool(params.muted);
-    if (params.hold !== undefined) data['Hold'] = serialize.bool(params.hold);
-    if (params.coaching !== undefined) data['Coaching'] = serialize.bool(params.coaching);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params['muted'] !== undefined) data['Muted'] = serialize.bool(params['muted']);
+    if (params['hold'] !== undefined) data['Hold'] = serialize.bool(params['hold']);
+    if (params['coaching'] !== undefined) data['Coaching'] = serialize.bool(params['coaching']);
+    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
