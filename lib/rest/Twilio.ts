@@ -60,16 +60,19 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
  * @property (Twilio.Api.V2010.AccountContext.IncomingPhoneNumbersList) incomingPhoneNumbers - incomingPhoneNumbers resource
  * @property (Twilio.Api.V2010.AccountContext.KeysList) keys - keys resource
  * @property (Twilio.Api.V2010.AccountContext.MessagesList) messages - messages resource
+ * @property (Twilio.Api.V2010.AccountContext.NewKeysList) newKeys - newKeys resource
+ * @property (Twilio.Api.V2010.AccountContext.NewSigningKeysList) newSigningKeys - newSigningKeys resource
  * @property (Twilio.Api.V2010.AccountContext.NotificationsList) notifications - notifications resource
  * @property (Twilio.Api.V2010.AccountContext.OutgoingCallerIdsList) outgoingCallerIds - outgoingCallerIds resource
  * @property (Twilio.Api.V2010.AccountContext.QueuesList) queues - queues resource
  * @property (Twilio.Api.V2010.AccountContext.RecordingsList) recordings - recordings resource
- * @property (Twilio.Api.V2010.AccountContext.SIPList) sip - sip resource
  * @property (Twilio.Api.V2010.AccountContext.ShortCodesList) shortCodes - shortCodes resource
  * @property (Twilio.Api.V2010.AccountContext.SigningKeysList) signingKeys - signingKeys resource
+ * @property (Twilio.Api.V2010.AccountContext.SipList) sip - sip resource
  * @property (Twilio.Api.V2010.AccountContext.TokensList) tokens - tokens resource
  * @property (Twilio.Api.V2010.AccountContext.TranscriptionsList) transcriptions - transcriptions resource
  * @property (Twilio.Api.V2010.AccountContext.UsageList) usage - usage resource
+ * @property (Twilio.Api.V2010.AccountContext.ValidationRequestsList) validationRequests - validationRequests resource
  *
  * @param {string} username -
  *          The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
@@ -423,6 +426,12 @@ class Twilio extends BaseTwilio {
   get messages() {
     return this.api.v2010.account.messages;
   }
+  get newKeys() {
+    return this.api.v2010.account.newKeys;
+  }
+  get newSigningKeys() {
+    return this.api.v2010.account.newSigningKeys;
+  }
   get notifications() {
     return this.api.v2010.account.notifications;
   }
@@ -435,14 +444,14 @@ class Twilio extends BaseTwilio {
   get recordings() {
     return this.api.v2010.account.recordings;
   }
-  get sip() {
-    return this.api.v2010.account.sip;
-  }
   get shortCodes() {
     return this.api.v2010.account.shortCodes;
   }
   get signingKeys() {
     return this.api.v2010.account.signingKeys;
+  }
+  get sip() {
+    return this.api.v2010.account.sip;
   }
   get tokens() {
     return this.api.v2010.account.tokens;
@@ -452,6 +461,9 @@ class Twilio extends BaseTwilio {
   }
   get usage() {
     return this.api.v2010.account.usage;
+  }
+  get validationRequests() {
+    return this.api.v2010.account.validationRequests;
   }
 }
 
