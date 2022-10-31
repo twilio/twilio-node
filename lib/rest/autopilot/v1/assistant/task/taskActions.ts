@@ -20,17 +20,16 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to update a TaskActionsInstance
  *
  * @property { any } [actions] The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
  */
-export interface TaskActionsContextUpdateOptions {
-  'actions'?: any;
+export interface TaskActionsListInstanceUpdateOptions {
+  actions?: any;
 }
 
-export interface TaskActionsContext {
+export interface TaskActionsListInstance {
 
 
   /**
@@ -54,12 +53,12 @@ export interface TaskActionsContext {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { TaskActionsContextUpdateOptions } params - Parameter for request
+   * @param { TaskActionsListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  update(params: TaskActionsContextUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  update(params: TaskActionsListInstanceUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
   update(params?: any, callback?: any): Promise<TaskActionsInstance>
 
 
@@ -70,24 +69,29 @@ export interface TaskActionsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskActionsContextSolution {
-  'assistantSid'?: string;
-  'taskSid'?: string;
+export interface TaskActionsSolution {
+  assistantSid?: string;
+  taskSid?: string;
 }
 
-export class TaskActionsContextImpl implements TaskActionsContext {
-  protected _solution: TaskActionsContextSolution;
-  protected _uri: string;
+interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
+class TaskActionsListInstanceImpl implements TaskActionsListInstance {
+  _version?: V1;
+  _solution?: TaskActionsSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, assistantSid: string, taskSid: string) {
-    this._solution = { assistantSid, taskSid };
-    this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
-  }
+export function TaskActionsListInstance(version: V1, assistantSid: string, taskSid: string): TaskActionsListInstance {
+  const instance = {} as TaskActionsListInstanceImpl;
 
-  fetch(callback?: any): Promise<TaskActionsInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { assistantSid, taskSid };
+  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
+
+  instance.fetch = function fetch(callback?: any): Promise<TaskActionsInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
@@ -97,10 +101,10 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<TaskActionsInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -109,12 +113,12 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 
     const data: any = {};
 
-    if (params['actions'] !== undefined) data['Actions'] = params['actions'];
+    if (params.actions !== undefined) data['Actions'] = params.actions;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
@@ -124,20 +128,17 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface TaskActionsPayload extends TaskActionsResource{
@@ -152,8 +153,6 @@ interface TaskActionsResource {
 }
 
 export class TaskActionsInstance {
-  protected _solution: TaskActionsContextSolution;
-  protected _context?: TaskActionsContext;
 
   constructor(protected _version: V1, payload: TaskActionsPayload, assistantSid: string, taskSid?: string) {
     this.accountSid = payload.account_sid;
@@ -162,7 +161,6 @@ export class TaskActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
   }
 
   /**
@@ -186,45 +184,6 @@ export class TaskActionsInstance {
    */
   data?: any | null;
 
-  private get _proxy(): TaskActionsContext {
-    this._context = this._context || new TaskActionsContextImpl(this._version, this._solution.assistantSid, this._solution.taskSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a TaskActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a TaskActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
-   */
-  update(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
-  /**
-   * Update a TaskActionsInstance
-   *
-   * @param { TaskActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
-   */
-  update(params: TaskActionsContextUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -244,54 +203,5 @@ export class TaskActionsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface TaskActionsListInstance {
-  (): TaskActionsContext;
-  get(): TaskActionsContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
-class TaskActionsListInstanceImpl implements TaskActionsListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function TaskActionsListInstance(version: V1, assistantSid: string, taskSid: string): TaskActionsListInstance {
-  const instance = (() => instance.get()) as TaskActionsListInstanceImpl;
-
-  instance.get = function get(): TaskActionsContext {
-    return new TaskActionsContextImpl(version, assistantSid, taskSid);
-  }
-
-  instance._version = version;
-  instance._solution = { assistantSid, taskSid };
-  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

@@ -47,7 +47,7 @@ export interface ExportContext {
 }
 
 export interface ExportContextSolution {
-  'resourceType'?: string;
+  resourceType?: string;
 }
 
 export class ExportContextImpl implements ExportContext {

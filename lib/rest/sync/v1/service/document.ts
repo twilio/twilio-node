@@ -32,9 +32,9 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
  */
 export interface DocumentContextUpdateOptions {
-  'ifMatch'?: string;
-  'data'?: any;
-  'ttl'?: number;
+  ifMatch?: string;
+  data?: any;
+  ttl?: number;
 }
 
 /**
@@ -45,9 +45,9 @@ export interface DocumentContextUpdateOptions {
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\&#39;s time-to-live).
  */
 export interface DocumentListInstanceCreateOptions {
-  'uniqueName'?: string;
-  'data'?: any;
-  'ttl'?: number;
+  uniqueName?: string;
+  data?: any;
+  ttl?: number;
 }
 /**
  * Options to pass to each
@@ -150,8 +150,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -206,12 +206,12 @@ export class DocumentContextImpl implements DocumentContext {
 
     const data: any = {};
 
-    if (params['data'] !== undefined) data['Data'] = params['data'];
-    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params.data !== undefined) data['Data'] = params.data;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
+    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -580,9 +580,9 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['data'] !== undefined) data['Data'] = params['data'];
-    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.data !== undefined) data['Data'] = params.data;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -609,7 +609,7 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

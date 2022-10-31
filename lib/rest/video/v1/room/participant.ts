@@ -35,7 +35,7 @@ type RoomParticipantStatus = 'connected'|'disconnected';
  * @property { RoomParticipantStatus } [status] 
  */
 export interface ParticipantContextUpdateOptions {
-  'status'?: RoomParticipantStatus;
+  status?: RoomParticipantStatus;
 }
 /**
  * Options to pass to each
@@ -155,8 +155,8 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  'roomSid'?: string;
-  'sid'?: string;
+  roomSid?: string;
+  sid?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -217,7 +217,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params.status !== undefined) data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -575,11 +575,11 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['identity'] !== undefined) data['Identity'] = params['identity'];
-    if (params['dateCreatedAfter'] !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params['dateCreatedAfter']);
-    if (params['dateCreatedBefore'] !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params['dateCreatedBefore']);
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.identity !== undefined) data['Identity'] = params.identity;
+    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
+    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

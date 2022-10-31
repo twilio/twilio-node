@@ -33,9 +33,9 @@ type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|
  * @property { string } [eid] Identifier of the eUICC that will claim the eSIM Profile.
  */
 export interface EsimProfileListInstanceCreateOptions {
-  'callbackUrl'?: string;
-  'callbackMethod'?: string;
-  'eid'?: string;
+  callbackUrl?: string;
+  callbackMethod?: string;
+  eid?: string;
 }
 /**
  * Options to pass to each
@@ -125,7 +125,7 @@ export interface EsimProfileContext {
 }
 
 export interface EsimProfileContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class EsimProfileContextImpl implements EsimProfileContext {
@@ -462,9 +462,9 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     const data: any = {};
 
-    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
-    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
-    if (params['eid'] !== undefined) data['Eid'] = params['eid'];
+    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
+    if (params.eid !== undefined) data['Eid'] = params.eid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -491,10 +491,10 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     const data: any = {};
 
-    if (params['eid'] !== undefined) data['Eid'] = params['eid'];
-    if (params['simSid'] !== undefined) data['SimSid'] = params['simSid'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.eid !== undefined) data['Eid'] = params.eid;
+    if (params.simSid !== undefined) data['SimSid'] = params.simSid;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

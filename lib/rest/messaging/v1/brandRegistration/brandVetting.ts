@@ -32,8 +32,8 @@ type BrandVettingVettingProvider = 'campaign-verify';
  * @property { string } [vettingId] The unique ID of the vetting
  */
 export interface BrandVettingListInstanceCreateOptions {
-  'vettingProvider': BrandVettingVettingProvider;
-  'vettingId'?: string;
+  vettingProvider: BrandVettingVettingProvider;
+  vettingId?: string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface BrandVettingContext {
 }
 
 export interface BrandVettingContextSolution {
-  'brandSid'?: string;
-  'brandVettingSid'?: string;
+  brandSid?: string;
+  brandVettingSid?: string;
 }
 
 export class BrandVettingContextImpl implements BrandVettingContext {
@@ -423,14 +423,14 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['vettingProvider'] === null || params['vettingProvider'] === undefined) {
-      throw new Error('Required parameter "params[\'vettingProvider\']" missing.');
+    if (params.vettingProvider === null || params.vettingProvider === undefined) {
+      throw new Error('Required parameter "params.vettingProvider" missing.');
     }
 
     const data: any = {};
 
-    data['VettingProvider'] = params['vettingProvider'];
-    if (params['vettingId'] !== undefined) data['VettingId'] = params['vettingId'];
+    data['VettingProvider'] = params.vettingProvider;
+    if (params.vettingId !== undefined) data['VettingId'] = params.vettingId;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -457,8 +457,8 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
 
     const data: any = {};
 
-    if (params['vettingProvider'] !== undefined) data['VettingProvider'] = params['vettingProvider'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.vettingProvider !== undefined) data['VettingProvider'] = params.vettingProvider;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

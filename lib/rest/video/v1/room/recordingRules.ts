@@ -35,7 +35,7 @@ export class VideoV1RoomRoomRecordingRuleRules {
  * @property { any } [rules] A JSON-encoded array of recording rules.
  */
 export interface RecordingRulesListInstanceUpdateOptions {
-  'rules'?: any;
+  rules?: any;
 }
 
 export interface RecordingRulesListInstance {
@@ -121,7 +121,7 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
 
     const data: any = {};
 
-    if (params['rules'] !== undefined) data['Rules'] = params['rules'];
+    if (params.rules !== undefined) data['Rules'] = params.rules;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

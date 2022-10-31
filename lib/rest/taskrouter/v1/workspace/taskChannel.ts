@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [channelOptimizedRouting] Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelContextUpdateOptions {
-  'friendlyName'?: string;
-  'channelOptimizedRouting'?: boolean;
+  friendlyName?: string;
+  channelOptimizedRouting?: boolean;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface TaskChannelContextUpdateOptions {
  * @property { boolean } [channelOptimizedRouting] Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelListInstanceCreateOptions {
-  'friendlyName': string;
-  'uniqueName': string;
-  'channelOptimizedRouting'?: boolean;
+  friendlyName: string;
+  uniqueName: string;
+  channelOptimizedRouting?: boolean;
 }
 /**
  * Options to pass to each
@@ -146,8 +146,8 @@ export interface TaskChannelContext {
 }
 
 export interface TaskChannelContextSolution {
-  'workspaceSid'?: string;
-  'sid'?: string;
+  workspaceSid?: string;
+  sid?: string;
 }
 
 export class TaskChannelContextImpl implements TaskChannelContext {
@@ -196,8 +196,8 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['channelOptimizedRouting'] !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params['channelOptimizedRouting']);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.channelOptimizedRouting !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params.channelOptimizedRouting);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -535,19 +535,19 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
-      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
+    if (params.uniqueName === null || params.uniqueName === undefined) {
+      throw new Error('Required parameter "params.uniqueName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['UniqueName'] = params['uniqueName'];
-    if (params['channelOptimizedRouting'] !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params['channelOptimizedRouting']);
+    data['FriendlyName'] = params.friendlyName;
+    data['UniqueName'] = params.uniqueName;
+    if (params.channelOptimizedRouting !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params.channelOptimizedRouting);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -574,7 +574,7 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

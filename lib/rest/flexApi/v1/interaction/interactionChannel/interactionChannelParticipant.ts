@@ -33,7 +33,7 @@ type InteractionChannelParticipantType = 'supervisor'|'customer'|'external'|'age
  * @property { InteractionChannelParticipantStatus } status 
  */
 export interface InteractionChannelParticipantContextUpdateOptions {
-  'status': InteractionChannelParticipantStatus;
+  status: InteractionChannelParticipantStatus;
 }
 
 /**
@@ -43,8 +43,8 @@ export interface InteractionChannelParticipantContextUpdateOptions {
  * @property { any } mediaProperties JSON representing the Media Properties for the new Participant.
  */
 export interface InteractionChannelParticipantListInstanceCreateOptions {
-  'type': InteractionChannelParticipantType;
-  'mediaProperties': any;
+  type: InteractionChannelParticipantType;
+  mediaProperties: any;
 }
 /**
  * Options to pass to each
@@ -118,9 +118,9 @@ export interface InteractionChannelParticipantContext {
 }
 
 export interface InteractionChannelParticipantContextSolution {
-  'interactionSid'?: string;
-  'channelSid'?: string;
-  'sid'?: string;
+  interactionSid?: string;
+  channelSid?: string;
+  sid?: string;
 }
 
 export class InteractionChannelParticipantContextImpl implements InteractionChannelParticipantContext {
@@ -138,13 +138,13 @@ export class InteractionChannelParticipantContextImpl implements InteractionChan
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params['status'];
+    data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -410,18 +410,18 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['type'] === null || params['type'] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+    if (params.type === null || params.type === undefined) {
+      throw new Error('Required parameter "params.type" missing.');
     }
 
-    if (params['mediaProperties'] === null || params['mediaProperties'] === undefined) {
-      throw new Error('Required parameter "params[\'mediaProperties\']" missing.');
+    if (params.mediaProperties === null || params.mediaProperties === undefined) {
+      throw new Error('Required parameter "params.mediaProperties" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params['type'];
-    data['MediaProperties'] = params['mediaProperties'];
+    data['Type'] = params.type;
+    data['MediaProperties'] = params.mediaProperties;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -448,7 +448,7 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

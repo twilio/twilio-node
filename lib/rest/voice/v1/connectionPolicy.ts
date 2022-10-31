@@ -30,7 +30,7 @@ import { ConnectionPolicyTargetListInstance } from "./connectionPolicy/connectio
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
  */
 export interface ConnectionPolicyContextUpdateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface ConnectionPolicyContextUpdateOptions {
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
  */
 export interface ConnectionPolicyListInstanceCreateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -142,7 +142,7 @@ export interface ConnectionPolicyContext {
 }
 
 export interface ConnectionPolicyContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
@@ -197,7 +197,7 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -533,7 +533,7 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -560,7 +560,7 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

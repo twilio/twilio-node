@@ -94,8 +94,8 @@ export interface FlowRevisionContext {
 }
 
 export interface FlowRevisionContextSolution {
-  'sid'?: string;
-  'revision'?: string;
+  sid?: string;
+  revision?: string;
 }
 
 export class FlowRevisionContextImpl implements FlowRevisionContext {
@@ -413,7 +413,7 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

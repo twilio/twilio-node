@@ -34,12 +34,12 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [smsFallbackMethod] The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
  */
 export interface ShortCodeContextUpdateOptions {
-  'friendlyName'?: string;
-  'apiVersion'?: string;
-  'smsUrl'?: string;
-  'smsMethod'?: string;
-  'smsFallbackUrl'?: string;
-  'smsFallbackMethod'?: string;
+  friendlyName?: string;
+  apiVersion?: string;
+  smsUrl?: string;
+  smsMethod?: string;
+  smsFallbackUrl?: string;
+  smsFallbackMethod?: string;
 }
 /**
  * Options to pass to each
@@ -143,8 +143,8 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  'accountSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
@@ -181,12 +181,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['apiVersion'] !== undefined) data['ApiVersion'] = params['apiVersion'];
-    if (params['smsUrl'] !== undefined) data['SmsUrl'] = params['smsUrl'];
-    if (params['smsMethod'] !== undefined) data['SmsMethod'] = params['smsMethod'];
-    if (params['smsFallbackUrl'] !== undefined) data['SmsFallbackUrl'] = params['smsFallbackUrl'];
-    if (params['smsFallbackMethod'] !== undefined) data['SmsFallbackMethod'] = params['smsFallbackMethod'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.apiVersion !== undefined) data['ApiVersion'] = params.apiVersion;
+    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
+    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
+    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
+    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -521,9 +521,9 @@ export function ShortCodeListInstance(version: V2010, accountSid: string): Short
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['shortCode'] !== undefined) data['ShortCode'] = params['shortCode'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.shortCode !== undefined) data['ShortCode'] = params.shortCode;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -44,7 +44,7 @@ export interface SchemaContext {
 }
 
 export interface SchemaContextSolution {
-  'id'?: string;
+  id?: string;
 }
 
 export class SchemaContextImpl implements SchemaContext {

@@ -34,8 +34,8 @@ import { KeyListInstance } from "./fleet/key";
  * @property { string } [defaultDeploymentSid] Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
  */
 export interface FleetContextUpdateOptions {
-  'friendlyName'?: string;
-  'defaultDeploymentSid'?: string;
+  friendlyName?: string;
+  defaultDeploymentSid?: string;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface FleetContextUpdateOptions {
  * @property { string } [friendlyName] Provides a human readable descriptive text for this Fleet, up to 256 characters long.
  */
 export interface FleetListInstanceCreateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -150,7 +150,7 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class FleetContextImpl implements FleetContext {
@@ -223,8 +223,8 @@ export class FleetContextImpl implements FleetContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['defaultDeploymentSid'] !== undefined) data['DefaultDeploymentSid'] = params['defaultDeploymentSid'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.defaultDeploymentSid !== undefined) data['DefaultDeploymentSid'] = params.defaultDeploymentSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -595,7 +595,7 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -622,7 +622,7 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

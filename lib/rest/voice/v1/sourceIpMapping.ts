@@ -29,7 +29,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingContextUpdateOptions {
-  'sipDomainSid': string;
+  sipDomainSid: string;
 }
 
 /**
@@ -39,8 +39,8 @@ export interface SourceIpMappingContextUpdateOptions {
  * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingListInstanceCreateOptions {
-  'ipRecordSid': string;
-  'sipDomainSid': string;
+  ipRecordSid: string;
+  sipDomainSid: string;
 }
 /**
  * Options to pass to each
@@ -134,7 +134,7 @@ export interface SourceIpMappingContext {
 }
 
 export interface SourceIpMappingContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class SourceIpMappingContextImpl implements SourceIpMappingContext {
@@ -178,13 +178,13 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['sipDomainSid'] === null || params['sipDomainSid'] === undefined) {
-      throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
+    if (params.sipDomainSid === null || params.sipDomainSid === undefined) {
+      throw new Error('Required parameter "params.sipDomainSid" missing.');
     }
 
     const data: any = {};
 
-    data['SipDomainSid'] = params['sipDomainSid'];
+    data['SipDomainSid'] = params.sipDomainSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -485,18 +485,18 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['ipRecordSid'] === null || params['ipRecordSid'] === undefined) {
-      throw new Error('Required parameter "params[\'ipRecordSid\']" missing.');
+    if (params.ipRecordSid === null || params.ipRecordSid === undefined) {
+      throw new Error('Required parameter "params.ipRecordSid" missing.');
     }
 
-    if (params['sipDomainSid'] === null || params['sipDomainSid'] === undefined) {
-      throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
+    if (params.sipDomainSid === null || params.sipDomainSid === undefined) {
+      throw new Error('Required parameter "params.sipDomainSid" missing.');
     }
 
     const data: any = {};
 
-    data['IpRecordSid'] = params['ipRecordSid'];
-    data['SipDomainSid'] = params['sipDomainSid'];
+    data['IpRecordSid'] = params.ipRecordSid;
+    data['SipDomainSid'] = params.sipDomainSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -523,7 +523,7 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

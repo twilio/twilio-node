@@ -31,9 +31,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Document.
  */
 export interface DocumentPermissionContextUpdateOptions {
-  'read': boolean;
-  'write': boolean;
-  'manage': boolean;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
 }
 /**
  * Options to pass to each
@@ -127,9 +127,9 @@ export interface DocumentPermissionContext {
 }
 
 export interface DocumentPermissionContextSolution {
-  'serviceSid'?: string;
-  'documentSid'?: string;
-  'identity'?: string;
+  serviceSid?: string;
+  documentSid?: string;
+  identity?: string;
 }
 
 export class DocumentPermissionContextImpl implements DocumentPermissionContext {
@@ -173,23 +173,23 @@ export class DocumentPermissionContextImpl implements DocumentPermissionContext 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['read'] === null || params['read'] === undefined) {
-      throw new Error('Required parameter "params[\'read\']" missing.');
+    if (params.read === null || params.read === undefined) {
+      throw new Error('Required parameter "params.read" missing.');
     }
 
-    if (params['write'] === null || params['write'] === undefined) {
-      throw new Error('Required parameter "params[\'write\']" missing.');
+    if (params.write === null || params.write === undefined) {
+      throw new Error('Required parameter "params.write" missing.');
     }
 
-    if (params['manage'] === null || params['manage'] === undefined) {
-      throw new Error('Required parameter "params[\'manage\']" missing.');
+    if (params.manage === null || params.manage === undefined) {
+      throw new Error('Required parameter "params.manage" missing.');
     }
 
     const data: any = {};
 
-    data['Read'] = serialize.bool(params['read']);
-    data['Write'] = serialize.bool(params['write']);
-    data['Manage'] = serialize.bool(params['manage']);
+    data['Read'] = serialize.bool(params.read);
+    data['Write'] = serialize.bool(params.write);
+    data['Manage'] = serialize.bool(params.manage);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -499,7 +499,7 @@ export function DocumentPermissionListInstance(version: Sync, serviceSid: string
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } updateRequest URL encoded JSON array of update objects. example : &#x60;[ { \\\&quot;iso_code\\\&quot;: \\\&quot;GB\\\&quot;, \\\&quot;low_risk_numbers_enabled\\\&quot;: \\\&quot;true\\\&quot;, \\\&quot;high_risk_special_numbers_enabled\\\&quot;:\\\&quot;true\\\&quot;, \\\&quot;high_risk_tollfraud_numbers_enabled\\\&quot;: \\\&quot;false\\\&quot; } ]&#x60;
  */
 export interface BulkCountryUpdateListInstanceCreateOptions {
-  'updateRequest': string;
+  updateRequest: string;
 }
 
 export interface BulkCountryUpdateListInstance {
@@ -74,13 +74,13 @@ export function BulkCountryUpdateListInstance(version: V1): BulkCountryUpdateLis
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['updateRequest'] === null || params['updateRequest'] === undefined) {
-      throw new Error('Required parameter "params[\'updateRequest\']" missing.');
+    if (params.updateRequest === null || params.updateRequest === undefined) {
+      throw new Error('Required parameter "params.updateRequest" missing.');
     }
 
     const data: any = {};
 
-    data['UpdateRequest'] = params['updateRequest'];
+    data['UpdateRequest'] = params.updateRequest;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

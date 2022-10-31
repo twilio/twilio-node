@@ -58,8 +58,8 @@ type AccountType = 'Trial'|'Full';
  * @property { AccountStatus } [status] 
  */
 export interface AccountContextUpdateOptions {
-  'friendlyName'?: string;
-  'status'?: AccountStatus;
+  friendlyName?: string;
+  status?: AccountStatus;
 }
 
 /**
@@ -68,7 +68,7 @@ export interface AccountContextUpdateOptions {
  * @property { string } [friendlyName] A human readable description of the account to create, defaults to &#x60;SubAccount Created at {YYYY-MM-DD HH:MM meridian}&#x60;
  */
 export interface AccountListInstanceCreateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -196,7 +196,7 @@ export interface AccountContext {
 }
 
 export interface AccountContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class AccountContextImpl implements AccountContext {
@@ -377,8 +377,8 @@ export class AccountContextImpl implements AccountContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.status !== undefined) data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -878,7 +878,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -905,9 +905,9 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } channelEndpointSid The SID of an channel endpoint
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions {
-  'channelEndpointType': string;
-  'channelEndpointSid': string;
+  channelEndpointType: string;
+  channelEndpointSid: string;
 }
 /**
  * Options to pass to each
@@ -125,8 +125,8 @@ export interface TrustProductsChannelEndpointAssignmentContext {
 }
 
 export interface TrustProductsChannelEndpointAssignmentContextSolution {
-  'trustProductSid'?: string;
-  'sid'?: string;
+  trustProductSid?: string;
+  sid?: string;
 }
 
 export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustProductsChannelEndpointAssignmentContext {
@@ -443,18 +443,18 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['channelEndpointType'] === null || params['channelEndpointType'] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
+    if (params.channelEndpointType === null || params.channelEndpointType === undefined) {
+      throw new Error('Required parameter "params.channelEndpointType" missing.');
     }
 
-    if (params['channelEndpointSid'] === null || params['channelEndpointSid'] === undefined) {
-      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
+    if (params.channelEndpointSid === null || params.channelEndpointSid === undefined) {
+      throw new Error('Required parameter "params.channelEndpointSid" missing.');
     }
 
     const data: any = {};
 
-    data['ChannelEndpointType'] = params['channelEndpointType'];
-    data['ChannelEndpointSid'] = params['channelEndpointSid'];
+    data['ChannelEndpointType'] = params.channelEndpointType;
+    data['ChannelEndpointSid'] = params.channelEndpointSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -481,9 +481,9 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
 
     const data: any = {};
 
-    if (params['channelEndpointSid'] !== undefined) data['ChannelEndpointSid'] = params['channelEndpointSid'];
-    if (params['channelEndpointSids'] !== undefined) data['ChannelEndpointSids'] = params['channelEndpointSids'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.channelEndpointSid !== undefined) data['ChannelEndpointSid'] = params.channelEndpointSid;
+    if (params.channelEndpointSids !== undefined) data['ChannelEndpointSids'] = params.channelEndpointSids;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -35,7 +35,7 @@ import { UserListInstance } from "./service/user";
  * @property { string } friendlyName The human-readable name of this service, limited to 256 characters. Optional.
  */
 export interface ServiceListInstanceCreateOptions {
-  'friendlyName': string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -123,7 +123,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -517,13 +517,13 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
+    data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -550,7 +550,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

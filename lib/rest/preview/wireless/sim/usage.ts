@@ -20,19 +20,18 @@ const serialize = require("../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to fetch a UsageInstance
  *
  * @property { string } [end] 
  * @property { string } [start] 
  */
-export interface UsageContextFetchOptions {
-  'end'?: string;
-  'start'?: string;
+export interface UsageListInstanceFetchOptions {
+  end?: string;
+  start?: string;
 }
 
-export interface UsageContext {
+export interface UsageListInstance {
 
 
   /**
@@ -46,12 +45,12 @@ export interface UsageContext {
   /**
    * Fetch a UsageInstance
    *
-   * @param { UsageContextFetchOptions } params - Parameter for request
+   * @param { UsageListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UsageInstance
    */
-  fetch(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(params: UsageListInstanceFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
   fetch(params?: any, callback?: any): Promise<UsageInstance>
 
 
@@ -62,22 +61,27 @@ export interface UsageContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageContextSolution {
-  'simSid'?: string;
+export interface UsageSolution {
+  simSid?: string;
 }
 
-export class UsageContextImpl implements UsageContext {
-  protected _solution: UsageContextSolution;
-  protected _uri: string;
+interface UsageListInstanceImpl extends UsageListInstance {}
+class UsageListInstanceImpl implements UsageListInstance {
+  _version?: Wireless;
+  _solution?: UsageSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: Wireless, simSid: string) {
-    this._solution = { simSid };
-    this._uri = `/Sims/${simSid}/Usage`;
-  }
+export function UsageListInstance(version: Wireless, simSid: string): UsageListInstance {
+  const instance = {} as UsageListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<UsageInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = { simSid };
+  instance._uri = `/Sims/${simSid}/Usage`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<UsageInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -86,12 +90,12 @@ export class UsageContextImpl implements UsageContext {
 
     const data: any = {};
 
-    if (params['end'] !== undefined) data['End'] = params['end'];
-    if (params['start'] !== undefined) data['Start'] = params['start'];
+    if (params.end !== undefined) data['End'] = params.end;
+    if (params.start !== undefined) data['Start'] = params.start;
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UsageInstance(operationVersion, payload, this._solution.simSid));
@@ -101,20 +105,17 @@ export class UsageContextImpl implements UsageContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface UsagePayload extends UsageResource{
@@ -133,8 +134,6 @@ interface UsageResource {
 }
 
 export class UsageInstance {
-  protected _solution: UsageContextSolution;
-  protected _context?: UsageContext;
 
   constructor(protected _version: Wireless, payload: UsagePayload, simSid?: string) {
     this.simSid = payload.sim_sid;
@@ -147,7 +146,6 @@ export class UsageInstance {
     this.dataCosts = payload.data_costs;
     this.url = payload.url;
 
-    this._solution = { simSid: simSid || this.simSid };
   }
 
   simSid?: string | null;
@@ -159,33 +157,6 @@ export class UsageInstance {
   dataUsage?: any | null;
   dataCosts?: any | null;
   url?: string | null;
-
-  private get _proxy(): UsageContext {
-    this._context = this._context || new UsageContextImpl(this._version, this._solution.simSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a UsageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsageInstance
-   */
-  fetch(callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
-  /**
-   * Fetch a UsageInstance
-   *
-   * @param { UsageContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsageInstance
-   */
-  fetch(params: UsageContextFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
-  fetch(params?: any, callback?: any): Promise<UsageInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -210,53 +181,5 @@ export class UsageInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface UsageListInstance {
-  (): UsageContext;
-  get(): UsageContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  simSid?: string;
-}
-
-interface UsageListInstanceImpl extends UsageListInstance {}
-class UsageListInstanceImpl implements UsageListInstance {
-  _version?: Wireless;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function UsageListInstance(version: Wireless, simSid: string): UsageListInstance {
-  const instance = (() => instance.get()) as UsageListInstanceImpl;
-
-  instance.get = function get(): UsageContext {
-    return new UsageContextImpl(version, simSid);
-  }
-
-  instance._version = version;
-  instance._solution = { simSid };
-  instance._uri = `/Sims/${simSid}/Usage`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

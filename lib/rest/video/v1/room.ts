@@ -38,7 +38,7 @@ type RoomVideoCodec = 'VP8'|'H264';
  * @property { RoomRoomStatus } status 
  */
 export interface RoomContextUpdateOptions {
-  'status': RoomRoomStatus;
+  status: RoomRoomStatus;
 }
 
 /**
@@ -61,21 +61,21 @@ export interface RoomContextUpdateOptions {
  * @property { boolean } [largeRoom] When set to true, indicated that this is the large room.
  */
 export interface RoomListInstanceCreateOptions {
-  'enableTurn'?: boolean;
-  'type'?: RoomRoomType;
-  'uniqueName'?: string;
-  'statusCallback'?: string;
-  'statusCallbackMethod'?: string;
-  'maxParticipants'?: number;
-  'recordParticipantsOnConnect'?: boolean;
-  'videoCodecs'?: Array<RoomVideoCodec>;
-  'mediaRegion'?: string;
-  'recordingRules'?: any;
-  'audioOnly'?: boolean;
-  'maxParticipantDuration'?: number;
-  'emptyRoomTimeout'?: number;
-  'unusedRoomTimeout'?: number;
-  'largeRoom'?: boolean;
+  enableTurn?: boolean;
+  type?: RoomRoomType;
+  uniqueName?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  maxParticipants?: number;
+  recordParticipantsOnConnect?: boolean;
+  videoCodecs?: Array<RoomVideoCodec>;
+  mediaRegion?: string;
+  recordingRules?: any;
+  audioOnly?: boolean;
+  maxParticipantDuration?: number;
+  emptyRoomTimeout?: number;
+  unusedRoomTimeout?: number;
+  largeRoom?: boolean;
 }
 /**
  * Options to pass to each
@@ -186,7 +186,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -236,13 +236,13 @@ export class RoomContextImpl implements RoomContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params['status'];
+    data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -686,21 +686,21 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const data: any = {};
 
-    if (params['enableTurn'] !== undefined) data['EnableTurn'] = serialize.bool(params['enableTurn']);
-    if (params['type'] !== undefined) data['Type'] = params['type'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
-    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
-    if (params['maxParticipants'] !== undefined) data['MaxParticipants'] = params['maxParticipants'];
-    if (params['recordParticipantsOnConnect'] !== undefined) data['RecordParticipantsOnConnect'] = serialize.bool(params['recordParticipantsOnConnect']);
-    if (params['videoCodecs'] !== undefined) data['VideoCodecs'] = serialize.map(params['videoCodecs'], ((e) => e));
-    if (params['mediaRegion'] !== undefined) data['MediaRegion'] = params['mediaRegion'];
-    if (params['recordingRules'] !== undefined) data['RecordingRules'] = params['recordingRules'];
-    if (params['audioOnly'] !== undefined) data['AudioOnly'] = serialize.bool(params['audioOnly']);
-    if (params['maxParticipantDuration'] !== undefined) data['MaxParticipantDuration'] = params['maxParticipantDuration'];
-    if (params['emptyRoomTimeout'] !== undefined) data['EmptyRoomTimeout'] = params['emptyRoomTimeout'];
-    if (params['unusedRoomTimeout'] !== undefined) data['UnusedRoomTimeout'] = params['unusedRoomTimeout'];
-    if (params['largeRoom'] !== undefined) data['LargeRoom'] = serialize.bool(params['largeRoom']);
+    if (params.enableTurn !== undefined) data['EnableTurn'] = serialize.bool(params.enableTurn);
+    if (params.type !== undefined) data['Type'] = params.type;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.maxParticipants !== undefined) data['MaxParticipants'] = params.maxParticipants;
+    if (params.recordParticipantsOnConnect !== undefined) data['RecordParticipantsOnConnect'] = serialize.bool(params.recordParticipantsOnConnect);
+    if (params.videoCodecs !== undefined) data['VideoCodecs'] = serialize.map(params.videoCodecs, ((e) => e));
+    if (params.mediaRegion !== undefined) data['MediaRegion'] = params.mediaRegion;
+    if (params.recordingRules !== undefined) data['RecordingRules'] = params.recordingRules;
+    if (params.audioOnly !== undefined) data['AudioOnly'] = serialize.bool(params.audioOnly);
+    if (params.maxParticipantDuration !== undefined) data['MaxParticipantDuration'] = params.maxParticipantDuration;
+    if (params.emptyRoomTimeout !== undefined) data['EmptyRoomTimeout'] = params.emptyRoomTimeout;
+    if (params.unusedRoomTimeout !== undefined) data['UnusedRoomTimeout'] = params.unusedRoomTimeout;
+    if (params.largeRoom !== undefined) data['LargeRoom'] = serialize.bool(params.largeRoom);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -727,11 +727,11 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['dateCreatedAfter'] !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params['dateCreatedAfter']);
-    if (params['dateCreatedBefore'] !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params['dateCreatedBefore']);
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
+    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

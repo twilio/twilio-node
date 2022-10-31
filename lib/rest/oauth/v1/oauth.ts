@@ -20,8 +20,7 @@ const serialize = require("../../../base/serialize");
 
 
 
-
-export interface OauthContext {
+export interface OauthListInstance {
 
 
   /**
@@ -41,22 +40,27 @@ export interface OauthContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OauthContextSolution {
+export interface OauthSolution {
 }
 
-export class OauthContextImpl implements OauthContext {
-  protected _solution: OauthContextSolution;
-  protected _uri: string;
+interface OauthListInstanceImpl extends OauthListInstance {}
+class OauthListInstanceImpl implements OauthListInstance {
+  _version?: V1;
+  _solution?: OauthSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1) {
-    this._solution = {  };
-    this._uri = `/certs`;
-  }
+export function OauthListInstance(version: V1): OauthListInstance {
+  const instance = {} as OauthListInstanceImpl;
 
-  fetch(callback?: any): Promise<OauthInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/certs`;
+
+  instance.fetch = function fetch(callback?: any): Promise<OauthInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new OauthInstance(operationVersion, payload));
@@ -66,20 +70,17 @@ export class OauthContextImpl implements OauthContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface OauthPayload extends OauthResource{
@@ -91,14 +92,11 @@ interface OauthResource {
 }
 
 export class OauthInstance {
-  protected _solution: OauthContextSolution;
-  protected _context?: OauthContext;
 
   constructor(protected _version: V1, payload: OauthPayload) {
     this.keys = payload.keys;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -106,23 +104,6 @@ export class OauthInstance {
    */
   keys?: any | null;
   url?: string | null;
-
-  private get _proxy(): OauthContext {
-    this._context = this._context || new OauthContextImpl(this._version);
-    return this._context;
-  }
-
-  /**
-   * Fetch a OauthInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OauthInstance
-   */
-  fetch(callback?: (error: Error | null, item?: OauthInstance) => any): Promise<OauthInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -140,52 +121,5 @@ export class OauthInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface OauthListInstance {
-  (): OauthContext;
-  get(): OauthContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-}
-
-interface OauthListInstanceImpl extends OauthListInstance {}
-class OauthListInstanceImpl implements OauthListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function OauthListInstance(version: V1): OauthListInstance {
-  const instance = (() => instance.get()) as OauthListInstanceImpl;
-
-  instance.get = function get(): OauthContext {
-    return new OauthContextImpl(version);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/certs`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

@@ -191,29 +191,29 @@ type IncomingPhoneNumberMobileVoiceReceiveMode = 'voice'|'fax';
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface MobileListInstanceCreateOptions {
-  'phoneNumber': string;
-  'apiVersion'?: string;
-  'friendlyName'?: string;
-  'smsApplicationSid'?: string;
-  'smsFallbackMethod'?: string;
-  'smsFallbackUrl'?: string;
-  'smsMethod'?: string;
-  'smsUrl'?: string;
-  'statusCallback'?: string;
-  'statusCallbackMethod'?: string;
-  'voiceApplicationSid'?: string;
-  'voiceCallerIdLookup'?: boolean;
-  'voiceFallbackMethod'?: string;
-  'voiceFallbackUrl'?: string;
-  'voiceMethod'?: string;
-  'voiceUrl'?: string;
-  'identitySid'?: string;
-  'addressSid'?: string;
-  'emergencyStatus'?: IncomingPhoneNumberMobileEmergencyStatus;
-  'emergencyAddressSid'?: string;
-  'trunkSid'?: string;
-  'voiceReceiveMode'?: IncomingPhoneNumberMobileVoiceReceiveMode;
-  'bundleSid'?: string;
+  phoneNumber: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  identitySid?: string;
+  addressSid?: string;
+  emergencyStatus?: IncomingPhoneNumberMobileEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberMobileVoiceReceiveMode;
+  bundleSid?: string;
 }
 /**
  * Options to pass to each
@@ -436,35 +436,35 @@ export function MobileListInstance(version: V2010, accountSid: string): MobileLi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['phoneNumber'] === null || params['phoneNumber'] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+    if (params.phoneNumber === null || params.phoneNumber === undefined) {
+      throw new Error('Required parameter "params.phoneNumber" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumber'] = params['phoneNumber'];
-    if (params['apiVersion'] !== undefined) data['ApiVersion'] = params['apiVersion'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['smsApplicationSid'] !== undefined) data['SmsApplicationSid'] = params['smsApplicationSid'];
-    if (params['smsFallbackMethod'] !== undefined) data['SmsFallbackMethod'] = params['smsFallbackMethod'];
-    if (params['smsFallbackUrl'] !== undefined) data['SmsFallbackUrl'] = params['smsFallbackUrl'];
-    if (params['smsMethod'] !== undefined) data['SmsMethod'] = params['smsMethod'];
-    if (params['smsUrl'] !== undefined) data['SmsUrl'] = params['smsUrl'];
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
-    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
-    if (params['voiceApplicationSid'] !== undefined) data['VoiceApplicationSid'] = params['voiceApplicationSid'];
-    if (params['voiceCallerIdLookup'] !== undefined) data['VoiceCallerIdLookup'] = serialize.bool(params['voiceCallerIdLookup']);
-    if (params['voiceFallbackMethod'] !== undefined) data['VoiceFallbackMethod'] = params['voiceFallbackMethod'];
-    if (params['voiceFallbackUrl'] !== undefined) data['VoiceFallbackUrl'] = params['voiceFallbackUrl'];
-    if (params['voiceMethod'] !== undefined) data['VoiceMethod'] = params['voiceMethod'];
-    if (params['voiceUrl'] !== undefined) data['VoiceUrl'] = params['voiceUrl'];
-    if (params['identitySid'] !== undefined) data['IdentitySid'] = params['identitySid'];
-    if (params['addressSid'] !== undefined) data['AddressSid'] = params['addressSid'];
-    if (params['emergencyStatus'] !== undefined) data['EmergencyStatus'] = params['emergencyStatus'];
-    if (params['emergencyAddressSid'] !== undefined) data['EmergencyAddressSid'] = params['emergencyAddressSid'];
-    if (params['trunkSid'] !== undefined) data['TrunkSid'] = params['trunkSid'];
-    if (params['voiceReceiveMode'] !== undefined) data['VoiceReceiveMode'] = params['voiceReceiveMode'];
-    if (params['bundleSid'] !== undefined) data['BundleSid'] = params['bundleSid'];
+    data['PhoneNumber'] = params.phoneNumber;
+    if (params.apiVersion !== undefined) data['ApiVersion'] = params.apiVersion;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.smsApplicationSid !== undefined) data['SmsApplicationSid'] = params.smsApplicationSid;
+    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
+    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
+    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
+    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.voiceApplicationSid !== undefined) data['VoiceApplicationSid'] = params.voiceApplicationSid;
+    if (params.voiceCallerIdLookup !== undefined) data['VoiceCallerIdLookup'] = serialize.bool(params.voiceCallerIdLookup);
+    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
+    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
+    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
+    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
+    if (params.identitySid !== undefined) data['IdentitySid'] = params.identitySid;
+    if (params.addressSid !== undefined) data['AddressSid'] = params.addressSid;
+    if (params.emergencyStatus !== undefined) data['EmergencyStatus'] = params.emergencyStatus;
+    if (params.emergencyAddressSid !== undefined) data['EmergencyAddressSid'] = params.emergencyAddressSid;
+    if (params.trunkSid !== undefined) data['TrunkSid'] = params.trunkSid;
+    if (params.voiceReceiveMode !== undefined) data['VoiceReceiveMode'] = params.voiceReceiveMode;
+    if (params.bundleSid !== undefined) data['BundleSid'] = params.bundleSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -491,11 +491,11 @@ export function MobileListInstance(version: V2010, accountSid: string): MobileLi
 
     const data: any = {};
 
-    if (params['beta'] !== undefined) data['Beta'] = serialize.bool(params['beta']);
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['phoneNumber'] !== undefined) data['PhoneNumber'] = params['phoneNumber'];
-    if (params['origin'] !== undefined) data['Origin'] = params['origin'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.beta !== undefined) data['Beta'] = serialize.bool(params.beta);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
+    if (params.origin !== undefined) data['Origin'] = params.origin;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

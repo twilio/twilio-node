@@ -20,17 +20,16 @@ const serialize = require("../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to update a AssistantFallbackActionsInstance
  *
  * @property { any } [fallbackActions] 
  */
-export interface AssistantFallbackActionsContextUpdateOptions {
-  'fallbackActions'?: any;
+export interface AssistantFallbackActionsListInstanceUpdateOptions {
+  fallbackActions?: any;
 }
 
-export interface AssistantFallbackActionsContext {
+export interface AssistantFallbackActionsListInstance {
 
 
   /**
@@ -54,12 +53,12 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
+   * @param { AssistantFallbackActionsListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
-  update(params: AssistantFallbackActionsContextUpdateOptions, callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  update(params: AssistantFallbackActionsListInstanceUpdateOptions, callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
   update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance>
 
 
@@ -70,23 +69,28 @@ export interface AssistantFallbackActionsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssistantFallbackActionsContextSolution {
-  'assistantSid'?: string;
+export interface AssistantFallbackActionsSolution {
+  assistantSid?: string;
 }
 
-export class AssistantFallbackActionsContextImpl implements AssistantFallbackActionsContext {
-  protected _solution: AssistantFallbackActionsContextSolution;
-  protected _uri: string;
+interface AssistantFallbackActionsListInstanceImpl extends AssistantFallbackActionsListInstance {}
+class AssistantFallbackActionsListInstanceImpl implements AssistantFallbackActionsListInstance {
+  _version?: Understand;
+  _solution?: AssistantFallbackActionsSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: Understand, assistantSid: string) {
-    this._solution = { assistantSid };
-    this._uri = `/Assistants/${assistantSid}/FallbackActions`;
-  }
+export function AssistantFallbackActionsListInstance(version: Understand, assistantSid: string): AssistantFallbackActionsListInstance {
+  const instance = {} as AssistantFallbackActionsListInstanceImpl;
 
-  fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/FallbackActions`;
+
+  instance.fetch = function fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
@@ -96,10 +100,10 @@ export class AssistantFallbackActionsContextImpl implements AssistantFallbackAct
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -108,12 +112,12 @@ export class AssistantFallbackActionsContextImpl implements AssistantFallbackAct
 
     const data: any = {};
 
-    if (params['fallbackActions'] !== undefined) data['FallbackActions'] = params['fallbackActions'];
+    if (params.fallbackActions !== undefined) data['FallbackActions'] = params.fallbackActions;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
@@ -123,20 +127,17 @@ export class AssistantFallbackActionsContextImpl implements AssistantFallbackAct
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface AssistantFallbackActionsPayload extends AssistantFallbackActionsResource{
@@ -150,8 +151,6 @@ interface AssistantFallbackActionsResource {
 }
 
 export class AssistantFallbackActionsInstance {
-  protected _solution: AssistantFallbackActionsContextSolution;
-  protected _context?: AssistantFallbackActionsContext;
 
   constructor(protected _version: Understand, payload: AssistantFallbackActionsPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -159,52 +158,12 @@ export class AssistantFallbackActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   accountSid?: string | null;
   assistantSid?: string | null;
   url?: string | null;
   data?: any | null;
-
-  private get _proxy(): AssistantFallbackActionsContext {
-    this._context = this._context || new AssistantFallbackActionsContextImpl(this._version, this._solution.assistantSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a AssistantFallbackActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a AssistantFallbackActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
-   */
-  update(callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
-  /**
-   * Update a AssistantFallbackActionsInstance
-   *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
-   */
-  update(params: AssistantFallbackActionsContextUpdateOptions, callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
-  update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -224,53 +183,5 @@ export class AssistantFallbackActionsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface AssistantFallbackActionsListInstance {
-  (): AssistantFallbackActionsContext;
-  get(): AssistantFallbackActionsContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  assistantSid?: string;
-}
-
-interface AssistantFallbackActionsListInstanceImpl extends AssistantFallbackActionsListInstance {}
-class AssistantFallbackActionsListInstanceImpl implements AssistantFallbackActionsListInstance {
-  _version?: Understand;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function AssistantFallbackActionsListInstance(version: Understand, assistantSid: string): AssistantFallbackActionsListInstance {
-  const instance = (() => instance.get()) as AssistantFallbackActionsListInstanceImpl;
-
-  instance.get = function get(): AssistantFallbackActionsContext {
-    return new AssistantFallbackActionsContextImpl(version, assistantSid);
-  }
-
-  instance._version = version;
-  instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/FallbackActions`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

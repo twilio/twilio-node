@@ -31,8 +31,8 @@ import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedA
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
  */
 export interface InstalledAddOnContextUpdateOptions {
-  'configuration'?: any;
-  'uniqueName'?: string;
+  configuration?: any;
+  uniqueName?: string;
 }
 
 /**
@@ -44,10 +44,10 @@ export interface InstalledAddOnContextUpdateOptions {
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
  */
 export interface InstalledAddOnListInstanceCreateOptions {
-  'availableAddOnSid': string;
-  'acceptTermsOfService': boolean;
-  'configuration'?: any;
-  'uniqueName'?: string;
+  availableAddOnSid: string;
+  acceptTermsOfService: boolean;
+  configuration?: any;
+  uniqueName?: string;
 }
 /**
  * Options to pass to each
@@ -150,7 +150,7 @@ export interface InstalledAddOnContext {
 }
 
 export interface InstalledAddOnContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class InstalledAddOnContextImpl implements InstalledAddOnContext {
@@ -205,8 +205,8 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
 
     const data: any = {};
 
-    if (params['configuration'] !== undefined) data['Configuration'] = params['configuration'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params.configuration !== undefined) data['Configuration'] = params.configuration;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -550,20 +550,20 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['availableAddOnSid'] === null || params['availableAddOnSid'] === undefined) {
-      throw new Error('Required parameter "params[\'availableAddOnSid\']" missing.');
+    if (params.availableAddOnSid === null || params.availableAddOnSid === undefined) {
+      throw new Error('Required parameter "params.availableAddOnSid" missing.');
     }
 
-    if (params['acceptTermsOfService'] === null || params['acceptTermsOfService'] === undefined) {
-      throw new Error('Required parameter "params[\'acceptTermsOfService\']" missing.');
+    if (params.acceptTermsOfService === null || params.acceptTermsOfService === undefined) {
+      throw new Error('Required parameter "params.acceptTermsOfService" missing.');
     }
 
     const data: any = {};
 
-    data['AvailableAddOnSid'] = params['availableAddOnSid'];
-    data['AcceptTermsOfService'] = serialize.bool(params['acceptTermsOfService']);
-    if (params['configuration'] !== undefined) data['Configuration'] = params['configuration'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    data['AvailableAddOnSid'] = params.availableAddOnSid;
+    data['AcceptTermsOfService'] = serialize.bool(params.acceptTermsOfService);
+    if (params.configuration !== undefined) data['Configuration'] = params.configuration;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -590,7 +590,7 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

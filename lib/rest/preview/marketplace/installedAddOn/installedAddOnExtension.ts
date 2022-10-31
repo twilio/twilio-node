@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } enabled Whether the Extension should be invoked.
  */
 export interface InstalledAddOnExtensionContextUpdateOptions {
-  'enabled': boolean;
+  enabled: boolean;
 }
 /**
  * Options to pass to each
@@ -113,8 +113,8 @@ export interface InstalledAddOnExtensionContext {
 }
 
 export interface InstalledAddOnExtensionContextSolution {
-  'installedAddOnSid'?: string;
-  'sid'?: string;
+  installedAddOnSid?: string;
+  sid?: string;
 }
 
 export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensionContext {
@@ -146,13 +146,13 @@ export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['enabled'] === null || params['enabled'] === undefined) {
-      throw new Error('Required parameter "params[\'enabled\']" missing.');
+    if (params.enabled === null || params.enabled === undefined) {
+      throw new Error('Required parameter "params.enabled" missing.');
     }
 
     const data: any = {};
 
-    data['Enabled'] = serialize.bool(params['enabled']);
+    data['Enabled'] = serialize.bool(params.enabled);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -442,7 +442,7 @@ export function InstalledAddOnExtensionListInstance(version: Marketplace, instal
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

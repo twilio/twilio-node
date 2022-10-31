@@ -94,9 +94,9 @@ export interface SubscribedTrackContext {
 }
 
 export interface SubscribedTrackContextSolution {
-  'roomSid'?: string;
-  'participantSid'?: string;
-  'sid'?: string;
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
 }
 
 export class SubscribedTrackContextImpl implements SubscribedTrackContext {
@@ -401,7 +401,7 @@ export function SubscribedTrackListInstance(version: V1, roomSid: string, partic
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

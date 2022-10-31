@@ -27,8 +27,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
  */
 export interface ExternalCampaignListInstanceCreateOptions {
-  'campaignId': string;
-  'messagingServiceSid': string;
+  campaignId: string;
+  messagingServiceSid: string;
 }
 
 export interface ExternalCampaignListInstance {
@@ -76,18 +76,18 @@ export function ExternalCampaignListInstance(version: V1): ExternalCampaignListI
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['campaignId'] === null || params['campaignId'] === undefined) {
-      throw new Error('Required parameter "params[\'campaignId\']" missing.');
+    if (params.campaignId === null || params.campaignId === undefined) {
+      throw new Error('Required parameter "params.campaignId" missing.');
     }
 
-    if (params['messagingServiceSid'] === null || params['messagingServiceSid'] === undefined) {
-      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
+    if (params.messagingServiceSid === null || params.messagingServiceSid === undefined) {
+      throw new Error('Required parameter "params.messagingServiceSid" missing.');
     }
 
     const data: any = {};
 
-    data['CampaignId'] = params['campaignId'];
-    data['MessagingServiceSid'] = params['messagingServiceSid'];
+    data['CampaignId'] = params.campaignId;
+    data['MessagingServiceSid'] = params.messagingServiceSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

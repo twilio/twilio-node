@@ -261,10 +261,10 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     const data: any = {};
 
-    if (params['end'] !== undefined) data['End'] = serialize.iso8601DateTime(params['end']);
-    if (params['start'] !== undefined) data['Start'] = serialize.iso8601DateTime(params['start']);
-    if (params['granularity'] !== undefined) data['Granularity'] = params['granularity'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.end !== undefined) data['End'] = serialize.iso8601DateTime(params.end);
+    if (params.start !== undefined) data['Start'] = serialize.iso8601DateTime(params.start);
+    if (params.granularity !== undefined) data['Granularity'] = params.granularity;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

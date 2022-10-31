@@ -39,11 +39,11 @@ type WebhookVersion = 'v1'|'v2';
  * @property { WebhookVersion } [version] 
  */
 export interface WebhookContextUpdateOptions {
-  'friendlyName'?: string;
-  'eventTypes'?: Array<string>;
-  'webhookUrl'?: string;
-  'status'?: WebhookStatus;
-  'version'?: WebhookVersion;
+  friendlyName?: string;
+  eventTypes?: Array<string>;
+  webhookUrl?: string;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
 }
 
 /**
@@ -56,11 +56,11 @@ export interface WebhookContextUpdateOptions {
  * @property { WebhookVersion } [version] 
  */
 export interface WebhookListInstanceCreateOptions {
-  'friendlyName': string;
-  'eventTypes': Array<string>;
-  'webhookUrl': string;
-  'status'?: WebhookStatus;
-  'version'?: WebhookVersion;
+  friendlyName: string;
+  eventTypes: Array<string>;
+  webhookUrl: string;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
 }
 /**
  * Options to pass to each
@@ -162,8 +162,8 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -212,11 +212,11 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['eventTypes'] !== undefined) data['EventTypes'] = serialize.map(params['eventTypes'], ((e) => e));
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['version'] !== undefined) data['Version'] = params['version'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.eventTypes !== undefined) data['EventTypes'] = serialize.map(params.eventTypes, ((e) => e));
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.version !== undefined) data['Version'] = params.version;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -559,25 +559,25 @@ export function WebhookListInstance(version: V2, serviceSid: string): WebhookLis
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['eventTypes'] === null || params['eventTypes'] === undefined) {
-      throw new Error('Required parameter "params[\'eventTypes\']" missing.');
+    if (params.eventTypes === null || params.eventTypes === undefined) {
+      throw new Error('Required parameter "params.eventTypes" missing.');
     }
 
-    if (params['webhookUrl'] === null || params['webhookUrl'] === undefined) {
-      throw new Error('Required parameter "params[\'webhookUrl\']" missing.');
+    if (params.webhookUrl === null || params.webhookUrl === undefined) {
+      throw new Error('Required parameter "params.webhookUrl" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['EventTypes'] = serialize.map(params['eventTypes'], ((e) => e));
-    data['WebhookUrl'] = params['webhookUrl'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['version'] !== undefined) data['Version'] = params['version'];
+    data['FriendlyName'] = params.friendlyName;
+    data['EventTypes'] = serialize.map(params.eventTypes, ((e) => e));
+    data['WebhookUrl'] = params.webhookUrl;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.version !== undefined) data['Version'] = params.version;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -604,7 +604,7 @@ export function WebhookListInstance(version: V2, serviceSid: string): WebhookLis
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -32,8 +32,8 @@ type WebChannelChatStatus = 'inactive';
  * @property { string } [postEngagementData] The post-engagement data.
  */
 export interface WebChannelContextUpdateOptions {
-  'chatStatus'?: WebChannelChatStatus;
-  'postEngagementData'?: string;
+  chatStatus?: WebChannelChatStatus;
+  postEngagementData?: string;
 }
 
 /**
@@ -47,12 +47,12 @@ export interface WebChannelContextUpdateOptions {
  * @property { string } [preEngagementData] The pre-engagement data.
  */
 export interface WebChannelListInstanceCreateOptions {
-  'flexFlowSid': string;
-  'identity': string;
-  'customerFriendlyName': string;
-  'chatFriendlyName': string;
-  'chatUniqueName'?: string;
-  'preEngagementData'?: string;
+  flexFlowSid: string;
+  identity: string;
+  customerFriendlyName: string;
+  chatFriendlyName: string;
+  chatUniqueName?: string;
+  preEngagementData?: string;
 }
 /**
  * Options to pass to each
@@ -154,7 +154,7 @@ export interface WebChannelContext {
 }
 
 export interface WebChannelContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class WebChannelContextImpl implements WebChannelContext {
@@ -203,8 +203,8 @@ export class WebChannelContextImpl implements WebChannelContext {
 
     const data: any = {};
 
-    if (params['chatStatus'] !== undefined) data['ChatStatus'] = params['chatStatus'];
-    if (params['postEngagementData'] !== undefined) data['PostEngagementData'] = params['postEngagementData'];
+    if (params.chatStatus !== undefined) data['ChatStatus'] = params.chatStatus;
+    if (params.postEngagementData !== undefined) data['PostEngagementData'] = params.postEngagementData;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -513,30 +513,30 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['flexFlowSid'] === null || params['flexFlowSid'] === undefined) {
-      throw new Error('Required parameter "params[\'flexFlowSid\']" missing.');
+    if (params.flexFlowSid === null || params.flexFlowSid === undefined) {
+      throw new Error('Required parameter "params.flexFlowSid" missing.');
     }
 
-    if (params['identity'] === null || params['identity'] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+    if (params.identity === null || params.identity === undefined) {
+      throw new Error('Required parameter "params.identity" missing.');
     }
 
-    if (params['customerFriendlyName'] === null || params['customerFriendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'customerFriendlyName\']" missing.');
+    if (params.customerFriendlyName === null || params.customerFriendlyName === undefined) {
+      throw new Error('Required parameter "params.customerFriendlyName" missing.');
     }
 
-    if (params['chatFriendlyName'] === null || params['chatFriendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'chatFriendlyName\']" missing.');
+    if (params.chatFriendlyName === null || params.chatFriendlyName === undefined) {
+      throw new Error('Required parameter "params.chatFriendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FlexFlowSid'] = params['flexFlowSid'];
-    data['Identity'] = params['identity'];
-    data['CustomerFriendlyName'] = params['customerFriendlyName'];
-    data['ChatFriendlyName'] = params['chatFriendlyName'];
-    if (params['chatUniqueName'] !== undefined) data['ChatUniqueName'] = params['chatUniqueName'];
-    if (params['preEngagementData'] !== undefined) data['PreEngagementData'] = params['preEngagementData'];
+    data['FlexFlowSid'] = params.flexFlowSid;
+    data['Identity'] = params.identity;
+    data['CustomerFriendlyName'] = params.customerFriendlyName;
+    data['ChatFriendlyName'] = params.chatFriendlyName;
+    if (params.chatUniqueName !== undefined) data['ChatUniqueName'] = params.chatUniqueName;
+    if (params.preEngagementData !== undefined) data['PreEngagementData'] = params.preEngagementData;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -563,7 +563,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

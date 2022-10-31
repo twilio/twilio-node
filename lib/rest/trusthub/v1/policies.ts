@@ -92,7 +92,7 @@ export interface PoliciesContext {
 }
 
 export interface PoliciesContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class PoliciesContextImpl implements PoliciesContext {
@@ -356,7 +356,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

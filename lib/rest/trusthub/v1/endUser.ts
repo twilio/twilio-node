@@ -30,8 +30,8 @@ const serialize = require("../../../base/serialize");
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserContextUpdateOptions {
-  'friendlyName'?: string;
-  'attributes'?: any;
+  friendlyName?: string;
+  attributes?: any;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface EndUserContextUpdateOptions {
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserListInstanceCreateOptions {
-  'friendlyName': string;
-  'type': string;
-  'attributes'?: any;
+  friendlyName: string;
+  type: string;
+  attributes?: any;
 }
 /**
  * Options to pass to each
@@ -146,7 +146,7 @@ export interface EndUserContext {
 }
 
 export interface EndUserContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class EndUserContextImpl implements EndUserContext {
@@ -195,8 +195,8 @@ export class EndUserContextImpl implements EndUserContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -519,19 +519,19 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['type'] === null || params['type'] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+    if (params.type === null || params.type === undefined) {
+      throw new Error('Required parameter "params.type" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['Type'] = params['type'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    data['FriendlyName'] = params.friendlyName;
+    data['Type'] = params.type;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -558,7 +558,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

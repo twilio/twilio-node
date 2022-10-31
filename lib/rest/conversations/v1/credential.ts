@@ -37,13 +37,13 @@ type CredentialPushType = 'apn'|'gcm'|'fcm';
  * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialContextUpdateOptions {
-  'type'?: CredentialPushType;
-  'friendlyName'?: string;
-  'certificate'?: string;
-  'privateKey'?: string;
-  'sandbox'?: boolean;
-  'apiKey'?: string;
-  'secret'?: string;
+  type?: CredentialPushType;
+  friendlyName?: string;
+  certificate?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  apiKey?: string;
+  secret?: string;
 }
 
 /**
@@ -58,13 +58,13 @@ export interface CredentialContextUpdateOptions {
  * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialListInstanceCreateOptions {
-  'type': CredentialPushType;
-  'friendlyName'?: string;
-  'certificate'?: string;
-  'privateKey'?: string;
-  'sandbox'?: boolean;
-  'apiKey'?: string;
-  'secret'?: string;
+  type: CredentialPushType;
+  friendlyName?: string;
+  certificate?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  apiKey?: string;
+  secret?: string;
 }
 /**
  * Options to pass to each
@@ -166,7 +166,7 @@ export interface CredentialContext {
 }
 
 export interface CredentialContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class CredentialContextImpl implements CredentialContext {
@@ -215,13 +215,13 @@ export class CredentialContextImpl implements CredentialContext {
 
     const data: any = {};
 
-    if (params['type'] !== undefined) data['Type'] = params['type'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['certificate'] !== undefined) data['Certificate'] = params['certificate'];
-    if (params['privateKey'] !== undefined) data['PrivateKey'] = params['privateKey'];
-    if (params['sandbox'] !== undefined) data['Sandbox'] = serialize.bool(params['sandbox']);
-    if (params['apiKey'] !== undefined) data['ApiKey'] = params['apiKey'];
-    if (params['secret'] !== undefined) data['Secret'] = params['secret'];
+    if (params.type !== undefined) data['Type'] = params.type;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.certificate !== undefined) data['Certificate'] = params.certificate;
+    if (params.privateKey !== undefined) data['PrivateKey'] = params.privateKey;
+    if (params.sandbox !== undefined) data['Sandbox'] = serialize.bool(params.sandbox);
+    if (params.apiKey !== undefined) data['ApiKey'] = params.apiKey;
+    if (params.secret !== undefined) data['Secret'] = params.secret;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -541,19 +541,19 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['type'] === null || params['type'] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+    if (params.type === null || params.type === undefined) {
+      throw new Error('Required parameter "params.type" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params['type'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['certificate'] !== undefined) data['Certificate'] = params['certificate'];
-    if (params['privateKey'] !== undefined) data['PrivateKey'] = params['privateKey'];
-    if (params['sandbox'] !== undefined) data['Sandbox'] = serialize.bool(params['sandbox']);
-    if (params['apiKey'] !== undefined) data['ApiKey'] = params['apiKey'];
-    if (params['secret'] !== undefined) data['Secret'] = params['secret'];
+    data['Type'] = params.type;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.certificate !== undefined) data['Certificate'] = params.certificate;
+    if (params.privateKey !== undefined) data['PrivateKey'] = params.privateKey;
+    if (params.sandbox !== undefined) data['Sandbox'] = serialize.bool(params.sandbox);
+    if (params.apiKey !== undefined) data['ApiKey'] = params.apiKey;
+    if (params.secret !== undefined) data['Secret'] = params.secret;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -580,7 +580,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

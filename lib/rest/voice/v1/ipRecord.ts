@@ -29,7 +29,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
  */
 export interface IpRecordContextUpdateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -40,9 +40,9 @@ export interface IpRecordContextUpdateOptions {
  * @property { number } [cidrPrefixLength] An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
  */
 export interface IpRecordListInstanceCreateOptions {
-  'ipAddress': string;
-  'friendlyName'?: string;
-  'cidrPrefixLength'?: number;
+  ipAddress: string;
+  friendlyName?: string;
+  cidrPrefixLength?: number;
 }
 /**
  * Options to pass to each
@@ -144,7 +144,7 @@ export interface IpRecordContext {
 }
 
 export interface IpRecordContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class IpRecordContextImpl implements IpRecordContext {
@@ -193,7 +193,7 @@ export class IpRecordContextImpl implements IpRecordContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -516,15 +516,15 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['ipAddress'] === null || params['ipAddress'] === undefined) {
-      throw new Error('Required parameter "params[\'ipAddress\']" missing.');
+    if (params.ipAddress === null || params.ipAddress === undefined) {
+      throw new Error('Required parameter "params.ipAddress" missing.');
     }
 
     const data: any = {};
 
-    data['IpAddress'] = params['ipAddress'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['cidrPrefixLength'] !== undefined) data['CidrPrefixLength'] = params['cidrPrefixLength'];
+    data['IpAddress'] = params.ipAddress;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -551,7 +551,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

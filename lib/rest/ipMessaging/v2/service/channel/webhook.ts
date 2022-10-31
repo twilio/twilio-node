@@ -30,41 +30,41 @@ type ChannelWebhookType = 'webhook'|'trigger'|'studio';
 /**
  * Options to pass to update a WebhookInstance
  *
- * @property { string } [configuration.url] 
- * @property { ChannelWebhookMethod } [configuration.method] 
- * @property { Array<string> } [configuration.filters] 
- * @property { Array<string> } [configuration.triggers] 
- * @property { string } [configuration.flowSid] 
- * @property { number } [configuration.retryCount] 
+ * @property { string } [configurationUrl] 
+ * @property { ChannelWebhookMethod } [configurationMethod] 
+ * @property { Array<string> } [configurationFilters] 
+ * @property { Array<string> } [configurationTriggers] 
+ * @property { string } [configurationFlowSid] 
+ * @property { number } [configurationRetryCount] 
  */
 export interface WebhookContextUpdateOptions {
-  'configuration.url'?: string;
-  'configuration.method'?: ChannelWebhookMethod;
-  'configuration.filters'?: Array<string>;
-  'configuration.triggers'?: Array<string>;
-  'configuration.flowSid'?: string;
-  'configuration.retryCount'?: number;
+  configurationUrl?: string;
+  configurationMethod?: ChannelWebhookMethod;
+  configurationFilters?: Array<string>;
+  configurationTriggers?: Array<string>;
+  configurationFlowSid?: string;
+  configurationRetryCount?: number;
 }
 
 /**
  * Options to pass to create a WebhookInstance
  *
  * @property { ChannelWebhookType } type 
- * @property { string } [configuration.url] 
- * @property { ChannelWebhookMethod } [configuration.method] 
- * @property { Array<string> } [configuration.filters] 
- * @property { Array<string> } [configuration.triggers] 
- * @property { string } [configuration.flowSid] 
- * @property { number } [configuration.retryCount] 
+ * @property { string } [configurationUrl] 
+ * @property { ChannelWebhookMethod } [configurationMethod] 
+ * @property { Array<string> } [configurationFilters] 
+ * @property { Array<string> } [configurationTriggers] 
+ * @property { string } [configurationFlowSid] 
+ * @property { number } [configurationRetryCount] 
  */
 export interface WebhookListInstanceCreateOptions {
-  'type': ChannelWebhookType;
-  'configuration.url'?: string;
-  'configuration.method'?: ChannelWebhookMethod;
-  'configuration.filters'?: Array<string>;
-  'configuration.triggers'?: Array<string>;
-  'configuration.flowSid'?: string;
-  'configuration.retryCount'?: number;
+  type: ChannelWebhookType;
+  configurationUrl?: string;
+  configurationMethod?: ChannelWebhookMethod;
+  configurationFilters?: Array<string>;
+  configurationTriggers?: Array<string>;
+  configurationFlowSid?: string;
+  configurationRetryCount?: number;
 }
 /**
  * Options to pass to each
@@ -166,9 +166,9 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  'serviceSid'?: string;
-  'channelSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  channelSid?: string;
+  sid?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -217,12 +217,12 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params['configuration.url'] !== undefined) data['Configuration.Url'] = params['configuration.url'];
-    if (params['configuration.method'] !== undefined) data['Configuration.Method'] = params['configuration.method'];
-    if (params['configuration.filters'] !== undefined) data['Configuration.Filters'] = serialize.map(params['configuration.filters'], ((e) => e));
-    if (params['configuration.triggers'] !== undefined) data['Configuration.Triggers'] = serialize.map(params['configuration.triggers'], ((e) => e));
-    if (params['configuration.flowSid'] !== undefined) data['Configuration.FlowSid'] = params['configuration.flowSid'];
-    if (params['configuration.retryCount'] !== undefined) data['Configuration.RetryCount'] = params['configuration.retryCount'];
+    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
+    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
+    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
+    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
+    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
+    if (params.configurationRetryCount !== undefined) data['Configuration.RetryCount'] = params.configurationRetryCount;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -527,19 +527,19 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['type'] === null || params['type'] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+    if (params.type === null || params.type === undefined) {
+      throw new Error('Required parameter "params.type" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params['type'];
-    if (params['configuration.url'] !== undefined) data['Configuration.Url'] = params['configuration.url'];
-    if (params['configuration.method'] !== undefined) data['Configuration.Method'] = params['configuration.method'];
-    if (params['configuration.filters'] !== undefined) data['Configuration.Filters'] = serialize.map(params['configuration.filters'], ((e) => e));
-    if (params['configuration.triggers'] !== undefined) data['Configuration.Triggers'] = serialize.map(params['configuration.triggers'], ((e) => e));
-    if (params['configuration.flowSid'] !== undefined) data['Configuration.FlowSid'] = params['configuration.flowSid'];
-    if (params['configuration.retryCount'] !== undefined) data['Configuration.RetryCount'] = params['configuration.retryCount'];
+    data['Type'] = params.type;
+    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
+    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
+    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
+    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
+    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
+    if (params.configurationRetryCount !== undefined) data['Configuration.RetryCount'] = params.configurationRetryCount;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -566,7 +566,7 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

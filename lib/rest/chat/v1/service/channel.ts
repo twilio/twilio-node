@@ -36,9 +36,9 @@ type ChannelChannelType = 'public'|'private';
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface ChannelContextUpdateOptions {
-  'friendlyName'?: string;
-  'uniqueName'?: string;
-  'attributes'?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  attributes?: string;
 }
 
 /**
@@ -50,10 +50,10 @@ export interface ChannelContextUpdateOptions {
  * @property { ChannelChannelType } [type] 
  */
 export interface ChannelListInstanceCreateOptions {
-  'friendlyName'?: string;
-  'uniqueName'?: string;
-  'attributes'?: string;
-  'type'?: ChannelChannelType;
+  friendlyName?: string;
+  uniqueName?: string;
+  attributes?: string;
+  type?: ChannelChannelType;
 }
 /**
  * Options to pass to each
@@ -164,8 +164,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -232,9 +232,9 @@ export class ChannelContextImpl implements ChannelContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -631,10 +631,10 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
-    if (params['type'] !== undefined) data['Type'] = params['type'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.type !== undefined) data['Type'] = params.type;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -661,8 +661,8 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
 
     const data: any = {};
 
-    if (params['type'] !== undefined) data['Type'] = serialize.map(params['type'], ((e) => e));
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.type !== undefined) data['Type'] = serialize.map(params.type, ((e) => e));
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

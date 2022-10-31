@@ -110,7 +110,7 @@ export interface AlertContext {
 }
 
 export interface AlertContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class AlertContextImpl implements AlertContext {
@@ -480,10 +480,10 @@ export function AlertListInstance(version: V1): AlertListInstance {
 
     const data: any = {};
 
-    if (params['logLevel'] !== undefined) data['LogLevel'] = params['logLevel'];
-    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
-    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.logLevel !== undefined) data['LogLevel'] = params.logLevel;
+    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
+    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

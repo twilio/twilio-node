@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface OutgoingCallerIdContextUpdateOptions {
-  'friendlyName'?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -143,8 +143,8 @@ export interface OutgoingCallerIdContext {
 }
 
 export interface OutgoingCallerIdContextSolution {
-  'accountSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
@@ -193,7 +193,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -503,9 +503,9 @@ export function OutgoingCallerIdListInstance(version: V2010, accountSid: string)
 
     const data: any = {};
 
-    if (params['phoneNumber'] !== undefined) data['PhoneNumber'] = params['phoneNumber'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

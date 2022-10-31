@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [value] A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableContextUpdateOptions {
-  'key'?: string;
-  'value'?: string;
+  key?: string;
+  value?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface VariableContextUpdateOptions {
  * @property { string } value A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableListInstanceCreateOptions {
-  'key': string;
-  'value': string;
+  key: string;
+  value: string;
 }
 /**
  * Options to pass to each
@@ -144,9 +144,9 @@ export interface VariableContext {
 }
 
 export interface VariableContextSolution {
-  'serviceSid'?: string;
-  'environmentSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  environmentSid?: string;
+  sid?: string;
 }
 
 export class VariableContextImpl implements VariableContext {
@@ -195,8 +195,8 @@ export class VariableContextImpl implements VariableContext {
 
     const data: any = {};
 
-    if (params['key'] !== undefined) data['Key'] = params['key'];
-    if (params['value'] !== undefined) data['Value'] = params['value'];
+    if (params.key !== undefined) data['Key'] = params.key;
+    if (params.value !== undefined) data['Value'] = params.value;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -528,18 +528,18 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['key'] === null || params['key'] === undefined) {
-      throw new Error('Required parameter "params[\'key\']" missing.');
+    if (params.key === null || params.key === undefined) {
+      throw new Error('Required parameter "params.key" missing.');
     }
 
-    if (params['value'] === null || params['value'] === undefined) {
-      throw new Error('Required parameter "params[\'value\']" missing.');
+    if (params.value === null || params.value === undefined) {
+      throw new Error('Required parameter "params.value" missing.');
     }
 
     const data: any = {};
 
-    data['Key'] = params['key'];
-    data['Value'] = params['value'];
+    data['Key'] = params.key;
+    data['Value'] = params.value;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -566,7 +566,7 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

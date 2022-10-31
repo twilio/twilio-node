@@ -20,8 +20,7 @@ const serialize = require("../../../base/serialize");
 
 
 
-
-export interface OpenidDiscoveryContext {
+export interface OpenidDiscoveryListInstance {
 
 
   /**
@@ -41,22 +40,27 @@ export interface OpenidDiscoveryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OpenidDiscoveryContextSolution {
+export interface OpenidDiscoverySolution {
 }
 
-export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
-  protected _solution: OpenidDiscoveryContextSolution;
-  protected _uri: string;
+interface OpenidDiscoveryListInstanceImpl extends OpenidDiscoveryListInstance {}
+class OpenidDiscoveryListInstanceImpl implements OpenidDiscoveryListInstance {
+  _version?: V1;
+  _solution?: OpenidDiscoverySolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1) {
-    this._solution = {  };
-    this._uri = `/well-known/openid-configuration`;
-  }
+export function OpenidDiscoveryListInstance(version: V1): OpenidDiscoveryListInstance {
+  const instance = {} as OpenidDiscoveryListInstanceImpl;
 
-  fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/well-known/openid-configuration`;
+
+  instance.fetch = function fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new OpenidDiscoveryInstance(operationVersion, payload));
@@ -66,20 +70,17 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface OpenidDiscoveryPayload extends OpenidDiscoveryResource{
@@ -102,8 +103,6 @@ interface OpenidDiscoveryResource {
 }
 
 export class OpenidDiscoveryInstance {
-  protected _solution: OpenidDiscoveryContextSolution;
-  protected _context?: OpenidDiscoveryContext;
 
   constructor(protected _version: V1, payload: OpenidDiscoveryPayload) {
     this.issuer = payload.issuer;
@@ -120,7 +119,6 @@ export class OpenidDiscoveryInstance {
     this.claimsSupported = payload.claims_supported;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -173,23 +171,6 @@ export class OpenidDiscoveryInstance {
   claimsSupported?: Array<string> | null;
   url?: string | null;
 
-  private get _proxy(): OpenidDiscoveryContext {
-    this._context = this._context || new OpenidDiscoveryContextImpl(this._version);
-    return this._context;
-  }
-
-  /**
-   * Fetch a OpenidDiscoveryInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OpenidDiscoveryInstance
-   */
-  fetch(callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any): Promise<OpenidDiscoveryInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -217,52 +198,5 @@ export class OpenidDiscoveryInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface OpenidDiscoveryListInstance {
-  (): OpenidDiscoveryContext;
-  get(): OpenidDiscoveryContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-}
-
-interface OpenidDiscoveryListInstanceImpl extends OpenidDiscoveryListInstance {}
-class OpenidDiscoveryListInstanceImpl implements OpenidDiscoveryListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function OpenidDiscoveryListInstance(version: V1): OpenidDiscoveryListInstance {
-  const instance = (() => instance.get()) as OpenidDiscoveryListInstanceImpl;
-
-  instance.get = function get(): OpenidDiscoveryContext {
-    return new OpenidDiscoveryContextImpl(version);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/well-known/openid-configuration`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

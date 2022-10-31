@@ -39,9 +39,9 @@ type ConferenceUpdateStatus = 'completed';
  * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
  */
 export interface ConferenceContextUpdateOptions {
-  'status'?: ConferenceUpdateStatus;
-  'announceUrl'?: string;
-  'announceMethod'?: string;
+  status?: ConferenceUpdateStatus;
+  announceUrl?: string;
+  announceMethod?: string;
 }
 /**
  * Options to pass to each
@@ -183,8 +183,8 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  'accountSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -233,9 +233,9 @@ export class ConferenceContextImpl implements ConferenceContext {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['announceUrl'] !== undefined) data['AnnounceUrl'] = params['announceUrl'];
-    if (params['announceMethod'] !== undefined) data['AnnounceMethod'] = params['announceMethod'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.announceUrl !== undefined) data['AnnounceUrl'] = params.announceUrl;
+    if (params.announceMethod !== undefined) data['AnnounceMethod'] = params.announceMethod;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -576,15 +576,15 @@ export function ConferenceListInstance(version: V2010, accountSid: string): Conf
 
     const data: any = {};
 
-    if (params['dateCreated'] !== undefined) data['DateCreated'] = serialize.iso8601Date(params['dateCreated']);
-    if (params['dateCreatedBefore'] !== undefined) data['DateCreated<'] = serialize.iso8601Date(params['dateCreatedBefore']);
-    if (params['dateCreatedAfter'] !== undefined) data['DateCreated>'] = serialize.iso8601Date(params['dateCreatedAfter']);
-    if (params['dateUpdated'] !== undefined) data['DateUpdated'] = serialize.iso8601Date(params['dateUpdated']);
-    if (params['dateUpdatedBefore'] !== undefined) data['DateUpdated<'] = serialize.iso8601Date(params['dateUpdatedBefore']);
-    if (params['dateUpdatedAfter'] !== undefined) data['DateUpdated>'] = serialize.iso8601Date(params['dateUpdatedAfter']);
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601Date(params.dateCreated);
+    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601Date(params.dateCreatedBefore);
+    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601Date(params.dateCreatedAfter);
+    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601Date(params.dateUpdated);
+    if (params.dateUpdatedBefore !== undefined) data['DateUpdated<'] = serialize.iso8601Date(params.dateUpdatedBefore);
+    if (params.dateUpdatedAfter !== undefined) data['DateUpdated>'] = serialize.iso8601Date(params.dateUpdatedAfter);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

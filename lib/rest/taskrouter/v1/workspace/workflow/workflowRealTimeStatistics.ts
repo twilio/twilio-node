@@ -20,17 +20,16 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to fetch a WorkflowRealTimeStatisticsInstance
  *
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
-export interface WorkflowRealTimeStatisticsContextFetchOptions {
-  'taskChannel'?: string;
+export interface WorkflowRealTimeStatisticsListInstanceFetchOptions {
+  taskChannel?: string;
 }
 
-export interface WorkflowRealTimeStatisticsContext {
+export interface WorkflowRealTimeStatisticsListInstance {
 
 
   /**
@@ -44,12 +43,12 @@ export interface WorkflowRealTimeStatisticsContext {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
+   * @param { WorkflowRealTimeStatisticsListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
-  fetch(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
+  fetch(params: WorkflowRealTimeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<WorkflowRealTimeStatisticsInstance>
 
 
@@ -60,23 +59,28 @@ export interface WorkflowRealTimeStatisticsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkflowRealTimeStatisticsContextSolution {
-  'workspaceSid'?: string;
-  'workflowSid'?: string;
+export interface WorkflowRealTimeStatisticsSolution {
+  workspaceSid?: string;
+  workflowSid?: string;
 }
 
-export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeStatisticsContext {
-  protected _solution: WorkflowRealTimeStatisticsContextSolution;
-  protected _uri: string;
+interface WorkflowRealTimeStatisticsListInstanceImpl extends WorkflowRealTimeStatisticsListInstance {}
+class WorkflowRealTimeStatisticsListInstanceImpl implements WorkflowRealTimeStatisticsListInstance {
+  _version?: V1;
+  _solution?: WorkflowRealTimeStatisticsSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, workspaceSid: string, workflowSid: string) {
-    this._solution = { workspaceSid, workflowSid };
-    this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
-  }
+export function WorkflowRealTimeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance {
+  const instance = {} as WorkflowRealTimeStatisticsListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<WorkflowRealTimeStatisticsInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = { workspaceSid, workflowSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkflowRealTimeStatisticsInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -85,11 +89,11 @@ export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeSt
 
     const data: any = {};
 
-    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
+    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkflowRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workflowSid));
@@ -99,20 +103,17 @@ export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeSt
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource{
@@ -131,8 +132,6 @@ interface WorkflowRealTimeStatisticsResource {
 }
 
 export class WorkflowRealTimeStatisticsInstance {
-  protected _solution: WorkflowRealTimeStatisticsContextSolution;
-  protected _context?: WorkflowRealTimeStatisticsContext;
 
   constructor(protected _version: V1, payload: WorkflowRealTimeStatisticsPayload, workspaceSid: string, workflowSid?: string) {
     this.accountSid = payload.account_sid;
@@ -145,7 +144,6 @@ export class WorkflowRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid, workflowSid: workflowSid || this.workflowSid };
   }
 
   /**
@@ -185,33 +183,6 @@ export class WorkflowRealTimeStatisticsInstance {
    */
   url?: string | null;
 
-  private get _proxy(): WorkflowRealTimeStatisticsContext {
-    this._context = this._context || new WorkflowRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid, this._solution.workflowSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
-  /**
-   * Fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(params: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkflowRealTimeStatisticsInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -235,54 +206,5 @@ export class WorkflowRealTimeStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface WorkflowRealTimeStatisticsListInstance {
-  (): WorkflowRealTimeStatisticsContext;
-  get(): WorkflowRealTimeStatisticsContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  workspaceSid?: string;
-  workflowSid?: string;
-}
-
-interface WorkflowRealTimeStatisticsListInstanceImpl extends WorkflowRealTimeStatisticsListInstance {}
-class WorkflowRealTimeStatisticsListInstanceImpl implements WorkflowRealTimeStatisticsListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function WorkflowRealTimeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance {
-  const instance = (() => instance.get()) as WorkflowRealTimeStatisticsListInstanceImpl;
-
-  instance.get = function get(): WorkflowRealTimeStatisticsContext {
-    return new WorkflowRealTimeStatisticsContextImpl(version, workspaceSid, workflowSid);
-  }
-
-  instance._version = version;
-  instance._solution = { workspaceSid, workflowSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

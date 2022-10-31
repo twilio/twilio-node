@@ -36,10 +36,10 @@ type UserWebhookEnabledType = 'true'|'false';
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is often used for display purposes.
  */
 export interface UserContextUpdateOptions {
-  'xTwilioWebhookEnabled'?: UserWebhookEnabledType;
-  'roleSid'?: string;
-  'attributes'?: string;
-  'friendlyName'?: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  roleSid?: string;
+  attributes?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -52,11 +52,11 @@ export interface UserContextUpdateOptions {
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. This value is often used for display purposes.
  */
 export interface UserListInstanceCreateOptions {
-  'identity': string;
-  'xTwilioWebhookEnabled'?: UserWebhookEnabledType;
-  'roleSid'?: string;
-  'attributes'?: string;
-  'friendlyName'?: string;
+  identity: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  roleSid?: string;
+  attributes?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -160,8 +160,8 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class UserContextImpl implements UserContext {
@@ -222,13 +222,13 @@ export class UserContextImpl implements UserContext {
 
     const data: any = {};
 
-    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -605,20 +605,20 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['identity'] === null || params['identity'] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+    if (params.identity === null || params.identity === undefined) {
+      throw new Error('Required parameter "params.identity" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params['identity'];
-    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    data['Identity'] = params.identity;
+    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
@@ -642,7 +642,7 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -30,7 +30,7 @@ import { FunctionVersionListInstance } from "./function/functionVersion";
  * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionContextUpdateOptions {
-  'friendlyName': string;
+  friendlyName: string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface FunctionContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionListInstanceCreateOptions {
-  'friendlyName': string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -134,8 +134,8 @@ export interface FunctionContext {
 }
 
 export interface FunctionContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class FunctionContextImpl implements FunctionContext {
@@ -185,13 +185,13 @@ export class FunctionContextImpl implements FunctionContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
+    data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -514,13 +514,13 @@ export function FunctionListInstance(version: V1, serviceSid: string): FunctionL
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
+    data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -547,7 +547,7 @@ export function FunctionListInstance(version: V1, serviceSid: string): FunctionL
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

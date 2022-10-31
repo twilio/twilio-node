@@ -100,8 +100,8 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  'roomSid'?: string;
-  'participantSid'?: string;
+  roomSid?: string;
+  participantSid?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -448,7 +448,7 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

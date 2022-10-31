@@ -31,10 +31,10 @@ type FlowValidateStatus = 'draft'|'published';
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowValidateListInstanceUpdateOptions {
-  'friendlyName': string;
-  'status': FlowValidateStatus;
-  'definition': any;
-  'commitMessage'?: string;
+  friendlyName: string;
+  status: FlowValidateStatus;
+  definition: any;
+  commitMessage?: string;
 }
 
 export interface FlowValidateListInstance {
@@ -82,24 +82,24 @@ export function FlowValidateListInstance(version: V2): FlowValidateListInstance 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
-    if (params['definition'] === null || params['definition'] === undefined) {
-      throw new Error('Required parameter "params[\'definition\']" missing.');
+    if (params.definition === null || params.definition === undefined) {
+      throw new Error('Required parameter "params.definition" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['Status'] = params['status'];
-    data['Definition'] = params['definition'];
-    if (params['commitMessage'] !== undefined) data['CommitMessage'] = params['commitMessage'];
+    data['FriendlyName'] = params.friendlyName;
+    data['Status'] = params.status;
+    data['Definition'] = params.definition;
+    if (params.commitMessage !== undefined) data['CommitMessage'] = params.commitMessage;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

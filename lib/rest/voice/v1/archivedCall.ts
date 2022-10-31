@@ -20,7 +20,8 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface ArchivedCallListInstance {
+
+export interface ArchivedCallContext {
 
 
   /**
@@ -31,6 +32,60 @@ export interface ArchivedCallListInstance {
    * @returns { Promise } Resolves to processed boolean
    */
   remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ArchivedCallContextSolution {
+  date?: Date;
+  sid?: string;
+}
+
+export class ArchivedCallContextImpl implements ArchivedCallContext {
+  protected _solution: ArchivedCallContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, date: Date, sid: string) {
+    this._solution = { date, sid };
+    this._uri = `/Archives/${date}/Calls/${sid}`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
+export interface ArchivedCallListInstance {
+  (sid: string): ArchivedCallContext;
+  get(sid: string): ArchivedCallContext;
 
 
   /**
@@ -53,23 +108,15 @@ class ArchivedCallListInstanceImpl implements ArchivedCallListInstance {
 }
 
 export function ArchivedCallListInstance(version: V1, date: Date): ArchivedCallListInstance {
-  const instance = {} as ArchivedCallListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ArchivedCallListInstanceImpl;
+
+  instance.get = function get(sid): ArchivedCallContext {
+    return new ArchivedCallContextImpl(version, date, sid);
+  }
 
   instance._version = version;
   instance._solution = { date };
   instance._uri = `/Archives/${date}/Calls`;
-
-  instance.remove = function remove(callback?: any): Promise<boolean> {
-
-    let operationVersion = version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -81,5 +128,6 @@ export function ArchivedCallListInstance(version: V1, date: Date): ArchivedCallL
 
   return instance;
 }
+
 
 

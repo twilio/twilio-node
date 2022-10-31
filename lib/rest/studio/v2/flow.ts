@@ -37,10 +37,10 @@ type FlowStatus = 'draft'|'published';
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowContextUpdateOptions {
-  'status': FlowStatus;
-  'friendlyName'?: string;
-  'definition'?: any;
-  'commitMessage'?: string;
+  status: FlowStatus;
+  friendlyName?: string;
+  definition?: any;
+  commitMessage?: string;
 }
 
 /**
@@ -52,10 +52,10 @@ export interface FlowContextUpdateOptions {
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowListInstanceCreateOptions {
-  'friendlyName': string;
-  'status': FlowStatus;
-  'definition': any;
-  'commitMessage'?: string;
+  friendlyName: string;
+  status: FlowStatus;
+  definition: any;
+  commitMessage?: string;
 }
 /**
  * Options to pass to each
@@ -152,7 +152,7 @@ export interface FlowContext {
 }
 
 export interface FlowContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class FlowContextImpl implements FlowContext {
@@ -214,16 +214,16 @@ export class FlowContextImpl implements FlowContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params['status'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['definition'] !== undefined) data['Definition'] = params['definition'];
-    if (params['commitMessage'] !== undefined) data['CommitMessage'] = params['commitMessage'];
+    data['Status'] = params.status;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.definition !== undefined) data['Definition'] = params.definition;
+    if (params.commitMessage !== undefined) data['CommitMessage'] = params.commitMessage;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -602,24 +602,24 @@ export function FlowListInstance(version: V2): FlowListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
-    if (params['definition'] === null || params['definition'] === undefined) {
-      throw new Error('Required parameter "params[\'definition\']" missing.');
+    if (params.definition === null || params.definition === undefined) {
+      throw new Error('Required parameter "params.definition" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['Status'] = params['status'];
-    data['Definition'] = params['definition'];
-    if (params['commitMessage'] !== undefined) data['CommitMessage'] = params['commitMessage'];
+    data['FriendlyName'] = params.friendlyName;
+    data['Status'] = params.status;
+    data['Definition'] = params.definition;
+    if (params.commitMessage !== undefined) data['CommitMessage'] = params.commitMessage;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -646,7 +646,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

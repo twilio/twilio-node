@@ -31,9 +31,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } manage Whether the identity can delete the Sync List. Default value is &#x60;false&#x60;.
  */
 export interface SyncListPermissionContextUpdateOptions {
-  'read': boolean;
-  'write': boolean;
-  'manage': boolean;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
 }
 /**
  * Options to pass to each
@@ -127,9 +127,9 @@ export interface SyncListPermissionContext {
 }
 
 export interface SyncListPermissionContextSolution {
-  'serviceSid'?: string;
-  'listSid'?: string;
-  'identity'?: string;
+  serviceSid?: string;
+  listSid?: string;
+  identity?: string;
 }
 
 export class SyncListPermissionContextImpl implements SyncListPermissionContext {
@@ -173,23 +173,23 @@ export class SyncListPermissionContextImpl implements SyncListPermissionContext 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['read'] === null || params['read'] === undefined) {
-      throw new Error('Required parameter "params[\'read\']" missing.');
+    if (params.read === null || params.read === undefined) {
+      throw new Error('Required parameter "params.read" missing.');
     }
 
-    if (params['write'] === null || params['write'] === undefined) {
-      throw new Error('Required parameter "params[\'write\']" missing.');
+    if (params.write === null || params.write === undefined) {
+      throw new Error('Required parameter "params.write" missing.');
     }
 
-    if (params['manage'] === null || params['manage'] === undefined) {
-      throw new Error('Required parameter "params[\'manage\']" missing.');
+    if (params.manage === null || params.manage === undefined) {
+      throw new Error('Required parameter "params.manage" missing.');
     }
 
     const data: any = {};
 
-    data['Read'] = serialize.bool(params['read']);
-    data['Write'] = serialize.bool(params['write']);
-    data['Manage'] = serialize.bool(params['manage']);
+    data['Read'] = serialize.bool(params.read);
+    data['Write'] = serialize.bool(params.write);
+    data['Manage'] = serialize.bool(params.manage);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -499,7 +499,7 @@ export function SyncListPermissionListInstance(version: V1, serviceSid: string, 
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

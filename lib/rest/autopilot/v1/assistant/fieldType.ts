@@ -31,8 +31,8 @@ import { FieldValueListInstance } from "./fieldType/fieldValue";
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. The first 64 characters must be unique.
  */
 export interface FieldTypeContextUpdateOptions {
-  'friendlyName'?: string;
-  'uniqueName'?: string;
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface FieldTypeContextUpdateOptions {
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
  */
 export interface FieldTypeListInstanceCreateOptions {
-  'uniqueName': string;
-  'friendlyName'?: string;
+  uniqueName: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -146,8 +146,8 @@ export interface FieldTypeContext {
 }
 
 export interface FieldTypeContextSolution {
-  'assistantSid'?: string;
-  'sid'?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class FieldTypeContextImpl implements FieldTypeContext {
@@ -202,8 +202,8 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -541,14 +541,14 @@ export function FieldTypeListInstance(version: V1, assistantSid: string): FieldT
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
-      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
+    if (params.uniqueName === null || params.uniqueName === undefined) {
+      throw new Error('Required parameter "params.uniqueName" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params['uniqueName'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    data['UniqueName'] = params.uniqueName;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -575,7 +575,7 @@ export function FieldTypeListInstance(version: V1, assistantSid: string): FieldT
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

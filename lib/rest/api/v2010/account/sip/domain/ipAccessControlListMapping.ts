@@ -29,7 +29,7 @@ const serialize = require("../../../../../../base/serialize");
  * @property { string } ipAccessControlListSid The unique id of the IP access control list to map to the SIP domain.
  */
 export interface IpAccessControlListMappingListInstanceCreateOptions {
-  'ipAccessControlListSid': string;
+  ipAccessControlListSid: string;
 }
 /**
  * Options to pass to each
@@ -111,9 +111,9 @@ export interface IpAccessControlListMappingContext {
 }
 
 export interface IpAccessControlListMappingContextSolution {
-  'accountSid'?: string;
-  'domainSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
 }
 
 export class IpAccessControlListMappingContextImpl implements IpAccessControlListMappingContext {
@@ -431,13 +431,13 @@ export function IpAccessControlListMappingListInstance(version: V2010, accountSi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['ipAccessControlListSid'] === null || params['ipAccessControlListSid'] === undefined) {
-      throw new Error('Required parameter "params[\'ipAccessControlListSid\']" missing.');
+    if (params.ipAccessControlListSid === null || params.ipAccessControlListSid === undefined) {
+      throw new Error('Required parameter "params.ipAccessControlListSid" missing.');
     }
 
     const data: any = {};
 
-    data['IpAccessControlListSid'] = params['ipAccessControlListSid'];
+    data['IpAccessControlListSid'] = params.ipAccessControlListSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -464,7 +464,7 @@ export function IpAccessControlListMappingListInstance(version: V2010, accountSi
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

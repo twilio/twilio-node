@@ -35,7 +35,7 @@ type SinkStatus = 'initialized'|'validating'|'active'|'failed';
  * @property { string } description A human readable description for the Sink **This value should not contain PII.**
  */
 export interface SinkContextUpdateOptions {
-  'description': string;
+  description: string;
 }
 
 /**
@@ -46,9 +46,9 @@ export interface SinkContextUpdateOptions {
  * @property { SinkSinkType } sinkType 
  */
 export interface SinkListInstanceCreateOptions {
-  'description': string;
-  'sinkConfiguration': any;
-  'sinkType': SinkSinkType;
+  description: string;
+  sinkConfiguration: any;
+  sinkType: SinkSinkType;
 }
 /**
  * Options to pass to each
@@ -156,7 +156,7 @@ export interface SinkContext {
 }
 
 export interface SinkContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class SinkContextImpl implements SinkContext {
@@ -212,13 +212,13 @@ export class SinkContextImpl implements SinkContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['description'] === null || params['description'] === undefined) {
-      throw new Error('Required parameter "params[\'description\']" missing.');
+    if (params.description === null || params.description === undefined) {
+      throw new Error('Required parameter "params.description" missing.');
     }
 
     const data: any = {};
 
-    data['Description'] = params['description'];
+    data['Description'] = params.description;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -548,23 +548,23 @@ export function SinkListInstance(version: V1): SinkListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['description'] === null || params['description'] === undefined) {
-      throw new Error('Required parameter "params[\'description\']" missing.');
+    if (params.description === null || params.description === undefined) {
+      throw new Error('Required parameter "params.description" missing.');
     }
 
-    if (params['sinkConfiguration'] === null || params['sinkConfiguration'] === undefined) {
-      throw new Error('Required parameter "params[\'sinkConfiguration\']" missing.');
+    if (params.sinkConfiguration === null || params.sinkConfiguration === undefined) {
+      throw new Error('Required parameter "params.sinkConfiguration" missing.');
     }
 
-    if (params['sinkType'] === null || params['sinkType'] === undefined) {
-      throw new Error('Required parameter "params[\'sinkType\']" missing.');
+    if (params.sinkType === null || params.sinkType === undefined) {
+      throw new Error('Required parameter "params.sinkType" missing.');
     }
 
     const data: any = {};
 
-    data['Description'] = params['description'];
-    data['SinkConfiguration'] = params['sinkConfiguration'];
-    data['SinkType'] = params['sinkType'];
+    data['Description'] = params.description;
+    data['SinkConfiguration'] = params.sinkConfiguration;
+    data['SinkType'] = params.sinkType;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -591,9 +591,9 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
     const data: any = {};
 
-    if (params['inUse'] !== undefined) data['InUse'] = serialize.bool(params['inUse']);
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.inUse !== undefined) data['InUse'] = serialize.bool(params.inUse);
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

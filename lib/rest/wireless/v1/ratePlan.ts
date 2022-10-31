@@ -30,8 +30,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It does not have to be unique.
  */
 export interface RatePlanContextUpdateOptions {
-  'uniqueName'?: string;
-  'friendlyName'?: string;
+  uniqueName?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -50,17 +50,17 @@ export interface RatePlanContextUpdateOptions {
  * @property { number } [internationalRoamingDataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
  */
 export interface RatePlanListInstanceCreateOptions {
-  'uniqueName'?: string;
-  'friendlyName'?: string;
-  'dataEnabled'?: boolean;
-  'dataLimit'?: number;
-  'dataMetering'?: string;
-  'messagingEnabled'?: boolean;
-  'voiceEnabled'?: boolean;
-  'nationalRoamingEnabled'?: boolean;
-  'internationalRoaming'?: Array<string>;
-  'nationalRoamingDataLimit'?: number;
-  'internationalRoamingDataLimit'?: number;
+  uniqueName?: string;
+  friendlyName?: string;
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
+  messagingEnabled?: boolean;
+  voiceEnabled?: boolean;
+  nationalRoamingEnabled?: boolean;
+  internationalRoaming?: Array<string>;
+  nationalRoamingDataLimit?: number;
+  internationalRoamingDataLimit?: number;
 }
 /**
  * Options to pass to each
@@ -162,7 +162,7 @@ export interface RatePlanContext {
 }
 
 export interface RatePlanContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class RatePlanContextImpl implements RatePlanContext {
@@ -211,8 +211,8 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -604,17 +604,17 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['dataEnabled'] !== undefined) data['DataEnabled'] = serialize.bool(params['dataEnabled']);
-    if (params['dataLimit'] !== undefined) data['DataLimit'] = params['dataLimit'];
-    if (params['dataMetering'] !== undefined) data['DataMetering'] = params['dataMetering'];
-    if (params['messagingEnabled'] !== undefined) data['MessagingEnabled'] = serialize.bool(params['messagingEnabled']);
-    if (params['voiceEnabled'] !== undefined) data['VoiceEnabled'] = serialize.bool(params['voiceEnabled']);
-    if (params['nationalRoamingEnabled'] !== undefined) data['NationalRoamingEnabled'] = serialize.bool(params['nationalRoamingEnabled']);
-    if (params['internationalRoaming'] !== undefined) data['InternationalRoaming'] = serialize.map(params['internationalRoaming'], ((e) => e));
-    if (params['nationalRoamingDataLimit'] !== undefined) data['NationalRoamingDataLimit'] = params['nationalRoamingDataLimit'];
-    if (params['internationalRoamingDataLimit'] !== undefined) data['InternationalRoamingDataLimit'] = params['internationalRoamingDataLimit'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.dataEnabled !== undefined) data['DataEnabled'] = serialize.bool(params.dataEnabled);
+    if (params.dataLimit !== undefined) data['DataLimit'] = params.dataLimit;
+    if (params.dataMetering !== undefined) data['DataMetering'] = params.dataMetering;
+    if (params.messagingEnabled !== undefined) data['MessagingEnabled'] = serialize.bool(params.messagingEnabled);
+    if (params.voiceEnabled !== undefined) data['VoiceEnabled'] = serialize.bool(params.voiceEnabled);
+    if (params.nationalRoamingEnabled !== undefined) data['NationalRoamingEnabled'] = serialize.bool(params.nationalRoamingEnabled);
+    if (params.internationalRoaming !== undefined) data['InternationalRoaming'] = serialize.map(params.internationalRoaming, ((e) => e));
+    if (params.nationalRoamingDataLimit !== undefined) data['NationalRoamingDataLimit'] = params.nationalRoamingDataLimit;
+    if (params.internationalRoamingDataLimit !== undefined) data['InternationalRoamingDataLimit'] = params.internationalRoamingDataLimit;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -641,7 +641,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

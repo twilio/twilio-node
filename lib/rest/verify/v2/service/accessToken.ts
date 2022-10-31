@@ -32,10 +32,10 @@ type AccessTokenFactorTypes = 'push';
  * @property { number } [ttl] How long, in seconds, the access token is valid. Can be an integer between 60 and 300. Default is 60.
  */
 export interface AccessTokenListInstanceCreateOptions {
-  'identity': string;
-  'factorType': AccessTokenFactorTypes;
-  'factorFriendlyName'?: string;
-  'ttl'?: number;
+  identity: string;
+  factorType: AccessTokenFactorTypes;
+  factorFriendlyName?: string;
+  ttl?: number;
 }
 
 export interface AccessTokenContext {
@@ -59,8 +59,8 @@ export interface AccessTokenContext {
 }
 
 export interface AccessTokenContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class AccessTokenContextImpl implements AccessTokenContext {
@@ -269,20 +269,20 @@ export function AccessTokenListInstance(version: V2, serviceSid: string): Access
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['identity'] === null || params['identity'] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+    if (params.identity === null || params.identity === undefined) {
+      throw new Error('Required parameter "params.identity" missing.');
     }
 
-    if (params['factorType'] === null || params['factorType'] === undefined) {
-      throw new Error('Required parameter "params[\'factorType\']" missing.');
+    if (params.factorType === null || params.factorType === undefined) {
+      throw new Error('Required parameter "params.factorType" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params['identity'];
-    data['FactorType'] = params['factorType'];
-    if (params['factorFriendlyName'] !== undefined) data['FactorFriendlyName'] = params['factorFriendlyName'];
-    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
+    data['Identity'] = params.identity;
+    data['FactorType'] = params.factorType;
+    if (params.factorFriendlyName !== undefined) data['FactorFriendlyName'] = params.factorFriendlyName;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

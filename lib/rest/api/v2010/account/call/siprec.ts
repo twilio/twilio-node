@@ -33,7 +33,7 @@ type SiprecUpdateStatus = 'stopped';
  * @property { SiprecUpdateStatus } status 
  */
 export interface SiprecContextUpdateOptions {
-  'status': SiprecUpdateStatus;
+  status: SiprecUpdateStatus;
 }
 
 /**
@@ -44,409 +44,409 @@ export interface SiprecContextUpdateOptions {
  * @property { SiprecTrack } [track] 
  * @property { string } [statusCallback] Absolute URL of the status callback.
  * @property { string } [statusCallbackMethod] The http method for the status_callback (one of GET, POST).
- * @property { string } [parameter1.name] Parameter name
- * @property { string } [parameter1.value] Parameter value
- * @property { string } [parameter2.name] Parameter name
- * @property { string } [parameter2.value] Parameter value
- * @property { string } [parameter3.name] Parameter name
- * @property { string } [parameter3.value] Parameter value
- * @property { string } [parameter4.name] Parameter name
- * @property { string } [parameter4.value] Parameter value
- * @property { string } [parameter5.name] Parameter name
- * @property { string } [parameter5.value] Parameter value
- * @property { string } [parameter6.name] Parameter name
- * @property { string } [parameter6.value] Parameter value
- * @property { string } [parameter7.name] Parameter name
- * @property { string } [parameter7.value] Parameter value
- * @property { string } [parameter8.name] Parameter name
- * @property { string } [parameter8.value] Parameter value
- * @property { string } [parameter9.name] Parameter name
- * @property { string } [parameter9.value] Parameter value
- * @property { string } [parameter10.name] Parameter name
- * @property { string } [parameter10.value] Parameter value
- * @property { string } [parameter11.name] Parameter name
- * @property { string } [parameter11.value] Parameter value
- * @property { string } [parameter12.name] Parameter name
- * @property { string } [parameter12.value] Parameter value
- * @property { string } [parameter13.name] Parameter name
- * @property { string } [parameter13.value] Parameter value
- * @property { string } [parameter14.name] Parameter name
- * @property { string } [parameter14.value] Parameter value
- * @property { string } [parameter15.name] Parameter name
- * @property { string } [parameter15.value] Parameter value
- * @property { string } [parameter16.name] Parameter name
- * @property { string } [parameter16.value] Parameter value
- * @property { string } [parameter17.name] Parameter name
- * @property { string } [parameter17.value] Parameter value
- * @property { string } [parameter18.name] Parameter name
- * @property { string } [parameter18.value] Parameter value
- * @property { string } [parameter19.name] Parameter name
- * @property { string } [parameter19.value] Parameter value
- * @property { string } [parameter20.name] Parameter name
- * @property { string } [parameter20.value] Parameter value
- * @property { string } [parameter21.name] Parameter name
- * @property { string } [parameter21.value] Parameter value
- * @property { string } [parameter22.name] Parameter name
- * @property { string } [parameter22.value] Parameter value
- * @property { string } [parameter23.name] Parameter name
- * @property { string } [parameter23.value] Parameter value
- * @property { string } [parameter24.name] Parameter name
- * @property { string } [parameter24.value] Parameter value
- * @property { string } [parameter25.name] Parameter name
- * @property { string } [parameter25.value] Parameter value
- * @property { string } [parameter26.name] Parameter name
- * @property { string } [parameter26.value] Parameter value
- * @property { string } [parameter27.name] Parameter name
- * @property { string } [parameter27.value] Parameter value
- * @property { string } [parameter28.name] Parameter name
- * @property { string } [parameter28.value] Parameter value
- * @property { string } [parameter29.name] Parameter name
- * @property { string } [parameter29.value] Parameter value
- * @property { string } [parameter30.name] Parameter name
- * @property { string } [parameter30.value] Parameter value
- * @property { string } [parameter31.name] Parameter name
- * @property { string } [parameter31.value] Parameter value
- * @property { string } [parameter32.name] Parameter name
- * @property { string } [parameter32.value] Parameter value
- * @property { string } [parameter33.name] Parameter name
- * @property { string } [parameter33.value] Parameter value
- * @property { string } [parameter34.name] Parameter name
- * @property { string } [parameter34.value] Parameter value
- * @property { string } [parameter35.name] Parameter name
- * @property { string } [parameter35.value] Parameter value
- * @property { string } [parameter36.name] Parameter name
- * @property { string } [parameter36.value] Parameter value
- * @property { string } [parameter37.name] Parameter name
- * @property { string } [parameter37.value] Parameter value
- * @property { string } [parameter38.name] Parameter name
- * @property { string } [parameter38.value] Parameter value
- * @property { string } [parameter39.name] Parameter name
- * @property { string } [parameter39.value] Parameter value
- * @property { string } [parameter40.name] Parameter name
- * @property { string } [parameter40.value] Parameter value
- * @property { string } [parameter41.name] Parameter name
- * @property { string } [parameter41.value] Parameter value
- * @property { string } [parameter42.name] Parameter name
- * @property { string } [parameter42.value] Parameter value
- * @property { string } [parameter43.name] Parameter name
- * @property { string } [parameter43.value] Parameter value
- * @property { string } [parameter44.name] Parameter name
- * @property { string } [parameter44.value] Parameter value
- * @property { string } [parameter45.name] Parameter name
- * @property { string } [parameter45.value] Parameter value
- * @property { string } [parameter46.name] Parameter name
- * @property { string } [parameter46.value] Parameter value
- * @property { string } [parameter47.name] Parameter name
- * @property { string } [parameter47.value] Parameter value
- * @property { string } [parameter48.name] Parameter name
- * @property { string } [parameter48.value] Parameter value
- * @property { string } [parameter49.name] Parameter name
- * @property { string } [parameter49.value] Parameter value
- * @property { string } [parameter50.name] Parameter name
- * @property { string } [parameter50.value] Parameter value
- * @property { string } [parameter51.name] Parameter name
- * @property { string } [parameter51.value] Parameter value
- * @property { string } [parameter52.name] Parameter name
- * @property { string } [parameter52.value] Parameter value
- * @property { string } [parameter53.name] Parameter name
- * @property { string } [parameter53.value] Parameter value
- * @property { string } [parameter54.name] Parameter name
- * @property { string } [parameter54.value] Parameter value
- * @property { string } [parameter55.name] Parameter name
- * @property { string } [parameter55.value] Parameter value
- * @property { string } [parameter56.name] Parameter name
- * @property { string } [parameter56.value] Parameter value
- * @property { string } [parameter57.name] Parameter name
- * @property { string } [parameter57.value] Parameter value
- * @property { string } [parameter58.name] Parameter name
- * @property { string } [parameter58.value] Parameter value
- * @property { string } [parameter59.name] Parameter name
- * @property { string } [parameter59.value] Parameter value
- * @property { string } [parameter60.name] Parameter name
- * @property { string } [parameter60.value] Parameter value
- * @property { string } [parameter61.name] Parameter name
- * @property { string } [parameter61.value] Parameter value
- * @property { string } [parameter62.name] Parameter name
- * @property { string } [parameter62.value] Parameter value
- * @property { string } [parameter63.name] Parameter name
- * @property { string } [parameter63.value] Parameter value
- * @property { string } [parameter64.name] Parameter name
- * @property { string } [parameter64.value] Parameter value
- * @property { string } [parameter65.name] Parameter name
- * @property { string } [parameter65.value] Parameter value
- * @property { string } [parameter66.name] Parameter name
- * @property { string } [parameter66.value] Parameter value
- * @property { string } [parameter67.name] Parameter name
- * @property { string } [parameter67.value] Parameter value
- * @property { string } [parameter68.name] Parameter name
- * @property { string } [parameter68.value] Parameter value
- * @property { string } [parameter69.name] Parameter name
- * @property { string } [parameter69.value] Parameter value
- * @property { string } [parameter70.name] Parameter name
- * @property { string } [parameter70.value] Parameter value
- * @property { string } [parameter71.name] Parameter name
- * @property { string } [parameter71.value] Parameter value
- * @property { string } [parameter72.name] Parameter name
- * @property { string } [parameter72.value] Parameter value
- * @property { string } [parameter73.name] Parameter name
- * @property { string } [parameter73.value] Parameter value
- * @property { string } [parameter74.name] Parameter name
- * @property { string } [parameter74.value] Parameter value
- * @property { string } [parameter75.name] Parameter name
- * @property { string } [parameter75.value] Parameter value
- * @property { string } [parameter76.name] Parameter name
- * @property { string } [parameter76.value] Parameter value
- * @property { string } [parameter77.name] Parameter name
- * @property { string } [parameter77.value] Parameter value
- * @property { string } [parameter78.name] Parameter name
- * @property { string } [parameter78.value] Parameter value
- * @property { string } [parameter79.name] Parameter name
- * @property { string } [parameter79.value] Parameter value
- * @property { string } [parameter80.name] Parameter name
- * @property { string } [parameter80.value] Parameter value
- * @property { string } [parameter81.name] Parameter name
- * @property { string } [parameter81.value] Parameter value
- * @property { string } [parameter82.name] Parameter name
- * @property { string } [parameter82.value] Parameter value
- * @property { string } [parameter83.name] Parameter name
- * @property { string } [parameter83.value] Parameter value
- * @property { string } [parameter84.name] Parameter name
- * @property { string } [parameter84.value] Parameter value
- * @property { string } [parameter85.name] Parameter name
- * @property { string } [parameter85.value] Parameter value
- * @property { string } [parameter86.name] Parameter name
- * @property { string } [parameter86.value] Parameter value
- * @property { string } [parameter87.name] Parameter name
- * @property { string } [parameter87.value] Parameter value
- * @property { string } [parameter88.name] Parameter name
- * @property { string } [parameter88.value] Parameter value
- * @property { string } [parameter89.name] Parameter name
- * @property { string } [parameter89.value] Parameter value
- * @property { string } [parameter90.name] Parameter name
- * @property { string } [parameter90.value] Parameter value
- * @property { string } [parameter91.name] Parameter name
- * @property { string } [parameter91.value] Parameter value
- * @property { string } [parameter92.name] Parameter name
- * @property { string } [parameter92.value] Parameter value
- * @property { string } [parameter93.name] Parameter name
- * @property { string } [parameter93.value] Parameter value
- * @property { string } [parameter94.name] Parameter name
- * @property { string } [parameter94.value] Parameter value
- * @property { string } [parameter95.name] Parameter name
- * @property { string } [parameter95.value] Parameter value
- * @property { string } [parameter96.name] Parameter name
- * @property { string } [parameter96.value] Parameter value
- * @property { string } [parameter97.name] Parameter name
- * @property { string } [parameter97.value] Parameter value
- * @property { string } [parameter98.name] Parameter name
- * @property { string } [parameter98.value] Parameter value
- * @property { string } [parameter99.name] Parameter name
- * @property { string } [parameter99.value] Parameter value
+ * @property { string } [parameter1Name] Parameter name
+ * @property { string } [parameter1Value] Parameter value
+ * @property { string } [parameter2Name] Parameter name
+ * @property { string } [parameter2Value] Parameter value
+ * @property { string } [parameter3Name] Parameter name
+ * @property { string } [parameter3Value] Parameter value
+ * @property { string } [parameter4Name] Parameter name
+ * @property { string } [parameter4Value] Parameter value
+ * @property { string } [parameter5Name] Parameter name
+ * @property { string } [parameter5Value] Parameter value
+ * @property { string } [parameter6Name] Parameter name
+ * @property { string } [parameter6Value] Parameter value
+ * @property { string } [parameter7Name] Parameter name
+ * @property { string } [parameter7Value] Parameter value
+ * @property { string } [parameter8Name] Parameter name
+ * @property { string } [parameter8Value] Parameter value
+ * @property { string } [parameter9Name] Parameter name
+ * @property { string } [parameter9Value] Parameter value
+ * @property { string } [parameter10Name] Parameter name
+ * @property { string } [parameter10Value] Parameter value
+ * @property { string } [parameter11Name] Parameter name
+ * @property { string } [parameter11Value] Parameter value
+ * @property { string } [parameter12Name] Parameter name
+ * @property { string } [parameter12Value] Parameter value
+ * @property { string } [parameter13Name] Parameter name
+ * @property { string } [parameter13Value] Parameter value
+ * @property { string } [parameter14Name] Parameter name
+ * @property { string } [parameter14Value] Parameter value
+ * @property { string } [parameter15Name] Parameter name
+ * @property { string } [parameter15Value] Parameter value
+ * @property { string } [parameter16Name] Parameter name
+ * @property { string } [parameter16Value] Parameter value
+ * @property { string } [parameter17Name] Parameter name
+ * @property { string } [parameter17Value] Parameter value
+ * @property { string } [parameter18Name] Parameter name
+ * @property { string } [parameter18Value] Parameter value
+ * @property { string } [parameter19Name] Parameter name
+ * @property { string } [parameter19Value] Parameter value
+ * @property { string } [parameter20Name] Parameter name
+ * @property { string } [parameter20Value] Parameter value
+ * @property { string } [parameter21Name] Parameter name
+ * @property { string } [parameter21Value] Parameter value
+ * @property { string } [parameter22Name] Parameter name
+ * @property { string } [parameter22Value] Parameter value
+ * @property { string } [parameter23Name] Parameter name
+ * @property { string } [parameter23Value] Parameter value
+ * @property { string } [parameter24Name] Parameter name
+ * @property { string } [parameter24Value] Parameter value
+ * @property { string } [parameter25Name] Parameter name
+ * @property { string } [parameter25Value] Parameter value
+ * @property { string } [parameter26Name] Parameter name
+ * @property { string } [parameter26Value] Parameter value
+ * @property { string } [parameter27Name] Parameter name
+ * @property { string } [parameter27Value] Parameter value
+ * @property { string } [parameter28Name] Parameter name
+ * @property { string } [parameter28Value] Parameter value
+ * @property { string } [parameter29Name] Parameter name
+ * @property { string } [parameter29Value] Parameter value
+ * @property { string } [parameter30Name] Parameter name
+ * @property { string } [parameter30Value] Parameter value
+ * @property { string } [parameter31Name] Parameter name
+ * @property { string } [parameter31Value] Parameter value
+ * @property { string } [parameter32Name] Parameter name
+ * @property { string } [parameter32Value] Parameter value
+ * @property { string } [parameter33Name] Parameter name
+ * @property { string } [parameter33Value] Parameter value
+ * @property { string } [parameter34Name] Parameter name
+ * @property { string } [parameter34Value] Parameter value
+ * @property { string } [parameter35Name] Parameter name
+ * @property { string } [parameter35Value] Parameter value
+ * @property { string } [parameter36Name] Parameter name
+ * @property { string } [parameter36Value] Parameter value
+ * @property { string } [parameter37Name] Parameter name
+ * @property { string } [parameter37Value] Parameter value
+ * @property { string } [parameter38Name] Parameter name
+ * @property { string } [parameter38Value] Parameter value
+ * @property { string } [parameter39Name] Parameter name
+ * @property { string } [parameter39Value] Parameter value
+ * @property { string } [parameter40Name] Parameter name
+ * @property { string } [parameter40Value] Parameter value
+ * @property { string } [parameter41Name] Parameter name
+ * @property { string } [parameter41Value] Parameter value
+ * @property { string } [parameter42Name] Parameter name
+ * @property { string } [parameter42Value] Parameter value
+ * @property { string } [parameter43Name] Parameter name
+ * @property { string } [parameter43Value] Parameter value
+ * @property { string } [parameter44Name] Parameter name
+ * @property { string } [parameter44Value] Parameter value
+ * @property { string } [parameter45Name] Parameter name
+ * @property { string } [parameter45Value] Parameter value
+ * @property { string } [parameter46Name] Parameter name
+ * @property { string } [parameter46Value] Parameter value
+ * @property { string } [parameter47Name] Parameter name
+ * @property { string } [parameter47Value] Parameter value
+ * @property { string } [parameter48Name] Parameter name
+ * @property { string } [parameter48Value] Parameter value
+ * @property { string } [parameter49Name] Parameter name
+ * @property { string } [parameter49Value] Parameter value
+ * @property { string } [parameter50Name] Parameter name
+ * @property { string } [parameter50Value] Parameter value
+ * @property { string } [parameter51Name] Parameter name
+ * @property { string } [parameter51Value] Parameter value
+ * @property { string } [parameter52Name] Parameter name
+ * @property { string } [parameter52Value] Parameter value
+ * @property { string } [parameter53Name] Parameter name
+ * @property { string } [parameter53Value] Parameter value
+ * @property { string } [parameter54Name] Parameter name
+ * @property { string } [parameter54Value] Parameter value
+ * @property { string } [parameter55Name] Parameter name
+ * @property { string } [parameter55Value] Parameter value
+ * @property { string } [parameter56Name] Parameter name
+ * @property { string } [parameter56Value] Parameter value
+ * @property { string } [parameter57Name] Parameter name
+ * @property { string } [parameter57Value] Parameter value
+ * @property { string } [parameter58Name] Parameter name
+ * @property { string } [parameter58Value] Parameter value
+ * @property { string } [parameter59Name] Parameter name
+ * @property { string } [parameter59Value] Parameter value
+ * @property { string } [parameter60Name] Parameter name
+ * @property { string } [parameter60Value] Parameter value
+ * @property { string } [parameter61Name] Parameter name
+ * @property { string } [parameter61Value] Parameter value
+ * @property { string } [parameter62Name] Parameter name
+ * @property { string } [parameter62Value] Parameter value
+ * @property { string } [parameter63Name] Parameter name
+ * @property { string } [parameter63Value] Parameter value
+ * @property { string } [parameter64Name] Parameter name
+ * @property { string } [parameter64Value] Parameter value
+ * @property { string } [parameter65Name] Parameter name
+ * @property { string } [parameter65Value] Parameter value
+ * @property { string } [parameter66Name] Parameter name
+ * @property { string } [parameter66Value] Parameter value
+ * @property { string } [parameter67Name] Parameter name
+ * @property { string } [parameter67Value] Parameter value
+ * @property { string } [parameter68Name] Parameter name
+ * @property { string } [parameter68Value] Parameter value
+ * @property { string } [parameter69Name] Parameter name
+ * @property { string } [parameter69Value] Parameter value
+ * @property { string } [parameter70Name] Parameter name
+ * @property { string } [parameter70Value] Parameter value
+ * @property { string } [parameter71Name] Parameter name
+ * @property { string } [parameter71Value] Parameter value
+ * @property { string } [parameter72Name] Parameter name
+ * @property { string } [parameter72Value] Parameter value
+ * @property { string } [parameter73Name] Parameter name
+ * @property { string } [parameter73Value] Parameter value
+ * @property { string } [parameter74Name] Parameter name
+ * @property { string } [parameter74Value] Parameter value
+ * @property { string } [parameter75Name] Parameter name
+ * @property { string } [parameter75Value] Parameter value
+ * @property { string } [parameter76Name] Parameter name
+ * @property { string } [parameter76Value] Parameter value
+ * @property { string } [parameter77Name] Parameter name
+ * @property { string } [parameter77Value] Parameter value
+ * @property { string } [parameter78Name] Parameter name
+ * @property { string } [parameter78Value] Parameter value
+ * @property { string } [parameter79Name] Parameter name
+ * @property { string } [parameter79Value] Parameter value
+ * @property { string } [parameter80Name] Parameter name
+ * @property { string } [parameter80Value] Parameter value
+ * @property { string } [parameter81Name] Parameter name
+ * @property { string } [parameter81Value] Parameter value
+ * @property { string } [parameter82Name] Parameter name
+ * @property { string } [parameter82Value] Parameter value
+ * @property { string } [parameter83Name] Parameter name
+ * @property { string } [parameter83Value] Parameter value
+ * @property { string } [parameter84Name] Parameter name
+ * @property { string } [parameter84Value] Parameter value
+ * @property { string } [parameter85Name] Parameter name
+ * @property { string } [parameter85Value] Parameter value
+ * @property { string } [parameter86Name] Parameter name
+ * @property { string } [parameter86Value] Parameter value
+ * @property { string } [parameter87Name] Parameter name
+ * @property { string } [parameter87Value] Parameter value
+ * @property { string } [parameter88Name] Parameter name
+ * @property { string } [parameter88Value] Parameter value
+ * @property { string } [parameter89Name] Parameter name
+ * @property { string } [parameter89Value] Parameter value
+ * @property { string } [parameter90Name] Parameter name
+ * @property { string } [parameter90Value] Parameter value
+ * @property { string } [parameter91Name] Parameter name
+ * @property { string } [parameter91Value] Parameter value
+ * @property { string } [parameter92Name] Parameter name
+ * @property { string } [parameter92Value] Parameter value
+ * @property { string } [parameter93Name] Parameter name
+ * @property { string } [parameter93Value] Parameter value
+ * @property { string } [parameter94Name] Parameter name
+ * @property { string } [parameter94Value] Parameter value
+ * @property { string } [parameter95Name] Parameter name
+ * @property { string } [parameter95Value] Parameter value
+ * @property { string } [parameter96Name] Parameter name
+ * @property { string } [parameter96Value] Parameter value
+ * @property { string } [parameter97Name] Parameter name
+ * @property { string } [parameter97Value] Parameter value
+ * @property { string } [parameter98Name] Parameter name
+ * @property { string } [parameter98Value] Parameter value
+ * @property { string } [parameter99Name] Parameter name
+ * @property { string } [parameter99Value] Parameter value
  */
 export interface SiprecListInstanceCreateOptions {
-  'name'?: string;
-  'connectorName'?: string;
-  'track'?: SiprecTrack;
-  'statusCallback'?: string;
-  'statusCallbackMethod'?: string;
-  'parameter1.name'?: string;
-  'parameter1.value'?: string;
-  'parameter2.name'?: string;
-  'parameter2.value'?: string;
-  'parameter3.name'?: string;
-  'parameter3.value'?: string;
-  'parameter4.name'?: string;
-  'parameter4.value'?: string;
-  'parameter5.name'?: string;
-  'parameter5.value'?: string;
-  'parameter6.name'?: string;
-  'parameter6.value'?: string;
-  'parameter7.name'?: string;
-  'parameter7.value'?: string;
-  'parameter8.name'?: string;
-  'parameter8.value'?: string;
-  'parameter9.name'?: string;
-  'parameter9.value'?: string;
-  'parameter10.name'?: string;
-  'parameter10.value'?: string;
-  'parameter11.name'?: string;
-  'parameter11.value'?: string;
-  'parameter12.name'?: string;
-  'parameter12.value'?: string;
-  'parameter13.name'?: string;
-  'parameter13.value'?: string;
-  'parameter14.name'?: string;
-  'parameter14.value'?: string;
-  'parameter15.name'?: string;
-  'parameter15.value'?: string;
-  'parameter16.name'?: string;
-  'parameter16.value'?: string;
-  'parameter17.name'?: string;
-  'parameter17.value'?: string;
-  'parameter18.name'?: string;
-  'parameter18.value'?: string;
-  'parameter19.name'?: string;
-  'parameter19.value'?: string;
-  'parameter20.name'?: string;
-  'parameter20.value'?: string;
-  'parameter21.name'?: string;
-  'parameter21.value'?: string;
-  'parameter22.name'?: string;
-  'parameter22.value'?: string;
-  'parameter23.name'?: string;
-  'parameter23.value'?: string;
-  'parameter24.name'?: string;
-  'parameter24.value'?: string;
-  'parameter25.name'?: string;
-  'parameter25.value'?: string;
-  'parameter26.name'?: string;
-  'parameter26.value'?: string;
-  'parameter27.name'?: string;
-  'parameter27.value'?: string;
-  'parameter28.name'?: string;
-  'parameter28.value'?: string;
-  'parameter29.name'?: string;
-  'parameter29.value'?: string;
-  'parameter30.name'?: string;
-  'parameter30.value'?: string;
-  'parameter31.name'?: string;
-  'parameter31.value'?: string;
-  'parameter32.name'?: string;
-  'parameter32.value'?: string;
-  'parameter33.name'?: string;
-  'parameter33.value'?: string;
-  'parameter34.name'?: string;
-  'parameter34.value'?: string;
-  'parameter35.name'?: string;
-  'parameter35.value'?: string;
-  'parameter36.name'?: string;
-  'parameter36.value'?: string;
-  'parameter37.name'?: string;
-  'parameter37.value'?: string;
-  'parameter38.name'?: string;
-  'parameter38.value'?: string;
-  'parameter39.name'?: string;
-  'parameter39.value'?: string;
-  'parameter40.name'?: string;
-  'parameter40.value'?: string;
-  'parameter41.name'?: string;
-  'parameter41.value'?: string;
-  'parameter42.name'?: string;
-  'parameter42.value'?: string;
-  'parameter43.name'?: string;
-  'parameter43.value'?: string;
-  'parameter44.name'?: string;
-  'parameter44.value'?: string;
-  'parameter45.name'?: string;
-  'parameter45.value'?: string;
-  'parameter46.name'?: string;
-  'parameter46.value'?: string;
-  'parameter47.name'?: string;
-  'parameter47.value'?: string;
-  'parameter48.name'?: string;
-  'parameter48.value'?: string;
-  'parameter49.name'?: string;
-  'parameter49.value'?: string;
-  'parameter50.name'?: string;
-  'parameter50.value'?: string;
-  'parameter51.name'?: string;
-  'parameter51.value'?: string;
-  'parameter52.name'?: string;
-  'parameter52.value'?: string;
-  'parameter53.name'?: string;
-  'parameter53.value'?: string;
-  'parameter54.name'?: string;
-  'parameter54.value'?: string;
-  'parameter55.name'?: string;
-  'parameter55.value'?: string;
-  'parameter56.name'?: string;
-  'parameter56.value'?: string;
-  'parameter57.name'?: string;
-  'parameter57.value'?: string;
-  'parameter58.name'?: string;
-  'parameter58.value'?: string;
-  'parameter59.name'?: string;
-  'parameter59.value'?: string;
-  'parameter60.name'?: string;
-  'parameter60.value'?: string;
-  'parameter61.name'?: string;
-  'parameter61.value'?: string;
-  'parameter62.name'?: string;
-  'parameter62.value'?: string;
-  'parameter63.name'?: string;
-  'parameter63.value'?: string;
-  'parameter64.name'?: string;
-  'parameter64.value'?: string;
-  'parameter65.name'?: string;
-  'parameter65.value'?: string;
-  'parameter66.name'?: string;
-  'parameter66.value'?: string;
-  'parameter67.name'?: string;
-  'parameter67.value'?: string;
-  'parameter68.name'?: string;
-  'parameter68.value'?: string;
-  'parameter69.name'?: string;
-  'parameter69.value'?: string;
-  'parameter70.name'?: string;
-  'parameter70.value'?: string;
-  'parameter71.name'?: string;
-  'parameter71.value'?: string;
-  'parameter72.name'?: string;
-  'parameter72.value'?: string;
-  'parameter73.name'?: string;
-  'parameter73.value'?: string;
-  'parameter74.name'?: string;
-  'parameter74.value'?: string;
-  'parameter75.name'?: string;
-  'parameter75.value'?: string;
-  'parameter76.name'?: string;
-  'parameter76.value'?: string;
-  'parameter77.name'?: string;
-  'parameter77.value'?: string;
-  'parameter78.name'?: string;
-  'parameter78.value'?: string;
-  'parameter79.name'?: string;
-  'parameter79.value'?: string;
-  'parameter80.name'?: string;
-  'parameter80.value'?: string;
-  'parameter81.name'?: string;
-  'parameter81.value'?: string;
-  'parameter82.name'?: string;
-  'parameter82.value'?: string;
-  'parameter83.name'?: string;
-  'parameter83.value'?: string;
-  'parameter84.name'?: string;
-  'parameter84.value'?: string;
-  'parameter85.name'?: string;
-  'parameter85.value'?: string;
-  'parameter86.name'?: string;
-  'parameter86.value'?: string;
-  'parameter87.name'?: string;
-  'parameter87.value'?: string;
-  'parameter88.name'?: string;
-  'parameter88.value'?: string;
-  'parameter89.name'?: string;
-  'parameter89.value'?: string;
-  'parameter90.name'?: string;
-  'parameter90.value'?: string;
-  'parameter91.name'?: string;
-  'parameter91.value'?: string;
-  'parameter92.name'?: string;
-  'parameter92.value'?: string;
-  'parameter93.name'?: string;
-  'parameter93.value'?: string;
-  'parameter94.name'?: string;
-  'parameter94.value'?: string;
-  'parameter95.name'?: string;
-  'parameter95.value'?: string;
-  'parameter96.name'?: string;
-  'parameter96.value'?: string;
-  'parameter97.name'?: string;
-  'parameter97.value'?: string;
-  'parameter98.name'?: string;
-  'parameter98.value'?: string;
-  'parameter99.name'?: string;
-  'parameter99.value'?: string;
+  name?: string;
+  connectorName?: string;
+  track?: SiprecTrack;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  parameter1Name?: string;
+  parameter1Value?: string;
+  parameter2Name?: string;
+  parameter2Value?: string;
+  parameter3Name?: string;
+  parameter3Value?: string;
+  parameter4Name?: string;
+  parameter4Value?: string;
+  parameter5Name?: string;
+  parameter5Value?: string;
+  parameter6Name?: string;
+  parameter6Value?: string;
+  parameter7Name?: string;
+  parameter7Value?: string;
+  parameter8Name?: string;
+  parameter8Value?: string;
+  parameter9Name?: string;
+  parameter9Value?: string;
+  parameter10Name?: string;
+  parameter10Value?: string;
+  parameter11Name?: string;
+  parameter11Value?: string;
+  parameter12Name?: string;
+  parameter12Value?: string;
+  parameter13Name?: string;
+  parameter13Value?: string;
+  parameter14Name?: string;
+  parameter14Value?: string;
+  parameter15Name?: string;
+  parameter15Value?: string;
+  parameter16Name?: string;
+  parameter16Value?: string;
+  parameter17Name?: string;
+  parameter17Value?: string;
+  parameter18Name?: string;
+  parameter18Value?: string;
+  parameter19Name?: string;
+  parameter19Value?: string;
+  parameter20Name?: string;
+  parameter20Value?: string;
+  parameter21Name?: string;
+  parameter21Value?: string;
+  parameter22Name?: string;
+  parameter22Value?: string;
+  parameter23Name?: string;
+  parameter23Value?: string;
+  parameter24Name?: string;
+  parameter24Value?: string;
+  parameter25Name?: string;
+  parameter25Value?: string;
+  parameter26Name?: string;
+  parameter26Value?: string;
+  parameter27Name?: string;
+  parameter27Value?: string;
+  parameter28Name?: string;
+  parameter28Value?: string;
+  parameter29Name?: string;
+  parameter29Value?: string;
+  parameter30Name?: string;
+  parameter30Value?: string;
+  parameter31Name?: string;
+  parameter31Value?: string;
+  parameter32Name?: string;
+  parameter32Value?: string;
+  parameter33Name?: string;
+  parameter33Value?: string;
+  parameter34Name?: string;
+  parameter34Value?: string;
+  parameter35Name?: string;
+  parameter35Value?: string;
+  parameter36Name?: string;
+  parameter36Value?: string;
+  parameter37Name?: string;
+  parameter37Value?: string;
+  parameter38Name?: string;
+  parameter38Value?: string;
+  parameter39Name?: string;
+  parameter39Value?: string;
+  parameter40Name?: string;
+  parameter40Value?: string;
+  parameter41Name?: string;
+  parameter41Value?: string;
+  parameter42Name?: string;
+  parameter42Value?: string;
+  parameter43Name?: string;
+  parameter43Value?: string;
+  parameter44Name?: string;
+  parameter44Value?: string;
+  parameter45Name?: string;
+  parameter45Value?: string;
+  parameter46Name?: string;
+  parameter46Value?: string;
+  parameter47Name?: string;
+  parameter47Value?: string;
+  parameter48Name?: string;
+  parameter48Value?: string;
+  parameter49Name?: string;
+  parameter49Value?: string;
+  parameter50Name?: string;
+  parameter50Value?: string;
+  parameter51Name?: string;
+  parameter51Value?: string;
+  parameter52Name?: string;
+  parameter52Value?: string;
+  parameter53Name?: string;
+  parameter53Value?: string;
+  parameter54Name?: string;
+  parameter54Value?: string;
+  parameter55Name?: string;
+  parameter55Value?: string;
+  parameter56Name?: string;
+  parameter56Value?: string;
+  parameter57Name?: string;
+  parameter57Value?: string;
+  parameter58Name?: string;
+  parameter58Value?: string;
+  parameter59Name?: string;
+  parameter59Value?: string;
+  parameter60Name?: string;
+  parameter60Value?: string;
+  parameter61Name?: string;
+  parameter61Value?: string;
+  parameter62Name?: string;
+  parameter62Value?: string;
+  parameter63Name?: string;
+  parameter63Value?: string;
+  parameter64Name?: string;
+  parameter64Value?: string;
+  parameter65Name?: string;
+  parameter65Value?: string;
+  parameter66Name?: string;
+  parameter66Value?: string;
+  parameter67Name?: string;
+  parameter67Value?: string;
+  parameter68Name?: string;
+  parameter68Value?: string;
+  parameter69Name?: string;
+  parameter69Value?: string;
+  parameter70Name?: string;
+  parameter70Value?: string;
+  parameter71Name?: string;
+  parameter71Value?: string;
+  parameter72Name?: string;
+  parameter72Value?: string;
+  parameter73Name?: string;
+  parameter73Value?: string;
+  parameter74Name?: string;
+  parameter74Value?: string;
+  parameter75Name?: string;
+  parameter75Value?: string;
+  parameter76Name?: string;
+  parameter76Value?: string;
+  parameter77Name?: string;
+  parameter77Value?: string;
+  parameter78Name?: string;
+  parameter78Value?: string;
+  parameter79Name?: string;
+  parameter79Value?: string;
+  parameter80Name?: string;
+  parameter80Value?: string;
+  parameter81Name?: string;
+  parameter81Value?: string;
+  parameter82Name?: string;
+  parameter82Value?: string;
+  parameter83Name?: string;
+  parameter83Value?: string;
+  parameter84Name?: string;
+  parameter84Value?: string;
+  parameter85Name?: string;
+  parameter85Value?: string;
+  parameter86Name?: string;
+  parameter86Value?: string;
+  parameter87Name?: string;
+  parameter87Value?: string;
+  parameter88Name?: string;
+  parameter88Value?: string;
+  parameter89Name?: string;
+  parameter89Value?: string;
+  parameter90Name?: string;
+  parameter90Value?: string;
+  parameter91Name?: string;
+  parameter91Value?: string;
+  parameter92Name?: string;
+  parameter92Value?: string;
+  parameter93Name?: string;
+  parameter93Value?: string;
+  parameter94Name?: string;
+  parameter94Value?: string;
+  parameter95Name?: string;
+  parameter95Value?: string;
+  parameter96Name?: string;
+  parameter96Value?: string;
+  parameter97Name?: string;
+  parameter97Value?: string;
+  parameter98Name?: string;
+  parameter98Value?: string;
+  parameter99Name?: string;
+  parameter99Value?: string;
 }
 
 export interface SiprecContext {
@@ -472,9 +472,9 @@ export interface SiprecContext {
 }
 
 export interface SiprecContextSolution {
-  'accountSid'?: string;
-  'callSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
 }
 
 export class SiprecContextImpl implements SiprecContext {
@@ -492,13 +492,13 @@ export class SiprecContextImpl implements SiprecContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params['status'];
+    data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -692,209 +692,209 @@ export function SiprecListInstance(version: V2010, accountSid: string, callSid: 
 
     const data: any = {};
 
-    if (params['name'] !== undefined) data['Name'] = params['name'];
-    if (params['connectorName'] !== undefined) data['ConnectorName'] = params['connectorName'];
-    if (params['track'] !== undefined) data['Track'] = params['track'];
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
-    if (params['statusCallbackMethod'] !== undefined) data['StatusCallbackMethod'] = params['statusCallbackMethod'];
-    if (params['parameter1.name'] !== undefined) data['Parameter1.Name'] = params['parameter1.name'];
-    if (params['parameter1.value'] !== undefined) data['Parameter1.Value'] = params['parameter1.value'];
-    if (params['parameter2.name'] !== undefined) data['Parameter2.Name'] = params['parameter2.name'];
-    if (params['parameter2.value'] !== undefined) data['Parameter2.Value'] = params['parameter2.value'];
-    if (params['parameter3.name'] !== undefined) data['Parameter3.Name'] = params['parameter3.name'];
-    if (params['parameter3.value'] !== undefined) data['Parameter3.Value'] = params['parameter3.value'];
-    if (params['parameter4.name'] !== undefined) data['Parameter4.Name'] = params['parameter4.name'];
-    if (params['parameter4.value'] !== undefined) data['Parameter4.Value'] = params['parameter4.value'];
-    if (params['parameter5.name'] !== undefined) data['Parameter5.Name'] = params['parameter5.name'];
-    if (params['parameter5.value'] !== undefined) data['Parameter5.Value'] = params['parameter5.value'];
-    if (params['parameter6.name'] !== undefined) data['Parameter6.Name'] = params['parameter6.name'];
-    if (params['parameter6.value'] !== undefined) data['Parameter6.Value'] = params['parameter6.value'];
-    if (params['parameter7.name'] !== undefined) data['Parameter7.Name'] = params['parameter7.name'];
-    if (params['parameter7.value'] !== undefined) data['Parameter7.Value'] = params['parameter7.value'];
-    if (params['parameter8.name'] !== undefined) data['Parameter8.Name'] = params['parameter8.name'];
-    if (params['parameter8.value'] !== undefined) data['Parameter8.Value'] = params['parameter8.value'];
-    if (params['parameter9.name'] !== undefined) data['Parameter9.Name'] = params['parameter9.name'];
-    if (params['parameter9.value'] !== undefined) data['Parameter9.Value'] = params['parameter9.value'];
-    if (params['parameter10.name'] !== undefined) data['Parameter10.Name'] = params['parameter10.name'];
-    if (params['parameter10.value'] !== undefined) data['Parameter10.Value'] = params['parameter10.value'];
-    if (params['parameter11.name'] !== undefined) data['Parameter11.Name'] = params['parameter11.name'];
-    if (params['parameter11.value'] !== undefined) data['Parameter11.Value'] = params['parameter11.value'];
-    if (params['parameter12.name'] !== undefined) data['Parameter12.Name'] = params['parameter12.name'];
-    if (params['parameter12.value'] !== undefined) data['Parameter12.Value'] = params['parameter12.value'];
-    if (params['parameter13.name'] !== undefined) data['Parameter13.Name'] = params['parameter13.name'];
-    if (params['parameter13.value'] !== undefined) data['Parameter13.Value'] = params['parameter13.value'];
-    if (params['parameter14.name'] !== undefined) data['Parameter14.Name'] = params['parameter14.name'];
-    if (params['parameter14.value'] !== undefined) data['Parameter14.Value'] = params['parameter14.value'];
-    if (params['parameter15.name'] !== undefined) data['Parameter15.Name'] = params['parameter15.name'];
-    if (params['parameter15.value'] !== undefined) data['Parameter15.Value'] = params['parameter15.value'];
-    if (params['parameter16.name'] !== undefined) data['Parameter16.Name'] = params['parameter16.name'];
-    if (params['parameter16.value'] !== undefined) data['Parameter16.Value'] = params['parameter16.value'];
-    if (params['parameter17.name'] !== undefined) data['Parameter17.Name'] = params['parameter17.name'];
-    if (params['parameter17.value'] !== undefined) data['Parameter17.Value'] = params['parameter17.value'];
-    if (params['parameter18.name'] !== undefined) data['Parameter18.Name'] = params['parameter18.name'];
-    if (params['parameter18.value'] !== undefined) data['Parameter18.Value'] = params['parameter18.value'];
-    if (params['parameter19.name'] !== undefined) data['Parameter19.Name'] = params['parameter19.name'];
-    if (params['parameter19.value'] !== undefined) data['Parameter19.Value'] = params['parameter19.value'];
-    if (params['parameter20.name'] !== undefined) data['Parameter20.Name'] = params['parameter20.name'];
-    if (params['parameter20.value'] !== undefined) data['Parameter20.Value'] = params['parameter20.value'];
-    if (params['parameter21.name'] !== undefined) data['Parameter21.Name'] = params['parameter21.name'];
-    if (params['parameter21.value'] !== undefined) data['Parameter21.Value'] = params['parameter21.value'];
-    if (params['parameter22.name'] !== undefined) data['Parameter22.Name'] = params['parameter22.name'];
-    if (params['parameter22.value'] !== undefined) data['Parameter22.Value'] = params['parameter22.value'];
-    if (params['parameter23.name'] !== undefined) data['Parameter23.Name'] = params['parameter23.name'];
-    if (params['parameter23.value'] !== undefined) data['Parameter23.Value'] = params['parameter23.value'];
-    if (params['parameter24.name'] !== undefined) data['Parameter24.Name'] = params['parameter24.name'];
-    if (params['parameter24.value'] !== undefined) data['Parameter24.Value'] = params['parameter24.value'];
-    if (params['parameter25.name'] !== undefined) data['Parameter25.Name'] = params['parameter25.name'];
-    if (params['parameter25.value'] !== undefined) data['Parameter25.Value'] = params['parameter25.value'];
-    if (params['parameter26.name'] !== undefined) data['Parameter26.Name'] = params['parameter26.name'];
-    if (params['parameter26.value'] !== undefined) data['Parameter26.Value'] = params['parameter26.value'];
-    if (params['parameter27.name'] !== undefined) data['Parameter27.Name'] = params['parameter27.name'];
-    if (params['parameter27.value'] !== undefined) data['Parameter27.Value'] = params['parameter27.value'];
-    if (params['parameter28.name'] !== undefined) data['Parameter28.Name'] = params['parameter28.name'];
-    if (params['parameter28.value'] !== undefined) data['Parameter28.Value'] = params['parameter28.value'];
-    if (params['parameter29.name'] !== undefined) data['Parameter29.Name'] = params['parameter29.name'];
-    if (params['parameter29.value'] !== undefined) data['Parameter29.Value'] = params['parameter29.value'];
-    if (params['parameter30.name'] !== undefined) data['Parameter30.Name'] = params['parameter30.name'];
-    if (params['parameter30.value'] !== undefined) data['Parameter30.Value'] = params['parameter30.value'];
-    if (params['parameter31.name'] !== undefined) data['Parameter31.Name'] = params['parameter31.name'];
-    if (params['parameter31.value'] !== undefined) data['Parameter31.Value'] = params['parameter31.value'];
-    if (params['parameter32.name'] !== undefined) data['Parameter32.Name'] = params['parameter32.name'];
-    if (params['parameter32.value'] !== undefined) data['Parameter32.Value'] = params['parameter32.value'];
-    if (params['parameter33.name'] !== undefined) data['Parameter33.Name'] = params['parameter33.name'];
-    if (params['parameter33.value'] !== undefined) data['Parameter33.Value'] = params['parameter33.value'];
-    if (params['parameter34.name'] !== undefined) data['Parameter34.Name'] = params['parameter34.name'];
-    if (params['parameter34.value'] !== undefined) data['Parameter34.Value'] = params['parameter34.value'];
-    if (params['parameter35.name'] !== undefined) data['Parameter35.Name'] = params['parameter35.name'];
-    if (params['parameter35.value'] !== undefined) data['Parameter35.Value'] = params['parameter35.value'];
-    if (params['parameter36.name'] !== undefined) data['Parameter36.Name'] = params['parameter36.name'];
-    if (params['parameter36.value'] !== undefined) data['Parameter36.Value'] = params['parameter36.value'];
-    if (params['parameter37.name'] !== undefined) data['Parameter37.Name'] = params['parameter37.name'];
-    if (params['parameter37.value'] !== undefined) data['Parameter37.Value'] = params['parameter37.value'];
-    if (params['parameter38.name'] !== undefined) data['Parameter38.Name'] = params['parameter38.name'];
-    if (params['parameter38.value'] !== undefined) data['Parameter38.Value'] = params['parameter38.value'];
-    if (params['parameter39.name'] !== undefined) data['Parameter39.Name'] = params['parameter39.name'];
-    if (params['parameter39.value'] !== undefined) data['Parameter39.Value'] = params['parameter39.value'];
-    if (params['parameter40.name'] !== undefined) data['Parameter40.Name'] = params['parameter40.name'];
-    if (params['parameter40.value'] !== undefined) data['Parameter40.Value'] = params['parameter40.value'];
-    if (params['parameter41.name'] !== undefined) data['Parameter41.Name'] = params['parameter41.name'];
-    if (params['parameter41.value'] !== undefined) data['Parameter41.Value'] = params['parameter41.value'];
-    if (params['parameter42.name'] !== undefined) data['Parameter42.Name'] = params['parameter42.name'];
-    if (params['parameter42.value'] !== undefined) data['Parameter42.Value'] = params['parameter42.value'];
-    if (params['parameter43.name'] !== undefined) data['Parameter43.Name'] = params['parameter43.name'];
-    if (params['parameter43.value'] !== undefined) data['Parameter43.Value'] = params['parameter43.value'];
-    if (params['parameter44.name'] !== undefined) data['Parameter44.Name'] = params['parameter44.name'];
-    if (params['parameter44.value'] !== undefined) data['Parameter44.Value'] = params['parameter44.value'];
-    if (params['parameter45.name'] !== undefined) data['Parameter45.Name'] = params['parameter45.name'];
-    if (params['parameter45.value'] !== undefined) data['Parameter45.Value'] = params['parameter45.value'];
-    if (params['parameter46.name'] !== undefined) data['Parameter46.Name'] = params['parameter46.name'];
-    if (params['parameter46.value'] !== undefined) data['Parameter46.Value'] = params['parameter46.value'];
-    if (params['parameter47.name'] !== undefined) data['Parameter47.Name'] = params['parameter47.name'];
-    if (params['parameter47.value'] !== undefined) data['Parameter47.Value'] = params['parameter47.value'];
-    if (params['parameter48.name'] !== undefined) data['Parameter48.Name'] = params['parameter48.name'];
-    if (params['parameter48.value'] !== undefined) data['Parameter48.Value'] = params['parameter48.value'];
-    if (params['parameter49.name'] !== undefined) data['Parameter49.Name'] = params['parameter49.name'];
-    if (params['parameter49.value'] !== undefined) data['Parameter49.Value'] = params['parameter49.value'];
-    if (params['parameter50.name'] !== undefined) data['Parameter50.Name'] = params['parameter50.name'];
-    if (params['parameter50.value'] !== undefined) data['Parameter50.Value'] = params['parameter50.value'];
-    if (params['parameter51.name'] !== undefined) data['Parameter51.Name'] = params['parameter51.name'];
-    if (params['parameter51.value'] !== undefined) data['Parameter51.Value'] = params['parameter51.value'];
-    if (params['parameter52.name'] !== undefined) data['Parameter52.Name'] = params['parameter52.name'];
-    if (params['parameter52.value'] !== undefined) data['Parameter52.Value'] = params['parameter52.value'];
-    if (params['parameter53.name'] !== undefined) data['Parameter53.Name'] = params['parameter53.name'];
-    if (params['parameter53.value'] !== undefined) data['Parameter53.Value'] = params['parameter53.value'];
-    if (params['parameter54.name'] !== undefined) data['Parameter54.Name'] = params['parameter54.name'];
-    if (params['parameter54.value'] !== undefined) data['Parameter54.Value'] = params['parameter54.value'];
-    if (params['parameter55.name'] !== undefined) data['Parameter55.Name'] = params['parameter55.name'];
-    if (params['parameter55.value'] !== undefined) data['Parameter55.Value'] = params['parameter55.value'];
-    if (params['parameter56.name'] !== undefined) data['Parameter56.Name'] = params['parameter56.name'];
-    if (params['parameter56.value'] !== undefined) data['Parameter56.Value'] = params['parameter56.value'];
-    if (params['parameter57.name'] !== undefined) data['Parameter57.Name'] = params['parameter57.name'];
-    if (params['parameter57.value'] !== undefined) data['Parameter57.Value'] = params['parameter57.value'];
-    if (params['parameter58.name'] !== undefined) data['Parameter58.Name'] = params['parameter58.name'];
-    if (params['parameter58.value'] !== undefined) data['Parameter58.Value'] = params['parameter58.value'];
-    if (params['parameter59.name'] !== undefined) data['Parameter59.Name'] = params['parameter59.name'];
-    if (params['parameter59.value'] !== undefined) data['Parameter59.Value'] = params['parameter59.value'];
-    if (params['parameter60.name'] !== undefined) data['Parameter60.Name'] = params['parameter60.name'];
-    if (params['parameter60.value'] !== undefined) data['Parameter60.Value'] = params['parameter60.value'];
-    if (params['parameter61.name'] !== undefined) data['Parameter61.Name'] = params['parameter61.name'];
-    if (params['parameter61.value'] !== undefined) data['Parameter61.Value'] = params['parameter61.value'];
-    if (params['parameter62.name'] !== undefined) data['Parameter62.Name'] = params['parameter62.name'];
-    if (params['parameter62.value'] !== undefined) data['Parameter62.Value'] = params['parameter62.value'];
-    if (params['parameter63.name'] !== undefined) data['Parameter63.Name'] = params['parameter63.name'];
-    if (params['parameter63.value'] !== undefined) data['Parameter63.Value'] = params['parameter63.value'];
-    if (params['parameter64.name'] !== undefined) data['Parameter64.Name'] = params['parameter64.name'];
-    if (params['parameter64.value'] !== undefined) data['Parameter64.Value'] = params['parameter64.value'];
-    if (params['parameter65.name'] !== undefined) data['Parameter65.Name'] = params['parameter65.name'];
-    if (params['parameter65.value'] !== undefined) data['Parameter65.Value'] = params['parameter65.value'];
-    if (params['parameter66.name'] !== undefined) data['Parameter66.Name'] = params['parameter66.name'];
-    if (params['parameter66.value'] !== undefined) data['Parameter66.Value'] = params['parameter66.value'];
-    if (params['parameter67.name'] !== undefined) data['Parameter67.Name'] = params['parameter67.name'];
-    if (params['parameter67.value'] !== undefined) data['Parameter67.Value'] = params['parameter67.value'];
-    if (params['parameter68.name'] !== undefined) data['Parameter68.Name'] = params['parameter68.name'];
-    if (params['parameter68.value'] !== undefined) data['Parameter68.Value'] = params['parameter68.value'];
-    if (params['parameter69.name'] !== undefined) data['Parameter69.Name'] = params['parameter69.name'];
-    if (params['parameter69.value'] !== undefined) data['Parameter69.Value'] = params['parameter69.value'];
-    if (params['parameter70.name'] !== undefined) data['Parameter70.Name'] = params['parameter70.name'];
-    if (params['parameter70.value'] !== undefined) data['Parameter70.Value'] = params['parameter70.value'];
-    if (params['parameter71.name'] !== undefined) data['Parameter71.Name'] = params['parameter71.name'];
-    if (params['parameter71.value'] !== undefined) data['Parameter71.Value'] = params['parameter71.value'];
-    if (params['parameter72.name'] !== undefined) data['Parameter72.Name'] = params['parameter72.name'];
-    if (params['parameter72.value'] !== undefined) data['Parameter72.Value'] = params['parameter72.value'];
-    if (params['parameter73.name'] !== undefined) data['Parameter73.Name'] = params['parameter73.name'];
-    if (params['parameter73.value'] !== undefined) data['Parameter73.Value'] = params['parameter73.value'];
-    if (params['parameter74.name'] !== undefined) data['Parameter74.Name'] = params['parameter74.name'];
-    if (params['parameter74.value'] !== undefined) data['Parameter74.Value'] = params['parameter74.value'];
-    if (params['parameter75.name'] !== undefined) data['Parameter75.Name'] = params['parameter75.name'];
-    if (params['parameter75.value'] !== undefined) data['Parameter75.Value'] = params['parameter75.value'];
-    if (params['parameter76.name'] !== undefined) data['Parameter76.Name'] = params['parameter76.name'];
-    if (params['parameter76.value'] !== undefined) data['Parameter76.Value'] = params['parameter76.value'];
-    if (params['parameter77.name'] !== undefined) data['Parameter77.Name'] = params['parameter77.name'];
-    if (params['parameter77.value'] !== undefined) data['Parameter77.Value'] = params['parameter77.value'];
-    if (params['parameter78.name'] !== undefined) data['Parameter78.Name'] = params['parameter78.name'];
-    if (params['parameter78.value'] !== undefined) data['Parameter78.Value'] = params['parameter78.value'];
-    if (params['parameter79.name'] !== undefined) data['Parameter79.Name'] = params['parameter79.name'];
-    if (params['parameter79.value'] !== undefined) data['Parameter79.Value'] = params['parameter79.value'];
-    if (params['parameter80.name'] !== undefined) data['Parameter80.Name'] = params['parameter80.name'];
-    if (params['parameter80.value'] !== undefined) data['Parameter80.Value'] = params['parameter80.value'];
-    if (params['parameter81.name'] !== undefined) data['Parameter81.Name'] = params['parameter81.name'];
-    if (params['parameter81.value'] !== undefined) data['Parameter81.Value'] = params['parameter81.value'];
-    if (params['parameter82.name'] !== undefined) data['Parameter82.Name'] = params['parameter82.name'];
-    if (params['parameter82.value'] !== undefined) data['Parameter82.Value'] = params['parameter82.value'];
-    if (params['parameter83.name'] !== undefined) data['Parameter83.Name'] = params['parameter83.name'];
-    if (params['parameter83.value'] !== undefined) data['Parameter83.Value'] = params['parameter83.value'];
-    if (params['parameter84.name'] !== undefined) data['Parameter84.Name'] = params['parameter84.name'];
-    if (params['parameter84.value'] !== undefined) data['Parameter84.Value'] = params['parameter84.value'];
-    if (params['parameter85.name'] !== undefined) data['Parameter85.Name'] = params['parameter85.name'];
-    if (params['parameter85.value'] !== undefined) data['Parameter85.Value'] = params['parameter85.value'];
-    if (params['parameter86.name'] !== undefined) data['Parameter86.Name'] = params['parameter86.name'];
-    if (params['parameter86.value'] !== undefined) data['Parameter86.Value'] = params['parameter86.value'];
-    if (params['parameter87.name'] !== undefined) data['Parameter87.Name'] = params['parameter87.name'];
-    if (params['parameter87.value'] !== undefined) data['Parameter87.Value'] = params['parameter87.value'];
-    if (params['parameter88.name'] !== undefined) data['Parameter88.Name'] = params['parameter88.name'];
-    if (params['parameter88.value'] !== undefined) data['Parameter88.Value'] = params['parameter88.value'];
-    if (params['parameter89.name'] !== undefined) data['Parameter89.Name'] = params['parameter89.name'];
-    if (params['parameter89.value'] !== undefined) data['Parameter89.Value'] = params['parameter89.value'];
-    if (params['parameter90.name'] !== undefined) data['Parameter90.Name'] = params['parameter90.name'];
-    if (params['parameter90.value'] !== undefined) data['Parameter90.Value'] = params['parameter90.value'];
-    if (params['parameter91.name'] !== undefined) data['Parameter91.Name'] = params['parameter91.name'];
-    if (params['parameter91.value'] !== undefined) data['Parameter91.Value'] = params['parameter91.value'];
-    if (params['parameter92.name'] !== undefined) data['Parameter92.Name'] = params['parameter92.name'];
-    if (params['parameter92.value'] !== undefined) data['Parameter92.Value'] = params['parameter92.value'];
-    if (params['parameter93.name'] !== undefined) data['Parameter93.Name'] = params['parameter93.name'];
-    if (params['parameter93.value'] !== undefined) data['Parameter93.Value'] = params['parameter93.value'];
-    if (params['parameter94.name'] !== undefined) data['Parameter94.Name'] = params['parameter94.name'];
-    if (params['parameter94.value'] !== undefined) data['Parameter94.Value'] = params['parameter94.value'];
-    if (params['parameter95.name'] !== undefined) data['Parameter95.Name'] = params['parameter95.name'];
-    if (params['parameter95.value'] !== undefined) data['Parameter95.Value'] = params['parameter95.value'];
-    if (params['parameter96.name'] !== undefined) data['Parameter96.Name'] = params['parameter96.name'];
-    if (params['parameter96.value'] !== undefined) data['Parameter96.Value'] = params['parameter96.value'];
-    if (params['parameter97.name'] !== undefined) data['Parameter97.Name'] = params['parameter97.name'];
-    if (params['parameter97.value'] !== undefined) data['Parameter97.Value'] = params['parameter97.value'];
-    if (params['parameter98.name'] !== undefined) data['Parameter98.Name'] = params['parameter98.name'];
-    if (params['parameter98.value'] !== undefined) data['Parameter98.Value'] = params['parameter98.value'];
-    if (params['parameter99.name'] !== undefined) data['Parameter99.Name'] = params['parameter99.name'];
-    if (params['parameter99.value'] !== undefined) data['Parameter99.Value'] = params['parameter99.value'];
+    if (params.name !== undefined) data['Name'] = params.name;
+    if (params.connectorName !== undefined) data['ConnectorName'] = params.connectorName;
+    if (params.track !== undefined) data['Track'] = params.track;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.parameter1Name !== undefined) data['Parameter1.Name'] = params.parameter1Name;
+    if (params.parameter1Value !== undefined) data['Parameter1.Value'] = params.parameter1Value;
+    if (params.parameter2Name !== undefined) data['Parameter2.Name'] = params.parameter2Name;
+    if (params.parameter2Value !== undefined) data['Parameter2.Value'] = params.parameter2Value;
+    if (params.parameter3Name !== undefined) data['Parameter3.Name'] = params.parameter3Name;
+    if (params.parameter3Value !== undefined) data['Parameter3.Value'] = params.parameter3Value;
+    if (params.parameter4Name !== undefined) data['Parameter4.Name'] = params.parameter4Name;
+    if (params.parameter4Value !== undefined) data['Parameter4.Value'] = params.parameter4Value;
+    if (params.parameter5Name !== undefined) data['Parameter5.Name'] = params.parameter5Name;
+    if (params.parameter5Value !== undefined) data['Parameter5.Value'] = params.parameter5Value;
+    if (params.parameter6Name !== undefined) data['Parameter6.Name'] = params.parameter6Name;
+    if (params.parameter6Value !== undefined) data['Parameter6.Value'] = params.parameter6Value;
+    if (params.parameter7Name !== undefined) data['Parameter7.Name'] = params.parameter7Name;
+    if (params.parameter7Value !== undefined) data['Parameter7.Value'] = params.parameter7Value;
+    if (params.parameter8Name !== undefined) data['Parameter8.Name'] = params.parameter8Name;
+    if (params.parameter8Value !== undefined) data['Parameter8.Value'] = params.parameter8Value;
+    if (params.parameter9Name !== undefined) data['Parameter9.Name'] = params.parameter9Name;
+    if (params.parameter9Value !== undefined) data['Parameter9.Value'] = params.parameter9Value;
+    if (params.parameter10Name !== undefined) data['Parameter10.Name'] = params.parameter10Name;
+    if (params.parameter10Value !== undefined) data['Parameter10.Value'] = params.parameter10Value;
+    if (params.parameter11Name !== undefined) data['Parameter11.Name'] = params.parameter11Name;
+    if (params.parameter11Value !== undefined) data['Parameter11.Value'] = params.parameter11Value;
+    if (params.parameter12Name !== undefined) data['Parameter12.Name'] = params.parameter12Name;
+    if (params.parameter12Value !== undefined) data['Parameter12.Value'] = params.parameter12Value;
+    if (params.parameter13Name !== undefined) data['Parameter13.Name'] = params.parameter13Name;
+    if (params.parameter13Value !== undefined) data['Parameter13.Value'] = params.parameter13Value;
+    if (params.parameter14Name !== undefined) data['Parameter14.Name'] = params.parameter14Name;
+    if (params.parameter14Value !== undefined) data['Parameter14.Value'] = params.parameter14Value;
+    if (params.parameter15Name !== undefined) data['Parameter15.Name'] = params.parameter15Name;
+    if (params.parameter15Value !== undefined) data['Parameter15.Value'] = params.parameter15Value;
+    if (params.parameter16Name !== undefined) data['Parameter16.Name'] = params.parameter16Name;
+    if (params.parameter16Value !== undefined) data['Parameter16.Value'] = params.parameter16Value;
+    if (params.parameter17Name !== undefined) data['Parameter17.Name'] = params.parameter17Name;
+    if (params.parameter17Value !== undefined) data['Parameter17.Value'] = params.parameter17Value;
+    if (params.parameter18Name !== undefined) data['Parameter18.Name'] = params.parameter18Name;
+    if (params.parameter18Value !== undefined) data['Parameter18.Value'] = params.parameter18Value;
+    if (params.parameter19Name !== undefined) data['Parameter19.Name'] = params.parameter19Name;
+    if (params.parameter19Value !== undefined) data['Parameter19.Value'] = params.parameter19Value;
+    if (params.parameter20Name !== undefined) data['Parameter20.Name'] = params.parameter20Name;
+    if (params.parameter20Value !== undefined) data['Parameter20.Value'] = params.parameter20Value;
+    if (params.parameter21Name !== undefined) data['Parameter21.Name'] = params.parameter21Name;
+    if (params.parameter21Value !== undefined) data['Parameter21.Value'] = params.parameter21Value;
+    if (params.parameter22Name !== undefined) data['Parameter22.Name'] = params.parameter22Name;
+    if (params.parameter22Value !== undefined) data['Parameter22.Value'] = params.parameter22Value;
+    if (params.parameter23Name !== undefined) data['Parameter23.Name'] = params.parameter23Name;
+    if (params.parameter23Value !== undefined) data['Parameter23.Value'] = params.parameter23Value;
+    if (params.parameter24Name !== undefined) data['Parameter24.Name'] = params.parameter24Name;
+    if (params.parameter24Value !== undefined) data['Parameter24.Value'] = params.parameter24Value;
+    if (params.parameter25Name !== undefined) data['Parameter25.Name'] = params.parameter25Name;
+    if (params.parameter25Value !== undefined) data['Parameter25.Value'] = params.parameter25Value;
+    if (params.parameter26Name !== undefined) data['Parameter26.Name'] = params.parameter26Name;
+    if (params.parameter26Value !== undefined) data['Parameter26.Value'] = params.parameter26Value;
+    if (params.parameter27Name !== undefined) data['Parameter27.Name'] = params.parameter27Name;
+    if (params.parameter27Value !== undefined) data['Parameter27.Value'] = params.parameter27Value;
+    if (params.parameter28Name !== undefined) data['Parameter28.Name'] = params.parameter28Name;
+    if (params.parameter28Value !== undefined) data['Parameter28.Value'] = params.parameter28Value;
+    if (params.parameter29Name !== undefined) data['Parameter29.Name'] = params.parameter29Name;
+    if (params.parameter29Value !== undefined) data['Parameter29.Value'] = params.parameter29Value;
+    if (params.parameter30Name !== undefined) data['Parameter30.Name'] = params.parameter30Name;
+    if (params.parameter30Value !== undefined) data['Parameter30.Value'] = params.parameter30Value;
+    if (params.parameter31Name !== undefined) data['Parameter31.Name'] = params.parameter31Name;
+    if (params.parameter31Value !== undefined) data['Parameter31.Value'] = params.parameter31Value;
+    if (params.parameter32Name !== undefined) data['Parameter32.Name'] = params.parameter32Name;
+    if (params.parameter32Value !== undefined) data['Parameter32.Value'] = params.parameter32Value;
+    if (params.parameter33Name !== undefined) data['Parameter33.Name'] = params.parameter33Name;
+    if (params.parameter33Value !== undefined) data['Parameter33.Value'] = params.parameter33Value;
+    if (params.parameter34Name !== undefined) data['Parameter34.Name'] = params.parameter34Name;
+    if (params.parameter34Value !== undefined) data['Parameter34.Value'] = params.parameter34Value;
+    if (params.parameter35Name !== undefined) data['Parameter35.Name'] = params.parameter35Name;
+    if (params.parameter35Value !== undefined) data['Parameter35.Value'] = params.parameter35Value;
+    if (params.parameter36Name !== undefined) data['Parameter36.Name'] = params.parameter36Name;
+    if (params.parameter36Value !== undefined) data['Parameter36.Value'] = params.parameter36Value;
+    if (params.parameter37Name !== undefined) data['Parameter37.Name'] = params.parameter37Name;
+    if (params.parameter37Value !== undefined) data['Parameter37.Value'] = params.parameter37Value;
+    if (params.parameter38Name !== undefined) data['Parameter38.Name'] = params.parameter38Name;
+    if (params.parameter38Value !== undefined) data['Parameter38.Value'] = params.parameter38Value;
+    if (params.parameter39Name !== undefined) data['Parameter39.Name'] = params.parameter39Name;
+    if (params.parameter39Value !== undefined) data['Parameter39.Value'] = params.parameter39Value;
+    if (params.parameter40Name !== undefined) data['Parameter40.Name'] = params.parameter40Name;
+    if (params.parameter40Value !== undefined) data['Parameter40.Value'] = params.parameter40Value;
+    if (params.parameter41Name !== undefined) data['Parameter41.Name'] = params.parameter41Name;
+    if (params.parameter41Value !== undefined) data['Parameter41.Value'] = params.parameter41Value;
+    if (params.parameter42Name !== undefined) data['Parameter42.Name'] = params.parameter42Name;
+    if (params.parameter42Value !== undefined) data['Parameter42.Value'] = params.parameter42Value;
+    if (params.parameter43Name !== undefined) data['Parameter43.Name'] = params.parameter43Name;
+    if (params.parameter43Value !== undefined) data['Parameter43.Value'] = params.parameter43Value;
+    if (params.parameter44Name !== undefined) data['Parameter44.Name'] = params.parameter44Name;
+    if (params.parameter44Value !== undefined) data['Parameter44.Value'] = params.parameter44Value;
+    if (params.parameter45Name !== undefined) data['Parameter45.Name'] = params.parameter45Name;
+    if (params.parameter45Value !== undefined) data['Parameter45.Value'] = params.parameter45Value;
+    if (params.parameter46Name !== undefined) data['Parameter46.Name'] = params.parameter46Name;
+    if (params.parameter46Value !== undefined) data['Parameter46.Value'] = params.parameter46Value;
+    if (params.parameter47Name !== undefined) data['Parameter47.Name'] = params.parameter47Name;
+    if (params.parameter47Value !== undefined) data['Parameter47.Value'] = params.parameter47Value;
+    if (params.parameter48Name !== undefined) data['Parameter48.Name'] = params.parameter48Name;
+    if (params.parameter48Value !== undefined) data['Parameter48.Value'] = params.parameter48Value;
+    if (params.parameter49Name !== undefined) data['Parameter49.Name'] = params.parameter49Name;
+    if (params.parameter49Value !== undefined) data['Parameter49.Value'] = params.parameter49Value;
+    if (params.parameter50Name !== undefined) data['Parameter50.Name'] = params.parameter50Name;
+    if (params.parameter50Value !== undefined) data['Parameter50.Value'] = params.parameter50Value;
+    if (params.parameter51Name !== undefined) data['Parameter51.Name'] = params.parameter51Name;
+    if (params.parameter51Value !== undefined) data['Parameter51.Value'] = params.parameter51Value;
+    if (params.parameter52Name !== undefined) data['Parameter52.Name'] = params.parameter52Name;
+    if (params.parameter52Value !== undefined) data['Parameter52.Value'] = params.parameter52Value;
+    if (params.parameter53Name !== undefined) data['Parameter53.Name'] = params.parameter53Name;
+    if (params.parameter53Value !== undefined) data['Parameter53.Value'] = params.parameter53Value;
+    if (params.parameter54Name !== undefined) data['Parameter54.Name'] = params.parameter54Name;
+    if (params.parameter54Value !== undefined) data['Parameter54.Value'] = params.parameter54Value;
+    if (params.parameter55Name !== undefined) data['Parameter55.Name'] = params.parameter55Name;
+    if (params.parameter55Value !== undefined) data['Parameter55.Value'] = params.parameter55Value;
+    if (params.parameter56Name !== undefined) data['Parameter56.Name'] = params.parameter56Name;
+    if (params.parameter56Value !== undefined) data['Parameter56.Value'] = params.parameter56Value;
+    if (params.parameter57Name !== undefined) data['Parameter57.Name'] = params.parameter57Name;
+    if (params.parameter57Value !== undefined) data['Parameter57.Value'] = params.parameter57Value;
+    if (params.parameter58Name !== undefined) data['Parameter58.Name'] = params.parameter58Name;
+    if (params.parameter58Value !== undefined) data['Parameter58.Value'] = params.parameter58Value;
+    if (params.parameter59Name !== undefined) data['Parameter59.Name'] = params.parameter59Name;
+    if (params.parameter59Value !== undefined) data['Parameter59.Value'] = params.parameter59Value;
+    if (params.parameter60Name !== undefined) data['Parameter60.Name'] = params.parameter60Name;
+    if (params.parameter60Value !== undefined) data['Parameter60.Value'] = params.parameter60Value;
+    if (params.parameter61Name !== undefined) data['Parameter61.Name'] = params.parameter61Name;
+    if (params.parameter61Value !== undefined) data['Parameter61.Value'] = params.parameter61Value;
+    if (params.parameter62Name !== undefined) data['Parameter62.Name'] = params.parameter62Name;
+    if (params.parameter62Value !== undefined) data['Parameter62.Value'] = params.parameter62Value;
+    if (params.parameter63Name !== undefined) data['Parameter63.Name'] = params.parameter63Name;
+    if (params.parameter63Value !== undefined) data['Parameter63.Value'] = params.parameter63Value;
+    if (params.parameter64Name !== undefined) data['Parameter64.Name'] = params.parameter64Name;
+    if (params.parameter64Value !== undefined) data['Parameter64.Value'] = params.parameter64Value;
+    if (params.parameter65Name !== undefined) data['Parameter65.Name'] = params.parameter65Name;
+    if (params.parameter65Value !== undefined) data['Parameter65.Value'] = params.parameter65Value;
+    if (params.parameter66Name !== undefined) data['Parameter66.Name'] = params.parameter66Name;
+    if (params.parameter66Value !== undefined) data['Parameter66.Value'] = params.parameter66Value;
+    if (params.parameter67Name !== undefined) data['Parameter67.Name'] = params.parameter67Name;
+    if (params.parameter67Value !== undefined) data['Parameter67.Value'] = params.parameter67Value;
+    if (params.parameter68Name !== undefined) data['Parameter68.Name'] = params.parameter68Name;
+    if (params.parameter68Value !== undefined) data['Parameter68.Value'] = params.parameter68Value;
+    if (params.parameter69Name !== undefined) data['Parameter69.Name'] = params.parameter69Name;
+    if (params.parameter69Value !== undefined) data['Parameter69.Value'] = params.parameter69Value;
+    if (params.parameter70Name !== undefined) data['Parameter70.Name'] = params.parameter70Name;
+    if (params.parameter70Value !== undefined) data['Parameter70.Value'] = params.parameter70Value;
+    if (params.parameter71Name !== undefined) data['Parameter71.Name'] = params.parameter71Name;
+    if (params.parameter71Value !== undefined) data['Parameter71.Value'] = params.parameter71Value;
+    if (params.parameter72Name !== undefined) data['Parameter72.Name'] = params.parameter72Name;
+    if (params.parameter72Value !== undefined) data['Parameter72.Value'] = params.parameter72Value;
+    if (params.parameter73Name !== undefined) data['Parameter73.Name'] = params.parameter73Name;
+    if (params.parameter73Value !== undefined) data['Parameter73.Value'] = params.parameter73Value;
+    if (params.parameter74Name !== undefined) data['Parameter74.Name'] = params.parameter74Name;
+    if (params.parameter74Value !== undefined) data['Parameter74.Value'] = params.parameter74Value;
+    if (params.parameter75Name !== undefined) data['Parameter75.Name'] = params.parameter75Name;
+    if (params.parameter75Value !== undefined) data['Parameter75.Value'] = params.parameter75Value;
+    if (params.parameter76Name !== undefined) data['Parameter76.Name'] = params.parameter76Name;
+    if (params.parameter76Value !== undefined) data['Parameter76.Value'] = params.parameter76Value;
+    if (params.parameter77Name !== undefined) data['Parameter77.Name'] = params.parameter77Name;
+    if (params.parameter77Value !== undefined) data['Parameter77.Value'] = params.parameter77Value;
+    if (params.parameter78Name !== undefined) data['Parameter78.Name'] = params.parameter78Name;
+    if (params.parameter78Value !== undefined) data['Parameter78.Value'] = params.parameter78Value;
+    if (params.parameter79Name !== undefined) data['Parameter79.Name'] = params.parameter79Name;
+    if (params.parameter79Value !== undefined) data['Parameter79.Value'] = params.parameter79Value;
+    if (params.parameter80Name !== undefined) data['Parameter80.Name'] = params.parameter80Name;
+    if (params.parameter80Value !== undefined) data['Parameter80.Value'] = params.parameter80Value;
+    if (params.parameter81Name !== undefined) data['Parameter81.Name'] = params.parameter81Name;
+    if (params.parameter81Value !== undefined) data['Parameter81.Value'] = params.parameter81Value;
+    if (params.parameter82Name !== undefined) data['Parameter82.Name'] = params.parameter82Name;
+    if (params.parameter82Value !== undefined) data['Parameter82.Value'] = params.parameter82Value;
+    if (params.parameter83Name !== undefined) data['Parameter83.Name'] = params.parameter83Name;
+    if (params.parameter83Value !== undefined) data['Parameter83.Value'] = params.parameter83Value;
+    if (params.parameter84Name !== undefined) data['Parameter84.Name'] = params.parameter84Name;
+    if (params.parameter84Value !== undefined) data['Parameter84.Value'] = params.parameter84Value;
+    if (params.parameter85Name !== undefined) data['Parameter85.Name'] = params.parameter85Name;
+    if (params.parameter85Value !== undefined) data['Parameter85.Value'] = params.parameter85Value;
+    if (params.parameter86Name !== undefined) data['Parameter86.Name'] = params.parameter86Name;
+    if (params.parameter86Value !== undefined) data['Parameter86.Value'] = params.parameter86Value;
+    if (params.parameter87Name !== undefined) data['Parameter87.Name'] = params.parameter87Name;
+    if (params.parameter87Value !== undefined) data['Parameter87.Value'] = params.parameter87Value;
+    if (params.parameter88Name !== undefined) data['Parameter88.Name'] = params.parameter88Name;
+    if (params.parameter88Value !== undefined) data['Parameter88.Value'] = params.parameter88Value;
+    if (params.parameter89Name !== undefined) data['Parameter89.Name'] = params.parameter89Name;
+    if (params.parameter89Value !== undefined) data['Parameter89.Value'] = params.parameter89Value;
+    if (params.parameter90Name !== undefined) data['Parameter90.Name'] = params.parameter90Name;
+    if (params.parameter90Value !== undefined) data['Parameter90.Value'] = params.parameter90Value;
+    if (params.parameter91Name !== undefined) data['Parameter91.Name'] = params.parameter91Name;
+    if (params.parameter91Value !== undefined) data['Parameter91.Value'] = params.parameter91Value;
+    if (params.parameter92Name !== undefined) data['Parameter92.Name'] = params.parameter92Name;
+    if (params.parameter92Value !== undefined) data['Parameter92.Value'] = params.parameter92Value;
+    if (params.parameter93Name !== undefined) data['Parameter93.Name'] = params.parameter93Name;
+    if (params.parameter93Value !== undefined) data['Parameter93.Value'] = params.parameter93Value;
+    if (params.parameter94Name !== undefined) data['Parameter94.Name'] = params.parameter94Name;
+    if (params.parameter94Value !== undefined) data['Parameter94.Value'] = params.parameter94Value;
+    if (params.parameter95Name !== undefined) data['Parameter95.Name'] = params.parameter95Name;
+    if (params.parameter95Value !== undefined) data['Parameter95.Value'] = params.parameter95Value;
+    if (params.parameter96Name !== undefined) data['Parameter96.Name'] = params.parameter96Name;
+    if (params.parameter96Value !== undefined) data['Parameter96.Value'] = params.parameter96Value;
+    if (params.parameter97Name !== undefined) data['Parameter97.Name'] = params.parameter97Name;
+    if (params.parameter97Value !== undefined) data['Parameter97.Value'] = params.parameter97Value;
+    if (params.parameter98Name !== undefined) data['Parameter98.Name'] = params.parameter98Name;
+    if (params.parameter98Value !== undefined) data['Parameter98.Value'] = params.parameter98Value;
+    if (params.parameter99Name !== undefined) data['Parameter99.Name'] = params.parameter99Name;
+    if (params.parameter99Value !== undefined) data['Parameter99.Value'] = params.parameter99Value;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

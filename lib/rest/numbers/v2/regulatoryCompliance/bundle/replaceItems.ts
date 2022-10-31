@@ -28,7 +28,7 @@ type ReplaceItemsStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'
  * @property { string } fromBundleSid The source bundle sid to copy the item assignments from.
  */
 export interface ReplaceItemsListInstanceCreateOptions {
-  'fromBundleSid': string;
+  fromBundleSid: string;
 }
 
 export interface ReplaceItemsListInstance {
@@ -77,13 +77,13 @@ export function ReplaceItemsListInstance(version: V2, bundleSid: string): Replac
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['fromBundleSid'] === null || params['fromBundleSid'] === undefined) {
-      throw new Error('Required parameter "params[\'fromBundleSid\']" missing.');
+    if (params.fromBundleSid === null || params.fromBundleSid === undefined) {
+      throw new Error('Required parameter "params.fromBundleSid" missing.');
     }
 
     const data: any = {};
 
-    data['FromBundleSid'] = params['fromBundleSid'];
+    data['FromBundleSid'] = params.fromBundleSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -52,7 +52,7 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  'jobSid'?: string;
+  jobSid?: string;
 }
 
 export class JobContextImpl implements JobContext {

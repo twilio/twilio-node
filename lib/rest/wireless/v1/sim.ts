@@ -52,24 +52,24 @@ type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'sc
  * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\&#39;s status is &#x60;new&#x60;. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
  */
 export interface SimContextUpdateOptions {
-  'uniqueName'?: string;
-  'callbackMethod'?: string;
-  'callbackUrl'?: string;
-  'friendlyName'?: string;
-  'ratePlan'?: string;
-  'status'?: SimStatus;
-  'commandsCallbackMethod'?: string;
-  'commandsCallbackUrl'?: string;
-  'smsFallbackMethod'?: string;
-  'smsFallbackUrl'?: string;
-  'smsMethod'?: string;
-  'smsUrl'?: string;
-  'voiceFallbackMethod'?: string;
-  'voiceFallbackUrl'?: string;
-  'voiceMethod'?: string;
-  'voiceUrl'?: string;
-  'resetStatus'?: SimResetStatus;
-  'accountSid'?: string;
+  uniqueName?: string;
+  callbackMethod?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
+  ratePlan?: string;
+  status?: SimStatus;
+  commandsCallbackMethod?: string;
+  commandsCallbackUrl?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  resetStatus?: SimResetStatus;
+  accountSid?: string;
 }
 /**
  * Options to pass to each
@@ -77,7 +77,7 @@ export interface SimContextUpdateOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -93,7 +93,7 @@ export interface SimListInstanceEachOptions {
   status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
-  eid?: string;
+  eId?: string;
   simRegistrationCode?: string;
   pageSize?: number;
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
@@ -107,7 +107,7 @@ export interface SimListInstanceEachOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -119,7 +119,7 @@ export interface SimListInstanceOptions {
   status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
-  eid?: string;
+  eId?: string;
   simRegistrationCode?: string;
   pageSize?: number;
   limit?: number;
@@ -131,7 +131,7 @@ export interface SimListInstanceOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
@@ -141,7 +141,7 @@ export interface SimListInstancePageOptions {
   status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
-  eid?: string;
+  eId?: string;
   simRegistrationCode?: string;
   pageSize?: number;
   pageNumber?: number;
@@ -203,7 +203,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -264,24 +264,24 @@ export class SimContextImpl implements SimContext {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['callbackMethod'] !== undefined) data['CallbackMethod'] = params['callbackMethod'];
-    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['ratePlan'] !== undefined) data['RatePlan'] = params['ratePlan'];
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['commandsCallbackMethod'] !== undefined) data['CommandsCallbackMethod'] = params['commandsCallbackMethod'];
-    if (params['commandsCallbackUrl'] !== undefined) data['CommandsCallbackUrl'] = params['commandsCallbackUrl'];
-    if (params['smsFallbackMethod'] !== undefined) data['SmsFallbackMethod'] = params['smsFallbackMethod'];
-    if (params['smsFallbackUrl'] !== undefined) data['SmsFallbackUrl'] = params['smsFallbackUrl'];
-    if (params['smsMethod'] !== undefined) data['SmsMethod'] = params['smsMethod'];
-    if (params['smsUrl'] !== undefined) data['SmsUrl'] = params['smsUrl'];
-    if (params['voiceFallbackMethod'] !== undefined) data['VoiceFallbackMethod'] = params['voiceFallbackMethod'];
-    if (params['voiceFallbackUrl'] !== undefined) data['VoiceFallbackUrl'] = params['voiceFallbackUrl'];
-    if (params['voiceMethod'] !== undefined) data['VoiceMethod'] = params['voiceMethod'];
-    if (params['voiceUrl'] !== undefined) data['VoiceUrl'] = params['voiceUrl'];
-    if (params['resetStatus'] !== undefined) data['ResetStatus'] = params['resetStatus'];
-    if (params['accountSid'] !== undefined) data['AccountSid'] = params['accountSid'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
+    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.ratePlan !== undefined) data['RatePlan'] = params.ratePlan;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.commandsCallbackMethod !== undefined) data['CommandsCallbackMethod'] = params.commandsCallbackMethod;
+    if (params.commandsCallbackUrl !== undefined) data['CommandsCallbackUrl'] = params.commandsCallbackUrl;
+    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
+    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
+    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
+    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
+    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
+    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
+    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
+    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
+    if (params.resetStatus !== undefined) data['ResetStatus'] = params.resetStatus;
+    if (params.accountSid !== undefined) data['AccountSid'] = params.accountSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -722,12 +722,12 @@ export function SimListInstance(version: V1): SimListInstance {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['iccid'] !== undefined) data['Iccid'] = params['iccid'];
-    if (params['ratePlan'] !== undefined) data['RatePlan'] = params['ratePlan'];
-    if (params['eid'] !== undefined) data['EId'] = params['eid'];
-    if (params['simRegistrationCode'] !== undefined) data['SimRegistrationCode'] = params['simRegistrationCode'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.iccid !== undefined) data['Iccid'] = params.iccid;
+    if (params.ratePlan !== undefined) data['RatePlan'] = params.ratePlan;
+    if (params.eId !== undefined) data['EId'] = params.eId;
+    if (params.simRegistrationCode !== undefined) data['SimRegistrationCode'] = params.simRegistrationCode;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

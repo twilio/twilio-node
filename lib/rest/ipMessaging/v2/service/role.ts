@@ -31,7 +31,7 @@ type RoleRoleType = 'channel'|'deployment';
  * @property { Array<string> } permission 
  */
 export interface RoleContextUpdateOptions {
-  'permission': Array<string>;
+  permission: Array<string>;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface RoleContextUpdateOptions {
  * @property { Array<string> } permission 
  */
 export interface RoleListInstanceCreateOptions {
-  'friendlyName': string;
-  'type': RoleRoleType;
-  'permission': Array<string>;
+  friendlyName: string;
+  type: RoleRoleType;
+  permission: Array<string>;
 }
 /**
  * Options to pass to each
@@ -138,8 +138,8 @@ export interface RoleContext {
 }
 
 export interface RoleContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class RoleContextImpl implements RoleContext {
@@ -183,13 +183,13 @@ export class RoleContextImpl implements RoleContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['permission'] === null || params['permission'] === undefined) {
-      throw new Error('Required parameter "params[\'permission\']" missing.');
+    if (params.permission === null || params.permission === undefined) {
+      throw new Error('Required parameter "params.permission" missing.');
     }
 
     const data: any = {};
 
-    data['Permission'] = serialize.map(params['permission'], ((e) => e));
+    data['Permission'] = serialize.map(params.permission, ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -485,23 +485,23 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['type'] === null || params['type'] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+    if (params.type === null || params.type === undefined) {
+      throw new Error('Required parameter "params.type" missing.');
     }
 
-    if (params['permission'] === null || params['permission'] === undefined) {
-      throw new Error('Required parameter "params[\'permission\']" missing.');
+    if (params.permission === null || params.permission === undefined) {
+      throw new Error('Required parameter "params.permission" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['Type'] = params['type'];
-    data['Permission'] = serialize.map(params['permission'], ((e) => e));
+    data['FriendlyName'] = params.friendlyName;
+    data['Type'] = params.type;
+    data['Permission'] = serialize.map(params.permission, ((e) => e));
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -528,7 +528,7 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

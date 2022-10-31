@@ -106,8 +106,8 @@ export interface AvailablePhoneNumberCountryContext {
 }
 
 export interface AvailablePhoneNumberCountryContextSolution {
-  'accountSid'?: string;
-  'countryCode'?: string;
+  accountSid?: string;
+  countryCode?: string;
 }
 
 export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNumberCountryContext {
@@ -470,7 +470,7 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

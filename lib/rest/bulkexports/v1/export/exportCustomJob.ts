@@ -92,12 +92,12 @@ export class ListDayResponseMeta {
  * @property { string } [email] The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\&#39;s status.
  */
 export interface ExportCustomJobListInstanceCreateOptions {
-  'startDay': string;
-  'endDay': string;
-  'friendlyName': string;
-  'webhookUrl'?: string;
-  'webhookMethod'?: string;
-  'email'?: string;
+  startDay: string;
+  endDay: string;
+  friendlyName: string;
+  webhookUrl?: string;
+  webhookMethod?: string;
+  email?: string;
 }
 /**
  * Options to pass to each
@@ -296,26 +296,26 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['startDay'] === null || params['startDay'] === undefined) {
-      throw new Error('Required parameter "params[\'startDay\']" missing.');
+    if (params.startDay === null || params.startDay === undefined) {
+      throw new Error('Required parameter "params.startDay" missing.');
     }
 
-    if (params['endDay'] === null || params['endDay'] === undefined) {
-      throw new Error('Required parameter "params[\'endDay\']" missing.');
+    if (params.endDay === null || params.endDay === undefined) {
+      throw new Error('Required parameter "params.endDay" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['StartDay'] = params['startDay'];
-    data['EndDay'] = params['endDay'];
-    data['FriendlyName'] = params['friendlyName'];
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['webhookMethod'] !== undefined) data['WebhookMethod'] = params['webhookMethod'];
-    if (params['email'] !== undefined) data['Email'] = params['email'];
+    data['StartDay'] = params.startDay;
+    data['EndDay'] = params.endDay;
+    data['FriendlyName'] = params.friendlyName;
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
+    if (params.email !== undefined) data['Email'] = params.email;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -342,7 +342,7 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

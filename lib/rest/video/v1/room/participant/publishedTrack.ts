@@ -94,9 +94,9 @@ export interface PublishedTrackContext {
 }
 
 export interface PublishedTrackContextSolution {
-  'roomSid'?: string;
-  'participantSid'?: string;
-  'sid'?: string;
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
 }
 
 export class PublishedTrackContextImpl implements PublishedTrackContext {
@@ -394,7 +394,7 @@ export function PublishedTrackListInstance(version: V1, roomSid: string, partici
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -20,17 +20,16 @@ const serialize = require("../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to fetch a CpsInstance
  *
  * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
  */
-export interface CpsContextFetchOptions {
-  'xXcnamSensitivePhoneNumber'?: string;
+export interface CpsListInstanceFetchOptions {
+  xXcnamSensitivePhoneNumber?: string;
 }
 
-export interface CpsContext {
+export interface CpsListInstance {
 
 
   /**
@@ -44,12 +43,12 @@ export interface CpsContext {
   /**
    * Fetch a CpsInstance
    *
-   * @param { CpsContextFetchOptions } params - Parameter for request
+   * @param { CpsListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CpsInstance
    */
-  fetch(params: CpsContextFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(params: CpsListInstanceFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
   fetch(params?: any, callback?: any): Promise<CpsInstance>
 
 
@@ -60,21 +59,26 @@ export interface CpsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CpsContextSolution {
+export interface CpsSolution {
 }
 
-export class CpsContextImpl implements CpsContext {
-  protected _solution: CpsContextSolution;
-  protected _uri: string;
+interface CpsListInstanceImpl extends CpsListInstance {}
+class CpsListInstanceImpl implements CpsListInstance {
+  _version?: TrustedComms;
+  _solution?: CpsSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: TrustedComms) {
-    this._solution = {  };
-    this._uri = `/CPS`;
-  }
+export function CpsListInstance(version: TrustedComms): CpsListInstance {
+  const instance = {} as CpsListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<CpsInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/CPS`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<CpsInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -85,9 +89,9 @@ export class CpsContextImpl implements CpsContext {
 
 
     const headers: any = {};
-    if (params['xXcnamSensitivePhoneNumber'] !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params['xXcnamSensitivePhoneNumber'];
+    if (params.xXcnamSensitivePhoneNumber !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params.xXcnamSensitivePhoneNumber;
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CpsInstance(operationVersion, payload));
@@ -97,20 +101,17 @@ export class CpsContextImpl implements CpsContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface CpsPayload extends CpsResource{
@@ -123,15 +124,12 @@ interface CpsResource {
 }
 
 export class CpsInstance {
-  protected _solution: CpsContextSolution;
-  protected _context?: CpsContext;
 
   constructor(protected _version: TrustedComms, payload: CpsPayload) {
     this.cpsUrl = payload.cps_url;
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -146,33 +144,6 @@ export class CpsInstance {
    * The URL of this resource.
    */
   url?: string | null;
-
-  private get _proxy(): CpsContext {
-    this._context = this._context || new CpsContextImpl(this._version);
-    return this._context;
-  }
-
-  /**
-   * Fetch a CpsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CpsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
-  /**
-   * Fetch a CpsInstance
-   *
-   * @param { CpsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CpsInstance
-   */
-  fetch(params: CpsContextFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
-  fetch(params?: any, callback?: any): Promise<CpsInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -191,52 +162,5 @@ export class CpsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface CpsListInstance {
-  (): CpsContext;
-  get(): CpsContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-}
-
-interface CpsListInstanceImpl extends CpsListInstance {}
-class CpsListInstanceImpl implements CpsListInstance {
-  _version?: TrustedComms;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function CpsListInstance(version: TrustedComms): CpsListInstance {
-  const instance = (() => instance.get()) as CpsListInstanceImpl;
-
-  instance.get = function get(): CpsContext {
-    return new CpsContextImpl(version);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/CPS`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

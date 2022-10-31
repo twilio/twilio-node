@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } phoneNumber The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface SafelistListInstanceCreateOptions {
-  'phoneNumber': string;
+  phoneNumber: string;
 }
 
 export interface SafelistContext {
@@ -61,7 +61,7 @@ export interface SafelistContext {
 }
 
 export interface SafelistContextSolution {
-  'phoneNumber'?: string;
+  phoneNumber?: string;
 }
 
 export class SafelistContextImpl implements SafelistContext {
@@ -247,13 +247,13 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['phoneNumber'] === null || params['phoneNumber'] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+    if (params.phoneNumber === null || params.phoneNumber === undefined) {
+      throw new Error('Required parameter "params.phoneNumber" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumber'] = params['phoneNumber'];
+    data['PhoneNumber'] = params.phoneNumber;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

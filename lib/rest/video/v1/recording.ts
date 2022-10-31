@@ -146,7 +146,7 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -521,13 +521,13 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['sourceSid'] !== undefined) data['SourceSid'] = params['sourceSid'];
-    if (params['groupingSid'] !== undefined) data['GroupingSid'] = serialize.map(params['groupingSid'], ((e) => e));
-    if (params['dateCreatedAfter'] !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params['dateCreatedAfter']);
-    if (params['dateCreatedBefore'] !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params['dateCreatedBefore']);
-    if (params['mediaType'] !== undefined) data['MediaType'] = params['mediaType'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.sourceSid !== undefined) data['SourceSid'] = params.sourceSid;
+    if (params.groupingSid !== undefined) data['GroupingSid'] = serialize.map(params.groupingSid, ((e) => e));
+    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
+    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
+    if (params.mediaType !== undefined) data['MediaType'] = params.mediaType;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

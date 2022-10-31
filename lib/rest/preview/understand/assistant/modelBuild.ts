@@ -31,7 +31,7 @@ type ModelBuildStatus = 'enqueued'|'building'|'completed'|'failed'|'canceled';
  * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
  */
 export interface ModelBuildContextUpdateOptions {
-  'uniqueName'?: string;
+  uniqueName?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface ModelBuildContextUpdateOptions {
  * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
  */
 export interface ModelBuildListInstanceCreateOptions {
-  'statusCallback'?: string;
-  'uniqueName'?: string;
+  statusCallback?: string;
+  uniqueName?: string;
 }
 /**
  * Options to pass to each
@@ -144,8 +144,8 @@ export interface ModelBuildContext {
 }
 
 export interface ModelBuildContextSolution {
-  'assistantSid'?: string;
-  'sid'?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class ModelBuildContextImpl implements ModelBuildContext {
@@ -194,7 +194,7 @@ export class ModelBuildContextImpl implements ModelBuildContext {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -536,8 +536,8 @@ export function ModelBuildListInstance(version: Understand, assistantSid: string
 
     const data: any = {};
 
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -564,7 +564,7 @@ export function ModelBuildListInstance(version: Understand, assistantSid: string
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

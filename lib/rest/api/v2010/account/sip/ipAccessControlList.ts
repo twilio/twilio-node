@@ -30,7 +30,7 @@ import { IpAddressListInstance } from "./ipAccessControlList/ipAddress";
  * @property { string } friendlyName A human readable descriptive text, up to 255 characters long.
  */
 export interface IpAccessControlListContextUpdateOptions {
-  'friendlyName': string;
+  friendlyName: string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface IpAccessControlListContextUpdateOptions {
  * @property { string } friendlyName A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
  */
 export interface IpAccessControlListListInstanceCreateOptions {
-  'friendlyName': string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -134,8 +134,8 @@ export interface IpAccessControlListContext {
 }
 
 export interface IpAccessControlListContextSolution {
-  'accountSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class IpAccessControlListContextImpl implements IpAccessControlListContext {
@@ -185,13 +185,13 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
+    data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -507,13 +507,13 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
+    data['FriendlyName'] = params.friendlyName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -540,7 +540,7 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

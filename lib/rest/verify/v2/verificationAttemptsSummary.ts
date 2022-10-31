@@ -19,7 +19,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
-
 type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
 
 
@@ -33,16 +32,16 @@ type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
  * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  */
-export interface VerificationAttemptsSummaryContextFetchOptions {
-  'verifyServiceSid'?: string;
-  'dateCreatedAfter'?: Date;
-  'dateCreatedBefore'?: Date;
-  'country'?: string;
-  'channel'?: VerificationAttemptsSummaryChannels;
-  'destinationPrefix'?: string;
+export interface VerificationAttemptsSummaryListInstanceFetchOptions {
+  verifyServiceSid?: string;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  country?: string;
+  channel?: VerificationAttemptsSummaryChannels;
+  destinationPrefix?: string;
 }
 
-export interface VerificationAttemptsSummaryContext {
+export interface VerificationAttemptsSummaryListInstance {
 
 
   /**
@@ -56,12 +55,12 @@ export interface VerificationAttemptsSummaryContext {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
-   * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
+   * @param { VerificationAttemptsSummaryListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
    */
-  fetch(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(params: VerificationAttemptsSummaryListInstanceFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
   fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance>
 
 
@@ -72,21 +71,26 @@ export interface VerificationAttemptsSummaryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationAttemptsSummaryContextSolution {
+export interface VerificationAttemptsSummarySolution {
 }
 
-export class VerificationAttemptsSummaryContextImpl implements VerificationAttemptsSummaryContext {
-  protected _solution: VerificationAttemptsSummaryContextSolution;
-  protected _uri: string;
+interface VerificationAttemptsSummaryListInstanceImpl extends VerificationAttemptsSummaryListInstance {}
+class VerificationAttemptsSummaryListInstanceImpl implements VerificationAttemptsSummaryListInstance {
+  _version?: V2;
+  _solution?: VerificationAttemptsSummarySolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V2) {
-    this._solution = {  };
-    this._uri = `/Attempts/Summary`;
-  }
+export function VerificationAttemptsSummaryListInstance(version: V2): VerificationAttemptsSummaryListInstance {
+  const instance = {} as VerificationAttemptsSummaryListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Attempts/Summary`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -95,16 +99,16 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
 
     const data: any = {};
 
-    if (params['verifyServiceSid'] !== undefined) data['VerifyServiceSid'] = params['verifyServiceSid'];
-    if (params['dateCreatedAfter'] !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params['dateCreatedAfter']);
-    if (params['dateCreatedBefore'] !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params['dateCreatedBefore']);
-    if (params['country'] !== undefined) data['Country'] = params['country'];
-    if (params['channel'] !== undefined) data['Channel'] = params['channel'];
-    if (params['destinationPrefix'] !== undefined) data['DestinationPrefix'] = params['destinationPrefix'];
+    if (params.verifyServiceSid !== undefined) data['VerifyServiceSid'] = params.verifyServiceSid;
+    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
+    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
+    if (params.country !== undefined) data['Country'] = params.country;
+    if (params.channel !== undefined) data['Channel'] = params.channel;
+    if (params.destinationPrefix !== undefined) data['DestinationPrefix'] = params.destinationPrefix;
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryInstance(operationVersion, payload));
@@ -114,20 +118,17 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface VerificationAttemptsSummaryPayload extends VerificationAttemptsSummaryResource{
@@ -142,8 +143,6 @@ interface VerificationAttemptsSummaryResource {
 }
 
 export class VerificationAttemptsSummaryInstance {
-  protected _solution: VerificationAttemptsSummaryContextSolution;
-  protected _context?: VerificationAttemptsSummaryContext;
 
   constructor(protected _version: V2, payload: VerificationAttemptsSummaryPayload) {
     this.totalAttempts = deserialize.integer(payload.total_attempts);
@@ -152,7 +151,6 @@ export class VerificationAttemptsSummaryInstance {
     this.conversionRatePercentage = payload.conversion_rate_percentage;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -173,33 +171,6 @@ export class VerificationAttemptsSummaryInstance {
   conversionRatePercentage?: number | null;
   url?: string | null;
 
-  private get _proxy(): VerificationAttemptsSummaryContext {
-    this._context = this._context || new VerificationAttemptsSummaryContextImpl(this._version);
-    return this._context;
-  }
-
-  /**
-   * Fetch a VerificationAttemptsSummaryInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
-   */
-  fetch(callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
-  /**
-   * Fetch a VerificationAttemptsSummaryInstance
-   *
-   * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
-   */
-  fetch(params: VerificationAttemptsSummaryContextFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -219,52 +190,5 @@ export class VerificationAttemptsSummaryInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface VerificationAttemptsSummaryListInstance {
-  (): VerificationAttemptsSummaryContext;
-  get(): VerificationAttemptsSummaryContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-}
-
-interface VerificationAttemptsSummaryListInstanceImpl extends VerificationAttemptsSummaryListInstance {}
-class VerificationAttemptsSummaryListInstanceImpl implements VerificationAttemptsSummaryListInstance {
-  _version?: V2;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function VerificationAttemptsSummaryListInstance(version: V2): VerificationAttemptsSummaryListInstance {
-  const instance = (() => instance.get()) as VerificationAttemptsSummaryListInstanceImpl;
-
-  instance.get = function get(): VerificationAttemptsSummaryContext {
-    return new VerificationAttemptsSummaryContextImpl(version);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Attempts/Summary`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

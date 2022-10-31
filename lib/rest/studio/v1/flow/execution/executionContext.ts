@@ -20,8 +20,7 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-
-export interface ExecutionContextContext {
+export interface ExecutionContextListInstance {
 
 
   /**
@@ -41,24 +40,29 @@ export interface ExecutionContextContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExecutionContextContextSolution {
-  'flowSid'?: string;
-  'executionSid'?: string;
+export interface ExecutionContextSolution {
+  flowSid?: string;
+  executionSid?: string;
 }
 
-export class ExecutionContextContextImpl implements ExecutionContextContext {
-  protected _solution: ExecutionContextContextSolution;
-  protected _uri: string;
+interface ExecutionContextListInstanceImpl extends ExecutionContextListInstance {}
+class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
+  _version?: V1;
+  _solution?: ExecutionContextSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, flowSid: string, executionSid: string) {
-    this._solution = { flowSid, executionSid };
-    this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
-  }
+export function ExecutionContextListInstance(version: V1, flowSid: string, executionSid: string): ExecutionContextListInstance {
+  const instance = {} as ExecutionContextListInstanceImpl;
 
-  fetch(callback?: any): Promise<ExecutionContextInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { flowSid, executionSid };
+  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
+
+  instance.fetch = function fetch(callback?: any): Promise<ExecutionContextInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new ExecutionContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.executionSid));
@@ -68,20 +72,17 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface ExecutionContextPayload extends ExecutionContextResource{
@@ -96,8 +97,6 @@ interface ExecutionContextResource {
 }
 
 export class ExecutionContextInstance {
-  protected _solution: ExecutionContextContextSolution;
-  protected _context?: ExecutionContextContext;
 
   constructor(protected _version: V1, payload: ExecutionContextPayload, flowSid: string, executionSid?: string) {
     this.accountSid = payload.account_sid;
@@ -106,7 +105,6 @@ export class ExecutionContextInstance {
     this.executionSid = payload.execution_sid;
     this.url = payload.url;
 
-    this._solution = { flowSid, executionSid: executionSid || this.executionSid };
   }
 
   /**
@@ -130,23 +128,6 @@ export class ExecutionContextInstance {
    */
   url?: string | null;
 
-  private get _proxy(): ExecutionContextContext {
-    this._context = this._context || new ExecutionContextContextImpl(this._version, this._solution.flowSid, this._solution.executionSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a ExecutionContextInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ExecutionContextInstance
-   */
-  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -166,54 +147,5 @@ export class ExecutionContextInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface ExecutionContextListInstance {
-  (): ExecutionContextContext;
-  get(): ExecutionContextContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  flowSid?: string;
-  executionSid?: string;
-}
-
-interface ExecutionContextListInstanceImpl extends ExecutionContextListInstance {}
-class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function ExecutionContextListInstance(version: V1, flowSid: string, executionSid: string): ExecutionContextListInstance {
-  const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
-
-  instance.get = function get(): ExecutionContextContext {
-    return new ExecutionContextContextImpl(version, flowSid, executionSid);
-  }
-
-  instance._version = version;
-  instance._solution = { flowSid, executionSid };
-  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

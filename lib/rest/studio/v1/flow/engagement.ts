@@ -35,9 +35,9 @@ type EngagementStatus = 'active'|'ended';
  * @property { any } [parameters] A JSON string we will add to your flow\\\&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&#39;name\\\&#39;:\\\&#39;Zeke\\\&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string \\\&#39;Zeke\\\&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
  */
 export interface EngagementListInstanceCreateOptions {
-  'to': string;
-  'from': string;
-  'parameters'?: any;
+  to: string;
+  from: string;
+  parameters?: any;
 }
 /**
  * Options to pass to each
@@ -121,8 +121,8 @@ export interface EngagementContext {
 }
 
 export interface EngagementContextSolution {
-  'flowSid'?: string;
-  'sid'?: string;
+  flowSid?: string;
+  sid?: string;
 }
 
 export class EngagementContextImpl implements EngagementContext {
@@ -490,19 +490,19 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['to'] === null || params['to'] === undefined) {
-      throw new Error('Required parameter "params[\'to\']" missing.');
+    if (params.to === null || params.to === undefined) {
+      throw new Error('Required parameter "params.to" missing.');
     }
 
-    if (params['from'] === null || params['from'] === undefined) {
-      throw new Error('Required parameter "params[\'from\']" missing.');
+    if (params.from === null || params.from === undefined) {
+      throw new Error('Required parameter "params.from" missing.');
     }
 
     const data: any = {};
 
-    data['To'] = params['to'];
-    data['From'] = params['from'];
-    if (params['parameters'] !== undefined) data['Parameters'] = params['parameters'];
+    data['To'] = params.to;
+    data['From'] = params.from;
+    if (params.parameters !== undefined) data['Parameters'] = params.parameters;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -529,7 +529,7 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

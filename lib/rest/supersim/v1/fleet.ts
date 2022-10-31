@@ -37,13 +37,13 @@ type FleetDataMetering = 'payg';
  * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
  */
 export interface FleetContextUpdateOptions {
-  'uniqueName'?: string;
-  'networkAccessProfile'?: string;
-  'ipCommandsUrl'?: string;
-  'ipCommandsMethod'?: string;
-  'smsCommandsUrl'?: string;
-  'smsCommandsMethod'?: string;
-  'dataLimit'?: number;
+  uniqueName?: string;
+  networkAccessProfile?: string;
+  ipCommandsUrl?: string;
+  ipCommandsMethod?: string;
+  smsCommandsUrl?: string;
+  smsCommandsMethod?: string;
+  dataLimit?: number;
 }
 
 /**
@@ -60,15 +60,15 @@ export interface FleetContextUpdateOptions {
  * @property { string } [smsCommandsMethod] A string representing the HTTP method to use when making a request to &#x60;sms_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
  */
 export interface FleetListInstanceCreateOptions {
-  'networkAccessProfile': string;
-  'uniqueName'?: string;
-  'dataEnabled'?: boolean;
-  'dataLimit'?: number;
-  'ipCommandsUrl'?: string;
-  'ipCommandsMethod'?: string;
-  'smsCommandsEnabled'?: boolean;
-  'smsCommandsUrl'?: string;
-  'smsCommandsMethod'?: string;
+  networkAccessProfile: string;
+  uniqueName?: string;
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  ipCommandsUrl?: string;
+  ipCommandsMethod?: string;
+  smsCommandsEnabled?: boolean;
+  smsCommandsUrl?: string;
+  smsCommandsMethod?: string;
 }
 /**
  * Options to pass to each
@@ -166,7 +166,7 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class FleetContextImpl implements FleetContext {
@@ -203,13 +203,13 @@ export class FleetContextImpl implements FleetContext {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['networkAccessProfile'] !== undefined) data['NetworkAccessProfile'] = params['networkAccessProfile'];
-    if (params['ipCommandsUrl'] !== undefined) data['IpCommandsUrl'] = params['ipCommandsUrl'];
-    if (params['ipCommandsMethod'] !== undefined) data['IpCommandsMethod'] = params['ipCommandsMethod'];
-    if (params['smsCommandsUrl'] !== undefined) data['SmsCommandsUrl'] = params['smsCommandsUrl'];
-    if (params['smsCommandsMethod'] !== undefined) data['SmsCommandsMethod'] = params['smsCommandsMethod'];
-    if (params['dataLimit'] !== undefined) data['DataLimit'] = params['dataLimit'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.networkAccessProfile !== undefined) data['NetworkAccessProfile'] = params.networkAccessProfile;
+    if (params.ipCommandsUrl !== undefined) data['IpCommandsUrl'] = params.ipCommandsUrl;
+    if (params.ipCommandsMethod !== undefined) data['IpCommandsMethod'] = params.ipCommandsMethod;
+    if (params.smsCommandsUrl !== undefined) data['SmsCommandsUrl'] = params.smsCommandsUrl;
+    if (params.smsCommandsMethod !== undefined) data['SmsCommandsMethod'] = params.smsCommandsMethod;
+    if (params.dataLimit !== undefined) data['DataLimit'] = params.dataLimit;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -568,21 +568,21 @@ export function FleetListInstance(version: V1): FleetListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['networkAccessProfile'] === null || params['networkAccessProfile'] === undefined) {
-      throw new Error('Required parameter "params[\'networkAccessProfile\']" missing.');
+    if (params.networkAccessProfile === null || params.networkAccessProfile === undefined) {
+      throw new Error('Required parameter "params.networkAccessProfile" missing.');
     }
 
     const data: any = {};
 
-    data['NetworkAccessProfile'] = params['networkAccessProfile'];
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['dataEnabled'] !== undefined) data['DataEnabled'] = serialize.bool(params['dataEnabled']);
-    if (params['dataLimit'] !== undefined) data['DataLimit'] = params['dataLimit'];
-    if (params['ipCommandsUrl'] !== undefined) data['IpCommandsUrl'] = params['ipCommandsUrl'];
-    if (params['ipCommandsMethod'] !== undefined) data['IpCommandsMethod'] = params['ipCommandsMethod'];
-    if (params['smsCommandsEnabled'] !== undefined) data['SmsCommandsEnabled'] = serialize.bool(params['smsCommandsEnabled']);
-    if (params['smsCommandsUrl'] !== undefined) data['SmsCommandsUrl'] = params['smsCommandsUrl'];
-    if (params['smsCommandsMethod'] !== undefined) data['SmsCommandsMethod'] = params['smsCommandsMethod'];
+    data['NetworkAccessProfile'] = params.networkAccessProfile;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.dataEnabled !== undefined) data['DataEnabled'] = serialize.bool(params.dataEnabled);
+    if (params.dataLimit !== undefined) data['DataLimit'] = params.dataLimit;
+    if (params.ipCommandsUrl !== undefined) data['IpCommandsUrl'] = params.ipCommandsUrl;
+    if (params.ipCommandsMethod !== undefined) data['IpCommandsMethod'] = params.ipCommandsMethod;
+    if (params.smsCommandsEnabled !== undefined) data['SmsCommandsEnabled'] = serialize.bool(params.smsCommandsEnabled);
+    if (params.smsCommandsUrl !== undefined) data['SmsCommandsUrl'] = params.smsCommandsUrl;
+    if (params.smsCommandsMethod !== undefined) data['SmsCommandsMethod'] = params.smsCommandsMethod;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -609,8 +609,8 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     const data: any = {};
 
-    if (params['networkAccessProfile'] !== undefined) data['NetworkAccessProfile'] = params['networkAccessProfile'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.networkAccessProfile !== undefined) data['NetworkAccessProfile'] = params.networkAccessProfile;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

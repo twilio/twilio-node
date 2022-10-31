@@ -94,8 +94,8 @@ export interface EvaluationContext {
 }
 
 export interface EvaluationContextSolution {
-  'bundleSid'?: string;
-  'sid'?: string;
+  bundleSid?: string;
+  sid?: string;
 }
 
 export class EvaluationContextImpl implements EvaluationContext {
@@ -403,7 +403,7 @@ export function EvaluationListInstance(version: V2, bundleSid: string): Evaluati
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

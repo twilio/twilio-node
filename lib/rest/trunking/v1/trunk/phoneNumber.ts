@@ -31,7 +31,7 @@ type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
  * @property { string } phoneNumberSid The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
  */
 export interface PhoneNumberListInstanceCreateOptions {
-  'phoneNumberSid': string;
+  phoneNumberSid: string;
 }
 /**
  * Options to pass to each
@@ -113,8 +113,8 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  'trunkSid'?: string;
-  'sid'?: string;
+  trunkSid?: string;
+  sid?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -566,13 +566,13 @@ export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNum
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['phoneNumberSid'] === null || params['phoneNumberSid'] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
+    if (params.phoneNumberSid === null || params.phoneNumberSid === undefined) {
+      throw new Error('Required parameter "params.phoneNumberSid" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumberSid'] = params['phoneNumberSid'];
+    data['PhoneNumberSid'] = params.phoneNumberSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -599,7 +599,7 @@ export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNum
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

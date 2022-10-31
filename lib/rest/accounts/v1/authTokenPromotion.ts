@@ -20,8 +20,7 @@ const serialize = require("../../../base/serialize");
 
 
 
-
-export interface AuthTokenPromotionContext {
+export interface AuthTokenPromotionListInstance {
 
 
   /**
@@ -41,22 +40,27 @@ export interface AuthTokenPromotionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthTokenPromotionContextSolution {
+export interface AuthTokenPromotionSolution {
 }
 
-export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext {
-  protected _solution: AuthTokenPromotionContextSolution;
-  protected _uri: string;
+interface AuthTokenPromotionListInstanceImpl extends AuthTokenPromotionListInstance {}
+class AuthTokenPromotionListInstanceImpl implements AuthTokenPromotionListInstance {
+  _version?: V1;
+  _solution?: AuthTokenPromotionSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1) {
-    this._solution = {  };
-    this._uri = `/AuthTokens/Promote`;
-  }
+export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionListInstance {
+  const instance = {} as AuthTokenPromotionListInstanceImpl;
 
-  update(callback?: any): Promise<AuthTokenPromotionInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/AuthTokens/Promote`;
+
+  instance.update = function update(callback?: any): Promise<AuthTokenPromotionInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
     
     operationPromise = operationPromise.then(payload => new AuthTokenPromotionInstance(operationVersion, payload));
@@ -66,20 +70,17 @@ export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext 
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface AuthTokenPromotionPayload extends AuthTokenPromotionResource{
@@ -94,8 +95,6 @@ interface AuthTokenPromotionResource {
 }
 
 export class AuthTokenPromotionInstance {
-  protected _solution: AuthTokenPromotionContextSolution;
-  protected _context?: AuthTokenPromotionContext;
 
   constructor(protected _version: V1, payload: AuthTokenPromotionPayload) {
     this.accountSid = payload.account_sid;
@@ -104,7 +103,6 @@ export class AuthTokenPromotionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -128,23 +126,6 @@ export class AuthTokenPromotionInstance {
    */
   url?: string | null;
 
-  private get _proxy(): AuthTokenPromotionContext {
-    this._context = this._context || new AuthTokenPromotionContextImpl(this._version);
-    return this._context;
-  }
-
-  /**
-   * Update a AuthTokenPromotionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
-   */
-  update(callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>
-     {
-    return this._proxy.update(callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -164,52 +145,5 @@ export class AuthTokenPromotionInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface AuthTokenPromotionListInstance {
-  (): AuthTokenPromotionContext;
-  get(): AuthTokenPromotionContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-}
-
-interface AuthTokenPromotionListInstanceImpl extends AuthTokenPromotionListInstance {}
-class AuthTokenPromotionListInstanceImpl implements AuthTokenPromotionListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionListInstance {
-  const instance = (() => instance.get()) as AuthTokenPromotionListInstanceImpl;
-
-  instance.get = function get(): AuthTokenPromotionContext {
-    return new AuthTokenPromotionContextImpl(version);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/AuthTokens/Promote`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

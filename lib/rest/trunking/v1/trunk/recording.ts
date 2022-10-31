@@ -19,7 +19,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
-
 type RecordingRecordingMode = 'do-not-record'|'record-from-ringing'|'record-from-answer'|'record-from-ringing-dual'|'record-from-answer-dual';
 
 type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
@@ -31,12 +30,12 @@ type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
  * @property { RecordingRecordingMode } [mode] 
  * @property { RecordingRecordingTrim } [trim] 
  */
-export interface RecordingContextUpdateOptions {
-  'mode'?: RecordingRecordingMode;
-  'trim'?: RecordingRecordingTrim;
+export interface RecordingListInstanceUpdateOptions {
+  mode?: RecordingRecordingMode;
+  trim?: RecordingRecordingTrim;
 }
 
-export interface RecordingContext {
+export interface RecordingListInstance {
 
 
   /**
@@ -60,12 +59,12 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
+   * @param { RecordingListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
-  update(params: RecordingContextUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
+  update(params: RecordingListInstanceUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
   update(params?: any, callback?: any): Promise<RecordingInstance>
 
 
@@ -76,23 +75,28 @@ export interface RecordingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingContextSolution {
-  'trunkSid'?: string;
+export interface RecordingSolution {
+  trunkSid?: string;
 }
 
-export class RecordingContextImpl implements RecordingContext {
-  protected _solution: RecordingContextSolution;
-  protected _uri: string;
+interface RecordingListInstanceImpl extends RecordingListInstance {}
+class RecordingListInstanceImpl implements RecordingListInstance {
+  _version?: V1;
+  _solution?: RecordingSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, trunkSid: string) {
-    this._solution = { trunkSid };
-    this._uri = `/Trunks/${trunkSid}/Recording`;
-  }
+export function RecordingListInstance(version: V1, trunkSid: string): RecordingListInstance {
+  const instance = {} as RecordingListInstanceImpl;
 
-  fetch(callback?: any): Promise<RecordingInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { trunkSid };
+  instance._uri = `/Trunks/${trunkSid}/Recording`;
+
+  instance.fetch = function fetch(callback?: any): Promise<RecordingInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
@@ -102,10 +106,10 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<RecordingInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -114,13 +118,13 @@ export class RecordingContextImpl implements RecordingContext {
 
     const data: any = {};
 
-    if (params['mode'] !== undefined) data['Mode'] = params['mode'];
-    if (params['trim'] !== undefined) data['Trim'] = params['trim'];
+    if (params.mode !== undefined) data['Mode'] = params.mode;
+    if (params.trim !== undefined) data['Trim'] = params.trim;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
@@ -130,20 +134,17 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface RecordingPayload extends RecordingResource{
@@ -155,57 +156,15 @@ interface RecordingResource {
 }
 
 export class RecordingInstance {
-  protected _solution: RecordingContextSolution;
-  protected _context?: RecordingContext;
 
   constructor(protected _version: V1, payload: RecordingPayload, trunkSid?: string) {
     this.mode = payload.mode;
     this.trim = payload.trim;
 
-    this._solution = { trunkSid: trunkSid || this.trunkSid };
   }
 
   mode?: RecordingRecordingMode;
   trim?: RecordingRecordingTrim;
-
-  private get _proxy(): RecordingContext {
-    this._context = this._context || new RecordingContextImpl(this._version, this._solution.trunkSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a RecordingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a RecordingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  update(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
-  /**
-   * Update a RecordingInstance
-   *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  update(params: RecordingContextUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
-  update(params?: any, callback?: any): Promise<RecordingInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -223,53 +182,5 @@ export class RecordingInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface RecordingListInstance {
-  (): RecordingContext;
-  get(): RecordingContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  trunkSid?: string;
-}
-
-interface RecordingListInstanceImpl extends RecordingListInstance {}
-class RecordingListInstanceImpl implements RecordingListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function RecordingListInstance(version: V1, trunkSid: string): RecordingListInstance {
-  const instance = (() => instance.get()) as RecordingListInstanceImpl;
-
-  instance.get = function get(): RecordingContext {
-    return new RecordingContextImpl(version, trunkSid);
-  }
-
-  instance._version = version;
-  instance._solution = { trunkSid };
-  instance._uri = `/Trunks/${trunkSid}/Recording`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

@@ -37,10 +37,10 @@ type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-reject
  * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
-  'status'?: CustomerProfileStatus;
-  'statusCallback'?: string;
-  'friendlyName'?: string;
-  'email'?: string;
+  status?: CustomerProfileStatus;
+  statusCallback?: string;
+  friendlyName?: string;
+  email?: string;
 }
 
 /**
@@ -52,10 +52,10 @@ export interface CustomerProfilesContextUpdateOptions {
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface CustomerProfilesListInstanceCreateOptions {
-  'friendlyName': string;
-  'email': string;
-  'policySid': string;
-  'statusCallback'?: string;
+  friendlyName: string;
+  email: string;
+  policySid: string;
+  statusCallback?: string;
 }
 /**
  * Options to pass to each
@@ -178,7 +178,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -245,10 +245,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['email'] !== undefined) data['Email'] = params['email'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.email !== undefined) data['Email'] = params.email;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -617,24 +617,24 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['friendlyName'] === null || params['friendlyName'] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
     }
 
-    if (params['email'] === null || params['email'] === undefined) {
-      throw new Error('Required parameter "params[\'email\']" missing.');
+    if (params.email === null || params.email === undefined) {
+      throw new Error('Required parameter "params.email" missing.');
     }
 
-    if (params['policySid'] === null || params['policySid'] === undefined) {
-      throw new Error('Required parameter "params[\'policySid\']" missing.');
+    if (params.policySid === null || params.policySid === undefined) {
+      throw new Error('Required parameter "params.policySid" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params['friendlyName'];
-    data['Email'] = params['email'];
-    data['PolicySid'] = params['policySid'];
-    if (params['statusCallback'] !== undefined) data['StatusCallback'] = params['statusCallback'];
+    data['FriendlyName'] = params.friendlyName;
+    data['Email'] = params.email;
+    data['PolicySid'] = params.policySid;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -661,10 +661,10 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
 
     const data: any = {};
 
-    if (params['status'] !== undefined) data['Status'] = params['status'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['policySid'] !== undefined) data['PolicySid'] = params['policySid'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.policySid !== undefined) data['PolicySid'] = params.policySid;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

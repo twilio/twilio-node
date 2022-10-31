@@ -29,7 +29,7 @@ const serialize = require("../../../../../../../../base/serialize");
  * @property { string } credentialListSid The SID of the CredentialList resource to map to the SIP domain.
  */
 export interface AuthCallsCredentialListMappingListInstanceCreateOptions {
-  'credentialListSid': string;
+  credentialListSid: string;
 }
 /**
  * Options to pass to each
@@ -111,9 +111,9 @@ export interface AuthCallsCredentialListMappingContext {
 }
 
 export interface AuthCallsCredentialListMappingContextSolution {
-  'accountSid'?: string;
-  'domainSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
 }
 
 export class AuthCallsCredentialListMappingContextImpl implements AuthCallsCredentialListMappingContext {
@@ -417,13 +417,13 @@ export function AuthCallsCredentialListMappingListInstance(version: V2010, accou
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['credentialListSid'] === null || params['credentialListSid'] === undefined) {
-      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
+    if (params.credentialListSid === null || params.credentialListSid === undefined) {
+      throw new Error('Required parameter "params.credentialListSid" missing.');
     }
 
     const data: any = {};
 
-    data['CredentialListSid'] = params['credentialListSid'];
+    data['CredentialListSid'] = params.credentialListSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -450,7 +450,7 @@ export function AuthCallsCredentialListMappingListInstance(version: V2010, accou
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -33,7 +33,7 @@ type ExecutionStatus = 'active'|'ended';
  * @property { ExecutionStatus } status 
  */
 export interface ExecutionContextUpdateOptions {
-  'status': ExecutionStatus;
+  status: ExecutionStatus;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface ExecutionContextUpdateOptions {
  * @property { any } [parameters] JSON data that will be added to the Flow\\\&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
  */
 export interface ExecutionListInstanceCreateOptions {
-  'to': string;
-  'from': string;
-  'parameters'?: any;
+  to: string;
+  from: string;
+  parameters?: any;
 }
 /**
  * Options to pass to each
@@ -154,8 +154,8 @@ export interface ExecutionContext {
 }
 
 export interface ExecutionContextSolution {
-  'flowSid'?: string;
-  'sid'?: string;
+  flowSid?: string;
+  sid?: string;
 }
 
 export class ExecutionContextImpl implements ExecutionContext {
@@ -211,13 +211,13 @@ export class ExecutionContextImpl implements ExecutionContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['status'] === null || params['status'] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params['status'];
+    data['Status'] = params.status;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -558,19 +558,19 @@ export function ExecutionListInstance(version: V2, flowSid: string): ExecutionLi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['to'] === null || params['to'] === undefined) {
-      throw new Error('Required parameter "params[\'to\']" missing.');
+    if (params.to === null || params.to === undefined) {
+      throw new Error('Required parameter "params.to" missing.');
     }
 
-    if (params['from'] === null || params['from'] === undefined) {
-      throw new Error('Required parameter "params[\'from\']" missing.');
+    if (params.from === null || params.from === undefined) {
+      throw new Error('Required parameter "params.from" missing.');
     }
 
     const data: any = {};
 
-    data['To'] = params['to'];
-    data['From'] = params['from'];
-    if (params['parameters'] !== undefined) data['Parameters'] = params['parameters'];
+    data['To'] = params.to;
+    data['From'] = params.from;
+    if (params.parameters !== undefined) data['Parameters'] = params.parameters;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -597,9 +597,9 @@ export function ExecutionListInstance(version: V2, flowSid: string): ExecutionLi
 
     const data: any = {};
 
-    if (params['dateCreatedFrom'] !== undefined) data['DateCreatedFrom'] = serialize.iso8601DateTime(params['dateCreatedFrom']);
-    if (params['dateCreatedTo'] !== undefined) data['DateCreatedTo'] = serialize.iso8601DateTime(params['dateCreatedTo']);
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.dateCreatedFrom !== undefined) data['DateCreatedFrom'] = serialize.iso8601DateTime(params.dateCreatedFrom);
+    if (params.dateCreatedTo !== undefined) data['DateCreatedTo'] = serialize.iso8601DateTime(params.dateCreatedTo);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

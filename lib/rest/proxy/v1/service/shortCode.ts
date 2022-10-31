@@ -41,7 +41,7 @@ export class ProxyV1ServiceShortCodeCapabilities {
  * @property { boolean } [isReserved] Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
  */
 export interface ShortCodeContextUpdateOptions {
-  'isReserved'?: boolean;
+  isReserved?: boolean;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface ShortCodeContextUpdateOptions {
  * @property { string } sid The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
  */
 export interface ShortCodeListInstanceCreateOptions {
-  'sid': string;
+  sid: string;
 }
 /**
  * Options to pass to each
@@ -152,8 +152,8 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
@@ -202,7 +202,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
 
     const data: any = {};
 
-    if (params['isReserved'] !== undefined) data['IsReserved'] = serialize.bool(params['isReserved']);
+    if (params.isReserved !== undefined) data['IsReserved'] = serialize.bool(params.isReserved);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -537,13 +537,13 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['sid'] === null || params['sid'] === undefined) {
-      throw new Error('Required parameter "params[\'sid\']" missing.');
+    if (params.sid === null || params.sid === undefined) {
+      throw new Error('Required parameter "params.sid" missing.');
     }
 
     const data: any = {};
 
-    data['Sid'] = params['sid'];
+    data['Sid'] = params.sid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -570,7 +570,7 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

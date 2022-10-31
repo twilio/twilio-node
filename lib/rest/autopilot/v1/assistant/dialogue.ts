@@ -42,8 +42,8 @@ export interface DialogueContext {
 }
 
 export interface DialogueContextSolution {
-  'assistantSid'?: string;
-  'sid'?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class DialogueContextImpl implements DialogueContext {

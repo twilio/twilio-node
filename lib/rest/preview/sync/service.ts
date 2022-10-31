@@ -35,10 +35,10 @@ import { SyncMapListInstance } from "./service/syncMap";
  * @property { boolean } [aclEnabled] 
  */
 export interface ServiceContextUpdateOptions {
-  'webhookUrl'?: string;
-  'friendlyName'?: string;
-  'reachabilityWebhooksEnabled'?: boolean;
-  'aclEnabled'?: boolean;
+  webhookUrl?: string;
+  friendlyName?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  aclEnabled?: boolean;
 }
 
 /**
@@ -50,10 +50,10 @@ export interface ServiceContextUpdateOptions {
  * @property { boolean } [aclEnabled] 
  */
 export interface ServiceListInstanceCreateOptions {
-  'friendlyName'?: string;
-  'webhookUrl'?: string;
-  'reachabilityWebhooksEnabled'?: boolean;
-  'aclEnabled'?: boolean;
+  friendlyName?: string;
+  webhookUrl?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  aclEnabled?: boolean;
 }
 /**
  * Options to pass to each
@@ -158,7 +158,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -225,10 +225,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['reachabilityWebhooksEnabled'] !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params['reachabilityWebhooksEnabled']);
-    if (params['aclEnabled'] !== undefined) data['AclEnabled'] = serialize.bool(params['aclEnabled']);
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.reachabilityWebhooksEnabled !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params.reachabilityWebhooksEnabled);
+    if (params.aclEnabled !== undefined) data['AclEnabled'] = serialize.bool(params.aclEnabled);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -569,10 +569,10 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['reachabilityWebhooksEnabled'] !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params['reachabilityWebhooksEnabled']);
-    if (params['aclEnabled'] !== undefined) data['AclEnabled'] = serialize.bool(params['aclEnabled']);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.reachabilityWebhooksEnabled !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params.reachabilityWebhooksEnabled);
+    if (params.aclEnabled !== undefined) data['AclEnabled'] = serialize.bool(params.aclEnabled);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -599,7 +599,7 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

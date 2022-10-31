@@ -20,17 +20,16 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to fetch a WorkersRealTimeStatisticsInstance
  *
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
-export interface WorkersRealTimeStatisticsContextFetchOptions {
-  'taskChannel'?: string;
+export interface WorkersRealTimeStatisticsListInstanceFetchOptions {
+  taskChannel?: string;
 }
 
-export interface WorkersRealTimeStatisticsContext {
+export interface WorkersRealTimeStatisticsListInstance {
 
 
   /**
@@ -44,12 +43,12 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
+   * @param { WorkersRealTimeStatisticsListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
    */
-  fetch(params: WorkersRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(params: WorkersRealTimeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance>
 
 
@@ -60,22 +59,27 @@ export interface WorkersRealTimeStatisticsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkersRealTimeStatisticsContextSolution {
-  'workspaceSid'?: string;
+export interface WorkersRealTimeStatisticsSolution {
+  workspaceSid?: string;
 }
 
-export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStatisticsContext {
-  protected _solution: WorkersRealTimeStatisticsContextSolution;
-  protected _uri: string;
+interface WorkersRealTimeStatisticsListInstanceImpl extends WorkersRealTimeStatisticsListInstance {}
+class WorkersRealTimeStatisticsListInstanceImpl implements WorkersRealTimeStatisticsListInstance {
+  _version?: V1;
+  _solution?: WorkersRealTimeStatisticsSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, workspaceSid: string) {
-    this._solution = { workspaceSid };
-    this._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
-  }
+export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid: string): WorkersRealTimeStatisticsListInstance {
+  const instance = {} as WorkersRealTimeStatisticsListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -84,11 +88,11 @@ export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStat
 
     const data: any = {};
 
-    if (params['taskChannel'] !== undefined) data['TaskChannel'] = params['taskChannel'];
+    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkersRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
@@ -98,20 +102,17 @@ export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStat
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource{
@@ -126,8 +127,6 @@ interface WorkersRealTimeStatisticsResource {
 }
 
 export class WorkersRealTimeStatisticsInstance {
-  protected _solution: WorkersRealTimeStatisticsContextSolution;
-  protected _context?: WorkersRealTimeStatisticsContext;
 
   constructor(protected _version: V1, payload: WorkersRealTimeStatisticsPayload, workspaceSid?: string) {
     this.accountSid = payload.account_sid;
@@ -136,7 +135,6 @@ export class WorkersRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
   }
 
   /**
@@ -160,33 +158,6 @@ export class WorkersRealTimeStatisticsInstance {
    */
   url?: string | null;
 
-  private get _proxy(): WorkersRealTimeStatisticsContext {
-    this._context = this._context || new WorkersRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a WorkersRealTimeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
-  /**
-   * Fetch a WorkersRealTimeStatisticsInstance
-   *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
-   */
-  fetch(params: WorkersRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -206,53 +177,5 @@ export class WorkersRealTimeStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface WorkersRealTimeStatisticsListInstance {
-  (): WorkersRealTimeStatisticsContext;
-  get(): WorkersRealTimeStatisticsContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  workspaceSid?: string;
-}
-
-interface WorkersRealTimeStatisticsListInstanceImpl extends WorkersRealTimeStatisticsListInstance {}
-class WorkersRealTimeStatisticsListInstanceImpl implements WorkersRealTimeStatisticsListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid: string): WorkersRealTimeStatisticsListInstance {
-  const instance = (() => instance.get()) as WorkersRealTimeStatisticsListInstanceImpl;
-
-  instance.get = function get(): WorkersRealTimeStatisticsContext {
-    return new WorkersRealTimeStatisticsContextImpl(version, workspaceSid);
-  }
-
-  instance._version = version;
-  instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

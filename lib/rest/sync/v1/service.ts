@@ -39,13 +39,13 @@ import { SyncStreamListInstance } from "./service/syncStream";
  * @property { boolean } [webhooksFromRestEnabled] Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;.
  */
 export interface ServiceContextUpdateOptions {
-  'webhookUrl'?: string;
-  'friendlyName'?: string;
-  'reachabilityWebhooksEnabled'?: boolean;
-  'aclEnabled'?: boolean;
-  'reachabilityDebouncingEnabled'?: boolean;
-  'reachabilityDebouncingWindow'?: number;
-  'webhooksFromRestEnabled'?: boolean;
+  webhookUrl?: string;
+  friendlyName?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  aclEnabled?: boolean;
+  reachabilityDebouncingEnabled?: boolean;
+  reachabilityDebouncingWindow?: number;
+  webhooksFromRestEnabled?: boolean;
 }
 
 /**
@@ -60,13 +60,13 @@ export interface ServiceContextUpdateOptions {
  * @property { boolean } [webhooksFromRestEnabled] Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;.
  */
 export interface ServiceListInstanceCreateOptions {
-  'friendlyName'?: string;
-  'webhookUrl'?: string;
-  'reachabilityWebhooksEnabled'?: boolean;
-  'aclEnabled'?: boolean;
-  'reachabilityDebouncingEnabled'?: boolean;
-  'reachabilityDebouncingWindow'?: number;
-  'webhooksFromRestEnabled'?: boolean;
+  friendlyName?: string;
+  webhookUrl?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  aclEnabled?: boolean;
+  reachabilityDebouncingEnabled?: boolean;
+  reachabilityDebouncingWindow?: number;
+  webhooksFromRestEnabled?: boolean;
 }
 /**
  * Options to pass to each
@@ -172,7 +172,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -245,13 +245,13 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['reachabilityWebhooksEnabled'] !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params['reachabilityWebhooksEnabled']);
-    if (params['aclEnabled'] !== undefined) data['AclEnabled'] = serialize.bool(params['aclEnabled']);
-    if (params['reachabilityDebouncingEnabled'] !== undefined) data['ReachabilityDebouncingEnabled'] = serialize.bool(params['reachabilityDebouncingEnabled']);
-    if (params['reachabilityDebouncingWindow'] !== undefined) data['ReachabilityDebouncingWindow'] = params['reachabilityDebouncingWindow'];
-    if (params['webhooksFromRestEnabled'] !== undefined) data['WebhooksFromRestEnabled'] = serialize.bool(params['webhooksFromRestEnabled']);
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.reachabilityWebhooksEnabled !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params.reachabilityWebhooksEnabled);
+    if (params.aclEnabled !== undefined) data['AclEnabled'] = serialize.bool(params.aclEnabled);
+    if (params.reachabilityDebouncingEnabled !== undefined) data['ReachabilityDebouncingEnabled'] = serialize.bool(params.reachabilityDebouncingEnabled);
+    if (params.reachabilityDebouncingWindow !== undefined) data['ReachabilityDebouncingWindow'] = params.reachabilityDebouncingWindow;
+    if (params.webhooksFromRestEnabled !== undefined) data['WebhooksFromRestEnabled'] = serialize.bool(params.webhooksFromRestEnabled);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -657,13 +657,13 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['reachabilityWebhooksEnabled'] !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params['reachabilityWebhooksEnabled']);
-    if (params['aclEnabled'] !== undefined) data['AclEnabled'] = serialize.bool(params['aclEnabled']);
-    if (params['reachabilityDebouncingEnabled'] !== undefined) data['ReachabilityDebouncingEnabled'] = serialize.bool(params['reachabilityDebouncingEnabled']);
-    if (params['reachabilityDebouncingWindow'] !== undefined) data['ReachabilityDebouncingWindow'] = params['reachabilityDebouncingWindow'];
-    if (params['webhooksFromRestEnabled'] !== undefined) data['WebhooksFromRestEnabled'] = serialize.bool(params['webhooksFromRestEnabled']);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.reachabilityWebhooksEnabled !== undefined) data['ReachabilityWebhooksEnabled'] = serialize.bool(params.reachabilityWebhooksEnabled);
+    if (params.aclEnabled !== undefined) data['AclEnabled'] = serialize.bool(params.aclEnabled);
+    if (params.reachabilityDebouncingEnabled !== undefined) data['ReachabilityDebouncingEnabled'] = serialize.bool(params.reachabilityDebouncingEnabled);
+    if (params.reachabilityDebouncingWindow !== undefined) data['ReachabilityDebouncingWindow'] = params.reachabilityDebouncingWindow;
+    if (params.webhooksFromRestEnabled !== undefined) data['WebhooksFromRestEnabled'] = serialize.bool(params.webhooksFromRestEnabled);
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -690,7 +690,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

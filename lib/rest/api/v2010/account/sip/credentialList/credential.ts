@@ -29,7 +29,7 @@ const serialize = require("../../../../../../base/serialize");
  * @property { string } [password] The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
  */
 export interface CredentialContextUpdateOptions {
-  'password'?: string;
+  password?: string;
 }
 
 /**
@@ -39,8 +39,8 @@ export interface CredentialContextUpdateOptions {
  * @property { string } password The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
  */
 export interface CredentialListInstanceCreateOptions {
-  'username': string;
-  'password': string;
+  username: string;
+  password: string;
 }
 /**
  * Options to pass to each
@@ -142,9 +142,9 @@ export interface CredentialContext {
 }
 
 export interface CredentialContextSolution {
-  'accountSid'?: string;
-  'credentialListSid'?: string;
-  'sid'?: string;
+  accountSid?: string;
+  credentialListSid?: string;
+  sid?: string;
 }
 
 export class CredentialContextImpl implements CredentialContext {
@@ -193,7 +193,7 @@ export class CredentialContextImpl implements CredentialContext {
 
     const data: any = {};
 
-    if (params['password'] !== undefined) data['Password'] = params['password'];
+    if (params.password !== undefined) data['Password'] = params.password;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -511,18 +511,18 @@ export function CredentialListInstance(version: V2010, accountSid: string, crede
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['username'] === null || params['username'] === undefined) {
-      throw new Error('Required parameter "params[\'username\']" missing.');
+    if (params.username === null || params.username === undefined) {
+      throw new Error('Required parameter "params.username" missing.');
     }
 
-    if (params['password'] === null || params['password'] === undefined) {
-      throw new Error('Required parameter "params[\'password\']" missing.');
+    if (params.password === null || params.password === undefined) {
+      throw new Error('Required parameter "params.password" missing.');
     }
 
     const data: any = {};
 
-    data['Username'] = params['username'];
-    data['Password'] = params['password'];
+    data['Username'] = params.username;
+    data['Password'] = params.password;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -549,7 +549,7 @@ export function CredentialListInstance(version: V2010, accountSid: string, crede
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -32,10 +32,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [webhookMethod] The method to be used when calling the webhook\\\&#39;s URL.
  */
 export interface WebhookContextUpdateOptions {
-  'uniqueName'?: string;
-  'events'?: string;
-  'webhookUrl'?: string;
-  'webhookMethod'?: string;
+  uniqueName?: string;
+  events?: string;
+  webhookUrl?: string;
+  webhookMethod?: string;
 }
 
 /**
@@ -47,10 +47,10 @@ export interface WebhookContextUpdateOptions {
  * @property { string } [webhookMethod] The method to be used when calling the webhook\\\&#39;s URL.
  */
 export interface WebhookListInstanceCreateOptions {
-  'uniqueName': string;
-  'events': string;
-  'webhookUrl': string;
-  'webhookMethod'?: string;
+  uniqueName: string;
+  events: string;
+  webhookUrl: string;
+  webhookMethod?: string;
 }
 /**
  * Options to pass to each
@@ -152,8 +152,8 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  'assistantSid'?: string;
-  'sid'?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -202,10 +202,10 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['events'] !== undefined) data['Events'] = params['events'];
-    if (params['webhookUrl'] !== undefined) data['WebhookUrl'] = params['webhookUrl'];
-    if (params['webhookMethod'] !== undefined) data['WebhookMethod'] = params['webhookMethod'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.events !== undefined) data['Events'] = params.events;
+    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
+    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -543,24 +543,24 @@ export function WebhookListInstance(version: V1, assistantSid: string): WebhookL
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['uniqueName'] === null || params['uniqueName'] === undefined) {
-      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
+    if (params.uniqueName === null || params.uniqueName === undefined) {
+      throw new Error('Required parameter "params.uniqueName" missing.');
     }
 
-    if (params['events'] === null || params['events'] === undefined) {
-      throw new Error('Required parameter "params[\'events\']" missing.');
+    if (params.events === null || params.events === undefined) {
+      throw new Error('Required parameter "params.events" missing.');
     }
 
-    if (params['webhookUrl'] === null || params['webhookUrl'] === undefined) {
-      throw new Error('Required parameter "params[\'webhookUrl\']" missing.');
+    if (params.webhookUrl === null || params.webhookUrl === undefined) {
+      throw new Error('Required parameter "params.webhookUrl" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params['uniqueName'];
-    data['Events'] = params['events'];
-    data['WebhookUrl'] = params['webhookUrl'];
-    if (params['webhookMethod'] !== undefined) data['WebhookMethod'] = params['webhookMethod'];
+    data['UniqueName'] = params.uniqueName;
+    data['Events'] = params.events;
+    data['WebhookUrl'] = params.webhookUrl;
+    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -587,7 +587,7 @@ export function WebhookListInstance(version: V1, assistantSid: string): WebhookL
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

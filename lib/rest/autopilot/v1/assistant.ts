@@ -44,14 +44,14 @@ import { WebhookListInstance } from "./assistant/webhook";
  * @property { string } [developmentStage] A string describing the state of the assistant.
  */
 export interface AssistantContextUpdateOptions {
-  'friendlyName'?: string;
-  'logQueries'?: boolean;
-  'uniqueName'?: string;
-  'callbackUrl'?: string;
-  'callbackEvents'?: string;
-  'styleSheet'?: any;
-  'defaults'?: any;
-  'developmentStage'?: string;
+  friendlyName?: string;
+  logQueries?: boolean;
+  uniqueName?: string;
+  callbackUrl?: string;
+  callbackEvents?: string;
+  styleSheet?: any;
+  defaults?: any;
+  developmentStage?: string;
 }
 
 /**
@@ -66,13 +66,13 @@ export interface AssistantContextUpdateOptions {
  * @property { any } [defaults] A JSON object that defines the Assistant\\\&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
  */
 export interface AssistantListInstanceCreateOptions {
-  'friendlyName'?: string;
-  'logQueries'?: boolean;
-  'uniqueName'?: string;
-  'callbackUrl'?: string;
-  'callbackEvents'?: string;
-  'styleSheet'?: any;
-  'defaults'?: any;
+  friendlyName?: string;
+  logQueries?: boolean;
+  uniqueName?: string;
+  callbackUrl?: string;
+  callbackEvents?: string;
+  styleSheet?: any;
+  defaults?: any;
 }
 /**
  * Options to pass to each
@@ -182,7 +182,7 @@ export interface AssistantContext {
 }
 
 export interface AssistantContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class AssistantContextImpl implements AssistantContext {
@@ -279,14 +279,14 @@ export class AssistantContextImpl implements AssistantContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['logQueries'] !== undefined) data['LogQueries'] = serialize.bool(params['logQueries']);
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
-    if (params['callbackEvents'] !== undefined) data['CallbackEvents'] = params['callbackEvents'];
-    if (params['styleSheet'] !== undefined) data['StyleSheet'] = params['styleSheet'];
-    if (params['defaults'] !== undefined) data['Defaults'] = params['defaults'];
-    if (params['developmentStage'] !== undefined) data['DevelopmentStage'] = params['developmentStage'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.logQueries !== undefined) data['LogQueries'] = serialize.bool(params.logQueries);
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    if (params.callbackEvents !== undefined) data['CallbackEvents'] = params.callbackEvents;
+    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
+    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
+    if (params.developmentStage !== undefined) data['DevelopmentStage'] = params.developmentStage;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -720,13 +720,13 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['logQueries'] !== undefined) data['LogQueries'] = serialize.bool(params['logQueries']);
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
-    if (params['callbackUrl'] !== undefined) data['CallbackUrl'] = params['callbackUrl'];
-    if (params['callbackEvents'] !== undefined) data['CallbackEvents'] = params['callbackEvents'];
-    if (params['styleSheet'] !== undefined) data['StyleSheet'] = params['styleSheet'];
-    if (params['defaults'] !== undefined) data['Defaults'] = params['defaults'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.logQueries !== undefined) data['LogQueries'] = serialize.bool(params.logQueries);
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    if (params.callbackEvents !== undefined) data['CallbackEvents'] = params.callbackEvents;
+    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
+    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -753,7 +753,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

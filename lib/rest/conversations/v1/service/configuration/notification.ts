@@ -20,41 +20,40 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-
 /**
  * Options to pass to update a NotificationInstance
  *
  * @property { boolean } [logEnabled] Weather the notification logging is enabled.
- * @property { boolean } [newMessage.enabled] Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessage.template] The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [newMessage.sound] The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessage.badgeCountEnabled] Whether the new message badge is enabled. The default is &#x60;false&#x60;.
- * @property { boolean } [addedToConversation.enabled] Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [addedToConversation.template] The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [addedToConversation.sound] The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [removedFromConversation.enabled] Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
- * @property { string } [removedFromConversation.template] The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [removedFromConversation.sound] The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessage.withMedia.enabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessage.withMedia.template] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessageEnabled] Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [newMessageTemplate] The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [newMessageSound] The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessageBadgeCountEnabled] Whether the new message badge is enabled. The default is &#x60;false&#x60;.
+ * @property { boolean } [addedToConversationEnabled] Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [addedToConversationTemplate] The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [addedToConversationSound] The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [removedFromConversationEnabled] Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [removedFromConversationTemplate] The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { string } [removedFromConversationSound] The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessageWithMediaEnabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
+ * @property { string } [newMessageWithMediaTemplate] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
  */
-export interface NotificationContextUpdateOptions {
-  'logEnabled'?: boolean;
-  'newMessage.enabled'?: boolean;
-  'newMessage.template'?: string;
-  'newMessage.sound'?: string;
-  'newMessage.badgeCountEnabled'?: boolean;
-  'addedToConversation.enabled'?: boolean;
-  'addedToConversation.template'?: string;
-  'addedToConversation.sound'?: string;
-  'removedFromConversation.enabled'?: boolean;
-  'removedFromConversation.template'?: string;
-  'removedFromConversation.sound'?: string;
-  'newMessage.withMedia.enabled'?: boolean;
-  'newMessage.withMedia.template'?: string;
+export interface NotificationListInstanceUpdateOptions {
+  logEnabled?: boolean;
+  newMessageEnabled?: boolean;
+  newMessageTemplate?: string;
+  newMessageSound?: string;
+  newMessageBadgeCountEnabled?: boolean;
+  addedToConversationEnabled?: boolean;
+  addedToConversationTemplate?: string;
+  addedToConversationSound?: string;
+  removedFromConversationEnabled?: boolean;
+  removedFromConversationTemplate?: string;
+  removedFromConversationSound?: string;
+  newMessageWithMediaEnabled?: boolean;
+  newMessageWithMediaTemplate?: string;
 }
 
-export interface NotificationContext {
+export interface NotificationListInstance {
 
 
   /**
@@ -78,12 +77,12 @@ export interface NotificationContext {
   /**
    * Update a NotificationInstance
    *
-   * @param { NotificationContextUpdateOptions } params - Parameter for request
+   * @param { NotificationListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  update(params: NotificationContextUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  update(params: NotificationListInstanceUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
   update(params?: any, callback?: any): Promise<NotificationInstance>
 
 
@@ -94,23 +93,28 @@ export interface NotificationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationContextSolution {
-  'chatServiceSid'?: string;
+export interface NotificationSolution {
+  chatServiceSid?: string;
 }
 
-export class NotificationContextImpl implements NotificationContext {
-  protected _solution: NotificationContextSolution;
-  protected _uri: string;
+interface NotificationListInstanceImpl extends NotificationListInstance {}
+class NotificationListInstanceImpl implements NotificationListInstance {
+  _version?: V1;
+  _solution?: NotificationSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, chatServiceSid: string) {
-    this._solution = { chatServiceSid };
-    this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
-  }
+export function NotificationListInstance(version: V1, chatServiceSid: string): NotificationListInstance {
+  const instance = {} as NotificationListInstanceImpl;
 
-  fetch(callback?: any): Promise<NotificationInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { chatServiceSid };
+  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
+
+  instance.fetch = function fetch(callback?: any): Promise<NotificationInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.chatServiceSid));
@@ -120,10 +124,10 @@ export class NotificationContextImpl implements NotificationContext {
     return operationPromise;
 
 
-  }
+    }
 
-  update(params?: any, callback?: any): Promise<NotificationInstance> {
-      if (typeof params === "function") {
+  instance.update = function update(params?: any, callback?: any): Promise<NotificationInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -132,24 +136,24 @@ export class NotificationContextImpl implements NotificationContext {
 
     const data: any = {};
 
-    if (params['logEnabled'] !== undefined) data['LogEnabled'] = serialize.bool(params['logEnabled']);
-    if (params['newMessage.enabled'] !== undefined) data['NewMessage.Enabled'] = serialize.bool(params['newMessage.enabled']);
-    if (params['newMessage.template'] !== undefined) data['NewMessage.Template'] = params['newMessage.template'];
-    if (params['newMessage.sound'] !== undefined) data['NewMessage.Sound'] = params['newMessage.sound'];
-    if (params['newMessage.badgeCountEnabled'] !== undefined) data['NewMessage.BadgeCountEnabled'] = serialize.bool(params['newMessage.badgeCountEnabled']);
-    if (params['addedToConversation.enabled'] !== undefined) data['AddedToConversation.Enabled'] = serialize.bool(params['addedToConversation.enabled']);
-    if (params['addedToConversation.template'] !== undefined) data['AddedToConversation.Template'] = params['addedToConversation.template'];
-    if (params['addedToConversation.sound'] !== undefined) data['AddedToConversation.Sound'] = params['addedToConversation.sound'];
-    if (params['removedFromConversation.enabled'] !== undefined) data['RemovedFromConversation.Enabled'] = serialize.bool(params['removedFromConversation.enabled']);
-    if (params['removedFromConversation.template'] !== undefined) data['RemovedFromConversation.Template'] = params['removedFromConversation.template'];
-    if (params['removedFromConversation.sound'] !== undefined) data['RemovedFromConversation.Sound'] = params['removedFromConversation.sound'];
-    if (params['newMessage.withMedia.enabled'] !== undefined) data['NewMessage.WithMedia.Enabled'] = serialize.bool(params['newMessage.withMedia.enabled']);
-    if (params['newMessage.withMedia.template'] !== undefined) data['NewMessage.WithMedia.Template'] = params['newMessage.withMedia.template'];
+    if (params.logEnabled !== undefined) data['LogEnabled'] = serialize.bool(params.logEnabled);
+    if (params.newMessageEnabled !== undefined) data['NewMessage.Enabled'] = serialize.bool(params.newMessageEnabled);
+    if (params.newMessageTemplate !== undefined) data['NewMessage.Template'] = params.newMessageTemplate;
+    if (params.newMessageSound !== undefined) data['NewMessage.Sound'] = params.newMessageSound;
+    if (params.newMessageBadgeCountEnabled !== undefined) data['NewMessage.BadgeCountEnabled'] = serialize.bool(params.newMessageBadgeCountEnabled);
+    if (params.addedToConversationEnabled !== undefined) data['AddedToConversation.Enabled'] = serialize.bool(params.addedToConversationEnabled);
+    if (params.addedToConversationTemplate !== undefined) data['AddedToConversation.Template'] = params.addedToConversationTemplate;
+    if (params.addedToConversationSound !== undefined) data['AddedToConversation.Sound'] = params.addedToConversationSound;
+    if (params.removedFromConversationEnabled !== undefined) data['RemovedFromConversation.Enabled'] = serialize.bool(params.removedFromConversationEnabled);
+    if (params.removedFromConversationTemplate !== undefined) data['RemovedFromConversation.Template'] = params.removedFromConversationTemplate;
+    if (params.removedFromConversationSound !== undefined) data['RemovedFromConversation.Sound'] = params.removedFromConversationSound;
+    if (params.newMessageWithMediaEnabled !== undefined) data['NewMessage.WithMedia.Enabled'] = serialize.bool(params.newMessageWithMediaEnabled);
+    if (params.newMessageWithMediaTemplate !== undefined) data['NewMessage.WithMedia.Template'] = params.newMessageWithMediaTemplate;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.chatServiceSid));
@@ -159,20 +163,17 @@ export class NotificationContextImpl implements NotificationContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface NotificationPayload extends NotificationResource{
@@ -189,8 +190,6 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  protected _solution: NotificationContextSolution;
-  protected _context?: NotificationContext;
 
   constructor(protected _version: V1, payload: NotificationPayload, chatServiceSid?: string) {
     this.accountSid = payload.account_sid;
@@ -201,7 +200,6 @@ export class NotificationInstance {
     this.logEnabled = payload.log_enabled;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
   }
 
   /**
@@ -233,45 +231,6 @@ export class NotificationInstance {
    */
   url?: string | null;
 
-  private get _proxy(): NotificationContext {
-    this._context = this._context || new NotificationContextImpl(this._version, this._solution.chatServiceSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a NotificationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NotificationInstance
-   */
-  fetch(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Update a NotificationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NotificationInstance
-   */
-  update(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
-  /**
-   * Update a NotificationInstance
-   *
-   * @param { NotificationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NotificationInstance
-   */
-  update(params: NotificationContextUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
-  update(params?: any, callback?: any): Promise<NotificationInstance>
-     {
-    return this._proxy.update(params, callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -293,53 +252,5 @@ export class NotificationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface NotificationListInstance {
-  (): NotificationContext;
-  get(): NotificationContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  chatServiceSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function NotificationListInstance(version: V1, chatServiceSid: string): NotificationListInstance {
-  const instance = (() => instance.get()) as NotificationListInstanceImpl;
-
-  instance.get = function get(): NotificationContext {
-    return new NotificationContextImpl(version, chatServiceSid);
-  }
-
-  instance._version = version;
-  instance._solution = { chatServiceSid };
-  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

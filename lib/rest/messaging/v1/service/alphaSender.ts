@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } alphaSender The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen &#x60;-&#x60;, plus &#x60;+&#x60;, underscore &#x60;_&#x60; and ampersand &#x60;&amp;&#x60;. This value cannot contain only numbers.
  */
 export interface AlphaSenderListInstanceCreateOptions {
-  'alphaSender': string;
+  alphaSender: string;
 }
 /**
  * Options to pass to each
@@ -111,8 +111,8 @@ export interface AlphaSenderContext {
 }
 
 export interface AlphaSenderContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class AlphaSenderContextImpl implements AlphaSenderContext {
@@ -436,13 +436,13 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['alphaSender'] === null || params['alphaSender'] === undefined) {
-      throw new Error('Required parameter "params[\'alphaSender\']" missing.');
+    if (params.alphaSender === null || params.alphaSender === undefined) {
+      throw new Error('Required parameter "params.alphaSender" missing.');
     }
 
     const data: any = {};
 
-    data['AlphaSender'] = params['alphaSender'];
+    data['AlphaSender'] = params.alphaSender;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -469,7 +469,7 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -94,9 +94,9 @@ export interface ExecutionStepContext {
 }
 
 export interface ExecutionStepContextSolution {
-  'flowSid'?: string;
-  'executionSid'?: string;
-  'sid'?: string;
+  flowSid?: string;
+  executionSid?: string;
+  sid?: string;
 }
 
 export class ExecutionStepContextImpl implements ExecutionStepContext {
@@ -431,7 +431,7 @@ export function ExecutionStepListInstance(version: V1, flowSid: string, executio
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

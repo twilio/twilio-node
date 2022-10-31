@@ -94,8 +94,8 @@ export interface AuthorizedConnectAppContext {
 }
 
 export interface AuthorizedConnectAppContextSolution {
-  'accountSid'?: string;
-  'connectAppSid'?: string;
+  accountSid?: string;
+  connectAppSid?: string;
 }
 
 export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
@@ -402,7 +402,7 @@ export function AuthorizedConnectAppListInstance(version: V2010, accountSid: str
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

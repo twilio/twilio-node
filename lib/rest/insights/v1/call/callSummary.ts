@@ -19,7 +19,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
-
 type SummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
 
 type SummaryCallType = 'carrier'|'sip'|'trunking'|'client';
@@ -32,11 +31,11 @@ type SummaryProcessingState = 'complete'|'partial';
  *
  * @property { SummaryProcessingState } [processingState] 
  */
-export interface CallSummaryContextFetchOptions {
-  'processingState'?: SummaryProcessingState;
+export interface CallSummaryListInstanceFetchOptions {
+  processingState?: SummaryProcessingState;
 }
 
-export interface CallSummaryContext {
+export interface CallSummaryListInstance {
 
 
   /**
@@ -50,12 +49,12 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
+   * @param { CallSummaryListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
-  fetch(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
+  fetch(params: CallSummaryListInstanceFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   fetch(params?: any, callback?: any): Promise<CallSummaryInstance>
 
 
@@ -66,22 +65,27 @@ export interface CallSummaryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallSummaryContextSolution {
-  'callSid'?: string;
+export interface CallSummarySolution {
+  callSid?: string;
 }
 
-export class CallSummaryContextImpl implements CallSummaryContext {
-  protected _solution: CallSummaryContextSolution;
-  protected _uri: string;
+interface CallSummaryListInstanceImpl extends CallSummaryListInstance {}
+class CallSummaryListInstanceImpl implements CallSummaryListInstance {
+  _version?: V1;
+  _solution?: CallSummarySolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, callSid: string) {
-    this._solution = { callSid };
-    this._uri = `/Voice/${callSid}/Summary`;
-  }
+export function CallSummaryListInstance(version: V1, callSid: string): CallSummaryListInstance {
+  const instance = {} as CallSummaryListInstanceImpl;
 
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
-      if (typeof params === "function") {
+  instance._version = version;
+  instance._solution = { callSid };
+  instance._uri = `/Voice/${callSid}/Summary`;
+
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -90,11 +94,11 @@ export class CallSummaryContextImpl implements CallSummaryContext {
 
     const data: any = {};
 
-    if (params['processingState'] !== undefined) data['ProcessingState'] = params['processingState'];
+    if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CallSummaryInstance(operationVersion, payload, this._solution.callSid));
@@ -104,20 +108,17 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface CallSummaryPayload extends CallSummaryResource{
@@ -149,8 +150,6 @@ interface CallSummaryResource {
 }
 
 export class CallSummaryInstance {
-  protected _solution: CallSummaryContextSolution;
-  protected _context?: CallSummaryContext;
 
   constructor(protected _version: V1, payload: CallSummaryPayload, callSid?: string) {
     this.accountSid = payload.account_sid;
@@ -176,7 +175,6 @@ export class CallSummaryInstance {
     this.trust = payload.trust;
     this.annotation = payload.annotation;
 
-    this._solution = { callSid: callSid || this.callSid };
   }
 
   accountSid?: string | null;
@@ -201,33 +199,6 @@ export class CallSummaryInstance {
   properties?: any | null;
   trust?: any | null;
   annotation?: any | null;
-
-  private get _proxy(): CallSummaryContext {
-    this._context = this._context || new CallSummaryContextImpl(this._version, this._solution.callSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a CallSummaryInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
-  /**
-   * Fetch a CallSummaryInstance
-   *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
-   */
-  fetch(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance>
-     {
-    return this._proxy.fetch(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -265,53 +236,5 @@ export class CallSummaryInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface CallSummaryListInstance {
-  (): CallSummaryContext;
-  get(): CallSummaryContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  callSid?: string;
-}
-
-interface CallSummaryListInstanceImpl extends CallSummaryListInstance {}
-class CallSummaryListInstanceImpl implements CallSummaryListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function CallSummaryListInstance(version: V1, callSid: string): CallSummaryListInstance {
-  const instance = (() => instance.get()) as CallSummaryListInstanceImpl;
-
-  instance.get = function get(): CallSummaryContext {
-    return new CallSummaryContextImpl(version, callSid);
-  }
-
-  instance._version = version;
-  instance._solution = { callSid };
-  instance._uri = `/Voice/${callSid}/Summary`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

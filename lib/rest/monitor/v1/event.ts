@@ -128,7 +128,7 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class EventContextImpl implements EventContext {
@@ -462,13 +462,13 @@ export function EventListInstance(version: V1): EventListInstance {
 
     const data: any = {};
 
-    if (params['actorSid'] !== undefined) data['ActorSid'] = params['actorSid'];
-    if (params['eventType'] !== undefined) data['EventType'] = params['eventType'];
-    if (params['resourceSid'] !== undefined) data['ResourceSid'] = params['resourceSid'];
-    if (params['sourceIpAddress'] !== undefined) data['SourceIpAddress'] = params['sourceIpAddress'];
-    if (params['startDate'] !== undefined) data['StartDate'] = serialize.iso8601DateTime(params['startDate']);
-    if (params['endDate'] !== undefined) data['EndDate'] = serialize.iso8601DateTime(params['endDate']);
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.actorSid !== undefined) data['ActorSid'] = params.actorSid;
+    if (params.eventType !== undefined) data['EventType'] = params.eventType;
+    if (params.resourceSid !== undefined) data['ResourceSid'] = params.resourceSid;
+    if (params.sourceIpAddress !== undefined) data['SourceIpAddress'] = params.sourceIpAddress;
+    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
+    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -32,7 +32,7 @@ type UserWebhookEnabledType = 'true'|'false';
  * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface UserContextRemoveOptions {
-  'xTwilioWebhookEnabled'?: UserWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
 }
 
 /**
@@ -44,10 +44,10 @@ export interface UserContextRemoveOptions {
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserContextUpdateOptions {
-  'xTwilioWebhookEnabled'?: UserWebhookEnabledType;
-  'friendlyName'?: string;
-  'attributes'?: string;
-  'roleSid'?: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  friendlyName?: string;
+  attributes?: string;
+  roleSid?: string;
 }
 
 /**
@@ -60,11 +60,11 @@ export interface UserContextUpdateOptions {
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserListInstanceCreateOptions {
-  'identity': string;
-  'xTwilioWebhookEnabled'?: UserWebhookEnabledType;
-  'friendlyName'?: string;
-  'attributes'?: string;
-  'roleSid'?: string;
+  identity: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  friendlyName?: string;
+  attributes?: string;
+  roleSid?: string;
 }
 /**
  * Options to pass to each
@@ -177,7 +177,7 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class UserContextImpl implements UserContext {
@@ -208,7 +208,7 @@ export class UserContextImpl implements UserContext {
 
 
     const headers: any = {};
-    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -244,13 +244,13 @@ export class UserContextImpl implements UserContext {
 
     const data: any = {};
 
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
-    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -619,20 +619,20 @@ export function UserListInstance(version: V1): UserListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['identity'] === null || params['identity'] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+    if (params.identity === null || params.identity === undefined) {
+      throw new Error('Required parameter "params.identity" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params['identity'];
-    if (params['friendlyName'] !== undefined) data['FriendlyName'] = params['friendlyName'];
-    if (params['attributes'] !== undefined) data['Attributes'] = params['attributes'];
-    if (params['roleSid'] !== undefined) data['RoleSid'] = params['roleSid'];
+    data['Identity'] = params.identity;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['xTwilioWebhookEnabled'] !== undefined) headers['X-Twilio-Webhook-Enabled'] = params['xTwilioWebhookEnabled'];
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = version,
         operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
@@ -656,7 +656,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

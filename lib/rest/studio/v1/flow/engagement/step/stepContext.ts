@@ -20,8 +20,7 @@ const serialize = require("../../../../../../base/serialize");
 
 
 
-
-export interface StepContextContext {
+export interface StepContextListInstance {
 
 
   /**
@@ -41,25 +40,30 @@ export interface StepContextContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StepContextContextSolution {
-  'flowSid'?: string;
-  'engagementSid'?: string;
-  'stepSid'?: string;
+export interface StepContextSolution {
+  flowSid?: string;
+  engagementSid?: string;
+  stepSid?: string;
 }
 
-export class StepContextContextImpl implements StepContextContext {
-  protected _solution: StepContextContextSolution;
-  protected _uri: string;
+interface StepContextListInstanceImpl extends StepContextListInstance {}
+class StepContextListInstanceImpl implements StepContextListInstance {
+  _version?: V1;
+  _solution?: StepContextSolution;
+  _uri?: string;
 
+}
 
-  constructor(protected _version: V1, flowSid: string, engagementSid: string, stepSid: string) {
-    this._solution = { flowSid, engagementSid, stepSid };
-    this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
-  }
+export function StepContextListInstance(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance {
+  const instance = {} as StepContextListInstanceImpl;
 
-  fetch(callback?: any): Promise<StepContextInstance> {
-  
-    let operationVersion = this._version,
+  instance._version = version;
+  instance._solution = { flowSid, engagementSid, stepSid };
+  instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
+
+  instance.fetch = function fetch(callback?: any): Promise<StepContextInstance> {
+
+    let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
     operationPromise = operationPromise.then(payload => new StepContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid, this._solution.stepSid));
@@ -69,20 +73,17 @@ export class StepContextContextImpl implements StepContextContext {
     return operationPromise;
 
 
-  }
+    }
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
+  instance.toJSON = function toJSON() {
     return this._solution;
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+
+  return instance;
 }
 
 interface StepContextPayload extends StepContextResource{
@@ -98,8 +99,6 @@ interface StepContextResource {
 }
 
 export class StepContextInstance {
-  protected _solution: StepContextContextSolution;
-  protected _context?: StepContextContext;
 
   constructor(protected _version: V1, payload: StepContextPayload, flowSid: string, engagementSid: string, stepSid?: string) {
     this.accountSid = payload.account_sid;
@@ -109,7 +108,6 @@ export class StepContextInstance {
     this.stepSid = payload.step_sid;
     this.url = payload.url;
 
-    this._solution = { flowSid, engagementSid, stepSid: stepSid || this.stepSid };
   }
 
   /**
@@ -137,23 +135,6 @@ export class StepContextInstance {
    */
   url?: string | null;
 
-  private get _proxy(): StepContextContext {
-    this._context = this._context || new StepContextContextImpl(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.stepSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a StepContextInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed StepContextInstance
-   */
-  fetch(callback?: (error: Error | null, item?: StepContextInstance) => any): Promise<StepContextInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
   /**
    * Provide a user-friendly representation
    *
@@ -174,55 +155,5 @@ export class StepContextInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-
-export interface StepContextListInstance {
-  (): StepContextContext;
-  get(): StepContextContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface Solution {
-  flowSid?: string;
-  engagementSid?: string;
-  stepSid?: string;
-}
-
-interface StepContextListInstanceImpl extends StepContextListInstance {}
-class StepContextListInstanceImpl implements StepContextListInstance {
-  _version?: V1;
-  _solution?: Solution;
-  _uri?: string;
-
-}
-
-export function StepContextListInstance(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance {
-  const instance = (() => instance.get()) as StepContextListInstanceImpl;
-
-  instance.get = function get(): StepContextContext {
-    return new StepContextContextImpl(version, flowSid, engagementSid, stepSid);
-  }
-
-  instance._version = version;
-  instance._solution = { flowSid, engagementSid, stepSid };
-  instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 

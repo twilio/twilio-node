@@ -33,7 +33,7 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
  * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface SyncMapItemContextRemoveOptions {
-  'ifMatch'?: string;
+  ifMatch?: string;
 }
 
 /**
@@ -46,11 +46,11 @@ export interface SyncMapItemContextRemoveOptions {
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\&#39;s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item\\\&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
  */
 export interface SyncMapItemContextUpdateOptions {
-  'ifMatch'?: string;
-  'data'?: any;
-  'ttl'?: number;
-  'itemTtl'?: number;
-  'collectionTtl'?: number;
+  ifMatch?: string;
+  data?: any;
+  ttl?: number;
+  itemTtl?: number;
+  collectionTtl?: number;
 }
 
 /**
@@ -63,11 +63,11 @@ export interface SyncMapItemContextUpdateOptions {
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\&#39;s parent Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapItemListInstanceCreateOptions {
-  'key': string;
-  'data': any;
-  'ttl'?: number;
-  'itemTtl'?: number;
-  'collectionTtl'?: number;
+  key: string;
+  data: any;
+  ttl?: number;
+  itemTtl?: number;
+  collectionTtl?: number;
 }
 /**
  * Options to pass to each
@@ -197,9 +197,9 @@ export interface SyncMapItemContext {
 }
 
 export interface SyncMapItemContextSolution {
-  'serviceSid'?: string;
-  'mapSid'?: string;
-  'key'?: string;
+  serviceSid?: string;
+  mapSid?: string;
+  key?: string;
 }
 
 export class SyncMapItemContextImpl implements SyncMapItemContext {
@@ -224,7 +224,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
 
     const headers: any = {};
-    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
+    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
@@ -260,14 +260,14 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     const data: any = {};
 
-    if (params['data'] !== undefined) data['Data'] = params['data'];
-    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
-    if (params['itemTtl'] !== undefined) data['ItemTtl'] = params['itemTtl'];
-    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
+    if (params.data !== undefined) data['Data'] = params.data;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params.itemTtl !== undefined) data['ItemTtl'] = params.itemTtl;
+    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params['ifMatch'] !== undefined) headers['If-Match'] = params['ifMatch'];
+    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
@@ -620,21 +620,21 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['key'] === null || params['key'] === undefined) {
-      throw new Error('Required parameter "params[\'key\']" missing.');
+    if (params.key === null || params.key === undefined) {
+      throw new Error('Required parameter "params.key" missing.');
     }
 
-    if (params['data'] === null || params['data'] === undefined) {
-      throw new Error('Required parameter "params[\'data\']" missing.');
+    if (params.data === null || params.data === undefined) {
+      throw new Error('Required parameter "params.data" missing.');
     }
 
     const data: any = {};
 
-    data['Key'] = params['key'];
-    data['Data'] = params['data'];
-    if (params['ttl'] !== undefined) data['Ttl'] = params['ttl'];
-    if (params['itemTtl'] !== undefined) data['ItemTtl'] = params['itemTtl'];
-    if (params['collectionTtl'] !== undefined) data['CollectionTtl'] = params['collectionTtl'];
+    data['Key'] = params.key;
+    data['Data'] = params.data;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params.itemTtl !== undefined) data['ItemTtl'] = params.itemTtl;
+    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -661,10 +661,10 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
 
     const data: any = {};
 
-    if (params['order'] !== undefined) data['Order'] = params['order'];
-    if (params['from'] !== undefined) data['From'] = params['from'];
-    if (params['bounds'] !== undefined) data['Bounds'] = params['bounds'];
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.order !== undefined) data['Order'] = params.order;
+    if (params.from !== undefined) data['From'] = params.from;
+    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

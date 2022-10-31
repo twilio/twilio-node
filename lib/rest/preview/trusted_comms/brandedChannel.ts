@@ -44,7 +44,7 @@ export interface BrandedChannelContext {
 }
 
 export interface BrandedChannelContextSolution {
-  'sid'?: string;
+  sid?: string;
 }
 
 export class BrandedChannelContextImpl implements BrandedChannelContext {

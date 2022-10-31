@@ -31,7 +31,7 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
  * @property { string } [uniqueName] 
  */
 export interface SyncMapListInstanceCreateOptions {
-  'uniqueName'?: string;
+  uniqueName?: string;
 }
 /**
  * Options to pass to each
@@ -115,8 +115,8 @@ export interface SyncMapContext {
 }
 
 export interface SyncMapContextSolution {
-  'serviceSid'?: string;
-  'sid'?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class SyncMapContextImpl implements SyncMapContext {
@@ -463,7 +463,7 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 
     const data: any = {};
 
-    if (params['uniqueName'] !== undefined) data['UniqueName'] = params['uniqueName'];
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -490,7 +490,7 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 

@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } phoneNumberSid The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel.
  */
 export interface ChannelListInstanceCreateOptions {
-  'phoneNumberSid': string;
+  phoneNumberSid: string;
 }
 
 export interface ChannelListInstance {
@@ -75,13 +75,13 @@ export function ChannelListInstance(version: TrustedComms, brandedChannelSid: st
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['phoneNumberSid'] === null || params['phoneNumberSid'] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
+    if (params.phoneNumberSid === null || params.phoneNumberSid === undefined) {
+      throw new Error('Required parameter "params.phoneNumberSid" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumberSid'] = params['phoneNumberSid'];
+    data['PhoneNumberSid'] = params.phoneNumberSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'

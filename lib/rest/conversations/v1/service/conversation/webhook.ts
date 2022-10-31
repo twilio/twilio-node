@@ -30,39 +30,39 @@ type ServiceConversationScopedWebhookTarget = 'webhook'|'trigger'|'studio';
 /**
  * Options to pass to update a WebhookInstance
  *
- * @property { string } [configuration.url] The absolute url the webhook request should be sent to.
- * @property { ServiceConversationScopedWebhookMethod } [configuration.method] 
- * @property { Array<string> } [configuration.filters] The list of events, firing webhook event for this Conversation.
- * @property { Array<string> } [configuration.triggers] The list of keywords, firing webhook event for this Conversation.
- * @property { string } [configuration.flowSid] The studio flow SID, where the webhook should be sent to.
+ * @property { string } [configurationUrl] The absolute url the webhook request should be sent to.
+ * @property { ServiceConversationScopedWebhookMethod } [configurationMethod] 
+ * @property { Array<string> } [configurationFilters] The list of events, firing webhook event for this Conversation.
+ * @property { Array<string> } [configurationTriggers] The list of keywords, firing webhook event for this Conversation.
+ * @property { string } [configurationFlowSid] The studio flow SID, where the webhook should be sent to.
  */
 export interface WebhookContextUpdateOptions {
-  'configuration.url'?: string;
-  'configuration.method'?: ServiceConversationScopedWebhookMethod;
-  'configuration.filters'?: Array<string>;
-  'configuration.triggers'?: Array<string>;
-  'configuration.flowSid'?: string;
+  configurationUrl?: string;
+  configurationMethod?: ServiceConversationScopedWebhookMethod;
+  configurationFilters?: Array<string>;
+  configurationTriggers?: Array<string>;
+  configurationFlowSid?: string;
 }
 
 /**
  * Options to pass to create a WebhookInstance
  *
  * @property { ServiceConversationScopedWebhookTarget } target 
- * @property { string } [configuration.url] The absolute url the webhook request should be sent to.
- * @property { ServiceConversationScopedWebhookMethod } [configuration.method] 
- * @property { Array<string> } [configuration.filters] The list of events, firing webhook event for this Conversation.
- * @property { Array<string> } [configuration.triggers] The list of keywords, firing webhook event for this Conversation.
- * @property { string } [configuration.flowSid] The studio flow SID, where the webhook should be sent to.
- * @property { number } [configuration.replayAfter] The message index for which and it\\\&#39;s successors the webhook will be replayed. Not set by default
+ * @property { string } [configurationUrl] The absolute url the webhook request should be sent to.
+ * @property { ServiceConversationScopedWebhookMethod } [configurationMethod] 
+ * @property { Array<string> } [configurationFilters] The list of events, firing webhook event for this Conversation.
+ * @property { Array<string> } [configurationTriggers] The list of keywords, firing webhook event for this Conversation.
+ * @property { string } [configurationFlowSid] The studio flow SID, where the webhook should be sent to.
+ * @property { number } [configurationReplayAfter] The message index for which and it\\\&#39;s successors the webhook will be replayed. Not set by default
  */
 export interface WebhookListInstanceCreateOptions {
-  'target': ServiceConversationScopedWebhookTarget;
-  'configuration.url'?: string;
-  'configuration.method'?: ServiceConversationScopedWebhookMethod;
-  'configuration.filters'?: Array<string>;
-  'configuration.triggers'?: Array<string>;
-  'configuration.flowSid'?: string;
-  'configuration.replayAfter'?: number;
+  target: ServiceConversationScopedWebhookTarget;
+  configurationUrl?: string;
+  configurationMethod?: ServiceConversationScopedWebhookMethod;
+  configurationFilters?: Array<string>;
+  configurationTriggers?: Array<string>;
+  configurationFlowSid?: string;
+  configurationReplayAfter?: number;
 }
 /**
  * Options to pass to each
@@ -164,9 +164,9 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  'chatServiceSid'?: string;
-  'conversationSid'?: string;
-  'sid'?: string;
+  chatServiceSid?: string;
+  conversationSid?: string;
+  sid?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -215,11 +215,11 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params['configuration.url'] !== undefined) data['Configuration.Url'] = params['configuration.url'];
-    if (params['configuration.method'] !== undefined) data['Configuration.Method'] = params['configuration.method'];
-    if (params['configuration.filters'] !== undefined) data['Configuration.Filters'] = serialize.map(params['configuration.filters'], ((e) => e));
-    if (params['configuration.triggers'] !== undefined) data['Configuration.Triggers'] = serialize.map(params['configuration.triggers'], ((e) => e));
-    if (params['configuration.flowSid'] !== undefined) data['Configuration.FlowSid'] = params['configuration.flowSid'];
+    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
+    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
+    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
+    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
+    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -551,19 +551,19 @@ export function WebhookListInstance(version: V1, chatServiceSid: string, convers
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params['target'] === null || params['target'] === undefined) {
-      throw new Error('Required parameter "params[\'target\']" missing.');
+    if (params.target === null || params.target === undefined) {
+      throw new Error('Required parameter "params.target" missing.');
     }
 
     const data: any = {};
 
-    data['Target'] = params['target'];
-    if (params['configuration.url'] !== undefined) data['Configuration.Url'] = params['configuration.url'];
-    if (params['configuration.method'] !== undefined) data['Configuration.Method'] = params['configuration.method'];
-    if (params['configuration.filters'] !== undefined) data['Configuration.Filters'] = serialize.map(params['configuration.filters'], ((e) => e));
-    if (params['configuration.triggers'] !== undefined) data['Configuration.Triggers'] = serialize.map(params['configuration.triggers'], ((e) => e));
-    if (params['configuration.flowSid'] !== undefined) data['Configuration.FlowSid'] = params['configuration.flowSid'];
-    if (params['configuration.replayAfter'] !== undefined) data['Configuration.ReplayAfter'] = params['configuration.replayAfter'];
+    data['Target'] = params.target;
+    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
+    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
+    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
+    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
+    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
+    if (params.configurationReplayAfter !== undefined) data['Configuration.ReplayAfter'] = params.configurationReplayAfter;
 
     const headers: any = {};
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -590,7 +590,7 @@ export function WebhookListInstance(version: V1, chatServiceSid: string, convers
 
     const data: any = {};
 
-    if (params['pageSize'] !== undefined) data['PageSize'] = params['pageSize'];
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
     if (params.page !== undefined) data['Page'] = params.pageNumber;
     if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
