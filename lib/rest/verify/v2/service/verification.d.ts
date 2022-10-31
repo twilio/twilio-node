@@ -70,7 +70,7 @@ interface VerificationListInstance {
  * @property rateLimits - The custom key-value pairs of Programmable Rate Limits.
  * @property sendDigits - The digits to send after a phone call is answered
  * @property templateCustomSubstitutions - The values of the special variables declared on the message template.
- * @property templateSid - The verification template SMS messages.
+ * @property templateSid - The verification template SMS or Voice message.
  * @property to - The phone number or email to verify
  */
 interface VerificationListInstanceCreateOptions {

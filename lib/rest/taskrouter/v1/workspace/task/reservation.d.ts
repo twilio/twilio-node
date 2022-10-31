@@ -273,6 +273,7 @@ interface ReservationListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
+ * @property workerSid - The SID of the reserved Worker resource to read
  */
 interface ReservationListInstanceEachOptions {
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
@@ -280,6 +281,7 @@ interface ReservationListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   reservationStatus?: ReservationStatus;
+  workerSid?: string;
 }
 
 /**
@@ -296,11 +298,13 @@ interface ReservationListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
+ * @property workerSid - The SID of the reserved Worker resource to read
  */
 interface ReservationListInstanceOptions {
   limit?: number;
   pageSize?: number;
   reservationStatus?: ReservationStatus;
+  workerSid?: string;
 }
 
 /**
@@ -310,12 +314,14 @@ interface ReservationListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
+ * @property workerSid - The SID of the reserved Worker resource to read
  */
 interface ReservationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   reservationStatus?: ReservationStatus;
+  workerSid?: string;
 }
 
 interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {

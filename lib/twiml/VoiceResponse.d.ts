@@ -372,6 +372,7 @@ declare namespace VoiceResponse {
    *
    * @property inboundAutocreation - Inbound autocreation
    * @property inboundTimeout - Inbound timeout
+   * @property method - TwiML URL method
    * @property record - Record
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
@@ -382,10 +383,12 @@ declare namespace VoiceResponse {
    * @property statusCallbackEvent - Events to call status callback URL
    * @property statusCallbackMethod - Status callback URL method
    * @property trim - Trim
+   * @property url - TwiML URL
    */
   export interface ConversationAttributes {
     inboundAutocreation?: boolean;
     inboundTimeout?: number;
+    method?: string;
     record?: ConversationRecord;
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: ConversationRecordingEvent[];
@@ -396,6 +399,7 @@ declare namespace VoiceResponse {
     statusCallbackEvent?: ConversationEvent[];
     statusCallbackMethod?: string;
     trim?: ConversationTrim;
+    url?: string;
   }
 
   /**

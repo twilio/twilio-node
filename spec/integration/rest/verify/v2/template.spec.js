@@ -50,6 +50,25 @@ describe('Template', function() {
                           'date_created': '2021-07-29T20:38:28.165602325Z'
                       }
                   }
+              },
+              {
+                  'sid': 'HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Base Verification Template 3',
+                  'channels': [
+                      'sms',
+                      'voice'
+                  ],
+                  'translations': {
+                      'en': {
+                          'is_default_translation': true,
+                          'status': 'approved',
+                          'locale': 'en',
+                          'text': 'Your verification code is: {{code}}. Do not share it.',
+                          'date_updated': '2021-07-29T20:38:28.759979905Z',
+                          'date_created': '2021-07-29T20:38:28.165602325Z'
+                      }
+                  }
               }
           ],
           'meta': {
@@ -83,6 +102,25 @@ describe('Template', function() {
                           'status': 'approved',
                           'locale': 'en',
                           'text': 'Your {{friendly_name}} verification code is: {{code}}. Do not share this code with anyone.',
+                          'date_updated': '2021-07-29T20:38:28.759979905Z',
+                          'date_created': '2021-07-29T20:38:28.165602325Z'
+                      }
+                  }
+              },
+              {
+                  'sid': 'HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Base Verification Template 3',
+                  'channels': [
+                      'sms',
+                      'voice'
+                  ],
+                  'translations': {
+                      'en': {
+                          'is_default_translation': true,
+                          'status': 'approved',
+                          'locale': 'en',
+                          'text': 'Your verification code is: {{code}}. Do not share it.',
                           'date_updated': '2021-07-29T20:38:28.759979905Z',
                           'date_created': '2021-07-29T20:38:28.165602325Z'
                       }
@@ -125,6 +163,25 @@ describe('Template', function() {
                           'status': 'approved',
                           'locale': 'en',
                           'text': 'Your {{friendly_name}} verification code is: {{code}}. Do not share this code with anyone.',
+                          'date_updated': '2021-07-29T20:38:28.759979905Z',
+                          'date_created': '2021-07-29T20:38:28.165602325Z'
+                      }
+                  }
+              },
+              {
+                  'sid': 'HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Base Verification Template 3',
+                  'channels': [
+                      'sms',
+                      'voice'
+                  ],
+                  'translations': {
+                      'en': {
+                          'is_default_translation': true,
+                          'status': 'approved',
+                          'locale': 'en',
+                          'text': 'Your verification code is: {{code}}. Do not share it.',
                           'date_updated': '2021-07-29T20:38:28.759979905Z',
                           'date_created': '2021-07-29T20:38:28.165602325Z'
                       }
@@ -182,6 +239,25 @@ describe('Template', function() {
                           'status': 'approved',
                           'locale': 'en',
                           'text': 'Your {{friendly_name}} verification code is: {{code}}. Do not share this code with anyone.',
+                          'date_updated': '2021-07-29T20:38:28.759979905Z',
+                          'date_created': '2021-07-29T20:38:28.165602325Z'
+                      }
+                  }
+              },
+              {
+                  'sid': 'HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Base Verification Template 3',
+                  'channels': [
+                      'sms',
+                      'voice'
+                  ],
+                  'translations': {
+                      'en': {
+                          'is_default_translation': true,
+                          'status': 'approved',
+                          'locale': 'en',
+                          'text': 'Your verification code is: {{code}}. Do not share it.',
                           'date_updated': '2021-07-29T20:38:28.759979905Z',
                           'date_created': '2021-07-29T20:38:28.165602325Z'
                       }

@@ -175,6 +175,8 @@ interface MessageListInstance {
  * @property attempt - Total numer of attempts made , this inclusive to send out the message
  * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
  * @property contentRetention - Determines if the message content can be stored or redacted based on privacy settings
+ * @property contentSid - The SID of the preconfigured Content object you want to associate with the message.
+ * @property contentVariables - Key-value pairs of variable names to substitution values, used alongside a content_sid.
  * @property forceDelivery - Reserved
  * @property from - The phone number that initiated the message
  * @property maxPrice - The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
@@ -197,6 +199,8 @@ interface MessageListInstanceCreateOptions {
   attempt?: number;
   body?: string;
   contentRetention?: MessageContentRetention;
+  contentSid?: string;
+  contentVariables?: string;
   forceDelivery?: boolean;
   from?: string;
   maxPrice?: number;

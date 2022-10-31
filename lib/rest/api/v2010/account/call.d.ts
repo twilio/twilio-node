@@ -24,6 +24,10 @@ import { SiprecList } from './call/siprec';
 import { SiprecListInstance } from './call/siprec';
 import { StreamList } from './call/stream';
 import { StreamListInstance } from './call/stream';
+import { UserDefinedMessageList } from './call/userDefinedMessage';
+import { UserDefinedMessageListInstance } from './call/userDefinedMessage';
+import { UserDefinedMessageSubscriptionList } from './call/userDefinedMessageSubscription';
+import { UserDefinedMessageSubscriptionListInstance } from './call/userDefinedMessageSubscription';
 
 type CallEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -462,6 +466,8 @@ declare class CallContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
+  userDefinedMessageSubscriptions: UserDefinedMessageSubscriptionListInstance;
+  userDefinedMessages: UserDefinedMessageListInstance;
 }
 
 
@@ -560,6 +566,14 @@ declare class CallInstance extends SerializableClass {
    */
   update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
   uri: string;
+  /**
+   * Access the userDefinedMessageSubscriptions
+   */
+  userDefinedMessageSubscriptions(): UserDefinedMessageSubscriptionListInstance;
+  /**
+   * Access the userDefinedMessages
+   */
+  userDefinedMessages(): UserDefinedMessageListInstance;
 }
 
 
