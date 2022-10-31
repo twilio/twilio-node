@@ -35,7 +35,7 @@ type MediaProcessorUpdateStatus = 'ended';
  * @property { MediaProcessorUpdateStatus } status 
  */
 export interface MediaProcessorContextUpdateOptions {
-  status: MediaProcessorUpdateStatus;
+  "status": MediaProcessorUpdateStatus;
 }
 
 /**
@@ -49,12 +49,12 @@ export interface MediaProcessorContextUpdateOptions {
  * @property { number } [maxDuration] The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
  */
 export interface MediaProcessorListInstanceCreateOptions {
-  extension: string;
-  extensionContext: string;
-  extensionEnvironment?: any;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  maxDuration?: number;
+  "extension": string;
+  "extensionContext": string;
+  "extensionEnvironment"?: any;
+  "statusCallback"?: string;
+  "statusCallbackMethod"?: string;
+  "maxDuration"?: number;
 }
 /**
  * Options to pass to each
@@ -72,9 +72,9 @@ export interface MediaProcessorListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MediaProcessorListInstanceEachOptions {
-  order?: MediaProcessorOrder;
-  status?: MediaProcessorStatus;
-  pageSize?: number;
+  "order"?: MediaProcessorOrder;
+  "status"?: MediaProcessorStatus;
+  "pageSize"?: number;
   callback?: (item: MediaProcessorInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -92,9 +92,9 @@ export interface MediaProcessorListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MediaProcessorListInstanceOptions {
-  order?: MediaProcessorOrder;
-  status?: MediaProcessorStatus;
-  pageSize?: number;
+  "order"?: MediaProcessorOrder;
+  "status"?: MediaProcessorStatus;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -108,9 +108,9 @@ export interface MediaProcessorListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaProcessorListInstancePageOptions {
-  order?: MediaProcessorOrder;
-  status?: MediaProcessorStatus;
-  pageSize?: number;
+  "order"?: MediaProcessorOrder;
+  "status"?: MediaProcessorStatus;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -150,7 +150,7 @@ export interface MediaProcessorContext {
 }
 
 export interface MediaProcessorContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class MediaProcessorContextImpl implements MediaProcessorContext {
@@ -166,7 +166,7 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
   fetch(callback?: any): Promise<MediaProcessorInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MediaProcessorInstance(operationVersion, payload, this._solution.sid));
     
@@ -182,19 +182,19 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
+    data["Status"] = params["status"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MediaProcessorInstance(operationVersion, payload, this._solution.sid));
     
@@ -517,28 +517,28 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.extension === null || params.extension === undefined) {
-      throw new Error('Required parameter "params.extension" missing.');
+    if (params["extension"] === null || params["extension"] === undefined) {
+      throw new Error('Required parameter "params[\'extension\']" missing.');
     }
 
-    if (params.extensionContext === null || params.extensionContext === undefined) {
-      throw new Error('Required parameter "params.extensionContext" missing.');
+    if (params["extensionContext"] === null || params["extensionContext"] === undefined) {
+      throw new Error('Required parameter "params[\'extensionContext\']" missing.');
     }
 
     const data: any = {};
 
-    data['Extension'] = params.extension;
-    data['ExtensionContext'] = params.extensionContext;
-    if (params.extensionEnvironment !== undefined) data['ExtensionEnvironment'] = params.extensionEnvironment;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
+    data["Extension"] = params["extension"];
+    data["ExtensionContext"] = params["extensionContext"];
+    if (params["extensionEnvironment"] !== undefined) data["ExtensionEnvironment"] = params["extensionEnvironment"];
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["maxDuration"] !== undefined) data["MaxDuration"] = params["maxDuration"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MediaProcessorInstance(operationVersion, payload));
     
@@ -559,16 +559,16 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MediaProcessorPage(operationVersion, payload, this._solution));
 
@@ -580,7 +580,7 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MediaProcessorPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MediaProcessorPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

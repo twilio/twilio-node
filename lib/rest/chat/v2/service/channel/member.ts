@@ -31,7 +31,7 @@ type MemberWebhookEnabledType = 'true'|'false';
  * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MemberContextRemoveOptions {
-  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: MemberWebhookEnabledType;
 }
 
 /**
@@ -46,13 +46,13 @@ export interface MemberContextRemoveOptions {
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MemberContextUpdateOptions {
-  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
-  roleSid?: string;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
+  "xTwilioWebhookEnabled"?: MemberWebhookEnabledType;
+  "roleSid"?: string;
+  "lastConsumedMessageIndex"?: number;
+  "lastConsumptionTimestamp"?: Date;
+  "dateCreated"?: Date;
+  "dateUpdated"?: Date;
+  "attributes"?: string;
 }
 
 /**
@@ -68,14 +68,14 @@ export interface MemberContextUpdateOptions {
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MemberListInstanceCreateOptions {
-  identity: string;
-  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
-  roleSid?: string;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
+  "identity": string;
+  "xTwilioWebhookEnabled"?: MemberWebhookEnabledType;
+  "roleSid"?: string;
+  "lastConsumedMessageIndex"?: number;
+  "lastConsumptionTimestamp"?: Date;
+  "dateCreated"?: Date;
+  "dateUpdated"?: Date;
+  "attributes"?: string;
 }
 /**
  * Options to pass to each
@@ -92,8 +92,8 @@ export interface MemberListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceEachOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -110,8 +110,8 @@ export interface MemberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -124,8 +124,8 @@ export interface MemberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MemberListInstancePageOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -193,9 +193,9 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "channelSid"?: string;
+  "sid"?: string;
 }
 
 export class MemberContextImpl implements MemberContext {
@@ -220,10 +220,10 @@ export class MemberContextImpl implements MemberContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -235,7 +235,7 @@ export class MemberContextImpl implements MemberContext {
   fetch(callback?: any): Promise<MemberInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
     
@@ -256,19 +256,19 @@ export class MemberContextImpl implements MemberContext {
 
     const data: any = {};
 
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
-    if (params.lastConsumedMessageIndex !== undefined) data['LastConsumedMessageIndex'] = params.lastConsumedMessageIndex;
-    if (params.lastConsumptionTimestamp !== undefined) data['LastConsumptionTimestamp'] = serialize.iso8601DateTime(params.lastConsumptionTimestamp);
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
     
@@ -625,26 +625,26 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params.identity;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
-    if (params.lastConsumedMessageIndex !== undefined) data['LastConsumedMessageIndex'] = params.lastConsumedMessageIndex;
-    if (params.lastConsumptionTimestamp !== undefined) data['LastConsumptionTimestamp'] = serialize.iso8601DateTime(params.lastConsumptionTimestamp);
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    data["Identity"] = params["identity"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid));
     
@@ -665,15 +665,15 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
 
     const data: any = {};
 
-    if (params.identity !== undefined) data['Identity'] = serialize.map(params.identity, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberPage(operationVersion, payload, this._solution));
 
@@ -685,7 +685,7 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MemberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MemberPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

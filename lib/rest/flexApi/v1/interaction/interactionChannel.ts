@@ -38,8 +38,8 @@ type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'mes
  * @property { any } [routing] Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
  */
 export interface InteractionChannelContextUpdateOptions {
-  status: InteractionChannelStatus;
-  routing?: any;
+  "status": InteractionChannelStatus;
+  "routing"?: any;
 }
 /**
  * Options to pass to each
@@ -55,7 +55,7 @@ export interface InteractionChannelContextUpdateOptions {
  *                         Default is no limit
  */
 export interface InteractionChannelListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: InteractionChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,7 +71,7 @@ export interface InteractionChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface InteractionChannelListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -83,7 +83,7 @@ export interface InteractionChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InteractionChannelListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -125,8 +125,8 @@ export interface InteractionChannelContext {
 }
 
 export interface InteractionChannelContextSolution {
-  interactionSid?: string;
-  sid?: string;
+  "interactionSid"?: string;
+  "sid"?: string;
 }
 
 export class InteractionChannelContextImpl implements InteractionChannelContext {
@@ -154,7 +154,7 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
   fetch(callback?: any): Promise<InteractionChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelInstance(operationVersion, payload, this._solution.interactionSid, this._solution.sid));
     
@@ -170,20 +170,20 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
-    if (params.routing !== undefined) data['Routing'] = params.routing;
+    data["Status"] = params["status"];
+    if (params["routing"] !== undefined) data["Routing"] = params["routing"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelInstance(operationVersion, payload, this._solution.interactionSid, this._solution.sid));
     
@@ -476,14 +476,14 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelPage(operationVersion, payload, this._solution));
 
@@ -495,7 +495,7 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InteractionChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new InteractionChannelPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

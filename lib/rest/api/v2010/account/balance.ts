@@ -62,7 +62,7 @@ export function BalanceListInstance(version: V2010, accountSid: string): Balance
   instance.fetch = function fetch(callback?: any): Promise<BalanceInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BalanceInstance(operationVersion, payload, this._solution.accountSid));
     

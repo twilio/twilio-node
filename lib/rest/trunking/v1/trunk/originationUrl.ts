@@ -33,11 +33,11 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [sipUrl] The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
  */
 export interface OriginationUrlContextUpdateOptions {
-  weight?: number;
-  priority?: number;
-  enabled?: boolean;
-  friendlyName?: string;
-  sipUrl?: string;
+  "weight"?: number;
+  "priority"?: number;
+  "enabled"?: boolean;
+  "friendlyName"?: string;
+  "sipUrl"?: string;
 }
 
 /**
@@ -50,11 +50,11 @@ export interface OriginationUrlContextUpdateOptions {
  * @property { string } sipUrl The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
  */
 export interface OriginationUrlListInstanceCreateOptions {
-  weight: number;
-  priority: number;
-  enabled: boolean;
-  friendlyName: string;
-  sipUrl: string;
+  "weight": number;
+  "priority": number;
+  "enabled": boolean;
+  "friendlyName": string;
+  "sipUrl": string;
 }
 /**
  * Options to pass to each
@@ -70,7 +70,7 @@ export interface OriginationUrlListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface OriginationUrlListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -86,7 +86,7 @@ export interface OriginationUrlListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface OriginationUrlListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -98,7 +98,7 @@ export interface OriginationUrlListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface OriginationUrlListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -156,8 +156,8 @@ export interface OriginationUrlContext {
 }
 
 export interface OriginationUrlContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  "trunkSid"?: string;
+  "sid"?: string;
 }
 
 export class OriginationUrlContextImpl implements OriginationUrlContext {
@@ -173,7 +173,7 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -185,7 +185,7 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   fetch(callback?: any): Promise<OriginationUrlInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
     
@@ -206,17 +206,17 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     const data: any = {};
 
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.sipUrl !== undefined) data['SipUrl'] = params.sipUrl;
+    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["sipUrl"] !== undefined) data["SipUrl"] = params["sipUrl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
     
@@ -555,39 +555,39 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.weight === null || params.weight === undefined) {
-      throw new Error('Required parameter "params.weight" missing.');
+    if (params["weight"] === null || params["weight"] === undefined) {
+      throw new Error('Required parameter "params[\'weight\']" missing.');
     }
 
-    if (params.priority === null || params.priority === undefined) {
-      throw new Error('Required parameter "params.priority" missing.');
+    if (params["priority"] === null || params["priority"] === undefined) {
+      throw new Error('Required parameter "params[\'priority\']" missing.');
     }
 
-    if (params.enabled === null || params.enabled === undefined) {
-      throw new Error('Required parameter "params.enabled" missing.');
+    if (params["enabled"] === null || params["enabled"] === undefined) {
+      throw new Error('Required parameter "params[\'enabled\']" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.sipUrl === null || params.sipUrl === undefined) {
-      throw new Error('Required parameter "params.sipUrl" missing.');
+    if (params["sipUrl"] === null || params["sipUrl"] === undefined) {
+      throw new Error('Required parameter "params[\'sipUrl\']" missing.');
     }
 
     const data: any = {};
 
-    data['Weight'] = params.weight;
-    data['Priority'] = params.priority;
-    data['Enabled'] = serialize.bool(params.enabled);
-    data['FriendlyName'] = params.friendlyName;
-    data['SipUrl'] = params.sipUrl;
+    data["Weight"] = params["weight"];
+    data["Priority"] = params["priority"];
+    data["Enabled"] = serialize.bool(params["enabled"]);
+    data["FriendlyName"] = params["friendlyName"];
+    data["SipUrl"] = params["sipUrl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid));
     
@@ -608,14 +608,14 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlPage(operationVersion, payload, this._solution));
 
@@ -627,7 +627,7 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<OriginationUrlPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new OriginationUrlPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

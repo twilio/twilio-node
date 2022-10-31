@@ -36,7 +36,7 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface PoliciesListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +52,7 @@ export interface PoliciesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PoliciesListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -64,7 +64,7 @@ export interface PoliciesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PoliciesListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -92,7 +92,7 @@ export interface PoliciesContext {
 }
 
 export interface PoliciesContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class PoliciesContextImpl implements PoliciesContext {
@@ -108,7 +108,7 @@ export class PoliciesContextImpl implements PoliciesContext {
   fetch(callback?: any): Promise<PoliciesInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PoliciesInstance(operationVersion, payload, this._solution.sid));
     
@@ -356,14 +356,14 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PoliciesPage(operationVersion, payload, this._solution));
 
@@ -375,7 +375,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PoliciesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new PoliciesPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -44,7 +44,7 @@ export interface SchemaContext {
 }
 
 export interface SchemaContextSolution {
-  id?: string;
+  "id"?: string;
 }
 
 export class SchemaContextImpl implements SchemaContext {
@@ -66,7 +66,7 @@ export class SchemaContextImpl implements SchemaContext {
   fetch(callback?: any): Promise<SchemaInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SchemaInstance(operationVersion, payload, this._solution.id));
     

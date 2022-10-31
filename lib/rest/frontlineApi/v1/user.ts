@@ -32,10 +32,10 @@ type UserStateType = 'active'|'deactivated';
  * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserContextUpdateOptions {
-  friendlyName?: string;
-  avatar?: string;
-  state?: UserStateType;
-  isAvailable?: boolean;
+  "friendlyName"?: string;
+  "avatar"?: string;
+  "state"?: UserStateType;
+  "isAvailable"?: boolean;
 }
 
 export interface UserContext {
@@ -79,7 +79,7 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class UserContextImpl implements UserContext {
@@ -95,7 +95,7 @@ export class UserContextImpl implements UserContext {
   fetch(callback?: any): Promise<UserInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
     
@@ -116,16 +116,16 @@ export class UserContextImpl implements UserContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.avatar !== undefined) data['Avatar'] = params.avatar;
-    if (params.state !== undefined) data['State'] = params.state;
-    if (params.isAvailable !== undefined) data['IsAvailable'] = serialize.bool(params.isAvailable);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+    if (params["isAvailable"] !== undefined) data["IsAvailable"] = serialize.bool(params["isAvailable"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
     

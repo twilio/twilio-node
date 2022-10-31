@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } network The SID of the Network resource to be added to the Network Access Profile resource.
  */
 export interface NetworkAccessProfileNetworkListInstanceCreateOptions {
-  network: string;
+  "network": string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface NetworkAccessProfileNetworkListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface NetworkAccessProfileNetworkListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: NetworkAccessProfileNetworkInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface NetworkAccessProfileNetworkListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface NetworkAccessProfileNetworkListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface NetworkAccessProfileNetworkListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NetworkAccessProfileNetworkListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -111,8 +111,8 @@ export interface NetworkAccessProfileNetworkContext {
 }
 
 export interface NetworkAccessProfileNetworkContextSolution {
-  networkAccessProfileSid?: string;
-  sid?: string;
+  "networkAccessProfileSid"?: string;
+  "sid"?: string;
 }
 
 export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProfileNetworkContext {
@@ -128,7 +128,7 @@ export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProf
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -140,7 +140,7 @@ export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProf
   fetch(callback?: any): Promise<NetworkAccessProfileNetworkInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileNetworkInstance(operationVersion, payload, this._solution.networkAccessProfileSid, this._solution.sid));
     
@@ -422,19 +422,19 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.network === null || params.network === undefined) {
-      throw new Error('Required parameter "params.network" missing.');
+    if (params["network"] === null || params["network"] === undefined) {
+      throw new Error('Required parameter "params[\'network\']" missing.');
     }
 
     const data: any = {};
 
-    data['Network'] = params.network;
+    data["Network"] = params["network"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileNetworkInstance(operationVersion, payload, this._solution.networkAccessProfileSid));
     
@@ -455,14 +455,14 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileNetworkPage(operationVersion, payload, this._solution));
 
@@ -474,7 +474,7 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<NetworkAccessProfileNetworkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileNetworkPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

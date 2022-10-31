@@ -35,9 +35,9 @@ type UserConversationState = 'inactive'|'active'|'closed';
  * @property { number } [lastReadMessageIndex] The index of the last Message in the Conversation that the Participant has read.
  */
 export interface UserConversationContextUpdateOptions {
-  notificationLevel?: UserConversationNotificationLevel;
-  lastReadTimestamp?: Date;
-  lastReadMessageIndex?: number;
+  "notificationLevel"?: UserConversationNotificationLevel;
+  "lastReadTimestamp"?: Date;
+  "lastReadMessageIndex"?: number;
 }
 /**
  * Options to pass to each
@@ -53,7 +53,7 @@ export interface UserConversationContextUpdateOptions {
  *                         Default is no limit
  */
 export interface UserConversationListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: UserConversationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -69,7 +69,7 @@ export interface UserConversationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserConversationListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -81,7 +81,7 @@ export interface UserConversationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserConversationListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -139,8 +139,8 @@ export interface UserConversationContext {
 }
 
 export interface UserConversationContextSolution {
-  userSid?: string;
-  conversationSid?: string;
+  "userSid"?: string;
+  "conversationSid"?: string;
 }
 
 export class UserConversationContextImpl implements UserConversationContext {
@@ -156,7 +156,7 @@ export class UserConversationContextImpl implements UserConversationContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -168,7 +168,7 @@ export class UserConversationContextImpl implements UserConversationContext {
   fetch(callback?: any): Promise<UserConversationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UserConversationInstance(operationVersion, payload, this._solution.userSid, this._solution.conversationSid));
     
@@ -189,15 +189,15 @@ export class UserConversationContextImpl implements UserConversationContext {
 
     const data: any = {};
 
-    if (params.notificationLevel !== undefined) data['NotificationLevel'] = params.notificationLevel;
-    if (params.lastReadTimestamp !== undefined) data['LastReadTimestamp'] = serialize.iso8601DateTime(params.lastReadTimestamp);
-    if (params.lastReadMessageIndex !== undefined) data['LastReadMessageIndex'] = params.lastReadMessageIndex;
+    if (params["notificationLevel"] !== undefined) data["NotificationLevel"] = params["notificationLevel"];
+    if (params["lastReadTimestamp"] !== undefined) data["LastReadTimestamp"] = serialize.iso8601DateTime(params["lastReadTimestamp"]);
+    if (params["lastReadMessageIndex"] !== undefined) data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new UserConversationInstance(operationVersion, payload, this._solution.userSid, this._solution.conversationSid));
     
@@ -569,14 +569,14 @@ export function UserConversationListInstance(version: V1, userSid: string): User
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UserConversationPage(operationVersion, payload, this._solution));
 
@@ -588,7 +588,7 @@ export function UserConversationListInstance(version: V1, userSid: string): User
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new UserConversationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

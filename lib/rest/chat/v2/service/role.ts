@@ -31,7 +31,7 @@ type RoleRoleType = 'channel'|'deployment';
  * @property { Array<string> } permission A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role\\\&#39;s &#x60;type&#x60;.
  */
 export interface RoleContextUpdateOptions {
-  permission: Array<string>;
+  "permission": Array<string>;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface RoleContextUpdateOptions {
  * @property { Array<string> } permission A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\&#39;s &#x60;type&#x60;.
  */
 export interface RoleListInstanceCreateOptions {
-  friendlyName: string;
-  type: RoleRoleType;
-  permission: Array<string>;
+  "friendlyName": string;
+  "type": RoleRoleType;
+  "permission": Array<string>;
 }
 /**
  * Options to pass to each
@@ -60,7 +60,7 @@ export interface RoleListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RoleListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,7 +76,7 @@ export interface RoleListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoleListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -88,7 +88,7 @@ export interface RoleListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoleListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -138,8 +138,8 @@ export interface RoleContext {
 }
 
 export interface RoleContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class RoleContextImpl implements RoleContext {
@@ -155,7 +155,7 @@ export class RoleContextImpl implements RoleContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -167,7 +167,7 @@ export class RoleContextImpl implements RoleContext {
   fetch(callback?: any): Promise<RoleInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -183,19 +183,19 @@ export class RoleContextImpl implements RoleContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.permission === null || params.permission === undefined) {
-      throw new Error('Required parameter "params.permission" missing.');
+    if (params["permission"] === null || params["permission"] === undefined) {
+      throw new Error('Required parameter "params[\'permission\']" missing.');
     }
 
     const data: any = {};
 
-    data['Permission'] = serialize.map(params.permission, ((e) => e));
+    data["Permission"] = serialize.map(params["permission"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -509,29 +509,29 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
-    if (params.permission === null || params.permission === undefined) {
-      throw new Error('Required parameter "params.permission" missing.');
+    if (params["permission"] === null || params["permission"] === undefined) {
+      throw new Error('Required parameter "params[\'permission\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['Type'] = params.type;
-    data['Permission'] = serialize.map(params.permission, ((e) => e));
+    data["FriendlyName"] = params["friendlyName"];
+    data["Type"] = params["type"];
+    data["Permission"] = serialize.map(params["permission"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -552,14 +552,14 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RolePage(operationVersion, payload, this._solution));
 
@@ -571,7 +571,7 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RolePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RolePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

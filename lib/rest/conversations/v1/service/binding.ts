@@ -40,9 +40,9 @@ type ServiceBindingBindingType = 'apn'|'gcm'|'fcm';
  *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
-  bindingType?: Array<ServiceBindingBindingType>;
-  identity?: Array<string>;
-  pageSize?: number;
+  "bindingType"?: Array<ServiceBindingBindingType>;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -60,9 +60,9 @@ export interface BindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
-  bindingType?: Array<ServiceBindingBindingType>;
-  identity?: Array<string>;
-  pageSize?: number;
+  "bindingType"?: Array<ServiceBindingBindingType>;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -76,9 +76,9 @@ export interface BindingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
-  bindingType?: Array<ServiceBindingBindingType>;
-  identity?: Array<string>;
-  pageSize?: number;
+  "bindingType"?: Array<ServiceBindingBindingType>;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -116,8 +116,8 @@ export interface BindingContext {
 }
 
 export interface BindingContextSolution {
-  chatServiceSid?: string;
-  sid?: string;
+  "chatServiceSid"?: string;
+  "sid"?: string;
 }
 
 export class BindingContextImpl implements BindingContext {
@@ -133,7 +133,7 @@ export class BindingContextImpl implements BindingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -145,7 +145,7 @@ export class BindingContextImpl implements BindingContext {
   fetch(callback?: any): Promise<BindingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BindingInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.sid));
     
@@ -452,16 +452,16 @@ export function BindingListInstance(version: V1, chatServiceSid: string): Bindin
 
     const data: any = {};
 
-    if (params.bindingType !== undefined) data['BindingType'] = serialize.map(params.bindingType, ((e) => e));
-    if (params.identity !== undefined) data['Identity'] = serialize.map(params.identity, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["bindingType"] !== undefined) data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BindingPage(operationVersion, payload, this._solution));
 
@@ -473,7 +473,7 @@ export function BindingListInstance(version: V1, chatServiceSid: string): Bindin
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BindingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new BindingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

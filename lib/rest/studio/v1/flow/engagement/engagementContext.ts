@@ -63,7 +63,7 @@ export function EngagementContextListInstance(version: V1, flowSid: string, enga
   instance.fetch = function fetch(callback?: any): Promise<EngagementContextInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EngagementContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid));
     

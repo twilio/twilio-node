@@ -39,10 +39,10 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface AlertListInstanceEachOptions {
-  logLevel?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "logLevel"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,10 +61,10 @@ export interface AlertListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AlertListInstanceOptions {
-  logLevel?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "logLevel"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -79,10 +79,10 @@ export interface AlertListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AlertListInstancePageOptions {
-  logLevel?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "logLevel"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -110,7 +110,7 @@ export interface AlertContext {
 }
 
 export interface AlertContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class AlertContextImpl implements AlertContext {
@@ -126,7 +126,7 @@ export class AlertContextImpl implements AlertContext {
   fetch(callback?: any): Promise<AlertInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AlertInstance(operationVersion, payload, this._solution.sid));
     
@@ -480,17 +480,17 @@ export function AlertListInstance(version: V1): AlertListInstance {
 
     const data: any = {};
 
-    if (params.logLevel !== undefined) data['LogLevel'] = params.logLevel;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["logLevel"] !== undefined) data["LogLevel"] = params["logLevel"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AlertPage(operationVersion, payload, this._solution));
 
@@ -502,7 +502,7 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AlertPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AlertPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

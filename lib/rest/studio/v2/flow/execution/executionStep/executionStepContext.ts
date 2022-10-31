@@ -64,7 +64,7 @@ export function ExecutionStepContextListInstance(version: V2, flowSid: string, e
   instance.fetch = function fetch(callback?: any): Promise<ExecutionStepContextInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ExecutionStepContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.executionSid, this._solution.stepSid));
     

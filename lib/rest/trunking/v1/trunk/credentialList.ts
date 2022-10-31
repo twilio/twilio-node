@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } credentialListSid The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
  */
 export interface CredentialListListInstanceCreateOptions {
-  credentialListSid: string;
+  "credentialListSid": string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface CredentialListListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CredentialListListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface CredentialListListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CredentialListListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface CredentialListListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CredentialListListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -111,8 +111,8 @@ export interface CredentialListContext {
 }
 
 export interface CredentialListContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  "trunkSid"?: string;
+  "sid"?: string;
 }
 
 export class CredentialListContextImpl implements CredentialListContext {
@@ -128,7 +128,7 @@ export class CredentialListContextImpl implements CredentialListContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -140,7 +140,7 @@ export class CredentialListContextImpl implements CredentialListContext {
   fetch(callback?: any): Promise<CredentialListInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CredentialListInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
     
@@ -429,19 +429,19 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.credentialListSid === null || params.credentialListSid === undefined) {
-      throw new Error('Required parameter "params.credentialListSid" missing.');
+    if (params["credentialListSid"] === null || params["credentialListSid"] === undefined) {
+      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['CredentialListSid'] = params.credentialListSid;
+    data["CredentialListSid"] = params["credentialListSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialListInstance(operationVersion, payload, this._solution.trunkSid));
     
@@ -462,14 +462,14 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialListPage(operationVersion, payload, this._solution));
 
@@ -481,7 +481,7 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CredentialListPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CredentialListPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

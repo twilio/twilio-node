@@ -27,7 +27,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } phoneNumber The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface SafelistListInstanceCreateOptions {
-  phoneNumber: string;
+  "phoneNumber": string;
 }
 
 export interface SafelistContext {
@@ -61,7 +61,7 @@ export interface SafelistContext {
 }
 
 export interface SafelistContextSolution {
-  phoneNumber?: string;
+  "phoneNumber"?: string;
 }
 
 export class SafelistContextImpl implements SafelistContext {
@@ -77,7 +77,7 @@ export class SafelistContextImpl implements SafelistContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -89,7 +89,7 @@ export class SafelistContextImpl implements SafelistContext {
   fetch(callback?: any): Promise<SafelistInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SafelistInstance(operationVersion, payload, this._solution.phoneNumber));
     
@@ -247,19 +247,19 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.phoneNumber === null || params.phoneNumber === undefined) {
-      throw new Error('Required parameter "params.phoneNumber" missing.');
+    if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumber'] = params.phoneNumber;
+    data["PhoneNumber"] = params["phoneNumber"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SafelistInstance(operationVersion, payload));
     

@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationContextUpdateOptions {
-  messagingServiceSid: string;
+  "messagingServiceSid": string;
 }
 
 /**
@@ -39,8 +39,8 @@ export interface MessagingConfigurationContextUpdateOptions {
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationListInstanceCreateOptions {
-  country: string;
-  messagingServiceSid: string;
+  "country": string;
+  "messagingServiceSid": string;
 }
 /**
  * Options to pass to each
@@ -56,7 +56,7 @@ export interface MessagingConfigurationListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: MessagingConfigurationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -72,7 +72,7 @@ export interface MessagingConfigurationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -84,7 +84,7 @@ export interface MessagingConfigurationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessagingConfigurationListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -134,8 +134,8 @@ export interface MessagingConfigurationContext {
 }
 
 export interface MessagingConfigurationContextSolution {
-  serviceSid?: string;
-  country?: string;
+  "serviceSid"?: string;
+  "country"?: string;
 }
 
 export class MessagingConfigurationContextImpl implements MessagingConfigurationContext {
@@ -151,7 +151,7 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -163,7 +163,7 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
   fetch(callback?: any): Promise<MessagingConfigurationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.country));
     
@@ -179,19 +179,19 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.messagingServiceSid === null || params.messagingServiceSid === undefined) {
-      throw new Error('Required parameter "params.messagingServiceSid" missing.');
+    if (params["messagingServiceSid"] === null || params["messagingServiceSid"] === undefined) {
+      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['MessagingServiceSid'] = params.messagingServiceSid;
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.country));
     
@@ -494,24 +494,24 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.country === null || params.country === undefined) {
-      throw new Error('Required parameter "params.country" missing.');
+    if (params["country"] === null || params["country"] === undefined) {
+      throw new Error('Required parameter "params[\'country\']" missing.');
     }
 
-    if (params.messagingServiceSid === null || params.messagingServiceSid === undefined) {
-      throw new Error('Required parameter "params.messagingServiceSid" missing.');
+    if (params["messagingServiceSid"] === null || params["messagingServiceSid"] === undefined) {
+      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['Country'] = params.country;
-    data['MessagingServiceSid'] = params.messagingServiceSid;
+    data["Country"] = params["country"];
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -532,14 +532,14 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MessagingConfigurationPage(operationVersion, payload, this._solution));
 
@@ -551,7 +551,7 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagingConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MessagingConfigurationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

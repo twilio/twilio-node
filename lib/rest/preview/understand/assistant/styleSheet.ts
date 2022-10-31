@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [styleSheet] The JSON Style sheet string
  */
 export interface StyleSheetListInstanceUpdateOptions {
-  styleSheet?: any;
+  "styleSheet"?: any;
 }
 
 export interface StyleSheetListInstance {
@@ -91,7 +91,7 @@ export function StyleSheetListInstance(version: Understand, assistantSid: string
   instance.fetch = function fetch(callback?: any): Promise<StyleSheetInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -112,13 +112,13 @@ export function StyleSheetListInstance(version: Understand, assistantSid: string
 
     const data: any = {};
 
-    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
+    if (params["styleSheet"] !== undefined) data["StyleSheet"] = params["styleSheet"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
     

@@ -47,7 +47,7 @@ export interface ExportContext {
 }
 
 export interface ExportContextSolution {
-  resourceType?: string;
+  "resourceType"?: string;
 }
 
 export class ExportContextImpl implements ExportContext {
@@ -75,7 +75,7 @@ export class ExportContextImpl implements ExportContext {
   fetch(callback?: any): Promise<ExportInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ExportInstance(operationVersion, payload, this._solution.resourceType));
     

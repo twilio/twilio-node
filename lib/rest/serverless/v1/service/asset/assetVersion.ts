@@ -38,7 +38,7 @@ type AssetVersionVisibility = 'public'|'private'|'protected';
  *                         Default is no limit
  */
 export interface AssetVersionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +54,7 @@ export interface AssetVersionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssetVersionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -66,7 +66,7 @@ export interface AssetVersionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssetVersionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -94,9 +94,9 @@ export interface AssetVersionContext {
 }
 
 export interface AssetVersionContextSolution {
-  serviceSid?: string;
-  assetSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "assetSid"?: string;
+  "sid"?: string;
 }
 
 export class AssetVersionContextImpl implements AssetVersionContext {
@@ -112,7 +112,7 @@ export class AssetVersionContextImpl implements AssetVersionContext {
   fetch(callback?: any): Promise<AssetVersionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssetVersionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.assetSid, this._solution.sid));
     
@@ -387,14 +387,14 @@ export function AssetVersionListInstance(version: V1, serviceSid: string, assetS
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetVersionPage(operationVersion, payload, this._solution));
 
@@ -406,7 +406,7 @@ export function AssetVersionListInstance(version: V1, serviceSid: string, assetS
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssetVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AssetVersionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

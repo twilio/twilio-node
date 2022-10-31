@@ -31,12 +31,12 @@ const serialize = require("../../../base/serialize");
  * @property { boolean } [encryptionEnabled] Whether all recordings should be stored in an encrypted form. The default is &#x60;false&#x60;.
  */
 export interface RecordingSettingsListInstanceCreateOptions {
-  friendlyName: string;
-  awsCredentialsSid?: string;
-  encryptionKeySid?: string;
-  awsS3Url?: string;
-  awsStorageEnabled?: boolean;
-  encryptionEnabled?: boolean;
+  "friendlyName": string;
+  "awsCredentialsSid"?: string;
+  "encryptionKeySid"?: string;
+  "awsS3Url"?: string;
+  "awsStorageEnabled"?: boolean;
+  "encryptionEnabled"?: boolean;
 }
 
 export interface RecordingSettingsListInstance {
@@ -94,24 +94,24 @@ export function RecordingSettingsListInstance(version: V1): RecordingSettingsLis
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.awsCredentialsSid !== undefined) data['AwsCredentialsSid'] = params.awsCredentialsSid;
-    if (params.encryptionKeySid !== undefined) data['EncryptionKeySid'] = params.encryptionKeySid;
-    if (params.awsS3Url !== undefined) data['AwsS3Url'] = params.awsS3Url;
-    if (params.awsStorageEnabled !== undefined) data['AwsStorageEnabled'] = serialize.bool(params.awsStorageEnabled);
-    if (params.encryptionEnabled !== undefined) data['EncryptionEnabled'] = serialize.bool(params.encryptionEnabled);
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["awsCredentialsSid"] !== undefined) data["AwsCredentialsSid"] = params["awsCredentialsSid"];
+    if (params["encryptionKeySid"] !== undefined) data["EncryptionKeySid"] = params["encryptionKeySid"];
+    if (params["awsS3Url"] !== undefined) data["AwsS3Url"] = params["awsS3Url"];
+    if (params["awsStorageEnabled"] !== undefined) data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
+    if (params["encryptionEnabled"] !== undefined) data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingSettingsInstance(operationVersion, payload));
     
@@ -125,7 +125,7 @@ export function RecordingSettingsListInstance(version: V1): RecordingSettingsLis
   instance.fetch = function fetch(callback?: any): Promise<RecordingSettingsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RecordingSettingsInstance(operationVersion, payload));
     

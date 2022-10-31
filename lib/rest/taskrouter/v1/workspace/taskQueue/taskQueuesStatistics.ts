@@ -76,13 +76,13 @@ export class TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics {
  *                         Default is no limit
  */
 export interface TaskQueuesStatisticsListInstanceEachOptions {
-  endDate?: Date;
-  friendlyName?: string;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  pageSize?: number;
+  "endDate"?: Date;
+  "friendlyName"?: string;
+  "minutes"?: number;
+  "startDate"?: Date;
+  "taskChannel"?: string;
+  "splitByWaitTime"?: string;
+  "pageSize"?: number;
   callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -104,13 +104,13 @@ export interface TaskQueuesStatisticsListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TaskQueuesStatisticsListInstanceOptions {
-  endDate?: Date;
-  friendlyName?: string;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  pageSize?: number;
+  "endDate"?: Date;
+  "friendlyName"?: string;
+  "minutes"?: number;
+  "startDate"?: Date;
+  "taskChannel"?: string;
+  "splitByWaitTime"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -128,13 +128,13 @@ export interface TaskQueuesStatisticsListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskQueuesStatisticsListInstancePageOptions {
-  endDate?: Date;
-  friendlyName?: string;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  pageSize?: number;
+  "endDate"?: Date;
+  "friendlyName"?: string;
+  "minutes"?: number;
+  "startDate"?: Date;
+  "taskChannel"?: string;
+  "splitByWaitTime"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -282,20 +282,20 @@ export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: stri
 
     const data: any = {};
 
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined) data["SplitByWaitTime"] = params["splitByWaitTime"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueuesStatisticsPage(operationVersion, payload, this._solution));
 
@@ -307,7 +307,7 @@ export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: stri
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskQueuesStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TaskQueuesStatisticsPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

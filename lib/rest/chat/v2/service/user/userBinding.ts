@@ -39,8 +39,8 @@ type UserBindingBindingType = 'gcm'|'apn'|'fcm';
  *                         Default is no limit
  */
 export interface UserBindingListInstanceEachOptions {
-  bindingType?: Array<UserBindingBindingType>;
-  pageSize?: number;
+  "bindingType"?: Array<UserBindingBindingType>;
+  "pageSize"?: number;
   callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -57,8 +57,8 @@ export interface UserBindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserBindingListInstanceOptions {
-  bindingType?: Array<UserBindingBindingType>;
-  pageSize?: number;
+  "bindingType"?: Array<UserBindingBindingType>;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -71,8 +71,8 @@ export interface UserBindingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserBindingListInstancePageOptions {
-  bindingType?: Array<UserBindingBindingType>;
-  pageSize?: number;
+  "bindingType"?: Array<UserBindingBindingType>;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -110,9 +110,9 @@ export interface UserBindingContext {
 }
 
 export interface UserBindingContextSolution {
-  serviceSid?: string;
-  userSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "userSid"?: string;
+  "sid"?: string;
 }
 
 export class UserBindingContextImpl implements UserBindingContext {
@@ -128,7 +128,7 @@ export class UserBindingContextImpl implements UserBindingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -140,7 +140,7 @@ export class UserBindingContextImpl implements UserBindingContext {
   fetch(callback?: any): Promise<UserBindingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UserBindingInstance(operationVersion, payload, this._solution.serviceSid, this._solution.userSid, this._solution.sid));
     
@@ -455,15 +455,15 @@ export function UserBindingListInstance(version: V2, serviceSid: string, userSid
 
     const data: any = {};
 
-    if (params.bindingType !== undefined) data['BindingType'] = serialize.map(params.bindingType, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["bindingType"] !== undefined) data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UserBindingPage(operationVersion, payload, this._solution));
 
@@ -475,7 +475,7 @@ export function UserBindingListInstance(version: V2, serviceSid: string, userSid
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserBindingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new UserBindingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

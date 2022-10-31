@@ -30,7 +30,7 @@ import { StreamMessageListInstance } from "./syncStream/streamMessage";
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamContextUpdateOptions {
-  ttl?: number;
+  "ttl"?: number;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface SyncStreamContextUpdateOptions {
  * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamListInstanceCreateOptions {
-  uniqueName?: string;
-  ttl?: number;
+  "uniqueName"?: string;
+  "ttl"?: number;
 }
 /**
  * Options to pass to each
@@ -57,7 +57,7 @@ export interface SyncStreamListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncStreamListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -73,7 +73,7 @@ export interface SyncStreamListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncStreamListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -85,7 +85,7 @@ export interface SyncStreamListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncStreamListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -144,8 +144,8 @@ export interface SyncStreamContext {
 }
 
 export interface SyncStreamContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class SyncStreamContextImpl implements SyncStreamContext {
@@ -167,7 +167,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -179,7 +179,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   fetch(callback?: any): Promise<SyncStreamInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SyncStreamInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -200,13 +200,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncStreamInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -558,14 +558,14 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncStreamInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -586,14 +586,14 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncStreamPage(operationVersion, payload, this._solution));
 
@@ -605,7 +605,7 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncStreamPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SyncStreamPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

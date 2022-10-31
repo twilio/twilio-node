@@ -42,8 +42,8 @@ export interface ArchivedCallContext {
 }
 
 export interface ArchivedCallContextSolution {
-  date?: Date;
-  sid?: string;
+  "date"?: Date;
+  "sid"?: string;
 }
 
 export class ArchivedCallContextImpl implements ArchivedCallContext {
@@ -59,7 +59,7 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -47,13 +47,13 @@ type WorkspaceQueueOrder = 'FIFO'|'LIFO';
  * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceContextUpdateOptions {
-  defaultActivitySid?: string;
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  friendlyName?: string;
-  multiTaskEnabled?: boolean;
-  timeoutActivitySid?: string;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  "defaultActivitySid"?: string;
+  "eventCallbackUrl"?: string;
+  "eventsFilter"?: string;
+  "friendlyName"?: string;
+  "multiTaskEnabled"?: boolean;
+  "timeoutActivitySid"?: string;
+  "prioritizeQueueOrder"?: WorkspaceQueueOrder;
 }
 
 /**
@@ -67,12 +67,12 @@ export interface WorkspaceContextUpdateOptions {
  * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceListInstanceCreateOptions {
-  friendlyName: string;
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  multiTaskEnabled?: boolean;
-  template?: string;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  "friendlyName": string;
+  "eventCallbackUrl"?: string;
+  "eventsFilter"?: string;
+  "multiTaskEnabled"?: boolean;
+  "template"?: string;
+  "prioritizeQueueOrder"?: WorkspaceQueueOrder;
 }
 /**
  * Options to pass to each
@@ -89,8 +89,8 @@ export interface WorkspaceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface WorkspaceListInstanceEachOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -107,8 +107,8 @@ export interface WorkspaceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface WorkspaceListInstanceOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -121,8 +121,8 @@ export interface WorkspaceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkspaceListInstancePageOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -190,7 +190,7 @@ export interface WorkspaceContext {
 }
 
 export interface WorkspaceContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class WorkspaceContextImpl implements WorkspaceContext {
@@ -266,7 +266,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -278,7 +278,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   fetch(callback?: any): Promise<WorkspaceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload, this._solution.sid));
     
@@ -299,19 +299,19 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     const data: any = {};
 
-    if (params.defaultActivitySid !== undefined) data['DefaultActivitySid'] = params.defaultActivitySid;
-    if (params.eventCallbackUrl !== undefined) data['EventCallbackUrl'] = params.eventCallbackUrl;
-    if (params.eventsFilter !== undefined) data['EventsFilter'] = params.eventsFilter;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.multiTaskEnabled !== undefined) data['MultiTaskEnabled'] = serialize.bool(params.multiTaskEnabled);
-    if (params.timeoutActivitySid !== undefined) data['TimeoutActivitySid'] = params.timeoutActivitySid;
-    if (params.prioritizeQueueOrder !== undefined) data['PrioritizeQueueOrder'] = params.prioritizeQueueOrder;
+    if (params["defaultActivitySid"] !== undefined) data["DefaultActivitySid"] = params["defaultActivitySid"];
+    if (params["eventCallbackUrl"] !== undefined) data["EventCallbackUrl"] = params["eventCallbackUrl"];
+    if (params["eventsFilter"] !== undefined) data["EventsFilter"] = params["eventsFilter"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["multiTaskEnabled"] !== undefined) data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+    if (params["timeoutActivitySid"] !== undefined) data["TimeoutActivitySid"] = params["timeoutActivitySid"];
+    if (params["prioritizeQueueOrder"] !== undefined) data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload, this._solution.sid));
     
@@ -744,24 +744,24 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.eventCallbackUrl !== undefined) data['EventCallbackUrl'] = params.eventCallbackUrl;
-    if (params.eventsFilter !== undefined) data['EventsFilter'] = params.eventsFilter;
-    if (params.multiTaskEnabled !== undefined) data['MultiTaskEnabled'] = serialize.bool(params.multiTaskEnabled);
-    if (params.template !== undefined) data['Template'] = params.template;
-    if (params.prioritizeQueueOrder !== undefined) data['PrioritizeQueueOrder'] = params.prioritizeQueueOrder;
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["eventCallbackUrl"] !== undefined) data["EventCallbackUrl"] = params["eventCallbackUrl"];
+    if (params["eventsFilter"] !== undefined) data["EventsFilter"] = params["eventsFilter"];
+    if (params["multiTaskEnabled"] !== undefined) data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+    if (params["template"] !== undefined) data["Template"] = params["template"];
+    if (params["prioritizeQueueOrder"] !== undefined) data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload));
     
@@ -782,15 +782,15 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspacePage(operationVersion, payload, this._solution));
 
@@ -802,7 +802,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkspacePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new WorkspacePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

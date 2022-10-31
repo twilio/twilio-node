@@ -39,7 +39,7 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
  *                         Default is no limit
  */
 export interface FunctionVersionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: FunctionVersionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -55,7 +55,7 @@ export interface FunctionVersionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FunctionVersionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -67,7 +67,7 @@ export interface FunctionVersionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FunctionVersionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -96,9 +96,9 @@ export interface FunctionVersionContext {
 }
 
 export interface FunctionVersionContextSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "functionSid"?: string;
+  "sid"?: string;
 }
 
 export class FunctionVersionContextImpl implements FunctionVersionContext {
@@ -120,7 +120,7 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
   fetch(callback?: any): Promise<FunctionVersionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FunctionVersionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
     
@@ -406,14 +406,14 @@ export function FunctionVersionListInstance(version: V1, serviceSid: string, fun
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FunctionVersionPage(operationVersion, payload, this._solution));
 
@@ -425,7 +425,7 @@ export function FunctionVersionListInstance(version: V1, serviceSid: string, fun
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FunctionVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FunctionVersionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -36,7 +36,7 @@ const serialize = require("../../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface PayloadListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: PayloadInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +52,7 @@ export interface PayloadListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PayloadListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -64,7 +64,7 @@ export interface PayloadListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PayloadListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -102,10 +102,10 @@ export interface PayloadContext {
 }
 
 export interface PayloadContextSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "referenceSid"?: string;
+  "addOnResultSid"?: string;
+  "sid"?: string;
 }
 
 export class PayloadContextImpl implements PayloadContext {
@@ -121,7 +121,7 @@ export class PayloadContextImpl implements PayloadContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -133,7 +133,7 @@ export class PayloadContextImpl implements PayloadContext {
   fetch(callback?: any): Promise<PayloadInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PayloadInstance(operationVersion, payload, this._solution.accountSid, this._solution.referenceSid, this._solution.addOnResultSid, this._solution.sid));
     
@@ -445,14 +445,14 @@ export function PayloadListInstance(version: V2010, accountSid: string, referenc
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PayloadPage(operationVersion, payload, this._solution));
 
@@ -464,7 +464,7 @@ export function PayloadListInstance(version: V2010, accountSid: string, referenc
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PayloadPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new PayloadPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

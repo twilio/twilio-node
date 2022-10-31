@@ -37,10 +37,10 @@ type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-reject
  * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
-  status?: CustomerProfileStatus;
-  statusCallback?: string;
-  friendlyName?: string;
-  email?: string;
+  "status"?: CustomerProfileStatus;
+  "statusCallback"?: string;
+  "friendlyName"?: string;
+  "email"?: string;
 }
 
 /**
@@ -52,10 +52,10 @@ export interface CustomerProfilesContextUpdateOptions {
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface CustomerProfilesListInstanceCreateOptions {
-  friendlyName: string;
-  email: string;
-  policySid: string;
-  statusCallback?: string;
+  "friendlyName": string;
+  "email": string;
+  "policySid": string;
+  "statusCallback"?: string;
 }
 /**
  * Options to pass to each
@@ -74,10 +74,10 @@ export interface CustomerProfilesListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceEachOptions {
-  status?: CustomerProfileStatus;
-  friendlyName?: string;
-  policySid?: string;
-  pageSize?: number;
+  "status"?: CustomerProfileStatus;
+  "friendlyName"?: string;
+  "policySid"?: string;
+  "pageSize"?: number;
   callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -96,10 +96,10 @@ export interface CustomerProfilesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceOptions {
-  status?: CustomerProfileStatus;
-  friendlyName?: string;
-  policySid?: string;
-  pageSize?: number;
+  "status"?: CustomerProfileStatus;
+  "friendlyName"?: string;
+  "policySid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -114,10 +114,10 @@ export interface CustomerProfilesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesListInstancePageOptions {
-  status?: CustomerProfileStatus;
-  friendlyName?: string;
-  policySid?: string;
-  pageSize?: number;
+  "status"?: CustomerProfileStatus;
+  "friendlyName"?: string;
+  "policySid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -178,7 +178,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -212,7 +212,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -224,7 +224,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   fetch(callback?: any): Promise<CustomerProfilesInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, this._solution.sid));
     
@@ -245,16 +245,16 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.email !== undefined) data['Email'] = params.email;
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, this._solution.sid));
     
@@ -617,30 +617,30 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.email === null || params.email === undefined) {
-      throw new Error('Required parameter "params.email" missing.');
+    if (params["email"] === null || params["email"] === undefined) {
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
-    if (params.policySid === null || params.policySid === undefined) {
-      throw new Error('Required parameter "params.policySid" missing.');
+    if (params["policySid"] === null || params["policySid"] === undefined) {
+      throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['Email'] = params.email;
-    data['PolicySid'] = params.policySid;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    data["FriendlyName"] = params["friendlyName"];
+    data["Email"] = params["email"];
+    data["PolicySid"] = params["policySid"];
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload));
     
@@ -661,17 +661,17 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.policySid !== undefined) data['PolicySid'] = params.policySid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["policySid"] !== undefined) data["PolicySid"] = params["policySid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CustomerProfilesPage(operationVersion, payload, this._solution));
 
@@ -683,7 +683,7 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CustomerProfilesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CustomerProfilesPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

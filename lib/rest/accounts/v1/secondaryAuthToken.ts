@@ -71,7 +71,7 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
   instance.create = function create(callback?: any): Promise<SecondaryAuthTokenInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new SecondaryAuthTokenInstance(operationVersion, payload));
     
@@ -85,7 +85,7 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
   instance.remove = function remove(callback?: any): Promise<boolean> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -40,12 +40,12 @@ type TaskQueueTaskOrder = 'FIFO'|'LIFO';
  * @property { TaskQueueTaskOrder } [taskOrder] 
  */
 export interface TaskQueueContextUpdateOptions {
-  friendlyName?: string;
-  targetWorkers?: string;
-  reservationActivitySid?: string;
-  assignmentActivitySid?: string;
-  maxReservedWorkers?: number;
-  taskOrder?: TaskQueueTaskOrder;
+  "friendlyName"?: string;
+  "targetWorkers"?: string;
+  "reservationActivitySid"?: string;
+  "assignmentActivitySid"?: string;
+  "maxReservedWorkers"?: number;
+  "taskOrder"?: TaskQueueTaskOrder;
 }
 
 /**
@@ -59,12 +59,12 @@ export interface TaskQueueContextUpdateOptions {
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned to them.
  */
 export interface TaskQueueListInstanceCreateOptions {
-  friendlyName: string;
-  targetWorkers?: string;
-  maxReservedWorkers?: number;
-  taskOrder?: TaskQueueTaskOrder;
-  reservationActivitySid?: string;
-  assignmentActivitySid?: string;
+  "friendlyName": string;
+  "targetWorkers"?: string;
+  "maxReservedWorkers"?: number;
+  "taskOrder"?: TaskQueueTaskOrder;
+  "reservationActivitySid"?: string;
+  "assignmentActivitySid"?: string;
 }
 /**
  * Options to pass to each
@@ -83,10 +83,10 @@ export interface TaskQueueListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TaskQueueListInstanceEachOptions {
-  friendlyName?: string;
-  evaluateWorkerAttributes?: string;
-  workerSid?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "evaluateWorkerAttributes"?: string;
+  "workerSid"?: string;
+  "pageSize"?: number;
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -105,10 +105,10 @@ export interface TaskQueueListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TaskQueueListInstanceOptions {
-  friendlyName?: string;
-  evaluateWorkerAttributes?: string;
-  workerSid?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "evaluateWorkerAttributes"?: string;
+  "workerSid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -123,10 +123,10 @@ export interface TaskQueueListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskQueueListInstancePageOptions {
-  friendlyName?: string;
-  evaluateWorkerAttributes?: string;
-  workerSid?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "evaluateWorkerAttributes"?: string;
+  "workerSid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -187,8 +187,8 @@ export interface TaskQueueContext {
 }
 
 export interface TaskQueueContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  "workspaceSid"?: string;
+  "sid"?: string;
 }
 
 export class TaskQueueContextImpl implements TaskQueueContext {
@@ -222,7 +222,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -234,7 +234,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   fetch(callback?: any): Promise<TaskQueueInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
     
@@ -255,18 +255,18 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.targetWorkers !== undefined) data['TargetWorkers'] = params.targetWorkers;
-    if (params.reservationActivitySid !== undefined) data['ReservationActivitySid'] = params.reservationActivitySid;
-    if (params.assignmentActivitySid !== undefined) data['AssignmentActivitySid'] = params.assignmentActivitySid;
-    if (params.maxReservedWorkers !== undefined) data['MaxReservedWorkers'] = params.maxReservedWorkers;
-    if (params.taskOrder !== undefined) data['TaskOrder'] = params.taskOrder;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["targetWorkers"] !== undefined) data["TargetWorkers"] = params["targetWorkers"];
+    if (params["reservationActivitySid"] !== undefined) data["ReservationActivitySid"] = params["reservationActivitySid"];
+    if (params["assignmentActivitySid"] !== undefined) data["AssignmentActivitySid"] = params["assignmentActivitySid"];
+    if (params["maxReservedWorkers"] !== undefined) data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+    if (params["taskOrder"] !== undefined) data["TaskOrder"] = params["taskOrder"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
     
@@ -662,24 +662,24 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.targetWorkers !== undefined) data['TargetWorkers'] = params.targetWorkers;
-    if (params.maxReservedWorkers !== undefined) data['MaxReservedWorkers'] = params.maxReservedWorkers;
-    if (params.taskOrder !== undefined) data['TaskOrder'] = params.taskOrder;
-    if (params.reservationActivitySid !== undefined) data['ReservationActivitySid'] = params.reservationActivitySid;
-    if (params.assignmentActivitySid !== undefined) data['AssignmentActivitySid'] = params.assignmentActivitySid;
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["targetWorkers"] !== undefined) data["TargetWorkers"] = params["targetWorkers"];
+    if (params["maxReservedWorkers"] !== undefined) data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+    if (params["taskOrder"] !== undefined) data["TaskOrder"] = params["taskOrder"];
+    if (params["reservationActivitySid"] !== undefined) data["ReservationActivitySid"] = params["reservationActivitySid"];
+    if (params["assignmentActivitySid"] !== undefined) data["AssignmentActivitySid"] = params["assignmentActivitySid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid));
     
@@ -700,17 +700,17 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.evaluateWorkerAttributes !== undefined) data['EvaluateWorkerAttributes'] = params.evaluateWorkerAttributes;
-    if (params.workerSid !== undefined) data['WorkerSid'] = params.workerSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["evaluateWorkerAttributes"] !== undefined) data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
+    if (params["workerSid"] !== undefined) data["WorkerSid"] = params["workerSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueuePage(operationVersion, payload, this._solution));
 
@@ -722,7 +722,7 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskQueuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TaskQueuePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

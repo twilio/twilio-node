@@ -42,8 +42,8 @@ export interface DialogueContext {
 }
 
 export interface DialogueContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  "assistantSid"?: string;
+  "sid"?: string;
 }
 
 export class DialogueContextImpl implements DialogueContext {
@@ -59,7 +59,7 @@ export class DialogueContextImpl implements DialogueContext {
   fetch(callback?: any): Promise<DialogueInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new DialogueInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     

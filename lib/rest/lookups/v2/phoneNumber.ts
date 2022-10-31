@@ -30,8 +30,8 @@ type PhoneNumberValidationError = 'TOO_SHORT'|'TOO_LONG'|'INVALID_BUT_POSSIBLE'|
  * @property { string } [countryCode] The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
  */
 export interface PhoneNumberContextFetchOptions {
-  fields?: string;
-  countryCode?: string;
+  "fields"?: string;
+  "countryCode"?: string;
 }
 
 export interface PhoneNumberContext {
@@ -65,7 +65,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  "phoneNumber"?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -88,13 +88,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const data: any = {};
 
-    if (params.fields !== undefined) data['Fields'] = params.fields;
-    if (params.countryCode !== undefined) data['CountryCode'] = params.countryCode;
+    if (params["fields"] !== undefined) data["Fields"] = params["fields"];
+    if (params["countryCode"] !== undefined) data["CountryCode"] = params["countryCode"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
     

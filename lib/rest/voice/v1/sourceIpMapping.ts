@@ -29,7 +29,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingContextUpdateOptions {
-  sipDomainSid: string;
+  "sipDomainSid": string;
 }
 
 /**
@@ -39,8 +39,8 @@ export interface SourceIpMappingContextUpdateOptions {
  * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingListInstanceCreateOptions {
-  ipRecordSid: string;
-  sipDomainSid: string;
+  "ipRecordSid": string;
+  "sipDomainSid": string;
 }
 /**
  * Options to pass to each
@@ -56,7 +56,7 @@ export interface SourceIpMappingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SourceIpMappingListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SourceIpMappingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -72,7 +72,7 @@ export interface SourceIpMappingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SourceIpMappingListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -84,7 +84,7 @@ export interface SourceIpMappingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SourceIpMappingListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -134,7 +134,7 @@ export interface SourceIpMappingContext {
 }
 
 export interface SourceIpMappingContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class SourceIpMappingContextImpl implements SourceIpMappingContext {
@@ -150,7 +150,7 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -162,7 +162,7 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
   fetch(callback?: any): Promise<SourceIpMappingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SourceIpMappingInstance(operationVersion, payload, this._solution.sid));
     
@@ -178,19 +178,19 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.sipDomainSid === null || params.sipDomainSid === undefined) {
-      throw new Error('Required parameter "params.sipDomainSid" missing.');
+    if (params["sipDomainSid"] === null || params["sipDomainSid"] === undefined) {
+      throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['SipDomainSid'] = params.sipDomainSid;
+    data["SipDomainSid"] = params["sipDomainSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SourceIpMappingInstance(operationVersion, payload, this._solution.sid));
     
@@ -485,24 +485,24 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.ipRecordSid === null || params.ipRecordSid === undefined) {
-      throw new Error('Required parameter "params.ipRecordSid" missing.');
+    if (params["ipRecordSid"] === null || params["ipRecordSid"] === undefined) {
+      throw new Error('Required parameter "params[\'ipRecordSid\']" missing.');
     }
 
-    if (params.sipDomainSid === null || params.sipDomainSid === undefined) {
-      throw new Error('Required parameter "params.sipDomainSid" missing.');
+    if (params["sipDomainSid"] === null || params["sipDomainSid"] === undefined) {
+      throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['IpRecordSid'] = params.ipRecordSid;
-    data['SipDomainSid'] = params.sipDomainSid;
+    data["IpRecordSid"] = params["ipRecordSid"];
+    data["SipDomainSid"] = params["sipDomainSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SourceIpMappingInstance(operationVersion, payload));
     
@@ -523,14 +523,14 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SourceIpMappingPage(operationVersion, payload, this._solution));
 
@@ -542,7 +542,7 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SourceIpMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SourceIpMappingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

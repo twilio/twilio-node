@@ -62,7 +62,7 @@ export function SinkTestListInstance(version: V1, sid: string): SinkTestListInst
   instance.create = function create(callback?: any): Promise<SinkTestInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new SinkTestInstance(operationVersion, payload, this._solution.sid));
     

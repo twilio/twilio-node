@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [value] A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableContextUpdateOptions {
-  key?: string;
-  value?: string;
+  "key"?: string;
+  "value"?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface VariableContextUpdateOptions {
  * @property { string } value A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableListInstanceCreateOptions {
-  key: string;
-  value: string;
+  "key": string;
+  "value": string;
 }
 /**
  * Options to pass to each
@@ -58,7 +58,7 @@ export interface VariableListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface VariableListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: VariableInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -74,7 +74,7 @@ export interface VariableListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface VariableListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -86,7 +86,7 @@ export interface VariableListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VariableListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -144,9 +144,9 @@ export interface VariableContext {
 }
 
 export interface VariableContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "environmentSid"?: string;
+  "sid"?: string;
 }
 
 export class VariableContextImpl implements VariableContext {
@@ -162,7 +162,7 @@ export class VariableContextImpl implements VariableContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -174,7 +174,7 @@ export class VariableContextImpl implements VariableContext {
   fetch(callback?: any): Promise<VariableInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new VariableInstance(operationVersion, payload, this._solution.serviceSid, this._solution.environmentSid, this._solution.sid));
     
@@ -195,14 +195,14 @@ export class VariableContextImpl implements VariableContext {
 
     const data: any = {};
 
-    if (params.key !== undefined) data['Key'] = params.key;
-    if (params.value !== undefined) data['Value'] = params.value;
+    if (params["key"] !== undefined) data["Key"] = params["key"];
+    if (params["value"] !== undefined) data["Value"] = params["value"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new VariableInstance(operationVersion, payload, this._solution.serviceSid, this._solution.environmentSid, this._solution.sid));
     
@@ -528,24 +528,24 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.key === null || params.key === undefined) {
-      throw new Error('Required parameter "params.key" missing.');
+    if (params["key"] === null || params["key"] === undefined) {
+      throw new Error('Required parameter "params[\'key\']" missing.');
     }
 
-    if (params.value === null || params.value === undefined) {
-      throw new Error('Required parameter "params.value" missing.');
+    if (params["value"] === null || params["value"] === undefined) {
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     const data: any = {};
 
-    data['Key'] = params.key;
-    data['Value'] = params.value;
+    data["Key"] = params["key"];
+    data["Value"] = params["value"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new VariableInstance(operationVersion, payload, this._solution.serviceSid, this._solution.environmentSid));
     
@@ -566,14 +566,14 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new VariablePage(operationVersion, payload, this._solution));
 
@@ -585,7 +585,7 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<VariablePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new VariablePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -35,7 +35,7 @@ type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'
  * @property { boolean } [includeSoftDeleted] A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
  */
 export interface RecordingContextFetchOptions {
-  includeSoftDeleted?: boolean;
+  "includeSoftDeleted"?: boolean;
 }
 /**
  * Options to pass to each
@@ -57,13 +57,13 @@ export interface RecordingContextFetchOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  callSid?: string;
-  conferenceSid?: string;
-  includeSoftDeleted?: boolean;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "callSid"?: string;
+  "conferenceSid"?: string;
+  "includeSoftDeleted"?: boolean;
+  "pageSize"?: number;
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -85,13 +85,13 @@ export interface RecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  callSid?: string;
-  conferenceSid?: string;
-  includeSoftDeleted?: boolean;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "callSid"?: string;
+  "conferenceSid"?: string;
+  "includeSoftDeleted"?: boolean;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -109,13 +109,13 @@ export interface RecordingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  callSid?: string;
-  conferenceSid?: string;
-  includeSoftDeleted?: boolean;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "callSid"?: string;
+  "conferenceSid"?: string;
+  "includeSoftDeleted"?: boolean;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -165,8 +165,8 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -194,7 +194,7 @@ export class RecordingContextImpl implements RecordingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -213,12 +213,12 @@ export class RecordingContextImpl implements RecordingContext {
 
     const data: any = {};
 
-    if (params.includeSoftDeleted !== undefined) data['IncludeSoftDeleted'] = serialize.bool(params.includeSoftDeleted);
+    if (params["includeSoftDeleted"] !== undefined) data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -602,20 +602,20 @@ export function RecordingListInstance(version: V2010, accountSid: string): Recor
 
     const data: any = {};
 
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.callSid !== undefined) data['CallSid'] = params.callSid;
-    if (params.conferenceSid !== undefined) data['ConferenceSid'] = params.conferenceSid;
-    if (params.includeSoftDeleted !== undefined) data['IncludeSoftDeleted'] = serialize.bool(params.includeSoftDeleted);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["callSid"] !== undefined) data["CallSid"] = params["callSid"];
+    if (params["conferenceSid"] !== undefined) data["ConferenceSid"] = params["conferenceSid"];
+    if (params["includeSoftDeleted"] !== undefined) data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingPage(operationVersion, payload, this._solution));
 
@@ -627,7 +627,7 @@ export function RecordingListInstance(version: V2010, accountSid: string): Recor
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RecordingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

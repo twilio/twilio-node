@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface WorkspaceRealTimeStatisticsListInstanceFetchOptions {
-  taskChannel?: string;
+  "taskChannel"?: string;
 }
 
 export interface WorkspaceRealTimeStatisticsListInstance {
@@ -88,12 +88,12 @@ export function WorkspaceRealTimeStatisticsListInstance(version: V1, workspaceSi
 
     const data: any = {};
 
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
     

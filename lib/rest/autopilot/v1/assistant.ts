@@ -44,14 +44,14 @@ import { WebhookListInstance } from "./assistant/webhook";
  * @property { string } [developmentStage] A string describing the state of the assistant.
  */
 export interface AssistantContextUpdateOptions {
-  friendlyName?: string;
-  logQueries?: boolean;
-  uniqueName?: string;
-  callbackUrl?: string;
-  callbackEvents?: string;
-  styleSheet?: any;
-  defaults?: any;
-  developmentStage?: string;
+  "friendlyName"?: string;
+  "logQueries"?: boolean;
+  "uniqueName"?: string;
+  "callbackUrl"?: string;
+  "callbackEvents"?: string;
+  "styleSheet"?: any;
+  "defaults"?: any;
+  "developmentStage"?: string;
 }
 
 /**
@@ -66,13 +66,13 @@ export interface AssistantContextUpdateOptions {
  * @property { any } [defaults] A JSON object that defines the Assistant\\\&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
  */
 export interface AssistantListInstanceCreateOptions {
-  friendlyName?: string;
-  logQueries?: boolean;
-  uniqueName?: string;
-  callbackUrl?: string;
-  callbackEvents?: string;
-  styleSheet?: any;
-  defaults?: any;
+  "friendlyName"?: string;
+  "logQueries"?: boolean;
+  "uniqueName"?: string;
+  "callbackUrl"?: string;
+  "callbackEvents"?: string;
+  "styleSheet"?: any;
+  "defaults"?: any;
 }
 /**
  * Options to pass to each
@@ -88,7 +88,7 @@ export interface AssistantListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssistantListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -104,7 +104,7 @@ export interface AssistantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssistantListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -116,7 +116,7 @@ export interface AssistantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssistantListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -182,7 +182,7 @@ export interface AssistantContext {
 }
 
 export interface AssistantContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class AssistantContextImpl implements AssistantContext {
@@ -246,7 +246,7 @@ export class AssistantContextImpl implements AssistantContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -258,7 +258,7 @@ export class AssistantContextImpl implements AssistantContext {
   fetch(callback?: any): Promise<AssistantInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload, this._solution.sid));
     
@@ -279,20 +279,20 @@ export class AssistantContextImpl implements AssistantContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.logQueries !== undefined) data['LogQueries'] = serialize.bool(params.logQueries);
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.callbackEvents !== undefined) data['CallbackEvents'] = params.callbackEvents;
-    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
-    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
-    if (params.developmentStage !== undefined) data['DevelopmentStage'] = params.developmentStage;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["logQueries"] !== undefined) data["LogQueries"] = serialize.bool(params["logQueries"]);
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
+    if (params["styleSheet"] !== undefined) data["StyleSheet"] = params["styleSheet"];
+    if (params["defaults"] !== undefined) data["Defaults"] = params["defaults"];
+    if (params["developmentStage"] !== undefined) data["DevelopmentStage"] = params["developmentStage"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload, this._solution.sid));
     
@@ -720,19 +720,19 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.logQueries !== undefined) data['LogQueries'] = serialize.bool(params.logQueries);
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.callbackEvents !== undefined) data['CallbackEvents'] = params.callbackEvents;
-    if (params.styleSheet !== undefined) data['StyleSheet'] = params.styleSheet;
-    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["logQueries"] !== undefined) data["LogQueries"] = serialize.bool(params["logQueries"]);
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
+    if (params["styleSheet"] !== undefined) data["StyleSheet"] = params["styleSheet"];
+    if (params["defaults"] !== undefined) data["Defaults"] = params["defaults"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload));
     
@@ -753,14 +753,14 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantPage(operationVersion, payload, this._solution));
 
@@ -772,7 +772,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssistantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AssistantPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

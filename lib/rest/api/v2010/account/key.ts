@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface KeyContextUpdateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface KeyContextUpdateOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface KeyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface KeyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface KeyListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -131,8 +131,8 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class KeyContextImpl implements KeyContext {
@@ -148,7 +148,7 @@ export class KeyContextImpl implements KeyContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -160,7 +160,7 @@ export class KeyContextImpl implements KeyContext {
   fetch(callback?: any): Promise<KeyInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -181,13 +181,13 @@ export class KeyContextImpl implements KeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -470,14 +470,14 @@ export function KeyListInstance(version: V2010, accountSid: string): KeyListInst
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new KeyPage(operationVersion, payload, this._solution));
 
@@ -489,7 +489,7 @@ export function KeyListInstance(version: V2010, accountSid: string): KeyListInst
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new KeyPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

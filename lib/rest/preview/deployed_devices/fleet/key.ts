@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyContextUpdateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  "friendlyName"?: string;
+  "deviceSid"?: string;
 }
 
 /**
@@ -41,8 +41,8 @@ export interface KeyContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyListInstanceCreateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  "friendlyName"?: string;
+  "deviceSid"?: string;
 }
 /**
  * Options to pass to each
@@ -59,8 +59,8 @@ export interface KeyListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceEachOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,8 +77,8 @@ export interface KeyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -91,8 +91,8 @@ export interface KeyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface KeyListInstancePageOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -150,8 +150,8 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  "fleetSid"?: string;
+  "sid"?: string;
 }
 
 export class KeyContextImpl implements KeyContext {
@@ -167,7 +167,7 @@ export class KeyContextImpl implements KeyContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -179,7 +179,7 @@ export class KeyContextImpl implements KeyContext {
   fetch(callback?: any): Promise<KeyInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
     
@@ -200,14 +200,14 @@ export class KeyContextImpl implements KeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
     
@@ -545,14 +545,14 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid));
     
@@ -573,15 +573,15 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     const data: any = {};
 
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new KeyPage(operationVersion, payload, this._solution));
 
@@ -593,7 +593,7 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new KeyPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

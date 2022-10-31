@@ -31,8 +31,8 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface DocumentContextUpdateOptions {
-  data: any;
-  ifMatch?: string;
+  "data": any;
+  "ifMatch"?: string;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface DocumentContextUpdateOptions {
  * @property { any } [data] 
  */
 export interface DocumentListInstanceCreateOptions {
-  uniqueName?: string;
-  data?: any;
+  "uniqueName"?: string;
+  "data"?: any;
 }
 /**
  * Options to pass to each
@@ -59,7 +59,7 @@ export interface DocumentListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface DocumentListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -75,7 +75,7 @@ export interface DocumentListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DocumentListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -87,7 +87,7 @@ export interface DocumentListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -138,8 +138,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -161,7 +161,7 @@ export class DocumentContextImpl implements DocumentContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -173,7 +173,7 @@ export class DocumentContextImpl implements DocumentContext {
   fetch(callback?: any): Promise<DocumentInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -189,20 +189,20 @@ export class DocumentContextImpl implements DocumentContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params["data"] === null || params["data"] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data["Data"] = params["data"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -520,14 +520,14 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.data !== undefined) data['Data'] = params.data;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["data"] !== undefined) data["Data"] = params["data"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -548,14 +548,14 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DocumentPage(operationVersion, payload, this._solution));
 
@@ -567,7 +567,7 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new DocumentPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

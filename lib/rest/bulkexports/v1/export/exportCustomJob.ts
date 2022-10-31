@@ -92,12 +92,12 @@ export class ListDayResponseMeta {
  * @property { string } [email] The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\&#39;s status.
  */
 export interface ExportCustomJobListInstanceCreateOptions {
-  startDay: string;
-  endDay: string;
-  friendlyName: string;
-  webhookUrl?: string;
-  webhookMethod?: string;
-  email?: string;
+  "startDay": string;
+  "endDay": string;
+  "friendlyName": string;
+  "webhookUrl"?: string;
+  "webhookMethod"?: string;
+  "email"?: string;
 }
 /**
  * Options to pass to each
@@ -113,7 +113,7 @@ export interface ExportCustomJobListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ExportCustomJobListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ExportCustomJobInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -129,7 +129,7 @@ export interface ExportCustomJobListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ExportCustomJobListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -141,7 +141,7 @@ export interface ExportCustomJobListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ExportCustomJobListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -296,32 +296,32 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.startDay === null || params.startDay === undefined) {
-      throw new Error('Required parameter "params.startDay" missing.');
+    if (params["startDay"] === null || params["startDay"] === undefined) {
+      throw new Error('Required parameter "params[\'startDay\']" missing.');
     }
 
-    if (params.endDay === null || params.endDay === undefined) {
-      throw new Error('Required parameter "params.endDay" missing.');
+    if (params["endDay"] === null || params["endDay"] === undefined) {
+      throw new Error('Required parameter "params[\'endDay\']" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['StartDay'] = params.startDay;
-    data['EndDay'] = params.endDay;
-    data['FriendlyName'] = params.friendlyName;
-    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
-    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
-    if (params.email !== undefined) data['Email'] = params.email;
+    data["StartDay"] = params["startDay"];
+    data["EndDay"] = params["endDay"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportCustomJobInstance(operationVersion, payload, this._solution.resourceType));
     
@@ -342,14 +342,14 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportCustomJobPage(operationVersion, payload, this._solution));
 
@@ -361,7 +361,7 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ExportCustomJobPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ExportCustomJobPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

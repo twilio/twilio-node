@@ -33,25 +33,25 @@ type ConfigurationAddressType = 'sms'|'whatsapp'|'messenger'|'gbm';
  * Options to pass to update a AddressConfigurationInstance
  *
  * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
- * @property { boolean } [autoCreationEnabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressAutoCreationType } [autoCreationType] 
- * @property { string } [autoCreationConversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreationWebhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
- * @property { ConfigurationAddressMethod } [autoCreationWebhookMethod] 
- * @property { Array<string> } [autoCreationWebhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
- * @property { string } [autoCreationStudioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreationStudioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
+ * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
+ * @property { ConfigurationAddressAutoCreationType } [autoCreation.type] 
+ * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+ * @property { string } [autoCreation.webhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
+ * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod] 
+ * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
+ * @property { string } [autoCreation.studioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
+ * @property { number } [autoCreation.studioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
  */
 export interface AddressConfigurationContextUpdateOptions {
-  friendlyName?: string;
-  autoCreationEnabled?: boolean;
-  autoCreationType?: ConfigurationAddressAutoCreationType;
-  autoCreationConversationServiceSid?: string;
-  autoCreationWebhookUrl?: string;
-  autoCreationWebhookMethod?: ConfigurationAddressMethod;
-  autoCreationWebhookFilters?: Array<string>;
-  autoCreationStudioFlowSid?: string;
-  autoCreationStudioRetryCount?: number;
+  "friendlyName"?: string;
+  "autoCreation.enabled"?: boolean;
+  "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  "autoCreation.conversationServiceSid"?: string;
+  "autoCreation.webhookUrl"?: string;
+  "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  "autoCreation.webhookFilters"?: Array<string>;
+  "autoCreation.studioFlowSid"?: string;
+  "autoCreation.studioRetryCount"?: number;
 }
 
 /**
@@ -60,27 +60,27 @@ export interface AddressConfigurationContextUpdateOptions {
  * @property { ConfigurationAddressType } type 
  * @property { string } address The unique address to be configured. The address can be a whatsapp address or phone number
  * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
- * @property { boolean } [autoCreationEnabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressAutoCreationType } [autoCreationType] 
- * @property { string } [autoCreationConversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreationWebhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
- * @property { ConfigurationAddressMethod } [autoCreationWebhookMethod] 
- * @property { Array<string> } [autoCreationWebhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
- * @property { string } [autoCreationStudioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreationStudioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
+ * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
+ * @property { ConfigurationAddressAutoCreationType } [autoCreation.type] 
+ * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+ * @property { string } [autoCreation.webhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
+ * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod] 
+ * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
+ * @property { string } [autoCreation.studioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
+ * @property { number } [autoCreation.studioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
  */
 export interface AddressConfigurationListInstanceCreateOptions {
-  type: ConfigurationAddressType;
-  address: string;
-  friendlyName?: string;
-  autoCreationEnabled?: boolean;
-  autoCreationType?: ConfigurationAddressAutoCreationType;
-  autoCreationConversationServiceSid?: string;
-  autoCreationWebhookUrl?: string;
-  autoCreationWebhookMethod?: ConfigurationAddressMethod;
-  autoCreationWebhookFilters?: Array<string>;
-  autoCreationStudioFlowSid?: string;
-  autoCreationStudioRetryCount?: number;
+  "type": ConfigurationAddressType;
+  "address": string;
+  "friendlyName"?: string;
+  "autoCreation.enabled"?: boolean;
+  "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  "autoCreation.conversationServiceSid"?: string;
+  "autoCreation.webhookUrl"?: string;
+  "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  "autoCreation.webhookFilters"?: Array<string>;
+  "autoCreation.studioFlowSid"?: string;
+  "autoCreation.studioRetryCount"?: number;
 }
 /**
  * Options to pass to each
@@ -97,8 +97,8 @@ export interface AddressConfigurationListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AddressConfigurationListInstanceEachOptions {
-  type?: string;
-  pageSize?: number;
+  "type"?: string;
+  "pageSize"?: number;
   callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -115,8 +115,8 @@ export interface AddressConfigurationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AddressConfigurationListInstanceOptions {
-  type?: string;
-  pageSize?: number;
+  "type"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -129,8 +129,8 @@ export interface AddressConfigurationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AddressConfigurationListInstancePageOptions {
-  type?: string;
-  pageSize?: number;
+  "type"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -188,7 +188,7 @@ export interface AddressConfigurationContext {
 }
 
 export interface AddressConfigurationContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class AddressConfigurationContextImpl implements AddressConfigurationContext {
@@ -204,7 +204,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -216,7 +216,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
   fetch(callback?: any): Promise<AddressConfigurationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload, this._solution.sid));
     
@@ -237,21 +237,21 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.autoCreationEnabled !== undefined) data['AutoCreation.Enabled'] = serialize.bool(params.autoCreationEnabled);
-    if (params.autoCreationType !== undefined) data['AutoCreation.Type'] = params.autoCreationType;
-    if (params.autoCreationConversationServiceSid !== undefined) data['AutoCreation.ConversationServiceSid'] = params.autoCreationConversationServiceSid;
-    if (params.autoCreationWebhookUrl !== undefined) data['AutoCreation.WebhookUrl'] = params.autoCreationWebhookUrl;
-    if (params.autoCreationWebhookMethod !== undefined) data['AutoCreation.WebhookMethod'] = params.autoCreationWebhookMethod;
-    if (params.autoCreationWebhookFilters !== undefined) data['AutoCreation.WebhookFilters'] = serialize.map(params.autoCreationWebhookFilters, ((e) => e));
-    if (params.autoCreationStudioFlowSid !== undefined) data['AutoCreation.StudioFlowSid'] = params.autoCreationStudioFlowSid;
-    if (params.autoCreationStudioRetryCount !== undefined) data['AutoCreation.StudioRetryCount'] = params.autoCreationStudioRetryCount;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["autoCreation.enabled"] !== undefined) data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+    if (params["autoCreation.type"] !== undefined) data["AutoCreation.Type"] = params["autoCreation.type"];
+    if (params["autoCreation.conversationServiceSid"] !== undefined) data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+    if (params["autoCreation.webhookUrl"] !== undefined) data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+    if (params["autoCreation.webhookMethod"] !== undefined) data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+    if (params["autoCreation.webhookFilters"] !== undefined) data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    if (params["autoCreation.studioFlowSid"] !== undefined) data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+    if (params["autoCreation.studioRetryCount"] !== undefined) data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload, this._solution.sid));
     
@@ -575,33 +575,33 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
-    if (params.address === null || params.address === undefined) {
-      throw new Error('Required parameter "params.address" missing.');
+    if (params["address"] === null || params["address"] === undefined) {
+      throw new Error('Required parameter "params[\'address\']" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params.type;
-    data['Address'] = params.address;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.autoCreationEnabled !== undefined) data['AutoCreation.Enabled'] = serialize.bool(params.autoCreationEnabled);
-    if (params.autoCreationType !== undefined) data['AutoCreation.Type'] = params.autoCreationType;
-    if (params.autoCreationConversationServiceSid !== undefined) data['AutoCreation.ConversationServiceSid'] = params.autoCreationConversationServiceSid;
-    if (params.autoCreationWebhookUrl !== undefined) data['AutoCreation.WebhookUrl'] = params.autoCreationWebhookUrl;
-    if (params.autoCreationWebhookMethod !== undefined) data['AutoCreation.WebhookMethod'] = params.autoCreationWebhookMethod;
-    if (params.autoCreationWebhookFilters !== undefined) data['AutoCreation.WebhookFilters'] = serialize.map(params.autoCreationWebhookFilters, ((e) => e));
-    if (params.autoCreationStudioFlowSid !== undefined) data['AutoCreation.StudioFlowSid'] = params.autoCreationStudioFlowSid;
-    if (params.autoCreationStudioRetryCount !== undefined) data['AutoCreation.StudioRetryCount'] = params.autoCreationStudioRetryCount;
+    data["Type"] = params["type"];
+    data["Address"] = params["address"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["autoCreation.enabled"] !== undefined) data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+    if (params["autoCreation.type"] !== undefined) data["AutoCreation.Type"] = params["autoCreation.type"];
+    if (params["autoCreation.conversationServiceSid"] !== undefined) data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+    if (params["autoCreation.webhookUrl"] !== undefined) data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+    if (params["autoCreation.webhookMethod"] !== undefined) data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+    if (params["autoCreation.webhookFilters"] !== undefined) data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    if (params["autoCreation.studioFlowSid"] !== undefined) data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+    if (params["autoCreation.studioRetryCount"] !== undefined) data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload));
     
@@ -622,15 +622,15 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
 
     const data: any = {};
 
-    if (params.type !== undefined) data['Type'] = params.type;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["type"] !== undefined) data["Type"] = params["type"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationPage(operationVersion, payload, this._solution));
 
@@ -642,7 +642,7 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AddressConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AddressConfigurationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

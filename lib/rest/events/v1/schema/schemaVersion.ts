@@ -36,7 +36,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface SchemaVersionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SchemaVersionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +52,7 @@ export interface SchemaVersionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SchemaVersionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -64,7 +64,7 @@ export interface SchemaVersionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SchemaVersionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -92,8 +92,8 @@ export interface SchemaVersionContext {
 }
 
 export interface SchemaVersionContextSolution {
-  id?: string;
-  schemaVersion?: number;
+  "id"?: string;
+  "schemaVersion"?: number;
 }
 
 export class SchemaVersionContextImpl implements SchemaVersionContext {
@@ -109,7 +109,7 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   fetch(callback?: any): Promise<SchemaVersionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SchemaVersionInstance(operationVersion, payload, this._solution.id, this._solution.schemaVersion));
     
@@ -362,14 +362,14 @@ export function SchemaVersionListInstance(version: V1, id: string): SchemaVersio
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SchemaVersionPage(operationVersion, payload, this._solution));
 
@@ -381,7 +381,7 @@ export function SchemaVersionListInstance(version: V1, id: string): SchemaVersio
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SchemaVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SchemaVersionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

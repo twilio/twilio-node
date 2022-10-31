@@ -55,7 +55,7 @@ export class SupersimV1SimSimIpAddress {
  *                         Default is no limit
  */
 export interface SimIpAddressListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,7 +71,7 @@ export interface SimIpAddressListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SimIpAddressListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -83,7 +83,7 @@ export interface SimIpAddressListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimIpAddressListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -231,14 +231,14 @@ export function SimIpAddressListInstance(version: V1, simSid: string): SimIpAddr
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SimIpAddressPage(operationVersion, payload, this._solution));
 
@@ -250,7 +250,7 @@ export function SimIpAddressListInstance(version: V1, simSid: string): SimIpAddr
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SimIpAddressPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SimIpAddressPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

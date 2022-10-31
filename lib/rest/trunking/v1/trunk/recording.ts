@@ -31,8 +31,8 @@ type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
  * @property { RecordingRecordingTrim } [trim] 
  */
 export interface RecordingListInstanceUpdateOptions {
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  "mode"?: RecordingRecordingMode;
+  "trim"?: RecordingRecordingTrim;
 }
 
 export interface RecordingListInstance {
@@ -97,7 +97,7 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
   instance.fetch = function fetch(callback?: any): Promise<RecordingInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
     
@@ -118,14 +118,14 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
 
     const data: any = {};
 
-    if (params.mode !== undefined) data['Mode'] = params.mode;
-    if (params.trim !== undefined) data['Trim'] = params.trim;
+    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
     

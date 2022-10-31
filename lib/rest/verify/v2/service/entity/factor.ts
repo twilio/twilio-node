@@ -34,24 +34,24 @@ type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
  *
  * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
  * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
- * @property { string } [configNotificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
- * @property { string } [configSdkVersion] The Verify Push SDK version used to configure the factor
- * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
- * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
- * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorTotpAlgorithms } [configAlg] 
- * @property { string } [configNotificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+ * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
+ * @property { string } [config.sdkVersion] The Verify Push SDK version used to configure the factor
+ * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+ * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+ * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+ * @property { FactorTotpAlgorithms } [config.alg] 
+ * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
  */
 export interface FactorContextUpdateOptions {
-  authPayload?: string;
-  friendlyName?: string;
-  configNotificationToken?: string;
-  configSdkVersion?: string;
-  configTimeStep?: number;
-  configSkew?: number;
-  configCodeLength?: number;
-  configAlg?: FactorTotpAlgorithms;
-  configNotificationPlatform?: string;
+  "authPayload"?: string;
+  "friendlyName"?: string;
+  "config.notificationToken"?: string;
+  "config.sdkVersion"?: string;
+  "config.timeStep"?: number;
+  "config.skew"?: number;
+  "config.codeLength"?: number;
+  "config.alg"?: FactorTotpAlgorithms;
+  "config.notificationPlatform"?: string;
 }
 /**
  * Options to pass to each
@@ -67,7 +67,7 @@ export interface FactorContextUpdateOptions {
  *                         Default is no limit
  */
 export interface FactorListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -83,7 +83,7 @@ export interface FactorListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FactorListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -95,7 +95,7 @@ export interface FactorListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FactorListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -153,9 +153,9 @@ export interface FactorContext {
 }
 
 export interface FactorContextSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "identity"?: string;
+  "sid"?: string;
 }
 
 export class FactorContextImpl implements FactorContext {
@@ -171,7 +171,7 @@ export class FactorContextImpl implements FactorContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -183,7 +183,7 @@ export class FactorContextImpl implements FactorContext {
   fetch(callback?: any): Promise<FactorInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
     
@@ -204,21 +204,21 @@ export class FactorContextImpl implements FactorContext {
 
     const data: any = {};
 
-    if (params.authPayload !== undefined) data['AuthPayload'] = params.authPayload;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.configNotificationToken !== undefined) data['Config.NotificationToken'] = params.configNotificationToken;
-    if (params.configSdkVersion !== undefined) data['Config.SdkVersion'] = params.configSdkVersion;
-    if (params.configTimeStep !== undefined) data['Config.TimeStep'] = params.configTimeStep;
-    if (params.configSkew !== undefined) data['Config.Skew'] = params.configSkew;
-    if (params.configCodeLength !== undefined) data['Config.CodeLength'] = params.configCodeLength;
-    if (params.configAlg !== undefined) data['Config.Alg'] = params.configAlg;
-    if (params.configNotificationPlatform !== undefined) data['Config.NotificationPlatform'] = params.configNotificationPlatform;
+    if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["config.notificationToken"] !== undefined) data["Config.NotificationToken"] = params["config.notificationToken"];
+    if (params["config.sdkVersion"] !== undefined) data["Config.SdkVersion"] = params["config.sdkVersion"];
+    if (params["config.timeStep"] !== undefined) data["Config.TimeStep"] = params["config.timeStep"];
+    if (params["config.skew"] !== undefined) data["Config.Skew"] = params["config.skew"];
+    if (params["config.codeLength"] !== undefined) data["Config.CodeLength"] = params["config.codeLength"];
+    if (params["config.alg"] !== undefined) data["Config.Alg"] = params["config.alg"];
+    if (params["config.notificationPlatform"] !== undefined) data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
     
@@ -559,14 +559,14 @@ export function FactorListInstance(version: V2, serviceSid: string, identity: st
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FactorPage(operationVersion, payload, this._solution));
 
@@ -578,7 +578,7 @@ export function FactorListInstance(version: V2, serviceSid: string, identity: st
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FactorPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FactorPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

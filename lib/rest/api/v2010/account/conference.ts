@@ -39,9 +39,9 @@ type ConferenceUpdateStatus = 'completed';
  * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
  */
 export interface ConferenceContextUpdateOptions {
-  status?: ConferenceUpdateStatus;
-  announceUrl?: string;
-  announceMethod?: string;
+  "status"?: ConferenceUpdateStatus;
+  "announceUrl"?: string;
+  "announceMethod"?: string;
 }
 /**
  * Options to pass to each
@@ -65,15 +65,15 @@ export interface ConferenceContextUpdateOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  dateUpdated?: Date;
-  dateUpdatedBefore?: Date;
-  dateUpdatedAfter?: Date;
-  friendlyName?: string;
-  status?: ConferenceStatus;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "dateUpdated"?: Date;
+  "dateUpdatedBefore"?: Date;
+  "dateUpdatedAfter"?: Date;
+  "friendlyName"?: string;
+  "status"?: ConferenceStatus;
+  "pageSize"?: number;
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -97,15 +97,15 @@ export interface ConferenceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  dateUpdated?: Date;
-  dateUpdatedBefore?: Date;
-  dateUpdatedAfter?: Date;
-  friendlyName?: string;
-  status?: ConferenceStatus;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "dateUpdated"?: Date;
+  "dateUpdatedBefore"?: Date;
+  "dateUpdatedAfter"?: Date;
+  "friendlyName"?: string;
+  "status"?: ConferenceStatus;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -125,15 +125,15 @@ export interface ConferenceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  dateUpdated?: Date;
-  dateUpdatedBefore?: Date;
-  dateUpdatedAfter?: Date;
-  friendlyName?: string;
-  status?: ConferenceStatus;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "dateUpdated"?: Date;
+  "dateUpdatedBefore"?: Date;
+  "dateUpdatedAfter"?: Date;
+  "friendlyName"?: string;
+  "status"?: ConferenceStatus;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -183,8 +183,8 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -212,7 +212,7 @@ export class ConferenceContextImpl implements ConferenceContext {
   fetch(callback?: any): Promise<ConferenceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -233,15 +233,15 @@ export class ConferenceContextImpl implements ConferenceContext {
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.announceUrl !== undefined) data['AnnounceUrl'] = params.announceUrl;
-    if (params.announceMethod !== undefined) data['AnnounceMethod'] = params.announceMethod;
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["announceUrl"] !== undefined) data["AnnounceUrl"] = params["announceUrl"];
+    if (params["announceMethod"] !== undefined) data["AnnounceMethod"] = params["announceMethod"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -576,22 +576,22 @@ export function ConferenceListInstance(version: V2010, accountSid: string): Conf
 
     const data: any = {};
 
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601Date(params.dateCreated);
-    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601Date(params.dateCreatedBefore);
-    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601Date(params.dateCreatedAfter);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601Date(params.dateUpdated);
-    if (params.dateUpdatedBefore !== undefined) data['DateUpdated<'] = serialize.iso8601Date(params.dateUpdatedBefore);
-    if (params.dateUpdatedAfter !== undefined) data['DateUpdated>'] = serialize.iso8601Date(params.dateUpdatedAfter);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
+    if (params["dateUpdatedBefore"] !== undefined) data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
+    if (params["dateUpdatedAfter"] !== undefined) data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
 
@@ -603,7 +603,7 @@ export function ConferenceListInstance(version: V2010, accountSid: string): Conf
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

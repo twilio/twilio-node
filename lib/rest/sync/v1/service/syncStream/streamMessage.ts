@@ -26,7 +26,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { any } data A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
  */
 export interface StreamMessageListInstanceCreateOptions {
-  data: any;
+  "data": any;
 }
 
 export interface StreamMessageListInstance {
@@ -76,19 +76,19 @@ export function StreamMessageListInstance(version: V1, serviceSid: string, strea
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
+    if (params["data"] === null || params["data"] === undefined) {
+      throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
     const data: any = {};
 
-    data['Data'] = params.data;
+    data["Data"] = params["data"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new StreamMessageInstance(operationVersion, payload, this._solution.serviceSid, this._solution.streamSid));
     

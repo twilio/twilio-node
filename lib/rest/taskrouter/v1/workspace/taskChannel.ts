@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [channelOptimizedRouting] Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelContextUpdateOptions {
-  friendlyName?: string;
-  channelOptimizedRouting?: boolean;
+  "friendlyName"?: string;
+  "channelOptimizedRouting"?: boolean;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface TaskChannelContextUpdateOptions {
  * @property { boolean } [channelOptimizedRouting] Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelListInstanceCreateOptions {
-  friendlyName: string;
-  uniqueName: string;
-  channelOptimizedRouting?: boolean;
+  "friendlyName": string;
+  "uniqueName": string;
+  "channelOptimizedRouting"?: boolean;
 }
 /**
  * Options to pass to each
@@ -60,7 +60,7 @@ export interface TaskChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TaskChannelListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,7 +76,7 @@ export interface TaskChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TaskChannelListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -88,7 +88,7 @@ export interface TaskChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskChannelListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -146,8 +146,8 @@ export interface TaskChannelContext {
 }
 
 export interface TaskChannelContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  "workspaceSid"?: string;
+  "sid"?: string;
 }
 
 export class TaskChannelContextImpl implements TaskChannelContext {
@@ -163,7 +163,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -175,7 +175,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   fetch(callback?: any): Promise<TaskChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TaskChannelInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
     
@@ -196,14 +196,14 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.channelOptimizedRouting !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params.channelOptimizedRouting);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["channelOptimizedRouting"] !== undefined) data["ChannelOptimizedRouting"] = serialize.bool(params["channelOptimizedRouting"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskChannelInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
     
@@ -535,25 +535,25 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['UniqueName'] = params.uniqueName;
-    if (params.channelOptimizedRouting !== undefined) data['ChannelOptimizedRouting'] = serialize.bool(params.channelOptimizedRouting);
+    data["FriendlyName"] = params["friendlyName"];
+    data["UniqueName"] = params["uniqueName"];
+    if (params["channelOptimizedRouting"] !== undefined) data["ChannelOptimizedRouting"] = serialize.bool(params["channelOptimizedRouting"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskChannelInstance(operationVersion, payload, this._solution.workspaceSid));
     
@@ -574,14 +574,14 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskChannelPage(operationVersion, payload, this._solution));
 
@@ -593,7 +593,7 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TaskChannelPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -36,10 +36,10 @@ type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; after we have sent the command.
  */
 export interface SmsCommandListInstanceCreateOptions {
-  sim: string;
-  payload: string;
-  callbackMethod?: string;
-  callbackUrl?: string;
+  "sim": string;
+  "payload": string;
+  "callbackMethod"?: string;
+  "callbackUrl"?: string;
 }
 /**
  * Options to pass to each
@@ -58,10 +58,10 @@ export interface SmsCommandListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SmsCommandListInstanceEachOptions {
-  sim?: string;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
-  pageSize?: number;
+  "sim"?: string;
+  "status"?: SmsCommandStatus;
+  "direction"?: SmsCommandDirection;
+  "pageSize"?: number;
   callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -80,10 +80,10 @@ export interface SmsCommandListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SmsCommandListInstanceOptions {
-  sim?: string;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
-  pageSize?: number;
+  "sim"?: string;
+  "status"?: SmsCommandStatus;
+  "direction"?: SmsCommandDirection;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -98,10 +98,10 @@ export interface SmsCommandListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SmsCommandListInstancePageOptions {
-  sim?: string;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
-  pageSize?: number;
+  "sim"?: string;
+  "status"?: SmsCommandStatus;
+  "direction"?: SmsCommandDirection;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -129,7 +129,7 @@ export interface SmsCommandContext {
 }
 
 export interface SmsCommandContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class SmsCommandContextImpl implements SmsCommandContext {
@@ -145,7 +145,7 @@ export class SmsCommandContextImpl implements SmsCommandContext {
   fetch(callback?: any): Promise<SmsCommandInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SmsCommandInstance(operationVersion, payload, this._solution.sid));
     
@@ -429,26 +429,26 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.sim === null || params.sim === undefined) {
-      throw new Error('Required parameter "params.sim" missing.');
+    if (params["sim"] === null || params["sim"] === undefined) {
+      throw new Error('Required parameter "params[\'sim\']" missing.');
     }
 
-    if (params.payload === null || params.payload === undefined) {
-      throw new Error('Required parameter "params.payload" missing.');
+    if (params["payload"] === null || params["payload"] === undefined) {
+      throw new Error('Required parameter "params[\'payload\']" missing.');
     }
 
     const data: any = {};
 
-    data['Sim'] = params.sim;
-    data['Payload'] = params.payload;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
+    data["Sim"] = params["sim"];
+    data["Payload"] = params["payload"];
+    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
+    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SmsCommandInstance(operationVersion, payload));
     
@@ -469,17 +469,17 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     const data: any = {};
 
-    if (params.sim !== undefined) data['Sim'] = params.sim;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.direction !== undefined) data['Direction'] = params.direction;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["direction"] !== undefined) data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SmsCommandPage(operationVersion, payload, this._solution));
 
@@ -491,7 +491,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SmsCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SmsCommandPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -41,10 +41,10 @@ type RegulationEndUserType = 'individual'|'business';
  *                         Default is no limit
  */
 export interface RegulationListInstanceEachOptions {
-  endUserType?: RegulationEndUserType;
-  isoCountry?: string;
-  numberType?: string;
-  pageSize?: number;
+  "endUserType"?: RegulationEndUserType;
+  "isoCountry"?: string;
+  "numberType"?: string;
+  "pageSize"?: number;
   callback?: (item: RegulationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,10 +63,10 @@ export interface RegulationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RegulationListInstanceOptions {
-  endUserType?: RegulationEndUserType;
-  isoCountry?: string;
-  numberType?: string;
-  pageSize?: number;
+  "endUserType"?: RegulationEndUserType;
+  "isoCountry"?: string;
+  "numberType"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -81,10 +81,10 @@ export interface RegulationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RegulationListInstancePageOptions {
-  endUserType?: RegulationEndUserType;
-  isoCountry?: string;
-  numberType?: string;
-  pageSize?: number;
+  "endUserType"?: RegulationEndUserType;
+  "isoCountry"?: string;
+  "numberType"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -112,7 +112,7 @@ export interface RegulationContext {
 }
 
 export interface RegulationContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class RegulationContextImpl implements RegulationContext {
@@ -128,7 +128,7 @@ export class RegulationContextImpl implements RegulationContext {
   fetch(callback?: any): Promise<RegulationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RegulationInstance(operationVersion, payload, this._solution.sid));
     
@@ -394,17 +394,17 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
     const data: any = {};
 
-    if (params.endUserType !== undefined) data['EndUserType'] = params.endUserType;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["endUserType"] !== undefined) data["EndUserType"] = params["endUserType"];
+    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
+    if (params["numberType"] !== undefined) data["NumberType"] = params["numberType"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RegulationPage(operationVersion, payload, this._solution));
 
@@ -416,7 +416,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RegulationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RegulationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

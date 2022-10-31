@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewSigningKeyListInstanceCreateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 
 export interface NewSigningKeyListInstance {
@@ -88,13 +88,13 @@ export function NewSigningKeyListInstance(version: V2010, accountSid: string): N
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NewSigningKeyInstance(operationVersion, payload, this._solution.accountSid));
     

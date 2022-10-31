@@ -33,8 +33,8 @@ import { VariableListInstance } from "./environment/variable";
  * @property { string } [domainSuffix] A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
  */
 export interface EnvironmentListInstanceCreateOptions {
-  uniqueName: string;
-  domainSuffix?: string;
+  "uniqueName": string;
+  "domainSuffix"?: string;
 }
 /**
  * Options to pass to each
@@ -50,7 +50,7 @@ export interface EnvironmentListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EnvironmentListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -66,7 +66,7 @@ export interface EnvironmentListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EnvironmentListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -78,7 +78,7 @@ export interface EnvironmentListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EnvironmentListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -119,8 +119,8 @@ export interface EnvironmentContext {
 }
 
 export interface EnvironmentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class EnvironmentContextImpl implements EnvironmentContext {
@@ -154,7 +154,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -166,7 +166,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   fetch(callback?: any): Promise<EnvironmentInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EnvironmentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -504,20 +504,20 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.domainSuffix !== undefined) data['DomainSuffix'] = params.domainSuffix;
+    data["UniqueName"] = params["uniqueName"];
+    if (params["domainSuffix"] !== undefined) data["DomainSuffix"] = params["domainSuffix"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new EnvironmentInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -538,14 +538,14 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EnvironmentPage(operationVersion, payload, this._solution));
 
@@ -557,7 +557,7 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EnvironmentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EnvironmentPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

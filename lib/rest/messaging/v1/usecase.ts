@@ -61,7 +61,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance.fetch = function fetch(callback?: any): Promise<UsecaseInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UsecaseInstance(operationVersion, payload));
     

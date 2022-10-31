@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [roleSid] 
  */
 export interface InviteListInstanceCreateOptions {
-  identity: string;
-  roleSid?: string;
+  "identity": string;
+  "roleSid"?: string;
 }
 /**
  * Options to pass to each
@@ -48,8 +48,8 @@ export interface InviteListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface InviteListInstanceEachOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -66,8 +66,8 @@ export interface InviteListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface InviteListInstanceOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -80,8 +80,8 @@ export interface InviteListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InviteListInstancePageOptions {
-  identity?: Array<string>;
-  pageSize?: number;
+  "identity"?: Array<string>;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -119,9 +119,9 @@ export interface InviteContext {
 }
 
 export interface InviteContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "channelSid"?: string;
+  "sid"?: string;
 }
 
 export class InviteContextImpl implements InviteContext {
@@ -137,7 +137,7 @@ export class InviteContextImpl implements InviteContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -149,7 +149,7 @@ export class InviteContextImpl implements InviteContext {
   fetch(callback?: any): Promise<InviteInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new InviteInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
     
@@ -430,20 +430,20 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params.identity;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+    data["Identity"] = params["identity"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new InviteInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid));
     
@@ -464,15 +464,15 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
 
     const data: any = {};
 
-    if (params.identity !== undefined) data['Identity'] = serialize.map(params.identity, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new InvitePage(operationVersion, payload, this._solution));
 
@@ -484,7 +484,7 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InvitePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new InvitePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

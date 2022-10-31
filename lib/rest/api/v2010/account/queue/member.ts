@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [method] How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters.
  */
 export interface MemberContextUpdateOptions {
-  url: string;
-  method?: string;
+  "url": string;
+  "method"?: string;
 }
 /**
  * Options to pass to each
@@ -47,7 +47,7 @@ export interface MemberContextUpdateOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +63,7 @@ export interface MemberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -75,7 +75,7 @@ export interface MemberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MemberListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -115,9 +115,9 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  accountSid?: string;
-  queueSid?: string;
-  callSid?: string;
+  "accountSid"?: string;
+  "queueSid"?: string;
+  "callSid"?: string;
 }
 
 export class MemberContextImpl implements MemberContext {
@@ -133,7 +133,7 @@ export class MemberContextImpl implements MemberContext {
   fetch(callback?: any): Promise<MemberInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.accountSid, this._solution.queueSid, this._solution.callSid));
     
@@ -149,20 +149,20 @@ export class MemberContextImpl implements MemberContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.url === null || params.url === undefined) {
-      throw new Error('Required parameter "params.url" missing.');
+    if (params["url"] === null || params["url"] === undefined) {
+      throw new Error('Required parameter "params[\'url\']" missing.');
     }
 
     const data: any = {};
 
-    data['Url'] = params.url;
-    if (params.method !== undefined) data['Method'] = params.method;
+    data["Url"] = params["url"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.accountSid, this._solution.queueSid, this._solution.callSid));
     
@@ -440,14 +440,14 @@ export function MemberListInstance(version: V2010, accountSid: string, queueSid:
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberPage(operationVersion, payload, this._solution));
 
@@ -459,7 +459,7 @@ export function MemberListInstance(version: V2010, accountSid: string, queueSid:
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MemberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MemberPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

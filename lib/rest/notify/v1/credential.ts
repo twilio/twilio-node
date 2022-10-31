@@ -36,12 +36,12 @@ type CredentialPushService = 'gcm'|'apn'|'fcm';
  * @property { string } [secret] [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
  */
 export interface CredentialContextUpdateOptions {
-  friendlyName?: string;
-  certificate?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  apiKey?: string;
-  secret?: string;
+  "friendlyName"?: string;
+  "certificate"?: string;
+  "privateKey"?: string;
+  "sandbox"?: boolean;
+  "apiKey"?: string;
+  "secret"?: string;
 }
 
 /**
@@ -56,13 +56,13 @@ export interface CredentialContextUpdateOptions {
  * @property { string } [secret] [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
  */
 export interface CredentialListInstanceCreateOptions {
-  type: CredentialPushService;
-  friendlyName?: string;
-  certificate?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  apiKey?: string;
-  secret?: string;
+  "type": CredentialPushService;
+  "friendlyName"?: string;
+  "certificate"?: string;
+  "privateKey"?: string;
+  "sandbox"?: boolean;
+  "apiKey"?: string;
+  "secret"?: string;
 }
 /**
  * Options to pass to each
@@ -78,7 +78,7 @@ export interface CredentialListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CredentialListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -94,7 +94,7 @@ export interface CredentialListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CredentialListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -106,7 +106,7 @@ export interface CredentialListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CredentialListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -164,7 +164,7 @@ export interface CredentialContext {
 }
 
 export interface CredentialContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class CredentialContextImpl implements CredentialContext {
@@ -180,7 +180,7 @@ export class CredentialContextImpl implements CredentialContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -192,7 +192,7 @@ export class CredentialContextImpl implements CredentialContext {
   fetch(callback?: any): Promise<CredentialInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CredentialInstance(operationVersion, payload, this._solution.sid));
     
@@ -213,18 +213,18 @@ export class CredentialContextImpl implements CredentialContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.certificate !== undefined) data['Certificate'] = params.certificate;
-    if (params.privateKey !== undefined) data['PrivateKey'] = params.privateKey;
-    if (params.sandbox !== undefined) data['Sandbox'] = serialize.bool(params.sandbox);
-    if (params.apiKey !== undefined) data['ApiKey'] = params.apiKey;
-    if (params.secret !== undefined) data['Secret'] = params.secret;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["certificate"] !== undefined) data["Certificate"] = params["certificate"];
+    if (params["privateKey"] !== undefined) data["PrivateKey"] = params["privateKey"];
+    if (params["sandbox"] !== undefined) data["Sandbox"] = serialize.bool(params["sandbox"]);
+    if (params["apiKey"] !== undefined) data["ApiKey"] = params["apiKey"];
+    if (params["secret"] !== undefined) data["Secret"] = params["secret"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialInstance(operationVersion, payload, this._solution.sid));
     
@@ -538,25 +538,25 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params.type;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.certificate !== undefined) data['Certificate'] = params.certificate;
-    if (params.privateKey !== undefined) data['PrivateKey'] = params.privateKey;
-    if (params.sandbox !== undefined) data['Sandbox'] = serialize.bool(params.sandbox);
-    if (params.apiKey !== undefined) data['ApiKey'] = params.apiKey;
-    if (params.secret !== undefined) data['Secret'] = params.secret;
+    data["Type"] = params["type"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["certificate"] !== undefined) data["Certificate"] = params["certificate"];
+    if (params["privateKey"] !== undefined) data["PrivateKey"] = params["privateKey"];
+    if (params["sandbox"] !== undefined) data["Sandbox"] = serialize.bool(params["sandbox"]);
+    if (params["apiKey"] !== undefined) data["ApiKey"] = params["apiKey"];
+    if (params["secret"] !== undefined) data["Secret"] = params["secret"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialInstance(operationVersion, payload));
     
@@ -577,14 +577,14 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialPage(operationVersion, payload, this._solution));
 
@@ -596,7 +596,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CredentialPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CredentialPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

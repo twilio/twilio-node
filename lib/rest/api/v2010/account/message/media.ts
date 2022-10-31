@@ -39,10 +39,10 @@ const serialize = require("../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface MediaListInstanceEachOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   callback?: (item: MediaInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,10 +61,10 @@ export interface MediaListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MediaListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -79,10 +79,10 @@ export interface MediaListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -120,9 +120,9 @@ export interface MediaContext {
 }
 
 export interface MediaContextSolution {
-  accountSid?: string;
-  messageSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "messageSid"?: string;
+  "sid"?: string;
 }
 
 export class MediaContextImpl implements MediaContext {
@@ -138,7 +138,7 @@ export class MediaContextImpl implements MediaContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -150,7 +150,7 @@ export class MediaContextImpl implements MediaContext {
   fetch(callback?: any): Promise<MediaInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MediaInstance(operationVersion, payload, this._solution.accountSid, this._solution.messageSid, this._solution.sid));
     
@@ -433,17 +433,17 @@ export function MediaListInstance(version: V2010, accountSid: string, messageSid
 
     const data: any = {};
 
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MediaPage(operationVersion, payload, this._solution));
 
@@ -455,7 +455,7 @@ export function MediaListInstance(version: V2010, accountSid: string, messageSid
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MediaPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MediaPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { Array<string> } testUsers List of test user identities that can test draft versions of the flow.
  */
 export interface FlowTestUserListInstanceUpdateOptions {
-  testUsers: Array<string>;
+  "testUsers": Array<string>;
 }
 
 export interface FlowTestUserListInstance {
@@ -83,7 +83,7 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
   instance.fetch = function fetch(callback?: any): Promise<FlowTestUserInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FlowTestUserInstance(operationVersion, payload, this._solution.sid));
     
@@ -99,19 +99,19 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.testUsers === null || params.testUsers === undefined) {
-      throw new Error('Required parameter "params.testUsers" missing.');
+    if (params["testUsers"] === null || params["testUsers"] === undefined) {
+      throw new Error('Required parameter "params[\'testUsers\']" missing.');
     }
 
     const data: any = {};
 
-    data['TestUsers'] = serialize.map(params.testUsers, ((e) => e));
+    data["TestUsers"] = serialize.map(params["testUsers"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowTestUserInstance(operationVersion, payload, this._solution.sid));
     

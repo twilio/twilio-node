@@ -30,8 +30,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It does not have to be unique.
  */
 export interface RatePlanContextUpdateOptions {
-  uniqueName?: string;
-  friendlyName?: string;
+  "uniqueName"?: string;
+  "friendlyName"?: string;
 }
 
 /**
@@ -50,17 +50,17 @@ export interface RatePlanContextUpdateOptions {
  * @property { number } [internationalRoamingDataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
  */
 export interface RatePlanListInstanceCreateOptions {
-  uniqueName?: string;
-  friendlyName?: string;
-  dataEnabled?: boolean;
-  dataLimit?: number;
-  dataMetering?: string;
-  messagingEnabled?: boolean;
-  voiceEnabled?: boolean;
-  nationalRoamingEnabled?: boolean;
-  internationalRoaming?: Array<string>;
-  nationalRoamingDataLimit?: number;
-  internationalRoamingDataLimit?: number;
+  "uniqueName"?: string;
+  "friendlyName"?: string;
+  "dataEnabled"?: boolean;
+  "dataLimit"?: number;
+  "dataMetering"?: string;
+  "messagingEnabled"?: boolean;
+  "voiceEnabled"?: boolean;
+  "nationalRoamingEnabled"?: boolean;
+  "internationalRoaming"?: Array<string>;
+  "nationalRoamingDataLimit"?: number;
+  "internationalRoamingDataLimit"?: number;
 }
 /**
  * Options to pass to each
@@ -76,7 +76,7 @@ export interface RatePlanListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RatePlanListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -92,7 +92,7 @@ export interface RatePlanListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RatePlanListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -104,7 +104,7 @@ export interface RatePlanListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RatePlanListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -162,7 +162,7 @@ export interface RatePlanContext {
 }
 
 export interface RatePlanContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class RatePlanContextImpl implements RatePlanContext {
@@ -178,7 +178,7 @@ export class RatePlanContextImpl implements RatePlanContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -190,7 +190,7 @@ export class RatePlanContextImpl implements RatePlanContext {
   fetch(callback?: any): Promise<RatePlanInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload, this._solution.sid));
     
@@ -211,14 +211,14 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload, this._solution.sid));
     
@@ -604,23 +604,23 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.dataEnabled !== undefined) data['DataEnabled'] = serialize.bool(params.dataEnabled);
-    if (params.dataLimit !== undefined) data['DataLimit'] = params.dataLimit;
-    if (params.dataMetering !== undefined) data['DataMetering'] = params.dataMetering;
-    if (params.messagingEnabled !== undefined) data['MessagingEnabled'] = serialize.bool(params.messagingEnabled);
-    if (params.voiceEnabled !== undefined) data['VoiceEnabled'] = serialize.bool(params.voiceEnabled);
-    if (params.nationalRoamingEnabled !== undefined) data['NationalRoamingEnabled'] = serialize.bool(params.nationalRoamingEnabled);
-    if (params.internationalRoaming !== undefined) data['InternationalRoaming'] = serialize.map(params.internationalRoaming, ((e) => e));
-    if (params.nationalRoamingDataLimit !== undefined) data['NationalRoamingDataLimit'] = params.nationalRoamingDataLimit;
-    if (params.internationalRoamingDataLimit !== undefined) data['InternationalRoamingDataLimit'] = params.internationalRoamingDataLimit;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["dataEnabled"] !== undefined) data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+    if (params["dataLimit"] !== undefined) data["DataLimit"] = params["dataLimit"];
+    if (params["dataMetering"] !== undefined) data["DataMetering"] = params["dataMetering"];
+    if (params["messagingEnabled"] !== undefined) data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
+    if (params["voiceEnabled"] !== undefined) data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["nationalRoamingEnabled"] !== undefined) data["NationalRoamingEnabled"] = serialize.bool(params["nationalRoamingEnabled"]);
+    if (params["internationalRoaming"] !== undefined) data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], ((e) => e));
+    if (params["nationalRoamingDataLimit"] !== undefined) data["NationalRoamingDataLimit"] = params["nationalRoamingDataLimit"];
+    if (params["internationalRoamingDataLimit"] !== undefined) data["InternationalRoamingDataLimit"] = params["internationalRoamingDataLimit"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload));
     
@@ -641,14 +641,14 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RatePlanPage(operationVersion, payload, this._solution));
 
@@ -660,7 +660,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RatePlanPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RatePlanPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

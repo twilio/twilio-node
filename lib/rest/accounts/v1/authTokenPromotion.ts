@@ -61,7 +61,7 @@ export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionL
   instance.update = function update(callback?: any): Promise<AuthTokenPromotionInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new AuthTokenPromotionInstance(operationVersion, payload));
     

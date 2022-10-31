@@ -28,7 +28,7 @@ type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
  * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
  */
 export interface ConfigurationListInstanceFetchOptions {
-  uiVersion?: string;
+  "uiVersion"?: string;
 }
 
 export interface ConfigurationListInstance {
@@ -89,12 +89,12 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
 
     const data: any = {};
 
-    if (params.uiVersion !== undefined) data['UiVersion'] = params.uiVersion;
+    if (params["uiVersion"] !== undefined) data["UiVersion"] = params["uiVersion"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
     

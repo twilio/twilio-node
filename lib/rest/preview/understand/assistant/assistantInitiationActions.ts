@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [initiationActions] 
  */
 export interface AssistantInitiationActionsListInstanceUpdateOptions {
-  initiationActions?: any;
+  "initiationActions"?: any;
 }
 
 export interface AssistantInitiationActionsListInstance {
@@ -91,7 +91,7 @@ export function AssistantInitiationActionsListInstance(version: Understand, assi
   instance.fetch = function fetch(callback?: any): Promise<AssistantInitiationActionsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssistantInitiationActionsInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -112,13 +112,13 @@ export function AssistantInitiationActionsListInstance(version: Understand, assi
 
     const data: any = {};
 
-    if (params.initiationActions !== undefined) data['InitiationActions'] = params.initiationActions;
+    if (params["initiationActions"] !== undefined) data["InitiationActions"] = params["initiationActions"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantInitiationActionsInstance(operationVersion, payload, this._solution.assistantSid));
     

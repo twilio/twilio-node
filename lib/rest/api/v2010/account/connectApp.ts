@@ -38,14 +38,14 @@ type ConnectAppPermission = 'get-all'|'post-all';
  * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
  */
 export interface ConnectAppContextUpdateOptions {
-  authorizeRedirectUrl?: string;
-  companyName?: string;
-  deauthorizeCallbackMethod?: string;
-  deauthorizeCallbackUrl?: string;
-  description?: string;
-  friendlyName?: string;
-  homepageUrl?: string;
-  permissions?: Array<ConnectAppPermission>;
+  "authorizeRedirectUrl"?: string;
+  "companyName"?: string;
+  "deauthorizeCallbackMethod"?: string;
+  "deauthorizeCallbackUrl"?: string;
+  "description"?: string;
+  "friendlyName"?: string;
+  "homepageUrl"?: string;
+  "permissions"?: Array<ConnectAppPermission>;
 }
 /**
  * Options to pass to each
@@ -61,7 +61,7 @@ export interface ConnectAppContextUpdateOptions {
  *                         Default is no limit
  */
 export interface ConnectAppListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,7 +77,7 @@ export interface ConnectAppListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConnectAppListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -89,7 +89,7 @@ export interface ConnectAppListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConnectAppListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -147,8 +147,8 @@ export interface ConnectAppContext {
 }
 
 export interface ConnectAppContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class ConnectAppContextImpl implements ConnectAppContext {
@@ -164,7 +164,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -176,7 +176,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   fetch(callback?: any): Promise<ConnectAppInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -197,20 +197,20 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     const data: any = {};
 
-    if (params.authorizeRedirectUrl !== undefined) data['AuthorizeRedirectUrl'] = params.authorizeRedirectUrl;
-    if (params.companyName !== undefined) data['CompanyName'] = params.companyName;
-    if (params.deauthorizeCallbackMethod !== undefined) data['DeauthorizeCallbackMethod'] = params.deauthorizeCallbackMethod;
-    if (params.deauthorizeCallbackUrl !== undefined) data['DeauthorizeCallbackUrl'] = params.deauthorizeCallbackUrl;
-    if (params.description !== undefined) data['Description'] = params.description;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.homepageUrl !== undefined) data['HomepageUrl'] = params.homepageUrl;
-    if (params.permissions !== undefined) data['Permissions'] = serialize.map(params.permissions, ((e) => e));
+    if (params["authorizeRedirectUrl"] !== undefined) data["AuthorizeRedirectUrl"] = params["authorizeRedirectUrl"];
+    if (params["companyName"] !== undefined) data["CompanyName"] = params["companyName"];
+    if (params["deauthorizeCallbackMethod"] !== undefined) data["DeauthorizeCallbackMethod"] = params["deauthorizeCallbackMethod"];
+    if (params["deauthorizeCallbackUrl"] !== undefined) data["DeauthorizeCallbackUrl"] = params["deauthorizeCallbackUrl"];
+    if (params["description"] !== undefined) data["Description"] = params["description"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["homepageUrl"] !== undefined) data["HomepageUrl"] = params["homepageUrl"];
+    if (params["permissions"] !== undefined) data["Permissions"] = serialize.map(params["permissions"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -543,14 +543,14 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectAppPage(operationVersion, payload, this._solution));
 
@@ -562,7 +562,7 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ConnectAppPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

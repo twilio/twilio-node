@@ -61,7 +61,7 @@ export function OauthListInstance(version: V1): OauthListInstance {
   instance.fetch = function fetch(callback?: any): Promise<OauthInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new OauthInstance(operationVersion, payload));
     

@@ -30,10 +30,10 @@ const serialize = require("../../../base/serialize");
  * @property { object } [addOnsData] Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
  */
 export interface PhoneNumberContextFetchOptions {
-  countryCode?: string;
-  type?: Array<string>;
-  addOns?: Array<string>;
-  addOnsData?: object;
+  "countryCode"?: string;
+  "type"?: Array<string>;
+  "addOns"?: Array<string>;
+  "addOnsData"?: object;
 }
 
 export interface PhoneNumberContext {
@@ -67,7 +67,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  "phoneNumber"?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -90,15 +90,15 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const data: any = {};
 
-    if (params.countryCode !== undefined) data['CountryCode'] = params.countryCode;
-    if (params.type !== undefined) data['Type'] = serialize.map(params.type, ((e) => e));
-    if (params.addOns !== undefined) data['AddOns'] = serialize.map(params.addOns, ((e) => e));
-    if (params.addOnsData !== undefined) data['AddOnsData'] = serialize.prefixedCollapsibleMap(params.addOnsData, "AddOns");
+    if (params["countryCode"] !== undefined) data["CountryCode"] = params["countryCode"];
+    if (params["type"] !== undefined) data["Type"] = serialize.map(params["type"], ((e) => e));
+    if (params["addOns"] !== undefined) data["AddOns"] = serialize.map(params["addOns"], ((e) => e));
+    if (params["addOnsData"] !== undefined) data["AddOnsData"] = serialize.prefixedCollapsibleMap(params["addOnsData"], "AddOns");
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
     

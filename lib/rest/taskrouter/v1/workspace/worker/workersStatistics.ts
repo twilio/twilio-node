@@ -32,13 +32,13 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface WorkersStatisticsListInstanceFetchOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskQueueSid?: string;
-  taskQueueName?: string;
-  friendlyName?: string;
-  taskChannel?: string;
+  "minutes"?: number;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "taskQueueSid"?: string;
+  "taskQueueName"?: string;
+  "friendlyName"?: string;
+  "taskChannel"?: string;
 }
 
 export interface WorkersStatisticsListInstance {
@@ -100,18 +100,18 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
 
     const data: any = {};
 
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.taskQueueSid !== undefined) data['TaskQueueSid'] = params.taskQueueSid;
-    if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskQueueName"] !== undefined) data["TaskQueueName"] = params["taskQueueName"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkersStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
     

@@ -32,8 +32,8 @@ type EndUserType = 'individual'|'business';
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserContextUpdateOptions {
-  friendlyName?: string;
-  attributes?: any;
+  "friendlyName"?: string;
+  "attributes"?: any;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface EndUserContextUpdateOptions {
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserListInstanceCreateOptions {
-  friendlyName: string;
-  type: EndUserType;
-  attributes?: any;
+  "friendlyName": string;
+  "type": EndUserType;
+  "attributes"?: any;
 }
 /**
  * Options to pass to each
@@ -62,7 +62,7 @@ export interface EndUserListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EndUserListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: EndUserInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -78,7 +78,7 @@ export interface EndUserListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EndUserListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -90,7 +90,7 @@ export interface EndUserListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EndUserListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -148,7 +148,7 @@ export interface EndUserContext {
 }
 
 export interface EndUserContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class EndUserContextImpl implements EndUserContext {
@@ -164,7 +164,7 @@ export class EndUserContextImpl implements EndUserContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -176,7 +176,7 @@ export class EndUserContextImpl implements EndUserContext {
   fetch(callback?: any): Promise<EndUserInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload, this._solution.sid));
     
@@ -197,14 +197,14 @@ export class EndUserContextImpl implements EndUserContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload, this._solution.sid));
     
@@ -518,25 +518,25 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['Type'] = params.type;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    data["FriendlyName"] = params["friendlyName"];
+    data["Type"] = params["type"];
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload));
     
@@ -557,14 +557,14 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EndUserPage(operationVersion, payload, this._solution));
 
@@ -576,7 +576,7 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EndUserPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EndUserPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

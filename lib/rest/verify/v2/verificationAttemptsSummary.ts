@@ -33,12 +33,12 @@ type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  */
 export interface VerificationAttemptsSummaryListInstanceFetchOptions {
-  verifyServiceSid?: string;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  country?: string;
-  channel?: VerificationAttemptsSummaryChannels;
-  destinationPrefix?: string;
+  "verifyServiceSid"?: string;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "country"?: string;
+  "channel"?: VerificationAttemptsSummaryChannels;
+  "destinationPrefix"?: string;
 }
 
 export interface VerificationAttemptsSummaryListInstance {
@@ -99,17 +99,17 @@ export function VerificationAttemptsSummaryListInstance(version: V2): Verificati
 
     const data: any = {};
 
-    if (params.verifyServiceSid !== undefined) data['VerifyServiceSid'] = params.verifyServiceSid;
-    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.country !== undefined) data['Country'] = params.country;
-    if (params.channel !== undefined) data['Channel'] = params.channel;
-    if (params.destinationPrefix !== undefined) data['DestinationPrefix'] = params.destinationPrefix;
+    if (params["verifyServiceSid"] !== undefined) data["VerifyServiceSid"] = params["verifyServiceSid"];
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["country"] !== undefined) data["Country"] = params["country"];
+    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
+    if (params["destinationPrefix"] !== undefined) data["DestinationPrefix"] = params["destinationPrefix"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryInstance(operationVersion, payload));
     

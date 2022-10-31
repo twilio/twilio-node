@@ -42,8 +42,8 @@ type ConferenceParticipantRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de
  * @property { string } [metrics] Object. Contains participant call quality metrics.
  */
 export interface ConferenceParticipantContextFetchOptions {
-  events?: string;
-  metrics?: string;
+  "events"?: string;
+  "metrics"?: string;
 }
 /**
  * Options to pass to each
@@ -62,10 +62,10 @@ export interface ConferenceParticipantContextFetchOptions {
  *                         Default is no limit
  */
 export interface ConferenceParticipantListInstanceEachOptions {
-  participantSid?: string;
-  label?: string;
-  events?: string;
-  pageSize?: number;
+  "participantSid"?: string;
+  "label"?: string;
+  "events"?: string;
+  "pageSize"?: number;
   callback?: (item: ConferenceParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -84,10 +84,10 @@ export interface ConferenceParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceParticipantListInstanceOptions {
-  participantSid?: string;
-  label?: string;
-  events?: string;
-  pageSize?: number;
+  "participantSid"?: string;
+  "label"?: string;
+  "events"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -102,10 +102,10 @@ export interface ConferenceParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceParticipantListInstancePageOptions {
-  participantSid?: string;
-  label?: string;
-  events?: string;
-  pageSize?: number;
+  "participantSid"?: string;
+  "label"?: string;
+  "events"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -143,8 +143,8 @@ export interface ConferenceParticipantContext {
 }
 
 export interface ConferenceParticipantContextSolution {
-  conferenceSid?: string;
-  participantSid?: string;
+  "conferenceSid"?: string;
+  "participantSid"?: string;
 }
 
 export class ConferenceParticipantContextImpl implements ConferenceParticipantContext {
@@ -167,13 +167,13 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
 
     const data: any = {};
 
-    if (params.events !== undefined) data['Events'] = params.events;
-    if (params.metrics !== undefined) data['Metrics'] = params.metrics;
+    if (params["events"] !== undefined) data["Events"] = params["events"];
+    if (params["metrics"] !== undefined) data["Metrics"] = params["metrics"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConferenceParticipantInstance(operationVersion, payload, this._solution.conferenceSid, this._solution.participantSid));
     
@@ -572,17 +572,17 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
 
     const data: any = {};
 
-    if (params.participantSid !== undefined) data['ParticipantSid'] = params.participantSid;
-    if (params.label !== undefined) data['Label'] = params.label;
-    if (params.events !== undefined) data['Events'] = params.events;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["participantSid"] !== undefined) data["ParticipantSid"] = params["participantSid"];
+    if (params["label"] !== undefined) data["Label"] = params["label"];
+    if (params["events"] !== undefined) data["Events"] = params["events"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConferenceParticipantPage(operationVersion, payload, this._solution));
 
@@ -594,7 +594,7 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferenceParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ConferenceParticipantPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

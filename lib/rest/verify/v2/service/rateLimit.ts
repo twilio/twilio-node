@@ -30,7 +30,7 @@ import { BucketListInstance } from "./rateLimit/bucket";
  * @property { string } [description] Description of this Rate Limit
  */
 export interface RateLimitContextUpdateOptions {
-  description?: string;
+  "description"?: string;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface RateLimitContextUpdateOptions {
  * @property { string } [description] Description of this Rate Limit
  */
 export interface RateLimitListInstanceCreateOptions {
-  uniqueName: string;
-  description?: string;
+  "uniqueName": string;
+  "description"?: string;
 }
 /**
  * Options to pass to each
@@ -57,7 +57,7 @@ export interface RateLimitListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RateLimitListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -73,7 +73,7 @@ export interface RateLimitListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RateLimitListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -85,7 +85,7 @@ export interface RateLimitListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RateLimitListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -144,8 +144,8 @@ export interface RateLimitContext {
 }
 
 export interface RateLimitContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class RateLimitContextImpl implements RateLimitContext {
@@ -167,7 +167,7 @@ export class RateLimitContextImpl implements RateLimitContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -179,7 +179,7 @@ export class RateLimitContextImpl implements RateLimitContext {
   fetch(callback?: any): Promise<RateLimitInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RateLimitInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -200,13 +200,13 @@ export class RateLimitContextImpl implements RateLimitContext {
 
     const data: any = {};
 
-    if (params.description !== undefined) data['Description'] = params.description;
+    if (params["description"] !== undefined) data["Description"] = params["description"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RateLimitInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -538,20 +538,20 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['UniqueName'] = params.uniqueName;
-    if (params.description !== undefined) data['Description'] = params.description;
+    data["UniqueName"] = params["uniqueName"];
+    if (params["description"] !== undefined) data["Description"] = params["description"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RateLimitInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -572,14 +572,14 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RateLimitPage(operationVersion, payload, this._solution));
 
@@ -591,7 +591,7 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RateLimitPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RateLimitPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -147,12 +147,12 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceEachOptions {
-  status?: DependentHostedNumberOrderStatus;
-  phoneNumber?: string;
-  incomingPhoneNumberSid?: string;
-  friendlyName?: string;
-  uniqueName?: string;
-  pageSize?: number;
+  "status"?: DependentHostedNumberOrderStatus;
+  "phoneNumber"?: string;
+  "incomingPhoneNumberSid"?: string;
+  "friendlyName"?: string;
+  "uniqueName"?: string;
+  "pageSize"?: number;
   callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -173,12 +173,12 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceOptions {
-  status?: DependentHostedNumberOrderStatus;
-  phoneNumber?: string;
-  incomingPhoneNumberSid?: string;
-  friendlyName?: string;
-  uniqueName?: string;
-  pageSize?: number;
+  "status"?: DependentHostedNumberOrderStatus;
+  "phoneNumber"?: string;
+  "incomingPhoneNumberSid"?: string;
+  "friendlyName"?: string;
+  "uniqueName"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -195,12 +195,12 @@ export interface DependentHostedNumberOrderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DependentHostedNumberOrderListInstancePageOptions {
-  status?: DependentHostedNumberOrderStatus;
-  phoneNumber?: string;
-  incomingPhoneNumberSid?: string;
-  friendlyName?: string;
-  uniqueName?: string;
-  pageSize?: number;
+  "status"?: DependentHostedNumberOrderStatus;
+  "phoneNumber"?: string;
+  "incomingPhoneNumberSid"?: string;
+  "friendlyName"?: string;
+  "uniqueName"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -348,19 +348,19 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.incomingPhoneNumberSid !== undefined) data['IncomingPhoneNumberSid'] = params.incomingPhoneNumberSid;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["phoneNumber"] !== undefined) data["PhoneNumber"] = params["phoneNumber"];
+    if (params["incomingPhoneNumberSid"] !== undefined) data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DependentHostedNumberOrderPage(operationVersion, payload, this._solution));
 
@@ -372,7 +372,7 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DependentHostedNumberOrderPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new DependentHostedNumberOrderPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

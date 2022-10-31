@@ -37,7 +37,7 @@ import { AvailableAddOnExtensionListInstance } from "./availableAddOn/availableA
  *                         Default is no limit
  */
 export interface AvailableAddOnListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -53,7 +53,7 @@ export interface AvailableAddOnListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AvailableAddOnListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -65,7 +65,7 @@ export interface AvailableAddOnListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AvailableAddOnListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -94,7 +94,7 @@ export interface AvailableAddOnContext {
 }
 
 export interface AvailableAddOnContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class AvailableAddOnContextImpl implements AvailableAddOnContext {
@@ -116,7 +116,7 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
   fetch(callback?: any): Promise<AvailableAddOnInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AvailableAddOnInstance(operationVersion, payload, this._solution.sid));
     
@@ -392,14 +392,14 @@ export function AvailableAddOnListInstance(version: Marketplace): AvailableAddOn
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AvailableAddOnPage(operationVersion, payload, this._solution));
 
@@ -411,7 +411,7 @@ export function AvailableAddOnListInstance(version: Marketplace): AvailableAddOn
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AvailableAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AvailableAddOnPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

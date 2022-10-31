@@ -29,7 +29,7 @@ type FormFormTypes = 'form-push';
  * @property { FormFormTypes } formType The Type of this Form. Currently only &#x60;form-push&#x60; is supported.
  */
 export interface FormContextFetchOptions {
-  formType: FormFormTypes;
+  "formType": FormFormTypes;
 }
 
 export interface FormContext {
@@ -63,7 +63,7 @@ export interface FormContext {
 }
 
 export interface FormContextSolution {
-  formType?: FormEnumFormTypes;
+  "formType"?: FormEnumFormTypes;
 }
 
 export class FormContextImpl implements FormContext {
@@ -90,7 +90,7 @@ export class FormContextImpl implements FormContext {
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FormInstance(operationVersion, payload, this._solution.formType));
     

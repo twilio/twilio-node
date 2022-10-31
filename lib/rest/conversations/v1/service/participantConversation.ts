@@ -113,9 +113,9 @@ export class ListConfigurationAddressResponseMeta {
  *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceEachOptions {
-  identity?: string;
-  address?: string;
-  pageSize?: number;
+  "identity"?: string;
+  "address"?: string;
+  "pageSize"?: number;
   callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -133,9 +133,9 @@ export interface ParticipantConversationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceOptions {
-  identity?: string;
-  address?: string;
-  pageSize?: number;
+  "identity"?: string;
+  "address"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -149,9 +149,9 @@ export interface ParticipantConversationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantConversationListInstancePageOptions {
-  identity?: string;
-  address?: string;
-  pageSize?: number;
+  "identity"?: string;
+  "address"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -299,16 +299,16 @@ export function ParticipantConversationListInstance(version: V1, chatServiceSid:
 
     const data: any = {};
 
-    if (params.identity !== undefined) data['Identity'] = params.identity;
-    if (params.address !== undefined) data['Address'] = params.address;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
+    if (params["address"] !== undefined) data["Address"] = params["address"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantConversationPage(operationVersion, payload, this._solution));
 
@@ -320,7 +320,7 @@ export function ParticipantConversationListInstance(version: V1, chatServiceSid:
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ParticipantConversationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

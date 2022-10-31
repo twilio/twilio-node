@@ -40,12 +40,12 @@ type SimStatusUpdate = 'ready'|'active'|'inactive';
  * @property { string } [accountSid] The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource\\\&#39;s status is new.
  */
 export interface SimContextUpdateOptions {
-  uniqueName?: string;
-  status?: SimStatusUpdate;
-  fleet?: string;
-  callbackUrl?: string;
-  callbackMethod?: string;
-  accountSid?: string;
+  "uniqueName"?: string;
+  "status"?: SimStatusUpdate;
+  "fleet"?: string;
+  "callbackUrl"?: string;
+  "callbackMethod"?: string;
+  "accountSid"?: string;
 }
 
 /**
@@ -55,8 +55,8 @@ export interface SimContextUpdateOptions {
  * @property { string } registrationCode The 10-digit code required to claim the Super SIM for your Account.
  */
 export interface SimListInstanceCreateOptions {
-  iccid: string;
-  registrationCode: string;
+  "iccid": string;
+  "registrationCode": string;
 }
 /**
  * Options to pass to each
@@ -75,10 +75,10 @@ export interface SimListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
-  status?: SimStatus;
-  fleet?: string;
-  iccid?: string;
-  pageSize?: number;
+  "status"?: SimStatus;
+  "fleet"?: string;
+  "iccid"?: string;
+  "pageSize"?: number;
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -97,10 +97,10 @@ export interface SimListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceOptions {
-  status?: SimStatus;
-  fleet?: string;
-  iccid?: string;
-  pageSize?: number;
+  "status"?: SimStatus;
+  "fleet"?: string;
+  "iccid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -115,10 +115,10 @@ export interface SimListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
-  status?: SimStatus;
-  fleet?: string;
-  iccid?: string;
-  pageSize?: number;
+  "status"?: SimStatus;
+  "fleet"?: string;
+  "iccid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -168,7 +168,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -196,7 +196,7 @@ export class SimContextImpl implements SimContext {
   fetch(callback?: any): Promise<SimInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SimInstance(operationVersion, payload, this._solution.sid));
     
@@ -217,18 +217,18 @@ export class SimContextImpl implements SimContext {
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.fleet !== undefined) data['Fleet'] = params.fleet;
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.accountSid !== undefined) data['AccountSid'] = params.accountSid;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
+    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
+    if (params["accountSid"] !== undefined) data["AccountSid"] = params["accountSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SimInstance(operationVersion, payload, this._solution.sid));
     
@@ -555,24 +555,24 @@ export function SimListInstance(version: V1): SimListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.iccid === null || params.iccid === undefined) {
-      throw new Error('Required parameter "params.iccid" missing.');
+    if (params["iccid"] === null || params["iccid"] === undefined) {
+      throw new Error('Required parameter "params[\'iccid\']" missing.');
     }
 
-    if (params.registrationCode === null || params.registrationCode === undefined) {
-      throw new Error('Required parameter "params.registrationCode" missing.');
+    if (params["registrationCode"] === null || params["registrationCode"] === undefined) {
+      throw new Error('Required parameter "params[\'registrationCode\']" missing.');
     }
 
     const data: any = {};
 
-    data['Iccid'] = params.iccid;
-    data['RegistrationCode'] = params.registrationCode;
+    data["Iccid"] = params["iccid"];
+    data["RegistrationCode"] = params["registrationCode"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SimInstance(operationVersion, payload));
     
@@ -593,17 +593,17 @@ export function SimListInstance(version: V1): SimListInstance {
 
     const data: any = {};
 
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.fleet !== undefined) data['Fleet'] = params.fleet;
-    if (params.iccid !== undefined) data['Iccid'] = params.iccid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
+    if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SimPage(operationVersion, payload, this._solution));
 
@@ -615,7 +615,7 @@ export function SimListInstance(version: V1): SimListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SimPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SimPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

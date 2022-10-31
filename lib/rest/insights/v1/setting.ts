@@ -26,7 +26,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [subaccountSid] 
  */
 export interface SettingListInstanceFetchOptions {
-  subaccountSid?: string;
+  "subaccountSid"?: string;
 }
 
 /**
@@ -37,9 +37,9 @@ export interface SettingListInstanceFetchOptions {
  * @property { string } [subaccountSid] 
  */
 export interface SettingListInstanceUpdateOptions {
-  advancedFeatures?: boolean;
-  voiceTrace?: boolean;
-  subaccountSid?: string;
+  "advancedFeatures"?: boolean;
+  "voiceTrace"?: boolean;
+  "subaccountSid"?: string;
 }
 
 export interface SettingListInstance {
@@ -120,12 +120,12 @@ export function SettingListInstance(version: V1): SettingListInstance {
 
     const data: any = {};
 
-    if (params.subaccountSid !== undefined) data['SubaccountSid'] = params.subaccountSid;
+    if (params["subaccountSid"] !== undefined) data["SubaccountSid"] = params["subaccountSid"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
     
@@ -146,15 +146,15 @@ export function SettingListInstance(version: V1): SettingListInstance {
 
     const data: any = {};
 
-    if (params.advancedFeatures !== undefined) data['AdvancedFeatures'] = serialize.bool(params.advancedFeatures);
-    if (params.voiceTrace !== undefined) data['VoiceTrace'] = serialize.bool(params.voiceTrace);
-    if (params.subaccountSid !== undefined) data['SubaccountSid'] = params.subaccountSid;
+    if (params["advancedFeatures"] !== undefined) data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
+    if (params["voiceTrace"] !== undefined) data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
+    if (params["subaccountSid"] !== undefined) data["SubaccountSid"] = params["subaccountSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
     

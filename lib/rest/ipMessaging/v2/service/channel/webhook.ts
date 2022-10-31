@@ -30,41 +30,41 @@ type ChannelWebhookType = 'webhook'|'trigger'|'studio';
 /**
  * Options to pass to update a WebhookInstance
  *
- * @property { string } [configurationUrl] 
- * @property { ChannelWebhookMethod } [configurationMethod] 
- * @property { Array<string> } [configurationFilters] 
- * @property { Array<string> } [configurationTriggers] 
- * @property { string } [configurationFlowSid] 
- * @property { number } [configurationRetryCount] 
+ * @property { string } [configuration.url] 
+ * @property { ChannelWebhookMethod } [configuration.method] 
+ * @property { Array<string> } [configuration.filters] 
+ * @property { Array<string> } [configuration.triggers] 
+ * @property { string } [configuration.flowSid] 
+ * @property { number } [configuration.retryCount] 
  */
 export interface WebhookContextUpdateOptions {
-  configurationUrl?: string;
-  configurationMethod?: ChannelWebhookMethod;
-  configurationFilters?: Array<string>;
-  configurationTriggers?: Array<string>;
-  configurationFlowSid?: string;
-  configurationRetryCount?: number;
+  "configuration.url"?: string;
+  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.filters"?: Array<string>;
+  "configuration.triggers"?: Array<string>;
+  "configuration.flowSid"?: string;
+  "configuration.retryCount"?: number;
 }
 
 /**
  * Options to pass to create a WebhookInstance
  *
  * @property { ChannelWebhookType } type 
- * @property { string } [configurationUrl] 
- * @property { ChannelWebhookMethod } [configurationMethod] 
- * @property { Array<string> } [configurationFilters] 
- * @property { Array<string> } [configurationTriggers] 
- * @property { string } [configurationFlowSid] 
- * @property { number } [configurationRetryCount] 
+ * @property { string } [configuration.url] 
+ * @property { ChannelWebhookMethod } [configuration.method] 
+ * @property { Array<string> } [configuration.filters] 
+ * @property { Array<string> } [configuration.triggers] 
+ * @property { string } [configuration.flowSid] 
+ * @property { number } [configuration.retryCount] 
  */
 export interface WebhookListInstanceCreateOptions {
-  type: ChannelWebhookType;
-  configurationUrl?: string;
-  configurationMethod?: ChannelWebhookMethod;
-  configurationFilters?: Array<string>;
-  configurationTriggers?: Array<string>;
-  configurationFlowSid?: string;
-  configurationRetryCount?: number;
+  "type": ChannelWebhookType;
+  "configuration.url"?: string;
+  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.filters"?: Array<string>;
+  "configuration.triggers"?: Array<string>;
+  "configuration.flowSid"?: string;
+  "configuration.retryCount"?: number;
 }
 /**
  * Options to pass to each
@@ -80,7 +80,7 @@ export interface WebhookListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface WebhookListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -96,7 +96,7 @@ export interface WebhookListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface WebhookListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -108,7 +108,7 @@ export interface WebhookListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WebhookListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -166,9 +166,9 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "channelSid"?: string;
+  "sid"?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -184,7 +184,7 @@ export class WebhookContextImpl implements WebhookContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -196,7 +196,7 @@ export class WebhookContextImpl implements WebhookContext {
   fetch(callback?: any): Promise<WebhookInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
     
@@ -217,18 +217,18 @@ export class WebhookContextImpl implements WebhookContext {
 
     const data: any = {};
 
-    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
-    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
-    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
-    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
-    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
-    if (params.configurationRetryCount !== undefined) data['Configuration.RetryCount'] = params.configurationRetryCount;
+    if (params["configuration.url"] !== undefined) data["Configuration.Url"] = params["configuration.url"];
+    if (params["configuration.method"] !== undefined) data["Configuration.Method"] = params["configuration.method"];
+    if (params["configuration.filters"] !== undefined) data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    if (params["configuration.triggers"] !== undefined) data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    if (params["configuration.flowSid"] !== undefined) data["Configuration.FlowSid"] = params["configuration.flowSid"];
+    if (params["configuration.retryCount"] !== undefined) data["Configuration.RetryCount"] = params["configuration.retryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
     
@@ -527,25 +527,25 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
     const data: any = {};
 
-    data['Type'] = params.type;
-    if (params.configurationUrl !== undefined) data['Configuration.Url'] = params.configurationUrl;
-    if (params.configurationMethod !== undefined) data['Configuration.Method'] = params.configurationMethod;
-    if (params.configurationFilters !== undefined) data['Configuration.Filters'] = serialize.map(params.configurationFilters, ((e) => e));
-    if (params.configurationTriggers !== undefined) data['Configuration.Triggers'] = serialize.map(params.configurationTriggers, ((e) => e));
-    if (params.configurationFlowSid !== undefined) data['Configuration.FlowSid'] = params.configurationFlowSid;
-    if (params.configurationRetryCount !== undefined) data['Configuration.RetryCount'] = params.configurationRetryCount;
+    data["Type"] = params["type"];
+    if (params["configuration.url"] !== undefined) data["Configuration.Url"] = params["configuration.url"];
+    if (params["configuration.method"] !== undefined) data["Configuration.Method"] = params["configuration.method"];
+    if (params["configuration.filters"] !== undefined) data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    if (params["configuration.triggers"] !== undefined) data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    if (params["configuration.flowSid"] !== undefined) data["Configuration.FlowSid"] = params["configuration.flowSid"];
+    if (params["configuration.retryCount"] !== undefined) data["Configuration.RetryCount"] = params["configuration.retryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid));
     
@@ -566,14 +566,14 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookPage(operationVersion, payload, this._solution));
 
@@ -585,7 +585,7 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new WebhookPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

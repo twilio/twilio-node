@@ -46,7 +46,7 @@ export class PricingV2TrunkingNumberOriginatingCallPrice {
  * @property { string } [originationNumber] The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
  */
 export interface NumberContextFetchOptions {
-  originationNumber?: string;
+  "originationNumber"?: string;
 }
 
 export interface NumberContext {
@@ -80,7 +80,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  destinationNumber?: string;
+  "destinationNumber"?: string;
 }
 
 export class NumberContextImpl implements NumberContext {
@@ -103,12 +103,12 @@ export class NumberContextImpl implements NumberContext {
 
     const data: any = {};
 
-    if (params.originationNumber !== undefined) data['OriginationNumber'] = params.originationNumber;
+    if (params["originationNumber"] !== undefined) data["OriginationNumber"] = params["originationNumber"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new NumberInstance(operationVersion, payload, this._solution.destinationNumber));
     

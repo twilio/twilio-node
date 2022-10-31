@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] 
  */
 export interface SigningKeyContextUpdateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface SigningKeyContextUpdateOptions {
  *                         Default is no limit
  */
 export interface SigningKeyListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface SigningKeyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SigningKeyListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface SigningKeyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SigningKeyListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -131,8 +131,8 @@ export interface SigningKeyContext {
 }
 
 export interface SigningKeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class SigningKeyContextImpl implements SigningKeyContext {
@@ -148,7 +148,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -160,7 +160,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   fetch(callback?: any): Promise<SigningKeyInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SigningKeyInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -181,13 +181,13 @@ export class SigningKeyContextImpl implements SigningKeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SigningKeyInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -458,14 +458,14 @@ export function SigningKeyListInstance(version: V2010, accountSid: string): Sign
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SigningKeyPage(operationVersion, payload, this._solution));
 
@@ -477,7 +477,7 @@ export function SigningKeyListInstance(version: V2010, accountSid: string): Sign
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SigningKeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SigningKeyPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -34,17 +34,17 @@ type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELET
  * Options to pass to create a BrandRegistrationInstance
  *
  * @property { string } customerProfileBundleSid Customer Profile Bundle Sid.
- * @property { string } a2PProfileBundleSid A2P Messaging Profile Bundle Sid.
+ * @property { string } a2PprofileBundleSid A2P Messaging Profile Bundle Sid.
  * @property { string } [brandType] Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
  * @property { boolean } [mock] A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
  * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */
 export interface BrandRegistrationListInstanceCreateOptions {
-  customerProfileBundleSid: string;
-  a2PProfileBundleSid: string;
-  brandType?: string;
-  mock?: boolean;
-  skipAutomaticSecVet?: boolean;
+  "customerProfileBundleSid": string;
+  "a2PprofileBundleSid": string;
+  "brandType"?: string;
+  "mock"?: boolean;
+  "skipAutomaticSecVet"?: boolean;
 }
 /**
  * Options to pass to each
@@ -60,7 +60,7 @@ export interface BrandRegistrationListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,7 +76,7 @@ export interface BrandRegistrationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -88,7 +88,7 @@ export interface BrandRegistrationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandRegistrationListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -127,7 +127,7 @@ export interface BrandRegistrationContext {
 }
 
 export interface BrandRegistrationContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class BrandRegistrationContextImpl implements BrandRegistrationContext {
@@ -149,7 +149,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   fetch(callback?: any): Promise<BrandRegistrationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload, this._solution.sid));
     
@@ -163,7 +163,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   update(callback?: any): Promise<BrandRegistrationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload, this._solution.sid));
     
@@ -540,27 +540,27 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.customerProfileBundleSid === null || params.customerProfileBundleSid === undefined) {
-      throw new Error('Required parameter "params.customerProfileBundleSid" missing.');
+    if (params["customerProfileBundleSid"] === null || params["customerProfileBundleSid"] === undefined) {
+      throw new Error('Required parameter "params[\'customerProfileBundleSid\']" missing.');
     }
 
-    if (params.a2PProfileBundleSid === null || params.a2PProfileBundleSid === undefined) {
-      throw new Error('Required parameter "params.a2PProfileBundleSid" missing.');
+    if (params["a2PprofileBundleSid"] === null || params["a2PprofileBundleSid"] === undefined) {
+      throw new Error('Required parameter "params[\'a2PprofileBundleSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['CustomerProfileBundleSid'] = params.customerProfileBundleSid;
-    data['A2PProfileBundleSid'] = params.a2PProfileBundleSid;
-    if (params.brandType !== undefined) data['BrandType'] = params.brandType;
-    if (params.mock !== undefined) data['Mock'] = serialize.bool(params.mock);
-    if (params.skipAutomaticSecVet !== undefined) data['SkipAutomaticSecVet'] = serialize.bool(params.skipAutomaticSecVet);
+    data["CustomerProfileBundleSid"] = params["customerProfileBundleSid"];
+    data["A2PProfileBundleSid"] = params["a2PprofileBundleSid"];
+    if (params["brandType"] !== undefined) data["BrandType"] = params["brandType"];
+    if (params["mock"] !== undefined) data["Mock"] = serialize.bool(params["mock"]);
+    if (params["skipAutomaticSecVet"] !== undefined) data["SkipAutomaticSecVet"] = serialize.bool(params["skipAutomaticSecVet"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload));
     
@@ -581,14 +581,14 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BrandRegistrationPage(operationVersion, payload, this._solution));
 
@@ -600,7 +600,7 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BrandRegistrationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new BrandRegistrationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

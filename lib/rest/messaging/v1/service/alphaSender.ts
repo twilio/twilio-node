@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } alphaSender The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen &#x60;-&#x60;, plus &#x60;+&#x60;, underscore &#x60;_&#x60; and ampersand &#x60;&amp;&#x60;. This value cannot contain only numbers.
  */
 export interface AlphaSenderListInstanceCreateOptions {
-  alphaSender: string;
+  "alphaSender": string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface AlphaSenderListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AlphaSenderListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface AlphaSenderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AlphaSenderListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface AlphaSenderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AlphaSenderListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -111,8 +111,8 @@ export interface AlphaSenderContext {
 }
 
 export interface AlphaSenderContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class AlphaSenderContextImpl implements AlphaSenderContext {
@@ -128,7 +128,7 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -140,7 +140,7 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   fetch(callback?: any): Promise<AlphaSenderInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AlphaSenderInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -436,19 +436,19 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.alphaSender === null || params.alphaSender === undefined) {
-      throw new Error('Required parameter "params.alphaSender" missing.');
+    if (params["alphaSender"] === null || params["alphaSender"] === undefined) {
+      throw new Error('Required parameter "params[\'alphaSender\']" missing.');
     }
 
     const data: any = {};
 
-    data['AlphaSender'] = params.alphaSender;
+    data["AlphaSender"] = params["alphaSender"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AlphaSenderInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -469,14 +469,14 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AlphaSenderPage(operationVersion, payload, this._solution));
 
@@ -488,7 +488,7 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AlphaSenderPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AlphaSenderPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

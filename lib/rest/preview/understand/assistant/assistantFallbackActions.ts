@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [fallbackActions] 
  */
 export interface AssistantFallbackActionsListInstanceUpdateOptions {
-  fallbackActions?: any;
+  "fallbackActions"?: any;
 }
 
 export interface AssistantFallbackActionsListInstance {
@@ -91,7 +91,7 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
   instance.fetch = function fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -112,13 +112,13 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
 
     const data: any = {};
 
-    if (params.fallbackActions !== undefined) data['FallbackActions'] = params.fallbackActions;
+    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = params["fallbackActions"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
     
