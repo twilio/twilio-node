@@ -149,6 +149,7 @@ export interface ReservationContextUpdateOptions {
  * Options to pass to each
  *
  * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -161,6 +162,7 @@ export interface ReservationContextUpdateOptions {
  */
 export interface ReservationListInstanceEachOptions {
   "reservationStatus"?: TaskReservationStatus;
+  "workerSid"?: string;
   "pageSize"?: number;
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -171,6 +173,7 @@ export interface ReservationListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -179,6 +182,7 @@ export interface ReservationListInstanceEachOptions {
  */
 export interface ReservationListInstanceOptions {
   "reservationStatus"?: TaskReservationStatus;
+  "workerSid"?: string;
   "pageSize"?: number;
   limit?: number;
 }
@@ -187,12 +191,14 @@ export interface ReservationListInstanceOptions {
  * Options to pass to page
  *
  * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ReservationListInstancePageOptions {
   "reservationStatus"?: TaskReservationStatus;
+  "workerSid"?: string;
   "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -658,6 +664,7 @@ export function ReservationListInstance(version: V1, workspaceSid: string, taskS
     const data: any = {};
 
     if (params["reservationStatus"] !== undefined) data["ReservationStatus"] = params["reservationStatus"];
+    if (params["workerSid"] !== undefined) data["WorkerSid"] = params["workerSid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

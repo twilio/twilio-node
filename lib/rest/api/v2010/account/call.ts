@@ -26,6 +26,8 @@ import { PaymentListInstance } from "./call/payment";
 import { RecordingListInstance } from "./call/recording";
 import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
+import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
+import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 
 import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 
@@ -254,6 +256,8 @@ export interface CallContext {
   recordings: RecordingListInstance;
   siprec: SiprecListInstance;
   streams: StreamListInstance;
+  userDefinedMessages: UserDefinedMessageListInstance;
+  userDefinedMessageSubscriptions: UserDefinedMessageSubscriptionListInstance;
 
   /**
    * Remove a CallInstance
@@ -318,6 +322,8 @@ export class CallContextImpl implements CallContext {
   protected _recordings?: RecordingListInstance;
   protected _siprec?: SiprecListInstance;
   protected _streams?: StreamListInstance;
+  protected _userDefinedMessages?: UserDefinedMessageListInstance;
+  protected _userDefinedMessageSubscriptions?: UserDefinedMessageSubscriptionListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -357,6 +363,16 @@ export class CallContextImpl implements CallContext {
   get streams(): StreamListInstance {
     this._streams = this._streams || StreamListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._streams;
+  }
+
+  get userDefinedMessages(): UserDefinedMessageListInstance {
+    this._userDefinedMessages = this._userDefinedMessages || UserDefinedMessageListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._userDefinedMessages;
+  }
+
+  get userDefinedMessageSubscriptions(): UserDefinedMessageSubscriptionListInstance {
+    this._userDefinedMessageSubscriptions = this._userDefinedMessageSubscriptions || UserDefinedMessageSubscriptionListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._userDefinedMessageSubscriptions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -701,6 +717,20 @@ export class CallInstance {
    */
   streams(): StreamListInstance {
     return this._proxy.streams;
+  }
+
+  /**
+   * Access the userDefinedMessages.
+   */
+  userDefinedMessages(): UserDefinedMessageListInstance {
+    return this._proxy.userDefinedMessages;
+  }
+
+  /**
+   * Access the userDefinedMessageSubscriptions.
+   */
+  userDefinedMessageSubscriptions(): UserDefinedMessageSubscriptionListInstance {
+    return this._proxy.userDefinedMessageSubscriptions;
   }
 
   /**

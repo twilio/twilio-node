@@ -67,6 +67,8 @@ export interface MessageContextUpdateOptions {
  * @property { MessageScheduleType } [scheduleType] 
  * @property { Date } [sendAt] The time that Twilio will send the message. Must be in ISO 8601 format.
  * @property { boolean } [sendAsMms] If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
+ * @property { string } [contentSid] The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
+ * @property { string } [contentVariables] Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
  * @property { string } [from] A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using &#x60;messaging_service_sid&#x60;, this parameter must be empty.
  * @property { string } [messagingServiceSid] The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the &#x60;from&#x60; parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the &#x60;from&#x60; phone number for delivery.
  * @property { string } [body] The text of the message you want to send. Can be up to 1,600 characters in length.
@@ -89,6 +91,8 @@ export interface MessageListInstanceCreateOptions {
   "scheduleType"?: MessageScheduleType;
   "sendAt"?: Date;
   "sendAsMms"?: boolean;
+  "contentSid"?: string;
+  "contentVariables"?: string;
   "from"?: string;
   "messagingServiceSid"?: string;
   "body"?: string;
@@ -727,6 +731,8 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
     if (params["scheduleType"] !== undefined) data["ScheduleType"] = params["scheduleType"];
     if (params["sendAt"] !== undefined) data["SendAt"] = serialize.iso8601DateTime(params["sendAt"]);
     if (params["sendAsMms"] !== undefined) data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
+    if (params["contentSid"] !== undefined) data["ContentSid"] = params["contentSid"];
+    if (params["contentVariables"] !== undefined) data["ContentVariables"] = params["contentVariables"];
     if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["body"] !== undefined) data["Body"] = params["body"];

@@ -77,6 +77,7 @@ export interface WorkerListInstanceCreateOptions {
  * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
  * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue that the Workers to read are eligible for.
  * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
+ * @property { string } [ordering] Sorting parameter for Workers
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -95,6 +96,7 @@ export interface WorkerListInstanceEachOptions {
   "targetWorkersExpression"?: string;
   "taskQueueName"?: string;
   "taskQueueSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -111,6 +113,7 @@ export interface WorkerListInstanceEachOptions {
  * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
  * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue that the Workers to read are eligible for.
  * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
+ * @property { string } [ordering] Sorting parameter for Workers
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -125,6 +128,7 @@ export interface WorkerListInstanceOptions {
   "targetWorkersExpression"?: string;
   "taskQueueName"?: string;
   "taskQueueSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   limit?: number;
 }
@@ -139,6 +143,7 @@ export interface WorkerListInstanceOptions {
  * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
  * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue that the Workers to read are eligible for.
  * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
+ * @property { string } [ordering] Sorting parameter for Workers
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -151,6 +156,7 @@ export interface WorkerListInstancePageOptions {
   "targetWorkersExpression"?: string;
   "taskQueueName"?: string;
   "taskQueueSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -777,6 +783,7 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
     if (params["targetWorkersExpression"] !== undefined) data["TargetWorkersExpression"] = params["targetWorkersExpression"];
     if (params["taskQueueName"] !== undefined) data["TaskQueueName"] = params["taskQueueName"];
     if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

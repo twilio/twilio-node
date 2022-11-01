@@ -21,17 +21,17 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface UserinfoContext {
+export interface UserInfoContext {
 
 
   /**
-   * Fetch a UserinfoInstance
+   * Fetch a UserInfoInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserinfoInstance
+   * @returns { Promise } Resolves to processed UserInfoInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserinfoInstance) => any): Promise<UserinfoInstance>
+  fetch(callback?: (error: Error | null, item?: UserInfoInstance) => any): Promise<UserInfoInstance>
 
 
   /**
@@ -41,11 +41,11 @@ export interface UserinfoContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserinfoContextSolution {
+export interface UserInfoContextSolution {
 }
 
-export class UserinfoContextImpl implements UserinfoContext {
-  protected _solution: UserinfoContextSolution;
+export class UserInfoContextImpl implements UserInfoContext {
+  protected _solution: UserInfoContextSolution;
   protected _uri: string;
 
 
@@ -54,12 +54,12 @@ export class UserinfoContextImpl implements UserinfoContext {
     this._uri = `/userinfo`;
   }
 
-  fetch(callback?: any): Promise<UserinfoInstance> {
+  fetch(callback?: any): Promise<UserInfoInstance> {
   
     let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
-    operationPromise = operationPromise.then(payload => new UserinfoInstance(operationVersion, payload));
+    operationPromise = operationPromise.then(payload => new UserInfoInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -82,10 +82,10 @@ export class UserinfoContextImpl implements UserinfoContext {
   }
 }
 
-interface UserinfoPayload extends UserinfoResource{
+interface UserInfoPayload extends UserInfoResource{
 }
 
-interface UserinfoResource {
+interface UserInfoResource {
   user_sid?: string | null;
   first_name?: string | null;
   last_name?: string | null;
@@ -94,11 +94,11 @@ interface UserinfoResource {
   url?: string | null;
 }
 
-export class UserinfoInstance {
-  protected _solution: UserinfoContextSolution;
-  protected _context?: UserinfoContext;
+export class UserInfoInstance {
+  protected _solution: UserInfoContextSolution;
+  protected _context?: UserInfoContext;
 
-  constructor(protected _version: V1, payload: UserinfoPayload) {
+  constructor(protected _version: V1, payload: UserInfoPayload) {
     this.userSid = payload.user_sid;
     this.firstName = payload.first_name;
     this.lastName = payload.last_name;
@@ -131,19 +131,19 @@ export class UserinfoInstance {
   email?: string | null;
   url?: string | null;
 
-  private get _proxy(): UserinfoContext {
-    this._context = this._context || new UserinfoContextImpl(this._version);
+  private get _proxy(): UserInfoContext {
+    this._context = this._context || new UserInfoContextImpl(this._version);
     return this._context;
   }
 
   /**
-   * Fetch a UserinfoInstance
+   * Fetch a UserInfoInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserinfoInstance
+   * @returns { Promise } Resolves to processed UserInfoInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserinfoInstance) => any): Promise<UserinfoInstance>
+  fetch(callback?: (error: Error | null, item?: UserInfoInstance) => any): Promise<UserInfoInstance>
      {
     return this._proxy.fetch(callback);
   }
@@ -170,9 +170,9 @@ export class UserinfoInstance {
 }
 
 
-export interface UserinfoListInstance {
-  (): UserinfoContext;
-  get(): UserinfoContext;
+export interface UserInfoListInstance {
+  (): UserInfoContext;
+  get(): UserInfoContext;
 
 
   /**
@@ -185,19 +185,19 @@ export interface UserinfoListInstance {
 export interface Solution {
 }
 
-interface UserinfoListInstanceImpl extends UserinfoListInstance {}
-class UserinfoListInstanceImpl implements UserinfoListInstance {
+interface UserInfoListInstanceImpl extends UserInfoListInstance {}
+class UserInfoListInstanceImpl implements UserInfoListInstance {
   _version?: V1;
   _solution?: Solution;
   _uri?: string;
 
 }
 
-export function UserinfoListInstance(version: V1): UserinfoListInstance {
-  const instance = (() => instance.get()) as UserinfoListInstanceImpl;
+export function UserInfoListInstance(version: V1): UserInfoListInstance {
+  const instance = (() => instance.get()) as UserInfoListInstanceImpl;
 
-  instance.get = function get(): UserinfoContext {
-    return new UserinfoContextImpl(version);
+  instance.get = function get(): UserInfoContext {
+    return new UserInfoContextImpl(version);
   }
 
   instance._version = version;

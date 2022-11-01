@@ -42,14 +42,14 @@ export interface VerificationContextUpdateOptions {
  * @property { string } [customFriendlyName] A custom user defined friendly name that overwrites the existing one in the verification message
  * @property { string } [customMessage] The text of a custom message to use for the verification.
  * @property { string } [sendDigits] The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
- * @property { string } [locale] Locale will automatically resolve based on phone number country code for SMS, WhatsApp and call channel verifications. This parameter will override the automatic locale. [See supported languages and more information here.](https://www.twilio.com/docs/verify/supported-languages).
+ * @property { string } [locale] Locale will automatically resolve based on phone number country code for SMS, WhatsApp and call channel verifications. This parameter will override the automatic locale. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
  * @property { string } [customCode] A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
  * @property { string } [amount] The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  * @property { any } [rateLimits] The custom key-value pairs of Programmable Rate Limits. Keys correspond to &#x60;unique_name&#x60; fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
  * @property { any } [channelConfiguration] [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields \\\&#39;from\\\&#39; and \\\&#39;from_name\\\&#39; are optional but if included the \\\&#39;from\\\&#39; field must have a valid email address.
  * @property { string } [appHash] Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: &#x60;&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9&#x60;.
- * @property { string } [templateSid] The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS channel only.
+ * @property { string } [templateSid] The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
  * @property { string } [templateCustomSubstitutions] A stringified JSON object in which the keys are the template\\\&#39;s special variables and the values are the variables substitutions.
  */
 export interface VerificationListInstanceCreateOptions {
