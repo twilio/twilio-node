@@ -34,6 +34,7 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
  * @property (Twilio.Monitor) monitor - monitor domain
  * @property (Twilio.Notify) notify - notify domain
  * @property (Twilio.Numbers) numbers - numbers domain
+ * @property (Twilio.Oauth) oauth - oauth domain
  * @property (Twilio.Preview) preview - preview domain
  * @property (Twilio.Pricing) pricing - pricing domain
  * @property (Twilio.Proxy) proxy - proxy domain
@@ -104,6 +105,7 @@ class Twilio extends BaseTwilio {
   _monitor: any
   _notify: any
   _numbers: any
+  _oauth: any
   _preview: any
   _pricing: any
   _proxy: any
@@ -142,6 +144,7 @@ class Twilio extends BaseTwilio {
         this.monitor;
         this.notify;
         this.numbers;
+        this.oauth;
         this.preview;
         this.pricing;
         this.proxy;
@@ -286,6 +289,13 @@ class Twilio extends BaseTwilio {
       this._numbers = new Numbers(this);
     }
     return this._numbers;
+  }
+  get oauth() {
+    if (!this._oauth) {
+      const Oauth = require('./Oauth');  /* jshint ignore:line */
+      this._oauth = new Oauth(this);
+    }
+    return this._oauth;
   }
   get preview() {
     if (!this._preview) {
