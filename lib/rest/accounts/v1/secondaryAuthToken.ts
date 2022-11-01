@@ -20,7 +20,8 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface SecondaryAuthTokenListInstance {
+
+export interface SecondaryAuthTokenContext {
 
 
   /**
@@ -50,27 +51,22 @@ export interface SecondaryAuthTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SecondaryAuthTokenSolution {
+export interface SecondaryAuthTokenContextSolution {
 }
 
-interface SecondaryAuthTokenListInstanceImpl extends SecondaryAuthTokenListInstance {}
-class SecondaryAuthTokenListInstanceImpl implements SecondaryAuthTokenListInstance {
-  _version?: V1;
-  _solution?: SecondaryAuthTokenSolution;
-  _uri?: string;
+export class SecondaryAuthTokenContextImpl implements SecondaryAuthTokenContext {
+  protected _solution: SecondaryAuthTokenContextSolution;
+  protected _uri: string;
 
-}
 
-export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenListInstance {
-  const instance = {} as SecondaryAuthTokenListInstanceImpl;
+  constructor(protected _version: V1) {
+    this._solution = {  };
+    this._uri = `/AuthTokens/Secondary`;
+  }
 
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/AuthTokens/Secondary`;
-
-  instance.create = function create(callback?: any): Promise<SecondaryAuthTokenInstance> {
-
-    let operationVersion = version,
+  create(callback?: any): Promise<SecondaryAuthTokenInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.create({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new SecondaryAuthTokenInstance(operationVersion, payload));
@@ -80,11 +76,11 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
     return operationPromise;
 
 
-    }
+  }
 
-  instance.remove = function remove(callback?: any): Promise<boolean> {
-
-    let operationVersion = version,
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
@@ -92,17 +88,20 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface SecondaryAuthTokenPayload extends SecondaryAuthTokenResource{
@@ -117,6 +116,8 @@ interface SecondaryAuthTokenResource {
 }
 
 export class SecondaryAuthTokenInstance {
+  protected _solution: SecondaryAuthTokenContextSolution;
+  protected _context?: SecondaryAuthTokenContext;
 
   constructor(protected _version: V1, payload: SecondaryAuthTokenPayload) {
     this.accountSid = payload.account_sid;
@@ -125,6 +126,7 @@ export class SecondaryAuthTokenInstance {
     this.secondaryAuthToken = payload.secondary_auth_token;
     this.url = payload.url;
 
+    this._solution = {  };
   }
 
   /**
@@ -148,6 +150,35 @@ export class SecondaryAuthTokenInstance {
    */
   url?: string | null;
 
+  private get _proxy(): SecondaryAuthTokenContext {
+    this._context = this._context || new SecondaryAuthTokenContextImpl(this._version);
+    return this._context;
+  }
+
+  /**
+   * Create a SecondaryAuthTokenInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   */
+  create(callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any): Promise<SecondaryAuthTokenInstance>
+     {
+    return this._proxy.create(callback);
+  }
+
+  /**
+   * Remove a SecondaryAuthTokenInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -167,5 +198,52 @@ export class SecondaryAuthTokenInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface SecondaryAuthTokenListInstance {
+  (): SecondaryAuthTokenContext;
+  get(): SecondaryAuthTokenContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+}
+
+interface SecondaryAuthTokenListInstanceImpl extends SecondaryAuthTokenListInstance {}
+class SecondaryAuthTokenListInstanceImpl implements SecondaryAuthTokenListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenListInstance {
+  const instance = (() => instance.get()) as SecondaryAuthTokenListInstanceImpl;
+
+  instance.get = function get(): SecondaryAuthTokenContext {
+    return new SecondaryAuthTokenContextImpl(version);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/AuthTokens/Secondary`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

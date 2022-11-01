@@ -20,16 +20,17 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
  *
  * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
-export interface TaskQueueRealTimeStatisticsListInstanceFetchOptions {
+export interface TaskQueueRealTimeStatisticsContextFetchOptions {
   "taskChannel"?: string;
 }
 
-export interface TaskQueueRealTimeStatisticsListInstance {
+export interface TaskQueueRealTimeStatisticsContext {
 
 
   /**
@@ -43,12 +44,12 @@ export interface TaskQueueRealTimeStatisticsListInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { TaskQueueRealTimeStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
-  fetch(params: TaskQueueRealTimeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  fetch(params: TaskQueueRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance>
 
 
@@ -59,28 +60,23 @@ export interface TaskQueueRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskQueueRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+export interface TaskQueueRealTimeStatisticsContextSolution {
+  "workspaceSid"?: string;
+  "taskQueueSid"?: string;
 }
 
-interface TaskQueueRealTimeStatisticsListInstanceImpl extends TaskQueueRealTimeStatisticsListInstance {}
-class TaskQueueRealTimeStatisticsListInstanceImpl implements TaskQueueRealTimeStatisticsListInstance {
-  _version?: V1;
-  _solution?: TaskQueueRealTimeStatisticsSolution;
-  _uri?: string;
+export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTimeStatisticsContext {
+  protected _solution: TaskQueueRealTimeStatisticsContextSolution;
+  protected _uri: string;
 
-}
 
-export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance {
-  const instance = {} as TaskQueueRealTimeStatisticsListInstanceImpl;
+  constructor(protected _version: V1, workspaceSid: string, taskQueueSid: string) {
+    this._solution = { workspaceSid, taskQueueSid };
+    this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
+  }
 
-  instance._version = version;
-  instance._solution = { workspaceSid, taskQueueSid };
-  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -93,7 +89,7 @@ export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSi
 
     const headers: any = {};
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskQueueRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.taskQueueSid));
@@ -103,17 +99,20 @@ export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSi
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource{
@@ -137,6 +136,8 @@ interface TaskQueueRealTimeStatisticsResource {
 }
 
 export class TaskQueueRealTimeStatisticsInstance {
+  protected _solution: TaskQueueRealTimeStatisticsContextSolution;
+  protected _context?: TaskQueueRealTimeStatisticsContext;
 
   constructor(protected _version: V1, payload: TaskQueueRealTimeStatisticsPayload, workspaceSid: string, taskQueueSid?: string) {
     this.accountSid = payload.account_sid;
@@ -154,6 +155,7 @@ export class TaskQueueRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
+    this._solution = { workspaceSid, taskQueueSid: taskQueueSid || this.taskQueueSid };
   }
 
   /**
@@ -213,6 +215,33 @@ export class TaskQueueRealTimeStatisticsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): TaskQueueRealTimeStatisticsContext {
+    this._context = this._context || new TaskQueueRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid, this._solution.taskQueueSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
+   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(params: TaskQueueRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -241,5 +270,54 @@ export class TaskQueueRealTimeStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface TaskQueueRealTimeStatisticsListInstance {
+  (): TaskQueueRealTimeStatisticsContext;
+  get(): TaskQueueRealTimeStatisticsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
+}
+
+interface TaskQueueRealTimeStatisticsListInstanceImpl extends TaskQueueRealTimeStatisticsListInstance {}
+class TaskQueueRealTimeStatisticsListInstanceImpl implements TaskQueueRealTimeStatisticsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance {
+  const instance = (() => instance.get()) as TaskQueueRealTimeStatisticsListInstanceImpl;
+
+  instance.get = function get(): TaskQueueRealTimeStatisticsContext {
+    return new TaskQueueRealTimeStatisticsContextImpl(version, workspaceSid, taskQueueSid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid, taskQueueSid };
+  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

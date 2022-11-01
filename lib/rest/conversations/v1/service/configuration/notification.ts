@@ -20,6 +20,7 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to update a NotificationInstance
  *
@@ -37,7 +38,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } [newMessage.withMedia.enabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
  * @property { string } [newMessage.withMedia.template] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
  */
-export interface NotificationListInstanceUpdateOptions {
+export interface NotificationContextUpdateOptions {
   "logEnabled"?: boolean;
   "newMessage.enabled"?: boolean;
   "newMessage.template"?: string;
@@ -53,7 +54,7 @@ export interface NotificationListInstanceUpdateOptions {
   "newMessage.withMedia.template"?: string;
 }
 
-export interface NotificationListInstance {
+export interface NotificationContext {
 
 
   /**
@@ -77,12 +78,12 @@ export interface NotificationListInstance {
   /**
    * Update a NotificationInstance
    *
-   * @param { NotificationListInstanceUpdateOptions } params - Parameter for request
+   * @param { NotificationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  update(params: NotificationListInstanceUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  update(params: NotificationContextUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
   update(params?: any, callback?: any): Promise<NotificationInstance>
 
 
@@ -93,28 +94,23 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  chatServiceSid?: string;
+export interface NotificationContextSolution {
+  "chatServiceSid"?: string;
 }
 
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: NotificationSolution;
-  _uri?: string;
+export class NotificationContextImpl implements NotificationContext {
+  protected _solution: NotificationContextSolution;
+  protected _uri: string;
 
-}
 
-export function NotificationListInstance(version: V1, chatServiceSid: string): NotificationListInstance {
-  const instance = {} as NotificationListInstanceImpl;
+  constructor(protected _version: V1, chatServiceSid: string) {
+    this._solution = { chatServiceSid };
+    this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
+  }
 
-  instance._version = version;
-  instance._solution = { chatServiceSid };
-  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
-
-  instance.fetch = function fetch(callback?: any): Promise<NotificationInstance> {
-
-    let operationVersion = version,
+  fetch(callback?: any): Promise<NotificationInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.chatServiceSid));
@@ -124,10 +120,10 @@ export function NotificationListInstance(version: V1, chatServiceSid: string): N
     return operationPromise;
 
 
-    }
+  }
 
-  instance.update = function update(params?: any, callback?: any): Promise<NotificationInstance> {
-    if (typeof params === "function") {
+  update(params?: any, callback?: any): Promise<NotificationInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -153,7 +149,7 @@ export function NotificationListInstance(version: V1, chatServiceSid: string): N
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.chatServiceSid));
@@ -163,17 +159,20 @@ export function NotificationListInstance(version: V1, chatServiceSid: string): N
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface NotificationPayload extends NotificationResource{
@@ -190,6 +189,8 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
+  protected _solution: NotificationContextSolution;
+  protected _context?: NotificationContext;
 
   constructor(protected _version: V1, payload: NotificationPayload, chatServiceSid?: string) {
     this.accountSid = payload.account_sid;
@@ -200,6 +201,7 @@ export class NotificationInstance {
     this.logEnabled = payload.log_enabled;
     this.url = payload.url;
 
+    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
   }
 
   /**
@@ -231,6 +233,45 @@ export class NotificationInstance {
    */
   url?: string | null;
 
+  private get _proxy(): NotificationContext {
+    this._context = this._context || new NotificationContextImpl(this._version, this._solution.chatServiceSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a NotificationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a NotificationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  update(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  /**
+   * Update a NotificationInstance
+   *
+   * @param { NotificationContextUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  update(params: NotificationContextUpdateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  update(params?: any, callback?: any): Promise<NotificationInstance>
+     {
+    return this._proxy.update(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -252,5 +293,53 @@ export class NotificationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface NotificationListInstance {
+  (): NotificationContext;
+  get(): NotificationContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+  chatServiceSid?: string;
+}
+
+interface NotificationListInstanceImpl extends NotificationListInstance {}
+class NotificationListInstanceImpl implements NotificationListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function NotificationListInstance(version: V1, chatServiceSid: string): NotificationListInstance {
+  const instance = (() => instance.get()) as NotificationListInstanceImpl;
+
+  instance.get = function get(): NotificationContext {
+    return new NotificationContextImpl(version, chatServiceSid);
+  }
+
+  instance._version = version;
+  instance._solution = { chatServiceSid };
+  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

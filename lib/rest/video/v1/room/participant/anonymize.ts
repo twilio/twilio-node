@@ -19,10 +19,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
 type RoomParticipantAnonymizeStatus = 'connected'|'disconnected';
 
 
-export interface AnonymizeListInstance {
+export interface AnonymizeContext {
 
 
   /**
@@ -42,29 +43,24 @@ export interface AnonymizeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AnonymizeSolution {
-  roomSid?: string;
-  sid?: string;
+export interface AnonymizeContextSolution {
+  "roomSid"?: string;
+  "sid"?: string;
 }
 
-interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
-class AnonymizeListInstanceImpl implements AnonymizeListInstance {
-  _version?: V1;
-  _solution?: AnonymizeSolution;
-  _uri?: string;
+export class AnonymizeContextImpl implements AnonymizeContext {
+  protected _solution: AnonymizeContextSolution;
+  protected _uri: string;
 
-}
 
-export function AnonymizeListInstance(version: V1, roomSid: string, sid: string): AnonymizeListInstance {
-  const instance = {} as AnonymizeListInstanceImpl;
+  constructor(protected _version: V1, roomSid: string, sid: string) {
+    this._solution = { roomSid, sid };
+    this._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
+  }
 
-  instance._version = version;
-  instance._solution = { roomSid, sid };
-  instance._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
-
-  instance.update = function update(callback?: any): Promise<AnonymizeInstance> {
-
-    let operationVersion = version,
+  update(callback?: any): Promise<AnonymizeInstance> {
+  
+    let operationVersion = this._version,
         operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new AnonymizeInstance(operationVersion, payload, this._solution.roomSid, this._solution.sid));
@@ -74,17 +70,20 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface AnonymizePayload extends AnonymizeResource{
@@ -105,6 +104,8 @@ interface AnonymizeResource {
 }
 
 export class AnonymizeInstance {
+  protected _solution: AnonymizeContextSolution;
+  protected _context?: AnonymizeContext;
 
   constructor(protected _version: V1, payload: AnonymizePayload, roomSid: string, sid?: string) {
     this.sid = payload.sid;
@@ -119,6 +120,7 @@ export class AnonymizeInstance {
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
 
+    this._solution = { roomSid, sid: sid || this.sid };
   }
 
   /**
@@ -163,6 +165,23 @@ export class AnonymizeInstance {
    */
   url?: string | null;
 
+  private get _proxy(): AnonymizeContext {
+    this._context = this._context || new AnonymizeContextImpl(this._version, this._solution.roomSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Update a AnonymizeInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnonymizeInstance
+   */
+  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
+     {
+    return this._proxy.update(callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -188,5 +207,54 @@ export class AnonymizeInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface AnonymizeListInstance {
+  (): AnonymizeContext;
+  get(): AnonymizeContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+  roomSid?: string;
+  sid?: string;
+}
+
+interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
+class AnonymizeListInstanceImpl implements AnonymizeListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function AnonymizeListInstance(version: V1, roomSid: string, sid: string): AnonymizeListInstance {
+  const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
+
+  instance.get = function get(): AnonymizeContext {
+    return new AnonymizeContextImpl(version, roomSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { roomSid, sid };
+  instance._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 
