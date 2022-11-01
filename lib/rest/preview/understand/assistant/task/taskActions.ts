@@ -26,7 +26,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { any } [actions] The JSON actions that instruct the Assistant how to perform this task.
  */
 export interface TaskActionsListInstanceUpdateOptions {
-  actions?: any;
+  "actions"?: any;
 }
 
 export interface TaskActionsListInstance {
@@ -92,7 +92,7 @@ export function TaskActionsListInstance(version: Understand, assistantSid: strin
   instance.fetch = function fetch(callback?: any): Promise<TaskActionsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     
@@ -113,13 +113,13 @@ export function TaskActionsListInstance(version: Understand, assistantSid: strin
 
     const data: any = {};
 
-    if (params.actions !== undefined) data['Actions'] = params.actions;
+    if (params["actions"] !== undefined) data["Actions"] = params["actions"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     

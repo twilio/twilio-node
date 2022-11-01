@@ -45,14 +45,14 @@ type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
  * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkContextUpdateOptions {
-  friendlyName?: string;
-  domainName?: string;
-  disasterRecoveryUrl?: string;
-  disasterRecoveryMethod?: string;
-  transferMode?: TrunkTransferSetting;
-  secure?: boolean;
-  cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkTransferCallerId;
+  "friendlyName"?: string;
+  "domainName"?: string;
+  "disasterRecoveryUrl"?: string;
+  "disasterRecoveryMethod"?: string;
+  "transferMode"?: TrunkTransferSetting;
+  "secure"?: boolean;
+  "cnamLookupEnabled"?: boolean;
+  "transferCallerId"?: TrunkTransferCallerId;
 }
 
 /**
@@ -68,14 +68,14 @@ export interface TrunkContextUpdateOptions {
  * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkListInstanceCreateOptions {
-  friendlyName?: string;
-  domainName?: string;
-  disasterRecoveryUrl?: string;
-  disasterRecoveryMethod?: string;
-  transferMode?: TrunkTransferSetting;
-  secure?: boolean;
-  cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkTransferCallerId;
+  "friendlyName"?: string;
+  "domainName"?: string;
+  "disasterRecoveryUrl"?: string;
+  "disasterRecoveryMethod"?: string;
+  "transferMode"?: TrunkTransferSetting;
+  "secure"?: boolean;
+  "cnamLookupEnabled"?: boolean;
+  "transferCallerId"?: TrunkTransferCallerId;
 }
 /**
  * Options to pass to each
@@ -91,7 +91,7 @@ export interface TrunkListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TrunkListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -107,7 +107,7 @@ export interface TrunkListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TrunkListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -119,7 +119,7 @@ export interface TrunkListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrunkListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -182,7 +182,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -228,7 +228,7 @@ export class TrunkContextImpl implements TrunkContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -240,7 +240,7 @@ export class TrunkContextImpl implements TrunkContext {
   fetch(callback?: any): Promise<TrunkInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, this._solution.sid));
     
@@ -261,20 +261,20 @@ export class TrunkContextImpl implements TrunkContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
-    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
-    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
-    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
-    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["domainName"] !== undefined) data["DomainName"] = params["domainName"];
+    if (params["disasterRecoveryUrl"] !== undefined) data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+    if (params["disasterRecoveryMethod"] !== undefined) data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+    if (params["transferMode"] !== undefined) data["TransferMode"] = params["transferMode"];
+    if (params["secure"] !== undefined) data["Secure"] = serialize.bool(params["secure"]);
+    if (params["cnamLookupEnabled"] !== undefined) data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+    if (params["transferCallerId"] !== undefined) data["TransferCallerId"] = params["transferCallerId"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, this._solution.sid));
     
@@ -697,20 +697,20 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
-    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
-    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
-    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
-    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["domainName"] !== undefined) data["DomainName"] = params["domainName"];
+    if (params["disasterRecoveryUrl"] !== undefined) data["DisasterRecoveryUrl"] = params["disasterRecoveryUrl"];
+    if (params["disasterRecoveryMethod"] !== undefined) data["DisasterRecoveryMethod"] = params["disasterRecoveryMethod"];
+    if (params["transferMode"] !== undefined) data["TransferMode"] = params["transferMode"];
+    if (params["secure"] !== undefined) data["Secure"] = serialize.bool(params["secure"]);
+    if (params["cnamLookupEnabled"] !== undefined) data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+    if (params["transferCallerId"] !== undefined) data["TransferCallerId"] = params["transferCallerId"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload));
     
@@ -731,14 +731,14 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TrunkPage(operationVersion, payload, this._solution));
 
@@ -750,7 +750,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TrunkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TrunkPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

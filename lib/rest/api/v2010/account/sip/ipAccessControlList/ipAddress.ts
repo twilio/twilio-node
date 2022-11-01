@@ -31,9 +31,9 @@ const serialize = require("../../../../../../base/serialize");
  * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressContextUpdateOptions {
-  ipAddress?: string;
-  friendlyName?: string;
-  cidrPrefixLength?: number;
+  "ipAddress"?: string;
+  "friendlyName"?: string;
+  "cidrPrefixLength"?: number;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface IpAddressContextUpdateOptions {
  * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressListInstanceCreateOptions {
-  friendlyName: string;
-  ipAddress: string;
-  cidrPrefixLength?: number;
+  "friendlyName": string;
+  "ipAddress": string;
+  "cidrPrefixLength"?: number;
 }
 /**
  * Options to pass to each
@@ -62,7 +62,7 @@ export interface IpAddressListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface IpAddressListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -78,7 +78,7 @@ export interface IpAddressListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface IpAddressListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -90,7 +90,7 @@ export interface IpAddressListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpAddressListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -148,9 +148,9 @@ export interface IpAddressContext {
 }
 
 export interface IpAddressContextSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "ipAccessControlListSid"?: string;
+  "sid"?: string;
 }
 
 export class IpAddressContextImpl implements IpAddressContext {
@@ -166,7 +166,7 @@ export class IpAddressContextImpl implements IpAddressContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -178,7 +178,7 @@ export class IpAddressContextImpl implements IpAddressContext {
   fetch(callback?: any): Promise<IpAddressInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new IpAddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.ipAccessControlListSid, this._solution.sid));
     
@@ -199,15 +199,15 @@ export class IpAddressContextImpl implements IpAddressContext {
 
     const data: any = {};
 
-    if (params.ipAddress !== undefined) data['IpAddress'] = params.ipAddress;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
+    if (params["ipAddress"] !== undefined) data["IpAddress"] = params["ipAddress"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["cidrPrefixLength"] !== undefined) data["CidrPrefixLength"] = params["cidrPrefixLength"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.ipAccessControlListSid, this._solution.sid));
     
@@ -533,25 +533,25 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.ipAddress === null || params.ipAddress === undefined) {
-      throw new Error('Required parameter "params.ipAddress" missing.');
+    if (params["ipAddress"] === null || params["ipAddress"] === undefined) {
+      throw new Error('Required parameter "params[\'ipAddress\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['IpAddress'] = params.ipAddress;
-    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
+    data["FriendlyName"] = params["friendlyName"];
+    data["IpAddress"] = params["ipAddress"];
+    if (params["cidrPrefixLength"] !== undefined) data["CidrPrefixLength"] = params["cidrPrefixLength"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.ipAccessControlListSid));
     
@@ -572,14 +572,14 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAddressPage(operationVersion, payload, this._solution));
 
@@ -591,7 +591,7 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IpAddressPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new IpAddressPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

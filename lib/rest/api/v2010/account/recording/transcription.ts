@@ -38,7 +38,7 @@ type RecordingTranscriptionStatus = 'in-progress'|'completed'|'failed';
  *                         Default is no limit
  */
 export interface TranscriptionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +54,7 @@ export interface TranscriptionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TranscriptionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -66,7 +66,7 @@ export interface TranscriptionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TranscriptionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -104,9 +104,9 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  accountSid?: string;
-  recordingSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "recordingSid"?: string;
+  "sid"?: string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
@@ -122,7 +122,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -134,7 +134,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   fetch(callback?: any): Promise<TranscriptionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, this._solution.accountSid, this._solution.recordingSid, this._solution.sid));
     
@@ -456,14 +456,14 @@ export function TranscriptionListInstance(version: V2010, accountSid: string, re
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TranscriptionPage(operationVersion, payload, this._solution));
 
@@ -475,7 +475,7 @@ export function TranscriptionListInstance(version: V2010, accountSid: string, re
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TranscriptionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TranscriptionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

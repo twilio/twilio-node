@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { any } [defaults] A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
  */
 export interface DefaultsListInstanceUpdateOptions {
-  defaults?: any;
+  "defaults"?: any;
 }
 
 export interface DefaultsListInstance {
@@ -91,7 +91,7 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
   instance.fetch = function fetch(callback?: any): Promise<DefaultsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new DefaultsInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -112,13 +112,13 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
 
     const data: any = {};
 
-    if (params.defaults !== undefined) data['Defaults'] = params.defaults;
+    if (params["defaults"] !== undefined) data["Defaults"] = params["defaults"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new DefaultsInstance(operationVersion, payload, this._solution.assistantSid));
     

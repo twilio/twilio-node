@@ -44,7 +44,7 @@ type VideoParticipantSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'s
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -60,7 +60,7 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -72,7 +72,7 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -100,8 +100,8 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  roomSid?: string;
-  participantSid?: string;
+  "roomSid"?: string;
+  "participantSid"?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -117,7 +117,7 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(callback?: any): Promise<ParticipantInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
     
@@ -448,14 +448,14 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
 
@@ -467,7 +467,7 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

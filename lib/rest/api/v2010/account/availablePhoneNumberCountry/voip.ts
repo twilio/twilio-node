@@ -117,25 +117,25 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip 
  *                         Default is no limit
  */
 export interface VoipListInstanceEachOptions {
-  areaCode?: number;
-  contains?: string;
-  smsEnabled?: boolean;
-  mmsEnabled?: boolean;
-  voiceEnabled?: boolean;
-  excludeAllAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  beta?: boolean;
-  nearNumber?: string;
-  nearLatLong?: string;
-  distance?: number;
-  inPostalCode?: string;
-  inRegion?: string;
-  inRateCenter?: string;
-  inLata?: string;
-  inLocality?: string;
-  faxEnabled?: boolean;
-  pageSize?: number;
+  "areaCode"?: number;
+  "contains"?: string;
+  "smsEnabled"?: boolean;
+  "mmsEnabled"?: boolean;
+  "voiceEnabled"?: boolean;
+  "excludeAllAddressRequired"?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
+  "beta"?: boolean;
+  "nearNumber"?: string;
+  "nearLatLong"?: string;
+  "distance"?: number;
+  "inPostalCode"?: string;
+  "inRegion"?: string;
+  "inRateCenter"?: string;
+  "inLata"?: string;
+  "inLocality"?: string;
+  "faxEnabled"?: boolean;
+  "pageSize"?: number;
   callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -169,25 +169,25 @@ export interface VoipListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface VoipListInstanceOptions {
-  areaCode?: number;
-  contains?: string;
-  smsEnabled?: boolean;
-  mmsEnabled?: boolean;
-  voiceEnabled?: boolean;
-  excludeAllAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  beta?: boolean;
-  nearNumber?: string;
-  nearLatLong?: string;
-  distance?: number;
-  inPostalCode?: string;
-  inRegion?: string;
-  inRateCenter?: string;
-  inLata?: string;
-  inLocality?: string;
-  faxEnabled?: boolean;
-  pageSize?: number;
+  "areaCode"?: number;
+  "contains"?: string;
+  "smsEnabled"?: boolean;
+  "mmsEnabled"?: boolean;
+  "voiceEnabled"?: boolean;
+  "excludeAllAddressRequired"?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
+  "beta"?: boolean;
+  "nearNumber"?: string;
+  "nearLatLong"?: string;
+  "distance"?: number;
+  "inPostalCode"?: string;
+  "inRegion"?: string;
+  "inRateCenter"?: string;
+  "inLata"?: string;
+  "inLocality"?: string;
+  "faxEnabled"?: boolean;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -217,25 +217,25 @@ export interface VoipListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VoipListInstancePageOptions {
-  areaCode?: number;
-  contains?: string;
-  smsEnabled?: boolean;
-  mmsEnabled?: boolean;
-  voiceEnabled?: boolean;
-  excludeAllAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  beta?: boolean;
-  nearNumber?: string;
-  nearLatLong?: string;
-  distance?: number;
-  inPostalCode?: string;
-  inRegion?: string;
-  inRateCenter?: string;
-  inLata?: string;
-  inLocality?: string;
-  faxEnabled?: boolean;
-  pageSize?: number;
+  "areaCode"?: number;
+  "contains"?: string;
+  "smsEnabled"?: boolean;
+  "mmsEnabled"?: boolean;
+  "voiceEnabled"?: boolean;
+  "excludeAllAddressRequired"?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
+  "beta"?: boolean;
+  "nearNumber"?: string;
+  "nearLatLong"?: string;
+  "distance"?: number;
+  "inPostalCode"?: string;
+  "inRegion"?: string;
+  "inRateCenter"?: string;
+  "inLata"?: string;
+  "inLocality"?: string;
+  "faxEnabled"?: boolean;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -384,32 +384,32 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
 
     const data: any = {};
 
-    if (params.areaCode !== undefined) data['AreaCode'] = params.areaCode;
-    if (params.contains !== undefined) data['Contains'] = params.contains;
-    if (params.smsEnabled !== undefined) data['SmsEnabled'] = serialize.bool(params.smsEnabled);
-    if (params.mmsEnabled !== undefined) data['MmsEnabled'] = serialize.bool(params.mmsEnabled);
-    if (params.voiceEnabled !== undefined) data['VoiceEnabled'] = serialize.bool(params.voiceEnabled);
-    if (params.excludeAllAddressRequired !== undefined) data['ExcludeAllAddressRequired'] = serialize.bool(params.excludeAllAddressRequired);
-    if (params.excludeLocalAddressRequired !== undefined) data['ExcludeLocalAddressRequired'] = serialize.bool(params.excludeLocalAddressRequired);
-    if (params.excludeForeignAddressRequired !== undefined) data['ExcludeForeignAddressRequired'] = serialize.bool(params.excludeForeignAddressRequired);
-    if (params.beta !== undefined) data['Beta'] = serialize.bool(params.beta);
-    if (params.nearNumber !== undefined) data['NearNumber'] = params.nearNumber;
-    if (params.nearLatLong !== undefined) data['NearLatLong'] = params.nearLatLong;
-    if (params.distance !== undefined) data['Distance'] = params.distance;
-    if (params.inPostalCode !== undefined) data['InPostalCode'] = params.inPostalCode;
-    if (params.inRegion !== undefined) data['InRegion'] = params.inRegion;
-    if (params.inRateCenter !== undefined) data['InRateCenter'] = params.inRateCenter;
-    if (params.inLata !== undefined) data['InLata'] = params.inLata;
-    if (params.inLocality !== undefined) data['InLocality'] = params.inLocality;
-    if (params.faxEnabled !== undefined) data['FaxEnabled'] = serialize.bool(params.faxEnabled);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
+    if (params["smsEnabled"] !== undefined) data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+    if (params["mmsEnabled"] !== undefined) data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+    if (params["voiceEnabled"] !== undefined) data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["excludeAllAddressRequired"] !== undefined) data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
+    if (params["excludeLocalAddressRequired"] !== undefined) data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
+    if (params["excludeForeignAddressRequired"] !== undefined) data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
+    if (params["beta"] !== undefined) data["Beta"] = serialize.bool(params["beta"]);
+    if (params["nearNumber"] !== undefined) data["NearNumber"] = params["nearNumber"];
+    if (params["nearLatLong"] !== undefined) data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
+    if (params["inPostalCode"] !== undefined) data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
+    if (params["inRateCenter"] !== undefined) data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
+    if (params["inLocality"] !== undefined) data["InLocality"] = params["inLocality"];
+    if (params["faxEnabled"] !== undefined) data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new VoipPage(operationVersion, payload, this._solution));
 
@@ -421,7 +421,7 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<VoipPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new VoipPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

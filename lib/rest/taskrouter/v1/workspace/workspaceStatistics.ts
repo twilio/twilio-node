@@ -30,11 +30,11 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
  */
 export interface WorkspaceStatisticsListInstanceFetchOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
+  "minutes"?: number;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "taskChannel"?: string;
+  "splitByWaitTime"?: string;
 }
 
 export interface WorkspaceStatisticsListInstance {
@@ -96,16 +96,16 @@ export function WorkspaceStatisticsListInstance(version: V1, workspaceSid: strin
 
     const data: any = {};
 
-    if (params.minutes !== undefined) data['Minutes'] = params.minutes;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined) data["SplitByWaitTime"] = params["splitByWaitTime"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
     

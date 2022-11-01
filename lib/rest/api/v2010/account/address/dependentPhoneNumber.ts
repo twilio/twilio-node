@@ -137,7 +137,7 @@ export class ApiV2010AccountAddressDependentPhoneNumber {
  *                         Default is no limit
  */
 export interface DependentPhoneNumberListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -153,7 +153,7 @@ export interface DependentPhoneNumberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DependentPhoneNumberListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -165,7 +165,7 @@ export interface DependentPhoneNumberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DependentPhoneNumberListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -314,14 +314,14 @@ export function DependentPhoneNumberListInstance(version: V2010, accountSid: str
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DependentPhoneNumberPage(operationVersion, payload, this._solution));
 
@@ -333,7 +333,7 @@ export function DependentPhoneNumberListInstance(version: V2010, accountSid: str
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DependentPhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new DependentPhoneNumberPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -35,7 +35,7 @@ export class VideoV1RoomRoomRecordingRuleRules {
  * @property { any } [rules] A JSON-encoded array of recording rules.
  */
 export interface RecordingRulesListInstanceUpdateOptions {
-  rules?: any;
+  "rules"?: any;
 }
 
 export interface RecordingRulesListInstance {
@@ -100,7 +100,7 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
   instance.fetch = function fetch(callback?: any): Promise<RecordingRulesInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RecordingRulesInstance(operationVersion, payload, this._solution.roomSid));
     
@@ -121,13 +121,13 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
 
     const data: any = {};
 
-    if (params.rules !== undefined) data['Rules'] = params.rules;
+    if (params["rules"] !== undefined) data["Rules"] = params["rules"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingRulesInstance(operationVersion, payload, this._solution.roomSid));
     

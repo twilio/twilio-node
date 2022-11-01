@@ -36,13 +36,13 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
 export interface AnnotationListInstanceUpdateOptions {
-  answeredBy?: AnnotationAnsweredBy;
-  connectivityIssue?: AnnotationConnectivityIssue;
-  qualityIssues?: string;
-  spam?: boolean;
-  callScore?: number;
-  comment?: string;
-  incident?: string;
+  "answeredBy"?: AnnotationAnsweredBy;
+  "connectivityIssue"?: AnnotationConnectivityIssue;
+  "qualityIssues"?: string;
+  "spam"?: boolean;
+  "callScore"?: number;
+  "comment"?: string;
+  "incident"?: string;
 }
 
 export interface AnnotationListInstance {
@@ -107,7 +107,7 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
   instance.fetch = function fetch(callback?: any): Promise<AnnotationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
     
@@ -128,19 +128,19 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
 
     const data: any = {};
 
-    if (params.answeredBy !== undefined) data['AnsweredBy'] = params.answeredBy;
-    if (params.connectivityIssue !== undefined) data['ConnectivityIssue'] = params.connectivityIssue;
-    if (params.qualityIssues !== undefined) data['QualityIssues'] = params.qualityIssues;
-    if (params.spam !== undefined) data['Spam'] = serialize.bool(params.spam);
-    if (params.callScore !== undefined) data['CallScore'] = params.callScore;
-    if (params.comment !== undefined) data['Comment'] = params.comment;
-    if (params.incident !== undefined) data['Incident'] = params.incident;
+    if (params["answeredBy"] !== undefined) data["AnsweredBy"] = params["answeredBy"];
+    if (params["connectivityIssue"] !== undefined) data["ConnectivityIssue"] = params["connectivityIssue"];
+    if (params["qualityIssues"] !== undefined) data["QualityIssues"] = params["qualityIssues"];
+    if (params["spam"] !== undefined) data["Spam"] = serialize.bool(params["spam"]);
+    if (params["callScore"] !== undefined) data["CallScore"] = params["callScore"];
+    if (params["comment"] !== undefined) data["Comment"] = params["comment"];
+    if (params["incident"] !== undefined) data["Incident"] = params["incident"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
     

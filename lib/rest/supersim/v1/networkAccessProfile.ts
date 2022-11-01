@@ -30,7 +30,7 @@ import { NetworkAccessProfileNetworkListInstance } from "./networkAccessProfile/
  * @property { string } [uniqueName] The new unique name of the Network Access Profile.
  */
 export interface NetworkAccessProfileContextUpdateOptions {
-  uniqueName?: string;
+  "uniqueName"?: string;
 }
 
 /**
@@ -40,8 +40,8 @@ export interface NetworkAccessProfileContextUpdateOptions {
  * @property { Array<string> } [networks] List of Network SIDs that this Network Access Profile will allow connections to.
  */
 export interface NetworkAccessProfileListInstanceCreateOptions {
-  uniqueName?: string;
-  networks?: Array<string>;
+  "uniqueName"?: string;
+  "networks"?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -57,7 +57,7 @@ export interface NetworkAccessProfileListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface NetworkAccessProfileListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: NetworkAccessProfileInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -73,7 +73,7 @@ export interface NetworkAccessProfileListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface NetworkAccessProfileListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -85,7 +85,7 @@ export interface NetworkAccessProfileListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NetworkAccessProfileListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -134,7 +134,7 @@ export interface NetworkAccessProfileContext {
 }
 
 export interface NetworkAccessProfileContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class NetworkAccessProfileContextImpl implements NetworkAccessProfileContext {
@@ -156,7 +156,7 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
   fetch(callback?: any): Promise<NetworkAccessProfileInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileInstance(operationVersion, payload, this._solution.sid));
     
@@ -177,13 +177,13 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileInstance(operationVersion, payload, this._solution.sid));
     
@@ -498,14 +498,14 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.networks !== undefined) data['Networks'] = serialize.map(params.networks, ((e) => e));
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["networks"] !== undefined) data["Networks"] = serialize.map(params["networks"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfileInstance(operationVersion, payload));
     
@@ -526,14 +526,14 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new NetworkAccessProfilePage(operationVersion, payload, this._solution));
 
@@ -545,7 +545,7 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<NetworkAccessProfilePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new NetworkAccessProfilePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

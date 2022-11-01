@@ -29,8 +29,8 @@ type CallFeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'
  * @property { Array<CallFeedbackIssues> } [issue] One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
  */
 export interface FeedbackListInstanceUpdateOptions {
-  qualityScore?: number;
-  issue?: Array<CallFeedbackIssues>;
+  "qualityScore"?: number;
+  "issue"?: Array<CallFeedbackIssues>;
 }
 
 export interface FeedbackListInstance {
@@ -96,7 +96,7 @@ export function FeedbackListInstance(version: V2010, accountSid: string, callSid
   instance.fetch = function fetch(callback?: any): Promise<FeedbackInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
     
@@ -117,14 +117,14 @@ export function FeedbackListInstance(version: V2010, accountSid: string, callSid
 
     const data: any = {};
 
-    if (params.qualityScore !== undefined) data['QualityScore'] = params.qualityScore;
-    if (params.issue !== undefined) data['Issue'] = serialize.map(params.issue, ((e) => e));
+    if (params["qualityScore"] !== undefined) data["QualityScore"] = params["qualityScore"];
+    if (params["issue"] !== undefined) data["Issue"] = serialize.map(params["issue"], ((e) => e));
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
     

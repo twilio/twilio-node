@@ -61,7 +61,7 @@ export function OpenidDiscoveryListInstance(version: V1): OpenidDiscoveryListIns
   instance.fetch = function fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new OpenidDiscoveryInstance(operationVersion, payload));
     

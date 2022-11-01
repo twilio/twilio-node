@@ -31,10 +31,10 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { boolean } [reachabilityEnabled] Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;.
  */
 export interface ConfigurationListInstanceUpdateOptions {
-  defaultConversationCreatorRoleSid?: string;
-  defaultConversationRoleSid?: string;
-  defaultChatServiceRoleSid?: string;
-  reachabilityEnabled?: boolean;
+  "defaultConversationCreatorRoleSid"?: string;
+  "defaultConversationRoleSid"?: string;
+  "defaultChatServiceRoleSid"?: string;
+  "reachabilityEnabled"?: boolean;
 }
 
 export interface ConfigurationListInstance {
@@ -121,7 +121,7 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
   instance.fetch = function fetch(callback?: any): Promise<ConfigurationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
     
@@ -142,16 +142,16 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
 
     const data: any = {};
 
-    if (params.defaultConversationCreatorRoleSid !== undefined) data['DefaultConversationCreatorRoleSid'] = params.defaultConversationCreatorRoleSid;
-    if (params.defaultConversationRoleSid !== undefined) data['DefaultConversationRoleSid'] = params.defaultConversationRoleSid;
-    if (params.defaultChatServiceRoleSid !== undefined) data['DefaultChatServiceRoleSid'] = params.defaultChatServiceRoleSid;
-    if (params.reachabilityEnabled !== undefined) data['ReachabilityEnabled'] = serialize.bool(params.reachabilityEnabled);
+    if (params["defaultConversationCreatorRoleSid"] !== undefined) data["DefaultConversationCreatorRoleSid"] = params["defaultConversationCreatorRoleSid"];
+    if (params["defaultConversationRoleSid"] !== undefined) data["DefaultConversationRoleSid"] = params["defaultConversationRoleSid"];
+    if (params["defaultChatServiceRoleSid"] !== undefined) data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
+    if (params["reachabilityEnabled"] !== undefined) data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
     

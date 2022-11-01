@@ -63,7 +63,7 @@ export function TaskStatisticsListInstance(version: V1, assistantSid: string, ta
   instance.fetch = function fetch(callback?: any): Promise<TaskStatisticsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TaskStatisticsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     

@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface PublicKeyContextUpdateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 
 /**
@@ -40,9 +40,9 @@ export interface PublicKeyContextUpdateOptions {
  * @property { string } [accountSid] The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
  */
 export interface PublicKeyListInstanceCreateOptions {
-  publicKey: string;
-  friendlyName?: string;
-  accountSid?: string;
+  "publicKey": string;
+  "friendlyName"?: string;
+  "accountSid"?: string;
 }
 /**
  * Options to pass to each
@@ -58,7 +58,7 @@ export interface PublicKeyListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface PublicKeyListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -74,7 +74,7 @@ export interface PublicKeyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PublicKeyListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -86,7 +86,7 @@ export interface PublicKeyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PublicKeyListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -144,7 +144,7 @@ export interface PublicKeyContext {
 }
 
 export interface PublicKeyContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class PublicKeyContextImpl implements PublicKeyContext {
@@ -160,7 +160,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -172,7 +172,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   fetch(callback?: any): Promise<PublicKeyInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PublicKeyInstance(operationVersion, payload, this._solution.sid));
     
@@ -193,13 +193,13 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PublicKeyInstance(operationVersion, payload, this._solution.sid));
     
@@ -502,21 +502,21 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.publicKey === null || params.publicKey === undefined) {
-      throw new Error('Required parameter "params.publicKey" missing.');
+    if (params["publicKey"] === null || params["publicKey"] === undefined) {
+      throw new Error('Required parameter "params[\'publicKey\']" missing.');
     }
 
     const data: any = {};
 
-    data['PublicKey'] = params.publicKey;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.accountSid !== undefined) data['AccountSid'] = params.accountSid;
+    data["PublicKey"] = params["publicKey"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["accountSid"] !== undefined) data["AccountSid"] = params["accountSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PublicKeyInstance(operationVersion, payload));
     
@@ -537,14 +537,14 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PublicKeyPage(operationVersion, payload, this._solution));
 
@@ -556,7 +556,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PublicKeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new PublicKeyPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

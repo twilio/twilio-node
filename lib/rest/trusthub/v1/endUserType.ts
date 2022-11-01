@@ -36,7 +36,7 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface EndUserTypeListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +52,7 @@ export interface EndUserTypeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EndUserTypeListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -64,7 +64,7 @@ export interface EndUserTypeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EndUserTypeListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -92,7 +92,7 @@ export interface EndUserTypeContext {
 }
 
 export interface EndUserTypeContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class EndUserTypeContextImpl implements EndUserTypeContext {
@@ -108,7 +108,7 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   fetch(callback?: any): Promise<EndUserTypeInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EndUserTypeInstance(operationVersion, payload, this._solution.sid));
     
@@ -363,14 +363,14 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EndUserTypePage(operationVersion, payload, this._solution));
 
@@ -382,7 +382,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EndUserTypePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EndUserTypePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

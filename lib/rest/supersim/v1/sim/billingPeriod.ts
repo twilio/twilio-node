@@ -79,7 +79,7 @@ export class SupersimV1SimBillingPeriod {
  *                         Default is no limit
  */
 export interface BillingPeriodListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -95,7 +95,7 @@ export interface BillingPeriodListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BillingPeriodListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -107,7 +107,7 @@ export interface BillingPeriodListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BillingPeriodListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -255,14 +255,14 @@ export function BillingPeriodListInstance(version: V1, simSid: string): BillingP
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BillingPeriodPage(operationVersion, payload, this._solution));
 
@@ -274,7 +274,7 @@ export function BillingPeriodListInstance(version: V1, simSid: string): BillingP
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BillingPeriodPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new BillingPeriodPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

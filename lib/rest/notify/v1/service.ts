@@ -44,20 +44,20 @@ import { NotificationListInstance } from "./service/notification";
  * @property { boolean } [deliveryCallbackEnabled] Callback configuration that enables delivery callbacks, default false
  */
 export interface ServiceContextUpdateOptions {
-  friendlyName?: string;
-  apnCredentialSid?: string;
-  gcmCredentialSid?: string;
-  messagingServiceSid?: string;
-  facebookMessengerPageId?: string;
-  defaultApnNotificationProtocolVersion?: string;
-  defaultGcmNotificationProtocolVersion?: string;
-  fcmCredentialSid?: string;
-  defaultFcmNotificationProtocolVersion?: string;
-  logEnabled?: boolean;
-  alexaSkillId?: string;
-  defaultAlexaNotificationProtocolVersion?: string;
-  deliveryCallbackUrl?: string;
-  deliveryCallbackEnabled?: boolean;
+  "friendlyName"?: string;
+  "apnCredentialSid"?: string;
+  "gcmCredentialSid"?: string;
+  "messagingServiceSid"?: string;
+  "facebookMessengerPageId"?: string;
+  "defaultApnNotificationProtocolVersion"?: string;
+  "defaultGcmNotificationProtocolVersion"?: string;
+  "fcmCredentialSid"?: string;
+  "defaultFcmNotificationProtocolVersion"?: string;
+  "logEnabled"?: boolean;
+  "alexaSkillId"?: string;
+  "defaultAlexaNotificationProtocolVersion"?: string;
+  "deliveryCallbackUrl"?: string;
+  "deliveryCallbackEnabled"?: boolean;
 }
 
 /**
@@ -79,20 +79,20 @@ export interface ServiceContextUpdateOptions {
  * @property { boolean } [deliveryCallbackEnabled] Callback configuration that enables delivery callbacks, default false
  */
 export interface ServiceListInstanceCreateOptions {
-  friendlyName?: string;
-  apnCredentialSid?: string;
-  gcmCredentialSid?: string;
-  messagingServiceSid?: string;
-  facebookMessengerPageId?: string;
-  defaultApnNotificationProtocolVersion?: string;
-  defaultGcmNotificationProtocolVersion?: string;
-  fcmCredentialSid?: string;
-  defaultFcmNotificationProtocolVersion?: string;
-  logEnabled?: boolean;
-  alexaSkillId?: string;
-  defaultAlexaNotificationProtocolVersion?: string;
-  deliveryCallbackUrl?: string;
-  deliveryCallbackEnabled?: boolean;
+  "friendlyName"?: string;
+  "apnCredentialSid"?: string;
+  "gcmCredentialSid"?: string;
+  "messagingServiceSid"?: string;
+  "facebookMessengerPageId"?: string;
+  "defaultApnNotificationProtocolVersion"?: string;
+  "defaultGcmNotificationProtocolVersion"?: string;
+  "fcmCredentialSid"?: string;
+  "defaultFcmNotificationProtocolVersion"?: string;
+  "logEnabled"?: boolean;
+  "alexaSkillId"?: string;
+  "defaultAlexaNotificationProtocolVersion"?: string;
+  "deliveryCallbackUrl"?: string;
+  "deliveryCallbackEnabled"?: boolean;
 }
 /**
  * Options to pass to each
@@ -109,8 +109,8 @@ export interface ServiceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -127,8 +127,8 @@ export interface ServiceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -141,8 +141,8 @@ export interface ServiceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -202,7 +202,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -230,7 +230,7 @@ export class ServiceContextImpl implements ServiceContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -242,7 +242,7 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(callback?: any): Promise<ServiceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
     
@@ -263,26 +263,26 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.apnCredentialSid !== undefined) data['ApnCredentialSid'] = params.apnCredentialSid;
-    if (params.gcmCredentialSid !== undefined) data['GcmCredentialSid'] = params.gcmCredentialSid;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.facebookMessengerPageId !== undefined) data['FacebookMessengerPageId'] = params.facebookMessengerPageId;
-    if (params.defaultApnNotificationProtocolVersion !== undefined) data['DefaultApnNotificationProtocolVersion'] = params.defaultApnNotificationProtocolVersion;
-    if (params.defaultGcmNotificationProtocolVersion !== undefined) data['DefaultGcmNotificationProtocolVersion'] = params.defaultGcmNotificationProtocolVersion;
-    if (params.fcmCredentialSid !== undefined) data['FcmCredentialSid'] = params.fcmCredentialSid;
-    if (params.defaultFcmNotificationProtocolVersion !== undefined) data['DefaultFcmNotificationProtocolVersion'] = params.defaultFcmNotificationProtocolVersion;
-    if (params.logEnabled !== undefined) data['LogEnabled'] = serialize.bool(params.logEnabled);
-    if (params.alexaSkillId !== undefined) data['AlexaSkillId'] = params.alexaSkillId;
-    if (params.defaultAlexaNotificationProtocolVersion !== undefined) data['DefaultAlexaNotificationProtocolVersion'] = params.defaultAlexaNotificationProtocolVersion;
-    if (params.deliveryCallbackUrl !== undefined) data['DeliveryCallbackUrl'] = params.deliveryCallbackUrl;
-    if (params.deliveryCallbackEnabled !== undefined) data['DeliveryCallbackEnabled'] = serialize.bool(params.deliveryCallbackEnabled);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["apnCredentialSid"] !== undefined) data["ApnCredentialSid"] = params["apnCredentialSid"];
+    if (params["gcmCredentialSid"] !== undefined) data["GcmCredentialSid"] = params["gcmCredentialSid"];
+    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["facebookMessengerPageId"] !== undefined) data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
+    if (params["defaultApnNotificationProtocolVersion"] !== undefined) data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
+    if (params["defaultGcmNotificationProtocolVersion"] !== undefined) data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
+    if (params["fcmCredentialSid"] !== undefined) data["FcmCredentialSid"] = params["fcmCredentialSid"];
+    if (params["defaultFcmNotificationProtocolVersion"] !== undefined) data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
+    if (params["logEnabled"] !== undefined) data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["alexaSkillId"] !== undefined) data["AlexaSkillId"] = params["alexaSkillId"];
+    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined) data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
+    if (params["deliveryCallbackUrl"] !== undefined) data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["deliveryCallbackEnabled"] !== undefined) data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
     
@@ -710,26 +710,26 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.apnCredentialSid !== undefined) data['ApnCredentialSid'] = params.apnCredentialSid;
-    if (params.gcmCredentialSid !== undefined) data['GcmCredentialSid'] = params.gcmCredentialSid;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.facebookMessengerPageId !== undefined) data['FacebookMessengerPageId'] = params.facebookMessengerPageId;
-    if (params.defaultApnNotificationProtocolVersion !== undefined) data['DefaultApnNotificationProtocolVersion'] = params.defaultApnNotificationProtocolVersion;
-    if (params.defaultGcmNotificationProtocolVersion !== undefined) data['DefaultGcmNotificationProtocolVersion'] = params.defaultGcmNotificationProtocolVersion;
-    if (params.fcmCredentialSid !== undefined) data['FcmCredentialSid'] = params.fcmCredentialSid;
-    if (params.defaultFcmNotificationProtocolVersion !== undefined) data['DefaultFcmNotificationProtocolVersion'] = params.defaultFcmNotificationProtocolVersion;
-    if (params.logEnabled !== undefined) data['LogEnabled'] = serialize.bool(params.logEnabled);
-    if (params.alexaSkillId !== undefined) data['AlexaSkillId'] = params.alexaSkillId;
-    if (params.defaultAlexaNotificationProtocolVersion !== undefined) data['DefaultAlexaNotificationProtocolVersion'] = params.defaultAlexaNotificationProtocolVersion;
-    if (params.deliveryCallbackUrl !== undefined) data['DeliveryCallbackUrl'] = params.deliveryCallbackUrl;
-    if (params.deliveryCallbackEnabled !== undefined) data['DeliveryCallbackEnabled'] = serialize.bool(params.deliveryCallbackEnabled);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["apnCredentialSid"] !== undefined) data["ApnCredentialSid"] = params["apnCredentialSid"];
+    if (params["gcmCredentialSid"] !== undefined) data["GcmCredentialSid"] = params["gcmCredentialSid"];
+    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["facebookMessengerPageId"] !== undefined) data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
+    if (params["defaultApnNotificationProtocolVersion"] !== undefined) data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
+    if (params["defaultGcmNotificationProtocolVersion"] !== undefined) data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
+    if (params["fcmCredentialSid"] !== undefined) data["FcmCredentialSid"] = params["fcmCredentialSid"];
+    if (params["defaultFcmNotificationProtocolVersion"] !== undefined) data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
+    if (params["logEnabled"] !== undefined) data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["alexaSkillId"] !== undefined) data["AlexaSkillId"] = params["alexaSkillId"];
+    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined) data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
+    if (params["deliveryCallbackUrl"] !== undefined) data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["deliveryCallbackEnabled"] !== undefined) data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
     
@@ -750,15 +750,15 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
 
@@ -770,7 +770,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

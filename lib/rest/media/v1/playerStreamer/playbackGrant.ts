@@ -27,8 +27,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [accessControlAllowOrigin] The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
  */
 export interface PlaybackGrantListInstanceCreateOptions {
-  ttl?: number;
-  accessControlAllowOrigin?: string;
+  "ttl"?: number;
+  "accessControlAllowOrigin"?: string;
 }
 
 export interface PlaybackGrantListInstance {
@@ -100,14 +100,14 @@ export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGra
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.accessControlAllowOrigin !== undefined) data['AccessControlAllowOrigin'] = params.accessControlAllowOrigin;
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["accessControlAllowOrigin"] !== undefined) data["AccessControlAllowOrigin"] = params["accessControlAllowOrigin"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PlaybackGrantInstance(operationVersion, payload, this._solution.sid));
     
@@ -121,7 +121,7 @@ export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGra
   instance.fetch = function fetch(callback?: any): Promise<PlaybackGrantInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PlaybackGrantInstance(operationVersion, payload, this._solution.sid));
     

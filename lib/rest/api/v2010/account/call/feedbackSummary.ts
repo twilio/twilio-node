@@ -33,11 +33,11 @@ type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
  * @property { string } [statusCallbackMethod] The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
-  startDate: Date;
-  endDate: Date;
-  includeSubaccounts?: boolean;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
+  "startDate": Date;
+  "endDate": Date;
+  "includeSubaccounts"?: boolean;
+  "statusCallback"?: string;
+  "statusCallbackMethod"?: string;
 }
 
 export interface FeedbackSummaryContext {
@@ -71,8 +71,8 @@ export interface FeedbackSummaryContext {
 }
 
 export interface FeedbackSummaryContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
@@ -88,7 +88,7 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -100,7 +100,7 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   fetch(callback?: any): Promise<FeedbackSummaryInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FeedbackSummaryInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -333,27 +333,27 @@ export function FeedbackSummaryListInstance(version: V2010, accountSid: string):
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.startDate === null || params.startDate === undefined) {
-      throw new Error('Required parameter "params.startDate" missing.');
+    if (params["startDate"] === null || params["startDate"] === undefined) {
+      throw new Error('Required parameter "params[\'startDate\']" missing.');
     }
 
-    if (params.endDate === null || params.endDate === undefined) {
-      throw new Error('Required parameter "params.endDate" missing.');
+    if (params["endDate"] === null || params["endDate"] === undefined) {
+      throw new Error('Required parameter "params[\'endDate\']" missing.');
     }
 
     const data: any = {};
 
-    data['StartDate'] = serialize.iso8601Date(params.startDate);
-    data['EndDate'] = serialize.iso8601Date(params.endDate);
-    if (params.includeSubaccounts !== undefined) data['IncludeSubaccounts'] = serialize.bool(params.includeSubaccounts);
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    if (params["includeSubaccounts"] !== undefined) data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FeedbackSummaryInstance(operationVersion, payload, this._solution.accountSid));
     

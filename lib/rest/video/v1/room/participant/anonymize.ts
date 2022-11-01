@@ -65,7 +65,7 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
   instance.update = function update(callback?: any): Promise<AnonymizeInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
     
     operationPromise = operationPromise.then(payload => new AnonymizeInstance(operationVersion, payload, this._solution.roomSid, this._solution.sid));
     

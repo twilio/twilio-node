@@ -30,7 +30,7 @@ import { AssetVersionListInstance } from "./asset/assetVersion";
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetContextUpdateOptions {
-  friendlyName: string;
+  "friendlyName": string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface AssetContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetListInstanceCreateOptions {
-  friendlyName: string;
+  "friendlyName": string;
 }
 /**
  * Options to pass to each
@@ -55,7 +55,7 @@ export interface AssetListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssetListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AssetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,7 +71,7 @@ export interface AssetListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssetListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -83,7 +83,7 @@ export interface AssetListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssetListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -134,8 +134,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -157,7 +157,7 @@ export class AssetContextImpl implements AssetContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -169,7 +169,7 @@ export class AssetContextImpl implements AssetContext {
   fetch(callback?: any): Promise<AssetInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -185,19 +185,19 @@ export class AssetContextImpl implements AssetContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -514,19 +514,19 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -547,14 +547,14 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetPage(operationVersion, payload, this._solution));
 
@@ -566,7 +566,7 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AssetPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

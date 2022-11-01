@@ -31,7 +31,7 @@ type VerificationAttemptConversionStatus = 'converted'|'unconverted';
  *
  * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
+ * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
  * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
@@ -48,15 +48,15 @@ type VerificationAttemptConversionStatus = 'converted'|'unconverted';
  *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceEachOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  channelDataTo?: string;
-  country?: string;
-  channel?: VerificationAttemptChannels;
-  verifyServiceSid?: string;
-  verificationSid?: string;
-  status?: VerificationAttemptConversionStatus;
-  pageSize?: number;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "channelData.to"?: string;
+  "country"?: string;
+  "channel"?: VerificationAttemptChannels;
+  "verifyServiceSid"?: string;
+  "verificationSid"?: string;
+  "status"?: VerificationAttemptConversionStatus;
+  "pageSize"?: number;
   callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -67,7 +67,7 @@ export interface VerificationAttemptListInstanceEachOptions {
  *
  * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
+ * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
  * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
@@ -80,15 +80,15 @@ export interface VerificationAttemptListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  channelDataTo?: string;
-  country?: string;
-  channel?: VerificationAttemptChannels;
-  verifyServiceSid?: string;
-  verificationSid?: string;
-  status?: VerificationAttemptConversionStatus;
-  pageSize?: number;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "channelData.to"?: string;
+  "country"?: string;
+  "channel"?: VerificationAttemptChannels;
+  "verifyServiceSid"?: string;
+  "verificationSid"?: string;
+  "status"?: VerificationAttemptConversionStatus;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -97,7 +97,7 @@ export interface VerificationAttemptListInstanceOptions {
  *
  * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
+ * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
  * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
@@ -108,15 +108,15 @@ export interface VerificationAttemptListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VerificationAttemptListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  channelDataTo?: string;
-  country?: string;
-  channel?: VerificationAttemptChannels;
-  verifyServiceSid?: string;
-  verificationSid?: string;
-  status?: VerificationAttemptConversionStatus;
-  pageSize?: number;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "channelData.to"?: string;
+  "country"?: string;
+  "channel"?: VerificationAttemptChannels;
+  "verifyServiceSid"?: string;
+  "verificationSid"?: string;
+  "status"?: VerificationAttemptConversionStatus;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -144,7 +144,7 @@ export interface VerificationAttemptContext {
 }
 
 export interface VerificationAttemptContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class VerificationAttemptContextImpl implements VerificationAttemptContext {
@@ -160,7 +160,7 @@ export class VerificationAttemptContextImpl implements VerificationAttemptContex
   fetch(callback?: any): Promise<VerificationAttemptInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new VerificationAttemptInstance(operationVersion, payload, this._solution.sid));
     
@@ -448,22 +448,22 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
 
     const data: any = {};
 
-    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.channelDataTo !== undefined) data['ChannelData.To'] = params.channelDataTo;
-    if (params.country !== undefined) data['Country'] = params.country;
-    if (params.channel !== undefined) data['Channel'] = params.channel;
-    if (params.verifyServiceSid !== undefined) data['VerifyServiceSid'] = params.verifyServiceSid;
-    if (params.verificationSid !== undefined) data['VerificationSid'] = params.verificationSid;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["channelData.to"] !== undefined) data["ChannelData.To"] = params["channelData.to"];
+    if (params["country"] !== undefined) data["Country"] = params["country"];
+    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
+    if (params["verifyServiceSid"] !== undefined) data["VerifyServiceSid"] = params["verifyServiceSid"];
+    if (params["verificationSid"] !== undefined) data["VerificationSid"] = params["verificationSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new VerificationAttemptPage(operationVersion, payload, this._solution));
 
@@ -475,7 +475,7 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<VerificationAttemptPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new VerificationAttemptPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

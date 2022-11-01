@@ -28,9 +28,9 @@ const serialize = require("../../../base/serialize");
  * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */
 export interface ExportConfigurationListInstanceUpdateOptions {
-  enabled?: boolean;
-  webhookUrl?: string;
-  webhookMethod?: string;
+  "enabled"?: boolean;
+  "webhookUrl"?: string;
+  "webhookMethod"?: string;
 }
 
 export interface ExportConfigurationListInstance {
@@ -95,7 +95,7 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
   instance.fetch = function fetch(callback?: any): Promise<ExportConfigurationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
     
@@ -116,15 +116,15 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
 
     const data: any = {};
 
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.webhookUrl !== undefined) data['WebhookUrl'] = params.webhookUrl;
-    if (params.webhookMethod !== undefined) data['WebhookMethod'] = params.webhookMethod;
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
     

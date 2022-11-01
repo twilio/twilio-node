@@ -36,7 +36,7 @@ const serialize = require("../../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface AssignedAddOnExtensionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +52,7 @@ export interface AssignedAddOnExtensionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssignedAddOnExtensionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -64,7 +64,7 @@ export interface AssignedAddOnExtensionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssignedAddOnExtensionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -92,10 +92,10 @@ export interface AssignedAddOnExtensionContext {
 }
 
 export interface AssignedAddOnExtensionContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "resourceSid"?: string;
+  "assignedAddOnSid"?: string;
+  "sid"?: string;
 }
 
 export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
@@ -111,7 +111,7 @@ export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtension
   fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnExtensionInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid, this._solution.assignedAddOnSid, this._solution.sid));
     
@@ -397,14 +397,14 @@ export function AssignedAddOnExtensionListInstance(version: V2010, accountSid: s
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnExtensionPage(operationVersion, payload, this._solution));
 
@@ -416,7 +416,7 @@ export function AssignedAddOnExtensionListInstance(version: V2010, accountSid: s
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssignedAddOnExtensionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AssignedAddOnExtensionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -61,7 +61,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  number?: string;
+  "number"?: string;
 }
 
 export class NumberContextImpl implements NumberContext {
@@ -77,7 +77,7 @@ export class NumberContextImpl implements NumberContext {
   fetch(callback?: any): Promise<NumberInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new NumberInstance(operationVersion, payload, this._solution.number));
     

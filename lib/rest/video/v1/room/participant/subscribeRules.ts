@@ -36,7 +36,7 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
  * @property { any } [rules] A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
-  rules?: any;
+  "rules"?: any;
 }
 
 export interface SubscribeRulesListInstance {
@@ -102,7 +102,7 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
   instance.fetch = function fetch(callback?: any): Promise<SubscribeRulesInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
     
@@ -123,13 +123,13 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
 
     const data: any = {};
 
-    if (params.rules !== undefined) data['Rules'] = params.rules;
+    if (params["rules"] !== undefined) data["Rules"] = params["rules"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
     

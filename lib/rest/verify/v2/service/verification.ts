@@ -31,7 +31,7 @@ type VerificationStatus = 'canceled'|'approved';
  * @property { VerificationStatus } status 
  */
 export interface VerificationContextUpdateOptions {
-  status: VerificationStatus;
+  "status": VerificationStatus;
 }
 
 /**
@@ -53,20 +53,20 @@ export interface VerificationContextUpdateOptions {
  * @property { string } [templateCustomSubstitutions] A stringified JSON object in which the keys are the template\\\&#39;s special variables and the values are the variables substitutions.
  */
 export interface VerificationListInstanceCreateOptions {
-  to: string;
-  channel: string;
-  customFriendlyName?: string;
-  customMessage?: string;
-  sendDigits?: string;
-  locale?: string;
-  customCode?: string;
-  amount?: string;
-  payee?: string;
-  rateLimits?: any;
-  channelConfiguration?: any;
-  appHash?: string;
-  templateSid?: string;
-  templateCustomSubstitutions?: string;
+  "to": string;
+  "channel": string;
+  "customFriendlyName"?: string;
+  "customMessage"?: string;
+  "sendDigits"?: string;
+  "locale"?: string;
+  "customCode"?: string;
+  "amount"?: string;
+  "payee"?: string;
+  "rateLimits"?: any;
+  "channelConfiguration"?: any;
+  "appHash"?: string;
+  "templateSid"?: string;
+  "templateCustomSubstitutions"?: string;
 }
 
 export interface VerificationContext {
@@ -102,8 +102,8 @@ export interface VerificationContext {
 }
 
 export interface VerificationContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class VerificationContextImpl implements VerificationContext {
@@ -119,7 +119,7 @@ export class VerificationContextImpl implements VerificationContext {
   fetch(callback?: any): Promise<VerificationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -135,19 +135,19 @@ export class VerificationContextImpl implements VerificationContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
+    data["Status"] = params["status"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -389,36 +389,36 @@ export function VerificationListInstance(version: V2, serviceSid: string): Verif
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
-    if (params.channel === null || params.channel === undefined) {
-      throw new Error('Required parameter "params.channel" missing.');
+    if (params["channel"] === null || params["channel"] === undefined) {
+      throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
     const data: any = {};
 
-    data['To'] = params.to;
-    data['Channel'] = params.channel;
-    if (params.customFriendlyName !== undefined) data['CustomFriendlyName'] = params.customFriendlyName;
-    if (params.customMessage !== undefined) data['CustomMessage'] = params.customMessage;
-    if (params.sendDigits !== undefined) data['SendDigits'] = params.sendDigits;
-    if (params.locale !== undefined) data['Locale'] = params.locale;
-    if (params.customCode !== undefined) data['CustomCode'] = params.customCode;
-    if (params.amount !== undefined) data['Amount'] = params.amount;
-    if (params.payee !== undefined) data['Payee'] = params.payee;
-    if (params.rateLimits !== undefined) data['RateLimits'] = params.rateLimits;
-    if (params.channelConfiguration !== undefined) data['ChannelConfiguration'] = params.channelConfiguration;
-    if (params.appHash !== undefined) data['AppHash'] = params.appHash;
-    if (params.templateSid !== undefined) data['TemplateSid'] = params.templateSid;
-    if (params.templateCustomSubstitutions !== undefined) data['TemplateCustomSubstitutions'] = params.templateCustomSubstitutions;
+    data["To"] = params["to"];
+    data["Channel"] = params["channel"];
+    if (params["customFriendlyName"] !== undefined) data["CustomFriendlyName"] = params["customFriendlyName"];
+    if (params["customMessage"] !== undefined) data["CustomMessage"] = params["customMessage"];
+    if (params["sendDigits"] !== undefined) data["SendDigits"] = params["sendDigits"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
+    if (params["customCode"] !== undefined) data["CustomCode"] = params["customCode"];
+    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
+    if (params["rateLimits"] !== undefined) data["RateLimits"] = params["rateLimits"];
+    if (params["channelConfiguration"] !== undefined) data["ChannelConfiguration"] = params["channelConfiguration"];
+    if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
+    if (params["templateSid"] !== undefined) data["TemplateSid"] = params["templateSid"];
+    if (params["templateCustomSubstitutions"] !== undefined) data["TemplateCustomSubstitutions"] = params["templateCustomSubstitutions"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid));
     

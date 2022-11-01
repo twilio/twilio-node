@@ -31,7 +31,7 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
  * @property { string } [uniqueName] 
  */
 export interface SyncMapListInstanceCreateOptions {
-  uniqueName?: string;
+  "uniqueName"?: string;
 }
 /**
  * Options to pass to each
@@ -47,7 +47,7 @@ export interface SyncMapListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncMapListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +63,7 @@ export interface SyncMapListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncMapListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -75,7 +75,7 @@ export interface SyncMapListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -115,8 +115,8 @@ export interface SyncMapContext {
 }
 
 export interface SyncMapContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class SyncMapContextImpl implements SyncMapContext {
@@ -144,7 +144,7 @@ export class SyncMapContextImpl implements SyncMapContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -156,7 +156,7 @@ export class SyncMapContextImpl implements SyncMapContext {
   fetch(callback?: any): Promise<SyncMapInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -463,13 +463,13 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -490,14 +490,14 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncMapPage(operationVersion, payload, this._solution));
 
@@ -509,7 +509,7 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SyncMapPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -29,8 +29,8 @@ import { InteractionChannelListInstance } from "./interaction/interactionChannel
  * @property { any } routing The Interaction\\\&#39;s routing logic.
  */
 export interface InteractionListInstanceCreateOptions {
-  channel: any;
-  routing: any;
+  "channel": any;
+  "routing": any;
 }
 
 export interface InteractionContext {
@@ -55,7 +55,7 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -77,7 +77,7 @@ export class InteractionContextImpl implements InteractionContext {
   fetch(callback?: any): Promise<InteractionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload, this._solution.sid));
     
@@ -238,24 +238,24 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.channel === null || params.channel === undefined) {
-      throw new Error('Required parameter "params.channel" missing.');
+    if (params["channel"] === null || params["channel"] === undefined) {
+      throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
-    if (params.routing === null || params.routing === undefined) {
-      throw new Error('Required parameter "params.routing" missing.');
+    if (params["routing"] === null || params["routing"] === undefined) {
+      throw new Error('Required parameter "params[\'routing\']" missing.');
     }
 
     const data: any = {};
 
-    data['Channel'] = params.channel;
-    data['Routing'] = params.routing;
+    data["Channel"] = params["channel"];
+    data["Routing"] = params["routing"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload));
     

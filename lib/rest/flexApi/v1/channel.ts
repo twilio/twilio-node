@@ -38,16 +38,16 @@ const serialize = require("../../../base/serialize");
  * @property { boolean } [longLived] Whether to create the channel as long-lived.
  */
 export interface ChannelListInstanceCreateOptions {
-  flexFlowSid: string;
-  identity: string;
-  chatUserFriendlyName: string;
-  chatFriendlyName: string;
-  target?: string;
-  chatUniqueName?: string;
-  preEngagementData?: string;
-  taskSid?: string;
-  taskAttributes?: string;
-  longLived?: boolean;
+  "flexFlowSid": string;
+  "identity": string;
+  "chatUserFriendlyName": string;
+  "chatFriendlyName": string;
+  "target"?: string;
+  "chatUniqueName"?: string;
+  "preEngagementData"?: string;
+  "taskSid"?: string;
+  "taskAttributes"?: string;
+  "longLived"?: boolean;
 }
 /**
  * Options to pass to each
@@ -63,7 +63,7 @@ export interface ChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -79,7 +79,7 @@ export interface ChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -91,7 +91,7 @@ export interface ChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -129,7 +129,7 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -145,7 +145,7 @@ export class ChannelContextImpl implements ChannelContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -157,7 +157,7 @@ export class ChannelContextImpl implements ChannelContext {
   fetch(callback?: any): Promise<ChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ChannelInstance(operationVersion, payload, this._solution.sid));
     
@@ -452,40 +452,40 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.flexFlowSid === null || params.flexFlowSid === undefined) {
-      throw new Error('Required parameter "params.flexFlowSid" missing.');
+    if (params["flexFlowSid"] === null || params["flexFlowSid"] === undefined) {
+      throw new Error('Required parameter "params[\'flexFlowSid\']" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    if (params.chatUserFriendlyName === null || params.chatUserFriendlyName === undefined) {
-      throw new Error('Required parameter "params.chatUserFriendlyName" missing.');
+    if (params["chatUserFriendlyName"] === null || params["chatUserFriendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'chatUserFriendlyName\']" missing.');
     }
 
-    if (params.chatFriendlyName === null || params.chatFriendlyName === undefined) {
-      throw new Error('Required parameter "params.chatFriendlyName" missing.');
+    if (params["chatFriendlyName"] === null || params["chatFriendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'chatFriendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FlexFlowSid'] = params.flexFlowSid;
-    data['Identity'] = params.identity;
-    data['ChatUserFriendlyName'] = params.chatUserFriendlyName;
-    data['ChatFriendlyName'] = params.chatFriendlyName;
-    if (params.target !== undefined) data['Target'] = params.target;
-    if (params.chatUniqueName !== undefined) data['ChatUniqueName'] = params.chatUniqueName;
-    if (params.preEngagementData !== undefined) data['PreEngagementData'] = params.preEngagementData;
-    if (params.taskSid !== undefined) data['TaskSid'] = params.taskSid;
-    if (params.taskAttributes !== undefined) data['TaskAttributes'] = params.taskAttributes;
-    if (params.longLived !== undefined) data['LongLived'] = serialize.bool(params.longLived);
+    data["FlexFlowSid"] = params["flexFlowSid"];
+    data["Identity"] = params["identity"];
+    data["ChatUserFriendlyName"] = params["chatUserFriendlyName"];
+    data["ChatFriendlyName"] = params["chatFriendlyName"];
+    if (params["target"] !== undefined) data["Target"] = params["target"];
+    if (params["chatUniqueName"] !== undefined) data["ChatUniqueName"] = params["chatUniqueName"];
+    if (params["preEngagementData"] !== undefined) data["PreEngagementData"] = params["preEngagementData"];
+    if (params["taskSid"] !== undefined) data["TaskSid"] = params["taskSid"];
+    if (params["taskAttributes"] !== undefined) data["TaskAttributes"] = params["taskAttributes"];
+    if (params["longLived"] !== undefined) data["LongLived"] = serialize.bool(params["longLived"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ChannelInstance(operationVersion, payload));
     
@@ -506,14 +506,14 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ChannelPage(operationVersion, payload, this._solution));
 
@@ -525,7 +525,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ChannelPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

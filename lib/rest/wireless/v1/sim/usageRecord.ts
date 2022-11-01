@@ -75,10 +75,10 @@ export class WirelessV1SimUsageRecord {
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceEachOptions {
-  end?: Date;
-  start?: Date;
-  granularity?: UsageRecordGranularity;
-  pageSize?: number;
+  "end"?: Date;
+  "start"?: Date;
+  "granularity"?: UsageRecordGranularity;
+  "pageSize"?: number;
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -97,10 +97,10 @@ export interface UsageRecordListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceOptions {
-  end?: Date;
-  start?: Date;
-  granularity?: UsageRecordGranularity;
-  pageSize?: number;
+  "end"?: Date;
+  "start"?: Date;
+  "granularity"?: UsageRecordGranularity;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -115,10 +115,10 @@ export interface UsageRecordListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsageRecordListInstancePageOptions {
-  end?: Date;
-  start?: Date;
-  granularity?: UsageRecordGranularity;
-  pageSize?: number;
+  "end"?: Date;
+  "start"?: Date;
+  "granularity"?: UsageRecordGranularity;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -266,17 +266,17 @@ export function UsageRecordListInstance(version: V1, simSid: string): UsageRecor
 
     const data: any = {};
 
-    if (params.end !== undefined) data['End'] = serialize.iso8601DateTime(params.end);
-    if (params.start !== undefined) data['Start'] = serialize.iso8601DateTime(params.start);
-    if (params.granularity !== undefined) data['Granularity'] = params.granularity;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["end"] !== undefined) data["End"] = serialize.iso8601DateTime(params["end"]);
+    if (params["start"] !== undefined) data["Start"] = serialize.iso8601DateTime(params["start"]);
+    if (params["granularity"] !== undefined) data["Granularity"] = params["granularity"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UsageRecordPage(operationVersion, payload, this._solution));
 
@@ -288,7 +288,7 @@ export function UsageRecordListInstance(version: V1, simSid: string): UsageRecor
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new UsageRecordPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

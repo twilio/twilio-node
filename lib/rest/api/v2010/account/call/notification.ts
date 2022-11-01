@@ -40,11 +40,11 @@ const serialize = require("../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface NotificationListInstanceEachOptions {
-  log?: number;
-  messageDate?: Date;
-  messageDateBefore?: Date;
-  messageDateAfter?: Date;
-  pageSize?: number;
+  "log"?: number;
+  "messageDate"?: Date;
+  "messageDateBefore"?: Date;
+  "messageDateAfter"?: Date;
+  "pageSize"?: number;
   callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -64,11 +64,11 @@ export interface NotificationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface NotificationListInstanceOptions {
-  log?: number;
-  messageDate?: Date;
-  messageDateBefore?: Date;
-  messageDateAfter?: Date;
-  pageSize?: number;
+  "log"?: number;
+  "messageDate"?: Date;
+  "messageDateBefore"?: Date;
+  "messageDateAfter"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -84,11 +84,11 @@ export interface NotificationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NotificationListInstancePageOptions {
-  log?: number;
-  messageDate?: Date;
-  messageDateBefore?: Date;
-  messageDateAfter?: Date;
-  pageSize?: number;
+  "log"?: number;
+  "messageDate"?: Date;
+  "messageDateBefore"?: Date;
+  "messageDateAfter"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -116,9 +116,9 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "callSid"?: string;
+  "sid"?: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
@@ -134,7 +134,7 @@ export class NotificationContextImpl implements NotificationContext {
   fetch(callback?: any): Promise<NotificationInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid, this._solution.sid));
     
@@ -476,18 +476,18 @@ export function NotificationListInstance(version: V2010, accountSid: string, cal
 
     const data: any = {};
 
-    if (params.log !== undefined) data['Log'] = params.log;
-    if (params.messageDate !== undefined) data['MessageDate'] = serialize.iso8601Date(params.messageDate);
-    if (params.messageDateBefore !== undefined) data['MessageDate<'] = serialize.iso8601Date(params.messageDateBefore);
-    if (params.messageDateAfter !== undefined) data['MessageDate>'] = serialize.iso8601Date(params.messageDateAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["log"] !== undefined) data["Log"] = params["log"];
+    if (params["messageDate"] !== undefined) data["MessageDate"] = serialize.iso8601Date(params["messageDate"]);
+    if (params["messageDateBefore"] !== undefined) data["MessageDate<"] = serialize.iso8601Date(params["messageDateBefore"]);
+    if (params["messageDateAfter"] !== undefined) data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new NotificationPage(operationVersion, payload, this._solution));
 
@@ -499,7 +499,7 @@ export function NotificationListInstance(version: V2010, accountSid: string, cal
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<NotificationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new NotificationPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

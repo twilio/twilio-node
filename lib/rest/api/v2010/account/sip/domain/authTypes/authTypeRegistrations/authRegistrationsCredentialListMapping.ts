@@ -29,7 +29,7 @@ const serialize = require("../../../../../../../../base/serialize");
  * @property { string } credentialListSid The SID of the CredentialList resource to map to the SIP domain.
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceCreateOptions {
-  credentialListSid: string;
+  "credentialListSid": string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface AuthRegistrationsCredentialListMappingListInstanceCreateOptions
  *                         Default is no limit
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AuthRegistrationsCredentialListMappingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface AuthRegistrationsCredentialListMappingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface AuthRegistrationsCredentialListMappingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AuthRegistrationsCredentialListMappingListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -111,9 +111,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
 }
 
 export interface AuthRegistrationsCredentialListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "domainSid"?: string;
+  "sid"?: string;
 }
 
 export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRegistrationsCredentialListMappingContext {
@@ -129,7 +129,7 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -141,7 +141,7 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
   fetch(callback?: any): Promise<AuthRegistrationsCredentialListMappingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
     
@@ -417,19 +417,19 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.credentialListSid === null || params.credentialListSid === undefined) {
-      throw new Error('Required parameter "params.credentialListSid" missing.');
+    if (params["credentialListSid"] === null || params["credentialListSid"] === undefined) {
+      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['CredentialListSid'] = params.credentialListSid;
+    data["CredentialListSid"] = params["credentialListSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid));
     
@@ -450,14 +450,14 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingPage(operationVersion, payload, this._solution));
 
@@ -469,7 +469,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AuthRegistrationsCredentialListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

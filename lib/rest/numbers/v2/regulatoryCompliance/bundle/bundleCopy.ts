@@ -82,7 +82,7 @@ export class NumbersV2RegulatoryComplianceBundleBundleCopy {
  * @property { string } [friendlyName] The string that you assigned to describe the copied bundle.
  */
 export interface BundleCopyListInstanceCreateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 /**
  * Options to pass to each
@@ -98,7 +98,7 @@ export interface BundleCopyListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BundleCopyListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -114,7 +114,7 @@ export interface BundleCopyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BundleCopyListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -126,7 +126,7 @@ export interface BundleCopyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BundleCopyListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -294,13 +294,13 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new BundleCopyInstance(operationVersion, payload, this._solution.bundleSid));
     
@@ -321,14 +321,14 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BundleCopyPage(operationVersion, payload, this._solution));
 
@@ -340,7 +340,7 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BundleCopyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new BundleCopyPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

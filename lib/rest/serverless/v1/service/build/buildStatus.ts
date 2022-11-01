@@ -65,7 +65,7 @@ export function BuildStatusListInstance(version: V1, serviceSid: string, sid: st
   instance.fetch = function fetch(callback?: any): Promise<BuildStatusInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BuildStatusInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     

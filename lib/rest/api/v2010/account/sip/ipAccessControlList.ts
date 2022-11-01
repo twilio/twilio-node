@@ -30,7 +30,7 @@ import { IpAddressListInstance } from "./ipAccessControlList/ipAddress";
  * @property { string } friendlyName A human readable descriptive text, up to 255 characters long.
  */
 export interface IpAccessControlListContextUpdateOptions {
-  friendlyName: string;
+  "friendlyName": string;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface IpAccessControlListContextUpdateOptions {
  * @property { string } friendlyName A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
  */
 export interface IpAccessControlListListInstanceCreateOptions {
-  friendlyName: string;
+  "friendlyName": string;
 }
 /**
  * Options to pass to each
@@ -55,7 +55,7 @@ export interface IpAccessControlListListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface IpAccessControlListListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,7 +71,7 @@ export interface IpAccessControlListListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface IpAccessControlListListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -83,7 +83,7 @@ export interface IpAccessControlListListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpAccessControlListListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -134,8 +134,8 @@ export interface IpAccessControlListContext {
 }
 
 export interface IpAccessControlListContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class IpAccessControlListContextImpl implements IpAccessControlListContext {
@@ -157,7 +157,7 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -169,7 +169,7 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
   fetch(callback?: any): Promise<IpAccessControlListInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new IpAccessControlListInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -185,19 +185,19 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAccessControlListInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -507,19 +507,19 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAccessControlListInstance(operationVersion, payload, this._solution.accountSid));
     
@@ -540,14 +540,14 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new IpAccessControlListPage(operationVersion, payload, this._solution));
 
@@ -559,7 +559,7 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IpAccessControlListPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new IpAccessControlListPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

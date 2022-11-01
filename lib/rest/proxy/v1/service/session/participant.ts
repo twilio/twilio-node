@@ -34,11 +34,11 @@ import { MessageInteractionListInstance } from "./participant/messageInteraction
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface ParticipantListInstanceCreateOptions {
-  identifier: string;
-  friendlyName?: string;
-  proxyIdentifier?: string;
-  proxyIdentifierSid?: string;
-  failOnParticipantConflict?: boolean;
+  "identifier": string;
+  "friendlyName"?: string;
+  "proxyIdentifier"?: string;
+  "proxyIdentifierSid"?: string;
+  "failOnParticipantConflict"?: boolean;
 }
 /**
  * Options to pass to each
@@ -54,7 +54,7 @@ export interface ParticipantListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -70,7 +70,7 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -82,7 +82,7 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -121,9 +121,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sessionSid"?: string;
+  "sid"?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -145,7 +145,7 @@ export class ParticipantContextImpl implements ParticipantContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -157,7 +157,7 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(callback?: any): Promise<ParticipantInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid));
     
@@ -496,23 +496,23 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identifier === null || params.identifier === undefined) {
-      throw new Error('Required parameter "params.identifier" missing.');
+    if (params["identifier"] === null || params["identifier"] === undefined) {
+      throw new Error('Required parameter "params[\'identifier\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identifier'] = params.identifier;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.proxyIdentifier !== undefined) data['ProxyIdentifier'] = params.proxyIdentifier;
-    if (params.proxyIdentifierSid !== undefined) data['ProxyIdentifierSid'] = params.proxyIdentifierSid;
-    if (params.failOnParticipantConflict !== undefined) data['FailOnParticipantConflict'] = serialize.bool(params.failOnParticipantConflict);
+    data["Identifier"] = params["identifier"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["proxyIdentifier"] !== undefined) data["ProxyIdentifier"] = params["proxyIdentifier"];
+    if (params["proxyIdentifierSid"] !== undefined) data["ProxyIdentifierSid"] = params["proxyIdentifierSid"];
+    if (params["failOnParticipantConflict"] !== undefined) data["FailOnParticipantConflict"] = serialize.bool(params["failOnParticipantConflict"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sessionSid));
     
@@ -533,14 +533,14 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
 
@@ -552,7 +552,7 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

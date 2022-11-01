@@ -31,8 +31,8 @@ import { MemberListInstance } from "./queue/member";
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueContextUpdateOptions {
-  friendlyName?: string;
-  maxSize?: number;
+  "friendlyName"?: string;
+  "maxSize"?: number;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface QueueContextUpdateOptions {
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueListInstanceCreateOptions {
-  friendlyName: string;
-  maxSize?: number;
+  "friendlyName": string;
+  "maxSize"?: number;
 }
 /**
  * Options to pass to each
@@ -59,7 +59,7 @@ export interface QueueListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface QueueListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: QueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -75,7 +75,7 @@ export interface QueueListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface QueueListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -87,7 +87,7 @@ export interface QueueListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueueListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -146,8 +146,8 @@ export interface QueueContext {
 }
 
 export interface QueueContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class QueueContextImpl implements QueueContext {
@@ -169,7 +169,7 @@ export class QueueContextImpl implements QueueContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -181,7 +181,7 @@ export class QueueContextImpl implements QueueContext {
   fetch(callback?: any): Promise<QueueInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -202,14 +202,14 @@ export class QueueContextImpl implements QueueContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["maxSize"] !== undefined) data["MaxSize"] = params["maxSize"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -541,20 +541,20 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["maxSize"] !== undefined) data["MaxSize"] = params["maxSize"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid));
     
@@ -575,14 +575,14 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new QueuePage(operationVersion, payload, this._solution));
 
@@ -594,7 +594,7 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new QueuePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

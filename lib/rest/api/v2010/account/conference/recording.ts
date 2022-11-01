@@ -34,8 +34,8 @@ type ConferenceRecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'
  * @property { string } [pauseBehavior] Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;.
  */
 export interface RecordingContextUpdateOptions {
-  status: ConferenceRecordingStatus;
-  pauseBehavior?: string;
+  "status": ConferenceRecordingStatus;
+  "pauseBehavior"?: string;
 }
 /**
  * Options to pass to each
@@ -54,10 +54,10 @@ export interface RecordingContextUpdateOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,10 +76,10 @@ export interface RecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -94,10 +94,10 @@ export interface RecordingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedBefore?: Date;
-  dateCreatedAfter?: Date;
-  pageSize?: number;
+  "dateCreated"?: Date;
+  "dateCreatedBefore"?: Date;
+  "dateCreatedAfter"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -147,9 +147,9 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  accountSid?: string;
-  conferenceSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "conferenceSid"?: string;
+  "sid"?: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -165,7 +165,7 @@ export class RecordingContextImpl implements RecordingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -177,7 +177,7 @@ export class RecordingContextImpl implements RecordingContext {
   fetch(callback?: any): Promise<RecordingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid, this._solution.sid));
     
@@ -193,20 +193,20 @@ export class RecordingContextImpl implements RecordingContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
-    if (params.pauseBehavior !== undefined) data['PauseBehavior'] = params.pauseBehavior;
+    data["Status"] = params["status"];
+    if (params["pauseBehavior"] !== undefined) data["PauseBehavior"] = params["pauseBehavior"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid, this._solution.sid));
     
@@ -567,17 +567,17 @@ export function RecordingListInstance(version: V2010, accountSid: string, confer
 
     const data: any = {};
 
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601Date(params.dateCreated);
-    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601Date(params.dateCreatedBefore);
-    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601Date(params.dateCreatedAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingPage(operationVersion, payload, this._solution));
 
@@ -589,7 +589,7 @@ export function RecordingListInstance(version: V2010, accountSid: string, confer
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RecordingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -26,7 +26,7 @@ const serialize = require("../../../../../../base/serialize");
  * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
  */
 export interface NotificationListInstanceCreateOptions {
-  ttl?: number;
+  "ttl"?: number;
 }
 
 export interface NotificationListInstance {
@@ -90,13 +90,13 @@ export function NotificationListInstance(version: V2, serviceSid: string, identi
 
     const data: any = {};
 
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.challengeSid));
     

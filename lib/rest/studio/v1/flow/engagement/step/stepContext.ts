@@ -64,7 +64,7 @@ export function StepContextListInstance(version: V1, flowSid: string, engagement
   instance.fetch = function fetch(callback?: any): Promise<StepContextInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new StepContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid, this._solution.stepSid));
     

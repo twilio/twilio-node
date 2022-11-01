@@ -31,7 +31,7 @@ type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
  * @property { string } phoneNumberSid The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
  */
 export interface PhoneNumberListInstanceCreateOptions {
-  phoneNumberSid: string;
+  "phoneNumberSid": string;
 }
 /**
  * Options to pass to each
@@ -47,7 +47,7 @@ export interface PhoneNumberListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface PhoneNumberListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +63,7 @@ export interface PhoneNumberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PhoneNumberListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -75,7 +75,7 @@ export interface PhoneNumberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PhoneNumberListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -113,8 +113,8 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  "trunkSid"?: string;
+  "sid"?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -130,7 +130,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -142,7 +142,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   fetch(callback?: any): Promise<PhoneNumberInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
     
@@ -566,19 +566,19 @@ export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNum
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.phoneNumberSid === null || params.phoneNumberSid === undefined) {
-      throw new Error('Required parameter "params.phoneNumberSid" missing.');
+    if (params["phoneNumberSid"] === null || params["phoneNumberSid"] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['PhoneNumberSid'] = params.phoneNumberSid;
+    data["PhoneNumberSid"] = params["phoneNumberSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.trunkSid));
     
@@ -599,14 +599,14 @@ export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNum
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberPage(operationVersion, payload, this._solution));
 
@@ -618,7 +618,7 @@ export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNum
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new PhoneNumberPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

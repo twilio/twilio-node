@@ -30,10 +30,10 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { string } [defaultClosedTimer] Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
  */
 export interface ConfigurationListInstanceUpdateOptions {
-  defaultChatServiceSid?: string;
-  defaultMessagingServiceSid?: string;
-  defaultInactiveTimer?: string;
-  defaultClosedTimer?: string;
+  "defaultChatServiceSid"?: string;
+  "defaultMessagingServiceSid"?: string;
+  "defaultInactiveTimer"?: string;
+  "defaultClosedTimer"?: string;
 }
 
 export interface ConfigurationListInstance {
@@ -108,7 +108,7 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
   instance.fetch = function fetch(callback?: any): Promise<ConfigurationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
     
@@ -129,16 +129,16 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
 
     const data: any = {};
 
-    if (params.defaultChatServiceSid !== undefined) data['DefaultChatServiceSid'] = params.defaultChatServiceSid;
-    if (params.defaultMessagingServiceSid !== undefined) data['DefaultMessagingServiceSid'] = params.defaultMessagingServiceSid;
-    if (params.defaultInactiveTimer !== undefined) data['DefaultInactiveTimer'] = params.defaultInactiveTimer;
-    if (params.defaultClosedTimer !== undefined) data['DefaultClosedTimer'] = params.defaultClosedTimer;
+    if (params["defaultChatServiceSid"] !== undefined) data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
+    if (params["defaultMessagingServiceSid"] !== undefined) data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
+    if (params["defaultInactiveTimer"] !== undefined) data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
+    if (params["defaultClosedTimer"] !== undefined) data["DefaultClosedTimer"] = params["defaultClosedTimer"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
     

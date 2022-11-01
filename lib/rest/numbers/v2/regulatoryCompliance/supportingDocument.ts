@@ -32,8 +32,8 @@ type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'
  * @property { any } [attributes] The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
  */
 export interface SupportingDocumentContextUpdateOptions {
-  friendlyName?: string;
-  attributes?: any;
+  "friendlyName"?: string;
+  "attributes"?: any;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface SupportingDocumentContextUpdateOptions {
  * @property { any } [attributes] The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
  */
 export interface SupportingDocumentListInstanceCreateOptions {
-  friendlyName: string;
-  type: string;
-  attributes?: any;
+  "friendlyName": string;
+  "type": string;
+  "attributes"?: any;
 }
 /**
  * Options to pass to each
@@ -62,7 +62,7 @@ export interface SupportingDocumentListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SupportingDocumentListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SupportingDocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -78,7 +78,7 @@ export interface SupportingDocumentListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SupportingDocumentListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -90,7 +90,7 @@ export interface SupportingDocumentListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SupportingDocumentListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -148,7 +148,7 @@ export interface SupportingDocumentContext {
 }
 
 export interface SupportingDocumentContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class SupportingDocumentContextImpl implements SupportingDocumentContext {
@@ -164,7 +164,7 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -176,7 +176,7 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
   fetch(callback?: any): Promise<SupportingDocumentInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload, this._solution.sid));
     
@@ -197,14 +197,14 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload, this._solution.sid));
     
@@ -539,25 +539,25 @@ export function SupportingDocumentListInstance(version: V2): SupportingDocumentL
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.type === null || params.type === undefined) {
-      throw new Error('Required parameter "params.type" missing.');
+    if (params["type"] === null || params["type"] === undefined) {
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['Type'] = params.type;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    data["FriendlyName"] = params["friendlyName"];
+    data["Type"] = params["type"];
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload));
     
@@ -578,14 +578,14 @@ export function SupportingDocumentListInstance(version: V2): SupportingDocumentL
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentPage(operationVersion, payload, this._solution));
 
@@ -597,7 +597,7 @@ export function SupportingDocumentListInstance(version: V2): SupportingDocumentL
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SupportingDocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SupportingDocumentPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -28,8 +28,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface PhoneNumberContextUpdateOptions {
-  voiceRegion?: string;
-  friendlyName?: string;
+  "voiceRegion"?: string;
+  "friendlyName"?: string;
 }
 
 export interface PhoneNumberContext {
@@ -73,7 +73,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  "phoneNumber"?: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -89,7 +89,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   fetch(callback?: any): Promise<PhoneNumberInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
     
@@ -110,14 +110,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const data: any = {};
 
-    if (params.voiceRegion !== undefined) data['VoiceRegion'] = params.voiceRegion;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["voiceRegion"] !== undefined) data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.phoneNumber));
     

@@ -38,7 +38,7 @@ type RoomParticipantSubscribedTrackKind = 'audio'|'video'|'data';
  *                         Default is no limit
  */
 export interface SubscribedTrackListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +54,7 @@ export interface SubscribedTrackListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SubscribedTrackListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -66,7 +66,7 @@ export interface SubscribedTrackListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SubscribedTrackListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -94,9 +94,9 @@ export interface SubscribedTrackContext {
 }
 
 export interface SubscribedTrackContextSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
+  "roomSid"?: string;
+  "participantSid"?: string;
+  "sid"?: string;
 }
 
 export class SubscribedTrackContextImpl implements SubscribedTrackContext {
@@ -112,7 +112,7 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
   fetch(callback?: any): Promise<SubscribedTrackInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SubscribedTrackInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid, this._solution.sid));
     
@@ -401,14 +401,14 @@ export function SubscribedTrackListInstance(version: V1, roomSid: string, partic
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribedTrackPage(operationVersion, payload, this._solution));
 
@@ -420,7 +420,7 @@ export function SubscribedTrackListInstance(version: V1, roomSid: string, partic
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SubscribedTrackPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SubscribedTrackPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

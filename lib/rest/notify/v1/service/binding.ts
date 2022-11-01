@@ -37,13 +37,13 @@ type BindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
  * @property { string } [endpoint] Deprecated.
  */
 export interface BindingListInstanceCreateOptions {
-  identity: string;
-  bindingType: BindingBindingType;
-  address: string;
-  tag?: Array<string>;
-  notificationProtocolVersion?: string;
-  credentialSid?: string;
-  endpoint?: string;
+  "identity": string;
+  "bindingType": BindingBindingType;
+  "address": string;
+  "tag"?: Array<string>;
+  "notificationProtocolVersion"?: string;
+  "credentialSid"?: string;
+  "endpoint"?: string;
 }
 /**
  * Options to pass to each
@@ -63,11 +63,11 @@ export interface BindingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
-  startDate?: Date;
-  endDate?: Date;
-  identity?: Array<string>;
-  tag?: Array<string>;
-  pageSize?: number;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "identity"?: Array<string>;
+  "tag"?: Array<string>;
+  "pageSize"?: number;
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -87,11 +87,11 @@ export interface BindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
-  startDate?: Date;
-  endDate?: Date;
-  identity?: Array<string>;
-  tag?: Array<string>;
-  pageSize?: number;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "identity"?: Array<string>;
+  "tag"?: Array<string>;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -107,11 +107,11 @@ export interface BindingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
-  startDate?: Date;
-  endDate?: Date;
-  identity?: Array<string>;
-  tag?: Array<string>;
-  pageSize?: number;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "identity"?: Array<string>;
+  "tag"?: Array<string>;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -149,8 +149,8 @@ export interface BindingContext {
 }
 
 export interface BindingContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class BindingContextImpl implements BindingContext {
@@ -166,7 +166,7 @@ export class BindingContextImpl implements BindingContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -178,7 +178,7 @@ export class BindingContextImpl implements BindingContext {
   fetch(callback?: any): Promise<BindingInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BindingInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -516,33 +516,33 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    if (params.bindingType === null || params.bindingType === undefined) {
-      throw new Error('Required parameter "params.bindingType" missing.');
+    if (params["bindingType"] === null || params["bindingType"] === undefined) {
+      throw new Error('Required parameter "params[\'bindingType\']" missing.');
     }
 
-    if (params.address === null || params.address === undefined) {
-      throw new Error('Required parameter "params.address" missing.');
+    if (params["address"] === null || params["address"] === undefined) {
+      throw new Error('Required parameter "params[\'address\']" missing.');
     }
 
     const data: any = {};
 
-    data['Identity'] = params.identity;
-    data['BindingType'] = params.bindingType;
-    data['Address'] = params.address;
-    if (params.tag !== undefined) data['Tag'] = serialize.map(params.tag, ((e) => e));
-    if (params.notificationProtocolVersion !== undefined) data['NotificationProtocolVersion'] = params.notificationProtocolVersion;
-    if (params.credentialSid !== undefined) data['CredentialSid'] = params.credentialSid;
-    if (params.endpoint !== undefined) data['Endpoint'] = params.endpoint;
+    data["Identity"] = params["identity"];
+    data["BindingType"] = params["bindingType"];
+    data["Address"] = params["address"];
+    if (params["tag"] !== undefined) data["Tag"] = serialize.map(params["tag"], ((e) => e));
+    if (params["notificationProtocolVersion"] !== undefined) data["NotificationProtocolVersion"] = params["notificationProtocolVersion"];
+    if (params["credentialSid"] !== undefined) data["CredentialSid"] = params["credentialSid"];
+    if (params["endpoint"] !== undefined) data["Endpoint"] = params["endpoint"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new BindingInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -563,18 +563,18 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
 
     const data: any = {};
 
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601Date(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601Date(params.endDate);
-    if (params.identity !== undefined) data['Identity'] = serialize.map(params.identity, ((e) => e));
-    if (params.tag !== undefined) data['Tag'] = serialize.map(params.tag, ((e) => e));
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["tag"] !== undefined) data["Tag"] = serialize.map(params["tag"], ((e) => e));
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BindingPage(operationVersion, payload, this._solution));
 
@@ -586,7 +586,7 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BindingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new BindingPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

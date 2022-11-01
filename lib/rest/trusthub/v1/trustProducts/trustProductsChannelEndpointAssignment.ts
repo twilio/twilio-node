@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } channelEndpointSid The SID of an channel endpoint
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions {
-  channelEndpointType: string;
-  channelEndpointSid: string;
+  "channelEndpointType": string;
+  "channelEndpointSid": string;
 }
 /**
  * Options to pass to each
@@ -49,9 +49,9 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions
  *                         Default is no limit
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
-  channelEndpointSid?: string;
-  channelEndpointSids?: string;
-  pageSize?: number;
+  "channelEndpointSid"?: string;
+  "channelEndpointSids"?: string;
+  "pageSize"?: number;
   callback?: (item: TrustProductsChannelEndpointAssignmentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -69,9 +69,9 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceOptions {
-  channelEndpointSid?: string;
-  channelEndpointSids?: string;
-  pageSize?: number;
+  "channelEndpointSid"?: string;
+  "channelEndpointSids"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -85,9 +85,9 @@ export interface TrustProductsChannelEndpointAssignmentListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsChannelEndpointAssignmentListInstancePageOptions {
-  channelEndpointSid?: string;
-  channelEndpointSids?: string;
-  pageSize?: number;
+  "channelEndpointSid"?: string;
+  "channelEndpointSids"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -125,8 +125,8 @@ export interface TrustProductsChannelEndpointAssignmentContext {
 }
 
 export interface TrustProductsChannelEndpointAssignmentContextSolution {
-  trustProductSid?: string;
-  sid?: string;
+  "trustProductSid"?: string;
+  "sid"?: string;
 }
 
 export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustProductsChannelEndpointAssignmentContext {
@@ -142,7 +142,7 @@ export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustP
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -154,7 +154,7 @@ export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustP
   fetch(callback?: any): Promise<TrustProductsChannelEndpointAssignmentInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentInstance(operationVersion, payload, this._solution.trustProductSid, this._solution.sid));
     
@@ -443,24 +443,24 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.channelEndpointType === null || params.channelEndpointType === undefined) {
-      throw new Error('Required parameter "params.channelEndpointType" missing.');
+    if (params["channelEndpointType"] === null || params["channelEndpointType"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointType\']" missing.');
     }
 
-    if (params.channelEndpointSid === null || params.channelEndpointSid === undefined) {
-      throw new Error('Required parameter "params.channelEndpointSid" missing.');
+    if (params["channelEndpointSid"] === null || params["channelEndpointSid"] === undefined) {
+      throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['ChannelEndpointType'] = params.channelEndpointType;
-    data['ChannelEndpointSid'] = params.channelEndpointSid;
+    data["ChannelEndpointType"] = params["channelEndpointType"];
+    data["ChannelEndpointSid"] = params["channelEndpointSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentInstance(operationVersion, payload, this._solution.trustProductSid));
     
@@ -481,16 +481,16 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
 
     const data: any = {};
 
-    if (params.channelEndpointSid !== undefined) data['ChannelEndpointSid'] = params.channelEndpointSid;
-    if (params.channelEndpointSids !== undefined) data['ChannelEndpointSids'] = params.channelEndpointSids;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["channelEndpointSid"] !== undefined) data["ChannelEndpointSid"] = params["channelEndpointSid"];
+    if (params["channelEndpointSids"] !== undefined) data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentPage(operationVersion, payload, this._solution));
 
@@ -502,7 +502,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TrustProductsChannelEndpointAssignmentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new TrustProductsChannelEndpointAssignmentPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

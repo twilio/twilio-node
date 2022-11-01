@@ -64,7 +64,7 @@ export function FunctionVersionContentListInstance(version: V1, serviceSid: stri
   instance.fetch = function fetch(callback?: any): Promise<FunctionVersionContentInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FunctionVersionContentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
     

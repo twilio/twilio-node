@@ -30,7 +30,7 @@ import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddO
  * @property { string } installedAddOnSid The SID that identifies the Add-on installation.
  */
 export interface AssignedAddOnListInstanceCreateOptions {
-  installedAddOnSid: string;
+  "installedAddOnSid": string;
 }
 /**
  * Options to pass to each
@@ -46,7 +46,7 @@ export interface AssignedAddOnListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssignedAddOnListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -62,7 +62,7 @@ export interface AssignedAddOnListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssignedAddOnListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -74,7 +74,7 @@ export interface AssignedAddOnListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssignedAddOnListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -113,9 +113,9 @@ export interface AssignedAddOnContext {
 }
 
 export interface AssignedAddOnContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "resourceSid"?: string;
+  "sid"?: string;
 }
 
 export class AssignedAddOnContextImpl implements AssignedAddOnContext {
@@ -137,7 +137,7 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -149,7 +149,7 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   fetch(callback?: any): Promise<AssignedAddOnInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid, this._solution.sid));
     
@@ -474,19 +474,19 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.installedAddOnSid === null || params.installedAddOnSid === undefined) {
-      throw new Error('Required parameter "params.installedAddOnSid" missing.');
+    if (params["installedAddOnSid"] === null || params["installedAddOnSid"] === undefined) {
+      throw new Error('Required parameter "params[\'installedAddOnSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['InstalledAddOnSid'] = params.installedAddOnSid;
+    data["InstalledAddOnSid"] = params["installedAddOnSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid));
     
@@ -507,14 +507,14 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnPage(operationVersion, payload, this._solution));
 
@@ -526,7 +526,7 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssignedAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AssignedAddOnPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

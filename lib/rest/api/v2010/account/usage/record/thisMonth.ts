@@ -102,11 +102,11 @@ type UsageRecordThisMonthCategory = 'a2p-registration-fees'|'agent-conference'|'
  *                         Default is no limit
  */
 export interface ThisMonthListInstanceEachOptions {
-  category?: UsageRecordThisMonthCategory;
-  startDate?: Date;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageSize?: number;
+  "category"?: UsageRecordThisMonthCategory;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "includeSubaccounts"?: boolean;
+  "pageSize"?: number;
   callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -126,11 +126,11 @@ export interface ThisMonthListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ThisMonthListInstanceOptions {
-  category?: UsageRecordThisMonthCategory;
-  startDate?: Date;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageSize?: number;
+  "category"?: UsageRecordThisMonthCategory;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "includeSubaccounts"?: boolean;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -146,11 +146,11 @@ export interface ThisMonthListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ThisMonthListInstancePageOptions {
-  category?: UsageRecordThisMonthCategory;
-  startDate?: Date;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageSize?: number;
+  "category"?: UsageRecordThisMonthCategory;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "includeSubaccounts"?: boolean;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -298,18 +298,18 @@ export function ThisMonthListInstance(version: V2010, accountSid: string): ThisM
 
     const data: any = {};
 
-    if (params.category !== undefined) data['Category'] = params.category;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601Date(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601Date(params.endDate);
-    if (params.includeSubaccounts !== undefined) data['IncludeSubaccounts'] = serialize.bool(params.includeSubaccounts);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["category"] !== undefined) data["Category"] = params["category"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    if (params["includeSubaccounts"] !== undefined) data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ThisMonthPage(operationVersion, payload, this._solution));
 
@@ -321,7 +321,7 @@ export function ThisMonthListInstance(version: V2010, accountSid: string): ThisM
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ThisMonthPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ThisMonthPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

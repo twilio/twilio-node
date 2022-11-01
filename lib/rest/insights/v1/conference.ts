@@ -57,17 +57,17 @@ type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_fail
  *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
-  conferenceSid?: string;
-  friendlyName?: string;
-  status?: string;
-  createdAfter?: string;
-  createdBefore?: string;
-  mixerRegion?: string;
-  tags?: string;
-  subaccount?: string;
-  detectedIssues?: string;
-  endReason?: string;
-  pageSize?: number;
+  "conferenceSid"?: string;
+  "friendlyName"?: string;
+  "status"?: string;
+  "createdAfter"?: string;
+  "createdBefore"?: string;
+  "mixerRegion"?: string;
+  "tags"?: string;
+  "subaccount"?: string;
+  "detectedIssues"?: string;
+  "endReason"?: string;
+  "pageSize"?: number;
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -93,17 +93,17 @@ export interface ConferenceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
-  conferenceSid?: string;
-  friendlyName?: string;
-  status?: string;
-  createdAfter?: string;
-  createdBefore?: string;
-  mixerRegion?: string;
-  tags?: string;
-  subaccount?: string;
-  detectedIssues?: string;
-  endReason?: string;
-  pageSize?: number;
+  "conferenceSid"?: string;
+  "friendlyName"?: string;
+  "status"?: string;
+  "createdAfter"?: string;
+  "createdBefore"?: string;
+  "mixerRegion"?: string;
+  "tags"?: string;
+  "subaccount"?: string;
+  "detectedIssues"?: string;
+  "endReason"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -125,17 +125,17 @@ export interface ConferenceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
-  conferenceSid?: string;
-  friendlyName?: string;
-  status?: string;
-  createdAfter?: string;
-  createdBefore?: string;
-  mixerRegion?: string;
-  tags?: string;
-  subaccount?: string;
-  detectedIssues?: string;
-  endReason?: string;
-  pageSize?: number;
+  "conferenceSid"?: string;
+  "friendlyName"?: string;
+  "status"?: string;
+  "createdAfter"?: string;
+  "createdBefore"?: string;
+  "mixerRegion"?: string;
+  "tags"?: string;
+  "subaccount"?: string;
+  "detectedIssues"?: string;
+  "endReason"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -164,7 +164,7 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  conferenceSid?: string;
+  "conferenceSid"?: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -186,7 +186,7 @@ export class ConferenceContextImpl implements ConferenceContext {
   fetch(callback?: any): Promise<ConferenceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.conferenceSid));
     
@@ -559,24 +559,24 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
 
     const data: any = {};
 
-    if (params.conferenceSid !== undefined) data['ConferenceSid'] = params.conferenceSid;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.createdAfter !== undefined) data['CreatedAfter'] = params.createdAfter;
-    if (params.createdBefore !== undefined) data['CreatedBefore'] = params.createdBefore;
-    if (params.mixerRegion !== undefined) data['MixerRegion'] = params.mixerRegion;
-    if (params.tags !== undefined) data['Tags'] = params.tags;
-    if (params.subaccount !== undefined) data['Subaccount'] = params.subaccount;
-    if (params.detectedIssues !== undefined) data['DetectedIssues'] = params.detectedIssues;
-    if (params.endReason !== undefined) data['EndReason'] = params.endReason;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["conferenceSid"] !== undefined) data["ConferenceSid"] = params["conferenceSid"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["createdAfter"] !== undefined) data["CreatedAfter"] = params["createdAfter"];
+    if (params["createdBefore"] !== undefined) data["CreatedBefore"] = params["createdBefore"];
+    if (params["mixerRegion"] !== undefined) data["MixerRegion"] = params["mixerRegion"];
+    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
+    if (params["subaccount"] !== undefined) data["Subaccount"] = params["subaccount"];
+    if (params["detectedIssues"] !== undefined) data["DetectedIssues"] = params["detectedIssues"];
+    if (params["endReason"] !== undefined) data["EndReason"] = params["endReason"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
 
@@ -588,7 +588,7 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

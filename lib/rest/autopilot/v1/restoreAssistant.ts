@@ -26,7 +26,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } assistant The Twilio-provided string that uniquely identifies the Assistant resource to restore.
  */
 export interface RestoreAssistantListInstanceUpdateOptions {
-  assistant: string;
+  "assistant": string;
 }
 
 export interface RestoreAssistantListInstance {
@@ -74,19 +74,19 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.assistant === null || params.assistant === undefined) {
-      throw new Error('Required parameter "params.assistant" missing.');
+    if (params["assistant"] === null || params["assistant"] === undefined) {
+      throw new Error('Required parameter "params[\'assistant\']" missing.');
     }
 
     const data: any = {};
 
-    data['Assistant'] = params.assistant;
+    data["Assistant"] = params["assistant"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new RestoreAssistantInstance(operationVersion, payload));
     

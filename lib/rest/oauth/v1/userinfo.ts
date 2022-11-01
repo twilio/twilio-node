@@ -61,7 +61,7 @@ export function UserinfoListInstance(version: V1): UserinfoListInstance {
   instance.fetch = function fetch(callback?: any): Promise<UserinfoInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UserinfoInstance(operationVersion, payload));
     

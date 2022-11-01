@@ -28,8 +28,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] 
  */
 export interface SipDomainContextUpdateOptions {
-  voiceRegion?: string;
-  friendlyName?: string;
+  "voiceRegion"?: string;
+  "friendlyName"?: string;
 }
 
 export interface SipDomainContext {
@@ -73,7 +73,7 @@ export interface SipDomainContext {
 }
 
 export interface SipDomainContextSolution {
-  sipDomain?: string;
+  "sipDomain"?: string;
 }
 
 export class SipDomainContextImpl implements SipDomainContext {
@@ -89,7 +89,7 @@ export class SipDomainContextImpl implements SipDomainContext {
   fetch(callback?: any): Promise<SipDomainInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SipDomainInstance(operationVersion, payload, this._solution.sipDomain));
     
@@ -110,14 +110,14 @@ export class SipDomainContextImpl implements SipDomainContext {
 
     const data: any = {};
 
-    if (params.voiceRegion !== undefined) data['VoiceRegion'] = params.voiceRegion;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["voiceRegion"] !== undefined) data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SipDomainInstance(operationVersion, payload, this._solution.sipDomain));
     

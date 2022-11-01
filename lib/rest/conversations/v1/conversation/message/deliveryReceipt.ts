@@ -38,7 +38,7 @@ type ConversationMessageReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'und
  *                         Default is no limit
  */
 export interface DeliveryReceiptListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +54,7 @@ export interface DeliveryReceiptListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DeliveryReceiptListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -66,7 +66,7 @@ export interface DeliveryReceiptListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeliveryReceiptListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -94,9 +94,9 @@ export interface DeliveryReceiptContext {
 }
 
 export interface DeliveryReceiptContextSolution {
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
+  "conversationSid"?: string;
+  "messageSid"?: string;
+  "sid"?: string;
 }
 
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
@@ -112,7 +112,7 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   fetch(callback?: any): Promise<DeliveryReceiptInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new DeliveryReceiptInstance(operationVersion, payload, this._solution.conversationSid, this._solution.messageSid, this._solution.sid));
     
@@ -408,14 +408,14 @@ export function DeliveryReceiptListInstance(version: V1, conversationSid: string
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(operationVersion, payload, this._solution));
 
@@ -427,7 +427,7 @@ export function DeliveryReceiptListInstance(version: V1, conversationSid: string
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DeliveryReceiptPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -106,15 +106,15 @@ type UsageRecordGroup = 'sim'|'fleet'|'network'|'isoCountry';
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceEachOptions {
-  sim?: string;
-  fleet?: string;
-  network?: string;
-  isoCountry?: string;
-  group?: UsageRecordGroup;
-  granularity?: UsageRecordGranularity;
-  startTime?: Date;
-  endTime?: Date;
-  pageSize?: number;
+  "sim"?: string;
+  "fleet"?: string;
+  "network"?: string;
+  "isoCountry"?: string;
+  "group"?: UsageRecordGroup;
+  "granularity"?: UsageRecordGranularity;
+  "startTime"?: Date;
+  "endTime"?: Date;
+  "pageSize"?: number;
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -138,15 +138,15 @@ export interface UsageRecordListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceOptions {
-  sim?: string;
-  fleet?: string;
-  network?: string;
-  isoCountry?: string;
-  group?: UsageRecordGroup;
-  granularity?: UsageRecordGranularity;
-  startTime?: Date;
-  endTime?: Date;
-  pageSize?: number;
+  "sim"?: string;
+  "fleet"?: string;
+  "network"?: string;
+  "isoCountry"?: string;
+  "group"?: UsageRecordGroup;
+  "granularity"?: UsageRecordGranularity;
+  "startTime"?: Date;
+  "endTime"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -166,15 +166,15 @@ export interface UsageRecordListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsageRecordListInstancePageOptions {
-  sim?: string;
-  fleet?: string;
-  network?: string;
-  isoCountry?: string;
-  group?: UsageRecordGroup;
-  granularity?: UsageRecordGranularity;
-  startTime?: Date;
-  endTime?: Date;
-  pageSize?: number;
+  "sim"?: string;
+  "fleet"?: string;
+  "network"?: string;
+  "isoCountry"?: string;
+  "group"?: UsageRecordGroup;
+  "granularity"?: UsageRecordGranularity;
+  "startTime"?: Date;
+  "endTime"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -321,22 +321,22 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     const data: any = {};
 
-    if (params.sim !== undefined) data['Sim'] = params.sim;
-    if (params.fleet !== undefined) data['Fleet'] = params.fleet;
-    if (params.network !== undefined) data['Network'] = params.network;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.group !== undefined) data['Group'] = params.group;
-    if (params.granularity !== undefined) data['Granularity'] = params.granularity;
-    if (params.startTime !== undefined) data['StartTime'] = serialize.iso8601DateTime(params.startTime);
-    if (params.endTime !== undefined) data['EndTime'] = serialize.iso8601DateTime(params.endTime);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
+    if (params["network"] !== undefined) data["Network"] = params["network"];
+    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
+    if (params["group"] !== undefined) data["Group"] = params["group"];
+    if (params["granularity"] !== undefined) data["Granularity"] = params["granularity"];
+    if (params["startTime"] !== undefined) data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    if (params["endTime"] !== undefined) data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UsageRecordPage(operationVersion, payload, this._solution));
 
@@ -348,7 +348,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new UsageRecordPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

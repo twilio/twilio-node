@@ -34,7 +34,7 @@ type ServiceConversationMessageWebhookEnabledType = 'true'|'false';
  * @property { ServiceConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MessageContextRemoveOptions {
-  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: ServiceConversationMessageWebhookEnabledType;
 }
 
 /**
@@ -48,12 +48,12 @@ export interface MessageContextRemoveOptions {
  * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
  */
 export interface MessageContextUpdateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
-  author?: string;
-  body?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
+  "xTwilioWebhookEnabled"?: ServiceConversationMessageWebhookEnabledType;
+  "author"?: string;
+  "body"?: string;
+  "dateCreated"?: Date;
+  "dateUpdated"?: Date;
+  "attributes"?: string;
 }
 
 /**
@@ -68,13 +68,13 @@ export interface MessageContextUpdateOptions {
  * @property { string } [mediaSid] The Media SID to be attached to the new Message.
  */
 export interface MessageListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
-  author?: string;
-  body?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
-  mediaSid?: string;
+  "xTwilioWebhookEnabled"?: ServiceConversationMessageWebhookEnabledType;
+  "author"?: string;
+  "body"?: string;
+  "dateCreated"?: Date;
+  "dateUpdated"?: Date;
+  "attributes"?: string;
+  "mediaSid"?: string;
 }
 /**
  * Options to pass to each
@@ -91,8 +91,8 @@ export interface MessageListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
-  order?: ServiceConversationMessageOrderType;
-  pageSize?: number;
+  "order"?: ServiceConversationMessageOrderType;
+  "pageSize"?: number;
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -109,8 +109,8 @@ export interface MessageListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
-  order?: ServiceConversationMessageOrderType;
-  pageSize?: number;
+  "order"?: ServiceConversationMessageOrderType;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -123,8 +123,8 @@ export interface MessageListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
-  order?: ServiceConversationMessageOrderType;
-  pageSize?: number;
+  "order"?: ServiceConversationMessageOrderType;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -193,9 +193,9 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  sid?: string;
+  "chatServiceSid"?: string;
+  "conversationSid"?: string;
+  "sid"?: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -226,10 +226,10 @@ export class MessageContextImpl implements MessageContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -241,7 +241,7 @@ export class MessageContextImpl implements MessageContext {
   fetch(callback?: any): Promise<MessageInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid));
     
@@ -262,18 +262,18 @@ export class MessageContextImpl implements MessageContext {
 
     const data: any = {};
 
-    if (params.author !== undefined) data['Author'] = params.author;
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params["author"] !== undefined) data["Author"] = params["author"];
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid));
     
@@ -671,19 +671,19 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
 
     const data: any = {};
 
-    if (params.author !== undefined) data['Author'] = params.author;
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.mediaSid !== undefined) data['MediaSid'] = params.mediaSid;
+    if (params["author"] !== undefined) data["Author"] = params["author"];
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["mediaSid"] !== undefined) data["MediaSid"] = params["mediaSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid));
     
@@ -704,15 +704,15 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
 
@@ -724,7 +724,7 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

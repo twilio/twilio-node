@@ -38,10 +38,10 @@ type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface SessionContextUpdateOptions {
-  dateExpiry?: Date;
-  ttl?: number;
-  status?: SessionStatus;
-  failOnParticipantConflict?: boolean;
+  "dateExpiry"?: Date;
+  "ttl"?: number;
+  "status"?: SessionStatus;
+  "failOnParticipantConflict"?: boolean;
 }
 
 /**
@@ -56,13 +56,13 @@ export interface SessionContextUpdateOptions {
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface SessionListInstanceCreateOptions {
-  uniqueName?: string;
-  dateExpiry?: Date;
-  ttl?: number;
-  mode?: SessionMode;
-  status?: SessionStatus;
-  participants?: Array<any>;
-  failOnParticipantConflict?: boolean;
+  "uniqueName"?: string;
+  "dateExpiry"?: Date;
+  "ttl"?: number;
+  "mode"?: SessionMode;
+  "status"?: SessionStatus;
+  "participants"?: Array<any>;
+  "failOnParticipantConflict"?: boolean;
 }
 /**
  * Options to pass to each
@@ -78,7 +78,7 @@ export interface SessionListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SessionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -94,7 +94,7 @@ export interface SessionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SessionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -106,7 +106,7 @@ export interface SessionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SessionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -166,8 +166,8 @@ export interface SessionContext {
 }
 
 export interface SessionContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class SessionContextImpl implements SessionContext {
@@ -195,7 +195,7 @@ export class SessionContextImpl implements SessionContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -207,7 +207,7 @@ export class SessionContextImpl implements SessionContext {
   fetch(callback?: any): Promise<SessionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -228,16 +228,16 @@ export class SessionContextImpl implements SessionContext {
 
     const data: any = {};
 
-    if (params.dateExpiry !== undefined) data['DateExpiry'] = serialize.iso8601DateTime(params.dateExpiry);
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.failOnParticipantConflict !== undefined) data['FailOnParticipantConflict'] = serialize.bool(params.failOnParticipantConflict);
+    if (params["dateExpiry"] !== undefined) data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["failOnParticipantConflict"] !== undefined) data["FailOnParticipantConflict"] = serialize.bool(params["failOnParticipantConflict"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -632,19 +632,19 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.dateExpiry !== undefined) data['DateExpiry'] = serialize.iso8601DateTime(params.dateExpiry);
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.mode !== undefined) data['Mode'] = params.mode;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.participants !== undefined) data['Participants'] = serialize.map(params.participants, ((e) => e));
-    if (params.failOnParticipantConflict !== undefined) data['FailOnParticipantConflict'] = serialize.bool(params.failOnParticipantConflict);
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["dateExpiry"] !== undefined) data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["participants"] !== undefined) data["Participants"] = serialize.map(params["participants"], ((e) => e));
+    if (params["failOnParticipantConflict"] !== undefined) data["FailOnParticipantConflict"] = serialize.bool(params["failOnParticipantConflict"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -665,14 +665,14 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SessionPage(operationVersion, payload, this._solution));
 
@@ -684,7 +684,7 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SessionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SessionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

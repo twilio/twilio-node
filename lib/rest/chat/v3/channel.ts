@@ -33,9 +33,9 @@ type ChannelWebhookEnabledType = 'true'|'false';
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
  */
 export interface ChannelContextUpdateOptions {
-  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
-  type?: ChannelChannelType;
-  messagingServiceSid?: string;
+  "xTwilioWebhookEnabled"?: ChannelWebhookEnabledType;
+  "type"?: ChannelChannelType;
+  "messagingServiceSid"?: string;
 }
 
 export interface ChannelContext {
@@ -69,8 +69,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -93,15 +93,15 @@ export class ChannelContextImpl implements ChannelContext {
 
     const data: any = {};
 
-    if (params.type !== undefined) data['Type'] = params.type;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
+    if (params["type"] !== undefined) data["Type"] = params["type"];
+    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ChannelInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     

@@ -30,8 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } uniqueName An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
  */
 export interface FieldListInstanceCreateOptions {
-  fieldType: string;
-  uniqueName: string;
+  "fieldType": string;
+  "uniqueName": string;
 }
 /**
  * Options to pass to each
@@ -47,7 +47,7 @@ export interface FieldListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FieldListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: FieldInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +63,7 @@ export interface FieldListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FieldListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -75,7 +75,7 @@ export interface FieldListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FieldListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -113,9 +113,9 @@ export interface FieldContext {
 }
 
 export interface FieldContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  "assistantSid"?: string;
+  "taskSid"?: string;
+  "sid"?: string;
 }
 
 export class FieldContextImpl implements FieldContext {
@@ -131,7 +131,7 @@ export class FieldContextImpl implements FieldContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -143,7 +143,7 @@ export class FieldContextImpl implements FieldContext {
   fetch(callback?: any): Promise<FieldInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FieldInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid, this._solution.sid));
     
@@ -447,24 +447,24 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.fieldType === null || params.fieldType === undefined) {
-      throw new Error('Required parameter "params.fieldType" missing.');
+    if (params["fieldType"] === null || params["fieldType"] === undefined) {
+      throw new Error('Required parameter "params[\'fieldType\']" missing.');
     }
 
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
+    if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FieldType'] = params.fieldType;
-    data['UniqueName'] = params.uniqueName;
+    data["FieldType"] = params["fieldType"];
+    data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FieldInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     
@@ -485,14 +485,14 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FieldPage(operationVersion, payload, this._solution));
 
@@ -504,7 +504,7 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FieldPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

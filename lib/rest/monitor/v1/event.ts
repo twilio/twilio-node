@@ -42,13 +42,13 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
-  actorSid?: string;
-  eventType?: string;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "actorSid"?: string;
+  "eventType"?: string;
+  "resourceSid"?: string;
+  "sourceIpAddress"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -70,13 +70,13 @@ export interface EventListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EventListInstanceOptions {
-  actorSid?: string;
-  eventType?: string;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "actorSid"?: string;
+  "eventType"?: string;
+  "resourceSid"?: string;
+  "sourceIpAddress"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -94,13 +94,13 @@ export interface EventListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
-  actorSid?: string;
-  eventType?: string;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
-  endDate?: Date;
-  pageSize?: number;
+  "actorSid"?: string;
+  "eventType"?: string;
+  "resourceSid"?: string;
+  "sourceIpAddress"?: string;
+  "startDate"?: Date;
+  "endDate"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -128,7 +128,7 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class EventContextImpl implements EventContext {
@@ -144,7 +144,7 @@ export class EventContextImpl implements EventContext {
   fetch(callback?: any): Promise<EventInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EventInstance(operationVersion, payload, this._solution.sid));
     
@@ -462,20 +462,20 @@ export function EventListInstance(version: V1): EventListInstance {
 
     const data: any = {};
 
-    if (params.actorSid !== undefined) data['ActorSid'] = params.actorSid;
-    if (params.eventType !== undefined) data['EventType'] = params.eventType;
-    if (params.resourceSid !== undefined) data['ResourceSid'] = params.resourceSid;
-    if (params.sourceIpAddress !== undefined) data['SourceIpAddress'] = params.sourceIpAddress;
-    if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
-    if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["actorSid"] !== undefined) data["ActorSid"] = params["actorSid"];
+    if (params["eventType"] !== undefined) data["EventType"] = params["eventType"];
+    if (params["resourceSid"] !== undefined) data["ResourceSid"] = params["resourceSid"];
+    if (params["sourceIpAddress"] !== undefined) data["SourceIpAddress"] = params["sourceIpAddress"];
+    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, this._solution));
 
@@ -487,7 +487,7 @@ export function EventListInstance(version: V1): EventListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EventPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -32,7 +32,7 @@ type SummaryProcessingState = 'complete'|'partial';
  * @property { SummaryProcessingState } [processingState] 
  */
 export interface CallSummaryListInstanceFetchOptions {
-  processingState?: SummaryProcessingState;
+  "processingState"?: SummaryProcessingState;
 }
 
 export interface CallSummaryListInstance {
@@ -94,12 +94,12 @@ export function CallSummaryListInstance(version: V1, callSid: string): CallSumma
 
     const data: any = {};
 
-    if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
+    if (params["processingState"] !== undefined) data["ProcessingState"] = params["processingState"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CallSummaryInstance(operationVersion, payload, this._solution.callSid));
     

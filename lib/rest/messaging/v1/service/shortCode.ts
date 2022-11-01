@@ -29,7 +29,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } shortCodeSid The SID of the ShortCode resource being added to the Service.
  */
 export interface ShortCodeListInstanceCreateOptions {
-  shortCodeSid: string;
+  "shortCodeSid": string;
 }
 /**
  * Options to pass to each
@@ -45,7 +45,7 @@ export interface ShortCodeListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ShortCodeListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,7 +61,7 @@ export interface ShortCodeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ShortCodeListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -73,7 +73,7 @@ export interface ShortCodeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ShortCodeListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -111,8 +111,8 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  "serviceSid"?: string;
+  "sid"?: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
@@ -128,7 +128,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -140,7 +140,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   fetch(callback?: any): Promise<ShortCodeInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ShortCodeInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -443,19 +443,19 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.shortCodeSid === null || params.shortCodeSid === undefined) {
-      throw new Error('Required parameter "params.shortCodeSid" missing.');
+    if (params["shortCodeSid"] === null || params["shortCodeSid"] === undefined) {
+      throw new Error('Required parameter "params[\'shortCodeSid\']" missing.');
     }
 
     const data: any = {};
 
-    data['ShortCodeSid'] = params.shortCodeSid;
+    data["ShortCodeSid"] = params["shortCodeSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ShortCodeInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -476,14 +476,14 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ShortCodePage(operationVersion, payload, this._solution));
 
@@ -495,7 +495,7 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ShortCodePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ShortCodePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

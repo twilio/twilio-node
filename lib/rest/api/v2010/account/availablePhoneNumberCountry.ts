@@ -43,7 +43,7 @@ import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
  *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -59,7 +59,7 @@ export interface AvailablePhoneNumberCountryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -71,7 +71,7 @@ export interface AvailablePhoneNumberCountryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AvailablePhoneNumberCountryListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -106,8 +106,8 @@ export interface AvailablePhoneNumberCountryContext {
 }
 
 export interface AvailablePhoneNumberCountryContextSolution {
-  accountSid?: string;
-  countryCode?: string;
+  "accountSid"?: string;
+  "countryCode"?: string;
 }
 
 export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNumberCountryContext {
@@ -165,7 +165,7 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
   fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryInstance(operationVersion, payload, this._solution.accountSid, this._solution.countryCode));
     
@@ -470,14 +470,14 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryPage(operationVersion, payload, this._solution));
 
@@ -489,7 +489,7 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

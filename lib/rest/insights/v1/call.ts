@@ -50,7 +50,7 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -90,7 +90,7 @@ export class CallContextImpl implements CallContext {
   fetch(callback?: any): Promise<CallInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.sid));
     

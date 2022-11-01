@@ -35,7 +35,7 @@ import { UserListInstance } from "./service/user";
  * @property { string } friendlyName The human-readable name of this service, limited to 256 characters. Optional.
  */
 export interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
+  "friendlyName": string;
 }
 /**
  * Options to pass to each
@@ -51,7 +51,7 @@ export interface ServiceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -67,7 +67,7 @@ export interface ServiceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -79,7 +79,7 @@ export interface ServiceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -123,7 +123,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -175,7 +175,7 @@ export class ServiceContextImpl implements ServiceContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -187,7 +187,7 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(callback?: any): Promise<ServiceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
     
@@ -517,19 +517,19 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
+    data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
     
@@ -550,14 +550,14 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
 
@@ -569,7 +569,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -31,9 +31,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [sourceChannel] The communication channel from which the sample was captured. Can be: &#x60;voice&#x60;, &#x60;sms&#x60;, &#x60;chat&#x60;, &#x60;alexa&#x60;, &#x60;google-assistant&#x60;, &#x60;slack&#x60;, or null if not included.
  */
 export interface SampleContextUpdateOptions {
-  language?: string;
-  taggedText?: string;
-  sourceChannel?: string;
+  "language"?: string;
+  "taggedText"?: string;
+  "sourceChannel"?: string;
 }
 
 /**
@@ -44,9 +44,9 @@ export interface SampleContextUpdateOptions {
  * @property { string } [sourceChannel] The communication channel from which the new sample was captured. Can be: &#x60;voice&#x60;, &#x60;sms&#x60;, &#x60;chat&#x60;, &#x60;alexa&#x60;, &#x60;google-assistant&#x60;, &#x60;slack&#x60;, or null if not included.
  */
 export interface SampleListInstanceCreateOptions {
-  language: string;
-  taggedText: string;
-  sourceChannel?: string;
+  "language": string;
+  "taggedText": string;
+  "sourceChannel"?: string;
 }
 /**
  * Options to pass to each
@@ -63,8 +63,8 @@ export interface SampleListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SampleListInstanceEachOptions {
-  language?: string;
-  pageSize?: number;
+  "language"?: string;
+  "pageSize"?: number;
   callback?: (item: SampleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -81,8 +81,8 @@ export interface SampleListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SampleListInstanceOptions {
-  language?: string;
-  pageSize?: number;
+  "language"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -95,8 +95,8 @@ export interface SampleListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SampleListInstancePageOptions {
-  language?: string;
-  pageSize?: number;
+  "language"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -154,9 +154,9 @@ export interface SampleContext {
 }
 
 export interface SampleContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  "assistantSid"?: string;
+  "taskSid"?: string;
+  "sid"?: string;
 }
 
 export class SampleContextImpl implements SampleContext {
@@ -172,7 +172,7 @@ export class SampleContextImpl implements SampleContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -184,7 +184,7 @@ export class SampleContextImpl implements SampleContext {
   fetch(callback?: any): Promise<SampleInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SampleInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid, this._solution.sid));
     
@@ -205,15 +205,15 @@ export class SampleContextImpl implements SampleContext {
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.taggedText !== undefined) data['TaggedText'] = params.taggedText;
-    if (params.sourceChannel !== undefined) data['SourceChannel'] = params.sourceChannel;
+    if (params["language"] !== undefined) data["Language"] = params["language"];
+    if (params["taggedText"] !== undefined) data["TaggedText"] = params["taggedText"];
+    if (params["sourceChannel"] !== undefined) data["SourceChannel"] = params["sourceChannel"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SampleInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid, this._solution.sid));
     
@@ -546,25 +546,25 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.language === null || params.language === undefined) {
-      throw new Error('Required parameter "params.language" missing.');
+    if (params["language"] === null || params["language"] === undefined) {
+      throw new Error('Required parameter "params[\'language\']" missing.');
     }
 
-    if (params.taggedText === null || params.taggedText === undefined) {
-      throw new Error('Required parameter "params.taggedText" missing.');
+    if (params["taggedText"] === null || params["taggedText"] === undefined) {
+      throw new Error('Required parameter "params[\'taggedText\']" missing.');
     }
 
     const data: any = {};
 
-    data['Language'] = params.language;
-    data['TaggedText'] = params.taggedText;
-    if (params.sourceChannel !== undefined) data['SourceChannel'] = params.sourceChannel;
+    data["Language"] = params["language"];
+    data["TaggedText"] = params["taggedText"];
+    if (params["sourceChannel"] !== undefined) data["SourceChannel"] = params["sourceChannel"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SampleInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     
@@ -585,15 +585,15 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["language"] !== undefined) data["Language"] = params["language"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SamplePage(operationVersion, payload, this._solution));
 
@@ -605,7 +605,7 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SamplePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new SamplePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

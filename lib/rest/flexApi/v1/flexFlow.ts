@@ -36,36 +36,36 @@ type FlexFlowIntegrationType = 'studio'|'external'|'task';
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
  * @property { FlexFlowIntegrationType } [integrationType] 
- * @property { string } [integrationFlowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
- * @property { string } [integrationUrl] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
- * @property { string } [integrationWorkspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integrationWorkflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integrationChannel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
- * @property { number } [integrationTimeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { number } [integrationPriority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { boolean } [integrationCreationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
+ * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
+ * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
+ * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
+ * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
+ * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { boolean } [integration.creationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
  * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to &#x60;false&#x60;.
  * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to &#x60;false&#x60;.
- * @property { number } [integrationRetryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
+ * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
  */
 export interface FlexFlowContextUpdateOptions {
-  friendlyName?: string;
-  chatServiceSid?: string;
-  channelType?: FlexFlowChannelType;
-  contactIdentity?: string;
-  enabled?: boolean;
-  integrationType?: FlexFlowIntegrationType;
-  integrationFlowSid?: string;
-  integrationUrl?: string;
-  integrationWorkspaceSid?: string;
-  integrationWorkflowSid?: string;
-  integrationChannel?: string;
-  integrationTimeout?: number;
-  integrationPriority?: number;
-  integrationCreationOnMessage?: boolean;
-  longLived?: boolean;
-  janitorEnabled?: boolean;
-  integrationRetryCount?: number;
+  "friendlyName"?: string;
+  "chatServiceSid"?: string;
+  "channelType"?: FlexFlowChannelType;
+  "contactIdentity"?: string;
+  "enabled"?: boolean;
+  "integrationType"?: FlexFlowIntegrationType;
+  "integration.flowSid"?: string;
+  "integration.url"?: string;
+  "integration.workspaceSid"?: string;
+  "integration.workflowSid"?: string;
+  "integration.channel"?: string;
+  "integration.timeout"?: number;
+  "integration.priority"?: number;
+  "integration.creationOnMessage"?: boolean;
+  "longLived"?: boolean;
+  "janitorEnabled"?: boolean;
+  "integration.retryCount"?: number;
 }
 
 /**
@@ -77,36 +77,36 @@ export interface FlexFlowContextUpdateOptions {
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
  * @property { FlexFlowIntegrationType } [integrationType] 
- * @property { string } [integrationFlowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
- * @property { string } [integrationUrl] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
- * @property { string } [integrationWorkspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integrationWorkflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integrationChannel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
- * @property { number } [integrationTimeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { number } [integrationPriority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { boolean } [integrationCreationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
+ * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
+ * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
+ * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
+ * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
+ * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { boolean } [integration.creationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
  * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to &#x60;false&#x60;.
  * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to &#x60;false&#x60;.
- * @property { number } [integrationRetryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
+ * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
  */
 export interface FlexFlowListInstanceCreateOptions {
-  friendlyName: string;
-  chatServiceSid: string;
-  channelType: FlexFlowChannelType;
-  contactIdentity?: string;
-  enabled?: boolean;
-  integrationType?: FlexFlowIntegrationType;
-  integrationFlowSid?: string;
-  integrationUrl?: string;
-  integrationWorkspaceSid?: string;
-  integrationWorkflowSid?: string;
-  integrationChannel?: string;
-  integrationTimeout?: number;
-  integrationPriority?: number;
-  integrationCreationOnMessage?: boolean;
-  longLived?: boolean;
-  janitorEnabled?: boolean;
-  integrationRetryCount?: number;
+  "friendlyName": string;
+  "chatServiceSid": string;
+  "channelType": FlexFlowChannelType;
+  "contactIdentity"?: string;
+  "enabled"?: boolean;
+  "integrationType"?: FlexFlowIntegrationType;
+  "integration.flowSid"?: string;
+  "integration.url"?: string;
+  "integration.workspaceSid"?: string;
+  "integration.workflowSid"?: string;
+  "integration.channel"?: string;
+  "integration.timeout"?: number;
+  "integration.priority"?: number;
+  "integration.creationOnMessage"?: boolean;
+  "longLived"?: boolean;
+  "janitorEnabled"?: boolean;
+  "integration.retryCount"?: number;
 }
 /**
  * Options to pass to each
@@ -123,8 +123,8 @@ export interface FlexFlowListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FlexFlowListInstanceEachOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -141,8 +141,8 @@ export interface FlexFlowListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FlexFlowListInstanceOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -155,8 +155,8 @@ export interface FlexFlowListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FlexFlowListInstancePageOptions {
-  friendlyName?: string;
-  pageSize?: number;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -214,7 +214,7 @@ export interface FlexFlowContext {
 }
 
 export interface FlexFlowContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class FlexFlowContextImpl implements FlexFlowContext {
@@ -230,7 +230,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -242,7 +242,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   fetch(callback?: any): Promise<FlexFlowInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload, this._solution.sid));
     
@@ -263,29 +263,29 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.chatServiceSid !== undefined) data['ChatServiceSid'] = params.chatServiceSid;
-    if (params.channelType !== undefined) data['ChannelType'] = params.channelType;
-    if (params.contactIdentity !== undefined) data['ContactIdentity'] = params.contactIdentity;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.integrationType !== undefined) data['IntegrationType'] = params.integrationType;
-    if (params.integrationFlowSid !== undefined) data['Integration.FlowSid'] = params.integrationFlowSid;
-    if (params.integrationUrl !== undefined) data['Integration.Url'] = params.integrationUrl;
-    if (params.integrationWorkspaceSid !== undefined) data['Integration.WorkspaceSid'] = params.integrationWorkspaceSid;
-    if (params.integrationWorkflowSid !== undefined) data['Integration.WorkflowSid'] = params.integrationWorkflowSid;
-    if (params.integrationChannel !== undefined) data['Integration.Channel'] = params.integrationChannel;
-    if (params.integrationTimeout !== undefined) data['Integration.Timeout'] = params.integrationTimeout;
-    if (params.integrationPriority !== undefined) data['Integration.Priority'] = params.integrationPriority;
-    if (params.integrationCreationOnMessage !== undefined) data['Integration.CreationOnMessage'] = serialize.bool(params.integrationCreationOnMessage);
-    if (params.longLived !== undefined) data['LongLived'] = serialize.bool(params.longLived);
-    if (params.janitorEnabled !== undefined) data['JanitorEnabled'] = serialize.bool(params.janitorEnabled);
-    if (params.integrationRetryCount !== undefined) data['Integration.RetryCount'] = params.integrationRetryCount;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["chatServiceSid"] !== undefined) data["ChatServiceSid"] = params["chatServiceSid"];
+    if (params["channelType"] !== undefined) data["ChannelType"] = params["channelType"];
+    if (params["contactIdentity"] !== undefined) data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined) data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined) data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined) data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined) data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined) data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined) data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined) data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined) data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined) data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+    if (params["longLived"] !== undefined) data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined) data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined) data["Integration.RetryCount"] = params["integration.retryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload, this._solution.sid));
     
@@ -638,43 +638,43 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    if (params.chatServiceSid === null || params.chatServiceSid === undefined) {
-      throw new Error('Required parameter "params.chatServiceSid" missing.');
+    if (params["chatServiceSid"] === null || params["chatServiceSid"] === undefined) {
+      throw new Error('Required parameter "params[\'chatServiceSid\']" missing.');
     }
 
-    if (params.channelType === null || params.channelType === undefined) {
-      throw new Error('Required parameter "params.channelType" missing.');
+    if (params["channelType"] === null || params["channelType"] === undefined) {
+      throw new Error('Required parameter "params[\'channelType\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    data['ChatServiceSid'] = params.chatServiceSid;
-    data['ChannelType'] = params.channelType;
-    if (params.contactIdentity !== undefined) data['ContactIdentity'] = params.contactIdentity;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.integrationType !== undefined) data['IntegrationType'] = params.integrationType;
-    if (params.integrationFlowSid !== undefined) data['Integration.FlowSid'] = params.integrationFlowSid;
-    if (params.integrationUrl !== undefined) data['Integration.Url'] = params.integrationUrl;
-    if (params.integrationWorkspaceSid !== undefined) data['Integration.WorkspaceSid'] = params.integrationWorkspaceSid;
-    if (params.integrationWorkflowSid !== undefined) data['Integration.WorkflowSid'] = params.integrationWorkflowSid;
-    if (params.integrationChannel !== undefined) data['Integration.Channel'] = params.integrationChannel;
-    if (params.integrationTimeout !== undefined) data['Integration.Timeout'] = params.integrationTimeout;
-    if (params.integrationPriority !== undefined) data['Integration.Priority'] = params.integrationPriority;
-    if (params.integrationCreationOnMessage !== undefined) data['Integration.CreationOnMessage'] = serialize.bool(params.integrationCreationOnMessage);
-    if (params.longLived !== undefined) data['LongLived'] = serialize.bool(params.longLived);
-    if (params.janitorEnabled !== undefined) data['JanitorEnabled'] = serialize.bool(params.janitorEnabled);
-    if (params.integrationRetryCount !== undefined) data['Integration.RetryCount'] = params.integrationRetryCount;
+    data["FriendlyName"] = params["friendlyName"];
+    data["ChatServiceSid"] = params["chatServiceSid"];
+    data["ChannelType"] = params["channelType"];
+    if (params["contactIdentity"] !== undefined) data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined) data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined) data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined) data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined) data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined) data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined) data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined) data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined) data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined) data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+    if (params["longLived"] !== undefined) data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined) data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined) data["Integration.RetryCount"] = params["integration.retryCount"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload));
     
@@ -695,15 +695,15 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FlexFlowPage(operationVersion, payload, this._solution));
 
@@ -715,7 +715,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlexFlowPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FlexFlowPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

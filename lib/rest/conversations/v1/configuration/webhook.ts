@@ -34,11 +34,11 @@ type ConfigurationWebhookTarget = 'webhook'|'flex';
  * @property { ConfigurationWebhookTarget } [target] 
  */
 export interface WebhookListInstanceUpdateOptions {
-  method?: string;
-  filters?: Array<string>;
-  preWebhookUrl?: string;
-  postWebhookUrl?: string;
-  target?: ConfigurationWebhookTarget;
+  "method"?: string;
+  "filters"?: Array<string>;
+  "preWebhookUrl"?: string;
+  "postWebhookUrl"?: string;
+  "target"?: ConfigurationWebhookTarget;
 }
 
 export interface WebhookListInstance {
@@ -102,7 +102,7 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   instance.fetch = function fetch(callback?: any): Promise<WebhookInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload));
     
@@ -123,17 +123,17 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
 
     const data: any = {};
 
-    if (params.method !== undefined) data['Method'] = params.method;
-    if (params.filters !== undefined) data['Filters'] = serialize.map(params.filters, ((e) => e));
-    if (params.preWebhookUrl !== undefined) data['PreWebhookUrl'] = params.preWebhookUrl;
-    if (params.postWebhookUrl !== undefined) data['PostWebhookUrl'] = params.postWebhookUrl;
-    if (params.target !== undefined) data['Target'] = params.target;
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["filters"] !== undefined) data["Filters"] = serialize.map(params["filters"], ((e) => e));
+    if (params["preWebhookUrl"] !== undefined) data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["postWebhookUrl"] !== undefined) data["PostWebhookUrl"] = params["postWebhookUrl"];
+    if (params["target"] !== undefined) data["Target"] = params["target"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload));
     

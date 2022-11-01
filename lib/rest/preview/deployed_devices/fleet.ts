@@ -34,8 +34,8 @@ import { KeyListInstance } from "./fleet/key";
  * @property { string } [defaultDeploymentSid] Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
  */
 export interface FleetContextUpdateOptions {
-  friendlyName?: string;
-  defaultDeploymentSid?: string;
+  "friendlyName"?: string;
+  "defaultDeploymentSid"?: string;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface FleetContextUpdateOptions {
  * @property { string } [friendlyName] Provides a human readable descriptive text for this Fleet, up to 256 characters long.
  */
 export interface FleetListInstanceCreateOptions {
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 /**
  * Options to pass to each
@@ -60,7 +60,7 @@ export interface FleetListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FleetListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,7 +76,7 @@ export interface FleetListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FleetListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -88,7 +88,7 @@ export interface FleetListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FleetListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -150,7 +150,7 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class FleetContextImpl implements FleetContext {
@@ -190,7 +190,7 @@ export class FleetContextImpl implements FleetContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -202,7 +202,7 @@ export class FleetContextImpl implements FleetContext {
   fetch(callback?: any): Promise<FleetInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload, this._solution.sid));
     
@@ -223,14 +223,14 @@ export class FleetContextImpl implements FleetContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.defaultDeploymentSid !== undefined) data['DefaultDeploymentSid'] = params.defaultDeploymentSid;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["defaultDeploymentSid"] !== undefined) data["DefaultDeploymentSid"] = params["defaultDeploymentSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload, this._solution.sid));
     
@@ -595,13 +595,13 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new FleetInstance(operationVersion, payload));
     
@@ -622,14 +622,14 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FleetPage(operationVersion, payload, this._solution));
 
@@ -641,7 +641,7 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FleetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FleetPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

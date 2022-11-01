@@ -58,12 +58,12 @@ type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in
  *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
-  roomType?: Array<VideoRoomSummaryRoomType>;
-  codec?: Array<VideoRoomSummaryCodec>;
-  roomName?: string;
-  createdAfter?: Date;
-  createdBefore?: Date;
-  pageSize?: number;
+  "roomType"?: Array<VideoRoomSummaryRoomType>;
+  "codec"?: Array<VideoRoomSummaryCodec>;
+  "roomName"?: string;
+  "createdAfter"?: Date;
+  "createdBefore"?: Date;
+  "pageSize"?: number;
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -84,12 +84,12 @@ export interface RoomListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
-  roomType?: Array<VideoRoomSummaryRoomType>;
-  codec?: Array<VideoRoomSummaryCodec>;
-  roomName?: string;
-  createdAfter?: Date;
-  createdBefore?: Date;
-  pageSize?: number;
+  "roomType"?: Array<VideoRoomSummaryRoomType>;
+  "codec"?: Array<VideoRoomSummaryCodec>;
+  "roomName"?: string;
+  "createdAfter"?: Date;
+  "createdBefore"?: Date;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -106,12 +106,12 @@ export interface RoomListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
-  roomType?: Array<VideoRoomSummaryRoomType>;
-  codec?: Array<VideoRoomSummaryCodec>;
-  roomName?: string;
-  createdAfter?: Date;
-  createdBefore?: Date;
-  pageSize?: number;
+  "roomType"?: Array<VideoRoomSummaryRoomType>;
+  "codec"?: Array<VideoRoomSummaryCodec>;
+  "roomName"?: string;
+  "createdAfter"?: Date;
+  "createdBefore"?: Date;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -140,7 +140,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  roomSid?: string;
+  "roomSid"?: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -162,7 +162,7 @@ export class RoomContextImpl implements RoomContext {
   fetch(callback?: any): Promise<RoomInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new RoomInstance(operationVersion, payload, this._solution.roomSid));
     
@@ -551,19 +551,19 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const data: any = {};
 
-    if (params.roomType !== undefined) data['RoomType'] = serialize.map(params.roomType, ((e) => e));
-    if (params.codec !== undefined) data['Codec'] = serialize.map(params.codec, ((e) => e));
-    if (params.roomName !== undefined) data['RoomName'] = params.roomName;
-    if (params.createdAfter !== undefined) data['CreatedAfter'] = serialize.iso8601DateTime(params.createdAfter);
-    if (params.createdBefore !== undefined) data['CreatedBefore'] = serialize.iso8601DateTime(params.createdBefore);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["roomType"] !== undefined) data["RoomType"] = serialize.map(params["roomType"], ((e) => e));
+    if (params["codec"] !== undefined) data["Codec"] = serialize.map(params["codec"], ((e) => e));
+    if (params["roomName"] !== undefined) data["RoomName"] = params["roomName"];
+    if (params["createdAfter"] !== undefined) data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+    if (params["createdBefore"] !== undefined) data["CreatedBefore"] = serialize.iso8601DateTime(params["createdBefore"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RoomPage(operationVersion, payload, this._solution));
 
@@ -575,7 +575,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RoomPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new RoomPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

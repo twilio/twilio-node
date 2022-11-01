@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [dialingPermissionsInheritance] &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
  */
 export interface SettingsListInstanceUpdateOptions {
-  dialingPermissionsInheritance?: boolean;
+  "dialingPermissionsInheritance"?: boolean;
 }
 
 export interface SettingsListInstance {
@@ -90,7 +90,7 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
   instance.fetch = function fetch(callback?: any): Promise<SettingsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
     
@@ -111,13 +111,13 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
 
     const data: any = {};
 
-    if (params.dialingPermissionsInheritance !== undefined) data['DialingPermissionsInheritance'] = serialize.bool(params.dialingPermissionsInheritance);
+    if (params["dialingPermissionsInheritance"] !== undefined) data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
     

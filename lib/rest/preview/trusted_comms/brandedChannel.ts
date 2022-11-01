@@ -44,7 +44,7 @@ export interface BrandedChannelContext {
 }
 
 export interface BrandedChannelContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class BrandedChannelContextImpl implements BrandedChannelContext {
@@ -66,7 +66,7 @@ export class BrandedChannelContextImpl implements BrandedChannelContext {
   fetch(callback?: any): Promise<BrandedChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new BrandedChannelInstance(operationVersion, payload, this._solution.sid));
     

@@ -33,9 +33,9 @@ type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|
  * @property { string } [eid] Identifier of the eUICC that will claim the eSIM Profile.
  */
 export interface EsimProfileListInstanceCreateOptions {
-  callbackUrl?: string;
-  callbackMethod?: string;
-  eid?: string;
+  "callbackUrl"?: string;
+  "callbackMethod"?: string;
+  "eid"?: string;
 }
 /**
  * Options to pass to each
@@ -54,10 +54,10 @@ export interface EsimProfileListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EsimProfileListInstanceEachOptions {
-  eid?: string;
-  simSid?: string;
-  status?: EsimProfileStatus;
-  pageSize?: number;
+  "eid"?: string;
+  "simSid"?: string;
+  "status"?: EsimProfileStatus;
+  "pageSize"?: number;
   callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,10 +76,10 @@ export interface EsimProfileListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EsimProfileListInstanceOptions {
-  eid?: string;
-  simSid?: string;
-  status?: EsimProfileStatus;
-  pageSize?: number;
+  "eid"?: string;
+  "simSid"?: string;
+  "status"?: EsimProfileStatus;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -94,10 +94,10 @@ export interface EsimProfileListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EsimProfileListInstancePageOptions {
-  eid?: string;
-  simSid?: string;
-  status?: EsimProfileStatus;
-  pageSize?: number;
+  "eid"?: string;
+  "simSid"?: string;
+  "status"?: EsimProfileStatus;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -125,7 +125,7 @@ export interface EsimProfileContext {
 }
 
 export interface EsimProfileContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class EsimProfileContextImpl implements EsimProfileContext {
@@ -141,7 +141,7 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   fetch(callback?: any): Promise<EsimProfileInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload, this._solution.sid));
     
@@ -462,15 +462,15 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     const data: any = {};
 
-    if (params.callbackUrl !== undefined) data['CallbackUrl'] = params.callbackUrl;
-    if (params.callbackMethod !== undefined) data['CallbackMethod'] = params.callbackMethod;
-    if (params.eid !== undefined) data['Eid'] = params.eid;
+    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
+    if (params["eid"] !== undefined) data["Eid"] = params["eid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload));
     
@@ -491,17 +491,17 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     const data: any = {};
 
-    if (params.eid !== undefined) data['Eid'] = params.eid;
-    if (params.simSid !== undefined) data['SimSid'] = params.simSid;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["eid"] !== undefined) data["Eid"] = params["eid"];
+    if (params["simSid"] !== undefined) data["SimSid"] = params["simSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EsimProfilePage(operationVersion, payload, this._solution));
 
@@ -513,7 +513,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EsimProfilePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EsimProfilePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

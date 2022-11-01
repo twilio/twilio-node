@@ -27,8 +27,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [start] 
  */
 export interface UsageListInstanceFetchOptions {
-  end?: string;
-  start?: string;
+  "end"?: string;
+  "start"?: string;
 }
 
 export interface UsageListInstance {
@@ -90,13 +90,13 @@ export function UsageListInstance(version: Wireless, simSid: string): UsageListI
 
     const data: any = {};
 
-    if (params.end !== undefined) data['End'] = params.end;
-    if (params.start !== undefined) data['Start'] = params.start;
+    if (params["end"] !== undefined) data["End"] = params["end"];
+    if (params["start"] !== undefined) data["Start"] = params["start"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UsageInstance(operationVersion, payload, this._solution.simSid));
     

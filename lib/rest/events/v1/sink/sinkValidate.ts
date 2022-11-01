@@ -26,7 +26,7 @@ const serialize = require("../../../../base/serialize");
  * @property { string } testId A 34 character string that uniquely identifies the test event for a Sink being validated.
  */
 export interface SinkValidateListInstanceCreateOptions {
-  testId: string;
+  "testId": string;
 }
 
 export interface SinkValidateListInstance {
@@ -75,19 +75,19 @@ export function SinkValidateListInstance(version: V1, sid: string): SinkValidate
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.testId === null || params.testId === undefined) {
-      throw new Error('Required parameter "params.testId" missing.');
+    if (params["testId"] === null || params["testId"] === undefined) {
+      throw new Error('Required parameter "params[\'testId\']" missing.');
     }
 
     const data: any = {};
 
-    data['TestId'] = params.testId;
+    data["TestId"] = params["testId"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new SinkValidateInstance(operationVersion, payload, this._solution.sid));
     

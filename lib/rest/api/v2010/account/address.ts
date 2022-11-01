@@ -37,14 +37,14 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
  */
 export interface AddressContextUpdateOptions {
-  friendlyName?: string;
-  customerName?: string;
-  street?: string;
-  city?: string;
-  region?: string;
-  postalCode?: string;
-  emergencyEnabled?: boolean;
-  autoCorrectAddress?: boolean;
+  "friendlyName"?: string;
+  "customerName"?: string;
+  "street"?: string;
+  "city"?: string;
+  "region"?: string;
+  "postalCode"?: string;
+  "emergencyEnabled"?: boolean;
+  "autoCorrectAddress"?: boolean;
 }
 
 /**
@@ -61,15 +61,15 @@ export interface AddressContextUpdateOptions {
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
  */
 export interface AddressListInstanceCreateOptions {
-  customerName: string;
-  street: string;
-  city: string;
-  region: string;
-  postalCode: string;
-  isoCountry: string;
-  friendlyName?: string;
-  emergencyEnabled?: boolean;
-  autoCorrectAddress?: boolean;
+  "customerName": string;
+  "street": string;
+  "city": string;
+  "region": string;
+  "postalCode": string;
+  "isoCountry": string;
+  "friendlyName"?: string;
+  "emergencyEnabled"?: boolean;
+  "autoCorrectAddress"?: boolean;
 }
 /**
  * Options to pass to each
@@ -88,10 +88,10 @@ export interface AddressListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AddressListInstanceEachOptions {
-  customerName?: string;
-  friendlyName?: string;
-  isoCountry?: string;
-  pageSize?: number;
+  "customerName"?: string;
+  "friendlyName"?: string;
+  "isoCountry"?: string;
+  "pageSize"?: number;
   callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -110,10 +110,10 @@ export interface AddressListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AddressListInstanceOptions {
-  customerName?: string;
-  friendlyName?: string;
-  isoCountry?: string;
-  pageSize?: number;
+  "customerName"?: string;
+  "friendlyName"?: string;
+  "isoCountry"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -128,10 +128,10 @@ export interface AddressListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AddressListInstancePageOptions {
-  customerName?: string;
-  friendlyName?: string;
-  isoCountry?: string;
-  pageSize?: number;
+  "customerName"?: string;
+  "friendlyName"?: string;
+  "isoCountry"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -190,8 +190,8 @@ export interface AddressContext {
 }
 
 export interface AddressContextSolution {
-  accountSid?: string;
-  sid?: string;
+  "accountSid"?: string;
+  "sid"?: string;
 }
 
 export class AddressContextImpl implements AddressContext {
@@ -213,7 +213,7 @@ export class AddressContextImpl implements AddressContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -225,7 +225,7 @@ export class AddressContextImpl implements AddressContext {
   fetch(callback?: any): Promise<AddressInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -246,20 +246,20 @@ export class AddressContextImpl implements AddressContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.customerName !== undefined) data['CustomerName'] = params.customerName;
-    if (params.street !== undefined) data['Street'] = params.street;
-    if (params.city !== undefined) data['City'] = params.city;
-    if (params.region !== undefined) data['Region'] = params.region;
-    if (params.postalCode !== undefined) data['PostalCode'] = params.postalCode;
-    if (params.emergencyEnabled !== undefined) data['EmergencyEnabled'] = serialize.bool(params.emergencyEnabled);
-    if (params.autoCorrectAddress !== undefined) data['AutoCorrectAddress'] = serialize.bool(params.autoCorrectAddress);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["customerName"] !== undefined) data["CustomerName"] = params["customerName"];
+    if (params["street"] !== undefined) data["Street"] = params["street"];
+    if (params["city"] !== undefined) data["City"] = params["city"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
+    if (params["postalCode"] !== undefined) data["PostalCode"] = params["postalCode"];
+    if (params["emergencyEnabled"] !== undefined) data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    if (params["autoCorrectAddress"] !== undefined) data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
     
@@ -633,47 +633,47 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.customerName === null || params.customerName === undefined) {
-      throw new Error('Required parameter "params.customerName" missing.');
+    if (params["customerName"] === null || params["customerName"] === undefined) {
+      throw new Error('Required parameter "params[\'customerName\']" missing.');
     }
 
-    if (params.street === null || params.street === undefined) {
-      throw new Error('Required parameter "params.street" missing.');
+    if (params["street"] === null || params["street"] === undefined) {
+      throw new Error('Required parameter "params[\'street\']" missing.');
     }
 
-    if (params.city === null || params.city === undefined) {
-      throw new Error('Required parameter "params.city" missing.');
+    if (params["city"] === null || params["city"] === undefined) {
+      throw new Error('Required parameter "params[\'city\']" missing.');
     }
 
-    if (params.region === null || params.region === undefined) {
-      throw new Error('Required parameter "params.region" missing.');
+    if (params["region"] === null || params["region"] === undefined) {
+      throw new Error('Required parameter "params[\'region\']" missing.');
     }
 
-    if (params.postalCode === null || params.postalCode === undefined) {
-      throw new Error('Required parameter "params.postalCode" missing.');
+    if (params["postalCode"] === null || params["postalCode"] === undefined) {
+      throw new Error('Required parameter "params[\'postalCode\']" missing.');
     }
 
-    if (params.isoCountry === null || params.isoCountry === undefined) {
-      throw new Error('Required parameter "params.isoCountry" missing.');
+    if (params["isoCountry"] === null || params["isoCountry"] === undefined) {
+      throw new Error('Required parameter "params[\'isoCountry\']" missing.');
     }
 
     const data: any = {};
 
-    data['CustomerName'] = params.customerName;
-    data['Street'] = params.street;
-    data['City'] = params.city;
-    data['Region'] = params.region;
-    data['PostalCode'] = params.postalCode;
-    data['IsoCountry'] = params.isoCountry;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.emergencyEnabled !== undefined) data['EmergencyEnabled'] = serialize.bool(params.emergencyEnabled);
-    if (params.autoCorrectAddress !== undefined) data['AutoCorrectAddress'] = serialize.bool(params.autoCorrectAddress);
+    data["CustomerName"] = params["customerName"];
+    data["Street"] = params["street"];
+    data["City"] = params["city"];
+    data["Region"] = params["region"];
+    data["PostalCode"] = params["postalCode"];
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["emergencyEnabled"] !== undefined) data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    if (params["autoCorrectAddress"] !== undefined) data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid));
     
@@ -694,17 +694,17 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
 
     const data: any = {};
 
-    if (params.customerName !== undefined) data['CustomerName'] = params.customerName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["customerName"] !== undefined) data["CustomerName"] = params["customerName"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressPage(operationVersion, payload, this._solution));
 
@@ -716,7 +716,7 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AddressPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new AddressPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -32,8 +32,8 @@ type WebChannelChatStatus = 'inactive';
  * @property { string } [postEngagementData] The post-engagement data.
  */
 export interface WebChannelContextUpdateOptions {
-  chatStatus?: WebChannelChatStatus;
-  postEngagementData?: string;
+  "chatStatus"?: WebChannelChatStatus;
+  "postEngagementData"?: string;
 }
 
 /**
@@ -47,12 +47,12 @@ export interface WebChannelContextUpdateOptions {
  * @property { string } [preEngagementData] The pre-engagement data.
  */
 export interface WebChannelListInstanceCreateOptions {
-  flexFlowSid: string;
-  identity: string;
-  customerFriendlyName: string;
-  chatFriendlyName: string;
-  chatUniqueName?: string;
-  preEngagementData?: string;
+  "flexFlowSid": string;
+  "identity": string;
+  "customerFriendlyName": string;
+  "chatFriendlyName": string;
+  "chatUniqueName"?: string;
+  "preEngagementData"?: string;
 }
 /**
  * Options to pass to each
@@ -68,7 +68,7 @@ export interface WebChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface WebChannelListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -84,7 +84,7 @@ export interface WebChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface WebChannelListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -96,7 +96,7 @@ export interface WebChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WebChannelListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -154,7 +154,7 @@ export interface WebChannelContext {
 }
 
 export interface WebChannelContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class WebChannelContextImpl implements WebChannelContext {
@@ -170,7 +170,7 @@ export class WebChannelContextImpl implements WebChannelContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -182,7 +182,7 @@ export class WebChannelContextImpl implements WebChannelContext {
   fetch(callback?: any): Promise<WebChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new WebChannelInstance(operationVersion, payload, this._solution.sid));
     
@@ -203,14 +203,14 @@ export class WebChannelContextImpl implements WebChannelContext {
 
     const data: any = {};
 
-    if (params.chatStatus !== undefined) data['ChatStatus'] = params.chatStatus;
-    if (params.postEngagementData !== undefined) data['PostEngagementData'] = params.postEngagementData;
+    if (params["chatStatus"] !== undefined) data["ChatStatus"] = params["chatStatus"];
+    if (params["postEngagementData"] !== undefined) data["PostEngagementData"] = params["postEngagementData"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WebChannelInstance(operationVersion, payload, this._solution.sid));
     
@@ -513,36 +513,36 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.flexFlowSid === null || params.flexFlowSid === undefined) {
-      throw new Error('Required parameter "params.flexFlowSid" missing.');
+    if (params["flexFlowSid"] === null || params["flexFlowSid"] === undefined) {
+      throw new Error('Required parameter "params[\'flexFlowSid\']" missing.');
     }
 
-    if (params.identity === null || params.identity === undefined) {
-      throw new Error('Required parameter "params.identity" missing.');
+    if (params["identity"] === null || params["identity"] === undefined) {
+      throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    if (params.customerFriendlyName === null || params.customerFriendlyName === undefined) {
-      throw new Error('Required parameter "params.customerFriendlyName" missing.');
+    if (params["customerFriendlyName"] === null || params["customerFriendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'customerFriendlyName\']" missing.');
     }
 
-    if (params.chatFriendlyName === null || params.chatFriendlyName === undefined) {
-      throw new Error('Required parameter "params.chatFriendlyName" missing.');
+    if (params["chatFriendlyName"] === null || params["chatFriendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'chatFriendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FlexFlowSid'] = params.flexFlowSid;
-    data['Identity'] = params.identity;
-    data['CustomerFriendlyName'] = params.customerFriendlyName;
-    data['ChatFriendlyName'] = params.chatFriendlyName;
-    if (params.chatUniqueName !== undefined) data['ChatUniqueName'] = params.chatUniqueName;
-    if (params.preEngagementData !== undefined) data['PreEngagementData'] = params.preEngagementData;
+    data["FlexFlowSid"] = params["flexFlowSid"];
+    data["Identity"] = params["identity"];
+    data["CustomerFriendlyName"] = params["customerFriendlyName"];
+    data["ChatFriendlyName"] = params["chatFriendlyName"];
+    if (params["chatUniqueName"] !== undefined) data["ChatUniqueName"] = params["chatUniqueName"];
+    if (params["preEngagementData"] !== undefined) data["PreEngagementData"] = params["preEngagementData"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new WebChannelInstance(operationVersion, payload));
     
@@ -563,14 +563,14 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WebChannelPage(operationVersion, payload, this._solution));
 
@@ -582,7 +582,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WebChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new WebChannelPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

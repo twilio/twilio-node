@@ -35,7 +35,7 @@ type UserChannelWebhookEnabledType = 'true'|'false';
  * @property { UserChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface UserChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: UserChannelWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: UserChannelWebhookEnabledType;
 }
 
 /**
@@ -46,9 +46,9 @@ export interface UserChannelContextRemoveOptions {
  * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
  */
 export interface UserChannelContextUpdateOptions {
-  notificationLevel?: UserChannelNotificationLevel;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
+  "notificationLevel"?: UserChannelNotificationLevel;
+  "lastConsumedMessageIndex"?: number;
+  "lastConsumptionTimestamp"?: Date;
 }
 /**
  * Options to pass to each
@@ -64,7 +64,7 @@ export interface UserChannelContextUpdateOptions {
  *                         Default is no limit
  */
 export interface UserChannelListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -80,7 +80,7 @@ export interface UserChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserChannelListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -92,7 +92,7 @@ export interface UserChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserChannelListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -160,9 +160,9 @@ export interface UserChannelContext {
 }
 
 export interface UserChannelContextSolution {
-  serviceSid?: string;
-  userSid?: string;
-  channelSid?: string;
+  "serviceSid"?: string;
+  "userSid"?: string;
+  "channelSid"?: string;
 }
 
 export class UserChannelContextImpl implements UserChannelContext {
@@ -187,10 +187,10 @@ export class UserChannelContextImpl implements UserChannelContext {
 
 
     const headers: any = {};
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete', params: data, headers });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -202,7 +202,7 @@ export class UserChannelContextImpl implements UserChannelContext {
   fetch(callback?: any): Promise<UserChannelInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new UserChannelInstance(operationVersion, payload, this._solution.serviceSid, this._solution.userSid, this._solution.channelSid));
     
@@ -223,15 +223,15 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     const data: any = {};
 
-    if (params.notificationLevel !== undefined) data['NotificationLevel'] = params.notificationLevel;
-    if (params.lastConsumedMessageIndex !== undefined) data['LastConsumedMessageIndex'] = params.lastConsumedMessageIndex;
-    if (params.lastConsumptionTimestamp !== undefined) data['LastConsumptionTimestamp'] = serialize.iso8601DateTime(params.lastConsumptionTimestamp);
+    if (params["notificationLevel"] !== undefined) data["NotificationLevel"] = params["notificationLevel"];
+    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new UserChannelInstance(operationVersion, payload, this._solution.serviceSid, this._solution.userSid, this._solution.channelSid));
     
@@ -568,14 +568,14 @@ export function UserChannelListInstance(version: V2, serviceSid: string, userSid
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new UserChannelPage(operationVersion, payload, this._solution));
 
@@ -587,7 +587,7 @@ export function UserChannelListInstance(version: V2, serviceSid: string, userSid
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new UserChannelPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -35,9 +35,9 @@ type EngagementStatus = 'active'|'ended';
  * @property { any } [parameters] A JSON string we will add to your flow\\\&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&#39;name\\\&#39;:\\\&#39;Zeke\\\&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string \\\&#39;Zeke\\\&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
  */
 export interface EngagementListInstanceCreateOptions {
-  to: string;
-  from: string;
-  parameters?: any;
+  "to": string;
+  "from": string;
+  "parameters"?: any;
 }
 /**
  * Options to pass to each
@@ -53,7 +53,7 @@ export interface EngagementListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EngagementListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: EngagementInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -69,7 +69,7 @@ export interface EngagementListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EngagementListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -81,7 +81,7 @@ export interface EngagementListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EngagementListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -121,8 +121,8 @@ export interface EngagementContext {
 }
 
 export interface EngagementContextSolution {
-  flowSid?: string;
-  sid?: string;
+  "flowSid"?: string;
+  "sid"?: string;
 }
 
 export class EngagementContextImpl implements EngagementContext {
@@ -150,7 +150,7 @@ export class EngagementContextImpl implements EngagementContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -162,7 +162,7 @@ export class EngagementContextImpl implements EngagementContext {
   fetch(callback?: any): Promise<EngagementInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new EngagementInstance(operationVersion, payload, this._solution.flowSid, this._solution.sid));
     
@@ -490,25 +490,25 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
+    if (params["to"] === null || params["to"] === undefined) {
+      throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
-    if (params.from === null || params.from === undefined) {
-      throw new Error('Required parameter "params.from" missing.');
+    if (params["from"] === null || params["from"] === undefined) {
+      throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
     const data: any = {};
 
-    data['To'] = params.to;
-    data['From'] = params.from;
-    if (params.parameters !== undefined) data['Parameters'] = params.parameters;
+    data["To"] = params["to"];
+    data["From"] = params["from"];
+    if (params["parameters"] !== undefined) data["Parameters"] = params["parameters"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new EngagementInstance(operationVersion, payload, this._solution.flowSid));
     
@@ -529,14 +529,14 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new EngagementPage(operationVersion, payload, this._solution));
 
@@ -548,7 +548,7 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EngagementPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new EngagementPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

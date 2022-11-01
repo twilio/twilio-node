@@ -38,7 +38,7 @@ type PlayerStreamerUpdateStatus = 'ended';
  * @property { PlayerStreamerUpdateStatus } status 
  */
 export interface PlayerStreamerContextUpdateOptions {
-  status: PlayerStreamerUpdateStatus;
+  "status": PlayerStreamerUpdateStatus;
 }
 
 /**
@@ -50,10 +50,10 @@ export interface PlayerStreamerContextUpdateOptions {
  * @property { number } [maxDuration] The maximum time, in seconds, that the PlayerStreamer is active (&#x60;created&#x60; or &#x60;started&#x60;) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
  */
 export interface PlayerStreamerListInstanceCreateOptions {
-  video?: boolean;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  maxDuration?: number;
+  "video"?: boolean;
+  "statusCallback"?: string;
+  "statusCallbackMethod"?: string;
+  "maxDuration"?: number;
 }
 /**
  * Options to pass to each
@@ -71,9 +71,9 @@ export interface PlayerStreamerListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceEachOptions {
-  order?: PlayerStreamerOrder;
-  status?: PlayerStreamerStatus;
-  pageSize?: number;
+  "order"?: PlayerStreamerOrder;
+  "status"?: PlayerStreamerStatus;
+  "pageSize"?: number;
   callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -91,9 +91,9 @@ export interface PlayerStreamerListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceOptions {
-  order?: PlayerStreamerOrder;
-  status?: PlayerStreamerStatus;
-  pageSize?: number;
+  "order"?: PlayerStreamerOrder;
+  "status"?: PlayerStreamerStatus;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -107,9 +107,9 @@ export interface PlayerStreamerListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PlayerStreamerListInstancePageOptions {
-  order?: PlayerStreamerOrder;
-  status?: PlayerStreamerStatus;
-  pageSize?: number;
+  "order"?: PlayerStreamerOrder;
+  "status"?: PlayerStreamerStatus;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -150,7 +150,7 @@ export interface PlayerStreamerContext {
 }
 
 export interface PlayerStreamerContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class PlayerStreamerContextImpl implements PlayerStreamerContext {
@@ -172,7 +172,7 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
   fetch(callback?: any): Promise<PlayerStreamerInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload, this._solution.sid));
     
@@ -188,19 +188,19 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     const data: any = {};
 
-    data['Status'] = params.status;
+    data["Status"] = params["status"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload, this._solution.sid));
     
@@ -540,16 +540,16 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
 
     const data: any = {};
 
-    if (params.video !== undefined) data['Video'] = serialize.bool(params.video);
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
+    if (params["video"] !== undefined) data["Video"] = serialize.bool(params["video"]);
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["maxDuration"] !== undefined) data["MaxDuration"] = params["maxDuration"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload));
     
@@ -570,16 +570,16 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
 
     const data: any = {};
 
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerPage(operationVersion, payload, this._solution));
 
@@ -591,7 +591,7 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PlayerStreamerPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new PlayerStreamerPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

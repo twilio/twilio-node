@@ -33,11 +33,11 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [enabled] Whether the Target is enabled.
  */
 export interface ConnectionPolicyTargetContextUpdateOptions {
-  friendlyName?: string;
-  target?: string;
-  priority?: number;
-  weight?: number;
-  enabled?: boolean;
+  "friendlyName"?: string;
+  "target"?: string;
+  "priority"?: number;
+  "weight"?: number;
+  "enabled"?: boolean;
 }
 
 /**
@@ -50,11 +50,11 @@ export interface ConnectionPolicyTargetContextUpdateOptions {
  * @property { boolean } [enabled] Whether the Target is enabled. The default is &#x60;true&#x60;.
  */
 export interface ConnectionPolicyTargetListInstanceCreateOptions {
-  target: string;
-  friendlyName?: string;
-  priority?: number;
-  weight?: number;
-  enabled?: boolean;
+  "target": string;
+  "friendlyName"?: string;
+  "priority"?: number;
+  "weight"?: number;
+  "enabled"?: boolean;
 }
 /**
  * Options to pass to each
@@ -70,7 +70,7 @@ export interface ConnectionPolicyTargetListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ConnectionPolicyTargetListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ConnectionPolicyTargetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -86,7 +86,7 @@ export interface ConnectionPolicyTargetListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConnectionPolicyTargetListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -98,7 +98,7 @@ export interface ConnectionPolicyTargetListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConnectionPolicyTargetListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -156,8 +156,8 @@ export interface ConnectionPolicyTargetContext {
 }
 
 export interface ConnectionPolicyTargetContextSolution {
-  connectionPolicySid?: string;
-  sid?: string;
+  "connectionPolicySid"?: string;
+  "sid"?: string;
 }
 
 export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTargetContext {
@@ -173,7 +173,7 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -185,7 +185,7 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
   fetch(callback?: any): Promise<ConnectionPolicyTargetInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetInstance(operationVersion, payload, this._solution.connectionPolicySid, this._solution.sid));
     
@@ -206,17 +206,17 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.target !== undefined) data['Target'] = params.target;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["target"] !== undefined) data["Target"] = params["target"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetInstance(operationVersion, payload, this._solution.connectionPolicySid, this._solution.sid));
     
@@ -555,23 +555,23 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.target === null || params.target === undefined) {
-      throw new Error('Required parameter "params.target" missing.');
+    if (params["target"] === null || params["target"] === undefined) {
+      throw new Error('Required parameter "params[\'target\']" missing.');
     }
 
     const data: any = {};
 
-    data['Target'] = params.target;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.priority !== undefined) data['Priority'] = params.priority;
-    if (params.weight !== undefined) data['Weight'] = params.weight;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
+    data["Target"] = params["target"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetInstance(operationVersion, payload, this._solution.connectionPolicySid));
     
@@ -592,14 +592,14 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetPage(operationVersion, payload, this._solution));
 
@@ -611,7 +611,7 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectionPolicyTargetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

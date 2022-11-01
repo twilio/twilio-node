@@ -93,25 +93,25 @@ export class ListCallSummariesResponseMeta {
  *                         Default is no limit
  */
 export interface CallSummariesListInstanceEachOptions {
-  from?: string;
-  to?: string;
-  fromCarrier?: string;
-  toCarrier?: string;
-  fromCountryCode?: string;
-  toCountryCode?: string;
-  branded?: boolean;
-  verifiedCaller?: boolean;
-  hasTag?: boolean;
-  startTime?: string;
-  endTime?: string;
-  callType?: string;
-  callState?: string;
-  direction?: string;
-  processingState?: CallSummariesProcessingStateRequest;
-  sortBy?: CallSummariesSortBy;
-  subaccount?: string;
-  abnormalSession?: boolean;
-  pageSize?: number;
+  "from"?: string;
+  "to"?: string;
+  "fromCarrier"?: string;
+  "toCarrier"?: string;
+  "fromCountryCode"?: string;
+  "toCountryCode"?: string;
+  "branded"?: boolean;
+  "verifiedCaller"?: boolean;
+  "hasTag"?: boolean;
+  "startTime"?: string;
+  "endTime"?: string;
+  "callType"?: string;
+  "callState"?: string;
+  "direction"?: string;
+  "processingState"?: CallSummariesProcessingStateRequest;
+  "sortBy"?: CallSummariesSortBy;
+  "subaccount"?: string;
+  "abnormalSession"?: boolean;
+  "pageSize"?: number;
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -145,25 +145,25 @@ export interface CallSummariesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CallSummariesListInstanceOptions {
-  from?: string;
-  to?: string;
-  fromCarrier?: string;
-  toCarrier?: string;
-  fromCountryCode?: string;
-  toCountryCode?: string;
-  branded?: boolean;
-  verifiedCaller?: boolean;
-  hasTag?: boolean;
-  startTime?: string;
-  endTime?: string;
-  callType?: string;
-  callState?: string;
-  direction?: string;
-  processingState?: CallSummariesProcessingStateRequest;
-  sortBy?: CallSummariesSortBy;
-  subaccount?: string;
-  abnormalSession?: boolean;
-  pageSize?: number;
+  "from"?: string;
+  "to"?: string;
+  "fromCarrier"?: string;
+  "toCarrier"?: string;
+  "fromCountryCode"?: string;
+  "toCountryCode"?: string;
+  "branded"?: boolean;
+  "verifiedCaller"?: boolean;
+  "hasTag"?: boolean;
+  "startTime"?: string;
+  "endTime"?: string;
+  "callType"?: string;
+  "callState"?: string;
+  "direction"?: string;
+  "processingState"?: CallSummariesProcessingStateRequest;
+  "sortBy"?: CallSummariesSortBy;
+  "subaccount"?: string;
+  "abnormalSession"?: boolean;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -193,25 +193,25 @@ export interface CallSummariesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CallSummariesListInstancePageOptions {
-  from?: string;
-  to?: string;
-  fromCarrier?: string;
-  toCarrier?: string;
-  fromCountryCode?: string;
-  toCountryCode?: string;
-  branded?: boolean;
-  verifiedCaller?: boolean;
-  hasTag?: boolean;
-  startTime?: string;
-  endTime?: string;
-  callType?: string;
-  callState?: string;
-  direction?: string;
-  processingState?: CallSummariesProcessingStateRequest;
-  sortBy?: CallSummariesSortBy;
-  subaccount?: string;
-  abnormalSession?: boolean;
-  pageSize?: number;
+  "from"?: string;
+  "to"?: string;
+  "fromCarrier"?: string;
+  "toCarrier"?: string;
+  "fromCountryCode"?: string;
+  "toCountryCode"?: string;
+  "branded"?: boolean;
+  "verifiedCaller"?: boolean;
+  "hasTag"?: boolean;
+  "startTime"?: string;
+  "endTime"?: string;
+  "callType"?: string;
+  "callState"?: string;
+  "direction"?: string;
+  "processingState"?: CallSummariesProcessingStateRequest;
+  "sortBy"?: CallSummariesSortBy;
+  "subaccount"?: string;
+  "abnormalSession"?: boolean;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -358,32 +358,32 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
 
     const data: any = {};
 
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.fromCarrier !== undefined) data['FromCarrier'] = params.fromCarrier;
-    if (params.toCarrier !== undefined) data['ToCarrier'] = params.toCarrier;
-    if (params.fromCountryCode !== undefined) data['FromCountryCode'] = params.fromCountryCode;
-    if (params.toCountryCode !== undefined) data['ToCountryCode'] = params.toCountryCode;
-    if (params.branded !== undefined) data['Branded'] = serialize.bool(params.branded);
-    if (params.verifiedCaller !== undefined) data['VerifiedCaller'] = serialize.bool(params.verifiedCaller);
-    if (params.hasTag !== undefined) data['HasTag'] = serialize.bool(params.hasTag);
-    if (params.startTime !== undefined) data['StartTime'] = params.startTime;
-    if (params.endTime !== undefined) data['EndTime'] = params.endTime;
-    if (params.callType !== undefined) data['CallType'] = params.callType;
-    if (params.callState !== undefined) data['CallState'] = params.callState;
-    if (params.direction !== undefined) data['Direction'] = params.direction;
-    if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
-    if (params.sortBy !== undefined) data['SortBy'] = params.sortBy;
-    if (params.subaccount !== undefined) data['Subaccount'] = params.subaccount;
-    if (params.abnormalSession !== undefined) data['AbnormalSession'] = serialize.bool(params.abnormalSession);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["fromCarrier"] !== undefined) data["FromCarrier"] = params["fromCarrier"];
+    if (params["toCarrier"] !== undefined) data["ToCarrier"] = params["toCarrier"];
+    if (params["fromCountryCode"] !== undefined) data["FromCountryCode"] = params["fromCountryCode"];
+    if (params["toCountryCode"] !== undefined) data["ToCountryCode"] = params["toCountryCode"];
+    if (params["branded"] !== undefined) data["Branded"] = serialize.bool(params["branded"]);
+    if (params["verifiedCaller"] !== undefined) data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
+    if (params["hasTag"] !== undefined) data["HasTag"] = serialize.bool(params["hasTag"]);
+    if (params["startTime"] !== undefined) data["StartTime"] = params["startTime"];
+    if (params["endTime"] !== undefined) data["EndTime"] = params["endTime"];
+    if (params["callType"] !== undefined) data["CallType"] = params["callType"];
+    if (params["callState"] !== undefined) data["CallState"] = params["callState"];
+    if (params["direction"] !== undefined) data["Direction"] = params["direction"];
+    if (params["processingState"] !== undefined) data["ProcessingState"] = params["processingState"];
+    if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
+    if (params["subaccount"] !== undefined) data["Subaccount"] = params["subaccount"];
+    if (params["abnormalSession"] !== undefined) data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CallSummariesPage(operationVersion, payload, this._solution));
 
@@ -395,7 +395,7 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CallSummariesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CallSummariesPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

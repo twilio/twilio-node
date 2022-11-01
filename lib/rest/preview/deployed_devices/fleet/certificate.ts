@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateContextUpdateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
+  "friendlyName"?: string;
+  "deviceSid"?: string;
 }
 
 /**
@@ -42,9 +42,9 @@ export interface CertificateContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateListInstanceCreateOptions {
-  certificateData: string;
-  friendlyName?: string;
-  deviceSid?: string;
+  "certificateData": string;
+  "friendlyName"?: string;
+  "deviceSid"?: string;
 }
 /**
  * Options to pass to each
@@ -61,8 +61,8 @@ export interface CertificateListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CertificateListInstanceEachOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -79,8 +79,8 @@ export interface CertificateListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CertificateListInstanceOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -93,8 +93,8 @@ export interface CertificateListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CertificateListInstancePageOptions {
-  deviceSid?: string;
-  pageSize?: number;
+  "deviceSid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -152,8 +152,8 @@ export interface CertificateContext {
 }
 
 export interface CertificateContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  "fleetSid"?: string;
+  "sid"?: string;
 }
 
 export class CertificateContextImpl implements CertificateContext {
@@ -169,7 +169,7 @@ export class CertificateContextImpl implements CertificateContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -181,7 +181,7 @@ export class CertificateContextImpl implements CertificateContext {
   fetch(callback?: any): Promise<CertificateInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
     
@@ -202,14 +202,14 @@ export class CertificateContextImpl implements CertificateContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
     
@@ -534,21 +534,21 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.certificateData === null || params.certificateData === undefined) {
-      throw new Error('Required parameter "params.certificateData" missing.');
+    if (params["certificateData"] === null || params["certificateData"] === undefined) {
+      throw new Error('Required parameter "params[\'certificateData\']" missing.');
     }
 
     const data: any = {};
 
-    data['CertificateData'] = params.certificateData;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    data["CertificateData"] = params["certificateData"];
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid));
     
@@ -569,15 +569,15 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
 
     const data: any = {};
 
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CertificatePage(operationVersion, payload, this._solution));
 
@@ -589,7 +589,7 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CertificatePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CertificatePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

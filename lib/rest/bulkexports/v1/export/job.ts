@@ -52,7 +52,7 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  jobSid?: string;
+  "jobSid"?: string;
 }
 
 export class JobContextImpl implements JobContext {
@@ -68,7 +68,7 @@ export class JobContextImpl implements JobContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -80,7 +80,7 @@ export class JobContextImpl implements JobContext {
   fetch(callback?: any): Promise<JobInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new JobInstance(operationVersion, payload, this._solution.jobSid));
     

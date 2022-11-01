@@ -31,9 +31,9 @@ const serialize = require("../../../base/serialize");
  * @property { boolean } [loggingEnabled] A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
  */
 export interface DeviceContextUpdateOptions {
-  uniqueName?: string;
-  targetApp?: string;
-  loggingEnabled?: boolean;
+  "uniqueName"?: string;
+  "targetApp"?: string;
+  "loggingEnabled"?: boolean;
 }
 /**
  * Options to pass to each
@@ -49,7 +49,7 @@ export interface DeviceContextUpdateOptions {
  *                         Default is no limit
  */
 export interface DeviceListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -65,7 +65,7 @@ export interface DeviceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DeviceListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -77,7 +77,7 @@ export interface DeviceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeviceListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -125,7 +125,7 @@ export interface DeviceContext {
 }
 
 export interface DeviceContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class DeviceContextImpl implements DeviceContext {
@@ -141,7 +141,7 @@ export class DeviceContextImpl implements DeviceContext {
   fetch(callback?: any): Promise<DeviceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new DeviceInstance(operationVersion, payload, this._solution.sid));
     
@@ -162,15 +162,15 @@ export class DeviceContextImpl implements DeviceContext {
 
     const data: any = {};
 
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.targetApp !== undefined) data['TargetApp'] = params.targetApp;
-    if (params.loggingEnabled !== undefined) data['LoggingEnabled'] = serialize.bool(params.loggingEnabled);
+    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["targetApp"] !== undefined) data["TargetApp"] = params["targetApp"];
+    if (params["loggingEnabled"] !== undefined) data["LoggingEnabled"] = serialize.bool(params["loggingEnabled"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new DeviceInstance(operationVersion, payload, this._solution.sid));
     
@@ -468,14 +468,14 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DevicePage(operationVersion, payload, this._solution));
 
@@ -487,7 +487,7 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DevicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new DevicePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -42,33 +42,33 @@ import { WebhookListInstance } from "./service/webhook";
  * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
  * @property { boolean } [doNotShareWarningEnabled] Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
  * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
- * @property { boolean } [pushIncludeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
- * @property { string } [pushApnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [pushFcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [totpIssuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
- * @property { number } [totpTimeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
- * @property { number } [totpCodeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
- * @property { number } [totpSkew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+ * @property { boolean } [push.includeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+ * @property { string } [push.apnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [push.fcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [totp.issuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+ * @property { number } [totp.timeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+ * @property { number } [totp.codeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+ * @property { number } [totp.skew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
  * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
  */
 export interface ServiceContextUpdateOptions {
-  friendlyName?: string;
-  codeLength?: number;
-  lookupEnabled?: boolean;
-  skipSmsToLandlines?: boolean;
-  dtmfInputRequired?: boolean;
-  ttsName?: string;
-  psd2Enabled?: boolean;
-  doNotShareWarningEnabled?: boolean;
-  customCodeEnabled?: boolean;
-  pushIncludeDate?: boolean;
-  pushApnCredentialSid?: string;
-  pushFcmCredentialSid?: string;
-  totpIssuer?: string;
-  totpTimeStep?: number;
-  totpCodeLength?: number;
-  totpSkew?: number;
-  defaultTemplateSid?: string;
+  "friendlyName"?: string;
+  "codeLength"?: number;
+  "lookupEnabled"?: boolean;
+  "skipSmsToLandlines"?: boolean;
+  "dtmfInputRequired"?: boolean;
+  "ttsName"?: string;
+  "psd2Enabled"?: boolean;
+  "doNotShareWarningEnabled"?: boolean;
+  "customCodeEnabled"?: boolean;
+  "push.includeDate"?: boolean;
+  "push.apnCredentialSid"?: string;
+  "push.fcmCredentialSid"?: string;
+  "totp.issuer"?: string;
+  "totp.timeStep"?: number;
+  "totp.codeLength"?: number;
+  "totp.skew"?: number;
+  "defaultTemplateSid"?: string;
 }
 
 /**
@@ -83,33 +83,33 @@ export interface ServiceContextUpdateOptions {
  * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
  * @property { boolean } [doNotShareWarningEnabled] Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: &#x60;Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code&#x60;
  * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
- * @property { boolean } [pushIncludeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in &#x60;date_created&#x60;, please use that one instead.
- * @property { string } [pushApnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [pushFcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [totpIssuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
- * @property { number } [totpTimeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
- * @property { number } [totpCodeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
- * @property { number } [totpSkew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+ * @property { boolean } [push.includeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in &#x60;date_created&#x60;, please use that one instead.
+ * @property { string } [push.apnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [push.fcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [totp.issuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+ * @property { number } [totp.timeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+ * @property { number } [totp.codeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+ * @property { number } [totp.skew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
  * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
  */
 export interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
-  codeLength?: number;
-  lookupEnabled?: boolean;
-  skipSmsToLandlines?: boolean;
-  dtmfInputRequired?: boolean;
-  ttsName?: string;
-  psd2Enabled?: boolean;
-  doNotShareWarningEnabled?: boolean;
-  customCodeEnabled?: boolean;
-  pushIncludeDate?: boolean;
-  pushApnCredentialSid?: string;
-  pushFcmCredentialSid?: string;
-  totpIssuer?: string;
-  totpTimeStep?: number;
-  totpCodeLength?: number;
-  totpSkew?: number;
-  defaultTemplateSid?: string;
+  "friendlyName": string;
+  "codeLength"?: number;
+  "lookupEnabled"?: boolean;
+  "skipSmsToLandlines"?: boolean;
+  "dtmfInputRequired"?: boolean;
+  "ttsName"?: string;
+  "psd2Enabled"?: boolean;
+  "doNotShareWarningEnabled"?: boolean;
+  "customCodeEnabled"?: boolean;
+  "push.includeDate"?: boolean;
+  "push.apnCredentialSid"?: string;
+  "push.fcmCredentialSid"?: string;
+  "totp.issuer"?: string;
+  "totp.timeStep"?: number;
+  "totp.codeLength"?: number;
+  "totp.skew"?: number;
+  "defaultTemplateSid"?: string;
 }
 /**
  * Options to pass to each
@@ -125,7 +125,7 @@ export interface ServiceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -141,7 +141,7 @@ export interface ServiceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -153,7 +153,7 @@ export interface ServiceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -218,7 +218,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -276,7 +276,7 @@ export class ServiceContextImpl implements ServiceContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -288,7 +288,7 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(callback?: any): Promise<ServiceInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
     
@@ -309,29 +309,29 @@ export class ServiceContextImpl implements ServiceContext {
 
     const data: any = {};
 
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.codeLength !== undefined) data['CodeLength'] = params.codeLength;
-    if (params.lookupEnabled !== undefined) data['LookupEnabled'] = serialize.bool(params.lookupEnabled);
-    if (params.skipSmsToLandlines !== undefined) data['SkipSmsToLandlines'] = serialize.bool(params.skipSmsToLandlines);
-    if (params.dtmfInputRequired !== undefined) data['DtmfInputRequired'] = serialize.bool(params.dtmfInputRequired);
-    if (params.ttsName !== undefined) data['TtsName'] = params.ttsName;
-    if (params.psd2Enabled !== undefined) data['Psd2Enabled'] = serialize.bool(params.psd2Enabled);
-    if (params.doNotShareWarningEnabled !== undefined) data['DoNotShareWarningEnabled'] = serialize.bool(params.doNotShareWarningEnabled);
-    if (params.customCodeEnabled !== undefined) data['CustomCodeEnabled'] = serialize.bool(params.customCodeEnabled);
-    if (params.pushIncludeDate !== undefined) data['Push.IncludeDate'] = serialize.bool(params.pushIncludeDate);
-    if (params.pushApnCredentialSid !== undefined) data['Push.ApnCredentialSid'] = params.pushApnCredentialSid;
-    if (params.pushFcmCredentialSid !== undefined) data['Push.FcmCredentialSid'] = params.pushFcmCredentialSid;
-    if (params.totpIssuer !== undefined) data['Totp.Issuer'] = params.totpIssuer;
-    if (params.totpTimeStep !== undefined) data['Totp.TimeStep'] = params.totpTimeStep;
-    if (params.totpCodeLength !== undefined) data['Totp.CodeLength'] = params.totpCodeLength;
-    if (params.totpSkew !== undefined) data['Totp.Skew'] = params.totpSkew;
-    if (params.defaultTemplateSid !== undefined) data['DefaultTemplateSid'] = params.defaultTemplateSid;
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["codeLength"] !== undefined) data["CodeLength"] = params["codeLength"];
+    if (params["lookupEnabled"] !== undefined) data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    if (params["skipSmsToLandlines"] !== undefined) data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    if (params["dtmfInputRequired"] !== undefined) data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    if (params["psd2Enabled"] !== undefined) data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    if (params["doNotShareWarningEnabled"] !== undefined) data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
+    if (params["customCodeEnabled"] !== undefined) data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    if (params["push.includeDate"] !== undefined) data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    if (params["push.apnCredentialSid"] !== undefined) data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    if (params["push.fcmCredentialSid"] !== undefined) data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    if (params["totp.issuer"] !== undefined) data["Totp.Issuer"] = params["totp.issuer"];
+    if (params["totp.timeStep"] !== undefined) data["Totp.TimeStep"] = params["totp.timeStep"];
+    if (params["totp.codeLength"] !== undefined) data["Totp.CodeLength"] = params["totp.codeLength"];
+    if (params["totp.skew"] !== undefined) data["Totp.Skew"] = params["totp.skew"];
+    if (params["defaultTemplateSid"] !== undefined) data["DefaultTemplateSid"] = params["defaultTemplateSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
     
@@ -764,35 +764,35 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.codeLength !== undefined) data['CodeLength'] = params.codeLength;
-    if (params.lookupEnabled !== undefined) data['LookupEnabled'] = serialize.bool(params.lookupEnabled);
-    if (params.skipSmsToLandlines !== undefined) data['SkipSmsToLandlines'] = serialize.bool(params.skipSmsToLandlines);
-    if (params.dtmfInputRequired !== undefined) data['DtmfInputRequired'] = serialize.bool(params.dtmfInputRequired);
-    if (params.ttsName !== undefined) data['TtsName'] = params.ttsName;
-    if (params.psd2Enabled !== undefined) data['Psd2Enabled'] = serialize.bool(params.psd2Enabled);
-    if (params.doNotShareWarningEnabled !== undefined) data['DoNotShareWarningEnabled'] = serialize.bool(params.doNotShareWarningEnabled);
-    if (params.customCodeEnabled !== undefined) data['CustomCodeEnabled'] = serialize.bool(params.customCodeEnabled);
-    if (params.pushIncludeDate !== undefined) data['Push.IncludeDate'] = serialize.bool(params.pushIncludeDate);
-    if (params.pushApnCredentialSid !== undefined) data['Push.ApnCredentialSid'] = params.pushApnCredentialSid;
-    if (params.pushFcmCredentialSid !== undefined) data['Push.FcmCredentialSid'] = params.pushFcmCredentialSid;
-    if (params.totpIssuer !== undefined) data['Totp.Issuer'] = params.totpIssuer;
-    if (params.totpTimeStep !== undefined) data['Totp.TimeStep'] = params.totpTimeStep;
-    if (params.totpCodeLength !== undefined) data['Totp.CodeLength'] = params.totpCodeLength;
-    if (params.totpSkew !== undefined) data['Totp.Skew'] = params.totpSkew;
-    if (params.defaultTemplateSid !== undefined) data['DefaultTemplateSid'] = params.defaultTemplateSid;
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["codeLength"] !== undefined) data["CodeLength"] = params["codeLength"];
+    if (params["lookupEnabled"] !== undefined) data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    if (params["skipSmsToLandlines"] !== undefined) data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    if (params["dtmfInputRequired"] !== undefined) data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
+    if (params["psd2Enabled"] !== undefined) data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    if (params["doNotShareWarningEnabled"] !== undefined) data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
+    if (params["customCodeEnabled"] !== undefined) data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    if (params["push.includeDate"] !== undefined) data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    if (params["push.apnCredentialSid"] !== undefined) data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    if (params["push.fcmCredentialSid"] !== undefined) data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    if (params["totp.issuer"] !== undefined) data["Totp.Issuer"] = params["totp.issuer"];
+    if (params["totp.timeStep"] !== undefined) data["Totp.TimeStep"] = params["totp.timeStep"];
+    if (params["totp.codeLength"] !== undefined) data["Totp.CodeLength"] = params["totp.codeLength"];
+    if (params["totp.skew"] !== undefined) data["Totp.Skew"] = params["totp.skew"];
+    if (params["defaultTemplateSid"] !== undefined) data["DefaultTemplateSid"] = params["defaultTemplateSid"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
     
@@ -813,14 +813,14 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
 
@@ -832,7 +832,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

@@ -30,8 +30,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [status] The new status of the resource. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
  */
 export interface QueryContextUpdateOptions {
-  sampleSid?: string;
-  status?: string;
+  "sampleSid"?: string;
+  "status"?: string;
 }
 
 /**
@@ -43,10 +43,10 @@ export interface QueryContextUpdateOptions {
  * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
  */
 export interface QueryListInstanceCreateOptions {
-  language: string;
-  query: string;
-  tasks?: string;
-  modelBuild?: string;
+  "language": string;
+  "query": string;
+  "tasks"?: string;
+  "modelBuild"?: string;
 }
 /**
  * Options to pass to each
@@ -66,11 +66,11 @@ export interface QueryListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface QueryListInstanceEachOptions {
-  language?: string;
-  modelBuild?: string;
-  status?: string;
-  dialogueSid?: string;
-  pageSize?: number;
+  "language"?: string;
+  "modelBuild"?: string;
+  "status"?: string;
+  "dialogueSid"?: string;
+  "pageSize"?: number;
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -90,11 +90,11 @@ export interface QueryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface QueryListInstanceOptions {
-  language?: string;
-  modelBuild?: string;
-  status?: string;
-  dialogueSid?: string;
-  pageSize?: number;
+  "language"?: string;
+  "modelBuild"?: string;
+  "status"?: string;
+  "dialogueSid"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -110,11 +110,11 @@ export interface QueryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueryListInstancePageOptions {
-  language?: string;
-  modelBuild?: string;
-  status?: string;
-  dialogueSid?: string;
-  pageSize?: number;
+  "language"?: string;
+  "modelBuild"?: string;
+  "status"?: string;
+  "dialogueSid"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -172,8 +172,8 @@ export interface QueryContext {
 }
 
 export interface QueryContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  "assistantSid"?: string;
+  "sid"?: string;
 }
 
 export class QueryContextImpl implements QueryContext {
@@ -189,7 +189,7 @@ export class QueryContextImpl implements QueryContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -201,7 +201,7 @@ export class QueryContextImpl implements QueryContext {
   fetch(callback?: any): Promise<QueryInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     
@@ -222,14 +222,14 @@ export class QueryContextImpl implements QueryContext {
 
     const data: any = {};
 
-    if (params.sampleSid !== undefined) data['SampleSid'] = params.sampleSid;
-    if (params.status !== undefined) data['Status'] = params.status;
+    if (params["sampleSid"] !== undefined) data["SampleSid"] = params["sampleSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     
@@ -589,26 +589,26 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.language === null || params.language === undefined) {
-      throw new Error('Required parameter "params.language" missing.');
+    if (params["language"] === null || params["language"] === undefined) {
+      throw new Error('Required parameter "params[\'language\']" missing.');
     }
 
-    if (params.query === null || params.query === undefined) {
-      throw new Error('Required parameter "params.query" missing.');
+    if (params["query"] === null || params["query"] === undefined) {
+      throw new Error('Required parameter "params[\'query\']" missing.');
     }
 
     const data: any = {};
 
-    data['Language'] = params.language;
-    data['Query'] = params.query;
-    if (params.tasks !== undefined) data['Tasks'] = params.tasks;
-    if (params.modelBuild !== undefined) data['ModelBuild'] = params.modelBuild;
+    data["Language"] = params["language"];
+    data["Query"] = params["query"];
+    if (params["tasks"] !== undefined) data["Tasks"] = params["tasks"];
+    if (params["modelBuild"] !== undefined) data["ModelBuild"] = params["modelBuild"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -629,18 +629,18 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
 
     const data: any = {};
 
-    if (params.language !== undefined) data['Language'] = params.language;
-    if (params.modelBuild !== undefined) data['ModelBuild'] = params.modelBuild;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.dialogueSid !== undefined) data['DialogueSid'] = params.dialogueSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["language"] !== undefined) data["Language"] = params["language"];
+    if (params["modelBuild"] !== undefined) data["ModelBuild"] = params["modelBuild"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["dialogueSid"] !== undefined) data["DialogueSid"] = params["dialogueSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new QueryPage(operationVersion, payload, this._solution));
 
@@ -652,7 +652,7 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new QueryPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

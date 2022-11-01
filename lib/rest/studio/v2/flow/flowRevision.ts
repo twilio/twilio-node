@@ -38,7 +38,7 @@ type FlowRevisionStatus = 'draft'|'published';
  *                         Default is no limit
  */
 export interface FlowRevisionListInstanceEachOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +54,7 @@ export interface FlowRevisionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FlowRevisionListInstanceOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -66,7 +66,7 @@ export interface FlowRevisionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FlowRevisionListInstancePageOptions {
-  pageSize?: number;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -94,8 +94,8 @@ export interface FlowRevisionContext {
 }
 
 export interface FlowRevisionContextSolution {
-  sid?: string;
-  revision?: string;
+  "sid"?: string;
+  "revision"?: string;
 }
 
 export class FlowRevisionContextImpl implements FlowRevisionContext {
@@ -111,7 +111,7 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   fetch(callback?: any): Promise<FlowRevisionInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new FlowRevisionInstance(operationVersion, payload, this._solution.sid, this._solution.revision));
     
@@ -413,14 +413,14 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
 
     const data: any = {};
 
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowRevisionPage(operationVersion, payload, this._solution));
 
@@ -432,7 +432,7 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlowRevisionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new FlowRevisionPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

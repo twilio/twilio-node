@@ -26,7 +26,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
  */
 export interface BrandsInformationListInstanceFetchOptions {
-  ifNoneMatch?: string;
+  "ifNoneMatch"?: string;
 }
 
 export interface BrandsInformationListInstance {
@@ -89,10 +89,10 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
 
 
     const headers: any = {};
-    if (params.ifNoneMatch !== undefined) headers['If-None-Match'] = params.ifNoneMatch;
+    if (params["ifNoneMatch"] !== undefined) headers["If-None-Match"] = params["ifNoneMatch"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new BrandsInformationInstance(operationVersion, payload));
     

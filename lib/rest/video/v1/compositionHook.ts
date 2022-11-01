@@ -40,16 +40,16 @@ type CompositionHookFormat = 'mp4'|'webm';
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
  */
 export interface CompositionHookContextUpdateOptions {
-  friendlyName: string;
-  enabled?: boolean;
-  videoLayout?: any;
-  audioSources?: Array<string>;
-  audioSourcesExcluded?: Array<string>;
-  trim?: boolean;
-  format?: CompositionHookFormat;
-  resolution?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
+  "friendlyName": string;
+  "enabled"?: boolean;
+  "videoLayout"?: any;
+  "audioSources"?: Array<string>;
+  "audioSourcesExcluded"?: Array<string>;
+  "trim"?: boolean;
+  "format"?: CompositionHookFormat;
+  "resolution"?: string;
+  "statusCallback"?: string;
+  "statusCallbackMethod"?: string;
 }
 
 /**
@@ -67,16 +67,16 @@ export interface CompositionHookContextUpdateOptions {
  * @property { boolean } [trim] Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is &#x60;true&#x60;. Compositions with &#x60;trim&#x60; enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
  */
 export interface CompositionHookListInstanceCreateOptions {
-  friendlyName: string;
-  enabled?: boolean;
-  videoLayout?: any;
-  audioSources?: Array<string>;
-  audioSourcesExcluded?: Array<string>;
-  resolution?: string;
-  format?: CompositionHookFormat;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  trim?: boolean;
+  "friendlyName": string;
+  "enabled"?: boolean;
+  "videoLayout"?: any;
+  "audioSources"?: Array<string>;
+  "audioSourcesExcluded"?: Array<string>;
+  "resolution"?: string;
+  "format"?: CompositionHookFormat;
+  "statusCallback"?: string;
+  "statusCallbackMethod"?: string;
+  "trim"?: boolean;
 }
 /**
  * Options to pass to each
@@ -96,11 +96,11 @@ export interface CompositionHookListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CompositionHookListInstanceEachOptions {
-  enabled?: boolean;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  friendlyName?: string;
-  pageSize?: number;
+  "enabled"?: boolean;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   callback?: (item: CompositionHookInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -120,11 +120,11 @@ export interface CompositionHookListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CompositionHookListInstanceOptions {
-  enabled?: boolean;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  friendlyName?: string;
-  pageSize?: number;
+  "enabled"?: boolean;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   limit?: number;
 }
 
@@ -140,11 +140,11 @@ export interface CompositionHookListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CompositionHookListInstancePageOptions {
-  enabled?: boolean;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  friendlyName?: string;
-  pageSize?: number;
+  "enabled"?: boolean;
+  "dateCreatedAfter"?: Date;
+  "dateCreatedBefore"?: Date;
+  "friendlyName"?: string;
+  "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
 }
@@ -194,7 +194,7 @@ export interface CompositionHookContext {
 }
 
 export interface CompositionHookContextSolution {
-  sid?: string;
+  "sid"?: string;
 }
 
 export class CompositionHookContextImpl implements CompositionHookContext {
@@ -210,7 +210,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   remove(callback?: any): Promise<boolean> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -222,7 +222,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   fetch(callback?: any): Promise<CompositionHookInstance> {
   
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
     operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload, this._solution.sid));
     
@@ -238,28 +238,28 @@ export class CompositionHookContextImpl implements CompositionHookContext {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.videoLayout !== undefined) data['VideoLayout'] = params.videoLayout;
-    if (params.audioSources !== undefined) data['AudioSources'] = serialize.map(params.audioSources, ((e) => e));
-    if (params.audioSourcesExcluded !== undefined) data['AudioSourcesExcluded'] = serialize.map(params.audioSourcesExcluded, ((e) => e));
-    if (params.trim !== undefined) data['Trim'] = serialize.bool(params.trim);
-    if (params.format !== undefined) data['Format'] = params.format;
-    if (params.resolution !== undefined) data['Resolution'] = params.resolution;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["videoLayout"] !== undefined) data["VideoLayout"] = params["videoLayout"];
+    if (params["audioSources"] !== undefined) data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
+    if (params["audioSourcesExcluded"] !== undefined) data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
+    if (params["trim"] !== undefined) data["Trim"] = serialize.bool(params["trim"]);
+    if (params["format"] !== undefined) data["Format"] = params["format"];
+    if (params["resolution"] !== undefined) data["Resolution"] = params["resolution"];
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload, this._solution.sid));
     
@@ -615,28 +615,28 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     const data: any = {};
 
-    data['FriendlyName'] = params.friendlyName;
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.videoLayout !== undefined) data['VideoLayout'] = params.videoLayout;
-    if (params.audioSources !== undefined) data['AudioSources'] = serialize.map(params.audioSources, ((e) => e));
-    if (params.audioSourcesExcluded !== undefined) data['AudioSourcesExcluded'] = serialize.map(params.audioSourcesExcluded, ((e) => e));
-    if (params.resolution !== undefined) data['Resolution'] = params.resolution;
-    if (params.format !== undefined) data['Format'] = params.format;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.trim !== undefined) data['Trim'] = serialize.bool(params.trim);
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["videoLayout"] !== undefined) data["VideoLayout"] = params["videoLayout"];
+    if (params["audioSources"] !== undefined) data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
+    if (params["audioSourcesExcluded"] !== undefined) data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
+    if (params["resolution"] !== undefined) data["Resolution"] = params["resolution"];
+    if (params["format"] !== undefined) data["Format"] = params["format"];
+    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["trim"] !== undefined) data["Trim"] = serialize.bool(params["trim"]);
 
     const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload));
     
@@ -657,18 +657,18 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
 
     const data: any = {};
 
-    if (params.enabled !== undefined) data['Enabled'] = serialize.bool(params.enabled);
-    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionHookPage(operationVersion, payload, this._solution));
 
@@ -680,7 +680,7 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CompositionHookPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
 
     operationPromise = operationPromise.then(payload => new CompositionHookPage(this._version, payload, this._solution));
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);

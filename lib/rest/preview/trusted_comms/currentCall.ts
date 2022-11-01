@@ -27,8 +27,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface CurrentCallListInstanceFetchOptions {
-  xXcnamSensitivePhoneNumberFrom?: string;
-  xXcnamSensitivePhoneNumberTo?: string;
+  "xXcnamSensitivePhoneNumberFrom"?: string;
+  "xXcnamSensitivePhoneNumberTo"?: string;
 }
 
 export interface CurrentCallListInstance {
@@ -91,11 +91,11 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
 
 
     const headers: any = {};
-    if (params.xXcnamSensitivePhoneNumberFrom !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-From'] = params.xXcnamSensitivePhoneNumberFrom;
-    if (params.xXcnamSensitivePhoneNumberTo !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-To'] = params.xXcnamSensitivePhoneNumberTo;
+    if (params["xXcnamSensitivePhoneNumberFrom"] !== undefined) headers["X-Xcnam-Sensitive-Phone-Number-From"] = params["xXcnamSensitivePhoneNumberFrom"];
+    if (params["xXcnamSensitivePhoneNumberTo"] !== undefined) headers["X-Xcnam-Sensitive-Phone-Number-To"] = params["xXcnamSensitivePhoneNumberTo"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new CurrentCallInstance(operationVersion, payload));
     
