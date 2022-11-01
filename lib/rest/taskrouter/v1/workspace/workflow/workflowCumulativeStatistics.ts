@@ -20,6 +20,7 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a WorkflowCumulativeStatisticsInstance
  *
@@ -29,7 +30,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold.
  */
-export interface WorkflowCumulativeStatisticsListInstanceFetchOptions {
+export interface WorkflowCumulativeStatisticsContextFetchOptions {
   "endDate"?: Date;
   "minutes"?: number;
   "startDate"?: Date;
@@ -37,7 +38,7 @@ export interface WorkflowCumulativeStatisticsListInstanceFetchOptions {
   "splitByWaitTime"?: string;
 }
 
-export interface WorkflowCumulativeStatisticsListInstance {
+export interface WorkflowCumulativeStatisticsContext {
 
 
   /**
@@ -51,12 +52,12 @@ export interface WorkflowCumulativeStatisticsListInstance {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { WorkflowCumulativeStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
    */
-  fetch(params: WorkflowCumulativeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
+  fetch(params: WorkflowCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<WorkflowCumulativeStatisticsInstance>
 
 
@@ -67,28 +68,23 @@ export interface WorkflowCumulativeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkflowCumulativeStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+export interface WorkflowCumulativeStatisticsContextSolution {
+  "workspaceSid"?: string;
+  "workflowSid"?: string;
 }
 
-interface WorkflowCumulativeStatisticsListInstanceImpl extends WorkflowCumulativeStatisticsListInstance {}
-class WorkflowCumulativeStatisticsListInstanceImpl implements WorkflowCumulativeStatisticsListInstance {
-  _version?: V1;
-  _solution?: WorkflowCumulativeStatisticsSolution;
-  _uri?: string;
+export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulativeStatisticsContext {
+  protected _solution: WorkflowCumulativeStatisticsContextSolution;
+  protected _uri: string;
 
-}
 
-export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance {
-  const instance = {} as WorkflowCumulativeStatisticsListInstanceImpl;
+  constructor(protected _version: V1, workspaceSid: string, workflowSid: string) {
+    this._solution = { workspaceSid, workflowSid };
+    this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
+  }
 
-  instance._version = version;
-  instance._solution = { workspaceSid, workflowSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkflowCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<WorkflowCumulativeStatisticsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -105,7 +101,7 @@ export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceS
 
     const headers: any = {};
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkflowCumulativeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workflowSid));
@@ -115,17 +111,20 @@ export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceS
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource{
@@ -157,6 +156,8 @@ interface WorkflowCumulativeStatisticsResource {
 }
 
 export class WorkflowCumulativeStatisticsInstance {
+  protected _solution: WorkflowCumulativeStatisticsContextSolution;
+  protected _context?: WorkflowCumulativeStatisticsContext;
 
   constructor(protected _version: V1, payload: WorkflowCumulativeStatisticsPayload, workspaceSid: string, workflowSid?: string) {
     this.accountSid = payload.account_sid;
@@ -182,6 +183,7 @@ export class WorkflowCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
+    this._solution = { workspaceSid, workflowSid: workflowSid || this.workflowSid };
   }
 
   /**
@@ -273,6 +275,33 @@ export class WorkflowCumulativeStatisticsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): WorkflowCumulativeStatisticsContext {
+    this._context = this._context || new WorkflowCumulativeStatisticsContextImpl(this._version, this._solution.workspaceSid, this._solution.workflowSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance
+   *
+   * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   */
+  fetch(params: WorkflowCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkflowCumulativeStatisticsInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -309,5 +338,54 @@ export class WorkflowCumulativeStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface WorkflowCumulativeStatisticsListInstance {
+  (): WorkflowCumulativeStatisticsContext;
+  get(): WorkflowCumulativeStatisticsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+  workspaceSid?: string;
+  workflowSid?: string;
+}
+
+interface WorkflowCumulativeStatisticsListInstanceImpl extends WorkflowCumulativeStatisticsListInstance {}
+class WorkflowCumulativeStatisticsListInstanceImpl implements WorkflowCumulativeStatisticsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkflowCumulativeStatisticsListInstanceImpl;
+
+  instance.get = function get(): WorkflowCumulativeStatisticsContext {
+    return new WorkflowCumulativeStatisticsContextImpl(version, workspaceSid, workflowSid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid, workflowSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 

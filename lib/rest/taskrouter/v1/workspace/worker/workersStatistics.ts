@@ -20,6 +20,7 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
 /**
  * Options to pass to fetch a WorkersStatisticsInstance
  *
@@ -31,7 +32,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [friendlyName] Only include Workers with &#x60;friendly_name&#x60; values that match this parameter.
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
-export interface WorkersStatisticsListInstanceFetchOptions {
+export interface WorkersStatisticsContextFetchOptions {
   "minutes"?: number;
   "startDate"?: Date;
   "endDate"?: Date;
@@ -41,7 +42,7 @@ export interface WorkersStatisticsListInstanceFetchOptions {
   "taskChannel"?: string;
 }
 
-export interface WorkersStatisticsListInstance {
+export interface WorkersStatisticsContext {
 
 
   /**
@@ -55,12 +56,12 @@ export interface WorkersStatisticsListInstance {
   /**
    * Fetch a WorkersStatisticsInstance
    *
-   * @param { WorkersStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { WorkersStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkersStatisticsInstance
    */
-  fetch(params: WorkersStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  fetch(params: WorkersStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
   fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance>
 
 
@@ -71,27 +72,22 @@ export interface WorkersStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkersStatisticsSolution {
-  workspaceSid?: string;
+export interface WorkersStatisticsContextSolution {
+  "workspaceSid"?: string;
 }
 
-interface WorkersStatisticsListInstanceImpl extends WorkersStatisticsListInstance {}
-class WorkersStatisticsListInstanceImpl implements WorkersStatisticsListInstance {
-  _version?: V1;
-  _solution?: WorkersStatisticsSolution;
-  _uri?: string;
+export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
+  protected _solution: WorkersStatisticsContextSolution;
+  protected _uri: string;
 
-}
 
-export function WorkersStatisticsListInstance(version: V1, workspaceSid: string): WorkersStatisticsListInstance {
-  const instance = {} as WorkersStatisticsListInstanceImpl;
+  constructor(protected _version: V1, workspaceSid: string) {
+    this._solution = { workspaceSid };
+    this._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
+  }
 
-  instance._version = version;
-  instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
-
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance> {
-    if (typeof params === "function") {
+  fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance> {
+      if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -110,7 +106,7 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
 
     const headers: any = {};
 
-    let operationVersion = version,
+    let operationVersion = this._version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkersStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
@@ -120,17 +116,20 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
     return operationPromise;
 
 
-    }
+  }
 
-  instance.toJSON = function toJSON() {
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
     return this._solution;
   }
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-
-  return instance;
 }
 
 interface WorkersStatisticsPayload extends WorkersStatisticsResource{
@@ -145,6 +144,8 @@ interface WorkersStatisticsResource {
 }
 
 export class WorkersStatisticsInstance {
+  protected _solution: WorkersStatisticsContextSolution;
+  protected _context?: WorkersStatisticsContext;
 
   constructor(protected _version: V1, payload: WorkersStatisticsPayload, workspaceSid?: string) {
     this.realtime = payload.realtime;
@@ -153,6 +154,7 @@ export class WorkersStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
+    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
   }
 
   /**
@@ -176,6 +178,33 @@ export class WorkersStatisticsInstance {
    */
   url?: string | null;
 
+  private get _proxy(): WorkersStatisticsContext {
+    this._context = this._context || new WorkersStatisticsContextImpl(this._version, this._solution.workspaceSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a WorkersStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  /**
+   * Fetch a WorkersStatisticsInstance
+   *
+   * @param { WorkersStatisticsContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   */
+  fetch(params: WorkersStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance>
+     {
+    return this._proxy.fetch(params, callback);
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -195,5 +224,53 @@ export class WorkersStatisticsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+
+export interface WorkersStatisticsListInstance {
+  (): WorkersStatisticsContext;
+  get(): WorkersStatisticsContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface Solution {
+  workspaceSid?: string;
+}
+
+interface WorkersStatisticsListInstanceImpl extends WorkersStatisticsListInstance {}
+class WorkersStatisticsListInstanceImpl implements WorkersStatisticsListInstance {
+  _version?: V1;
+  _solution?: Solution;
+  _uri?: string;
+
+}
+
+export function WorkersStatisticsListInstance(version: V1, workspaceSid: string): WorkersStatisticsListInstance {
+  const instance = (() => instance.get()) as WorkersStatisticsListInstanceImpl;
+
+  instance.get = function get(): WorkersStatisticsContext {
+    return new WorkersStatisticsContextImpl(version, workspaceSid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
 
 
