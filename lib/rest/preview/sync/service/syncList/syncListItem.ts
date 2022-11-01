@@ -239,7 +239,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -557,7 +557,7 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

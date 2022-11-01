@@ -98,7 +98,7 @@ export function FlowValidateListInstance(version: V2): FlowValidateListInstance 
 
     data["FriendlyName"] = params["friendlyName"];
     data["Status"] = params["status"];
-    data["Definition"] = params["definition"];
+    data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined) data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};

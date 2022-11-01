@@ -258,7 +258,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     const data: any = {};
 
-    if (params["data"] !== undefined) data["Data"] = params["data"];
+    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
     if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
     if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
@@ -624,7 +624,7 @@ export function SyncListItemListInstance(version: V1, serviceSid: string, listSi
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
     if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
     if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];

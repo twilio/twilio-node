@@ -248,8 +248,8 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
     const data: any = {};
 
-    data["Channel"] = params["channel"];
-    data["Routing"] = params["routing"];
+    data["Channel"] = serialize.object(params["channel"]);
+    data["Routing"] = serialize.object(params["routing"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

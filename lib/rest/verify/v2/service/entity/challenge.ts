@@ -216,7 +216,7 @@ export class ChallengeContextImpl implements ChallengeContext {
     const data: any = {};
 
     if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
-    if (params["metadata"] !== undefined) data["Metadata"] = params["metadata"];
+    if (params["metadata"] !== undefined) data["Metadata"] = serialize.object(params["metadata"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -607,7 +607,7 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
     if (params["expirationDate"] !== undefined) data["ExpirationDate"] = serialize.iso8601DateTime(params["expirationDate"]);
     if (params["details.message"] !== undefined) data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined) data["Details.Fields"] = serialize.map(params["details.fields"], ((e) => e));
-    if (params["hiddenDetails"] !== undefined) data["HiddenDetails"] = params["hiddenDetails"];
+    if (params["hiddenDetails"] !== undefined) data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
     if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
 
     const headers: any = {};

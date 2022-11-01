@@ -241,7 +241,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -564,7 +564,7 @@ export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSi
     const data: any = {};
 
     data["Key"] = params["key"];
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

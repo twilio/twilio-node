@@ -260,7 +260,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     const data: any = {};
 
-    if (params["data"] !== undefined) data["Data"] = params["data"];
+    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
     if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
     if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
@@ -631,7 +631,7 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
     const data: any = {};
 
     data["Key"] = params["key"];
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
     if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
     if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];

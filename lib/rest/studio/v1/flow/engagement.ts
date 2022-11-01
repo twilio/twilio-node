@@ -502,7 +502,7 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
 
     data["To"] = params["to"];
     data["From"] = params["from"];
-    if (params["parameters"] !== undefined) data["Parameters"] = params["parameters"];
+    if (params["parameters"] !== undefined) data["Parameters"] = serialize.object(params["parameters"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

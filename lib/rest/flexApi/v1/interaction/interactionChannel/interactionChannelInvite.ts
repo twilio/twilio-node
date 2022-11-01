@@ -266,7 +266,7 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
 
     const data: any = {};
 
-    data["Routing"] = params["routing"];
+    data["Routing"] = serialize.object(params["routing"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -195,7 +195,7 @@ export class DocumentContextImpl implements DocumentContext {
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -521,7 +521,7 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
     const data: any = {};
 
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["data"] !== undefined) data["Data"] = params["data"];
+    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

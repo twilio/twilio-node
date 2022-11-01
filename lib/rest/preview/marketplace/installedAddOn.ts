@@ -205,7 +205,7 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
 
     const data: any = {};
 
-    if (params["configuration"] !== undefined) data["Configuration"] = params["configuration"];
+    if (params["configuration"] !== undefined) data["Configuration"] = serialize.object(params["configuration"]);
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
@@ -562,7 +562,7 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
 
     data["AvailableAddOnSid"] = params["availableAddOnSid"];
     data["AcceptTermsOfService"] = serialize.bool(params["acceptTermsOfService"]);
-    if (params["configuration"] !== undefined) data["Configuration"] = params["configuration"];
+    if (params["configuration"] !== undefined) data["Configuration"] = serialize.object(params["configuration"]);
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};

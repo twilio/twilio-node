@@ -177,7 +177,7 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
     const data: any = {};
 
     data["Status"] = params["status"];
-    if (params["routing"] !== undefined) data["Routing"] = params["routing"];
+    if (params["routing"] !== undefined) data["Routing"] = serialize.object(params["routing"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
