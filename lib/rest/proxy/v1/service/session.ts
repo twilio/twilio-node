@@ -35,13 +35,11 @@ type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
  * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
  * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
  * @property { SessionStatus } [status] 
- * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface SessionContextUpdateOptions {
   "dateExpiry"?: Date;
   "ttl"?: number;
   "status"?: SessionStatus;
-  "failOnParticipantConflict"?: boolean;
 }
 
 /**
@@ -53,7 +51,6 @@ export interface SessionContextUpdateOptions {
  * @property { SessionMode } [mode] 
  * @property { SessionStatus } [status] 
  * @property { Array<any> } [participants] The Participant objects to include in the new session.
- * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface SessionListInstanceCreateOptions {
   "uniqueName"?: string;
@@ -62,7 +59,6 @@ export interface SessionListInstanceCreateOptions {
   "mode"?: SessionMode;
   "status"?: SessionStatus;
   "participants"?: Array<any>;
-  "failOnParticipantConflict"?: boolean;
 }
 /**
  * Options to pass to each
@@ -231,7 +227,6 @@ export class SessionContextImpl implements SessionContext {
     if (params["dateExpiry"] !== undefined) data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["failOnParticipantConflict"] !== undefined) data["FailOnParticipantConflict"] = serialize.bool(params["failOnParticipantConflict"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -638,7 +633,6 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
     if (params["mode"] !== undefined) data["Mode"] = params["mode"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["participants"] !== undefined) data["Participants"] = serialize.map(params["participants"], ((e) => e));
-    if (params["failOnParticipantConflict"] !== undefined) data["FailOnParticipantConflict"] = serialize.bool(params["failOnParticipantConflict"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

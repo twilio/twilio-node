@@ -72,6 +72,7 @@ export interface TaskQueueListInstanceCreateOptions {
  * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
+ * @property { string } [ordering] Sorting parameter for TaskQueues
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -86,6 +87,7 @@ export interface TaskQueueListInstanceEachOptions {
   "friendlyName"?: string;
   "evaluateWorkerAttributes"?: string;
   "workerSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -98,6 +100,7 @@ export interface TaskQueueListInstanceEachOptions {
  * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
+ * @property { string } [ordering] Sorting parameter for TaskQueues
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -108,6 +111,7 @@ export interface TaskQueueListInstanceOptions {
   "friendlyName"?: string;
   "evaluateWorkerAttributes"?: string;
   "workerSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   limit?: number;
 }
@@ -118,6 +122,7 @@ export interface TaskQueueListInstanceOptions {
  * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
+ * @property { string } [ordering] Sorting parameter for TaskQueues
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -126,6 +131,7 @@ export interface TaskQueueListInstancePageOptions {
   "friendlyName"?: string;
   "evaluateWorkerAttributes"?: string;
   "workerSid"?: string;
+  "ordering"?: string;
   "pageSize"?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -703,6 +709,7 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
     if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
     if (params["evaluateWorkerAttributes"] !== undefined) data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
     if (params["workerSid"] !== undefined) data["WorkerSid"] = params["workerSid"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;

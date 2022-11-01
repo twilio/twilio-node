@@ -45,6 +45,9 @@ export class VerifyV2VerificationTemplate {
    * A string to describe the verification template
    */
   "friendlyName"?: string | null;
+  /**
+   * A list of channels that support the Template
+   */
   "channels"?: Array<string> | null;
   /**
    * Object with the template translations.

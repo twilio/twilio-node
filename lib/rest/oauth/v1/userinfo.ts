@@ -20,17 +20,17 @@ const serialize = require("../../../base/serialize");
 
 
 
-export interface UserinfoListInstance {
+export interface UserInfoListInstance {
 
 
   /**
-   * Fetch a UserinfoInstance
+   * Fetch a UserInfoInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserinfoInstance
+   * @returns { Promise } Resolves to processed UserInfoInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserinfoInstance) => any): Promise<UserinfoInstance>
+  fetch(callback?: (error: Error | null, item?: UserInfoInstance) => any): Promise<UserInfoInstance>
 
 
   /**
@@ -40,30 +40,30 @@ export interface UserinfoListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserinfoSolution {
+export interface UserInfoSolution {
 }
 
-interface UserinfoListInstanceImpl extends UserinfoListInstance {}
-class UserinfoListInstanceImpl implements UserinfoListInstance {
+interface UserInfoListInstanceImpl extends UserInfoListInstance {}
+class UserInfoListInstanceImpl implements UserInfoListInstance {
   _version?: V1;
-  _solution?: UserinfoSolution;
+  _solution?: UserInfoSolution;
   _uri?: string;
 
 }
 
-export function UserinfoListInstance(version: V1): UserinfoListInstance {
-  const instance = {} as UserinfoListInstanceImpl;
+export function UserInfoListInstance(version: V1): UserInfoListInstance {
+  const instance = {} as UserInfoListInstanceImpl;
 
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/userinfo`;
 
-  instance.fetch = function fetch(callback?: any): Promise<UserinfoInstance> {
+  instance.fetch = function fetch(callback?: any): Promise<UserInfoInstance> {
 
     let operationVersion = version,
         operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
     
-    operationPromise = operationPromise.then(payload => new UserinfoInstance(operationVersion, payload));
+    operationPromise = operationPromise.then(payload => new UserInfoInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
@@ -83,10 +83,10 @@ export function UserinfoListInstance(version: V1): UserinfoListInstance {
   return instance;
 }
 
-interface UserinfoPayload extends UserinfoResource{
+interface UserInfoPayload extends UserInfoResource{
 }
 
-interface UserinfoResource {
+interface UserInfoResource {
   user_sid?: string | null;
   first_name?: string | null;
   last_name?: string | null;
@@ -95,9 +95,9 @@ interface UserinfoResource {
   url?: string | null;
 }
 
-export class UserinfoInstance {
+export class UserInfoInstance {
 
-  constructor(protected _version: V1, payload: UserinfoPayload) {
+  constructor(protected _version: V1, payload: UserInfoPayload) {
     this.userSid = payload.user_sid;
     this.firstName = payload.first_name;
     this.lastName = payload.last_name;
