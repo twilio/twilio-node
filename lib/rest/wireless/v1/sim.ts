@@ -77,7 +77,7 @@ export interface SimContextUpdateOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -93,7 +93,7 @@ export interface SimListInstanceEachOptions {
   "status"?: SimStatus;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
@@ -107,7 +107,7 @@ export interface SimListInstanceEachOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -119,7 +119,7 @@ export interface SimListInstanceOptions {
   "status"?: SimStatus;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   limit?: number;
@@ -131,7 +131,7 @@ export interface SimListInstanceOptions {
  * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eid] Deprecated.
+ * @property { string } [eId] Deprecated.
  * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
@@ -141,7 +141,7 @@ export interface SimListInstancePageOptions {
   "status"?: SimStatus;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   pageNumber?: number;
@@ -725,7 +725,7 @@ export function SimListInstance(version: V1): SimListInstance {
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
     if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
-    if (params["eid"] !== undefined) data["EId"] = params["eid"];
+    if (params["eId"] !== undefined) data["EId"] = params["eId"];
     if (params["simRegistrationCode"] !== undefined) data["SimRegistrationCode"] = params["simRegistrationCode"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params.page !== undefined) data["Page"] = params.pageNumber;

@@ -36,9 +36,9 @@ import { NotificationListInstance } from "./account/notification";
 import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
 import { QueueListInstance } from "./account/queue";
 import { RecordingListInstance } from "./account/recording";
-import { SIPListInstance } from "./account/sip";
 import { ShortCodeListInstance } from "./account/shortCode";
 import { SigningKeyListInstance } from "./account/signingKey";
+import { SipListInstance } from "./account/sip";
 import { TokenListInstance } from "./account/token";
 import { TranscriptionListInstance } from "./account/transcription";
 import { UsageListInstance } from "./account/usage";
@@ -150,9 +150,9 @@ export interface AccountContext {
   outgoingCallerIds: OutgoingCallerIdListInstance;
   queues: QueueListInstance;
   recordings: RecordingListInstance;
-  sip: SIPListInstance;
   shortCodes: ShortCodeListInstance;
   signingKeys: SigningKeyListInstance;
+  sip: SipListInstance;
   tokens: TokenListInstance;
   transcriptions: TranscriptionListInstance;
   usage: UsageListInstance;
@@ -220,9 +220,9 @@ export class AccountContextImpl implements AccountContext {
   protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
   protected _queues?: QueueListInstance;
   protected _recordings?: RecordingListInstance;
-  protected _sip?: SIPListInstance;
   protected _shortCodes?: ShortCodeListInstance;
   protected _signingKeys?: SigningKeyListInstance;
+  protected _sip?: SipListInstance;
   protected _tokens?: TokenListInstance;
   protected _transcriptions?: TranscriptionListInstance;
   protected _usage?: UsageListInstance;
@@ -318,11 +318,6 @@ export class AccountContextImpl implements AccountContext {
     return this._recordings;
   }
 
-  get sip(): SIPListInstance {
-    this._sip = this._sip || SIPListInstance(this._version, this._solution.sid);
-    return this._sip;
-  }
-
   get shortCodes(): ShortCodeListInstance {
     this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
     return this._shortCodes;
@@ -331,6 +326,11 @@ export class AccountContextImpl implements AccountContext {
   get signingKeys(): SigningKeyListInstance {
     this._signingKeys = this._signingKeys || SigningKeyListInstance(this._version, this._solution.sid);
     return this._signingKeys;
+  }
+
+  get sip(): SipListInstance {
+    this._sip = this._sip || SipListInstance(this._version, this._solution.sid);
+    return this._sip;
   }
 
   get tokens(): TokenListInstance {
@@ -638,13 +638,6 @@ export class AccountInstance {
   }
 
   /**
-   * Access the sip.
-   */
-  sip(): SIPListInstance {
-    return this._proxy.sip;
-  }
-
-  /**
    * Access the shortCodes.
    */
   shortCodes(): ShortCodeListInstance {
@@ -656,6 +649,13 @@ export class AccountInstance {
    */
   signingKeys(): SigningKeyListInstance {
     return this._proxy.signingKeys;
+  }
+
+  /**
+   * Access the sip.
+   */
+  sip(): SipListInstance {
+    return this._proxy.sip;
   }
 
   /**

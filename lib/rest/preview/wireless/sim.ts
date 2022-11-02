@@ -68,7 +68,7 @@ export interface SimContextUpdateOptions {
  * @property { string } [status] 
  * @property { string } [iccid] 
  * @property { string } [ratePlan] 
- * @property { string } [eid] 
+ * @property { string } [eId] 
  * @property { string } [simRegistrationCode] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -84,7 +84,7 @@ export interface SimListInstanceEachOptions {
   "status"?: string;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
@@ -98,7 +98,7 @@ export interface SimListInstanceEachOptions {
  * @property { string } [status] 
  * @property { string } [iccid] 
  * @property { string } [ratePlan] 
- * @property { string } [eid] 
+ * @property { string } [eId] 
  * @property { string } [simRegistrationCode] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -110,7 +110,7 @@ export interface SimListInstanceOptions {
   "status"?: string;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   limit?: number;
@@ -122,7 +122,7 @@ export interface SimListInstanceOptions {
  * @property { string } [status] 
  * @property { string } [iccid] 
  * @property { string } [ratePlan] 
- * @property { string } [eid] 
+ * @property { string } [eId] 
  * @property { string } [simRegistrationCode] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
@@ -132,7 +132,7 @@ export interface SimListInstancePageOptions {
   "status"?: string;
   "iccid"?: string;
   "ratePlan"?: string;
-  "eid"?: string;
+  "eId"?: string;
   "simRegistrationCode"?: string;
   "pageSize"?: number;
   pageNumber?: number;
@@ -591,7 +591,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
     if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
-    if (params["eid"] !== undefined) data["EId"] = params["eid"];
+    if (params["eId"] !== undefined) data["EId"] = params["eId"];
     if (params["simRegistrationCode"] !== undefined) data["SimRegistrationCode"] = params["simRegistrationCode"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
     if (params.page !== undefined) data["Page"] = params.pageNumber;

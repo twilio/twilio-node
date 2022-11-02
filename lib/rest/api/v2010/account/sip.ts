@@ -23,7 +23,7 @@ import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
 
 
 
-export interface SIPListInstance {
+export interface SipListInstance {
 
   credentialLists: CredentialListListInstance;
   domains: DomainListInstance;
@@ -36,14 +36,14 @@ export interface SIPListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SIPSolution {
+export interface SipSolution {
   accountSid?: string;
 }
 
-interface SIPListInstanceImpl extends SIPListInstance {}
-class SIPListInstanceImpl implements SIPListInstance {
+interface SipListInstanceImpl extends SipListInstance {}
+class SipListInstanceImpl implements SipListInstance {
   _version?: V2010;
-  _solution?: SIPSolution;
+  _solution?: SipSolution;
   _uri?: string;
 
   _credentialLists?: CredentialListListInstance;
@@ -51,8 +51,8 @@ class SIPListInstanceImpl implements SIPListInstance {
   _ipAccessControlLists?: IpAccessControlListListInstance;
 }
 
-export function SIPListInstance(version: V2010, accountSid: string): SIPListInstance {
-  const instance = {} as SIPListInstanceImpl;
+export function SipListInstance(version: V2010, accountSid: string): SipListInstance {
+  const instance = {} as SipListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
