@@ -336,7 +336,7 @@ export function PaymentListInstance(version: V2010, accountSid: string, callSid:
     if (params["description"] !== undefined) data["Description"] = params["description"];
     if (params["input"] !== undefined) data["Input"] = params["input"];
     if (params["minPostalCodeLength"] !== undefined) data["MinPostalCodeLength"] = params["minPostalCodeLength"];
-    if (params["parameter"] !== undefined) data["Parameter"] = params["parameter"];
+    if (params["parameter"] !== undefined) data["Parameter"] = serialize.object(params["parameter"]);
     if (params["paymentConnector"] !== undefined) data["PaymentConnector"] = params["paymentConnector"];
     if (params["paymentMethod"] !== undefined) data["PaymentMethod"] = params["paymentMethod"];
     if (params["postalCode"] !== undefined) data["PostalCode"] = serialize.bool(params["postalCode"]);

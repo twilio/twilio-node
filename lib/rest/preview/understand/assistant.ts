@@ -286,9 +286,9 @@ export class AssistantContextImpl implements AssistantContext {
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
     if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
-    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = params["fallbackActions"];
-    if (params["initiationActions"] !== undefined) data["InitiationActions"] = params["initiationActions"];
-    if (params["styleSheet"] !== undefined) data["StyleSheet"] = params["styleSheet"];
+    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+    if (params["initiationActions"] !== undefined) data["InitiationActions"] = serialize.object(params["initiationActions"]);
+    if (params["styleSheet"] !== undefined) data["StyleSheet"] = serialize.object(params["styleSheet"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -707,9 +707,9 @@ export function AssistantListInstance(version: Understand): AssistantListInstanc
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
     if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
-    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = params["fallbackActions"];
-    if (params["initiationActions"] !== undefined) data["InitiationActions"] = params["initiationActions"];
-    if (params["styleSheet"] !== undefined) data["StyleSheet"] = params["styleSheet"];
+    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+    if (params["initiationActions"] !== undefined) data["InitiationActions"] = serialize.object(params["initiationActions"]);
+    if (params["styleSheet"] !== undefined) data["StyleSheet"] = serialize.object(params["styleSheet"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -529,7 +529,7 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
 
     data["Extension"] = params["extension"];
     data["ExtensionContext"] = params["extensionContext"];
-    if (params["extensionEnvironment"] !== undefined) data["ExtensionEnvironment"] = params["extensionEnvironment"];
+    if (params["extensionEnvironment"] !== undefined) data["ExtensionEnvironment"] = serialize.object(params["extensionEnvironment"]);
     if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["maxDuration"] !== undefined) data["MaxDuration"] = params["maxDuration"];

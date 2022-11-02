@@ -421,7 +421,7 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
     const data: any = {};
 
     data["Type"] = params["type"];
-    data["MediaProperties"] = params["mediaProperties"];
+    data["MediaProperties"] = serialize.object(params["mediaProperties"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

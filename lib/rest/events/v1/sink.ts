@@ -563,7 +563,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
     const data: any = {};
 
     data["Description"] = params["description"];
-    data["SinkConfiguration"] = params["sinkConfiguration"];
+    data["SinkConfiguration"] = serialize.object(params["sinkConfiguration"]);
     data["SinkType"] = params["sinkType"];
 
     const headers: any = {};

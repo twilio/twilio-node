@@ -133,7 +133,7 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
     if (params["config.skew"] !== undefined) data["Config.Skew"] = params["config.skew"];
     if (params["config.codeLength"] !== undefined) data["Config.CodeLength"] = params["config.codeLength"];
     if (params["config.alg"] !== undefined) data["Config.Alg"] = params["config.alg"];
-    if (params["metadata"] !== undefined) data["Metadata"] = params["metadata"];
+    if (params["metadata"] !== undefined) data["Metadata"] = serialize.object(params["metadata"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

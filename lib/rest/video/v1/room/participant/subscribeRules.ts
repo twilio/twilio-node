@@ -123,7 +123,7 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
 
     const data: any = {};
 
-    if (params["rules"] !== undefined) data["Rules"] = params["rules"];
+    if (params["rules"] !== undefined) data["Rules"] = serialize.object(params["rules"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

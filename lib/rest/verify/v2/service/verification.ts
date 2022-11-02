@@ -408,8 +408,8 @@ export function VerificationListInstance(version: V2, serviceSid: string): Verif
     if (params["customCode"] !== undefined) data["CustomCode"] = params["customCode"];
     if (params["amount"] !== undefined) data["Amount"] = params["amount"];
     if (params["payee"] !== undefined) data["Payee"] = params["payee"];
-    if (params["rateLimits"] !== undefined) data["RateLimits"] = params["rateLimits"];
-    if (params["channelConfiguration"] !== undefined) data["ChannelConfiguration"] = params["channelConfiguration"];
+    if (params["rateLimits"] !== undefined) data["RateLimits"] = serialize.object(params["rateLimits"]);
+    if (params["channelConfiguration"] !== undefined) data["ChannelConfiguration"] = serialize.object(params["channelConfiguration"]);
     if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
     if (params["templateSid"] !== undefined) data["TemplateSid"] = params["templateSid"];
     if (params["templateCustomSubstitutions"] !== undefined) data["TemplateCustomSubstitutions"] = params["templateCustomSubstitutions"];

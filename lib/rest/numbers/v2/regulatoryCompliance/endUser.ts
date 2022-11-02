@@ -198,7 +198,7 @@ export class EndUserContextImpl implements EndUserContext {
     const data: any = {};
 
     if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["attributes"] !== undefined) data["Attributes"] = serialize.object(params["attributes"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -530,7 +530,7 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
     data["FriendlyName"] = params["friendlyName"];
     data["Type"] = params["type"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["attributes"] !== undefined) data["Attributes"] = serialize.object(params["attributes"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

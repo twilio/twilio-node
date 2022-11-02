@@ -206,7 +206,7 @@ export class DocumentContextImpl implements DocumentContext {
 
     const data: any = {};
 
-    if (params["data"] !== undefined) data["Data"] = params["data"];
+    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
@@ -581,7 +581,7 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
     const data: any = {};
 
     if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["data"] !== undefined) data["Data"] = params["data"];
+    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
     if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};

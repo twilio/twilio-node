@@ -82,7 +82,7 @@ export function StreamMessageListInstance(version: V1, serviceSid: string, strea
 
     const data: any = {};
 
-    data["Data"] = params["data"];
+    data["Data"] = serialize.object(params["data"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -222,7 +222,7 @@ export class FlowContextImpl implements FlowContext {
 
     data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["definition"] !== undefined) data["Definition"] = params["definition"];
+    if (params["definition"] !== undefined) data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined) data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};
@@ -618,7 +618,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
     data["FriendlyName"] = params["friendlyName"];
     data["Status"] = params["status"];
-    data["Definition"] = params["definition"];
+    data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined) data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};
