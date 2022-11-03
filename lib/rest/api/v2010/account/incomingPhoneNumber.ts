@@ -50,7 +50,7 @@ type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
 /**
  * Options to pass to update a IncomingPhoneNumberInstance
  *
- * @property { string } [accountSid2] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+ * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
  * @property { string } [apiVersion] The API version to use for incoming calls made to the phone number. The default is &#x60;2010-04-01&#x60;.
  * @property { string } [friendlyName] A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
  * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application.
@@ -75,7 +75,7 @@ type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface IncomingPhoneNumberContextUpdateOptions {
-  "accountSid2"?: string;
+  "accountSid"?: string;
   "apiVersion"?: string;
   "friendlyName"?: string;
   "smsApplicationSid"?: string;
@@ -336,8 +336,8 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
     let data: any = {};
 
     
-        if (params["accountSid2"] !== undefined)
-    data["AccountSid"] = params["accountSid2"];
+        if (params["accountSid"] !== undefined)
+    data["AccountSid"] = params["accountSid"];
     if (params["apiVersion"] !== undefined)
     data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)

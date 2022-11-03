@@ -615,7 +615,7 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
     if (params["details.message"] !== undefined)
     data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined)
-    data["Details.Fields"] = serialize.map(params["details.fields"], (e => (e)));
+    data["Details.Fields"] = serialize.map(params["details.fields"], (e => serialize.object(e)));
     if (params["hiddenDetails"] !== undefined)
     data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
     if (params["authPayload"] !== undefined)
