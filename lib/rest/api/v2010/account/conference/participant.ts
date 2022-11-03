@@ -732,7 +732,7 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     if (params["statusCallbackMethod"] !== undefined)
     data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e => (e)));
     if (params["label"] !== undefined)
     data["Label"] = params["label"];
     if (params["timeout"] !== undefined)
@@ -764,7 +764,7 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     if (params["conferenceStatusCallbackMethod"] !== undefined)
     data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], ((e) => e));
+    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e => (e)));
     if (params["recordingChannels"] !== undefined)
     data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
@@ -782,9 +782,9 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
     data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e => (e)));
     if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
-    data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(params["conferenceRecordingStatusCallbackEvent"], ((e) => e));
+    data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(params["conferenceRecordingStatusCallbackEvent"], (e => (e)));
     if (params["coaching"] !== undefined)
     data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)

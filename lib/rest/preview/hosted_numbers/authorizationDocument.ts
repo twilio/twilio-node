@@ -213,13 +213,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
 
     
         if (params["hostedNumberOrderSids"] !== undefined)
-    data["HostedNumberOrderSids"] = serialize.map(params["hostedNumberOrderSids"], ((e) => e));
+    data["HostedNumberOrderSids"] = serialize.map(params["hostedNumberOrderSids"], (e => (e)));
     if (params["addressSid"] !== undefined)
     data["AddressSid"] = params["addressSid"];
     if (params["email"] !== undefined)
     data["Email"] = params["email"];
     if (params["ccEmails"] !== undefined)
-    data["CcEmails"] = serialize.map(params["ccEmails"], ((e) => e));
+    data["CcEmails"] = serialize.map(params["ccEmails"], (e => (e)));
     if (params["status"] !== undefined)
     data["Status"] = params["status"];
     if (params["contactTitle"] !== undefined)
@@ -566,7 +566,7 @@ export function AuthorizationDocumentListInstance(version: HostedNumbers): Autho
 
     
         
-    data["HostedNumberOrderSids"] = serialize.map(params["hostedNumberOrderSids"], ((e) => e));
+    data["HostedNumberOrderSids"] = serialize.map(params["hostedNumberOrderSids"], (e => (e)));
     
     data["AddressSid"] = params["addressSid"];
     
@@ -576,7 +576,7 @@ export function AuthorizationDocumentListInstance(version: HostedNumbers): Autho
     
     data["ContactPhoneNumber"] = params["contactPhoneNumber"];
     if (params["ccEmails"] !== undefined)
-    data["CcEmails"] = serialize.map(params["ccEmails"], ((e) => e));
+    data["CcEmails"] = serialize.map(params["ccEmails"], (e => (e)));
 
 
     const headers: any = {};

@@ -495,9 +495,9 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
 
     
         if (params["assetVersions"] !== undefined)
-    data["AssetVersions"] = serialize.map(params["assetVersions"], ((e) => e));
+    data["AssetVersions"] = serialize.map(params["assetVersions"], (e => (e)));
     if (params["functionVersions"] !== undefined)
-    data["FunctionVersions"] = serialize.map(params["functionVersions"], ((e) => e));
+    data["FunctionVersions"] = serialize.map(params["functionVersions"], (e => (e)));
     if (params["dependencies"] !== undefined)
     data["Dependencies"] = params["dependencies"];
     if (params["runtime"] !== undefined)

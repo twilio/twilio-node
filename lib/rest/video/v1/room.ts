@@ -705,7 +705,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params["recordParticipantsOnConnect"] !== undefined)
     data["RecordParticipantsOnConnect"] = serialize.bool(params["recordParticipantsOnConnect"]);
     if (params["videoCodecs"] !== undefined)
-    data["VideoCodecs"] = serialize.map(params["videoCodecs"], ((e) => e));
+    data["VideoCodecs"] = serialize.map(params["videoCodecs"], (e => (e)));
     if (params["mediaRegion"] !== undefined)
     data["MediaRegion"] = params["mediaRegion"];
     if (params["recordingRules"] !== undefined)

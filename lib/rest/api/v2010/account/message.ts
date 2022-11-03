@@ -743,7 +743,7 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
     if (params["smartEncoded"] !== undefined)
     data["SmartEncoded"] = serialize.bool(params["smartEncoded"]);
     if (params["persistentAction"] !== undefined)
-    data["PersistentAction"] = serialize.map(params["persistentAction"], ((e) => e));
+    data["PersistentAction"] = serialize.map(params["persistentAction"], (e => (e)));
     if (params["shortenUrls"] !== undefined)
     data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
     if (params["scheduleType"] !== undefined)
@@ -763,7 +763,7 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
     if (params["body"] !== undefined)
     data["Body"] = params["body"];
     if (params["mediaUrl"] !== undefined)
-    data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+    data["MediaUrl"] = serialize.map(params["mediaUrl"], (e => (e)));
 
 
     const headers: any = {};

@@ -564,7 +564,7 @@ export function SubscriptionListInstance(version: V1): SubscriptionListInstance 
     
     data["SinkSid"] = params["sinkSid"];
     
-    data["Types"] = serialize.map(params["types"], ((e) => e));
+    data["Types"] = serialize.map(params["types"], (e => (e)));
 
 
     const headers: any = {};

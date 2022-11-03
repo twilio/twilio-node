@@ -570,7 +570,7 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     if (params["nationalRoamingEnabled"] !== undefined)
     data["NationalRoamingEnabled"] = serialize.bool(params["nationalRoamingEnabled"]);
     if (params["internationalRoaming"] !== undefined)
-    data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], ((e) => e));
+    data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], (e => (e)));
 
 
     const headers: any = {};

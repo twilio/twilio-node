@@ -103,7 +103,7 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
 
     
         
-    data["TestUsers"] = serialize.map(params["testUsers"], ((e) => e));
+    data["TestUsers"] = serialize.map(params["testUsers"], (e => (e)));
 
 
     const headers: any = {};

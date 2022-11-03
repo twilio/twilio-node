@@ -216,7 +216,7 @@ export class WebhookContextImpl implements WebhookContext {
         if (params["friendlyName"] !== undefined)
     data["FriendlyName"] = params["friendlyName"];
     if (params["eventTypes"] !== undefined)
-    data["EventTypes"] = serialize.map(params["eventTypes"], ((e) => e));
+    data["EventTypes"] = serialize.map(params["eventTypes"], (e => (e)));
     if (params["webhookUrl"] !== undefined)
     data["WebhookUrl"] = params["webhookUrl"];
     if (params["status"] !== undefined)
@@ -584,7 +584,7 @@ export function WebhookListInstance(version: V2, serviceSid: string): WebhookLis
         
     data["FriendlyName"] = params["friendlyName"];
     
-    data["EventTypes"] = serialize.map(params["eventTypes"], ((e) => e));
+    data["EventTypes"] = serialize.map(params["eventTypes"], (e => (e)));
     
     data["WebhookUrl"] = params["webhookUrl"];
     if (params["status"] !== undefined)

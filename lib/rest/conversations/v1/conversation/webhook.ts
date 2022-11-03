@@ -220,9 +220,9 @@ export class WebhookContextImpl implements WebhookContext {
     if (params["configuration.method"] !== undefined)
     data["Configuration.Method"] = params["configuration.method"];
     if (params["configuration.filters"] !== undefined)
-    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], (e => (e)));
     if (params["configuration.triggers"] !== undefined)
-    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], (e => (e)));
     if (params["configuration.flowSid"] !== undefined)
     data["Configuration.FlowSid"] = params["configuration.flowSid"];
 
@@ -563,9 +563,9 @@ export function WebhookListInstance(version: V1, conversationSid: string): Webho
     if (params["configuration.method"] !== undefined)
     data["Configuration.Method"] = params["configuration.method"];
     if (params["configuration.filters"] !== undefined)
-    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], (e => (e)));
     if (params["configuration.triggers"] !== undefined)
-    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], (e => (e)));
     if (params["configuration.flowSid"] !== undefined)
     data["Configuration.FlowSid"] = params["configuration.flowSid"];
     if (params["configuration.replayAfter"] !== undefined)

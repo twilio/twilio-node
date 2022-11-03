@@ -359,7 +359,7 @@ export class ServiceContextImpl implements ServiceContext {
     if (params["webhookMethod"] !== undefined)
     data["WebhookMethod"] = params["webhookMethod"];
     if (params["webhookFilters"] !== undefined)
-    data["WebhookFilters"] = serialize.map(params["webhookFilters"], ((e) => e));
+    data["WebhookFilters"] = serialize.map(params["webhookFilters"], (e => (e)));
     if (params["webhooks.onMessageSend.url"] !== undefined)
     data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
     if (params["webhooks.onMessageSend.method"] !== undefined)

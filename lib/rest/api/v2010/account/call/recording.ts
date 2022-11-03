@@ -619,7 +619,7 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
 
     
         if (params["recordingStatusCallbackEvent"] !== undefined)
-    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e => (e)));
     if (params["recordingStatusCallback"] !== undefined)
     data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)

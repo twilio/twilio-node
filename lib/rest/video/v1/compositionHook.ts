@@ -252,9 +252,9 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     if (params["videoLayout"] !== undefined)
     data["VideoLayout"] = serialize.object(params["videoLayout"]);
     if (params["audioSources"] !== undefined)
-    data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
+    data["AudioSources"] = serialize.map(params["audioSources"], (e => (e)));
     if (params["audioSourcesExcluded"] !== undefined)
-    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
+    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], (e => (e)));
     if (params["trim"] !== undefined)
     data["Trim"] = serialize.bool(params["trim"]);
     if (params["format"] !== undefined)
@@ -641,9 +641,9 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
     if (params["videoLayout"] !== undefined)
     data["VideoLayout"] = serialize.object(params["videoLayout"]);
     if (params["audioSources"] !== undefined)
-    data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
+    data["AudioSources"] = serialize.map(params["audioSources"], (e => (e)));
     if (params["audioSourcesExcluded"] !== undefined)
-    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
+    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], (e => (e)));
     if (params["resolution"] !== undefined)
     data["Resolution"] = params["resolution"];
     if (params["format"] !== undefined)

@@ -251,7 +251,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     if (params["autoCreation.webhookMethod"] !== undefined)
     data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e => (e)));
     if (params["autoCreation.studioFlowSid"] !== undefined)
     data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)
@@ -614,7 +614,7 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
     if (params["autoCreation.webhookMethod"] !== undefined)
     data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
     if (params["autoCreation.webhookFilters"] !== undefined)
-    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], (e => (e)));
     if (params["autoCreation.studioFlowSid"] !== undefined)
     data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
     if (params["autoCreation.studioRetryCount"] !== undefined)

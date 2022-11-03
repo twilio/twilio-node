@@ -800,7 +800,7 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
         if (params["priority"] !== undefined)
     data["Priority"] = params["priority"];
     if (params["assignmentStatus"] !== undefined)
-    data["AssignmentStatus"] = serialize.map(params["assignmentStatus"], ((e) => e));
+    data["AssignmentStatus"] = serialize.map(params["assignmentStatus"], (e => (e)));
     if (params["workflowSid"] !== undefined)
     data["WorkflowSid"] = params["workflowSid"];
     if (params["workflowName"] !== undefined)

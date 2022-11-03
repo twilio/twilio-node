@@ -456,7 +456,7 @@ export function UserBindingListInstance(version: V2, serviceSid: string, userSid
     let data: any = {};
 
         if (params["bindingType"] !== undefined)
-    data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    data["BindingType"] = serialize.map(params["bindingType"], (e => (e)));
     if (params["pageSize"] !== undefined)
     data["PageSize"] = params["pageSize"];
 

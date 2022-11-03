@@ -663,13 +663,13 @@ export function TollfreeVerificationListInstance(version: V1): TollfreeVerificat
     
     data["NotificationEmail"] = params["notificationEmail"];
     
-    data["UseCaseCategories"] = serialize.map(params["useCaseCategories"], ((e) => e));
+    data["UseCaseCategories"] = serialize.map(params["useCaseCategories"], (e => (e)));
     
     data["UseCaseSummary"] = params["useCaseSummary"];
     
     data["ProductionMessageSample"] = params["productionMessageSample"];
     
-    data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], ((e) => e));
+    data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], (e => (e)));
     
     data["OptInType"] = params["optInType"];
     

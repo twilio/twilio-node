@@ -673,7 +673,7 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
     let data: any = {};
 
         if (params["type"] !== undefined)
-    data["Type"] = serialize.map(params["type"], ((e) => e));
+    data["Type"] = serialize.map(params["type"], (e => (e)));
     if (params["pageSize"] !== undefined)
     data["PageSize"] = params["pageSize"];
 

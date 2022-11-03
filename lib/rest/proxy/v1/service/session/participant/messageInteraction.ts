@@ -504,7 +504,7 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
         if (params["body"] !== undefined)
     data["Body"] = params["body"];
     if (params["mediaUrl"] !== undefined)
-    data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+    data["MediaUrl"] = serialize.map(params["mediaUrl"], (e => (e)));
 
 
     const headers: any = {};

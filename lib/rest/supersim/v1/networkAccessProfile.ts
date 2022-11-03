@@ -505,7 +505,7 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
         if (params["uniqueName"] !== undefined)
     data["UniqueName"] = params["uniqueName"];
     if (params["networks"] !== undefined)
-    data["Networks"] = serialize.map(params["networks"], ((e) => e));
+    data["Networks"] = serialize.map(params["networks"], (e => (e)));
 
 
     const headers: any = {};

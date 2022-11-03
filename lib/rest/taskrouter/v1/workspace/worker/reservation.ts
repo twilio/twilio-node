@@ -322,7 +322,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["statusCallbackMethod"] !== undefined)
     data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e => (e)));
     if (params["timeout"] !== undefined)
     data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
@@ -348,7 +348,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["conferenceStatusCallbackMethod"] !== undefined)
     data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], ((e) => e));
+    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e => (e)));
     if (params["conferenceRecord"] !== undefined)
     data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
@@ -370,7 +370,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["sipAuthPassword"] !== undefined)
     data["SipAuthPassword"] = params["sipAuthPassword"];
     if (params["dequeueStatusCallbackEvent"] !== undefined)
-    data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], ((e) => e));
+    data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], (e => (e)));
     if (params["postWorkActivitySid"] !== undefined)
     data["PostWorkActivitySid"] = params["postWorkActivitySid"];
     if (params["endConferenceOnCustomerExit"] !== undefined)

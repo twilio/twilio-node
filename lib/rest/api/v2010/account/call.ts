@@ -975,7 +975,7 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
     if (params["statusCallback"] !== undefined)
     data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e => (e)));
     if (params["statusCallbackMethod"] !== undefined)
     data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["sendDigits"] !== undefined)
@@ -999,7 +999,7 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
     if (params["machineDetectionTimeout"] !== undefined)
     data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e => (e)));
     if (params["trim"] !== undefined)
     data["Trim"] = params["trim"];
     if (params["callerId"] !== undefined)

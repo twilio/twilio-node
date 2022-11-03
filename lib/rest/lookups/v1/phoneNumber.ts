@@ -93,9 +93,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         if (params["countryCode"] !== undefined)
     data["CountryCode"] = params["countryCode"];
     if (params["type"] !== undefined)
-    data["Type"] = serialize.map(params["type"], ((e) => e));
+    data["Type"] = serialize.map(params["type"], (e => (e)));
     if (params["addOns"] !== undefined)
-    data["AddOns"] = serialize.map(params["addOns"], ((e) => e));
+    data["AddOns"] = serialize.map(params["addOns"], (e => (e)));
     if (params["addOnsData"] !== undefined)
     data["AddOnsData"] = serialize.prefixedCollapsibleMap(params["addOnsData"], "AddOns");
 

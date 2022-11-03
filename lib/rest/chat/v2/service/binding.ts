@@ -460,9 +460,9 @@ export function BindingListInstance(version: V2, serviceSid: string): BindingLis
     let data: any = {};
 
         if (params["bindingType"] !== undefined)
-    data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    data["BindingType"] = serialize.map(params["bindingType"], (e => (e)));
     if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    data["Identity"] = serialize.map(params["identity"], (e => (e)));
     if (params["pageSize"] !== undefined)
     data["PageSize"] = params["pageSize"];
 

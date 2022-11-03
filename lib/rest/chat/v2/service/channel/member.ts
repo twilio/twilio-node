@@ -685,7 +685,7 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
     let data: any = {};
 
         if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    data["Identity"] = serialize.map(params["identity"], (e => (e)));
     if (params["pageSize"] !== undefined)
     data["PageSize"] = params["pageSize"];
 

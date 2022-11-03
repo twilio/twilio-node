@@ -190,7 +190,7 @@ export class RoleContextImpl implements RoleContext {
 
     
         
-    data["Permission"] = serialize.map(params["permission"], ((e) => e));
+    data["Permission"] = serialize.map(params["permission"], (e => (e)));
 
 
     const headers: any = {};
@@ -530,7 +530,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
     
     data["Type"] = params["type"];
     
-    data["Permission"] = serialize.map(params["permission"], ((e) => e));
+    data["Permission"] = serialize.map(params["permission"], (e => (e)));
 
 
     const headers: any = {};

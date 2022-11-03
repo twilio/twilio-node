@@ -541,7 +541,7 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
     
     data["Description"] = params["description"];
     
-    data["MessageSamples"] = serialize.map(params["messageSamples"], ((e) => e));
+    data["MessageSamples"] = serialize.map(params["messageSamples"], (e => (e)));
     
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
     
