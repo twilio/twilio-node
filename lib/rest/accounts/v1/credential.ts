@@ -17,14 +17,14 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { AWSListInstance } from "./credential/aws";
+import { AwsListInstance } from "./credential/aws";
 import { PublicKeyListInstance } from "./credential/publicKey";
 
 
 
 export interface CredentialListInstance {
 
-  aws: AWSListInstance;
+  aws: AwsListInstance;
   publicKey: PublicKeyListInstance;
 
   /**
@@ -43,7 +43,7 @@ class CredentialListInstanceImpl implements CredentialListInstance {
   _solution?: CredentialSolution;
   _uri?: string;
 
-  _aws?: AWSListInstance;
+  _aws?: AwsListInstance;
   _publicKey?: PublicKeyListInstance;
 }
 
@@ -57,7 +57,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   Object.defineProperty(instance, "aws", {
     get: function aws() {
       if (!this._aws) {
-        this._aws = AWSListInstance(this._version);
+        this._aws = AwsListInstance(this._version);
       }
       return this._aws;
     }

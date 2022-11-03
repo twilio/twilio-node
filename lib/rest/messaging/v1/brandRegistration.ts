@@ -34,14 +34,14 @@ type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELET
  * Options to pass to create a BrandRegistrationInstance
  *
  * @property { string } customerProfileBundleSid Customer Profile Bundle Sid.
- * @property { string } a2PprofileBundleSid A2P Messaging Profile Bundle Sid.
+ * @property { string } a2PProfileBundleSid A2P Messaging Profile Bundle Sid.
  * @property { string } [brandType] Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
  * @property { boolean } [mock] A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
  * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */
 export interface BrandRegistrationListInstanceCreateOptions {
   "customerProfileBundleSid": string;
-  "a2PprofileBundleSid": string;
+  "a2PProfileBundleSid": string;
   "brandType"?: string;
   "mock"?: boolean;
   "skipAutomaticSecVet"?: boolean;
@@ -544,14 +544,14 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
       throw new Error('Required parameter "params[\'customerProfileBundleSid\']" missing.');
     }
 
-    if (params["a2PprofileBundleSid"] === null || params["a2PprofileBundleSid"] === undefined) {
-      throw new Error('Required parameter "params[\'a2PprofileBundleSid\']" missing.');
+    if (params["a2PProfileBundleSid"] === null || params["a2PProfileBundleSid"] === undefined) {
+      throw new Error('Required parameter "params[\'a2PProfileBundleSid\']" missing.');
     }
 
     const data: any = {};
 
     data["CustomerProfileBundleSid"] = params["customerProfileBundleSid"];
-    data["A2PProfileBundleSid"] = params["a2PprofileBundleSid"];
+    data["A2PProfileBundleSid"] = params["a2PProfileBundleSid"];
     if (params["brandType"] !== undefined) data["BrandType"] = params["brandType"];
     if (params["mock"] !== undefined) data["Mock"] = serialize.bool(params["mock"]);
     if (params["skipAutomaticSecVet"] !== undefined) data["SkipAutomaticSecVet"] = serialize.bool(params["skipAutomaticSecVet"]);
