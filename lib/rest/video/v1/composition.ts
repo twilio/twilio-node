@@ -568,17 +568,28 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       throw new Error('Required parameter "params[\'roomSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["RoomSid"] = params["roomSid"];
-    if (params["videoLayout"] !== undefined) data["VideoLayout"] = serialize.object(params["videoLayout"]);
-    if (params["audioSources"] !== undefined) data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
-    if (params["audioSourcesExcluded"] !== undefined) data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
-    if (params["resolution"] !== undefined) data["Resolution"] = params["resolution"];
-    if (params["format"] !== undefined) data["Format"] = params["format"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["trim"] !== undefined) data["Trim"] = serialize.bool(params["trim"]);
+    if (params["videoLayout"] !== undefined)
+    data["VideoLayout"] = serialize.object(params["videoLayout"]);
+    if (params["audioSources"] !== undefined)
+    data["AudioSources"] = serialize.map(params["audioSources"], ((e) => e));
+    if (params["audioSourcesExcluded"] !== undefined)
+    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], ((e) => e));
+    if (params["resolution"] !== undefined)
+    data["Resolution"] = params["resolution"];
+    if (params["format"] !== undefined)
+    data["Format"] = params["format"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["trim"] !== undefined)
+    data["Trim"] = serialize.bool(params["trim"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -603,13 +614,20 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["roomSid"] !== undefined) data["RoomSid"] = params["roomSid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["roomSid"] !== undefined)
+    data["RoomSid"] = params["roomSid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

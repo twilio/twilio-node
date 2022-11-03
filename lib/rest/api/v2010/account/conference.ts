@@ -231,11 +231,16 @@ export class ConferenceContextImpl implements ConferenceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["announceUrl"] !== undefined) data["AnnounceUrl"] = params["announceUrl"];
-    if (params["announceMethod"] !== undefined) data["AnnounceMethod"] = params["announceMethod"];
+    
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["announceUrl"] !== undefined)
+    data["AnnounceUrl"] = params["announceUrl"];
+    if (params["announceMethod"] !== undefined)
+    data["AnnounceMethod"] = params["announceMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -574,17 +579,28 @@ export function ConferenceListInstance(version: V2010, accountSid: string): Conf
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
-    if (params["dateUpdatedBefore"] !== undefined) data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
-    if (params["dateUpdatedAfter"] !== undefined) data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
+    if (params["dateUpdatedBefore"] !== undefined)
+    data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
+    if (params["dateUpdatedAfter"] !== undefined)
+    data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

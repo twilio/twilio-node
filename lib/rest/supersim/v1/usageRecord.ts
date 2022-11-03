@@ -319,17 +319,28 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
-    if (params["network"] !== undefined) data["Network"] = params["network"];
-    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
-    if (params["group"] !== undefined) data["Group"] = params["group"];
-    if (params["granularity"] !== undefined) data["Granularity"] = params["granularity"];
-    if (params["startTime"] !== undefined) data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
-    if (params["endTime"] !== undefined) data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["fleet"] !== undefined)
+    data["Fleet"] = params["fleet"];
+    if (params["network"] !== undefined)
+    data["Network"] = params["network"];
+    if (params["isoCountry"] !== undefined)
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["group"] !== undefined)
+    data["Group"] = params["group"];
+    if (params["granularity"] !== undefined)
+    data["Granularity"] = params["granularity"];
+    if (params["startTime"] !== undefined)
+    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    if (params["endTime"] !== undefined)
+    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

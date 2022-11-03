@@ -160,10 +160,14 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["capacity"] !== undefined) data["Capacity"] = params["capacity"];
-    if (params["available"] !== undefined) data["Available"] = serialize.bool(params["available"]);
+    
+        if (params["capacity"] !== undefined)
+    data["Capacity"] = params["capacity"];
+    if (params["available"] !== undefined)
+    data["Available"] = serialize.bool(params["available"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -502,9 +506,12 @@ export function WorkerChannelListInstance(version: V1, workspaceSid: string, wor
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

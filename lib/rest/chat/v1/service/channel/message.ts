@@ -203,10 +203,14 @@ export class MessageContextImpl implements MessageContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    
+        if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -570,11 +574,16 @@ export function MessageListInstance(version: V1, serviceSid: string, channelSid:
       throw new Error('Required parameter "params[\'body\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Body"] = params["body"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -599,10 +608,14 @@ export function MessageListInstance(version: V1, serviceSid: string, channelSid:
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

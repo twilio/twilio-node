@@ -216,8 +216,10 @@ export class MemberContextImpl implements MemberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
@@ -254,14 +256,22 @@ export class MemberContextImpl implements MemberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
-    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
-    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    
+        if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+    if (params["lastConsumedMessageIndex"] !== undefined)
+    data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined)
+    data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -593,15 +603,24 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
       throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Identity"] = params["identity"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
-    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
-    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+    if (params["lastConsumedMessageIndex"] !== undefined)
+    data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined)
+    data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -627,10 +646,14 @@ export function MemberListInstance(version: V2, serviceSid: string, channelSid: 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["identity"] !== undefined)
+    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

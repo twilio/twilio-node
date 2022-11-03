@@ -200,10 +200,14 @@ export class FieldTypeContextImpl implements FieldTypeContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -539,10 +543,14 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
       throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -567,9 +575,12 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

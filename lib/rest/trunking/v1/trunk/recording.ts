@@ -112,10 +112,14 @@ export class RecordingContextImpl implements RecordingContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    
+        if (params["mode"] !== undefined)
+    data["Mode"] = params["mode"];
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

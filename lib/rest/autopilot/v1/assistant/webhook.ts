@@ -200,12 +200,18 @@ export class WebhookContextImpl implements WebhookContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["events"] !== undefined) data["Events"] = params["events"];
-    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["events"] !== undefined)
+    data["Events"] = params["events"];
+    if (params["webhookUrl"] !== undefined)
+    data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -555,12 +561,18 @@ export function WebhookListInstance(version: V1, assistantSid: string): WebhookL
       throw new Error('Required parameter "params[\'webhookUrl\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
+    
     data["Events"] = params["events"];
+    
     data["WebhookUrl"] = params["webhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -585,9 +597,12 @@ export function WebhookListInstance(version: V1, assistantSid: string): WebhookL
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

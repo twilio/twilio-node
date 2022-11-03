@@ -198,9 +198,12 @@ export class RateLimitContextImpl implements RateLimitContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["description"] !== undefined) data["Description"] = params["description"];
+    
+        if (params["description"] !== undefined)
+    data["Description"] = params["description"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -542,10 +545,14 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
       throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
-    if (params["description"] !== undefined) data["Description"] = params["description"];
+    if (params["description"] !== undefined)
+    data["Description"] = params["description"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -570,9 +577,12 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

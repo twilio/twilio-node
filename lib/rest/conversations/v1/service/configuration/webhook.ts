@@ -114,12 +114,18 @@ export class WebhookContextImpl implements WebhookContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["preWebhookUrl"] !== undefined) data["PreWebhookUrl"] = params["preWebhookUrl"];
-    if (params["postWebhookUrl"] !== undefined) data["PostWebhookUrl"] = params["postWebhookUrl"];
-    if (params["filters"] !== undefined) data["Filters"] = serialize.map(params["filters"], ((e) => e));
-    if (params["method"] !== undefined) data["Method"] = params["method"];
+    
+        if (params["preWebhookUrl"] !== undefined)
+    data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["postWebhookUrl"] !== undefined)
+    data["PostWebhookUrl"] = params["postWebhookUrl"];
+    if (params["filters"] !== undefined)
+    data["Filters"] = serialize.map(params["filters"], ((e) => e));
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

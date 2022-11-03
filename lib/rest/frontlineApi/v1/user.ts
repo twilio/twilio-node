@@ -114,12 +114,18 @@ export class UserContextImpl implements UserContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
-    if (params["isAvailable"] !== undefined) data["IsAvailable"] = serialize.bool(params["isAvailable"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined)
+    data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
+    if (params["isAvailable"] !== undefined)
+    data["IsAvailable"] = serialize.bool(params["isAvailable"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

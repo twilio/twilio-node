@@ -222,8 +222,10 @@ export class MessageContextImpl implements MessageContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
@@ -260,13 +262,20 @@ export class MessageContextImpl implements MessageContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["author"] !== undefined) data["Author"] = params["author"];
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    
+        if (params["author"] !== undefined)
+    data["Author"] = params["author"];
+    if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -669,14 +678,22 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["author"] !== undefined) data["Author"] = params["author"];
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["mediaSid"] !== undefined) data["MediaSid"] = params["mediaSid"];
+    
+        if (params["author"] !== undefined)
+    data["Author"] = params["author"];
+    if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["mediaSid"] !== undefined)
+    data["MediaSid"] = params["mediaSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -702,10 +719,14 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -110,11 +110,16 @@ export class ExportConfigurationContextImpl implements ExportConfigurationContex
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
-    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
+    
+        if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["webhookUrl"] !== undefined)
+    data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

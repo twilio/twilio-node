@@ -277,12 +277,18 @@ export function AccessTokenListInstance(version: V2, serviceSid: string): Access
       throw new Error('Required parameter "params[\'factorType\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Identity"] = params["identity"];
+    
     data["FactorType"] = params["factorType"];
-    if (params["factorFriendlyName"] !== undefined) data["FactorFriendlyName"] = params["factorFriendlyName"];
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["factorFriendlyName"] !== undefined)
+    data["FactorFriendlyName"] = params["factorFriendlyName"];
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

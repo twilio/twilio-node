@@ -451,10 +451,14 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V
       throw new Error('Required parameter "params[\'channelEndpointSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["ChannelEndpointType"] = params["channelEndpointType"];
+    
     data["ChannelEndpointSid"] = params["channelEndpointSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -479,11 +483,16 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["channelEndpointSid"] !== undefined) data["ChannelEndpointSid"] = params["channelEndpointSid"];
-    if (params["channelEndpointSids"] !== undefined) data["ChannelEndpointSids"] = params["channelEndpointSids"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["channelEndpointSid"] !== undefined)
+    data["ChannelEndpointSid"] = params["channelEndpointSid"];
+    if (params["channelEndpointSids"] !== undefined)
+    data["ChannelEndpointSids"] = params["channelEndpointSids"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

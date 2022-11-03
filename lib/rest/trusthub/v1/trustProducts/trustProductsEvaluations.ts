@@ -399,9 +399,12 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
       throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PolicySid"] = params["policySid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -426,9 +429,12 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

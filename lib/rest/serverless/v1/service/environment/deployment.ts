@@ -415,9 +415,12 @@ export function DeploymentListInstance(version: V1, serviceSid: string, environm
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["buildSid"] !== undefined) data["BuildSid"] = params["buildSid"];
+    
+        if (params["buildSid"] !== undefined)
+    data["BuildSid"] = params["buildSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -442,9 +445,12 @@ export function DeploymentListInstance(version: V1, serviceSid: string, environm
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

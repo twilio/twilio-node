@@ -204,9 +204,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["isReserved"] !== undefined) data["IsReserved"] = serialize.bool(params["isReserved"]);
+    
+        if (params["isReserved"] !== undefined)
+    data["IsReserved"] = serialize.bool(params["isReserved"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -566,11 +569,16 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
-    if (params["phoneNumber"] !== undefined) data["PhoneNumber"] = params["phoneNumber"];
-    if (params["isReserved"] !== undefined) data["IsReserved"] = serialize.bool(params["isReserved"]);
+    
+        if (params["sid"] !== undefined)
+    data["Sid"] = params["sid"];
+    if (params["phoneNumber"] !== undefined)
+    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["isReserved"] !== undefined)
+    data["IsReserved"] = serialize.bool(params["isReserved"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -595,9 +603,12 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -193,10 +193,14 @@ export class VariableContextImpl implements VariableContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["key"] !== undefined) data["Key"] = params["key"];
-    if (params["value"] !== undefined) data["Value"] = params["value"];
+    
+        if (params["key"] !== undefined)
+    data["Key"] = params["key"];
+    if (params["value"] !== undefined)
+    data["Value"] = params["value"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -536,10 +540,14 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
       throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Key"] = params["key"];
+    
     data["Value"] = params["value"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -564,9 +572,12 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

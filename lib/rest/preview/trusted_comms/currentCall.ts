@@ -83,8 +83,10 @@ export class CurrentCallContextImpl implements CurrentCallContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xXcnamSensitivePhoneNumberFrom"] !== undefined) headers["X-Xcnam-Sensitive-Phone-Number-From"] = params["xXcnamSensitivePhoneNumberFrom"];

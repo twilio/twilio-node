@@ -78,9 +78,12 @@ export function BulkCountryUpdateListInstance(version: V1): BulkCountryUpdateLis
       throw new Error('Required parameter "params[\'updateRequest\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UpdateRequest"] = params["updateRequest"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -409,17 +409,28 @@ export class CallContextImpl implements CallContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["url"] !== undefined) data["Url"] = params["url"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["fallbackUrl"] !== undefined) data["FallbackUrl"] = params["fallbackUrl"];
-    if (params["fallbackMethod"] !== undefined) data["FallbackMethod"] = params["fallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
-    if (params["timeLimit"] !== undefined) data["TimeLimit"] = params["timeLimit"];
+    
+        if (params["url"] !== undefined)
+    data["Url"] = params["url"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["fallbackUrl"] !== undefined)
+    data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+    data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["twiml"] !== undefined)
+    data["Twiml"] = params["twiml"];
+    if (params["timeLimit"] !== undefined)
+    data["TimeLimit"] = params["timeLimit"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -948,43 +959,80 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
       throw new Error('Required parameter "params[\'from\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["To"] = params["to"];
+    
     data["From"] = params["from"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
-    if (params["fallbackUrl"] !== undefined) data["FallbackUrl"] = params["fallbackUrl"];
-    if (params["fallbackMethod"] !== undefined) data["FallbackMethod"] = params["fallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackEvent"] !== undefined) data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["sendDigits"] !== undefined) data["SendDigits"] = params["sendDigits"];
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
-    if (params["record"] !== undefined) data["Record"] = serialize.bool(params["record"]);
-    if (params["recordingChannels"] !== undefined) data["RecordingChannels"] = params["recordingChannels"];
-    if (params["recordingStatusCallback"] !== undefined) data["RecordingStatusCallback"] = params["recordingStatusCallback"];
-    if (params["recordingStatusCallbackMethod"] !== undefined) data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
-    if (params["sipAuthUsername"] !== undefined) data["SipAuthUsername"] = params["sipAuthUsername"];
-    if (params["sipAuthPassword"] !== undefined) data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["machineDetection"] !== undefined) data["MachineDetection"] = params["machineDetection"];
-    if (params["machineDetectionTimeout"] !== undefined) data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
-    if (params["recordingStatusCallbackEvent"] !== undefined) data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
-    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
-    if (params["machineDetectionSpeechThreshold"] !== undefined) data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
-    if (params["machineDetectionSpeechEndThreshold"] !== undefined) data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
-    if (params["machineDetectionSilenceTimeout"] !== undefined) data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
-    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
-    if (params["asyncAmdStatusCallback"] !== undefined) data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
-    if (params["asyncAmdStatusCallbackMethod"] !== undefined) data["AsyncAmdStatusCallbackMethod"] = params["asyncAmdStatusCallbackMethod"];
-    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
-    if (params["callReason"] !== undefined) data["CallReason"] = params["callReason"];
-    if (params["callToken"] !== undefined) data["CallToken"] = params["callToken"];
-    if (params["recordingTrack"] !== undefined) data["RecordingTrack"] = params["recordingTrack"];
-    if (params["timeLimit"] !== undefined) data["TimeLimit"] = params["timeLimit"];
-    if (params["url"] !== undefined) data["Url"] = params["url"];
-    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
-    if (params["applicationSid"] !== undefined) data["ApplicationSid"] = params["applicationSid"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+    if (params["fallbackUrl"] !== undefined)
+    data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+    data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackEvent"] !== undefined)
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["sendDigits"] !== undefined)
+    data["SendDigits"] = params["sendDigits"];
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
+    if (params["record"] !== undefined)
+    data["Record"] = serialize.bool(params["record"]);
+    if (params["recordingChannels"] !== undefined)
+    data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingStatusCallback"] !== undefined)
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+    if (params["sipAuthUsername"] !== undefined)
+    data["SipAuthUsername"] = params["sipAuthUsername"];
+    if (params["sipAuthPassword"] !== undefined)
+    data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["machineDetection"] !== undefined)
+    data["MachineDetection"] = params["machineDetection"];
+    if (params["machineDetectionTimeout"] !== undefined)
+    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    if (params["recordingStatusCallbackEvent"] !== undefined)
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
+    if (params["callerId"] !== undefined)
+    data["CallerId"] = params["callerId"];
+    if (params["machineDetectionSpeechThreshold"] !== undefined)
+    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
+    if (params["machineDetectionSpeechEndThreshold"] !== undefined)
+    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
+    if (params["machineDetectionSilenceTimeout"] !== undefined)
+    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
+    if (params["asyncAmd"] !== undefined)
+    data["AsyncAmd"] = params["asyncAmd"];
+    if (params["asyncAmdStatusCallback"] !== undefined)
+    data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
+    if (params["asyncAmdStatusCallbackMethod"] !== undefined)
+    data["AsyncAmdStatusCallbackMethod"] = params["asyncAmdStatusCallbackMethod"];
+    if (params["byoc"] !== undefined)
+    data["Byoc"] = params["byoc"];
+    if (params["callReason"] !== undefined)
+    data["CallReason"] = params["callReason"];
+    if (params["callToken"] !== undefined)
+    data["CallToken"] = params["callToken"];
+    if (params["recordingTrack"] !== undefined)
+    data["RecordingTrack"] = params["recordingTrack"];
+    if (params["timeLimit"] !== undefined)
+    data["TimeLimit"] = params["timeLimit"];
+    if (params["url"] !== undefined)
+    data["Url"] = params["url"];
+    if (params["twiml"] !== undefined)
+    data["Twiml"] = params["twiml"];
+    if (params["applicationSid"] !== undefined)
+    data["ApplicationSid"] = params["applicationSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -1009,19 +1057,32 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["parentCallSid"] !== undefined) data["ParentCallSid"] = params["parentCallSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["startTime"] !== undefined) data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
-    if (params["startTimeBefore"] !== undefined) data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
-    if (params["startTimeAfter"] !== undefined) data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
-    if (params["endTime"] !== undefined) data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
-    if (params["endTimeBefore"] !== undefined) data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
-    if (params["endTimeAfter"] !== undefined) data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["parentCallSid"] !== undefined)
+    data["ParentCallSid"] = params["parentCallSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["startTime"] !== undefined)
+    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    if (params["startTimeBefore"] !== undefined)
+    data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
+    if (params["startTimeAfter"] !== undefined)
+    data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
+    if (params["endTime"] !== undefined)
+    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    if (params["endTimeBefore"] !== undefined)
+    data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
+    if (params["endTimeAfter"] !== undefined)
+    data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

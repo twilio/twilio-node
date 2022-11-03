@@ -279,16 +279,26 @@ export class AssistantContextImpl implements AssistantContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["logQueries"] !== undefined) data["LogQueries"] = serialize.bool(params["logQueries"]);
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
-    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = serialize.object(params["fallbackActions"]);
-    if (params["initiationActions"] !== undefined) data["InitiationActions"] = serialize.object(params["initiationActions"]);
-    if (params["styleSheet"] !== undefined) data["StyleSheet"] = serialize.object(params["styleSheet"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["logQueries"] !== undefined)
+    data["LogQueries"] = serialize.bool(params["logQueries"]);
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackEvents"] !== undefined)
+    data["CallbackEvents"] = params["callbackEvents"];
+    if (params["fallbackActions"] !== undefined)
+    data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+    if (params["initiationActions"] !== undefined)
+    data["InitiationActions"] = serialize.object(params["initiationActions"]);
+    if (params["styleSheet"] !== undefined)
+    data["StyleSheet"] = serialize.object(params["styleSheet"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -700,16 +710,26 @@ export function AssistantListInstance(version: Understand): AssistantListInstanc
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["logQueries"] !== undefined) data["LogQueries"] = serialize.bool(params["logQueries"]);
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["callbackEvents"] !== undefined) data["CallbackEvents"] = params["callbackEvents"];
-    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = serialize.object(params["fallbackActions"]);
-    if (params["initiationActions"] !== undefined) data["InitiationActions"] = serialize.object(params["initiationActions"]);
-    if (params["styleSheet"] !== undefined) data["StyleSheet"] = serialize.object(params["styleSheet"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["logQueries"] !== undefined)
+    data["LogQueries"] = serialize.bool(params["logQueries"]);
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackEvents"] !== undefined)
+    data["CallbackEvents"] = params["callbackEvents"];
+    if (params["fallbackActions"] !== undefined)
+    data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+    if (params["initiationActions"] !== undefined)
+    data["InitiationActions"] = serialize.object(params["initiationActions"]);
+    if (params["styleSheet"] !== undefined)
+    data["StyleSheet"] = serialize.object(params["styleSheet"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -734,9 +754,12 @@ export function AssistantListInstance(version: Understand): AssistantListInstanc
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

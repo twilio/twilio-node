@@ -106,9 +106,12 @@ export class StyleSheetContextImpl implements StyleSheetContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["styleSheet"] !== undefined) data["StyleSheet"] = serialize.object(params["styleSheet"]);
+    
+        if (params["styleSheet"] !== undefined)
+    data["StyleSheet"] = serialize.object(params["styleSheet"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

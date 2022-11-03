@@ -94,14 +94,22 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["awsCredentialsSid"] !== undefined) data["AwsCredentialsSid"] = params["awsCredentialsSid"];
-    if (params["encryptionKeySid"] !== undefined) data["EncryptionKeySid"] = params["encryptionKeySid"];
-    if (params["awsS3Url"] !== undefined) data["AwsS3Url"] = params["awsS3Url"];
-    if (params["awsStorageEnabled"] !== undefined) data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
-    if (params["encryptionEnabled"] !== undefined) data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
+    if (params["awsCredentialsSid"] !== undefined)
+    data["AwsCredentialsSid"] = params["awsCredentialsSid"];
+    if (params["encryptionKeySid"] !== undefined)
+    data["EncryptionKeySid"] = params["encryptionKeySid"];
+    if (params["awsS3Url"] !== undefined)
+    data["AwsS3Url"] = params["awsS3Url"];
+    if (params["awsStorageEnabled"] !== undefined)
+    data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
+    if (params["encryptionEnabled"] !== undefined)
+    data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

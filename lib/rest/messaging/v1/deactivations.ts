@@ -81,9 +81,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["date"] !== undefined) data["Date"] = serialize.iso8601Date(params["date"]);
+        if (params["date"] !== undefined)
+    data["Date"] = serialize.iso8601Date(params["date"]);
+
+    
 
     const headers: any = {};
 

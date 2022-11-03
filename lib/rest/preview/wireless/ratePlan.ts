@@ -207,10 +207,14 @@ export class RatePlanContextImpl implements RatePlanContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -544,18 +548,30 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["dataEnabled"] !== undefined) data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
-    if (params["dataLimit"] !== undefined) data["DataLimit"] = params["dataLimit"];
-    if (params["dataMetering"] !== undefined) data["DataMetering"] = params["dataMetering"];
-    if (params["messagingEnabled"] !== undefined) data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
-    if (params["voiceEnabled"] !== undefined) data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
-    if (params["commandsEnabled"] !== undefined) data["CommandsEnabled"] = serialize.bool(params["commandsEnabled"]);
-    if (params["nationalRoamingEnabled"] !== undefined) data["NationalRoamingEnabled"] = serialize.bool(params["nationalRoamingEnabled"]);
-    if (params["internationalRoaming"] !== undefined) data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], ((e) => e));
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["dataEnabled"] !== undefined)
+    data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+    if (params["dataLimit"] !== undefined)
+    data["DataLimit"] = params["dataLimit"];
+    if (params["dataMetering"] !== undefined)
+    data["DataMetering"] = params["dataMetering"];
+    if (params["messagingEnabled"] !== undefined)
+    data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
+    if (params["voiceEnabled"] !== undefined)
+    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["commandsEnabled"] !== undefined)
+    data["CommandsEnabled"] = serialize.bool(params["commandsEnabled"]);
+    if (params["nationalRoamingEnabled"] !== undefined)
+    data["NationalRoamingEnabled"] = serialize.bool(params["nationalRoamingEnabled"]);
+    if (params["internationalRoaming"] !== undefined)
+    data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -580,9 +596,12 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -501,13 +501,20 @@ export function RoomRecordingListInstance(version: V1, roomSid: string): RoomRec
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["sourceSid"] !== undefined) data["SourceSid"] = params["sourceSid"];
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["sourceSid"] !== undefined)
+    data["SourceSid"] = params["sourceSid"];
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

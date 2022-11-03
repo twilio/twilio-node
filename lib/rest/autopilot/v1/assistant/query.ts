@@ -220,10 +220,14 @@ export class QueryContextImpl implements QueryContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["sampleSid"] !== undefined) data["SampleSid"] = params["sampleSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["sampleSid"] !== undefined)
+    data["SampleSid"] = params["sampleSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -597,12 +601,18 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
       throw new Error('Required parameter "params[\'query\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Language"] = params["language"];
+    
     data["Query"] = params["query"];
-    if (params["tasks"] !== undefined) data["Tasks"] = params["tasks"];
-    if (params["modelBuild"] !== undefined) data["ModelBuild"] = params["modelBuild"];
+    if (params["tasks"] !== undefined)
+    data["Tasks"] = params["tasks"];
+    if (params["modelBuild"] !== undefined)
+    data["ModelBuild"] = params["modelBuild"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -627,13 +637,20 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["language"] !== undefined) data["Language"] = params["language"];
-    if (params["modelBuild"] !== undefined) data["ModelBuild"] = params["modelBuild"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["dialogueSid"] !== undefined) data["DialogueSid"] = params["dialogueSid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["language"] !== undefined)
+    data["Language"] = params["language"];
+    if (params["modelBuild"] !== undefined)
+    data["ModelBuild"] = params["modelBuild"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["dialogueSid"] !== undefined)
+    data["DialogueSid"] = params["dialogueSid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

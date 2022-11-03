@@ -437,12 +437,18 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       throw new Error('Required parameter "params[\'payload\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Sim"] = params["sim"];
+    
     data["Payload"] = params["payload"];
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -467,12 +473,18 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["direction"] !== undefined) data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["direction"] !== undefined)
+    data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

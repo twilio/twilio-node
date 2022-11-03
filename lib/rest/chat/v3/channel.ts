@@ -91,10 +91,14 @@ export class ChannelContextImpl implements ChannelContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["type"] !== undefined) data["Type"] = params["type"];
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
+    
+        if (params["type"] !== undefined)
+    data["Type"] = params["type"];
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

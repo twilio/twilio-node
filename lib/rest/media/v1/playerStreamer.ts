@@ -192,9 +192,12 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -538,12 +541,18 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["video"] !== undefined) data["Video"] = serialize.bool(params["video"]);
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["maxDuration"] !== undefined) data["MaxDuration"] = params["maxDuration"];
+    
+        if (params["video"] !== undefined)
+    data["Video"] = serialize.bool(params["video"]);
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["maxDuration"] !== undefined)
+    data["MaxDuration"] = params["maxDuration"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -568,11 +577,16 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

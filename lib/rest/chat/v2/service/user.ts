@@ -220,11 +220,16 @@ export class UserContextImpl implements UserContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -609,12 +614,18 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
       throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Identity"] = params["identity"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -640,9 +651,12 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

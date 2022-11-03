@@ -246,10 +246,14 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       throw new Error('Required parameter "params[\'routing\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Channel"] = serialize.object(params["channel"]);
+    
     data["Routing"] = serialize.object(params["routing"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

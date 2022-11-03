@@ -108,10 +108,14 @@ export class TrunkContextImpl implements TrunkContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["voiceRegion"] !== undefined) data["VoiceRegion"] = params["voiceRegion"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["voiceRegion"] !== undefined)
+    data["VoiceRegion"] = params["voiceRegion"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

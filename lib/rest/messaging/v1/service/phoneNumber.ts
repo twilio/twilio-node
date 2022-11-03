@@ -447,9 +447,12 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
       throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PhoneNumberSid"] = params["phoneNumberSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -474,9 +477,12 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

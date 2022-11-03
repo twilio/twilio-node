@@ -223,18 +223,30 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["statusCallbackUrl"] !== undefined) data["StatusCallbackUrl"] = params["statusCallbackUrl"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["cnamLookupEnabled"] !== undefined) data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
-    if (params["connectionPolicySid"] !== undefined) data["ConnectionPolicySid"] = params["connectionPolicySid"];
-    if (params["fromDomainSid"] !== undefined) data["FromDomainSid"] = params["fromDomainSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["statusCallbackUrl"] !== undefined)
+    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["cnamLookupEnabled"] !== undefined)
+    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+    if (params["connectionPolicySid"] !== undefined)
+    data["ConnectionPolicySid"] = params["connectionPolicySid"];
+    if (params["fromDomainSid"] !== undefined)
+    data["FromDomainSid"] = params["fromDomainSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -620,18 +632,30 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["statusCallbackUrl"] !== undefined) data["StatusCallbackUrl"] = params["statusCallbackUrl"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["cnamLookupEnabled"] !== undefined) data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
-    if (params["connectionPolicySid"] !== undefined) data["ConnectionPolicySid"] = params["connectionPolicySid"];
-    if (params["fromDomainSid"] !== undefined) data["FromDomainSid"] = params["fromDomainSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["statusCallbackUrl"] !== undefined)
+    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["cnamLookupEnabled"] !== undefined)
+    data["CnamLookupEnabled"] = serialize.bool(params["cnamLookupEnabled"]);
+    if (params["connectionPolicySid"] !== undefined)
+    data["ConnectionPolicySid"] = params["connectionPolicySid"];
+    if (params["fromDomainSid"] !== undefined)
+    data["FromDomainSid"] = params["fromDomainSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -656,9 +680,12 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

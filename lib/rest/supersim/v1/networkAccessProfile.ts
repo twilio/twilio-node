@@ -175,9 +175,12 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -496,10 +499,14 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["networks"] !== undefined) data["Networks"] = serialize.map(params["networks"], ((e) => e));
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["networks"] !== undefined)
+    data["Networks"] = serialize.map(params["networks"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -524,9 +531,12 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -440,31 +440,56 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
       throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PhoneNumber"] = params["phoneNumber"];
-    if (params["apiVersion"] !== undefined) data["ApiVersion"] = params["apiVersion"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["smsApplicationSid"] !== undefined) data["SmsApplicationSid"] = params["smsApplicationSid"];
-    if (params["smsFallbackMethod"] !== undefined) data["SmsFallbackMethod"] = params["smsFallbackMethod"];
-    if (params["smsFallbackUrl"] !== undefined) data["SmsFallbackUrl"] = params["smsFallbackUrl"];
-    if (params["smsMethod"] !== undefined) data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["voiceApplicationSid"] !== undefined) data["VoiceApplicationSid"] = params["voiceApplicationSid"];
-    if (params["voiceCallerIdLookup"] !== undefined) data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["identitySid"] !== undefined) data["IdentitySid"] = params["identitySid"];
-    if (params["addressSid"] !== undefined) data["AddressSid"] = params["addressSid"];
-    if (params["emergencyStatus"] !== undefined) data["EmergencyStatus"] = params["emergencyStatus"];
-    if (params["emergencyAddressSid"] !== undefined) data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
-    if (params["voiceReceiveMode"] !== undefined) data["VoiceReceiveMode"] = params["voiceReceiveMode"];
-    if (params["bundleSid"] !== undefined) data["BundleSid"] = params["bundleSid"];
+    if (params["apiVersion"] !== undefined)
+    data["ApiVersion"] = params["apiVersion"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["smsApplicationSid"] !== undefined)
+    data["SmsApplicationSid"] = params["smsApplicationSid"];
+    if (params["smsFallbackMethod"] !== undefined)
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsMethod"] !== undefined)
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["voiceApplicationSid"] !== undefined)
+    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+    if (params["voiceCallerIdLookup"] !== undefined)
+    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["identitySid"] !== undefined)
+    data["IdentitySid"] = params["identitySid"];
+    if (params["addressSid"] !== undefined)
+    data["AddressSid"] = params["addressSid"];
+    if (params["emergencyStatus"] !== undefined)
+    data["EmergencyStatus"] = params["emergencyStatus"];
+    if (params["emergencyAddressSid"] !== undefined)
+    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined)
+    data["TrunkSid"] = params["trunkSid"];
+    if (params["voiceReceiveMode"] !== undefined)
+    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+    if (params["bundleSid"] !== undefined)
+    data["BundleSid"] = params["bundleSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -489,13 +514,20 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["beta"] !== undefined) data["Beta"] = serialize.bool(params["beta"]);
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["phoneNumber"] !== undefined) data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["beta"] !== undefined)
+    data["Beta"] = serialize.bool(params["beta"]);
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["phoneNumber"] !== undefined)
+    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined)
+    data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

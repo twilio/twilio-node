@@ -91,13 +91,20 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
-    if (params["splitByWaitTime"] !== undefined) data["SplitByWaitTime"] = params["splitByWaitTime"];
+        if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+    if (params["splitByWaitTime"] !== undefined)
+    data["SplitByWaitTime"] = params["splitByWaitTime"];
+
+    
 
     const headers: any = {};
 

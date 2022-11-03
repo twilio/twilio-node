@@ -282,8 +282,10 @@ export class WorkerContextImpl implements WorkerContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
@@ -320,12 +322,18 @@ export class WorkerContextImpl implements WorkerContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["activitySid"] !== undefined) data["ActivitySid"] = params["activitySid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["rejectPendingReservations"] !== undefined) data["RejectPendingReservations"] = serialize.bool(params["rejectPendingReservations"]);
+    
+        if (params["activitySid"] !== undefined)
+    data["ActivitySid"] = params["activitySid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["rejectPendingReservations"] !== undefined)
+    data["RejectPendingReservations"] = serialize.bool(params["rejectPendingReservations"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -745,11 +753,16 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["activitySid"] !== undefined) data["ActivitySid"] = params["activitySid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    if (params["activitySid"] !== undefined)
+    data["ActivitySid"] = params["activitySid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -774,17 +787,28 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["activityName"] !== undefined) data["ActivityName"] = params["activityName"];
-    if (params["activitySid"] !== undefined) data["ActivitySid"] = params["activitySid"];
-    if (params["available"] !== undefined) data["Available"] = params["available"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["targetWorkersExpression"] !== undefined) data["TargetWorkersExpression"] = params["targetWorkersExpression"];
-    if (params["taskQueueName"] !== undefined) data["TaskQueueName"] = params["taskQueueName"];
-    if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["activityName"] !== undefined)
+    data["ActivityName"] = params["activityName"];
+    if (params["activitySid"] !== undefined)
+    data["ActivitySid"] = params["activitySid"];
+    if (params["available"] !== undefined)
+    data["Available"] = params["available"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["targetWorkersExpression"] !== undefined)
+    data["TargetWorkersExpression"] = params["targetWorkersExpression"];
+    if (params["taskQueueName"] !== undefined)
+    data["TaskQueueName"] = params["taskQueueName"];
+    if (params["taskQueueSid"] !== undefined)
+    data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["ordering"] !== undefined)
+    data["Ordering"] = params["ordering"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -259,14 +259,22 @@ export class TaskQueueContextImpl implements TaskQueueContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["targetWorkers"] !== undefined) data["TargetWorkers"] = params["targetWorkers"];
-    if (params["reservationActivitySid"] !== undefined) data["ReservationActivitySid"] = params["reservationActivitySid"];
-    if (params["assignmentActivitySid"] !== undefined) data["AssignmentActivitySid"] = params["assignmentActivitySid"];
-    if (params["maxReservedWorkers"] !== undefined) data["MaxReservedWorkers"] = params["maxReservedWorkers"];
-    if (params["taskOrder"] !== undefined) data["TaskOrder"] = params["taskOrder"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["targetWorkers"] !== undefined)
+    data["TargetWorkers"] = params["targetWorkers"];
+    if (params["reservationActivitySid"] !== undefined)
+    data["ReservationActivitySid"] = params["reservationActivitySid"];
+    if (params["assignmentActivitySid"] !== undefined)
+    data["AssignmentActivitySid"] = params["assignmentActivitySid"];
+    if (params["maxReservedWorkers"] !== undefined)
+    data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+    if (params["taskOrder"] !== undefined)
+    data["TaskOrder"] = params["taskOrder"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -672,14 +680,22 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["targetWorkers"] !== undefined) data["TargetWorkers"] = params["targetWorkers"];
-    if (params["maxReservedWorkers"] !== undefined) data["MaxReservedWorkers"] = params["maxReservedWorkers"];
-    if (params["taskOrder"] !== undefined) data["TaskOrder"] = params["taskOrder"];
-    if (params["reservationActivitySid"] !== undefined) data["ReservationActivitySid"] = params["reservationActivitySid"];
-    if (params["assignmentActivitySid"] !== undefined) data["AssignmentActivitySid"] = params["assignmentActivitySid"];
+    if (params["targetWorkers"] !== undefined)
+    data["TargetWorkers"] = params["targetWorkers"];
+    if (params["maxReservedWorkers"] !== undefined)
+    data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+    if (params["taskOrder"] !== undefined)
+    data["TaskOrder"] = params["taskOrder"];
+    if (params["reservationActivitySid"] !== undefined)
+    data["ReservationActivitySid"] = params["reservationActivitySid"];
+    if (params["assignmentActivitySid"] !== undefined)
+    data["AssignmentActivitySid"] = params["assignmentActivitySid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -704,13 +720,20 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["evaluateWorkerAttributes"] !== undefined) data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
-    if (params["workerSid"] !== undefined) data["WorkerSid"] = params["workerSid"];
-    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["evaluateWorkerAttributes"] !== undefined)
+    data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
+    if (params["workerSid"] !== undefined)
+    data["WorkerSid"] = params["workerSid"];
+    if (params["ordering"] !== undefined)
+    data["Ordering"] = params["ordering"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

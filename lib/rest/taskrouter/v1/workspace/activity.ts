@@ -202,9 +202,12 @@ export class ActivityContextImpl implements ActivityContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -536,10 +539,14 @@ export function ActivityListInstance(version: V1, workspaceSid: string): Activit
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["available"] !== undefined) data["Available"] = serialize.bool(params["available"]);
+    if (params["available"] !== undefined)
+    data["Available"] = serialize.bool(params["available"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -564,11 +571,16 @@ export function ActivityListInstance(version: V1, workspaceSid: string): Activit
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["available"] !== undefined) data["Available"] = params["available"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["available"] !== undefined)
+    data["Available"] = params["available"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

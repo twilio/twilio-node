@@ -213,13 +213,20 @@ export class WebhookContextImpl implements WebhookContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["configuration.url"] !== undefined) data["Configuration.Url"] = params["configuration.url"];
-    if (params["configuration.method"] !== undefined) data["Configuration.Method"] = params["configuration.method"];
-    if (params["configuration.filters"] !== undefined) data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
-    if (params["configuration.triggers"] !== undefined) data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
-    if (params["configuration.flowSid"] !== undefined) data["Configuration.FlowSid"] = params["configuration.flowSid"];
+    
+        if (params["configuration.url"] !== undefined)
+    data["Configuration.Url"] = params["configuration.url"];
+    if (params["configuration.method"] !== undefined)
+    data["Configuration.Method"] = params["configuration.method"];
+    if (params["configuration.filters"] !== undefined)
+    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    if (params["configuration.triggers"] !== undefined)
+    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    if (params["configuration.flowSid"] !== undefined)
+    data["Configuration.FlowSid"] = params["configuration.flowSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -555,15 +562,24 @@ export function WebhookListInstance(version: V1, chatServiceSid: string, convers
       throw new Error('Required parameter "params[\'target\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Target"] = params["target"];
-    if (params["configuration.url"] !== undefined) data["Configuration.Url"] = params["configuration.url"];
-    if (params["configuration.method"] !== undefined) data["Configuration.Method"] = params["configuration.method"];
-    if (params["configuration.filters"] !== undefined) data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
-    if (params["configuration.triggers"] !== undefined) data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
-    if (params["configuration.flowSid"] !== undefined) data["Configuration.FlowSid"] = params["configuration.flowSid"];
-    if (params["configuration.replayAfter"] !== undefined) data["Configuration.ReplayAfter"] = params["configuration.replayAfter"];
+    if (params["configuration.url"] !== undefined)
+    data["Configuration.Url"] = params["configuration.url"];
+    if (params["configuration.method"] !== undefined)
+    data["Configuration.Method"] = params["configuration.method"];
+    if (params["configuration.filters"] !== undefined)
+    data["Configuration.Filters"] = serialize.map(params["configuration.filters"], ((e) => e));
+    if (params["configuration.triggers"] !== undefined)
+    data["Configuration.Triggers"] = serialize.map(params["configuration.triggers"], ((e) => e));
+    if (params["configuration.flowSid"] !== undefined)
+    data["Configuration.FlowSid"] = params["configuration.flowSid"];
+    if (params["configuration.replayAfter"] !== undefined)
+    data["Configuration.ReplayAfter"] = params["configuration.replayAfter"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -588,9 +604,12 @@ export function WebhookListInstance(version: V1, chatServiceSid: string, convers
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -379,12 +379,18 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
-    if (params["mcc"] !== undefined) data["Mcc"] = params["mcc"];
-    if (params["mnc"] !== undefined) data["Mnc"] = params["mnc"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["isoCountry"] !== undefined)
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["mcc"] !== undefined)
+    data["Mcc"] = params["mcc"];
+    if (params["mnc"] !== undefined)
+    data["Mnc"] = params["mnc"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

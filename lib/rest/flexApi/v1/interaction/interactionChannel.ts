@@ -174,10 +174,14 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
-    if (params["routing"] !== undefined) data["Routing"] = serialize.object(params["routing"]);
+    if (params["routing"] !== undefined)
+    data["Routing"] = serialize.object(params["routing"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -474,9 +478,12 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

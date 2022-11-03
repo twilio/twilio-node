@@ -261,22 +261,38 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["apnCredentialSid"] !== undefined) data["ApnCredentialSid"] = params["apnCredentialSid"];
-    if (params["gcmCredentialSid"] !== undefined) data["GcmCredentialSid"] = params["gcmCredentialSid"];
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["facebookMessengerPageId"] !== undefined) data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
-    if (params["defaultApnNotificationProtocolVersion"] !== undefined) data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
-    if (params["defaultGcmNotificationProtocolVersion"] !== undefined) data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
-    if (params["fcmCredentialSid"] !== undefined) data["FcmCredentialSid"] = params["fcmCredentialSid"];
-    if (params["defaultFcmNotificationProtocolVersion"] !== undefined) data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
-    if (params["logEnabled"] !== undefined) data["LogEnabled"] = serialize.bool(params["logEnabled"]);
-    if (params["alexaSkillId"] !== undefined) data["AlexaSkillId"] = params["alexaSkillId"];
-    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined) data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
-    if (params["deliveryCallbackUrl"] !== undefined) data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
-    if (params["deliveryCallbackEnabled"] !== undefined) data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["apnCredentialSid"] !== undefined)
+    data["ApnCredentialSid"] = params["apnCredentialSid"];
+    if (params["gcmCredentialSid"] !== undefined)
+    data["GcmCredentialSid"] = params["gcmCredentialSid"];
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["facebookMessengerPageId"] !== undefined)
+    data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
+    if (params["defaultApnNotificationProtocolVersion"] !== undefined)
+    data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
+    if (params["defaultGcmNotificationProtocolVersion"] !== undefined)
+    data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
+    if (params["fcmCredentialSid"] !== undefined)
+    data["FcmCredentialSid"] = params["fcmCredentialSid"];
+    if (params["defaultFcmNotificationProtocolVersion"] !== undefined)
+    data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
+    if (params["logEnabled"] !== undefined)
+    data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["alexaSkillId"] !== undefined)
+    data["AlexaSkillId"] = params["alexaSkillId"];
+    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined)
+    data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
+    if (params["deliveryCallbackUrl"] !== undefined)
+    data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["deliveryCallbackEnabled"] !== undefined)
+    data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -708,22 +724,38 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["apnCredentialSid"] !== undefined) data["ApnCredentialSid"] = params["apnCredentialSid"];
-    if (params["gcmCredentialSid"] !== undefined) data["GcmCredentialSid"] = params["gcmCredentialSid"];
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["facebookMessengerPageId"] !== undefined) data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
-    if (params["defaultApnNotificationProtocolVersion"] !== undefined) data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
-    if (params["defaultGcmNotificationProtocolVersion"] !== undefined) data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
-    if (params["fcmCredentialSid"] !== undefined) data["FcmCredentialSid"] = params["fcmCredentialSid"];
-    if (params["defaultFcmNotificationProtocolVersion"] !== undefined) data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
-    if (params["logEnabled"] !== undefined) data["LogEnabled"] = serialize.bool(params["logEnabled"]);
-    if (params["alexaSkillId"] !== undefined) data["AlexaSkillId"] = params["alexaSkillId"];
-    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined) data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
-    if (params["deliveryCallbackUrl"] !== undefined) data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
-    if (params["deliveryCallbackEnabled"] !== undefined) data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["apnCredentialSid"] !== undefined)
+    data["ApnCredentialSid"] = params["apnCredentialSid"];
+    if (params["gcmCredentialSid"] !== undefined)
+    data["GcmCredentialSid"] = params["gcmCredentialSid"];
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["facebookMessengerPageId"] !== undefined)
+    data["FacebookMessengerPageId"] = params["facebookMessengerPageId"];
+    if (params["defaultApnNotificationProtocolVersion"] !== undefined)
+    data["DefaultApnNotificationProtocolVersion"] = params["defaultApnNotificationProtocolVersion"];
+    if (params["defaultGcmNotificationProtocolVersion"] !== undefined)
+    data["DefaultGcmNotificationProtocolVersion"] = params["defaultGcmNotificationProtocolVersion"];
+    if (params["fcmCredentialSid"] !== undefined)
+    data["FcmCredentialSid"] = params["fcmCredentialSid"];
+    if (params["defaultFcmNotificationProtocolVersion"] !== undefined)
+    data["DefaultFcmNotificationProtocolVersion"] = params["defaultFcmNotificationProtocolVersion"];
+    if (params["logEnabled"] !== undefined)
+    data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["alexaSkillId"] !== undefined)
+    data["AlexaSkillId"] = params["alexaSkillId"];
+    if (params["defaultAlexaNotificationProtocolVersion"] !== undefined)
+    data["DefaultAlexaNotificationProtocolVersion"] = params["defaultAlexaNotificationProtocolVersion"];
+    if (params["deliveryCallbackUrl"] !== undefined)
+    data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["deliveryCallbackEnabled"] !== undefined)
+    data["DeliveryCallbackEnabled"] = serialize.bool(params["deliveryCallbackEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -748,10 +780,14 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

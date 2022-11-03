@@ -89,12 +89,18 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+        if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+
+    
 
     const headers: any = {};
 

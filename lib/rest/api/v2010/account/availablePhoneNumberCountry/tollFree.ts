@@ -382,27 +382,48 @@ export function TollFreeListInstance(version: V2010, accountSid: string, country
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
-    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
-    if (params["smsEnabled"] !== undefined) data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
-    if (params["mmsEnabled"] !== undefined) data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
-    if (params["voiceEnabled"] !== undefined) data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
-    if (params["excludeAllAddressRequired"] !== undefined) data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
-    if (params["excludeLocalAddressRequired"] !== undefined) data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
-    if (params["excludeForeignAddressRequired"] !== undefined) data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
-    if (params["beta"] !== undefined) data["Beta"] = serialize.bool(params["beta"]);
-    if (params["nearNumber"] !== undefined) data["NearNumber"] = params["nearNumber"];
-    if (params["nearLatLong"] !== undefined) data["NearLatLong"] = params["nearLatLong"];
-    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
-    if (params["inPostalCode"] !== undefined) data["InPostalCode"] = params["inPostalCode"];
-    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
-    if (params["inRateCenter"] !== undefined) data["InRateCenter"] = params["inRateCenter"];
-    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
-    if (params["inLocality"] !== undefined) data["InLocality"] = params["inLocality"];
-    if (params["faxEnabled"] !== undefined) data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["areaCode"] !== undefined)
+    data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined)
+    data["Contains"] = params["contains"];
+    if (params["smsEnabled"] !== undefined)
+    data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+    if (params["mmsEnabled"] !== undefined)
+    data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+    if (params["voiceEnabled"] !== undefined)
+    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    if (params["excludeAllAddressRequired"] !== undefined)
+    data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
+    if (params["excludeLocalAddressRequired"] !== undefined)
+    data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
+    if (params["excludeForeignAddressRequired"] !== undefined)
+    data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
+    if (params["beta"] !== undefined)
+    data["Beta"] = serialize.bool(params["beta"]);
+    if (params["nearNumber"] !== undefined)
+    data["NearNumber"] = params["nearNumber"];
+    if (params["nearLatLong"] !== undefined)
+    data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined)
+    data["Distance"] = params["distance"];
+    if (params["inPostalCode"] !== undefined)
+    data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined)
+    data["InRegion"] = params["inRegion"];
+    if (params["inRateCenter"] !== undefined)
+    data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined)
+    data["InLata"] = params["inLata"];
+    if (params["inLocality"] !== undefined)
+    data["InLocality"] = params["inLocality"];
+    if (params["faxEnabled"] !== undefined)
+    data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -84,10 +84,14 @@ export class UsageContextImpl implements UsageContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["end"] !== undefined) data["End"] = params["end"];
-    if (params["start"] !== undefined) data["Start"] = params["start"];
+        if (params["end"] !== undefined)
+    data["End"] = params["end"];
+    if (params["start"] !== undefined)
+    data["Start"] = params["start"];
+
+    
 
     const headers: any = {};
 

@@ -513,20 +513,34 @@ export function EventListInstance(version: V1, workspaceSid: string): EventListI
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["eventType"] !== undefined) data["EventType"] = params["eventType"];
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
-    if (params["reservationSid"] !== undefined) data["ReservationSid"] = params["reservationSid"];
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
-    if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["taskSid"] !== undefined) data["TaskSid"] = params["taskSid"];
-    if (params["workerSid"] !== undefined) data["WorkerSid"] = params["workerSid"];
-    if (params["workflowSid"] !== undefined) data["WorkflowSid"] = params["workflowSid"];
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
-    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["eventType"] !== undefined)
+    data["EventType"] = params["eventType"];
+    if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
+    if (params["reservationSid"] !== undefined)
+    data["ReservationSid"] = params["reservationSid"];
+    if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["taskQueueSid"] !== undefined)
+    data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskSid"] !== undefined)
+    data["TaskSid"] = params["taskSid"];
+    if (params["workerSid"] !== undefined)
+    data["WorkerSid"] = params["workerSid"];
+    if (params["workflowSid"] !== undefined)
+    data["WorkflowSid"] = params["workflowSid"];
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+    if (params["sid"] !== undefined)
+    data["Sid"] = params["sid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

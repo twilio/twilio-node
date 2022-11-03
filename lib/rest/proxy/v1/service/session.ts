@@ -222,11 +222,16 @@ export class SessionContextImpl implements SessionContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateExpiry"] !== undefined) data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["dateExpiry"] !== undefined)
+    data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -625,14 +630,22 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["dateExpiry"] !== undefined) data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["participants"] !== undefined) data["Participants"] = serialize.map(params["participants"], ((e) => e));
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["dateExpiry"] !== undefined)
+    data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["mode"] !== undefined)
+    data["Mode"] = params["mode"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["participants"] !== undefined)
+    data["Participants"] = serialize.map(params["participants"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -657,9 +670,12 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

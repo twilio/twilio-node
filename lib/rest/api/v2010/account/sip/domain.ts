@@ -260,21 +260,36 @@ export class DomainContextImpl implements DomainContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceStatusCallbackMethod"] !== undefined) data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
-    if (params["voiceStatusCallbackUrl"] !== undefined) data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["sipRegistration"] !== undefined) data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
-    if (params["domainName"] !== undefined) data["DomainName"] = params["domainName"];
-    if (params["emergencyCallingEnabled"] !== undefined) data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
-    if (params["secure"] !== undefined) data["Secure"] = serialize.bool(params["secure"]);
-    if (params["byocTrunkSid"] !== undefined) data["ByocTrunkSid"] = params["byocTrunkSid"];
-    if (params["emergencyCallerSid"] !== undefined) data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceStatusCallbackMethod"] !== undefined)
+    data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+    if (params["voiceStatusCallbackUrl"] !== undefined)
+    data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["sipRegistration"] !== undefined)
+    data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+    if (params["domainName"] !== undefined)
+    data["DomainName"] = params["domainName"];
+    if (params["emergencyCallingEnabled"] !== undefined)
+    data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
+    if (params["secure"] !== undefined)
+    data["Secure"] = serialize.bool(params["secure"]);
+    if (params["byocTrunkSid"] !== undefined)
+    data["ByocTrunkSid"] = params["byocTrunkSid"];
+    if (params["emergencyCallerSid"] !== undefined)
+    data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -717,21 +732,36 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
       throw new Error('Required parameter "params[\'domainName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["DomainName"] = params["domainName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["voiceStatusCallbackUrl"] !== undefined) data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
-    if (params["voiceStatusCallbackMethod"] !== undefined) data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
-    if (params["sipRegistration"] !== undefined) data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
-    if (params["emergencyCallingEnabled"] !== undefined) data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
-    if (params["secure"] !== undefined) data["Secure"] = serialize.bool(params["secure"]);
-    if (params["byocTrunkSid"] !== undefined) data["ByocTrunkSid"] = params["byocTrunkSid"];
-    if (params["emergencyCallerSid"] !== undefined) data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceStatusCallbackUrl"] !== undefined)
+    data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+    if (params["voiceStatusCallbackMethod"] !== undefined)
+    data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+    if (params["sipRegistration"] !== undefined)
+    data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+    if (params["emergencyCallingEnabled"] !== undefined)
+    data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
+    if (params["secure"] !== undefined)
+    data["Secure"] = serialize.bool(params["secure"]);
+    if (params["byocTrunkSid"] !== undefined)
+    data["ByocTrunkSid"] = params["byocTrunkSid"];
+    if (params["emergencyCallerSid"] !== undefined)
+    data["EmergencyCallerSid"] = params["emergencyCallerSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -756,9 +786,12 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

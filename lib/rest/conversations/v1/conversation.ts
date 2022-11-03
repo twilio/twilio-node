@@ -244,8 +244,10 @@ export class ConversationContextImpl implements ConversationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
@@ -282,17 +284,28 @@ export class ConversationContextImpl implements ConversationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
-    if (params["timers.inactive"] !== undefined) data["Timers.Inactive"] = params["timers.inactive"];
-    if (params["timers.closed"] !== undefined) data["Timers.Closed"] = params["timers.closed"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
+    if (params["timers.inactive"] !== undefined)
+    data["Timers.Inactive"] = params["timers.inactive"];
+    if (params["timers.closed"] !== undefined)
+    data["Timers.Closed"] = params["timers.closed"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -694,17 +707,28 @@ export function ConversationListInstance(version: V1): ConversationListInstance 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
-    if (params["timers.inactive"] !== undefined) data["Timers.Inactive"] = params["timers.inactive"];
-    if (params["timers.closed"] !== undefined) data["Timers.Closed"] = params["timers.closed"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
+    if (params["timers.inactive"] !== undefined)
+    data["Timers.Inactive"] = params["timers.inactive"];
+    if (params["timers.closed"] !== undefined)
+    data["Timers.Closed"] = params["timers.closed"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -730,9 +754,12 @@ export function ConversationListInstance(version: V1): ConversationListInstance 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

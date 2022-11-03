@@ -203,10 +203,14 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["configuration"] !== undefined) data["Configuration"] = serialize.object(params["configuration"]);
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    
+        if (params["configuration"] !== undefined)
+    data["Configuration"] = serialize.object(params["configuration"]);
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -558,12 +562,18 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
       throw new Error('Required parameter "params[\'acceptTermsOfService\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["AvailableAddOnSid"] = params["availableAddOnSid"];
+    
     data["AcceptTermsOfService"] = serialize.bool(params["acceptTermsOfService"]);
-    if (params["configuration"] !== undefined) data["Configuration"] = serialize.object(params["configuration"]);
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
+    if (params["configuration"] !== undefined)
+    data["Configuration"] = serialize.object(params["configuration"]);
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -588,9 +598,12 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -96,13 +96,20 @@ export function VerificationCheckListInstance(version: V2, serviceSid: string): 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["code"] !== undefined) data["Code"] = params["code"];
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["verificationSid"] !== undefined) data["VerificationSid"] = params["verificationSid"];
-    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
-    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
+    
+        if (params["code"] !== undefined)
+    data["Code"] = params["code"];
+    if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["verificationSid"] !== undefined)
+    data["VerificationSid"] = params["verificationSid"];
+    if (params["amount"] !== undefined)
+    data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined)
+    data["Payee"] = params["payee"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

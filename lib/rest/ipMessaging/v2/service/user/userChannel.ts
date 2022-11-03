@@ -188,11 +188,16 @@ export class UserChannelContextImpl implements UserChannelContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["notificationLevel"] !== undefined) data["NotificationLevel"] = params["notificationLevel"];
-    if (params["lastConsumedMessageIndex"] !== undefined) data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
-    if (params["lastConsumptionTimestamp"] !== undefined) data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+    
+        if (params["notificationLevel"] !== undefined)
+    data["NotificationLevel"] = params["notificationLevel"];
+    if (params["lastConsumedMessageIndex"] !== undefined)
+    data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
+    if (params["lastConsumptionTimestamp"] !== undefined)
+    data["LastConsumptionTimestamp"] = serialize.iso8601DateTime(params["lastConsumptionTimestamp"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -496,9 +501,12 @@ export function UserChannelListInstance(version: V2, serviceSid: string, userSid
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -204,13 +204,20 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
-    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["sipUrl"] !== undefined) data["SipUrl"] = params["sipUrl"];
+    
+        if (params["weight"] !== undefined)
+    data["Weight"] = params["weight"];
+    if (params["priority"] !== undefined)
+    data["Priority"] = params["priority"];
+    if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["sipUrl"] !== undefined)
+    data["SipUrl"] = params["sipUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -575,13 +582,20 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
       throw new Error('Required parameter "params[\'sipUrl\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Weight"] = params["weight"];
+    
     data["Priority"] = params["priority"];
+    
     data["Enabled"] = serialize.bool(params["enabled"]);
+    
     data["FriendlyName"] = params["friendlyName"];
+    
     data["SipUrl"] = params["sipUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -606,9 +620,12 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

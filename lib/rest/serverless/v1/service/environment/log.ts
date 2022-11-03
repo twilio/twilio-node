@@ -431,12 +431,18 @@ export function LogListInstance(version: V1, serviceSid: string, environmentSid:
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["functionSid"] !== undefined) data["FunctionSid"] = params["functionSid"];
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["functionSid"] !== undefined)
+    data["FunctionSid"] = params["functionSid"];
+    if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

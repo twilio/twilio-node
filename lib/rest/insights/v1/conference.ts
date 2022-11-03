@@ -557,19 +557,32 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["conferenceSid"] !== undefined) data["ConferenceSid"] = params["conferenceSid"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["createdAfter"] !== undefined) data["CreatedAfter"] = params["createdAfter"];
-    if (params["createdBefore"] !== undefined) data["CreatedBefore"] = params["createdBefore"];
-    if (params["mixerRegion"] !== undefined) data["MixerRegion"] = params["mixerRegion"];
-    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
-    if (params["subaccount"] !== undefined) data["Subaccount"] = params["subaccount"];
-    if (params["detectedIssues"] !== undefined) data["DetectedIssues"] = params["detectedIssues"];
-    if (params["endReason"] !== undefined) data["EndReason"] = params["endReason"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["conferenceSid"] !== undefined)
+    data["ConferenceSid"] = params["conferenceSid"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["createdAfter"] !== undefined)
+    data["CreatedAfter"] = params["createdAfter"];
+    if (params["createdBefore"] !== undefined)
+    data["CreatedBefore"] = params["createdBefore"];
+    if (params["mixerRegion"] !== undefined)
+    data["MixerRegion"] = params["mixerRegion"];
+    if (params["tags"] !== undefined)
+    data["Tags"] = params["tags"];
+    if (params["subaccount"] !== undefined)
+    data["Subaccount"] = params["subaccount"];
+    if (params["detectedIssues"] !== undefined)
+    data["DetectedIssues"] = params["detectedIssues"];
+    if (params["endReason"] !== undefined)
+    data["EndReason"] = params["endReason"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

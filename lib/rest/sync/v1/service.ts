@@ -243,15 +243,24 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["reachabilityWebhooksEnabled"] !== undefined) data["ReachabilityWebhooksEnabled"] = serialize.bool(params["reachabilityWebhooksEnabled"]);
-    if (params["aclEnabled"] !== undefined) data["AclEnabled"] = serialize.bool(params["aclEnabled"]);
-    if (params["reachabilityDebouncingEnabled"] !== undefined) data["ReachabilityDebouncingEnabled"] = serialize.bool(params["reachabilityDebouncingEnabled"]);
-    if (params["reachabilityDebouncingWindow"] !== undefined) data["ReachabilityDebouncingWindow"] = params["reachabilityDebouncingWindow"];
-    if (params["webhooksFromRestEnabled"] !== undefined) data["WebhooksFromRestEnabled"] = serialize.bool(params["webhooksFromRestEnabled"]);
+    
+        if (params["webhookUrl"] !== undefined)
+    data["WebhookUrl"] = params["webhookUrl"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["reachabilityWebhooksEnabled"] !== undefined)
+    data["ReachabilityWebhooksEnabled"] = serialize.bool(params["reachabilityWebhooksEnabled"]);
+    if (params["aclEnabled"] !== undefined)
+    data["AclEnabled"] = serialize.bool(params["aclEnabled"]);
+    if (params["reachabilityDebouncingEnabled"] !== undefined)
+    data["ReachabilityDebouncingEnabled"] = serialize.bool(params["reachabilityDebouncingEnabled"]);
+    if (params["reachabilityDebouncingWindow"] !== undefined)
+    data["ReachabilityDebouncingWindow"] = params["reachabilityDebouncingWindow"];
+    if (params["webhooksFromRestEnabled"] !== undefined)
+    data["WebhooksFromRestEnabled"] = serialize.bool(params["webhooksFromRestEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -655,15 +664,24 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
-    if (params["reachabilityWebhooksEnabled"] !== undefined) data["ReachabilityWebhooksEnabled"] = serialize.bool(params["reachabilityWebhooksEnabled"]);
-    if (params["aclEnabled"] !== undefined) data["AclEnabled"] = serialize.bool(params["aclEnabled"]);
-    if (params["reachabilityDebouncingEnabled"] !== undefined) data["ReachabilityDebouncingEnabled"] = serialize.bool(params["reachabilityDebouncingEnabled"]);
-    if (params["reachabilityDebouncingWindow"] !== undefined) data["ReachabilityDebouncingWindow"] = params["reachabilityDebouncingWindow"];
-    if (params["webhooksFromRestEnabled"] !== undefined) data["WebhooksFromRestEnabled"] = serialize.bool(params["webhooksFromRestEnabled"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["webhookUrl"] !== undefined)
+    data["WebhookUrl"] = params["webhookUrl"];
+    if (params["reachabilityWebhooksEnabled"] !== undefined)
+    data["ReachabilityWebhooksEnabled"] = serialize.bool(params["reachabilityWebhooksEnabled"]);
+    if (params["aclEnabled"] !== undefined)
+    data["AclEnabled"] = serialize.bool(params["aclEnabled"]);
+    if (params["reachabilityDebouncingEnabled"] !== undefined)
+    data["ReachabilityDebouncingEnabled"] = serialize.bool(params["reachabilityDebouncingEnabled"]);
+    if (params["reachabilityDebouncingWindow"] !== undefined)
+    data["ReachabilityDebouncingWindow"] = params["reachabilityDebouncingWindow"];
+    if (params["webhooksFromRestEnabled"] !== undefined)
+    data["WebhooksFromRestEnabled"] = serialize.bool(params["webhooksFromRestEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -688,9 +706,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

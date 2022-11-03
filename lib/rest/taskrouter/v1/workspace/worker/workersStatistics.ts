@@ -94,15 +94,24 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["taskQueueName"] !== undefined) data["TaskQueueName"] = params["taskQueueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+        if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
+    if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["taskQueueSid"] !== undefined)
+    data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskQueueName"] !== undefined)
+    data["TaskQueueName"] = params["taskQueueName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+
+    
 
     const headers: any = {};
 

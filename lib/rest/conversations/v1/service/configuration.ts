@@ -114,12 +114,18 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["defaultConversationCreatorRoleSid"] !== undefined) data["DefaultConversationCreatorRoleSid"] = params["defaultConversationCreatorRoleSid"];
-    if (params["defaultConversationRoleSid"] !== undefined) data["DefaultConversationRoleSid"] = params["defaultConversationRoleSid"];
-    if (params["defaultChatServiceRoleSid"] !== undefined) data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
-    if (params["reachabilityEnabled"] !== undefined) data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+    
+        if (params["defaultConversationCreatorRoleSid"] !== undefined)
+    data["DefaultConversationCreatorRoleSid"] = params["defaultConversationCreatorRoleSid"];
+    if (params["defaultConversationRoleSid"] !== undefined)
+    data["DefaultConversationRoleSid"] = params["defaultConversationRoleSid"];
+    if (params["defaultChatServiceRoleSid"] !== undefined)
+    data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
+    if (params["reachabilityEnabled"] !== undefined)
+    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

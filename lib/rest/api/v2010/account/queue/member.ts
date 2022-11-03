@@ -153,10 +153,14 @@ export class MemberContextImpl implements MemberContext {
       throw new Error('Required parameter "params[\'url\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Url"] = params["url"];
-    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["method"] !== undefined)
+    data["Method"] = params["method"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -438,9 +442,12 @@ export function MemberListInstance(version: V2010, accountSid: string, queueSid:
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

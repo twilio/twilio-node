@@ -198,8 +198,10 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
@@ -237,9 +239,12 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Data"] = serialize.object(params["data"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -555,9 +560,12 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
       throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Data"] = serialize.object(params["data"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -582,12 +590,18 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["bounds"] !== undefined) data["Bounds"] = params["bounds"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["bounds"] !== undefined)
+    data["Bounds"] = params["bounds"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

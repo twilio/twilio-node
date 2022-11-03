@@ -193,10 +193,14 @@ export class BucketContextImpl implements BucketContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["max"] !== undefined) data["Max"] = params["max"];
-    if (params["interval"] !== undefined) data["Interval"] = params["interval"];
+    
+        if (params["max"] !== undefined)
+    data["Max"] = params["max"];
+    if (params["interval"] !== undefined)
+    data["Interval"] = params["interval"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -536,10 +540,14 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
       throw new Error('Required parameter "params[\'interval\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Max"] = params["max"];
+    
     data["Interval"] = params["interval"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -564,9 +572,12 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

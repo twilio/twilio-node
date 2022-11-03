@@ -81,8 +81,10 @@ export class BrandsInformationContextImpl implements BrandsInformationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["ifNoneMatch"] !== undefined) headers["If-None-Match"] = params["ifNoneMatch"];

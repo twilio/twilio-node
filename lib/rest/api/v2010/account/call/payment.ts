@@ -136,12 +136,18 @@ export class PaymentContextImpl implements PaymentContext {
       throw new Error('Required parameter "params[\'statusCallback\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["IdempotencyKey"] = params["idempotencyKey"];
+    
     data["StatusCallback"] = params["statusCallback"];
-    if (params["capture"] !== undefined) data["Capture"] = params["capture"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["capture"] !== undefined)
+    data["Capture"] = params["capture"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -326,24 +332,42 @@ export function PaymentListInstance(version: V2010, accountSid: string, callSid:
       throw new Error('Required parameter "params[\'statusCallback\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["IdempotencyKey"] = params["idempotencyKey"];
+    
     data["StatusCallback"] = params["statusCallback"];
-    if (params["bankAccountType"] !== undefined) data["BankAccountType"] = params["bankAccountType"];
-    if (params["chargeAmount"] !== undefined) data["ChargeAmount"] = params["chargeAmount"];
-    if (params["currency"] !== undefined) data["Currency"] = params["currency"];
-    if (params["description"] !== undefined) data["Description"] = params["description"];
-    if (params["input"] !== undefined) data["Input"] = params["input"];
-    if (params["minPostalCodeLength"] !== undefined) data["MinPostalCodeLength"] = params["minPostalCodeLength"];
-    if (params["parameter"] !== undefined) data["Parameter"] = serialize.object(params["parameter"]);
-    if (params["paymentConnector"] !== undefined) data["PaymentConnector"] = params["paymentConnector"];
-    if (params["paymentMethod"] !== undefined) data["PaymentMethod"] = params["paymentMethod"];
-    if (params["postalCode"] !== undefined) data["PostalCode"] = serialize.bool(params["postalCode"]);
-    if (params["securityCode"] !== undefined) data["SecurityCode"] = serialize.bool(params["securityCode"]);
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
-    if (params["tokenType"] !== undefined) data["TokenType"] = params["tokenType"];
-    if (params["validCardTypes"] !== undefined) data["ValidCardTypes"] = params["validCardTypes"];
+    if (params["bankAccountType"] !== undefined)
+    data["BankAccountType"] = params["bankAccountType"];
+    if (params["chargeAmount"] !== undefined)
+    data["ChargeAmount"] = params["chargeAmount"];
+    if (params["currency"] !== undefined)
+    data["Currency"] = params["currency"];
+    if (params["description"] !== undefined)
+    data["Description"] = params["description"];
+    if (params["input"] !== undefined)
+    data["Input"] = params["input"];
+    if (params["minPostalCodeLength"] !== undefined)
+    data["MinPostalCodeLength"] = params["minPostalCodeLength"];
+    if (params["parameter"] !== undefined)
+    data["Parameter"] = serialize.object(params["parameter"]);
+    if (params["paymentConnector"] !== undefined)
+    data["PaymentConnector"] = params["paymentConnector"];
+    if (params["paymentMethod"] !== undefined)
+    data["PaymentMethod"] = params["paymentMethod"];
+    if (params["postalCode"] !== undefined)
+    data["PostalCode"] = serialize.bool(params["postalCode"]);
+    if (params["securityCode"] !== undefined)
+    data["SecurityCode"] = serialize.bool(params["securityCode"]);
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
+    if (params["tokenType"] !== undefined)
+    data["TokenType"] = params["tokenType"];
+    if (params["validCardTypes"] !== undefined)
+    data["ValidCardTypes"] = params["validCardTypes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

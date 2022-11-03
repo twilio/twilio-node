@@ -232,12 +232,18 @@ export class TaskContextImpl implements TaskContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["actions"] !== undefined) data["Actions"] = serialize.object(params["actions"]);
-    if (params["actionsUrl"] !== undefined) data["ActionsUrl"] = params["actionsUrl"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["actions"] !== undefined)
+    data["Actions"] = serialize.object(params["actions"]);
+    if (params["actionsUrl"] !== undefined)
+    data["ActionsUrl"] = params["actionsUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -607,12 +613,18 @@ export function TaskListInstance(version: V1, assistantSid: string): TaskListIns
       throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["actions"] !== undefined) data["Actions"] = serialize.object(params["actions"]);
-    if (params["actionsUrl"] !== undefined) data["ActionsUrl"] = params["actionsUrl"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["actions"] !== undefined)
+    data["Actions"] = serialize.object(params["actions"]);
+    if (params["actionsUrl"] !== undefined)
+    data["ActionsUrl"] = params["actionsUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -637,9 +649,12 @@ export function TaskListInstance(version: V1, assistantSid: string): TaskListIns
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

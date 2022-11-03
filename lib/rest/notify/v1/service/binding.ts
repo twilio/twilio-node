@@ -528,15 +528,24 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
       throw new Error('Required parameter "params[\'address\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Identity"] = params["identity"];
+    
     data["BindingType"] = params["bindingType"];
+    
     data["Address"] = params["address"];
-    if (params["tag"] !== undefined) data["Tag"] = serialize.map(params["tag"], ((e) => e));
-    if (params["notificationProtocolVersion"] !== undefined) data["NotificationProtocolVersion"] = params["notificationProtocolVersion"];
-    if (params["credentialSid"] !== undefined) data["CredentialSid"] = params["credentialSid"];
-    if (params["endpoint"] !== undefined) data["Endpoint"] = params["endpoint"];
+    if (params["tag"] !== undefined)
+    data["Tag"] = serialize.map(params["tag"], ((e) => e));
+    if (params["notificationProtocolVersion"] !== undefined)
+    data["NotificationProtocolVersion"] = params["notificationProtocolVersion"];
+    if (params["credentialSid"] !== undefined)
+    data["CredentialSid"] = params["credentialSid"];
+    if (params["endpoint"] !== undefined)
+    data["Endpoint"] = params["endpoint"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -561,13 +570,20 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["startDate"] !== undefined) data["StartDate"] = serialize.iso8601Date(params["startDate"]);
-    if (params["endDate"] !== undefined) data["EndDate"] = serialize.iso8601Date(params["endDate"]);
-    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
-    if (params["tag"] !== undefined) data["Tag"] = serialize.map(params["tag"], ((e) => e));
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["startDate"] !== undefined)
+    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    if (params["identity"] !== undefined)
+    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["tag"] !== undefined)
+    data["Tag"] = serialize.map(params["tag"], ((e) => e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

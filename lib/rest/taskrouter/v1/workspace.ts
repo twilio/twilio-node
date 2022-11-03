@@ -297,15 +297,24 @@ export class WorkspaceContextImpl implements WorkspaceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["defaultActivitySid"] !== undefined) data["DefaultActivitySid"] = params["defaultActivitySid"];
-    if (params["eventCallbackUrl"] !== undefined) data["EventCallbackUrl"] = params["eventCallbackUrl"];
-    if (params["eventsFilter"] !== undefined) data["EventsFilter"] = params["eventsFilter"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["multiTaskEnabled"] !== undefined) data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
-    if (params["timeoutActivitySid"] !== undefined) data["TimeoutActivitySid"] = params["timeoutActivitySid"];
-    if (params["prioritizeQueueOrder"] !== undefined) data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
+    
+        if (params["defaultActivitySid"] !== undefined)
+    data["DefaultActivitySid"] = params["defaultActivitySid"];
+    if (params["eventCallbackUrl"] !== undefined)
+    data["EventCallbackUrl"] = params["eventCallbackUrl"];
+    if (params["eventsFilter"] !== undefined)
+    data["EventsFilter"] = params["eventsFilter"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["multiTaskEnabled"] !== undefined)
+    data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+    if (params["timeoutActivitySid"] !== undefined)
+    data["TimeoutActivitySid"] = params["timeoutActivitySid"];
+    if (params["prioritizeQueueOrder"] !== undefined)
+    data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -748,14 +757,22 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["eventCallbackUrl"] !== undefined) data["EventCallbackUrl"] = params["eventCallbackUrl"];
-    if (params["eventsFilter"] !== undefined) data["EventsFilter"] = params["eventsFilter"];
-    if (params["multiTaskEnabled"] !== undefined) data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
-    if (params["template"] !== undefined) data["Template"] = params["template"];
-    if (params["prioritizeQueueOrder"] !== undefined) data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
+    if (params["eventCallbackUrl"] !== undefined)
+    data["EventCallbackUrl"] = params["eventCallbackUrl"];
+    if (params["eventsFilter"] !== undefined)
+    data["EventsFilter"] = params["eventsFilter"];
+    if (params["multiTaskEnabled"] !== undefined)
+    data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+    if (params["template"] !== undefined)
+    data["Template"] = params["template"];
+    if (params["prioritizeQueueOrder"] !== undefined)
+    data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -780,10 +797,14 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

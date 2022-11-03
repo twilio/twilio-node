@@ -84,10 +84,14 @@ export function ExternalCampaignListInstance(version: V1): ExternalCampaignListI
       throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["CampaignId"] = params["campaignId"];
+    
     data["MessagingServiceSid"] = params["messagingServiceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

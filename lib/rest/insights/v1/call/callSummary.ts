@@ -88,9 +88,12 @@ export class CallSummaryContextImpl implements CallSummaryContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["processingState"] !== undefined) data["ProcessingState"] = params["processingState"];
+        if (params["processingState"] !== undefined)
+    data["ProcessingState"] = params["processingState"];
+
+    
 
     const headers: any = {};
 

@@ -317,62 +317,118 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["defaultServiceRoleSid"] !== undefined) data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
-    if (params["defaultChannelRoleSid"] !== undefined) data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
-    if (params["defaultChannelCreatorRoleSid"] !== undefined) data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
-    if (params["readStatusEnabled"] !== undefined) data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
-    if (params["reachabilityEnabled"] !== undefined) data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
-    if (params["typingIndicatorTimeout"] !== undefined) data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
-    if (params["consumptionReportInterval"] !== undefined) data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
-    if (params["notifications.newMessage.enabled"] !== undefined) data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
-    if (params["notifications.newMessage.template"] !== undefined) data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
-    if (params["notifications.addedToChannel.enabled"] !== undefined) data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
-    if (params["notifications.addedToChannel.template"] !== undefined) data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
-    if (params["notifications.removedFromChannel.enabled"] !== undefined) data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
-    if (params["notifications.removedFromChannel.template"] !== undefined) data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
-    if (params["notifications.invitedToChannel.enabled"] !== undefined) data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
-    if (params["notifications.invitedToChannel.template"] !== undefined) data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
-    if (params["preWebhookUrl"] !== undefined) data["PreWebhookUrl"] = params["preWebhookUrl"];
-    if (params["postWebhookUrl"] !== undefined) data["PostWebhookUrl"] = params["postWebhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
-    if (params["webhookFilters"] !== undefined) data["WebhookFilters"] = serialize.map(params["webhookFilters"], ((e) => e));
-    if (params["webhooks.onMessageSend.url"] !== undefined) data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
-    if (params["webhooks.onMessageSend.method"] !== undefined) data["Webhooks.OnMessageSend.Method"] = params["webhooks.onMessageSend.method"];
-    if (params["webhooks.onMessageUpdate.url"] !== undefined) data["Webhooks.OnMessageUpdate.Url"] = params["webhooks.onMessageUpdate.url"];
-    if (params["webhooks.onMessageUpdate.method"] !== undefined) data["Webhooks.OnMessageUpdate.Method"] = params["webhooks.onMessageUpdate.method"];
-    if (params["webhooks.onMessageRemove.url"] !== undefined) data["Webhooks.OnMessageRemove.Url"] = params["webhooks.onMessageRemove.url"];
-    if (params["webhooks.onMessageRemove.method"] !== undefined) data["Webhooks.OnMessageRemove.Method"] = params["webhooks.onMessageRemove.method"];
-    if (params["webhooks.onChannelAdd.url"] !== undefined) data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
-    if (params["webhooks.onChannelAdd.method"] !== undefined) data["Webhooks.OnChannelAdd.Method"] = params["webhooks.onChannelAdd.method"];
-    if (params["webhooks.onChannelDestroy.url"] !== undefined) data["Webhooks.OnChannelDestroy.Url"] = params["webhooks.onChannelDestroy.url"];
-    if (params["webhooks.onChannelDestroy.method"] !== undefined) data["Webhooks.OnChannelDestroy.Method"] = params["webhooks.onChannelDestroy.method"];
-    if (params["webhooks.onChannelUpdate.url"] !== undefined) data["Webhooks.OnChannelUpdate.Url"] = params["webhooks.onChannelUpdate.url"];
-    if (params["webhooks.onChannelUpdate.method"] !== undefined) data["Webhooks.OnChannelUpdate.Method"] = params["webhooks.onChannelUpdate.method"];
-    if (params["webhooks.onMemberAdd.url"] !== undefined) data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
-    if (params["webhooks.onMemberAdd.method"] !== undefined) data["Webhooks.OnMemberAdd.Method"] = params["webhooks.onMemberAdd.method"];
-    if (params["webhooks.onMemberRemove.url"] !== undefined) data["Webhooks.OnMemberRemove.Url"] = params["webhooks.onMemberRemove.url"];
-    if (params["webhooks.onMemberRemove.method"] !== undefined) data["Webhooks.OnMemberRemove.Method"] = params["webhooks.onMemberRemove.method"];
-    if (params["webhooks.onMessageSent.url"] !== undefined) data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
-    if (params["webhooks.onMessageSent.method"] !== undefined) data["Webhooks.OnMessageSent.Method"] = params["webhooks.onMessageSent.method"];
-    if (params["webhooks.onMessageUpdated.url"] !== undefined) data["Webhooks.OnMessageUpdated.Url"] = params["webhooks.onMessageUpdated.url"];
-    if (params["webhooks.onMessageUpdated.method"] !== undefined) data["Webhooks.OnMessageUpdated.Method"] = params["webhooks.onMessageUpdated.method"];
-    if (params["webhooks.onMessageRemoved.url"] !== undefined) data["Webhooks.OnMessageRemoved.Url"] = params["webhooks.onMessageRemoved.url"];
-    if (params["webhooks.onMessageRemoved.method"] !== undefined) data["Webhooks.OnMessageRemoved.Method"] = params["webhooks.onMessageRemoved.method"];
-    if (params["webhooks.onChannelAdded.url"] !== undefined) data["Webhooks.OnChannelAdded.Url"] = params["webhooks.onChannelAdded.url"];
-    if (params["webhooks.onChannelAdded.method"] !== undefined) data["Webhooks.OnChannelAdded.Method"] = params["webhooks.onChannelAdded.method"];
-    if (params["webhooks.onChannelDestroyed.url"] !== undefined) data["Webhooks.OnChannelDestroyed.Url"] = params["webhooks.onChannelDestroyed.url"];
-    if (params["webhooks.onChannelDestroyed.method"] !== undefined) data["Webhooks.OnChannelDestroyed.Method"] = params["webhooks.onChannelDestroyed.method"];
-    if (params["webhooks.onChannelUpdated.url"] !== undefined) data["Webhooks.OnChannelUpdated.Url"] = params["webhooks.onChannelUpdated.url"];
-    if (params["webhooks.onChannelUpdated.method"] !== undefined) data["Webhooks.OnChannelUpdated.Method"] = params["webhooks.onChannelUpdated.method"];
-    if (params["webhooks.onMemberAdded.url"] !== undefined) data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
-    if (params["webhooks.onMemberAdded.method"] !== undefined) data["Webhooks.OnMemberAdded.Method"] = params["webhooks.onMemberAdded.method"];
-    if (params["webhooks.onMemberRemoved.url"] !== undefined) data["Webhooks.OnMemberRemoved.Url"] = params["webhooks.onMemberRemoved.url"];
-    if (params["webhooks.onMemberRemoved.method"] !== undefined) data["Webhooks.OnMemberRemoved.Method"] = params["webhooks.onMemberRemoved.method"];
-    if (params["limits.channelMembers"] !== undefined) data["Limits.ChannelMembers"] = params["limits.channelMembers"];
-    if (params["limits.userChannels"] !== undefined) data["Limits.UserChannels"] = params["limits.userChannels"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["defaultServiceRoleSid"] !== undefined)
+    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+    if (params["defaultChannelRoleSid"] !== undefined)
+    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+    if (params["defaultChannelCreatorRoleSid"] !== undefined)
+    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
+    if (params["readStatusEnabled"] !== undefined)
+    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+    if (params["reachabilityEnabled"] !== undefined)
+    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+    if (params["typingIndicatorTimeout"] !== undefined)
+    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+    if (params["consumptionReportInterval"] !== undefined)
+    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+    if (params["notifications.newMessage.enabled"] !== undefined)
+    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
+    if (params["notifications.newMessage.template"] !== undefined)
+    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
+    if (params["notifications.addedToChannel.enabled"] !== undefined)
+    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
+    if (params["notifications.addedToChannel.template"] !== undefined)
+    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
+    if (params["notifications.removedFromChannel.enabled"] !== undefined)
+    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
+    if (params["notifications.removedFromChannel.template"] !== undefined)
+    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
+    if (params["notifications.invitedToChannel.enabled"] !== undefined)
+    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
+    if (params["notifications.invitedToChannel.template"] !== undefined)
+    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
+    if (params["preWebhookUrl"] !== undefined)
+    data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["postWebhookUrl"] !== undefined)
+    data["PostWebhookUrl"] = params["postWebhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+    if (params["webhookFilters"] !== undefined)
+    data["WebhookFilters"] = serialize.map(params["webhookFilters"], ((e) => e));
+    if (params["webhooks.onMessageSend.url"] !== undefined)
+    data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
+    if (params["webhooks.onMessageSend.method"] !== undefined)
+    data["Webhooks.OnMessageSend.Method"] = params["webhooks.onMessageSend.method"];
+    if (params["webhooks.onMessageUpdate.url"] !== undefined)
+    data["Webhooks.OnMessageUpdate.Url"] = params["webhooks.onMessageUpdate.url"];
+    if (params["webhooks.onMessageUpdate.method"] !== undefined)
+    data["Webhooks.OnMessageUpdate.Method"] = params["webhooks.onMessageUpdate.method"];
+    if (params["webhooks.onMessageRemove.url"] !== undefined)
+    data["Webhooks.OnMessageRemove.Url"] = params["webhooks.onMessageRemove.url"];
+    if (params["webhooks.onMessageRemove.method"] !== undefined)
+    data["Webhooks.OnMessageRemove.Method"] = params["webhooks.onMessageRemove.method"];
+    if (params["webhooks.onChannelAdd.url"] !== undefined)
+    data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
+    if (params["webhooks.onChannelAdd.method"] !== undefined)
+    data["Webhooks.OnChannelAdd.Method"] = params["webhooks.onChannelAdd.method"];
+    if (params["webhooks.onChannelDestroy.url"] !== undefined)
+    data["Webhooks.OnChannelDestroy.Url"] = params["webhooks.onChannelDestroy.url"];
+    if (params["webhooks.onChannelDestroy.method"] !== undefined)
+    data["Webhooks.OnChannelDestroy.Method"] = params["webhooks.onChannelDestroy.method"];
+    if (params["webhooks.onChannelUpdate.url"] !== undefined)
+    data["Webhooks.OnChannelUpdate.Url"] = params["webhooks.onChannelUpdate.url"];
+    if (params["webhooks.onChannelUpdate.method"] !== undefined)
+    data["Webhooks.OnChannelUpdate.Method"] = params["webhooks.onChannelUpdate.method"];
+    if (params["webhooks.onMemberAdd.url"] !== undefined)
+    data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
+    if (params["webhooks.onMemberAdd.method"] !== undefined)
+    data["Webhooks.OnMemberAdd.Method"] = params["webhooks.onMemberAdd.method"];
+    if (params["webhooks.onMemberRemove.url"] !== undefined)
+    data["Webhooks.OnMemberRemove.Url"] = params["webhooks.onMemberRemove.url"];
+    if (params["webhooks.onMemberRemove.method"] !== undefined)
+    data["Webhooks.OnMemberRemove.Method"] = params["webhooks.onMemberRemove.method"];
+    if (params["webhooks.onMessageSent.url"] !== undefined)
+    data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
+    if (params["webhooks.onMessageSent.method"] !== undefined)
+    data["Webhooks.OnMessageSent.Method"] = params["webhooks.onMessageSent.method"];
+    if (params["webhooks.onMessageUpdated.url"] !== undefined)
+    data["Webhooks.OnMessageUpdated.Url"] = params["webhooks.onMessageUpdated.url"];
+    if (params["webhooks.onMessageUpdated.method"] !== undefined)
+    data["Webhooks.OnMessageUpdated.Method"] = params["webhooks.onMessageUpdated.method"];
+    if (params["webhooks.onMessageRemoved.url"] !== undefined)
+    data["Webhooks.OnMessageRemoved.Url"] = params["webhooks.onMessageRemoved.url"];
+    if (params["webhooks.onMessageRemoved.method"] !== undefined)
+    data["Webhooks.OnMessageRemoved.Method"] = params["webhooks.onMessageRemoved.method"];
+    if (params["webhooks.onChannelAdded.url"] !== undefined)
+    data["Webhooks.OnChannelAdded.Url"] = params["webhooks.onChannelAdded.url"];
+    if (params["webhooks.onChannelAdded.method"] !== undefined)
+    data["Webhooks.OnChannelAdded.Method"] = params["webhooks.onChannelAdded.method"];
+    if (params["webhooks.onChannelDestroyed.url"] !== undefined)
+    data["Webhooks.OnChannelDestroyed.Url"] = params["webhooks.onChannelDestroyed.url"];
+    if (params["webhooks.onChannelDestroyed.method"] !== undefined)
+    data["Webhooks.OnChannelDestroyed.Method"] = params["webhooks.onChannelDestroyed.method"];
+    if (params["webhooks.onChannelUpdated.url"] !== undefined)
+    data["Webhooks.OnChannelUpdated.Url"] = params["webhooks.onChannelUpdated.url"];
+    if (params["webhooks.onChannelUpdated.method"] !== undefined)
+    data["Webhooks.OnChannelUpdated.Method"] = params["webhooks.onChannelUpdated.method"];
+    if (params["webhooks.onMemberAdded.url"] !== undefined)
+    data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
+    if (params["webhooks.onMemberAdded.method"] !== undefined)
+    data["Webhooks.OnMemberAdded.Method"] = params["webhooks.onMemberAdded.method"];
+    if (params["webhooks.onMemberRemoved.url"] !== undefined)
+    data["Webhooks.OnMemberRemoved.Url"] = params["webhooks.onMemberRemoved.url"];
+    if (params["webhooks.onMemberRemoved.method"] !== undefined)
+    data["Webhooks.OnMemberRemoved.Method"] = params["webhooks.onMemberRemoved.method"];
+    if (params["limits.channelMembers"] !== undefined)
+    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+    if (params["limits.userChannels"] !== undefined)
+    data["Limits.UserChannels"] = params["limits.userChannels"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -811,9 +867,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -838,9 +897,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

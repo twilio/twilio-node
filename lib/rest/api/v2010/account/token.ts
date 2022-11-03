@@ -94,9 +94,12 @@ export function TokenListInstance(version: V2010, accountSid: string): TokenList
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    
+        if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

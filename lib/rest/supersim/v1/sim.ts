@@ -215,14 +215,22 @@ export class SimContextImpl implements SimContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["accountSid"] !== undefined) data["AccountSid"] = params["accountSid"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["fleet"] !== undefined)
+    data["Fleet"] = params["fleet"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["accountSid"] !== undefined)
+    data["AccountSid"] = params["accountSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -563,10 +571,14 @@ export function SimListInstance(version: V1): SimListInstance {
       throw new Error('Required parameter "params[\'registrationCode\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Iccid"] = params["iccid"];
+    
     data["RegistrationCode"] = params["registrationCode"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -591,12 +603,18 @@ export function SimListInstance(version: V1): SimListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
-    if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["fleet"] !== undefined)
+    data["Fleet"] = params["fleet"];
+    if (params["iccid"] !== undefined)
+    data["Iccid"] = params["iccid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

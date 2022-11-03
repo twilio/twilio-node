@@ -89,9 +89,12 @@ export function FeedbackListInstance(version: V2010, accountSid: string, message
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["outcome"] !== undefined) data["Outcome"] = params["outcome"];
+    
+        if (params["outcome"] !== undefined)
+    data["Outcome"] = params["outcome"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

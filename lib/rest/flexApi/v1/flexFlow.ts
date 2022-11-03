@@ -261,25 +261,44 @@ export class FlexFlowContextImpl implements FlexFlowContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["chatServiceSid"] !== undefined) data["ChatServiceSid"] = params["chatServiceSid"];
-    if (params["channelType"] !== undefined) data["ChannelType"] = params["channelType"];
-    if (params["contactIdentity"] !== undefined) data["ContactIdentity"] = params["contactIdentity"];
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
-    if (params["integrationType"] !== undefined) data["IntegrationType"] = params["integrationType"];
-    if (params["integration.flowSid"] !== undefined) data["Integration.FlowSid"] = params["integration.flowSid"];
-    if (params["integration.url"] !== undefined) data["Integration.Url"] = params["integration.url"];
-    if (params["integration.workspaceSid"] !== undefined) data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
-    if (params["integration.workflowSid"] !== undefined) data["Integration.WorkflowSid"] = params["integration.workflowSid"];
-    if (params["integration.channel"] !== undefined) data["Integration.Channel"] = params["integration.channel"];
-    if (params["integration.timeout"] !== undefined) data["Integration.Timeout"] = params["integration.timeout"];
-    if (params["integration.priority"] !== undefined) data["Integration.Priority"] = params["integration.priority"];
-    if (params["integration.creationOnMessage"] !== undefined) data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
-    if (params["longLived"] !== undefined) data["LongLived"] = serialize.bool(params["longLived"]);
-    if (params["janitorEnabled"] !== undefined) data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
-    if (params["integration.retryCount"] !== undefined) data["Integration.RetryCount"] = params["integration.retryCount"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["chatServiceSid"] !== undefined)
+    data["ChatServiceSid"] = params["chatServiceSid"];
+    if (params["channelType"] !== undefined)
+    data["ChannelType"] = params["channelType"];
+    if (params["contactIdentity"] !== undefined)
+    data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined)
+    data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined)
+    data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined)
+    data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined)
+    data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined)
+    data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined)
+    data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined)
+    data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined)
+    data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined)
+    data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+    if (params["longLived"] !== undefined)
+    data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined)
+    data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined)
+    data["Integration.RetryCount"] = params["integration.retryCount"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -650,25 +669,44 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       throw new Error('Required parameter "params[\'channelType\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+    
     data["ChatServiceSid"] = params["chatServiceSid"];
+    
     data["ChannelType"] = params["channelType"];
-    if (params["contactIdentity"] !== undefined) data["ContactIdentity"] = params["contactIdentity"];
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
-    if (params["integrationType"] !== undefined) data["IntegrationType"] = params["integrationType"];
-    if (params["integration.flowSid"] !== undefined) data["Integration.FlowSid"] = params["integration.flowSid"];
-    if (params["integration.url"] !== undefined) data["Integration.Url"] = params["integration.url"];
-    if (params["integration.workspaceSid"] !== undefined) data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
-    if (params["integration.workflowSid"] !== undefined) data["Integration.WorkflowSid"] = params["integration.workflowSid"];
-    if (params["integration.channel"] !== undefined) data["Integration.Channel"] = params["integration.channel"];
-    if (params["integration.timeout"] !== undefined) data["Integration.Timeout"] = params["integration.timeout"];
-    if (params["integration.priority"] !== undefined) data["Integration.Priority"] = params["integration.priority"];
-    if (params["integration.creationOnMessage"] !== undefined) data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
-    if (params["longLived"] !== undefined) data["LongLived"] = serialize.bool(params["longLived"]);
-    if (params["janitorEnabled"] !== undefined) data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
-    if (params["integration.retryCount"] !== undefined) data["Integration.RetryCount"] = params["integration.retryCount"];
+    if (params["contactIdentity"] !== undefined)
+    data["ContactIdentity"] = params["contactIdentity"];
+    if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["integrationType"] !== undefined)
+    data["IntegrationType"] = params["integrationType"];
+    if (params["integration.flowSid"] !== undefined)
+    data["Integration.FlowSid"] = params["integration.flowSid"];
+    if (params["integration.url"] !== undefined)
+    data["Integration.Url"] = params["integration.url"];
+    if (params["integration.workspaceSid"] !== undefined)
+    data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+    if (params["integration.workflowSid"] !== undefined)
+    data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+    if (params["integration.channel"] !== undefined)
+    data["Integration.Channel"] = params["integration.channel"];
+    if (params["integration.timeout"] !== undefined)
+    data["Integration.Timeout"] = params["integration.timeout"];
+    if (params["integration.priority"] !== undefined)
+    data["Integration.Priority"] = params["integration.priority"];
+    if (params["integration.creationOnMessage"] !== undefined)
+    data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+    if (params["longLived"] !== undefined)
+    data["LongLived"] = serialize.bool(params["longLived"]);
+    if (params["janitorEnabled"] !== undefined)
+    data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+    if (params["integration.retryCount"] !== undefined)
+    data["Integration.RetryCount"] = params["integration.retryCount"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -693,10 +731,14 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

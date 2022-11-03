@@ -220,8 +220,10 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
@@ -258,12 +260,18 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
-    if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
+    
+        if (params["data"] !== undefined)
+    data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["itemTtl"] !== undefined)
+    data["ItemTtl"] = params["itemTtl"];
+    if (params["collectionTtl"] !== undefined)
+    data["CollectionTtl"] = params["collectionTtl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -628,13 +636,20 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
       throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Key"] = params["key"];
+    
     data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["itemTtl"] !== undefined) data["ItemTtl"] = params["itemTtl"];
-    if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["itemTtl"] !== undefined)
+    data["ItemTtl"] = params["itemTtl"];
+    if (params["collectionTtl"] !== undefined)
+    data["CollectionTtl"] = params["collectionTtl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -659,12 +674,18 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["bounds"] !== undefined) data["Bounds"] = params["bounds"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["bounds"] !== undefined)
+    data["Bounds"] = params["bounds"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

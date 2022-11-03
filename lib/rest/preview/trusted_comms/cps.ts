@@ -81,8 +81,10 @@ export class CpsContextImpl implements CpsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xXcnamSensitivePhoneNumber"] !== undefined) headers["X-Xcnam-Sensitive-Phone-Number"] = params["xXcnamSensitivePhoneNumber"];

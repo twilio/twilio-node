@@ -197,10 +197,14 @@ export class RecordingContextImpl implements RecordingContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
-    if (params["pauseBehavior"] !== undefined) data["PauseBehavior"] = params["pauseBehavior"];
+    if (params["pauseBehavior"] !== undefined)
+    data["PauseBehavior"] = params["pauseBehavior"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -565,12 +569,18 @@ export function RecordingListInstance(version: V2010, accountSid: string, confer
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

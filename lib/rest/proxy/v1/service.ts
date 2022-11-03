@@ -243,16 +243,26 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["defaultTtl"] !== undefined) data["DefaultTtl"] = params["defaultTtl"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["geoMatchLevel"] !== undefined) data["GeoMatchLevel"] = params["geoMatchLevel"];
-    if (params["numberSelectionBehavior"] !== undefined) data["NumberSelectionBehavior"] = params["numberSelectionBehavior"];
-    if (params["interceptCallbackUrl"] !== undefined) data["InterceptCallbackUrl"] = params["interceptCallbackUrl"];
-    if (params["outOfSessionCallbackUrl"] !== undefined) data["OutOfSessionCallbackUrl"] = params["outOfSessionCallbackUrl"];
-    if (params["chatInstanceSid"] !== undefined) data["ChatInstanceSid"] = params["chatInstanceSid"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["defaultTtl"] !== undefined)
+    data["DefaultTtl"] = params["defaultTtl"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["geoMatchLevel"] !== undefined)
+    data["GeoMatchLevel"] = params["geoMatchLevel"];
+    if (params["numberSelectionBehavior"] !== undefined)
+    data["NumberSelectionBehavior"] = params["numberSelectionBehavior"];
+    if (params["interceptCallbackUrl"] !== undefined)
+    data["InterceptCallbackUrl"] = params["interceptCallbackUrl"];
+    if (params["outOfSessionCallbackUrl"] !== undefined)
+    data["OutOfSessionCallbackUrl"] = params["outOfSessionCallbackUrl"];
+    if (params["chatInstanceSid"] !== undefined)
+    data["ChatInstanceSid"] = params["chatInstanceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -636,16 +646,26 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
-    if (params["defaultTtl"] !== undefined) data["DefaultTtl"] = params["defaultTtl"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["geoMatchLevel"] !== undefined) data["GeoMatchLevel"] = params["geoMatchLevel"];
-    if (params["numberSelectionBehavior"] !== undefined) data["NumberSelectionBehavior"] = params["numberSelectionBehavior"];
-    if (params["interceptCallbackUrl"] !== undefined) data["InterceptCallbackUrl"] = params["interceptCallbackUrl"];
-    if (params["outOfSessionCallbackUrl"] !== undefined) data["OutOfSessionCallbackUrl"] = params["outOfSessionCallbackUrl"];
-    if (params["chatInstanceSid"] !== undefined) data["ChatInstanceSid"] = params["chatInstanceSid"];
+    if (params["defaultTtl"] !== undefined)
+    data["DefaultTtl"] = params["defaultTtl"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["geoMatchLevel"] !== undefined)
+    data["GeoMatchLevel"] = params["geoMatchLevel"];
+    if (params["numberSelectionBehavior"] !== undefined)
+    data["NumberSelectionBehavior"] = params["numberSelectionBehavior"];
+    if (params["interceptCallbackUrl"] !== undefined)
+    data["InterceptCallbackUrl"] = params["interceptCallbackUrl"];
+    if (params["outOfSessionCallbackUrl"] !== undefined)
+    data["OutOfSessionCallbackUrl"] = params["outOfSessionCallbackUrl"];
+    if (params["chatInstanceSid"] !== undefined)
+    data["ChatInstanceSid"] = params["chatInstanceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -670,9 +690,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

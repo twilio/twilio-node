@@ -182,9 +182,12 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
       throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["SipDomainSid"] = params["sipDomainSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -493,10 +496,14 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
       throw new Error('Required parameter "params[\'sipDomainSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["IpRecordSid"] = params["ipRecordSid"];
+    
     data["SipDomainSid"] = params["sipDomainSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -521,9 +528,12 @@ export function SourceIpMappingListInstance(version: V1): SourceIpMappingListIns
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

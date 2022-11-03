@@ -653,30 +653,54 @@ export function TollfreeVerificationListInstance(version: V1): TollfreeVerificat
       throw new Error('Required parameter "params[\'tollfreePhoneNumberSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["BusinessName"] = params["businessName"];
+    
     data["BusinessWebsite"] = params["businessWebsite"];
+    
     data["NotificationEmail"] = params["notificationEmail"];
+    
     data["UseCaseCategories"] = serialize.map(params["useCaseCategories"], ((e) => e));
+    
     data["UseCaseSummary"] = params["useCaseSummary"];
+    
     data["ProductionMessageSample"] = params["productionMessageSample"];
+    
     data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], ((e) => e));
+    
     data["OptInType"] = params["optInType"];
+    
     data["MessageVolume"] = params["messageVolume"];
+    
     data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
-    if (params["customerProfileSid"] !== undefined) data["CustomerProfileSid"] = params["customerProfileSid"];
-    if (params["businessStreetAddress"] !== undefined) data["BusinessStreetAddress"] = params["businessStreetAddress"];
-    if (params["businessStreetAddress2"] !== undefined) data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
-    if (params["businessCity"] !== undefined) data["BusinessCity"] = params["businessCity"];
-    if (params["businessStateProvinceRegion"] !== undefined) data["BusinessStateProvinceRegion"] = params["businessStateProvinceRegion"];
-    if (params["businessPostalCode"] !== undefined) data["BusinessPostalCode"] = params["businessPostalCode"];
-    if (params["businessCountry"] !== undefined) data["BusinessCountry"] = params["businessCountry"];
-    if (params["additionalInformation"] !== undefined) data["AdditionalInformation"] = params["additionalInformation"];
-    if (params["businessContactFirstName"] !== undefined) data["BusinessContactFirstName"] = params["businessContactFirstName"];
-    if (params["businessContactLastName"] !== undefined) data["BusinessContactLastName"] = params["businessContactLastName"];
-    if (params["businessContactEmail"] !== undefined) data["BusinessContactEmail"] = params["businessContactEmail"];
-    if (params["businessContactPhone"] !== undefined) data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["customerProfileSid"] !== undefined)
+    data["CustomerProfileSid"] = params["customerProfileSid"];
+    if (params["businessStreetAddress"] !== undefined)
+    data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    if (params["businessStreetAddress2"] !== undefined)
+    data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    if (params["businessCity"] !== undefined)
+    data["BusinessCity"] = params["businessCity"];
+    if (params["businessStateProvinceRegion"] !== undefined)
+    data["BusinessStateProvinceRegion"] = params["businessStateProvinceRegion"];
+    if (params["businessPostalCode"] !== undefined)
+    data["BusinessPostalCode"] = params["businessPostalCode"];
+    if (params["businessCountry"] !== undefined)
+    data["BusinessCountry"] = params["businessCountry"];
+    if (params["additionalInformation"] !== undefined)
+    data["AdditionalInformation"] = params["additionalInformation"];
+    if (params["businessContactFirstName"] !== undefined)
+    data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    if (params["businessContactLastName"] !== undefined)
+    data["BusinessContactLastName"] = params["businessContactLastName"];
+    if (params["businessContactEmail"] !== undefined)
+    data["BusinessContactEmail"] = params["businessContactEmail"];
+    if (params["businessContactPhone"] !== undefined)
+    data["BusinessContactPhone"] = params["businessContactPhone"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -701,11 +725,16 @@ export function TollfreeVerificationListInstance(version: V1): TollfreeVerificat
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["tollfreePhoneNumberSid"] !== undefined) data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["tollfreePhoneNumberSid"] !== undefined)
+    data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

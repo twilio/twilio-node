@@ -204,8 +204,10 @@ export class UserContextImpl implements UserContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
@@ -242,11 +244,16 @@ export class UserContextImpl implements UserContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -623,12 +630,18 @@ export function UserListInstance(version: V1): UserListInstance {
       throw new Error('Required parameter "params[\'identity\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Identity"] = params["identity"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -654,9 +667,12 @@ export function UserListInstance(version: V1): UserListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

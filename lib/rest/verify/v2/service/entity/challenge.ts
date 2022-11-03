@@ -213,10 +213,14 @@ export class ChallengeContextImpl implements ChallengeContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
-    if (params["metadata"] !== undefined) data["Metadata"] = serialize.object(params["metadata"]);
+    
+        if (params["authPayload"] !== undefined)
+    data["AuthPayload"] = params["authPayload"];
+    if (params["metadata"] !== undefined)
+    data["Metadata"] = serialize.object(params["metadata"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -601,14 +605,22 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
       throw new Error('Required parameter "params[\'factorSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FactorSid"] = params["factorSid"];
-    if (params["expirationDate"] !== undefined) data["ExpirationDate"] = serialize.iso8601DateTime(params["expirationDate"]);
-    if (params["details.message"] !== undefined) data["Details.Message"] = params["details.message"];
-    if (params["details.fields"] !== undefined) data["Details.Fields"] = serialize.map(params["details.fields"], ((e) => e));
-    if (params["hiddenDetails"] !== undefined) data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
-    if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
+    if (params["expirationDate"] !== undefined)
+    data["ExpirationDate"] = serialize.iso8601DateTime(params["expirationDate"]);
+    if (params["details.message"] !== undefined)
+    data["Details.Message"] = params["details.message"];
+    if (params["details.fields"] !== undefined)
+    data["Details.Fields"] = serialize.map(params["details.fields"], ((e) => e));
+    if (params["hiddenDetails"] !== undefined)
+    data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
+    if (params["authPayload"] !== undefined)
+    data["AuthPayload"] = params["authPayload"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -633,12 +645,18 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["factorSid"] !== undefined) data["FactorSid"] = params["factorSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["factorSid"] !== undefined)
+    data["FactorSid"] = params["factorSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

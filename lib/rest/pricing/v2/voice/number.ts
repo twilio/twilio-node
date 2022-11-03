@@ -99,9 +99,12 @@ export class NumberContextImpl implements NumberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["originationNumber"] !== undefined) data["OriginationNumber"] = params["originationNumber"];
+        if (params["originationNumber"] !== undefined)
+    data["OriginationNumber"] = params["originationNumber"];
+
+    
 
     const headers: any = {};
 

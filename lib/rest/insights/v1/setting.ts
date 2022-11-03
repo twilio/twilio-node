@@ -114,9 +114,12 @@ export class SettingContextImpl implements SettingContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["subaccountSid"] !== undefined) data["SubaccountSid"] = params["subaccountSid"];
+        if (params["subaccountSid"] !== undefined)
+    data["SubaccountSid"] = params["subaccountSid"];
+
+    
 
     const headers: any = {};
 
@@ -140,11 +143,16 @@ export class SettingContextImpl implements SettingContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["advancedFeatures"] !== undefined) data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
-    if (params["voiceTrace"] !== undefined) data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
-    if (params["subaccountSid"] !== undefined) data["SubaccountSid"] = params["subaccountSid"];
+    
+        if (params["advancedFeatures"] !== undefined)
+    data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
+    if (params["voiceTrace"] !== undefined)
+    data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
+    if (params["subaccountSid"] !== undefined)
+    data["SubaccountSid"] = params["subaccountSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

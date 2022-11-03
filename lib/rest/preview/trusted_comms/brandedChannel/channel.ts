@@ -79,9 +79,12 @@ export function ChannelListInstance(version: TrustedComms, brandedChannelSid: st
       throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PhoneNumberSid"] = params["phoneNumberSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

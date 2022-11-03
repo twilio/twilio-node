@@ -251,9 +251,12 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
       throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PhoneNumber"] = params["phoneNumber"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

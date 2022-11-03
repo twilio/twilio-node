@@ -467,11 +467,16 @@ export function FieldValueListInstance(version: Understand, assistantSid: string
       throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Language"] = params["language"];
+    
     data["Value"] = params["value"];
-    if (params["synonymOf"] !== undefined) data["SynonymOf"] = params["synonymOf"];
+    if (params["synonymOf"] !== undefined)
+    data["SynonymOf"] = params["synonymOf"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -496,10 +501,14 @@ export function FieldValueListInstance(version: Understand, assistantSid: string
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["language"] !== undefined) data["Language"] = params["language"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["language"] !== undefined)
+    data["Language"] = params["language"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -211,14 +211,22 @@ export class CredentialContextImpl implements CredentialContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["certificate"] !== undefined) data["Certificate"] = params["certificate"];
-    if (params["privateKey"] !== undefined) data["PrivateKey"] = params["privateKey"];
-    if (params["sandbox"] !== undefined) data["Sandbox"] = serialize.bool(params["sandbox"]);
-    if (params["apiKey"] !== undefined) data["ApiKey"] = params["apiKey"];
-    if (params["secret"] !== undefined) data["Secret"] = params["secret"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["certificate"] !== undefined)
+    data["Certificate"] = params["certificate"];
+    if (params["privateKey"] !== undefined)
+    data["PrivateKey"] = params["privateKey"];
+    if (params["sandbox"] !== undefined)
+    data["Sandbox"] = serialize.bool(params["sandbox"]);
+    if (params["apiKey"] !== undefined)
+    data["ApiKey"] = params["apiKey"];
+    if (params["secret"] !== undefined)
+    data["Secret"] = params["secret"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -521,15 +529,24 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Type"] = params["type"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["certificate"] !== undefined) data["Certificate"] = params["certificate"];
-    if (params["privateKey"] !== undefined) data["PrivateKey"] = params["privateKey"];
-    if (params["sandbox"] !== undefined) data["Sandbox"] = serialize.bool(params["sandbox"]);
-    if (params["apiKey"] !== undefined) data["ApiKey"] = params["apiKey"];
-    if (params["secret"] !== undefined) data["Secret"] = params["secret"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["certificate"] !== undefined)
+    data["Certificate"] = params["certificate"];
+    if (params["privateKey"] !== undefined)
+    data["PrivateKey"] = params["privateKey"];
+    if (params["sandbox"] !== undefined)
+    data["Sandbox"] = serialize.bool(params["sandbox"]);
+    if (params["apiKey"] !== undefined)
+    data["ApiKey"] = params["apiKey"];
+    if (params["secret"] !== undefined)
+    data["Secret"] = params["secret"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -554,9 +571,12 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

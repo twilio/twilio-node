@@ -106,9 +106,12 @@ export class AssistantInitiationActionsContextImpl implements AssistantInitiatio
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["initiationActions"] !== undefined) data["InitiationActions"] = serialize.object(params["initiationActions"]);
+    
+        if (params["initiationActions"] !== undefined)
+    data["InitiationActions"] = serialize.object(params["initiationActions"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

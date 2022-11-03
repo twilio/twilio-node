@@ -290,10 +290,14 @@ export class MessageContextImpl implements MessageContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -713,30 +717,54 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
       throw new Error('Required parameter "params[\'to\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["To"] = params["to"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["applicationSid"] !== undefined) data["ApplicationSid"] = params["applicationSid"];
-    if (params["maxPrice"] !== undefined) data["MaxPrice"] = params["maxPrice"];
-    if (params["provideFeedback"] !== undefined) data["ProvideFeedback"] = serialize.bool(params["provideFeedback"]);
-    if (params["attempt"] !== undefined) data["Attempt"] = params["attempt"];
-    if (params["validityPeriod"] !== undefined) data["ValidityPeriod"] = params["validityPeriod"];
-    if (params["forceDelivery"] !== undefined) data["ForceDelivery"] = serialize.bool(params["forceDelivery"]);
-    if (params["contentRetention"] !== undefined) data["ContentRetention"] = params["contentRetention"];
-    if (params["addressRetention"] !== undefined) data["AddressRetention"] = params["addressRetention"];
-    if (params["smartEncoded"] !== undefined) data["SmartEncoded"] = serialize.bool(params["smartEncoded"]);
-    if (params["persistentAction"] !== undefined) data["PersistentAction"] = serialize.map(params["persistentAction"], ((e) => e));
-    if (params["shortenUrls"] !== undefined) data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
-    if (params["scheduleType"] !== undefined) data["ScheduleType"] = params["scheduleType"];
-    if (params["sendAt"] !== undefined) data["SendAt"] = serialize.iso8601DateTime(params["sendAt"]);
-    if (params["sendAsMms"] !== undefined) data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
-    if (params["contentSid"] !== undefined) data["ContentSid"] = params["contentSid"];
-    if (params["contentVariables"] !== undefined) data["ContentVariables"] = params["contentVariables"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["messagingServiceSid"] !== undefined) data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["mediaUrl"] !== undefined) data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["applicationSid"] !== undefined)
+    data["ApplicationSid"] = params["applicationSid"];
+    if (params["maxPrice"] !== undefined)
+    data["MaxPrice"] = params["maxPrice"];
+    if (params["provideFeedback"] !== undefined)
+    data["ProvideFeedback"] = serialize.bool(params["provideFeedback"]);
+    if (params["attempt"] !== undefined)
+    data["Attempt"] = params["attempt"];
+    if (params["validityPeriod"] !== undefined)
+    data["ValidityPeriod"] = params["validityPeriod"];
+    if (params["forceDelivery"] !== undefined)
+    data["ForceDelivery"] = serialize.bool(params["forceDelivery"]);
+    if (params["contentRetention"] !== undefined)
+    data["ContentRetention"] = params["contentRetention"];
+    if (params["addressRetention"] !== undefined)
+    data["AddressRetention"] = params["addressRetention"];
+    if (params["smartEncoded"] !== undefined)
+    data["SmartEncoded"] = serialize.bool(params["smartEncoded"]);
+    if (params["persistentAction"] !== undefined)
+    data["PersistentAction"] = serialize.map(params["persistentAction"], ((e) => e));
+    if (params["shortenUrls"] !== undefined)
+    data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
+    if (params["scheduleType"] !== undefined)
+    data["ScheduleType"] = params["scheduleType"];
+    if (params["sendAt"] !== undefined)
+    data["SendAt"] = serialize.iso8601DateTime(params["sendAt"]);
+    if (params["sendAsMms"] !== undefined)
+    data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
+    if (params["contentSid"] !== undefined)
+    data["ContentSid"] = params["contentSid"];
+    if (params["contentVariables"] !== undefined)
+    data["ContentVariables"] = params["contentVariables"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["messagingServiceSid"] !== undefined)
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["mediaUrl"] !== undefined)
+    data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -761,14 +789,22 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["dateSent"] !== undefined) data["DateSent"] = serialize.iso8601DateTime(params["dateSent"]);
-    if (params["dateSentBefore"] !== undefined) data["DateSent<"] = serialize.iso8601DateTime(params["dateSentBefore"]);
-    if (params["dateSentAfter"] !== undefined) data["DateSent>"] = serialize.iso8601DateTime(params["dateSentAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["dateSent"] !== undefined)
+    data["DateSent"] = serialize.iso8601DateTime(params["dateSent"]);
+    if (params["dateSentBefore"] !== undefined)
+    data["DateSent<"] = serialize.iso8601DateTime(params["dateSentBefore"]);
+    if (params["dateSentAfter"] !== undefined)
+    data["DateSent>"] = serialize.iso8601DateTime(params["dateSentAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

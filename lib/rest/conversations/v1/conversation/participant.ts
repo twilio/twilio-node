@@ -217,8 +217,10 @@ export class ParticipantContextImpl implements ParticipantContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
@@ -255,17 +257,28 @@ export class ParticipantContextImpl implements ParticipantContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
-    if (params["messagingBinding.proxyAddress"] !== undefined) data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
-    if (params["messagingBinding.projectedAddress"] !== undefined) data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["lastReadMessageIndex"] !== undefined) data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
-    if (params["lastReadTimestamp"] !== undefined) data["LastReadTimestamp"] = params["lastReadTimestamp"];
+    
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+    if (params["messagingBinding.proxyAddress"] !== undefined)
+    data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
+    if (params["messagingBinding.projectedAddress"] !== undefined)
+    data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
+    if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["lastReadMessageIndex"] !== undefined)
+    data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
+    if (params["lastReadTimestamp"] !== undefined)
+    data["LastReadTimestamp"] = params["lastReadTimestamp"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -639,16 +652,26 @@ export function ParticipantListInstance(version: V1, conversationSid: string): P
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["messagingBinding.address"] !== undefined) data["MessagingBinding.Address"] = params["messagingBinding.address"];
-    if (params["messagingBinding.proxyAddress"] !== undefined) data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateUpdated"] !== undefined) data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["messagingBinding.projectedAddress"] !== undefined) data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
-    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
+    
+        if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["messagingBinding.address"] !== undefined)
+    data["MessagingBinding.Address"] = params["messagingBinding.address"];
+    if (params["messagingBinding.proxyAddress"] !== undefined)
+    data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
+    if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateUpdated"] !== undefined)
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["messagingBinding.projectedAddress"] !== undefined)
+    data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
+    if (params["roleSid"] !== undefined)
+    data["RoleSid"] = params["roleSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -674,9 +697,12 @@ export function ParticipantListInstance(version: V1, conversationSid: string): P
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

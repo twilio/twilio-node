@@ -187,9 +187,12 @@ export class RoleContextImpl implements RoleContext {
       throw new Error('Required parameter "params[\'permission\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Permission"] = serialize.map(params["permission"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -521,11 +524,16 @@ export function RoleListInstance(version: V1, chatServiceSid: string): RoleListI
       throw new Error('Required parameter "params[\'permission\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+    
     data["Type"] = params["type"];
+    
     data["Permission"] = serialize.map(params["permission"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -550,9 +558,12 @@ export function RoleListInstance(version: V1, chatServiceSid: string): RoleListI
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

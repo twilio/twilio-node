@@ -498,10 +498,14 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["mediaUrl"] !== undefined) data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+    
+        if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["mediaUrl"] !== undefined)
+    data["MediaUrl"] = serialize.map(params["mediaUrl"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -526,9 +530,12 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

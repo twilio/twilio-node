@@ -204,10 +204,14 @@ export class DocumentContextImpl implements DocumentContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    
+        if (params["data"] !== undefined)
+    data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -578,11 +582,16 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["data"] !== undefined)
+    data["Data"] = serialize.object(params["data"]);
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -607,9 +616,12 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

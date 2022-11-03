@@ -289,24 +289,42 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["inboundRequestUrl"] !== undefined) data["InboundRequestUrl"] = params["inboundRequestUrl"];
-    if (params["inboundMethod"] !== undefined) data["InboundMethod"] = params["inboundMethod"];
-    if (params["fallbackUrl"] !== undefined) data["FallbackUrl"] = params["fallbackUrl"];
-    if (params["fallbackMethod"] !== undefined) data["FallbackMethod"] = params["fallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["stickySender"] !== undefined) data["StickySender"] = serialize.bool(params["stickySender"]);
-    if (params["mmsConverter"] !== undefined) data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
-    if (params["smartEncoding"] !== undefined) data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
-    if (params["scanMessageContent"] !== undefined) data["ScanMessageContent"] = params["scanMessageContent"];
-    if (params["fallbackToLongCode"] !== undefined) data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
-    if (params["areaCodeGeomatch"] !== undefined) data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
-    if (params["validityPeriod"] !== undefined) data["ValidityPeriod"] = params["validityPeriod"];
-    if (params["synchronousValidation"] !== undefined) data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
-    if (params["useInboundWebhookOnNumber"] !== undefined) data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["inboundRequestUrl"] !== undefined)
+    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+    if (params["inboundMethod"] !== undefined)
+    data["InboundMethod"] = params["inboundMethod"];
+    if (params["fallbackUrl"] !== undefined)
+    data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+    data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["stickySender"] !== undefined)
+    data["StickySender"] = serialize.bool(params["stickySender"]);
+    if (params["mmsConverter"] !== undefined)
+    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+    if (params["smartEncoding"] !== undefined)
+    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+    if (params["scanMessageContent"] !== undefined)
+    data["ScanMessageContent"] = params["scanMessageContent"];
+    if (params["fallbackToLongCode"] !== undefined)
+    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+    if (params["areaCodeGeomatch"] !== undefined)
+    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+    if (params["validityPeriod"] !== undefined)
+    data["ValidityPeriod"] = params["validityPeriod"];
+    if (params["synchronousValidation"] !== undefined)
+    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
+    if (params["usecase"] !== undefined)
+    data["Usecase"] = params["usecase"];
+    if (params["useInboundWebhookOnNumber"] !== undefined)
+    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -772,24 +790,42 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["inboundRequestUrl"] !== undefined) data["InboundRequestUrl"] = params["inboundRequestUrl"];
-    if (params["inboundMethod"] !== undefined) data["InboundMethod"] = params["inboundMethod"];
-    if (params["fallbackUrl"] !== undefined) data["FallbackUrl"] = params["fallbackUrl"];
-    if (params["fallbackMethod"] !== undefined) data["FallbackMethod"] = params["fallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["stickySender"] !== undefined) data["StickySender"] = serialize.bool(params["stickySender"]);
-    if (params["mmsConverter"] !== undefined) data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
-    if (params["smartEncoding"] !== undefined) data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
-    if (params["scanMessageContent"] !== undefined) data["ScanMessageContent"] = params["scanMessageContent"];
-    if (params["fallbackToLongCode"] !== undefined) data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
-    if (params["areaCodeGeomatch"] !== undefined) data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
-    if (params["validityPeriod"] !== undefined) data["ValidityPeriod"] = params["validityPeriod"];
-    if (params["synchronousValidation"] !== undefined) data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
-    if (params["usecase"] !== undefined) data["Usecase"] = params["usecase"];
-    if (params["useInboundWebhookOnNumber"] !== undefined) data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+    if (params["inboundRequestUrl"] !== undefined)
+    data["InboundRequestUrl"] = params["inboundRequestUrl"];
+    if (params["inboundMethod"] !== undefined)
+    data["InboundMethod"] = params["inboundMethod"];
+    if (params["fallbackUrl"] !== undefined)
+    data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+    data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["stickySender"] !== undefined)
+    data["StickySender"] = serialize.bool(params["stickySender"]);
+    if (params["mmsConverter"] !== undefined)
+    data["MmsConverter"] = serialize.bool(params["mmsConverter"]);
+    if (params["smartEncoding"] !== undefined)
+    data["SmartEncoding"] = serialize.bool(params["smartEncoding"]);
+    if (params["scanMessageContent"] !== undefined)
+    data["ScanMessageContent"] = params["scanMessageContent"];
+    if (params["fallbackToLongCode"] !== undefined)
+    data["FallbackToLongCode"] = serialize.bool(params["fallbackToLongCode"]);
+    if (params["areaCodeGeomatch"] !== undefined)
+    data["AreaCodeGeomatch"] = serialize.bool(params["areaCodeGeomatch"]);
+    if (params["validityPeriod"] !== undefined)
+    data["ValidityPeriod"] = params["validityPeriod"];
+    if (params["synchronousValidation"] !== undefined)
+    data["SynchronousValidation"] = serialize.bool(params["synchronousValidation"]);
+    if (params["usecase"] !== undefined)
+    data["Usecase"] = params["usecase"];
+    if (params["useInboundWebhookOnNumber"] !== undefined)
+    data["UseInboundWebhookOnNumber"] = serialize.bool(params["useInboundWebhookOnNumber"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -814,9 +850,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

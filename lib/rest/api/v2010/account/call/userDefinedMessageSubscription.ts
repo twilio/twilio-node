@@ -158,11 +158,16 @@ export function UserDefinedMessageSubscriptionListInstance(version: V2010, accou
       throw new Error('Required parameter "params[\'method\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Callback"] = params["callback"];
+    
     data["Method"] = params["method"];
-    if (params["idempotencyKey"] !== undefined) data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["idempotencyKey"] !== undefined)
+    data["IdempotencyKey"] = params["idempotencyKey"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

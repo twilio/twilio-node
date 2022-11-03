@@ -211,9 +211,12 @@ export class RecordingContextImpl implements RecordingContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["includeSoftDeleted"] !== undefined) data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
+        if (params["includeSoftDeleted"] !== undefined)
+    data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
+
+    
 
     const headers: any = {};
 
@@ -600,15 +603,24 @@ export function RecordingListInstance(version: V2010, accountSid: string): Recor
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["callSid"] !== undefined) data["CallSid"] = params["callSid"];
-    if (params["conferenceSid"] !== undefined) data["ConferenceSid"] = params["conferenceSid"];
-    if (params["includeSoftDeleted"] !== undefined) data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["callSid"] !== undefined)
+    data["CallSid"] = params["callSid"];
+    if (params["conferenceSid"] !== undefined)
+    data["ConferenceSid"] = params["conferenceSid"];
+    if (params["includeSoftDeleted"] !== undefined)
+    data["IncludeSoftDeleted"] = serialize.bool(params["includeSoftDeleted"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -79,9 +79,12 @@ export function SinkValidateListInstance(version: V1, sid: string): SinkValidate
       throw new Error('Required parameter "params[\'testId\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["TestId"] = params["testId"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

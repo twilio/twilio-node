@@ -165,10 +165,14 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["events"] !== undefined) data["Events"] = params["events"];
-    if (params["metrics"] !== undefined) data["Metrics"] = params["metrics"];
+        if (params["events"] !== undefined)
+    data["Events"] = params["events"];
+    if (params["metrics"] !== undefined)
+    data["Metrics"] = params["metrics"];
+
+    
 
     const headers: any = {};
 
@@ -570,12 +574,18 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["participantSid"] !== undefined) data["ParticipantSid"] = params["participantSid"];
-    if (params["label"] !== undefined) data["Label"] = params["label"];
-    if (params["events"] !== undefined) data["Events"] = params["events"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["participantSid"] !== undefined)
+    data["ParticipantSid"] = params["participantSid"];
+    if (params["label"] !== undefined)
+    data["Label"] = params["label"];
+    if (params["events"] !== undefined)
+    data["Events"] = params["events"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

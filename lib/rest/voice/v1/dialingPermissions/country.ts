@@ -440,15 +440,24 @@ export function CountryListInstance(version: V1): CountryListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["isoCode"] !== undefined) data["IsoCode"] = params["isoCode"];
-    if (params["continent"] !== undefined) data["Continent"] = params["continent"];
-    if (params["countryCode"] !== undefined) data["CountryCode"] = params["countryCode"];
-    if (params["lowRiskNumbersEnabled"] !== undefined) data["LowRiskNumbersEnabled"] = serialize.bool(params["lowRiskNumbersEnabled"]);
-    if (params["highRiskSpecialNumbersEnabled"] !== undefined) data["HighRiskSpecialNumbersEnabled"] = serialize.bool(params["highRiskSpecialNumbersEnabled"]);
-    if (params["highRiskTollfraudNumbersEnabled"] !== undefined) data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(params["highRiskTollfraudNumbersEnabled"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["isoCode"] !== undefined)
+    data["IsoCode"] = params["isoCode"];
+    if (params["continent"] !== undefined)
+    data["Continent"] = params["continent"];
+    if (params["countryCode"] !== undefined)
+    data["CountryCode"] = params["countryCode"];
+    if (params["lowRiskNumbersEnabled"] !== undefined)
+    data["LowRiskNumbersEnabled"] = serialize.bool(params["lowRiskNumbersEnabled"]);
+    if (params["highRiskSpecialNumbersEnabled"] !== undefined)
+    data["HighRiskSpecialNumbersEnabled"] = serialize.bool(params["highRiskSpecialNumbersEnabled"]);
+    if (params["highRiskTollfraudNumbersEnabled"] !== undefined)
+    data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(params["highRiskTollfraudNumbersEnabled"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

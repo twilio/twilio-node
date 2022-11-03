@@ -106,9 +106,12 @@ export class AssistantFallbackActionsContextImpl implements AssistantFallbackAct
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["fallbackActions"] !== undefined) data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+    
+        if (params["fallbackActions"] !== undefined)
+    data["FallbackActions"] = serialize.object(params["fallbackActions"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

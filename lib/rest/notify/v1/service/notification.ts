@@ -122,26 +122,46 @@ export function NotificationListInstance(version: V1, serviceSid: string): Notif
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["body"] !== undefined) data["Body"] = params["body"];
-    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["title"] !== undefined) data["Title"] = params["title"];
-    if (params["sound"] !== undefined) data["Sound"] = params["sound"];
-    if (params["action"] !== undefined) data["Action"] = params["action"];
-    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
-    if (params["apn"] !== undefined) data["Apn"] = serialize.object(params["apn"]);
-    if (params["gcm"] !== undefined) data["Gcm"] = serialize.object(params["gcm"]);
-    if (params["sms"] !== undefined) data["Sms"] = serialize.object(params["sms"]);
-    if (params["facebookMessenger"] !== undefined) data["FacebookMessenger"] = serialize.object(params["facebookMessenger"]);
-    if (params["fcm"] !== undefined) data["Fcm"] = serialize.object(params["fcm"]);
-    if (params["segment"] !== undefined) data["Segment"] = serialize.map(params["segment"], ((e) => e));
-    if (params["alexa"] !== undefined) data["Alexa"] = serialize.object(params["alexa"]);
-    if (params["toBinding"] !== undefined) data["ToBinding"] = serialize.map(params["toBinding"], ((e) => e));
-    if (params["deliveryCallbackUrl"] !== undefined) data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
-    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
-    if (params["tag"] !== undefined) data["Tag"] = serialize.map(params["tag"], ((e) => e));
+    
+        if (params["body"] !== undefined)
+    data["Body"] = params["body"];
+    if (params["priority"] !== undefined)
+    data["Priority"] = params["priority"];
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["title"] !== undefined)
+    data["Title"] = params["title"];
+    if (params["sound"] !== undefined)
+    data["Sound"] = params["sound"];
+    if (params["action"] !== undefined)
+    data["Action"] = params["action"];
+    if (params["data"] !== undefined)
+    data["Data"] = serialize.object(params["data"]);
+    if (params["apn"] !== undefined)
+    data["Apn"] = serialize.object(params["apn"]);
+    if (params["gcm"] !== undefined)
+    data["Gcm"] = serialize.object(params["gcm"]);
+    if (params["sms"] !== undefined)
+    data["Sms"] = serialize.object(params["sms"]);
+    if (params["facebookMessenger"] !== undefined)
+    data["FacebookMessenger"] = serialize.object(params["facebookMessenger"]);
+    if (params["fcm"] !== undefined)
+    data["Fcm"] = serialize.object(params["fcm"]);
+    if (params["segment"] !== undefined)
+    data["Segment"] = serialize.map(params["segment"], ((e) => e));
+    if (params["alexa"] !== undefined)
+    data["Alexa"] = serialize.object(params["alexa"]);
+    if (params["toBinding"] !== undefined)
+    data["ToBinding"] = serialize.map(params["toBinding"], ((e) => e));
+    if (params["deliveryCallbackUrl"] !== undefined)
+    data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+    if (params["identity"] !== undefined)
+    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["tag"] !== undefined)
+    data["Tag"] = serialize.map(params["tag"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

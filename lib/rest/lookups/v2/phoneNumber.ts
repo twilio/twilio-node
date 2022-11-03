@@ -86,10 +86,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["fields"] !== undefined) data["Fields"] = params["fields"];
-    if (params["countryCode"] !== undefined) data["CountryCode"] = params["countryCode"];
+        if (params["fields"] !== undefined)
+    data["Fields"] = params["fields"];
+    if (params["countryCode"] !== undefined)
+    data["CountryCode"] = params["countryCode"];
+
+    
 
     const headers: any = {};
 

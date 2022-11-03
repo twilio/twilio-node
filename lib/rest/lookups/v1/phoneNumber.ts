@@ -88,12 +88,18 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["countryCode"] !== undefined) data["CountryCode"] = params["countryCode"];
-    if (params["type"] !== undefined) data["Type"] = serialize.map(params["type"], ((e) => e));
-    if (params["addOns"] !== undefined) data["AddOns"] = serialize.map(params["addOns"], ((e) => e));
-    if (params["addOnsData"] !== undefined) data["AddOnsData"] = serialize.prefixedCollapsibleMap(params["addOnsData"], "AddOns");
+        if (params["countryCode"] !== undefined)
+    data["CountryCode"] = params["countryCode"];
+    if (params["type"] !== undefined)
+    data["Type"] = serialize.map(params["type"], ((e) => e));
+    if (params["addOns"] !== undefined)
+    data["AddOns"] = serialize.map(params["addOns"], ((e) => e));
+    if (params["addOnsData"] !== undefined)
+    data["AddOnsData"] = serialize.prefixedCollapsibleMap(params["addOnsData"], "AddOns");
+
+    
 
     const headers: any = {};
 

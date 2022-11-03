@@ -193,9 +193,12 @@ export class DocumentContextImpl implements DocumentContext {
       throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Data"] = serialize.object(params["data"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -518,10 +521,14 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["data"] !== undefined) data["Data"] = serialize.object(params["data"]);
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["data"] !== undefined)
+    data["Data"] = serialize.object(params["data"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -546,9 +553,12 @@ export function DocumentListInstance(version: Sync, serviceSid: string): Documen
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

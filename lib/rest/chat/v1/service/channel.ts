@@ -230,11 +230,16 @@ export class ChannelContextImpl implements ChannelContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -629,12 +634,18 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["type"] !== undefined) data["Type"] = params["type"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["type"] !== undefined)
+    data["Type"] = params["type"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -659,10 +670,14 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["type"] !== undefined) data["Type"] = serialize.map(params["type"], ((e) => e));
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["type"] !== undefined)
+    data["Type"] = serialize.map(params["type"], ((e) => e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

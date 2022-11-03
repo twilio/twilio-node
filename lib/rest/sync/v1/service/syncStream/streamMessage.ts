@@ -80,9 +80,12 @@ export function StreamMessageListInstance(version: V1, serviceSid: string, strea
       throw new Error('Required parameter "params[\'data\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Data"] = serialize.object(params["data"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

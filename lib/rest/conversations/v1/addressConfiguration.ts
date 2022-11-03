@@ -235,17 +235,28 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["autoCreation.enabled"] !== undefined) data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
-    if (params["autoCreation.type"] !== undefined) data["AutoCreation.Type"] = params["autoCreation.type"];
-    if (params["autoCreation.conversationServiceSid"] !== undefined) data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
-    if (params["autoCreation.webhookUrl"] !== undefined) data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
-    if (params["autoCreation.webhookMethod"] !== undefined) data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
-    if (params["autoCreation.webhookFilters"] !== undefined) data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
-    if (params["autoCreation.studioFlowSid"] !== undefined) data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
-    if (params["autoCreation.studioRetryCount"] !== undefined) data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["autoCreation.enabled"] !== undefined)
+    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+    if (params["autoCreation.type"] !== undefined)
+    data["AutoCreation.Type"] = params["autoCreation.type"];
+    if (params["autoCreation.conversationServiceSid"] !== undefined)
+    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+    if (params["autoCreation.webhookUrl"] !== undefined)
+    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+    if (params["autoCreation.webhookMethod"] !== undefined)
+    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+    if (params["autoCreation.webhookFilters"] !== undefined)
+    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    if (params["autoCreation.studioFlowSid"] !== undefined)
+    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+    if (params["autoCreation.studioRetryCount"] !== undefined)
+    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -583,19 +594,32 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
       throw new Error('Required parameter "params[\'address\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Type"] = params["type"];
+    
     data["Address"] = params["address"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["autoCreation.enabled"] !== undefined) data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
-    if (params["autoCreation.type"] !== undefined) data["AutoCreation.Type"] = params["autoCreation.type"];
-    if (params["autoCreation.conversationServiceSid"] !== undefined) data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
-    if (params["autoCreation.webhookUrl"] !== undefined) data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
-    if (params["autoCreation.webhookMethod"] !== undefined) data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
-    if (params["autoCreation.webhookFilters"] !== undefined) data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
-    if (params["autoCreation.studioFlowSid"] !== undefined) data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
-    if (params["autoCreation.studioRetryCount"] !== undefined) data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["autoCreation.enabled"] !== undefined)
+    data["AutoCreation.Enabled"] = serialize.bool(params["autoCreation.enabled"]);
+    if (params["autoCreation.type"] !== undefined)
+    data["AutoCreation.Type"] = params["autoCreation.type"];
+    if (params["autoCreation.conversationServiceSid"] !== undefined)
+    data["AutoCreation.ConversationServiceSid"] = params["autoCreation.conversationServiceSid"];
+    if (params["autoCreation.webhookUrl"] !== undefined)
+    data["AutoCreation.WebhookUrl"] = params["autoCreation.webhookUrl"];
+    if (params["autoCreation.webhookMethod"] !== undefined)
+    data["AutoCreation.WebhookMethod"] = params["autoCreation.webhookMethod"];
+    if (params["autoCreation.webhookFilters"] !== undefined)
+    data["AutoCreation.WebhookFilters"] = serialize.map(params["autoCreation.webhookFilters"], ((e) => e));
+    if (params["autoCreation.studioFlowSid"] !== undefined)
+    data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
+    if (params["autoCreation.studioRetryCount"] !== undefined)
+    data["AutoCreation.StudioRetryCount"] = params["autoCreation.studioRetryCount"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -620,10 +644,14 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["type"] !== undefined) data["Type"] = params["type"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["type"] !== undefined)
+    data["Type"] = params["type"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

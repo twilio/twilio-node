@@ -457,11 +457,16 @@ export function BindingListInstance(version: V2, serviceSid: string): BindingLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["bindingType"] !== undefined) data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
-    if (params["identity"] !== undefined) data["Identity"] = serialize.map(params["identity"], ((e) => e));
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["bindingType"] !== undefined)
+    data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    if (params["identity"] !== undefined)
+    data["Identity"] = serialize.map(params["identity"], ((e) => e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

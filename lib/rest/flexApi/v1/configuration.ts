@@ -83,9 +83,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uiVersion"] !== undefined) data["UiVersion"] = params["uiVersion"];
+        if (params["uiVersion"] !== undefined)
+    data["UiVersion"] = params["uiVersion"];
+
+    
 
     const headers: any = {};
 

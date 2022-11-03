@@ -130,21 +130,36 @@ export class NotificationContextImpl implements NotificationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["logEnabled"] !== undefined) data["LogEnabled"] = serialize.bool(params["logEnabled"]);
-    if (params["newMessage.enabled"] !== undefined) data["NewMessage.Enabled"] = serialize.bool(params["newMessage.enabled"]);
-    if (params["newMessage.template"] !== undefined) data["NewMessage.Template"] = params["newMessage.template"];
-    if (params["newMessage.sound"] !== undefined) data["NewMessage.Sound"] = params["newMessage.sound"];
-    if (params["newMessage.badgeCountEnabled"] !== undefined) data["NewMessage.BadgeCountEnabled"] = serialize.bool(params["newMessage.badgeCountEnabled"]);
-    if (params["addedToConversation.enabled"] !== undefined) data["AddedToConversation.Enabled"] = serialize.bool(params["addedToConversation.enabled"]);
-    if (params["addedToConversation.template"] !== undefined) data["AddedToConversation.Template"] = params["addedToConversation.template"];
-    if (params["addedToConversation.sound"] !== undefined) data["AddedToConversation.Sound"] = params["addedToConversation.sound"];
-    if (params["removedFromConversation.enabled"] !== undefined) data["RemovedFromConversation.Enabled"] = serialize.bool(params["removedFromConversation.enabled"]);
-    if (params["removedFromConversation.template"] !== undefined) data["RemovedFromConversation.Template"] = params["removedFromConversation.template"];
-    if (params["removedFromConversation.sound"] !== undefined) data["RemovedFromConversation.Sound"] = params["removedFromConversation.sound"];
-    if (params["newMessage.withMedia.enabled"] !== undefined) data["NewMessage.WithMedia.Enabled"] = serialize.bool(params["newMessage.withMedia.enabled"]);
-    if (params["newMessage.withMedia.template"] !== undefined) data["NewMessage.WithMedia.Template"] = params["newMessage.withMedia.template"];
+    
+        if (params["logEnabled"] !== undefined)
+    data["LogEnabled"] = serialize.bool(params["logEnabled"]);
+    if (params["newMessage.enabled"] !== undefined)
+    data["NewMessage.Enabled"] = serialize.bool(params["newMessage.enabled"]);
+    if (params["newMessage.template"] !== undefined)
+    data["NewMessage.Template"] = params["newMessage.template"];
+    if (params["newMessage.sound"] !== undefined)
+    data["NewMessage.Sound"] = params["newMessage.sound"];
+    if (params["newMessage.badgeCountEnabled"] !== undefined)
+    data["NewMessage.BadgeCountEnabled"] = serialize.bool(params["newMessage.badgeCountEnabled"]);
+    if (params["addedToConversation.enabled"] !== undefined)
+    data["AddedToConversation.Enabled"] = serialize.bool(params["addedToConversation.enabled"]);
+    if (params["addedToConversation.template"] !== undefined)
+    data["AddedToConversation.Template"] = params["addedToConversation.template"];
+    if (params["addedToConversation.sound"] !== undefined)
+    data["AddedToConversation.Sound"] = params["addedToConversation.sound"];
+    if (params["removedFromConversation.enabled"] !== undefined)
+    data["RemovedFromConversation.Enabled"] = serialize.bool(params["removedFromConversation.enabled"]);
+    if (params["removedFromConversation.template"] !== undefined)
+    data["RemovedFromConversation.Template"] = params["removedFromConversation.template"];
+    if (params["removedFromConversation.sound"] !== undefined)
+    data["RemovedFromConversation.Sound"] = params["removedFromConversation.sound"];
+    if (params["newMessage.withMedia.enabled"] !== undefined)
+    data["NewMessage.WithMedia.Enabled"] = serialize.bool(params["newMessage.withMedia.enabled"]);
+    if (params["newMessage.withMedia.template"] !== undefined)
+    data["NewMessage.WithMedia.Template"] = params["newMessage.withMedia.template"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

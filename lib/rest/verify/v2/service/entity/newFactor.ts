@@ -118,22 +118,38 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
       throw new Error('Required parameter "params[\'factorType\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+    
     data["FactorType"] = params["factorType"];
-    if (params["binding.alg"] !== undefined) data["Binding.Alg"] = params["binding.alg"];
-    if (params["binding.publicKey"] !== undefined) data["Binding.PublicKey"] = params["binding.publicKey"];
-    if (params["config.appId"] !== undefined) data["Config.AppId"] = params["config.appId"];
-    if (params["config.notificationPlatform"] !== undefined) data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
-    if (params["config.notificationToken"] !== undefined) data["Config.NotificationToken"] = params["config.notificationToken"];
-    if (params["config.sdkVersion"] !== undefined) data["Config.SdkVersion"] = params["config.sdkVersion"];
-    if (params["binding.secret"] !== undefined) data["Binding.Secret"] = params["binding.secret"];
-    if (params["config.timeStep"] !== undefined) data["Config.TimeStep"] = params["config.timeStep"];
-    if (params["config.skew"] !== undefined) data["Config.Skew"] = params["config.skew"];
-    if (params["config.codeLength"] !== undefined) data["Config.CodeLength"] = params["config.codeLength"];
-    if (params["config.alg"] !== undefined) data["Config.Alg"] = params["config.alg"];
-    if (params["metadata"] !== undefined) data["Metadata"] = serialize.object(params["metadata"]);
+    if (params["binding.alg"] !== undefined)
+    data["Binding.Alg"] = params["binding.alg"];
+    if (params["binding.publicKey"] !== undefined)
+    data["Binding.PublicKey"] = params["binding.publicKey"];
+    if (params["config.appId"] !== undefined)
+    data["Config.AppId"] = params["config.appId"];
+    if (params["config.notificationPlatform"] !== undefined)
+    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
+    if (params["config.notificationToken"] !== undefined)
+    data["Config.NotificationToken"] = params["config.notificationToken"];
+    if (params["config.sdkVersion"] !== undefined)
+    data["Config.SdkVersion"] = params["config.sdkVersion"];
+    if (params["binding.secret"] !== undefined)
+    data["Binding.Secret"] = params["binding.secret"];
+    if (params["config.timeStep"] !== undefined)
+    data["Config.TimeStep"] = params["config.timeStep"];
+    if (params["config.skew"] !== undefined)
+    data["Config.Skew"] = params["config.skew"];
+    if (params["config.codeLength"] !== undefined)
+    data["Config.CodeLength"] = params["config.codeLength"];
+    if (params["config.alg"] !== undefined)
+    data["Config.Alg"] = params["config.alg"];
+    if (params["metadata"] !== undefined)
+    data["Metadata"] = serialize.object(params["metadata"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

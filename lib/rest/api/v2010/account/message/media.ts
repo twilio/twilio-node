@@ -431,12 +431,18 @@ export function MediaListInstance(version: V2010, accountSid: string, messageSid
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -202,17 +202,28 @@ export class FactorContextImpl implements FactorContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["authPayload"] !== undefined) data["AuthPayload"] = params["authPayload"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["config.notificationToken"] !== undefined) data["Config.NotificationToken"] = params["config.notificationToken"];
-    if (params["config.sdkVersion"] !== undefined) data["Config.SdkVersion"] = params["config.sdkVersion"];
-    if (params["config.timeStep"] !== undefined) data["Config.TimeStep"] = params["config.timeStep"];
-    if (params["config.skew"] !== undefined) data["Config.Skew"] = params["config.skew"];
-    if (params["config.codeLength"] !== undefined) data["Config.CodeLength"] = params["config.codeLength"];
-    if (params["config.alg"] !== undefined) data["Config.Alg"] = params["config.alg"];
-    if (params["config.notificationPlatform"] !== undefined) data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
+    
+        if (params["authPayload"] !== undefined)
+    data["AuthPayload"] = params["authPayload"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["config.notificationToken"] !== undefined)
+    data["Config.NotificationToken"] = params["config.notificationToken"];
+    if (params["config.sdkVersion"] !== undefined)
+    data["Config.SdkVersion"] = params["config.sdkVersion"];
+    if (params["config.timeStep"] !== undefined)
+    data["Config.TimeStep"] = params["config.timeStep"];
+    if (params["config.skew"] !== undefined)
+    data["Config.Skew"] = params["config.skew"];
+    if (params["config.codeLength"] !== undefined)
+    data["Config.CodeLength"] = params["config.codeLength"];
+    if (params["config.alg"] !== undefined)
+    data["Config.Alg"] = params["config.alg"];
+    if (params["config.notificationPlatform"] !== undefined)
+    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -557,9 +568,12 @@ export function FactorListInstance(version: V2, serviceSid: string, identity: st
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

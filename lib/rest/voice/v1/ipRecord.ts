@@ -191,9 +191,12 @@ export class IpRecordContextImpl implements IpRecordContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -520,11 +523,16 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
       throw new Error('Required parameter "params[\'ipAddress\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["IpAddress"] = params["ipAddress"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["cidrPrefixLength"] !== undefined) data["CidrPrefixLength"] = params["cidrPrefixLength"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["cidrPrefixLength"] !== undefined)
+    data["CidrPrefixLength"] = params["cidrPrefixLength"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -549,9 +557,12 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

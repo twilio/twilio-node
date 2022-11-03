@@ -107,9 +107,12 @@ export class TaskActionsContextImpl implements TaskActionsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["actions"] !== undefined) data["Actions"] = serialize.object(params["actions"]);
+    
+        if (params["actions"] !== undefined)
+    data["Actions"] = serialize.object(params["actions"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

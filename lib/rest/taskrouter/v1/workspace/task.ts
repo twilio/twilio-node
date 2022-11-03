@@ -263,8 +263,10 @@ export class TaskContextImpl implements TaskContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+    
 
     const headers: any = {};
     if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
@@ -301,13 +303,20 @@ export class TaskContextImpl implements TaskContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
-    if (params["assignmentStatus"] !== undefined) data["AssignmentStatus"] = params["assignmentStatus"];
-    if (params["reason"] !== undefined) data["Reason"] = params["reason"];
-    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+    
+        if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+    if (params["assignmentStatus"] !== undefined)
+    data["AssignmentStatus"] = params["assignmentStatus"];
+    if (params["reason"] !== undefined)
+    data["Reason"] = params["reason"];
+    if (params["priority"] !== undefined)
+    data["Priority"] = params["priority"];
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -748,13 +757,20 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
-    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
-    if (params["workflowSid"] !== undefined) data["WorkflowSid"] = params["workflowSid"];
-    if (params["attributes"] !== undefined) data["Attributes"] = params["attributes"];
+    
+        if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
+    if (params["priority"] !== undefined)
+    data["Priority"] = params["priority"];
+    if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+    if (params["workflowSid"] !== undefined)
+    data["WorkflowSid"] = params["workflowSid"];
+    if (params["attributes"] !== undefined)
+    data["Attributes"] = params["attributes"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -779,18 +795,30 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
-    if (params["assignmentStatus"] !== undefined) data["AssignmentStatus"] = serialize.map(params["assignmentStatus"], ((e) => e));
-    if (params["workflowSid"] !== undefined) data["WorkflowSid"] = params["workflowSid"];
-    if (params["workflowName"] !== undefined) data["WorkflowName"] = params["workflowName"];
-    if (params["taskQueueSid"] !== undefined) data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["taskQueueName"] !== undefined) data["TaskQueueName"] = params["taskQueueName"];
-    if (params["evaluateTaskAttributes"] !== undefined) data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
-    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
-    if (params["hasAddons"] !== undefined) data["HasAddons"] = serialize.bool(params["hasAddons"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["priority"] !== undefined)
+    data["Priority"] = params["priority"];
+    if (params["assignmentStatus"] !== undefined)
+    data["AssignmentStatus"] = serialize.map(params["assignmentStatus"], ((e) => e));
+    if (params["workflowSid"] !== undefined)
+    data["WorkflowSid"] = params["workflowSid"];
+    if (params["workflowName"] !== undefined)
+    data["WorkflowName"] = params["workflowName"];
+    if (params["taskQueueSid"] !== undefined)
+    data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["taskQueueName"] !== undefined)
+    data["TaskQueueName"] = params["taskQueueName"];
+    if (params["evaluateTaskAttributes"] !== undefined)
+    data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
+    if (params["ordering"] !== undefined)
+    data["Ordering"] = params["ordering"];
+    if (params["hasAddons"] !== undefined)
+    data["HasAddons"] = serialize.bool(params["hasAddons"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

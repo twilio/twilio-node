@@ -200,9 +200,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["isReserved"] !== undefined) data["IsReserved"] = serialize.bool(params["isReserved"]);
+    
+        if (params["isReserved"] !== undefined)
+    data["IsReserved"] = serialize.bool(params["isReserved"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -541,9 +544,12 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
       throw new Error('Required parameter "params[\'sid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Sid"] = params["sid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -568,9 +574,12 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

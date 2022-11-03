@@ -186,9 +186,12 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -525,14 +528,22 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
       throw new Error('Required parameter "params[\'extensionContext\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Extension"] = params["extension"];
+    
     data["ExtensionContext"] = params["extensionContext"];
-    if (params["extensionEnvironment"] !== undefined) data["ExtensionEnvironment"] = serialize.object(params["extensionEnvironment"]);
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["maxDuration"] !== undefined) data["MaxDuration"] = params["maxDuration"];
+    if (params["extensionEnvironment"] !== undefined)
+    data["ExtensionEnvironment"] = serialize.object(params["extensionEnvironment"]);
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["maxDuration"] !== undefined)
+    data["MaxDuration"] = params["maxDuration"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -557,11 +568,16 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["order"] !== undefined) data["Order"] = params["order"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["order"] !== undefined)
+    data["Order"] = params["order"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

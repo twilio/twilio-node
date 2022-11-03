@@ -216,10 +216,14 @@ export class RecordingContextImpl implements RecordingContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
-    if (params["pauseBehavior"] !== undefined) data["PauseBehavior"] = params["pauseBehavior"];
+    if (params["pauseBehavior"] !== undefined)
+    data["PauseBehavior"] = params["pauseBehavior"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -611,14 +615,22 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["recordingStatusCallbackEvent"] !== undefined) data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
-    if (params["recordingStatusCallback"] !== undefined) data["RecordingStatusCallback"] = params["recordingStatusCallback"];
-    if (params["recordingStatusCallbackMethod"] !== undefined) data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
-    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
-    if (params["recordingChannels"] !== undefined) data["RecordingChannels"] = params["recordingChannels"];
-    if (params["recordingTrack"] !== undefined) data["RecordingTrack"] = params["recordingTrack"];
+    
+        if (params["recordingStatusCallbackEvent"] !== undefined)
+    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], ((e) => e));
+    if (params["recordingStatusCallback"] !== undefined)
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+    if (params["trim"] !== undefined)
+    data["Trim"] = params["trim"];
+    if (params["recordingChannels"] !== undefined)
+    data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingTrack"] !== undefined)
+    data["RecordingTrack"] = params["recordingTrack"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -643,12 +655,18 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreated"] !== undefined) data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

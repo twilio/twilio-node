@@ -433,9 +433,12 @@ export function IpAccessControlListListInstance(version: V1, trunkSid: string): 
       throw new Error('Required parameter "params[\'ipAccessControlListSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["IpAccessControlListSid"] = params["ipAccessControlListSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -460,9 +463,12 @@ export function IpAccessControlListListInstance(version: V1, trunkSid: string): 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

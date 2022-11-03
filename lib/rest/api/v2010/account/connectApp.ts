@@ -195,16 +195,26 @@ export class ConnectAppContextImpl implements ConnectAppContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["authorizeRedirectUrl"] !== undefined) data["AuthorizeRedirectUrl"] = params["authorizeRedirectUrl"];
-    if (params["companyName"] !== undefined) data["CompanyName"] = params["companyName"];
-    if (params["deauthorizeCallbackMethod"] !== undefined) data["DeauthorizeCallbackMethod"] = params["deauthorizeCallbackMethod"];
-    if (params["deauthorizeCallbackUrl"] !== undefined) data["DeauthorizeCallbackUrl"] = params["deauthorizeCallbackUrl"];
-    if (params["description"] !== undefined) data["Description"] = params["description"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["homepageUrl"] !== undefined) data["HomepageUrl"] = params["homepageUrl"];
-    if (params["permissions"] !== undefined) data["Permissions"] = serialize.map(params["permissions"], ((e) => e));
+    
+        if (params["authorizeRedirectUrl"] !== undefined)
+    data["AuthorizeRedirectUrl"] = params["authorizeRedirectUrl"];
+    if (params["companyName"] !== undefined)
+    data["CompanyName"] = params["companyName"];
+    if (params["deauthorizeCallbackMethod"] !== undefined)
+    data["DeauthorizeCallbackMethod"] = params["deauthorizeCallbackMethod"];
+    if (params["deauthorizeCallbackUrl"] !== undefined)
+    data["DeauthorizeCallbackUrl"] = params["deauthorizeCallbackUrl"];
+    if (params["description"] !== undefined)
+    data["Description"] = params["description"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["homepageUrl"] !== undefined)
+    data["HomepageUrl"] = params["homepageUrl"];
+    if (params["permissions"] !== undefined)
+    data["Permissions"] = serialize.map(params["permissions"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -541,9 +551,12 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

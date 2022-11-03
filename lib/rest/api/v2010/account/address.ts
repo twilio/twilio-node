@@ -244,16 +244,26 @@ export class AddressContextImpl implements AddressContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["customerName"] !== undefined) data["CustomerName"] = params["customerName"];
-    if (params["street"] !== undefined) data["Street"] = params["street"];
-    if (params["city"] !== undefined) data["City"] = params["city"];
-    if (params["region"] !== undefined) data["Region"] = params["region"];
-    if (params["postalCode"] !== undefined) data["PostalCode"] = params["postalCode"];
-    if (params["emergencyEnabled"] !== undefined) data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
-    if (params["autoCorrectAddress"] !== undefined) data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["customerName"] !== undefined)
+    data["CustomerName"] = params["customerName"];
+    if (params["street"] !== undefined)
+    data["Street"] = params["street"];
+    if (params["city"] !== undefined)
+    data["City"] = params["city"];
+    if (params["region"] !== undefined)
+    data["Region"] = params["region"];
+    if (params["postalCode"] !== undefined)
+    data["PostalCode"] = params["postalCode"];
+    if (params["emergencyEnabled"] !== undefined)
+    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    if (params["autoCorrectAddress"] !== undefined)
+    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -657,17 +667,28 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
       throw new Error('Required parameter "params[\'isoCountry\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["CustomerName"] = params["customerName"];
+    
     data["Street"] = params["street"];
+    
     data["City"] = params["city"];
+    
     data["Region"] = params["region"];
+    
     data["PostalCode"] = params["postalCode"];
+    
     data["IsoCountry"] = params["isoCountry"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["emergencyEnabled"] !== undefined) data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
-    if (params["autoCorrectAddress"] !== undefined) data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["emergencyEnabled"] !== undefined)
+    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    if (params["autoCorrectAddress"] !== undefined)
+    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -692,12 +713,18 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["customerName"] !== undefined) data["CustomerName"] = params["customerName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["customerName"] !== undefined)
+    data["CustomerName"] = params["customerName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["isoCountry"] !== undefined)
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

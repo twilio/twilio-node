@@ -341,13 +341,20 @@ export function FeedbackSummaryListInstance(version: V2010, accountSid: string):
       throw new Error('Required parameter "params[\'endDate\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    
     data["EndDate"] = serialize.iso8601Date(params["endDate"]);
-    if (params["includeSubaccounts"] !== undefined) data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["includeSubaccounts"] !== undefined)
+    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

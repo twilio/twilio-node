@@ -210,10 +210,14 @@ export class SyncMapContextImpl implements SyncMapContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
+    
+        if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["collectionTtl"] !== undefined)
+    data["CollectionTtl"] = params["collectionTtl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -583,11 +587,16 @@ export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["collectionTtl"] !== undefined) data["CollectionTtl"] = params["collectionTtl"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["collectionTtl"] !== undefined)
+    data["CollectionTtl"] = params["collectionTtl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -612,9 +621,12 @@ export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

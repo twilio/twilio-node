@@ -498,15 +498,24 @@ export function CommandListInstance(version: V1): CommandListInstance {
       throw new Error('Required parameter "params[\'command\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Command"] = params["command"];
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["commandMode"] !== undefined) data["CommandMode"] = params["commandMode"];
-    if (params["includeSid"] !== undefined) data["IncludeSid"] = params["includeSid"];
-    if (params["deliveryReceiptRequested"] !== undefined) data["DeliveryReceiptRequested"] = serialize.bool(params["deliveryReceiptRequested"]);
+    if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["commandMode"] !== undefined)
+    data["CommandMode"] = params["commandMode"];
+    if (params["includeSid"] !== undefined)
+    data["IncludeSid"] = params["includeSid"];
+    if (params["deliveryReceiptRequested"] !== undefined)
+    data["DeliveryReceiptRequested"] = serialize.bool(params["deliveryReceiptRequested"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -531,13 +540,20 @@ export function CommandListInstance(version: V1): CommandListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["direction"] !== undefined) data["Direction"] = params["direction"];
-    if (params["transport"] !== undefined) data["Transport"] = params["transport"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["direction"] !== undefined)
+    data["Direction"] = params["direction"];
+    if (params["transport"] !== undefined)
+    data["Transport"] = params["transport"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -216,9 +216,12 @@ export class SinkContextImpl implements SinkContext {
       throw new Error('Required parameter "params[\'description\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Description"] = params["description"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -560,11 +563,16 @@ export function SinkListInstance(version: V1): SinkListInstance {
       throw new Error('Required parameter "params[\'sinkType\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Description"] = params["description"];
+    
     data["SinkConfiguration"] = serialize.object(params["sinkConfiguration"]);
+    
     data["SinkType"] = params["sinkType"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -589,11 +597,16 @@ export function SinkListInstance(version: V1): SinkListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["inUse"] !== undefined) data["InUse"] = serialize.bool(params["inUse"]);
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["inUse"] !== undefined)
+    data["InUse"] = serialize.bool(params["inUse"]);
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -89,14 +89,22 @@ export function ValidationRequestListInstance(version: V2010, accountSid: string
       throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["PhoneNumber"] = params["phoneNumber"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["callDelay"] !== undefined) data["CallDelay"] = params["callDelay"];
-    if (params["extension"] !== undefined) data["Extension"] = params["extension"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["callDelay"] !== undefined)
+    data["CallDelay"] = params["callDelay"];
+    if (params["extension"] !== undefined)
+    data["Extension"] = params["extension"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

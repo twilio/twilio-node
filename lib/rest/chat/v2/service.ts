@@ -279,39 +279,72 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["defaultServiceRoleSid"] !== undefined) data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
-    if (params["defaultChannelRoleSid"] !== undefined) data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
-    if (params["defaultChannelCreatorRoleSid"] !== undefined) data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
-    if (params["readStatusEnabled"] !== undefined) data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
-    if (params["reachabilityEnabled"] !== undefined) data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
-    if (params["typingIndicatorTimeout"] !== undefined) data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
-    if (params["consumptionReportInterval"] !== undefined) data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
-    if (params["notifications.newMessage.enabled"] !== undefined) data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
-    if (params["notifications.newMessage.template"] !== undefined) data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
-    if (params["notifications.newMessage.sound"] !== undefined) data["Notifications.NewMessage.Sound"] = params["notifications.newMessage.sound"];
-    if (params["notifications.newMessage.badgeCountEnabled"] !== undefined) data["Notifications.NewMessage.BadgeCountEnabled"] = serialize.bool(params["notifications.newMessage.badgeCountEnabled"]);
-    if (params["notifications.addedToChannel.enabled"] !== undefined) data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
-    if (params["notifications.addedToChannel.template"] !== undefined) data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
-    if (params["notifications.addedToChannel.sound"] !== undefined) data["Notifications.AddedToChannel.Sound"] = params["notifications.addedToChannel.sound"];
-    if (params["notifications.removedFromChannel.enabled"] !== undefined) data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
-    if (params["notifications.removedFromChannel.template"] !== undefined) data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
-    if (params["notifications.removedFromChannel.sound"] !== undefined) data["Notifications.RemovedFromChannel.Sound"] = params["notifications.removedFromChannel.sound"];
-    if (params["notifications.invitedToChannel.enabled"] !== undefined) data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
-    if (params["notifications.invitedToChannel.template"] !== undefined) data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
-    if (params["notifications.invitedToChannel.sound"] !== undefined) data["Notifications.InvitedToChannel.Sound"] = params["notifications.invitedToChannel.sound"];
-    if (params["preWebhookUrl"] !== undefined) data["PreWebhookUrl"] = params["preWebhookUrl"];
-    if (params["postWebhookUrl"] !== undefined) data["PostWebhookUrl"] = params["postWebhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
-    if (params["webhookFilters"] !== undefined) data["WebhookFilters"] = serialize.map(params["webhookFilters"], ((e) => e));
-    if (params["limits.channelMembers"] !== undefined) data["Limits.ChannelMembers"] = params["limits.channelMembers"];
-    if (params["limits.userChannels"] !== undefined) data["Limits.UserChannels"] = params["limits.userChannels"];
-    if (params["media.compatibilityMessage"] !== undefined) data["Media.CompatibilityMessage"] = params["media.compatibilityMessage"];
-    if (params["preWebhookRetryCount"] !== undefined) data["PreWebhookRetryCount"] = params["preWebhookRetryCount"];
-    if (params["postWebhookRetryCount"] !== undefined) data["PostWebhookRetryCount"] = params["postWebhookRetryCount"];
-    if (params["notifications.logEnabled"] !== undefined) data["Notifications.LogEnabled"] = serialize.bool(params["notifications.logEnabled"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["defaultServiceRoleSid"] !== undefined)
+    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+    if (params["defaultChannelRoleSid"] !== undefined)
+    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+    if (params["defaultChannelCreatorRoleSid"] !== undefined)
+    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
+    if (params["readStatusEnabled"] !== undefined)
+    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+    if (params["reachabilityEnabled"] !== undefined)
+    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+    if (params["typingIndicatorTimeout"] !== undefined)
+    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+    if (params["consumptionReportInterval"] !== undefined)
+    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+    if (params["notifications.newMessage.enabled"] !== undefined)
+    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
+    if (params["notifications.newMessage.template"] !== undefined)
+    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
+    if (params["notifications.newMessage.sound"] !== undefined)
+    data["Notifications.NewMessage.Sound"] = params["notifications.newMessage.sound"];
+    if (params["notifications.newMessage.badgeCountEnabled"] !== undefined)
+    data["Notifications.NewMessage.BadgeCountEnabled"] = serialize.bool(params["notifications.newMessage.badgeCountEnabled"]);
+    if (params["notifications.addedToChannel.enabled"] !== undefined)
+    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
+    if (params["notifications.addedToChannel.template"] !== undefined)
+    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
+    if (params["notifications.addedToChannel.sound"] !== undefined)
+    data["Notifications.AddedToChannel.Sound"] = params["notifications.addedToChannel.sound"];
+    if (params["notifications.removedFromChannel.enabled"] !== undefined)
+    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
+    if (params["notifications.removedFromChannel.template"] !== undefined)
+    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
+    if (params["notifications.removedFromChannel.sound"] !== undefined)
+    data["Notifications.RemovedFromChannel.Sound"] = params["notifications.removedFromChannel.sound"];
+    if (params["notifications.invitedToChannel.enabled"] !== undefined)
+    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
+    if (params["notifications.invitedToChannel.template"] !== undefined)
+    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
+    if (params["notifications.invitedToChannel.sound"] !== undefined)
+    data["Notifications.InvitedToChannel.Sound"] = params["notifications.invitedToChannel.sound"];
+    if (params["preWebhookUrl"] !== undefined)
+    data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["postWebhookUrl"] !== undefined)
+    data["PostWebhookUrl"] = params["postWebhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+    if (params["webhookFilters"] !== undefined)
+    data["WebhookFilters"] = serialize.map(params["webhookFilters"], ((e) => e));
+    if (params["limits.channelMembers"] !== undefined)
+    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+    if (params["limits.userChannels"] !== undefined)
+    data["Limits.UserChannels"] = params["limits.userChannels"];
+    if (params["media.compatibilityMessage"] !== undefined)
+    data["Media.CompatibilityMessage"] = params["media.compatibilityMessage"];
+    if (params["preWebhookRetryCount"] !== undefined)
+    data["PreWebhookRetryCount"] = params["preWebhookRetryCount"];
+    if (params["postWebhookRetryCount"] !== undefined)
+    data["PostWebhookRetryCount"] = params["postWebhookRetryCount"];
+    if (params["notifications.logEnabled"] !== undefined)
+    data["Notifications.LogEnabled"] = serialize.bool(params["notifications.logEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -771,9 +804,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -798,9 +834,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

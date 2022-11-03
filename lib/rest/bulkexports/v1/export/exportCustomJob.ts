@@ -308,14 +308,22 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["StartDay"] = params["startDay"];
+    
     data["EndDay"] = params["endDay"];
+    
     data["FriendlyName"] = params["friendlyName"];
-    if (params["webhookUrl"] !== undefined) data["WebhookUrl"] = params["webhookUrl"];
-    if (params["webhookMethod"] !== undefined) data["WebhookMethod"] = params["webhookMethod"];
-    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["webhookUrl"] !== undefined)
+    data["WebhookUrl"] = params["webhookUrl"];
+    if (params["webhookMethod"] !== undefined)
+    data["WebhookMethod"] = params["webhookMethod"];
+    if (params["email"] !== undefined)
+    data["Email"] = params["email"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -340,9 +348,12 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -427,10 +427,14 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
       throw new Error('Required parameter "params[\'vettingProvider\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["VettingProvider"] = params["vettingProvider"];
-    if (params["vettingId"] !== undefined) data["VettingId"] = params["vettingId"];
+    if (params["vettingId"] !== undefined)
+    data["VettingId"] = params["vettingId"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -455,10 +459,14 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["vettingProvider"] !== undefined) data["VettingProvider"] = params["vettingProvider"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["vettingProvider"] !== undefined)
+    data["VettingProvider"] = params["vettingProvider"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

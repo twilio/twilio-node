@@ -188,11 +188,16 @@ export class UserConversationContextImpl implements UserConversationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["notificationLevel"] !== undefined) data["NotificationLevel"] = params["notificationLevel"];
-    if (params["lastReadTimestamp"] !== undefined) data["LastReadTimestamp"] = serialize.iso8601DateTime(params["lastReadTimestamp"]);
-    if (params["lastReadMessageIndex"] !== undefined) data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
+    
+        if (params["notificationLevel"] !== undefined)
+    data["NotificationLevel"] = params["notificationLevel"];
+    if (params["lastReadTimestamp"] !== undefined)
+    data["LastReadTimestamp"] = serialize.iso8601DateTime(params["lastReadTimestamp"]);
+    if (params["lastReadMessageIndex"] !== undefined)
+    data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -569,9 +574,12 @@ export function UserConversationListInstance(version: V1, chatServiceSid: string
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

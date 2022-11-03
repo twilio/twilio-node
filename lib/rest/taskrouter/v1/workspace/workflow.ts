@@ -236,14 +236,22 @@ export class WorkflowContextImpl implements WorkflowContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["assignmentCallbackUrl"] !== undefined) data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
-    if (params["fallbackAssignmentCallbackUrl"] !== undefined) data["FallbackAssignmentCallbackUrl"] = params["fallbackAssignmentCallbackUrl"];
-    if (params["configuration"] !== undefined) data["Configuration"] = params["configuration"];
-    if (params["taskReservationTimeout"] !== undefined) data["TaskReservationTimeout"] = params["taskReservationTimeout"];
-    if (params["reEvaluateTasks"] !== undefined) data["ReEvaluateTasks"] = params["reEvaluateTasks"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["assignmentCallbackUrl"] !== undefined)
+    data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
+    if (params["fallbackAssignmentCallbackUrl"] !== undefined)
+    data["FallbackAssignmentCallbackUrl"] = params["fallbackAssignmentCallbackUrl"];
+    if (params["configuration"] !== undefined)
+    data["Configuration"] = params["configuration"];
+    if (params["taskReservationTimeout"] !== undefined)
+    data["TaskReservationTimeout"] = params["taskReservationTimeout"];
+    if (params["reEvaluateTasks"] !== undefined)
+    data["ReEvaluateTasks"] = params["reEvaluateTasks"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -631,13 +639,20 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
       throw new Error('Required parameter "params[\'configuration\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+    
     data["Configuration"] = params["configuration"];
-    if (params["assignmentCallbackUrl"] !== undefined) data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
-    if (params["fallbackAssignmentCallbackUrl"] !== undefined) data["FallbackAssignmentCallbackUrl"] = params["fallbackAssignmentCallbackUrl"];
-    if (params["taskReservationTimeout"] !== undefined) data["TaskReservationTimeout"] = params["taskReservationTimeout"];
+    if (params["assignmentCallbackUrl"] !== undefined)
+    data["AssignmentCallbackUrl"] = params["assignmentCallbackUrl"];
+    if (params["fallbackAssignmentCallbackUrl"] !== undefined)
+    data["FallbackAssignmentCallbackUrl"] = params["fallbackAssignmentCallbackUrl"];
+    if (params["taskReservationTimeout"] !== undefined)
+    data["TaskReservationTimeout"] = params["taskReservationTimeout"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -662,10 +677,14 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

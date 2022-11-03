@@ -249,11 +249,16 @@ export function MetricListInstance(version: V1, callSid: string): MetricListInst
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["edge"] !== undefined) data["Edge"] = params["edge"];
-    if (params["direction"] !== undefined) data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["edge"] !== undefined)
+    data["Edge"] = params["edge"];
+    if (params["direction"] !== undefined)
+    data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

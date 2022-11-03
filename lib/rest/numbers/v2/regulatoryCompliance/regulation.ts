@@ -392,12 +392,18 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["endUserType"] !== undefined) data["EndUserType"] = params["endUserType"];
-    if (params["isoCountry"] !== undefined) data["IsoCountry"] = params["isoCountry"];
-    if (params["numberType"] !== undefined) data["NumberType"] = params["numberType"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["endUserType"] !== undefined)
+    data["EndUserType"] = params["endUserType"];
+    if (params["isoCountry"] !== undefined)
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["numberType"] !== undefined)
+    data["NumberType"] = params["numberType"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

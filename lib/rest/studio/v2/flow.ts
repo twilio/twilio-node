@@ -218,12 +218,18 @@ export class FlowContextImpl implements FlowContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["definition"] !== undefined) data["Definition"] = serialize.object(params["definition"]);
-    if (params["commitMessage"] !== undefined) data["CommitMessage"] = params["commitMessage"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["definition"] !== undefined)
+    data["Definition"] = serialize.object(params["definition"]);
+    if (params["commitMessage"] !== undefined)
+    data["CommitMessage"] = params["commitMessage"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -614,12 +620,18 @@ export function FlowListInstance(version: V2): FlowListInstance {
       throw new Error('Required parameter "params[\'definition\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
+    
     data["Status"] = params["status"];
+    
     data["Definition"] = serialize.object(params["definition"]);
-    if (params["commitMessage"] !== undefined) data["CommitMessage"] = params["commitMessage"];
+    if (params["commitMessage"] !== undefined)
+    data["CommitMessage"] = params["commitMessage"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -644,9 +656,12 @@ export function FlowListInstance(version: V2): FlowListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -112,12 +112,18 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["defaultChatServiceSid"] !== undefined) data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
-    if (params["defaultMessagingServiceSid"] !== undefined) data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
-    if (params["defaultInactiveTimer"] !== undefined) data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
-    if (params["defaultClosedTimer"] !== undefined) data["DefaultClosedTimer"] = params["defaultClosedTimer"];
+    
+        if (params["defaultChatServiceSid"] !== undefined)
+    data["DefaultChatServiceSid"] = params["defaultChatServiceSid"];
+    if (params["defaultMessagingServiceSid"] !== undefined)
+    data["DefaultMessagingServiceSid"] = params["defaultMessagingServiceSid"];
+    if (params["defaultInactiveTimer"] !== undefined)
+    data["DefaultInactiveTimer"] = params["defaultInactiveTimer"];
+    if (params["defaultClosedTimer"] !== undefined)
+    data["DefaultClosedTimer"] = params["defaultClosedTimer"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

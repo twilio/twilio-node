@@ -83,9 +83,12 @@ export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeSt
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["taskChannel"] !== undefined) data["TaskChannel"] = params["taskChannel"];
+        if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+
+    
 
     const headers: any = {};
 

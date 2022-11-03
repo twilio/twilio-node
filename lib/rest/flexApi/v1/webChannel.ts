@@ -201,10 +201,14 @@ export class WebChannelContextImpl implements WebChannelContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["chatStatus"] !== undefined) data["ChatStatus"] = params["chatStatus"];
-    if (params["postEngagementData"] !== undefined) data["PostEngagementData"] = params["postEngagementData"];
+    
+        if (params["chatStatus"] !== undefined)
+    data["ChatStatus"] = params["chatStatus"];
+    if (params["postEngagementData"] !== undefined)
+    data["PostEngagementData"] = params["postEngagementData"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -529,14 +533,22 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       throw new Error('Required parameter "params[\'chatFriendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FlexFlowSid"] = params["flexFlowSid"];
+    
     data["Identity"] = params["identity"];
+    
     data["CustomerFriendlyName"] = params["customerFriendlyName"];
+    
     data["ChatFriendlyName"] = params["chatFriendlyName"];
-    if (params["chatUniqueName"] !== undefined) data["ChatUniqueName"] = params["chatUniqueName"];
-    if (params["preEngagementData"] !== undefined) data["PreEngagementData"] = params["preEngagementData"];
+    if (params["chatUniqueName"] !== undefined)
+    data["ChatUniqueName"] = params["chatUniqueName"];
+    if (params["preEngagementData"] !== undefined)
+    data["PreEngagementData"] = params["preEngagementData"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -561,9 +573,12 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

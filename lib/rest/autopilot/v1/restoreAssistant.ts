@@ -78,9 +78,12 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
       throw new Error('Required parameter "params[\'assistant\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Assistant"] = params["assistant"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

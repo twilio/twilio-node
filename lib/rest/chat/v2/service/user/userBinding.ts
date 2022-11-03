@@ -453,10 +453,14 @@ export function UserBindingListInstance(version: V2, serviceSid: string, userSid
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["bindingType"] !== undefined) data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["bindingType"] !== undefined)
+    data["BindingType"] = serialize.map(params["bindingType"], ((e) => e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

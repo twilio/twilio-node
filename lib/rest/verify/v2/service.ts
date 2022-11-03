@@ -307,25 +307,44 @@ export class ServiceContextImpl implements ServiceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["codeLength"] !== undefined) data["CodeLength"] = params["codeLength"];
-    if (params["lookupEnabled"] !== undefined) data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
-    if (params["skipSmsToLandlines"] !== undefined) data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
-    if (params["dtmfInputRequired"] !== undefined) data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
-    if (params["psd2Enabled"] !== undefined) data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
-    if (params["doNotShareWarningEnabled"] !== undefined) data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
-    if (params["customCodeEnabled"] !== undefined) data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
-    if (params["push.includeDate"] !== undefined) data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
-    if (params["push.apnCredentialSid"] !== undefined) data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
-    if (params["push.fcmCredentialSid"] !== undefined) data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
-    if (params["totp.issuer"] !== undefined) data["Totp.Issuer"] = params["totp.issuer"];
-    if (params["totp.timeStep"] !== undefined) data["Totp.TimeStep"] = params["totp.timeStep"];
-    if (params["totp.codeLength"] !== undefined) data["Totp.CodeLength"] = params["totp.codeLength"];
-    if (params["totp.skew"] !== undefined) data["Totp.Skew"] = params["totp.skew"];
-    if (params["defaultTemplateSid"] !== undefined) data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["codeLength"] !== undefined)
+    data["CodeLength"] = params["codeLength"];
+    if (params["lookupEnabled"] !== undefined)
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    if (params["skipSmsToLandlines"] !== undefined)
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    if (params["dtmfInputRequired"] !== undefined)
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
+    if (params["psd2Enabled"] !== undefined)
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    if (params["doNotShareWarningEnabled"] !== undefined)
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
+    if (params["customCodeEnabled"] !== undefined)
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    if (params["push.includeDate"] !== undefined)
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    if (params["push.apnCredentialSid"] !== undefined)
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    if (params["push.fcmCredentialSid"] !== undefined)
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    if (params["totp.issuer"] !== undefined)
+    data["Totp.Issuer"] = params["totp.issuer"];
+    if (params["totp.timeStep"] !== undefined)
+    data["Totp.TimeStep"] = params["totp.timeStep"];
+    if (params["totp.codeLength"] !== undefined)
+    data["Totp.CodeLength"] = params["totp.codeLength"];
+    if (params["totp.skew"] !== undefined)
+    data["Totp.Skew"] = params["totp.skew"];
+    if (params["defaultTemplateSid"] !== undefined)
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -768,25 +787,44 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["codeLength"] !== undefined) data["CodeLength"] = params["codeLength"];
-    if (params["lookupEnabled"] !== undefined) data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
-    if (params["skipSmsToLandlines"] !== undefined) data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
-    if (params["dtmfInputRequired"] !== undefined) data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
-    if (params["ttsName"] !== undefined) data["TtsName"] = params["ttsName"];
-    if (params["psd2Enabled"] !== undefined) data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
-    if (params["doNotShareWarningEnabled"] !== undefined) data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
-    if (params["customCodeEnabled"] !== undefined) data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
-    if (params["push.includeDate"] !== undefined) data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
-    if (params["push.apnCredentialSid"] !== undefined) data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
-    if (params["push.fcmCredentialSid"] !== undefined) data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
-    if (params["totp.issuer"] !== undefined) data["Totp.Issuer"] = params["totp.issuer"];
-    if (params["totp.timeStep"] !== undefined) data["Totp.TimeStep"] = params["totp.timeStep"];
-    if (params["totp.codeLength"] !== undefined) data["Totp.CodeLength"] = params["totp.codeLength"];
-    if (params["totp.skew"] !== undefined) data["Totp.Skew"] = params["totp.skew"];
-    if (params["defaultTemplateSid"] !== undefined) data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    if (params["codeLength"] !== undefined)
+    data["CodeLength"] = params["codeLength"];
+    if (params["lookupEnabled"] !== undefined)
+    data["LookupEnabled"] = serialize.bool(params["lookupEnabled"]);
+    if (params["skipSmsToLandlines"] !== undefined)
+    data["SkipSmsToLandlines"] = serialize.bool(params["skipSmsToLandlines"]);
+    if (params["dtmfInputRequired"] !== undefined)
+    data["DtmfInputRequired"] = serialize.bool(params["dtmfInputRequired"]);
+    if (params["ttsName"] !== undefined)
+    data["TtsName"] = params["ttsName"];
+    if (params["psd2Enabled"] !== undefined)
+    data["Psd2Enabled"] = serialize.bool(params["psd2Enabled"]);
+    if (params["doNotShareWarningEnabled"] !== undefined)
+    data["DoNotShareWarningEnabled"] = serialize.bool(params["doNotShareWarningEnabled"]);
+    if (params["customCodeEnabled"] !== undefined)
+    data["CustomCodeEnabled"] = serialize.bool(params["customCodeEnabled"]);
+    if (params["push.includeDate"] !== undefined)
+    data["Push.IncludeDate"] = serialize.bool(params["push.includeDate"]);
+    if (params["push.apnCredentialSid"] !== undefined)
+    data["Push.ApnCredentialSid"] = params["push.apnCredentialSid"];
+    if (params["push.fcmCredentialSid"] !== undefined)
+    data["Push.FcmCredentialSid"] = params["push.fcmCredentialSid"];
+    if (params["totp.issuer"] !== undefined)
+    data["Totp.Issuer"] = params["totp.issuer"];
+    if (params["totp.timeStep"] !== undefined)
+    data["Totp.TimeStep"] = params["totp.timeStep"];
+    if (params["totp.codeLength"] !== undefined)
+    data["Totp.CodeLength"] = params["totp.codeLength"];
+    if (params["totp.skew"] !== undefined)
+    data["Totp.Skew"] = params["totp.skew"];
+    if (params["defaultTemplateSid"] !== undefined)
+    data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -811,9 +849,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -240,9 +240,12 @@ export class RoomContextImpl implements RoomContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -684,23 +687,40 @@ export function RoomListInstance(version: V1): RoomListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["enableTurn"] !== undefined) data["EnableTurn"] = serialize.bool(params["enableTurn"]);
-    if (params["type"] !== undefined) data["Type"] = params["type"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["maxParticipants"] !== undefined) data["MaxParticipants"] = params["maxParticipants"];
-    if (params["recordParticipantsOnConnect"] !== undefined) data["RecordParticipantsOnConnect"] = serialize.bool(params["recordParticipantsOnConnect"]);
-    if (params["videoCodecs"] !== undefined) data["VideoCodecs"] = serialize.map(params["videoCodecs"], ((e) => e));
-    if (params["mediaRegion"] !== undefined) data["MediaRegion"] = params["mediaRegion"];
-    if (params["recordingRules"] !== undefined) data["RecordingRules"] = serialize.object(params["recordingRules"]);
-    if (params["audioOnly"] !== undefined) data["AudioOnly"] = serialize.bool(params["audioOnly"]);
-    if (params["maxParticipantDuration"] !== undefined) data["MaxParticipantDuration"] = params["maxParticipantDuration"];
-    if (params["emptyRoomTimeout"] !== undefined) data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
-    if (params["unusedRoomTimeout"] !== undefined) data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
-    if (params["largeRoom"] !== undefined) data["LargeRoom"] = serialize.bool(params["largeRoom"]);
+    
+        if (params["enableTurn"] !== undefined)
+    data["EnableTurn"] = serialize.bool(params["enableTurn"]);
+    if (params["type"] !== undefined)
+    data["Type"] = params["type"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["maxParticipants"] !== undefined)
+    data["MaxParticipants"] = params["maxParticipants"];
+    if (params["recordParticipantsOnConnect"] !== undefined)
+    data["RecordParticipantsOnConnect"] = serialize.bool(params["recordParticipantsOnConnect"]);
+    if (params["videoCodecs"] !== undefined)
+    data["VideoCodecs"] = serialize.map(params["videoCodecs"], ((e) => e));
+    if (params["mediaRegion"] !== undefined)
+    data["MediaRegion"] = params["mediaRegion"];
+    if (params["recordingRules"] !== undefined)
+    data["RecordingRules"] = serialize.object(params["recordingRules"]);
+    if (params["audioOnly"] !== undefined)
+    data["AudioOnly"] = serialize.bool(params["audioOnly"]);
+    if (params["maxParticipantDuration"] !== undefined)
+    data["MaxParticipantDuration"] = params["maxParticipantDuration"];
+    if (params["emptyRoomTimeout"] !== undefined)
+    data["EmptyRoomTimeout"] = params["emptyRoomTimeout"];
+    if (params["unusedRoomTimeout"] !== undefined)
+    data["UnusedRoomTimeout"] = params["unusedRoomTimeout"];
+    if (params["largeRoom"] !== undefined)
+    data["LargeRoom"] = serialize.bool(params["largeRoom"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -725,13 +745,20 @@ export function RoomListInstance(version: V1): RoomListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

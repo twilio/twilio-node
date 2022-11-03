@@ -105,9 +105,12 @@ export class SettingsContextImpl implements SettingsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dialingPermissionsInheritance"] !== undefined) data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
+    
+        if (params["dialingPermissionsInheritance"] !== undefined)
+    data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

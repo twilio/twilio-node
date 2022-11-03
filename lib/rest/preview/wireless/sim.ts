@@ -224,24 +224,42 @@ export class SimContextImpl implements SimContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["commandsCallbackMethod"] !== undefined) data["CommandsCallbackMethod"] = params["commandsCallbackMethod"];
-    if (params["commandsCallbackUrl"] !== undefined) data["CommandsCallbackUrl"] = params["commandsCallbackUrl"];
-    if (params["smsFallbackMethod"] !== undefined) data["SmsFallbackMethod"] = params["smsFallbackMethod"];
-    if (params["smsFallbackUrl"] !== undefined) data["SmsFallbackUrl"] = params["smsFallbackUrl"];
-    if (params["smsMethod"] !== undefined) data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["ratePlan"] !== undefined)
+    data["RatePlan"] = params["ratePlan"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["commandsCallbackMethod"] !== undefined)
+    data["CommandsCallbackMethod"] = params["commandsCallbackMethod"];
+    if (params["commandsCallbackUrl"] !== undefined)
+    data["CommandsCallbackUrl"] = params["commandsCallbackUrl"];
+    if (params["smsFallbackMethod"] !== undefined)
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsMethod"] !== undefined)
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -586,14 +604,22 @@ export function SimListInstance(version: Wireless): SimListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
-    if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
-    if (params["eId"] !== undefined) data["EId"] = params["eId"];
-    if (params["simRegistrationCode"] !== undefined) data["SimRegistrationCode"] = params["simRegistrationCode"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["iccid"] !== undefined)
+    data["Iccid"] = params["iccid"];
+    if (params["ratePlan"] !== undefined)
+    data["RatePlan"] = params["ratePlan"];
+    if (params["eId"] !== undefined)
+    data["EId"] = params["eId"];
+    if (params["simRegistrationCode"] !== undefined)
+    data["SimRegistrationCode"] = params["simRegistrationCode"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

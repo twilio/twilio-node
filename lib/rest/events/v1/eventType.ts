@@ -378,10 +378,14 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["schemaId"] !== undefined) data["SchemaId"] = params["schemaId"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["schemaId"] !== undefined)
+    data["SchemaId"] = params["schemaId"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

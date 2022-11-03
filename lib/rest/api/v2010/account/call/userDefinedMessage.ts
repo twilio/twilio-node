@@ -82,10 +82,14 @@ export function UserDefinedMessageListInstance(version: V2010, accountSid: strin
       throw new Error('Required parameter "params[\'content\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Content"] = params["content"];
-    if (params["idempotencyKey"] !== undefined) data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["idempotencyKey"] !== undefined)
+    data["IdempotencyKey"] = params["idempotencyKey"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

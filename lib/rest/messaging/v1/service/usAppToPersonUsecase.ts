@@ -86,9 +86,12 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["brandRegistrationSid"] !== undefined) data["BrandRegistrationSid"] = params["brandRegistrationSid"];
+        if (params["brandRegistrationSid"] !== undefined)
+    data["BrandRegistrationSid"] = params["brandRegistrationSid"];
+
+    
 
     const headers: any = {};
 

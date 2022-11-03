@@ -296,11 +296,16 @@ export function ParticipantConversationListInstance(version: V1): ParticipantCon
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["address"] !== undefined) data["Address"] = params["address"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["address"] !== undefined)
+    data["Address"] = params["address"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

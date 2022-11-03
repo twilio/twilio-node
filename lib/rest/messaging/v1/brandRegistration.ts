@@ -548,13 +548,20 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
       throw new Error('Required parameter "params[\'a2PProfileBundleSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["CustomerProfileBundleSid"] = params["customerProfileBundleSid"];
+    
     data["A2PProfileBundleSid"] = params["a2PProfileBundleSid"];
-    if (params["brandType"] !== undefined) data["BrandType"] = params["brandType"];
-    if (params["mock"] !== undefined) data["Mock"] = serialize.bool(params["mock"]);
-    if (params["skipAutomaticSecVet"] !== undefined) data["SkipAutomaticSecVet"] = serialize.bool(params["skipAutomaticSecVet"]);
+    if (params["brandType"] !== undefined)
+    data["BrandType"] = params["brandType"];
+    if (params["mock"] !== undefined)
+    data["Mock"] = serialize.bool(params["mock"]);
+    if (params["skipAutomaticSecVet"] !== undefined)
+    data["SkipAutomaticSecVet"] = serialize.bool(params["skipAutomaticSecVet"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -579,9 +586,12 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -99,9 +99,12 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
       throw new Error('Required parameter "params[\'testUsers\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["TestUsers"] = serialize.map(params["testUsers"], ((e) => e));
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -200,10 +200,14 @@ export class CertificateContextImpl implements CertificateContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined)
+    data["DeviceSid"] = params["deviceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -538,11 +542,16 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
       throw new Error('Required parameter "params[\'certificateData\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["CertificateData"] = params["certificateData"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["deviceSid"] !== undefined)
+    data["DeviceSid"] = params["deviceSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -567,10 +576,14 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["deviceSid"] !== undefined) data["DeviceSid"] = params["deviceSid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["deviceSid"] !== undefined)
+    data["DeviceSid"] = params["deviceSid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

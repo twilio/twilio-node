@@ -228,11 +228,16 @@ export class TriggerContextImpl implements TriggerContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["callbackUrl"] !== undefined) data["CallbackUrl"] = params["callbackUrl"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["callbackUrl"] !== undefined)
+    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -616,15 +621,24 @@ export function TriggerListInstance(version: V2010, accountSid: string): Trigger
       throw new Error('Required parameter "params[\'usageCategory\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["CallbackUrl"] = params["callbackUrl"];
+    
     data["TriggerValue"] = params["triggerValue"];
+    
     data["UsageCategory"] = params["usageCategory"];
-    if (params["callbackMethod"] !== undefined) data["CallbackMethod"] = params["callbackMethod"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["recurring"] !== undefined) data["Recurring"] = params["recurring"];
-    if (params["triggerBy"] !== undefined) data["TriggerBy"] = params["triggerBy"];
+    if (params["callbackMethod"] !== undefined)
+    data["CallbackMethod"] = params["callbackMethod"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["recurring"] !== undefined)
+    data["Recurring"] = params["recurring"];
+    if (params["triggerBy"] !== undefined)
+    data["TriggerBy"] = params["triggerBy"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -649,12 +663,18 @@ export function TriggerListInstance(version: V2010, accountSid: string): Trigger
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["recurring"] !== undefined) data["Recurring"] = params["recurring"];
-    if (params["triggerBy"] !== undefined) data["TriggerBy"] = params["triggerBy"];
-    if (params["usageCategory"] !== undefined) data["UsageCategory"] = params["usageCategory"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["recurring"] !== undefined)
+    data["Recurring"] = params["recurring"];
+    if (params["triggerBy"] !== undefined)
+    data["TriggerBy"] = params["triggerBy"];
+    if (params["usageCategory"] !== undefined)
+    data["UsageCategory"] = params["usageCategory"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

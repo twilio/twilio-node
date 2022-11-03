@@ -81,9 +81,12 @@ export function ReplaceItemsListInstance(version: V2, bundleSid: string): Replac
       throw new Error('Required parameter "params[\'fromBundleSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["FromBundleSid"] = params["fromBundleSid"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

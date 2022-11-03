@@ -272,59 +272,112 @@ export class ReservationContextImpl implements ReservationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["reservationStatus"] !== undefined) data["ReservationStatus"] = params["reservationStatus"];
-    if (params["workerActivitySid"] !== undefined) data["WorkerActivitySid"] = params["workerActivitySid"];
-    if (params["instruction"] !== undefined) data["Instruction"] = params["instruction"];
-    if (params["dequeuePostWorkActivitySid"] !== undefined) data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
-    if (params["dequeueFrom"] !== undefined) data["DequeueFrom"] = params["dequeueFrom"];
-    if (params["dequeueRecord"] !== undefined) data["DequeueRecord"] = params["dequeueRecord"];
-    if (params["dequeueTimeout"] !== undefined) data["DequeueTimeout"] = params["dequeueTimeout"];
-    if (params["dequeueTo"] !== undefined) data["DequeueTo"] = params["dequeueTo"];
-    if (params["dequeueStatusCallbackUrl"] !== undefined) data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
-    if (params["callFrom"] !== undefined) data["CallFrom"] = params["callFrom"];
-    if (params["callRecord"] !== undefined) data["CallRecord"] = params["callRecord"];
-    if (params["callTimeout"] !== undefined) data["CallTimeout"] = params["callTimeout"];
-    if (params["callTo"] !== undefined) data["CallTo"] = params["callTo"];
-    if (params["callUrl"] !== undefined) data["CallUrl"] = params["callUrl"];
-    if (params["callStatusCallbackUrl"] !== undefined) data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
-    if (params["callAccept"] !== undefined) data["CallAccept"] = serialize.bool(params["callAccept"]);
-    if (params["redirectCallSid"] !== undefined) data["RedirectCallSid"] = params["redirectCallSid"];
-    if (params["redirectAccept"] !== undefined) data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
-    if (params["redirectUrl"] !== undefined) data["RedirectUrl"] = params["redirectUrl"];
-    if (params["to"] !== undefined) data["To"] = params["to"];
-    if (params["from"] !== undefined) data["From"] = params["from"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["statusCallbackEvent"] !== undefined) data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
-    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
-    if (params["record"] !== undefined) data["Record"] = serialize.bool(params["record"]);
-    if (params["muted"] !== undefined) data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
-    if (params["startConferenceOnEnter"] !== undefined) data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
-    if (params["endConferenceOnExit"] !== undefined) data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
-    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
-    if (params["waitMethod"] !== undefined) data["WaitMethod"] = params["waitMethod"];
-    if (params["earlyMedia"] !== undefined) data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
-    if (params["maxParticipants"] !== undefined) data["MaxParticipants"] = params["maxParticipants"];
-    if (params["conferenceStatusCallback"] !== undefined) data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
-    if (params["conferenceStatusCallbackMethod"] !== undefined) data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
-    if (params["conferenceStatusCallbackEvent"] !== undefined) data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], ((e) => e));
-    if (params["conferenceRecord"] !== undefined) data["ConferenceRecord"] = params["conferenceRecord"];
-    if (params["conferenceTrim"] !== undefined) data["ConferenceTrim"] = params["conferenceTrim"];
-    if (params["recordingChannels"] !== undefined) data["RecordingChannels"] = params["recordingChannels"];
-    if (params["recordingStatusCallback"] !== undefined) data["RecordingStatusCallback"] = params["recordingStatusCallback"];
-    if (params["recordingStatusCallbackMethod"] !== undefined) data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
-    if (params["conferenceRecordingStatusCallback"] !== undefined) data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
-    if (params["conferenceRecordingStatusCallbackMethod"] !== undefined) data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
-    if (params["region"] !== undefined) data["Region"] = params["region"];
-    if (params["sipAuthUsername"] !== undefined) data["SipAuthUsername"] = params["sipAuthUsername"];
-    if (params["sipAuthPassword"] !== undefined) data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["dequeueStatusCallbackEvent"] !== undefined) data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], ((e) => e));
-    if (params["postWorkActivitySid"] !== undefined) data["PostWorkActivitySid"] = params["postWorkActivitySid"];
-    if (params["endConferenceOnCustomerExit"] !== undefined) data["EndConferenceOnCustomerExit"] = serialize.bool(params["endConferenceOnCustomerExit"]);
-    if (params["beepOnCustomerEntrance"] !== undefined) data["BeepOnCustomerEntrance"] = serialize.bool(params["beepOnCustomerEntrance"]);
+    
+        if (params["reservationStatus"] !== undefined)
+    data["ReservationStatus"] = params["reservationStatus"];
+    if (params["workerActivitySid"] !== undefined)
+    data["WorkerActivitySid"] = params["workerActivitySid"];
+    if (params["instruction"] !== undefined)
+    data["Instruction"] = params["instruction"];
+    if (params["dequeuePostWorkActivitySid"] !== undefined)
+    data["DequeuePostWorkActivitySid"] = params["dequeuePostWorkActivitySid"];
+    if (params["dequeueFrom"] !== undefined)
+    data["DequeueFrom"] = params["dequeueFrom"];
+    if (params["dequeueRecord"] !== undefined)
+    data["DequeueRecord"] = params["dequeueRecord"];
+    if (params["dequeueTimeout"] !== undefined)
+    data["DequeueTimeout"] = params["dequeueTimeout"];
+    if (params["dequeueTo"] !== undefined)
+    data["DequeueTo"] = params["dequeueTo"];
+    if (params["dequeueStatusCallbackUrl"] !== undefined)
+    data["DequeueStatusCallbackUrl"] = params["dequeueStatusCallbackUrl"];
+    if (params["callFrom"] !== undefined)
+    data["CallFrom"] = params["callFrom"];
+    if (params["callRecord"] !== undefined)
+    data["CallRecord"] = params["callRecord"];
+    if (params["callTimeout"] !== undefined)
+    data["CallTimeout"] = params["callTimeout"];
+    if (params["callTo"] !== undefined)
+    data["CallTo"] = params["callTo"];
+    if (params["callUrl"] !== undefined)
+    data["CallUrl"] = params["callUrl"];
+    if (params["callStatusCallbackUrl"] !== undefined)
+    data["CallStatusCallbackUrl"] = params["callStatusCallbackUrl"];
+    if (params["callAccept"] !== undefined)
+    data["CallAccept"] = serialize.bool(params["callAccept"]);
+    if (params["redirectCallSid"] !== undefined)
+    data["RedirectCallSid"] = params["redirectCallSid"];
+    if (params["redirectAccept"] !== undefined)
+    data["RedirectAccept"] = serialize.bool(params["redirectAccept"]);
+    if (params["redirectUrl"] !== undefined)
+    data["RedirectUrl"] = params["redirectUrl"];
+    if (params["to"] !== undefined)
+    data["To"] = params["to"];
+    if (params["from"] !== undefined)
+    data["From"] = params["from"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["statusCallbackEvent"] !== undefined)
+    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], ((e) => e));
+    if (params["timeout"] !== undefined)
+    data["Timeout"] = params["timeout"];
+    if (params["record"] !== undefined)
+    data["Record"] = serialize.bool(params["record"]);
+    if (params["muted"] !== undefined)
+    data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined)
+    data["Beep"] = params["beep"];
+    if (params["startConferenceOnEnter"] !== undefined)
+    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
+    if (params["endConferenceOnExit"] !== undefined)
+    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
+    if (params["waitUrl"] !== undefined)
+    data["WaitUrl"] = params["waitUrl"];
+    if (params["waitMethod"] !== undefined)
+    data["WaitMethod"] = params["waitMethod"];
+    if (params["earlyMedia"] !== undefined)
+    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+    if (params["maxParticipants"] !== undefined)
+    data["MaxParticipants"] = params["maxParticipants"];
+    if (params["conferenceStatusCallback"] !== undefined)
+    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+    if (params["conferenceStatusCallbackMethod"] !== undefined)
+    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
+    if (params["conferenceStatusCallbackEvent"] !== undefined)
+    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], ((e) => e));
+    if (params["conferenceRecord"] !== undefined)
+    data["ConferenceRecord"] = params["conferenceRecord"];
+    if (params["conferenceTrim"] !== undefined)
+    data["ConferenceTrim"] = params["conferenceTrim"];
+    if (params["recordingChannels"] !== undefined)
+    data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingStatusCallback"] !== undefined)
+    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+    if (params["conferenceRecordingStatusCallback"] !== undefined)
+    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
+    if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
+    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
+    if (params["region"] !== undefined)
+    data["Region"] = params["region"];
+    if (params["sipAuthUsername"] !== undefined)
+    data["SipAuthUsername"] = params["sipAuthUsername"];
+    if (params["sipAuthPassword"] !== undefined)
+    data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["dequeueStatusCallbackEvent"] !== undefined)
+    data["DequeueStatusCallbackEvent"] = serialize.map(params["dequeueStatusCallbackEvent"], ((e) => e));
+    if (params["postWorkActivitySid"] !== undefined)
+    data["PostWorkActivitySid"] = params["postWorkActivitySid"];
+    if (params["endConferenceOnCustomerExit"] !== undefined)
+    data["EndConferenceOnCustomerExit"] = serialize.bool(params["endConferenceOnCustomerExit"]);
+    if (params["beepOnCustomerEntrance"] !== undefined)
+    data["BeepOnCustomerEntrance"] = serialize.bool(params["beepOnCustomerEntrance"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -647,10 +700,14 @@ export function ReservationListInstance(version: V1, workspaceSid: string, worke
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["reservationStatus"] !== undefined) data["ReservationStatus"] = params["reservationStatus"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["reservationStatus"] !== undefined)
+    data["ReservationStatus"] = params["reservationStatus"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

@@ -208,12 +208,18 @@ export class DeviceContextImpl implements DeviceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["deploymentSid"] !== undefined) data["DeploymentSid"] = params["deploymentSid"];
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["deploymentSid"] !== undefined)
+    data["DeploymentSid"] = params["deploymentSid"];
+    if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -576,13 +582,20 @@ export function DeviceListInstance(version: DeployedDevices, fleetSid: string): 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
-    if (params["deploymentSid"] !== undefined) data["DeploymentSid"] = params["deploymentSid"];
-    if (params["enabled"] !== undefined) data["Enabled"] = serialize.bool(params["enabled"]);
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["identity"] !== undefined)
+    data["Identity"] = params["identity"];
+    if (params["deploymentSid"] !== undefined)
+    data["DeploymentSid"] = params["deploymentSid"];
+    if (params["enabled"] !== undefined)
+    data["Enabled"] = serialize.bool(params["enabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -607,10 +620,14 @@ export function DeviceListInstance(version: DeployedDevices, fleetSid: string): 
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["deploymentSid"] !== undefined) data["DeploymentSid"] = params["deploymentSid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["deploymentSid"] !== undefined)
+    data["DeploymentSid"] = params["deploymentSid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

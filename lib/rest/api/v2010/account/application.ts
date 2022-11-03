@@ -250,23 +250,40 @@ export class ApplicationContextImpl implements ApplicationContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["apiVersion"] !== undefined) data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["voiceCallerIdLookup"] !== undefined) data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
-    if (params["smsMethod"] !== undefined) data["SmsMethod"] = params["smsMethod"];
-    if (params["smsFallbackUrl"] !== undefined) data["SmsFallbackUrl"] = params["smsFallbackUrl"];
-    if (params["smsFallbackMethod"] !== undefined) data["SmsFallbackMethod"] = params["smsFallbackMethod"];
-    if (params["smsStatusCallback"] !== undefined) data["SmsStatusCallback"] = params["smsStatusCallback"];
-    if (params["messageStatusCallback"] !== undefined) data["MessageStatusCallback"] = params["messageStatusCallback"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["apiVersion"] !== undefined)
+    data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["voiceCallerIdLookup"] !== undefined)
+    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
+    if (params["smsMethod"] !== undefined)
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsFallbackMethod"] !== undefined)
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["smsStatusCallback"] !== undefined)
+    data["SmsStatusCallback"] = params["smsStatusCallback"];
+    if (params["messageStatusCallback"] !== undefined)
+    data["MessageStatusCallback"] = params["messageStatusCallback"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -690,23 +707,40 @@ export function ApplicationListInstance(version: V2010, accountSid: string): App
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["apiVersion"] !== undefined) data["ApiVersion"] = params["apiVersion"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
-    if (params["voiceMethod"] !== undefined) data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceFallbackUrl"] !== undefined) data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
-    if (params["voiceFallbackMethod"] !== undefined) data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
-    if (params["statusCallback"] !== undefined) data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackMethod"] !== undefined) data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["voiceCallerIdLookup"] !== undefined) data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
-    if (params["smsMethod"] !== undefined) data["SmsMethod"] = params["smsMethod"];
-    if (params["smsFallbackUrl"] !== undefined) data["SmsFallbackUrl"] = params["smsFallbackUrl"];
-    if (params["smsFallbackMethod"] !== undefined) data["SmsFallbackMethod"] = params["smsFallbackMethod"];
-    if (params["smsStatusCallback"] !== undefined) data["SmsStatusCallback"] = params["smsStatusCallback"];
-    if (params["messageStatusCallback"] !== undefined) data["MessageStatusCallback"] = params["messageStatusCallback"];
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["apiVersion"] !== undefined)
+    data["ApiVersion"] = params["apiVersion"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
+    if (params["voiceMethod"] !== undefined)
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceFallbackUrl"] !== undefined)
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    if (params["voiceFallbackMethod"] !== undefined)
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+    data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackMethod"] !== undefined)
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["voiceCallerIdLookup"] !== undefined)
+    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
+    if (params["smsMethod"] !== undefined)
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsFallbackUrl"] !== undefined)
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    if (params["smsFallbackMethod"] !== undefined)
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    if (params["smsStatusCallback"] !== undefined)
+    data["SmsStatusCallback"] = params["smsStatusCallback"];
+    if (params["messageStatusCallback"] !== undefined)
+    data["MessageStatusCallback"] = params["messageStatusCallback"];
+    if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -731,10 +765,14 @@ export function ApplicationListInstance(version: V2010, accountSid: string): App
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["friendlyName"] !== undefined) data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

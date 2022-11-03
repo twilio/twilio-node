@@ -446,17 +446,28 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["channelData.to"] !== undefined) data["ChannelData.To"] = params["channelData.to"];
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
-    if (params["verifyServiceSid"] !== undefined) data["VerifyServiceSid"] = params["verifyServiceSid"];
-    if (params["verificationSid"] !== undefined) data["VerificationSid"] = params["verificationSid"];
-    if (params["status"] !== undefined) data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["channelData.to"] !== undefined)
+    data["ChannelData.To"] = params["channelData.to"];
+    if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["channel"] !== undefined)
+    data["Channel"] = params["channel"];
+    if (params["verifyServiceSid"] !== undefined)
+    data["VerifyServiceSid"] = params["verifyServiceSid"];
+    if (params["verificationSid"] !== undefined)
+    data["VerificationSid"] = params["verificationSid"];
+    if (params["status"] !== undefined)
+    data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

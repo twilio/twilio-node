@@ -106,9 +106,12 @@ export class DefaultsContextImpl implements DefaultsContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["defaults"] !== undefined) data["Defaults"] = serialize.object(params["defaults"]);
+    
+        if (params["defaults"] !== undefined)
+    data["Defaults"] = serialize.object(params["defaults"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

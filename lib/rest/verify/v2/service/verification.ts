@@ -139,9 +139,12 @@ export class VerificationContextImpl implements VerificationContext {
       throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -397,22 +400,38 @@ export function VerificationListInstance(version: V2, serviceSid: string): Verif
       throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["To"] = params["to"];
+    
     data["Channel"] = params["channel"];
-    if (params["customFriendlyName"] !== undefined) data["CustomFriendlyName"] = params["customFriendlyName"];
-    if (params["customMessage"] !== undefined) data["CustomMessage"] = params["customMessage"];
-    if (params["sendDigits"] !== undefined) data["SendDigits"] = params["sendDigits"];
-    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
-    if (params["customCode"] !== undefined) data["CustomCode"] = params["customCode"];
-    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
-    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
-    if (params["rateLimits"] !== undefined) data["RateLimits"] = serialize.object(params["rateLimits"]);
-    if (params["channelConfiguration"] !== undefined) data["ChannelConfiguration"] = serialize.object(params["channelConfiguration"]);
-    if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
-    if (params["templateSid"] !== undefined) data["TemplateSid"] = params["templateSid"];
-    if (params["templateCustomSubstitutions"] !== undefined) data["TemplateCustomSubstitutions"] = params["templateCustomSubstitutions"];
+    if (params["customFriendlyName"] !== undefined)
+    data["CustomFriendlyName"] = params["customFriendlyName"];
+    if (params["customMessage"] !== undefined)
+    data["CustomMessage"] = params["customMessage"];
+    if (params["sendDigits"] !== undefined)
+    data["SendDigits"] = params["sendDigits"];
+    if (params["locale"] !== undefined)
+    data["Locale"] = params["locale"];
+    if (params["customCode"] !== undefined)
+    data["CustomCode"] = params["customCode"];
+    if (params["amount"] !== undefined)
+    data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined)
+    data["Payee"] = params["payee"];
+    if (params["rateLimits"] !== undefined)
+    data["RateLimits"] = serialize.object(params["rateLimits"]);
+    if (params["channelConfiguration"] !== undefined)
+    data["ChannelConfiguration"] = serialize.object(params["channelConfiguration"]);
+    if (params["appHash"] !== undefined)
+    data["AppHash"] = params["appHash"];
+    if (params["templateSid"] !== undefined)
+    data["TemplateSid"] = params["templateSid"];
+    if (params["templateCustomSubstitutions"] !== undefined)
+    data["TemplateCustomSubstitutions"] = params["templateCustomSubstitutions"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

@@ -160,11 +160,16 @@ export class DeviceContextImpl implements DeviceContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["uniqueName"] !== undefined) data["UniqueName"] = params["uniqueName"];
-    if (params["targetApp"] !== undefined) data["TargetApp"] = params["targetApp"];
-    if (params["loggingEnabled"] !== undefined) data["LoggingEnabled"] = serialize.bool(params["loggingEnabled"]);
+    
+        if (params["uniqueName"] !== undefined)
+    data["UniqueName"] = params["uniqueName"];
+    if (params["targetApp"] !== undefined)
+    data["TargetApp"] = params["targetApp"];
+    if (params["loggingEnabled"] !== undefined)
+    data["LoggingEnabled"] = serialize.bool(params["loggingEnabled"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -466,9 +471,12 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

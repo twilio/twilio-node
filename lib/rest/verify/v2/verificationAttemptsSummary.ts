@@ -93,14 +93,22 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["verifyServiceSid"] !== undefined) data["VerifyServiceSid"] = params["verifyServiceSid"];
-    if (params["dateCreatedAfter"] !== undefined) data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
-    if (params["dateCreatedBefore"] !== undefined) data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
-    if (params["country"] !== undefined) data["Country"] = params["country"];
-    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
-    if (params["destinationPrefix"] !== undefined) data["DestinationPrefix"] = params["destinationPrefix"];
+        if (params["verifyServiceSid"] !== undefined)
+    data["VerifyServiceSid"] = params["verifyServiceSid"];
+    if (params["dateCreatedAfter"] !== undefined)
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedBefore"] !== undefined)
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+    if (params["country"] !== undefined)
+    data["Country"] = params["country"];
+    if (params["channel"] !== undefined)
+    data["Channel"] = params["channel"];
+    if (params["destinationPrefix"] !== undefined)
+    data["DestinationPrefix"] = params["destinationPrefix"];
+
+    
 
     const headers: any = {};
 

@@ -264,9 +264,12 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
       throw new Error('Required parameter "params[\'routing\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["Routing"] = serialize.object(params["routing"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -291,9 +294,12 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
+
+    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 

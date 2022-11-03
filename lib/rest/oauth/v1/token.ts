@@ -96,16 +96,26 @@ export function TokenListInstance(version: V1): TokenListInstance {
       throw new Error('Required parameter "params[\'clientSid\']" missing.');
     }
 
-    const data: any = {};
+    let data: any = {};
 
+    
+        
     data["GrantType"] = params["grantType"];
+    
     data["ClientSid"] = params["clientSid"];
-    if (params["clientSecret"] !== undefined) data["ClientSecret"] = params["clientSecret"];
-    if (params["code"] !== undefined) data["Code"] = params["code"];
-    if (params["codeVerifier"] !== undefined) data["CodeVerifier"] = params["codeVerifier"];
-    if (params["deviceCode"] !== undefined) data["DeviceCode"] = params["deviceCode"];
-    if (params["refreshToken"] !== undefined) data["RefreshToken"] = params["refreshToken"];
-    if (params["deviceId"] !== undefined) data["DeviceId"] = params["deviceId"];
+    if (params["clientSecret"] !== undefined)
+    data["ClientSecret"] = params["clientSecret"];
+    if (params["code"] !== undefined)
+    data["Code"] = params["code"];
+    if (params["codeVerifier"] !== undefined)
+    data["CodeVerifier"] = params["codeVerifier"];
+    if (params["deviceCode"] !== undefined)
+    data["DeviceCode"] = params["deviceCode"];
+    if (params["refreshToken"] !== undefined)
+    data["RefreshToken"] = params["refreshToken"];
+    if (params["deviceId"] !== undefined)
+    data["DeviceId"] = params["deviceId"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

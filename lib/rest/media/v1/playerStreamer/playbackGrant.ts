@@ -94,10 +94,14 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
-    if (params["accessControlAllowOrigin"] !== undefined) data["AccessControlAllowOrigin"] = params["accessControlAllowOrigin"];
+    
+        if (params["ttl"] !== undefined)
+    data["Ttl"] = params["ttl"];
+    if (params["accessControlAllowOrigin"] !== undefined)
+    data["AccessControlAllowOrigin"] = params["accessControlAllowOrigin"];
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"

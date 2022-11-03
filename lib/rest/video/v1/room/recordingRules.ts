@@ -119,9 +119,12 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
       params = params || {};
     }
 
-    const data: any = {};
+    let data: any = {};
 
-    if (params["rules"] !== undefined) data["Rules"] = serialize.object(params["rules"]);
+    
+        if (params["rules"] !== undefined)
+    data["Rules"] = serialize.object(params["rules"]);
+
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded"
