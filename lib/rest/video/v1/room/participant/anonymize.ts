@@ -221,7 +221,7 @@ export interface AnonymizeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface AnonymizeSolution {
   roomSid?: string;
   sid?: string;
 }
@@ -229,7 +229,7 @@ export interface Solution {
 interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
 class AnonymizeListInstanceImpl implements AnonymizeListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: AnonymizeSolution;
   _uri?: string;
 
 }

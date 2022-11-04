@@ -231,14 +231,14 @@ export interface FlowTestUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface FlowTestUserSolution {
   sid?: string;
 }
 
 interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
 class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
   _version?: V2;
-  _solution?: Solution;
+  _solution?: FlowTestUserSolution;
   _uri?: string;
 
 }

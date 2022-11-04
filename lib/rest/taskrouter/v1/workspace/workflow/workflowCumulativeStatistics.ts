@@ -359,7 +359,7 @@ export interface WorkflowCumulativeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WorkflowCumulativeStatisticsSolution {
   workspaceSid?: string;
   workflowSid?: string;
 }
@@ -367,7 +367,7 @@ export interface Solution {
 interface WorkflowCumulativeStatisticsListInstanceImpl extends WorkflowCumulativeStatisticsListInstance {}
 class WorkflowCumulativeStatisticsListInstanceImpl implements WorkflowCumulativeStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WorkflowCumulativeStatisticsSolution;
   _uri?: string;
 
 }

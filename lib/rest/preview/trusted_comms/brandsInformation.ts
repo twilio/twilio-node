@@ -214,13 +214,13 @@ export interface BrandsInformationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface BrandsInformationSolution {
 }
 
 interface BrandsInformationListInstanceImpl extends BrandsInformationListInstance {}
 class BrandsInformationListInstanceImpl implements BrandsInformationListInstance {
   _version?: TrustedComms;
-  _solution?: Solution;
+  _solution?: BrandsInformationSolution;
   _uri?: string;
 
 }

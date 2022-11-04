@@ -292,13 +292,13 @@ export interface SettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface SettingSolution {
 }
 
 interface SettingListInstanceImpl extends SettingListInstance {}
 class SettingListInstanceImpl implements SettingListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: SettingSolution;
   _uri?: string;
 
 }

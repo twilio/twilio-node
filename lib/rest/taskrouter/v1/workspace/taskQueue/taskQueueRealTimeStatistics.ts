@@ -287,7 +287,7 @@ export interface TaskQueueRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface TaskQueueRealTimeStatisticsSolution {
   workspaceSid?: string;
   taskQueueSid?: string;
 }
@@ -295,7 +295,7 @@ export interface Solution {
 interface TaskQueueRealTimeStatisticsListInstanceImpl extends TaskQueueRealTimeStatisticsListInstance {}
 class TaskQueueRealTimeStatisticsListInstanceImpl implements TaskQueueRealTimeStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: TaskQueueRealTimeStatisticsSolution;
   _uri?: string;
 
 }

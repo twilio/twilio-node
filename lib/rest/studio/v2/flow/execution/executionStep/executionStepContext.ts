@@ -188,7 +188,7 @@ export interface ExecutionStepContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface ExecutionStepContextSolution {
   flowSid?: string;
   executionSid?: string;
   stepSid?: string;
@@ -197,7 +197,7 @@ export interface Solution {
 interface ExecutionStepContextListInstanceImpl extends ExecutionStepContextListInstance {}
 class ExecutionStepContextListInstanceImpl implements ExecutionStepContextListInstance {
   _version?: V2;
-  _solution?: Solution;
+  _solution?: ExecutionStepContextSolution;
   _uri?: string;
 
 }

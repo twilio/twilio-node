@@ -238,13 +238,13 @@ export interface SettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface SettingsSolution {
 }
 
 interface SettingsListInstanceImpl extends SettingsListInstance {}
 class SettingsListInstanceImpl implements SettingsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: SettingsSolution;
   _uri?: string;
 
 }

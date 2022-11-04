@@ -274,7 +274,7 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface FeedbackSolution {
   accountSid?: string;
   callSid?: string;
 }
@@ -282,7 +282,7 @@ export interface Solution {
 interface FeedbackListInstanceImpl extends FeedbackListInstance {}
 class FeedbackListInstanceImpl implements FeedbackListInstance {
   _version?: V2010;
-  _solution?: Solution;
+  _solution?: FeedbackSolution;
   _uri?: string;
 
 }

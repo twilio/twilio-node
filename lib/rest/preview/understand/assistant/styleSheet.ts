@@ -250,14 +250,14 @@ export interface StyleSheetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface StyleSheetSolution {
   assistantSid?: string;
 }
 
 interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
 class StyleSheetListInstanceImpl implements StyleSheetListInstance {
   _version?: Understand;
-  _solution?: Solution;
+  _solution?: StyleSheetSolution;
   _uri?: string;
 
 }

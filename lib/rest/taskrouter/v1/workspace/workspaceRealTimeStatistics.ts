@@ -258,14 +258,14 @@ export interface WorkspaceRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WorkspaceRealTimeStatisticsSolution {
   workspaceSid?: string;
 }
 
 interface WorkspaceRealTimeStatisticsListInstanceImpl extends WorkspaceRealTimeStatisticsListInstance {}
 class WorkspaceRealTimeStatisticsListInstanceImpl implements WorkspaceRealTimeStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WorkspaceRealTimeStatisticsSolution;
   _uri?: string;
 
 }

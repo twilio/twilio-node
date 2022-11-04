@@ -285,13 +285,13 @@ export interface RecordingSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface RecordingSettingsSolution {
 }
 
 interface RecordingSettingsListInstanceImpl extends RecordingSettingsListInstance {}
 class RecordingSettingsListInstanceImpl implements RecordingSettingsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: RecordingSettingsSolution;
   _uri?: string;
 
 }

@@ -194,13 +194,13 @@ export interface DeactivationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface DeactivationsSolution {
 }
 
 interface DeactivationsListInstanceImpl extends DeactivationsListInstance {}
 class DeactivationsListInstanceImpl implements DeactivationsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: DeactivationsSolution;
   _uri?: string;
 
 }

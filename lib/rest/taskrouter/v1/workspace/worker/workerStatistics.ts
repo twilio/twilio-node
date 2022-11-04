@@ -236,7 +236,7 @@ export interface WorkerStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WorkerStatisticsSolution {
   workspaceSid?: string;
   workerSid?: string;
 }
@@ -244,7 +244,7 @@ export interface Solution {
 interface WorkerStatisticsListInstanceImpl extends WorkerStatisticsListInstance {}
 class WorkerStatisticsListInstanceImpl implements WorkerStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WorkerStatisticsSolution;
   _uri?: string;
 
 }

@@ -228,14 +228,14 @@ export interface UsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface UsageSolution {
   simSid?: string;
 }
 
 interface UsageListInstanceImpl extends UsageListInstance {}
 class UsageListInstanceImpl implements UsageListInstance {
   _version?: Wireless;
-  _solution?: Solution;
+  _solution?: UsageSolution;
   _uri?: string;
 
 }

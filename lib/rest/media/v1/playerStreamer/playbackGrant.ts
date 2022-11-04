@@ -264,14 +264,14 @@ export interface PlaybackGrantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface PlaybackGrantSolution {
   sid?: string;
 }
 
 interface PlaybackGrantListInstanceImpl extends PlaybackGrantListInstance {}
 class PlaybackGrantListInstanceImpl implements PlaybackGrantListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: PlaybackGrantSolution;
   _uri?: string;
 
 }

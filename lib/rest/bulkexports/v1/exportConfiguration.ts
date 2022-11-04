@@ -268,14 +268,14 @@ export interface ExportConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface ExportConfigurationSolution {
   resourceType?: string;
 }
 
 interface ExportConfigurationListInstanceImpl extends ExportConfigurationListInstance {}
 class ExportConfigurationListInstanceImpl implements ExportConfigurationListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: ExportConfigurationSolution;
   _uri?: string;
 
 }

@@ -212,13 +212,13 @@ export interface SecondaryAuthTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface SecondaryAuthTokenSolution {
 }
 
 interface SecondaryAuthTokenListInstanceImpl extends SecondaryAuthTokenListInstance {}
 class SecondaryAuthTokenListInstanceImpl implements SecondaryAuthTokenListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: SecondaryAuthTokenSolution;
   _uri?: string;
 
 }

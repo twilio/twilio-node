@@ -287,13 +287,13 @@ export interface CurrentCallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface CurrentCallSolution {
 }
 
 interface CurrentCallListInstanceImpl extends CurrentCallListInstance {}
 class CurrentCallListInstanceImpl implements CurrentCallListInstance {
   _version?: TrustedComms;
-  _solution?: Solution;
+  _solution?: CurrentCallSolution;
   _uri?: string;
 
 }

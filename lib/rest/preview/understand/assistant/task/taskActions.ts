@@ -255,7 +255,7 @@ export interface TaskActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface TaskActionsSolution {
   assistantSid?: string;
   taskSid?: string;
 }
@@ -263,7 +263,7 @@ export interface Solution {
 interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
 class TaskActionsListInstanceImpl implements TaskActionsListInstance {
   _version?: Understand;
-  _solution?: Solution;
+  _solution?: TaskActionsSolution;
   _uri?: string;
 
 }

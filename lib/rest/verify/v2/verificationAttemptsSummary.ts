@@ -241,13 +241,13 @@ export interface VerificationAttemptsSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface VerificationAttemptsSummarySolution {
 }
 
 interface VerificationAttemptsSummaryListInstanceImpl extends VerificationAttemptsSummaryListInstance {}
 class VerificationAttemptsSummaryListInstanceImpl implements VerificationAttemptsSummaryListInstance {
   _version?: V2;
-  _solution?: Solution;
+  _solution?: VerificationAttemptsSummarySolution;
   _uri?: string;
 
 }

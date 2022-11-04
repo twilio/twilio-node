@@ -154,13 +154,13 @@ export interface OauthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface OauthSolution {
 }
 
 interface OauthListInstanceImpl extends OauthListInstance {}
 class OauthListInstanceImpl implements OauthListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: OauthSolution;
   _uri?: string;
 
 }

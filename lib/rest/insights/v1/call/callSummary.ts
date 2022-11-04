@@ -282,14 +282,14 @@ export interface CallSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface CallSummarySolution {
   callSid?: string;
 }
 
 interface CallSummaryListInstanceImpl extends CallSummaryListInstance {}
 class CallSummaryListInstanceImpl implements CallSummaryListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: CallSummarySolution;
   _uri?: string;
 
 }

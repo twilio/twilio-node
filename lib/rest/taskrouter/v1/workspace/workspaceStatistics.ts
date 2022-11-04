@@ -239,14 +239,14 @@ export interface WorkspaceStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WorkspaceStatisticsSolution {
   workspaceSid?: string;
 }
 
 interface WorkspaceStatisticsListInstanceImpl extends WorkspaceStatisticsListInstance {}
 class WorkspaceStatisticsListInstanceImpl implements WorkspaceStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WorkspaceStatisticsSolution;
   _uri?: string;
 
 }

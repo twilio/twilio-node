@@ -252,7 +252,7 @@ export interface WorkflowRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WorkflowRealTimeStatisticsSolution {
   workspaceSid?: string;
   workflowSid?: string;
 }
@@ -260,7 +260,7 @@ export interface Solution {
 interface WorkflowRealTimeStatisticsListInstanceImpl extends WorkflowRealTimeStatisticsListInstance {}
 class WorkflowRealTimeStatisticsListInstanceImpl implements WorkflowRealTimeStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WorkflowRealTimeStatisticsSolution;
   _uri?: string;
 
 }

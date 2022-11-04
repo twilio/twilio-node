@@ -182,13 +182,13 @@ export interface UserInfoListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface UserInfoSolution {
 }
 
 interface UserInfoListInstanceImpl extends UserInfoListInstance {}
 class UserInfoListInstanceImpl implements UserInfoListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: UserInfoSolution;
   _uri?: string;
 
 }

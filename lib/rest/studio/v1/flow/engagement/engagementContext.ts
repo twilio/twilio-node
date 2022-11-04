@@ -180,7 +180,7 @@ export interface EngagementContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface EngagementContextSolution {
   flowSid?: string;
   engagementSid?: string;
 }
@@ -188,7 +188,7 @@ export interface Solution {
 interface EngagementContextListInstanceImpl extends EngagementContextListInstance {}
 class EngagementContextListInstanceImpl implements EngagementContextListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: EngagementContextSolution;
   _uri?: string;
 
 }

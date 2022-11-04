@@ -231,13 +231,13 @@ export interface OpenidDiscoveryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface OpenidDiscoverySolution {
 }
 
 interface OpenidDiscoveryListInstanceImpl extends OpenidDiscoveryListInstance {}
 class OpenidDiscoveryListInstanceImpl implements OpenidDiscoveryListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: OpenidDiscoverySolution;
   _uri?: string;
 
 }

@@ -241,14 +241,14 @@ export interface AssistantInitiationActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface AssistantInitiationActionsSolution {
   assistantSid?: string;
 }
 
 interface AssistantInitiationActionsListInstanceImpl extends AssistantInitiationActionsListInstance {}
 class AssistantInitiationActionsListInstanceImpl implements AssistantInitiationActionsListInstance {
   _version?: Understand;
-  _solution?: Solution;
+  _solution?: AssistantInitiationActionsSolution;
   _uri?: string;
 
 }

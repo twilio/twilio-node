@@ -184,7 +184,7 @@ export interface TaskStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface TaskStatisticsSolution {
   assistantSid?: string;
   taskSid?: string;
 }
@@ -192,7 +192,7 @@ export interface Solution {
 interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
 class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
   _version?: Understand;
-  _solution?: Solution;
+  _solution?: TaskStatisticsSolution;
   _uri?: string;
 
 }

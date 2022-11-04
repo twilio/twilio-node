@@ -317,14 +317,14 @@ export interface AnnotationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface AnnotationSolution {
   callSid?: string;
 }
 
 interface AnnotationListInstanceImpl extends AnnotationListInstance {}
 class AnnotationListInstanceImpl implements AnnotationListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: AnnotationSolution;
   _uri?: string;
 
 }

@@ -322,14 +322,14 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface NotificationSolution {
   chatServiceSid?: string;
 }
 
 interface NotificationListInstanceImpl extends NotificationListInstance {}
 class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: NotificationSolution;
   _uri?: string;
 
 }

@@ -207,13 +207,13 @@ export interface CpsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface CpsSolution {
 }
 
 interface CpsListInstanceImpl extends CpsListInstance {}
 class CpsListInstanceImpl implements CpsListInstance {
   _version?: TrustedComms;
-  _solution?: Solution;
+  _solution?: CpsSolution;
   _uri?: string;
 
 }

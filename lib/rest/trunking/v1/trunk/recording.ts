@@ -241,14 +241,14 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface RecordingSolution {
   trunkSid?: string;
 }
 
 interface RecordingListInstanceImpl extends RecordingListInstance {}
 class RecordingListInstanceImpl implements RecordingListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: RecordingSolution;
   _uri?: string;
 
 }

@@ -359,7 +359,7 @@ export interface TaskQueueCumulativeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface TaskQueueCumulativeStatisticsSolution {
   workspaceSid?: string;
   taskQueueSid?: string;
 }
@@ -367,7 +367,7 @@ export interface Solution {
 interface TaskQueueCumulativeStatisticsListInstanceImpl extends TaskQueueCumulativeStatisticsListInstance {}
 class TaskQueueCumulativeStatisticsListInstanceImpl implements TaskQueueCumulativeStatisticsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: TaskQueueCumulativeStatisticsSolution;
   _uri?: string;
 
 }

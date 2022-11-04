@@ -290,14 +290,14 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface ConfigurationSolution {
   chatServiceSid?: string;
 }
 
 interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
 class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: ConfigurationSolution;
   _uri?: string;
 
   _notifications?: NotificationListInstance;

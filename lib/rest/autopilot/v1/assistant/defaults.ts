@@ -253,14 +253,14 @@ export interface DefaultsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface DefaultsSolution {
   assistantSid?: string;
 }
 
 interface DefaultsListInstanceImpl extends DefaultsListInstance {}
 class DefaultsListInstanceImpl implements DefaultsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: DefaultsSolution;
   _uri?: string;
 
 }

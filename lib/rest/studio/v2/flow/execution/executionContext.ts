@@ -180,7 +180,7 @@ export interface ExecutionContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface ExecutionContextSolution {
   flowSid?: string;
   executionSid?: string;
 }
@@ -188,7 +188,7 @@ export interface Solution {
 interface ExecutionContextListInstanceImpl extends ExecutionContextListInstance {}
 class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
   _version?: V2;
-  _solution?: Solution;
+  _solution?: ExecutionContextSolution;
   _uri?: string;
 
 }

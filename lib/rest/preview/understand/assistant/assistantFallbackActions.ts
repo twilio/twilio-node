@@ -241,14 +241,14 @@ export interface AssistantFallbackActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface AssistantFallbackActionsSolution {
   assistantSid?: string;
 }
 
 interface AssistantFallbackActionsListInstanceImpl extends AssistantFallbackActionsListInstance {}
 class AssistantFallbackActionsListInstanceImpl implements AssistantFallbackActionsListInstance {
   _version?: Understand;
-  _solution?: Solution;
+  _solution?: AssistantFallbackActionsSolution;
   _uri?: string;
 
 }

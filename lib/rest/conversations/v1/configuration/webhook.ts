@@ -287,13 +287,13 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface WebhookSolution {
 }
 
 interface WebhookListInstanceImpl extends WebhookListInstance {}
 class WebhookListInstanceImpl implements WebhookListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: WebhookSolution;
   _uri?: string;
 
 }

@@ -285,13 +285,13 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface Solution {
+export interface CompositionSettingsSolution {
 }
 
 interface CompositionSettingsListInstanceImpl extends CompositionSettingsListInstance {}
 class CompositionSettingsListInstanceImpl implements CompositionSettingsListInstance {
   _version?: V1;
-  _solution?: Solution;
+  _solution?: CompositionSettingsSolution;
   _uri?: string;
 
 }
