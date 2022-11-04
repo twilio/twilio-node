@@ -19,7 +19,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import PhoneNumberCapabilities from "../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 
 

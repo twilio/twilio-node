@@ -20,7 +20,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
-import PhoneNumberCapabilities from "../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
