@@ -644,7 +644,7 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
     if (params["status"] !== undefined)
     data["Status"] = params["status"];
     if (params["participants"] !== undefined)
-    data["Participants"] = serialize.map(params["participants"], (e => (e)));
+    data["Participants"] = serialize.map(params["participants"], (e => serialize.object(e)));
 
 
     const headers: any = {};
