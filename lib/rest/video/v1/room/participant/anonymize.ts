@@ -243,7 +243,7 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
 
   instance._version = version;
   instance._solution = { roomSid, sid };
-  instance._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

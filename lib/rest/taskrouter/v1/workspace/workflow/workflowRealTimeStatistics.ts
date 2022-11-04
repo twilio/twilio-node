@@ -274,7 +274,7 @@ export function WorkflowRealTimeStatisticsListInstance(version: V1, workspaceSid
 
   instance._version = version;
   instance._solution = { workspaceSid, workflowSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

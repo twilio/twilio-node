@@ -279,7 +279,7 @@ export function JobListInstance(version: V1): JobListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Exports/Jobs`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

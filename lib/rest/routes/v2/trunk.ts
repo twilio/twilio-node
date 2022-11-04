@@ -305,7 +305,7 @@ export function TrunkListInstance(version: V2): TrunkListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Trunks`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

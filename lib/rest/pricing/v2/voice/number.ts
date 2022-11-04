@@ -278,7 +278,7 @@ export function NumberListInstance(version: V2): NumberListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Voice/Numbers`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

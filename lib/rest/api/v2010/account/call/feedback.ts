@@ -296,7 +296,7 @@ export function FeedbackListInstance(version: V2010, accountSid: string, callSid
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
-  instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

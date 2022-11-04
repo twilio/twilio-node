@@ -198,7 +198,7 @@ export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionL
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/AuthTokens/Promote`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

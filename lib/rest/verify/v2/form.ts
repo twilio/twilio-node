@@ -233,7 +233,7 @@ export function FormListInstance(version: V2): FormListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Forms`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

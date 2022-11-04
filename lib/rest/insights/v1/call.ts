@@ -236,7 +236,7 @@ export function CallListInstance(version: V1): CallListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Voice`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

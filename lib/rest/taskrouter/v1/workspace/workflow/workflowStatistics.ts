@@ -269,7 +269,7 @@ export function WorkflowStatisticsListInstance(version: V1, workspaceSid: string
 
   instance._version = version;
   instance._solution = { workspaceSid, workflowSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

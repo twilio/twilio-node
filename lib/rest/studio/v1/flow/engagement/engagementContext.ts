@@ -202,7 +202,7 @@ export function EngagementContextListInstance(version: V1, flowSid: string, enga
 
   instance._version = version;
   instance._solution = { flowSid, engagementSid };
-  instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

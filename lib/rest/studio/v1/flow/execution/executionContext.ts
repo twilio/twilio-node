@@ -202,7 +202,7 @@ export function ExecutionContextListInstance(version: V1, flowSid: string, execu
 
   instance._version = version;
   instance._solution = { flowSid, executionSid };
-  instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

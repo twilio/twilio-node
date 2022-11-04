@@ -285,7 +285,7 @@ export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGra
 
   instance._version = version;
   instance._solution = { sid };
-  instance._uri = `/PlayerStreamers/${sid}/PlaybackGrant`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

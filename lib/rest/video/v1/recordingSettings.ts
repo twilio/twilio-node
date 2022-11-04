@@ -305,7 +305,7 @@ export function RecordingSettingsListInstance(version: V1): RecordingSettingsLis
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/RecordingSettings/Default`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

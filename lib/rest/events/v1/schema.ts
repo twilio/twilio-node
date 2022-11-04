@@ -214,7 +214,7 @@ export function SchemaListInstance(version: V1): SchemaListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Schemas`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

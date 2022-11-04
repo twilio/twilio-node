@@ -343,7 +343,7 @@ export function NotificationListInstance(version: V1, chatServiceSid: string): N
 
   instance._version = version;
   instance._solution = { chatServiceSid };
-  instance._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -258,7 +258,7 @@ export function WorkerStatisticsListInstance(version: V1, workspaceSid: string, 
 
   instance._version = version;
   instance._solution = { workspaceSid, workerSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Statistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

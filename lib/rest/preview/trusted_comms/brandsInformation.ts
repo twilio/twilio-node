@@ -234,7 +234,7 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/BrandsInformation`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

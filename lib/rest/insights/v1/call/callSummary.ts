@@ -303,7 +303,7 @@ export function CallSummaryListInstance(version: V1, callSid: string): CallSumma
 
   instance._version = version;
   instance._solution = { callSid };
-  instance._uri = `/Voice/${callSid}/Summary`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

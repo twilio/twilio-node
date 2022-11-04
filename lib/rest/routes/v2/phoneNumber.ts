@@ -305,7 +305,7 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/PhoneNumbers`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -277,7 +277,7 @@ export function TaskActionsListInstance(version: Understand, assistantSid: strin
 
   instance._version = version;
   instance._solution = { assistantSid, taskSid };
-  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

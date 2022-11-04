@@ -305,7 +305,7 @@ export function WorkersCumulativeStatisticsListInstance(version: V1, workspaceSi
 
   instance._version = version;
   instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workers/CumulativeStatistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

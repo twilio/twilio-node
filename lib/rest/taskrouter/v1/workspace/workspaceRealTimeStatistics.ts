@@ -279,7 +279,7 @@ export function WorkspaceRealTimeStatisticsListInstance(version: V1, workspaceSi
 
   instance._version = version;
   instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/RealTimeStatistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

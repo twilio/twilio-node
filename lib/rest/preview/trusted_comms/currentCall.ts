@@ -307,7 +307,7 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/CurrentCall`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
