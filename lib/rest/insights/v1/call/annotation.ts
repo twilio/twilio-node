@@ -338,7 +338,7 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
 
   instance._version = version;
   instance._solution = { callSid };
-  instance._uri = `/Voice/${callSid}/Annotation`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

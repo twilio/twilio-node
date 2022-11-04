@@ -252,7 +252,7 @@ export function FlowTestUserListInstance(version: V2, sid: string): FlowTestUser
 
   instance._version = version;
   instance._solution = { sid };
-  instance._uri = `/Flows/${sid}/TestUsers`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

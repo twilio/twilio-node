@@ -281,7 +281,7 @@ export function SipDomainListInstance(version: V2): SipDomainListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/SipDomains`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

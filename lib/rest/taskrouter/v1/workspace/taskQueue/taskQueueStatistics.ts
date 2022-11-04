@@ -269,7 +269,7 @@ export function TaskQueueStatisticsListInstance(version: V1, workspaceSid: strin
 
   instance._version = version;
   instance._solution = { workspaceSid, taskQueueSid };
-  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

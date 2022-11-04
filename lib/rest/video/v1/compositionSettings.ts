@@ -305,7 +305,7 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/CompositionSettings/Default`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

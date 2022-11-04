@@ -285,8 +285,8 @@ export class ChannelInstance {
 
 
 export interface ChannelListInstance {
-  (sid: string): ChannelContext;
-  get(sid: string): ChannelContext;
+  (serviceSid: string, sid: string): ChannelContext;
+  get(serviceSid: string, sid: string): ChannelContext;
 
 
   /**
@@ -297,7 +297,6 @@ export interface ChannelListInstance {
 }
 
 export interface ChannelSolution {
-  serviceSid?: string;
 }
 
 interface ChannelListInstanceImpl extends ChannelListInstance {}
@@ -308,16 +307,16 @@ class ChannelListInstanceImpl implements ChannelListInstance {
 
 }
 
-export function ChannelListInstance(version: V3, serviceSid: string): ChannelListInstance {
-  const instance = ((sid) => instance.get(sid)) as ChannelListInstanceImpl;
+export function ChannelListInstance(version: V3): ChannelListInstance {
+  const instance = ((serviceSid, sid) => instance.get(serviceSid, sid)) as ChannelListInstanceImpl;
 
-  instance.get = function get(sid): ChannelContext {
+  instance.get = function get(serviceSid, sid): ChannelContext {
     return new ChannelContextImpl(version, serviceSid, sid);
   }
 
   instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Channels`;
+  instance._solution = {  };
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

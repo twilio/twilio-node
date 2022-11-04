@@ -274,7 +274,7 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
 
   instance._version = version;
   instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/StyleSheet`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

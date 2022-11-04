@@ -381,7 +381,7 @@ export function WorkflowCumulativeStatisticsListInstance(version: V1, workspaceS
 
   instance._version = version;
   instance._solution = { workspaceSid, workflowSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

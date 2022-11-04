@@ -521,7 +521,7 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Configuration`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

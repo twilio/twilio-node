@@ -221,7 +221,7 @@ export function BrandedChannelListInstance(version: TrustedComms): BrandedChanne
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/BrandedChannels`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

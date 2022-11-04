@@ -84,8 +84,8 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
 
 
 export interface ArchivedCallListInstance {
-  (sid: string): ArchivedCallContext;
-  get(sid: string): ArchivedCallContext;
+  (date: Date, sid: string): ArchivedCallContext;
+  get(date: Date, sid: string): ArchivedCallContext;
 
 
   /**
@@ -96,7 +96,6 @@ export interface ArchivedCallListInstance {
 }
 
 export interface ArchivedCallSolution {
-  date?: Date;
 }
 
 interface ArchivedCallListInstanceImpl extends ArchivedCallListInstance {}
@@ -107,16 +106,16 @@ class ArchivedCallListInstanceImpl implements ArchivedCallListInstance {
 
 }
 
-export function ArchivedCallListInstance(version: V1, date: Date): ArchivedCallListInstance {
-  const instance = ((sid) => instance.get(sid)) as ArchivedCallListInstanceImpl;
+export function ArchivedCallListInstance(version: V1): ArchivedCallListInstance {
+  const instance = ((date, sid) => instance.get(date, sid)) as ArchivedCallListInstanceImpl;
 
-  instance.get = function get(sid): ArchivedCallContext {
+  instance.get = function get(date, sid): ArchivedCallContext {
     return new ArchivedCallContextImpl(version, date, sid);
   }
 
   instance._version = version;
-  instance._solution = { date };
-  instance._uri = `/Archives/${date}/Calls`;
+  instance._solution = {  };
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -260,7 +260,7 @@ export function WorkspaceStatisticsListInstance(version: V1, workspaceSid: strin
 
   instance._version = version;
   instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Statistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -262,7 +262,7 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
 
   instance._version = version;
   instance._solution = { trunkSid };
-  instance._uri = `/Trunks/${trunkSid}/Recording`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

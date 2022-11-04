@@ -249,7 +249,7 @@ export function UsageListInstance(version: Wireless, simSid: string): UsageListI
 
   instance._version = version;
   instance._solution = { simSid };
-  instance._uri = `/Sims/${simSid}/Usage`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

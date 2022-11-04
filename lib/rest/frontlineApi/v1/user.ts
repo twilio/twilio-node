@@ -305,7 +305,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/Users`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

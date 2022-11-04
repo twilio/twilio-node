@@ -209,7 +209,7 @@ export function TaskStatisticsListInstance(version: V1, assistantSid: string, ta
 
   instance._version = version;
   instance._solution = { assistantSid, taskSid };
-  instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

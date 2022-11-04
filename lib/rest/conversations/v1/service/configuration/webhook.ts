@@ -306,7 +306,7 @@ export function WebhookListInstance(version: V1, chatServiceSid: string): Webhoo
 
   instance._version = version;
   instance._solution = { chatServiceSid };
-  instance._uri = `/Services/${chatServiceSid}/Configuration/Webhooks`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

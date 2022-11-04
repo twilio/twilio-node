@@ -227,7 +227,7 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
 
   instance._version = version;
   instance._solution = {  };
-  instance._uri = `/CPS`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

@@ -381,7 +381,7 @@ export function TaskQueueCumulativeStatisticsListInstance(version: V1, workspace
 
   instance._version = version;
   instance._solution = { workspaceSid, taskQueueSid };
-  instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/CumulativeStatistics`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

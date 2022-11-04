@@ -313,7 +313,7 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
 
   instance._version = version;
   instance._solution = { chatServiceSid };
-  instance._uri = `/Services/${chatServiceSid}/Configuration`;
+  instance._uri = ``;
 
   Object.defineProperty(instance, "notifications", {
     get: function notifications() {

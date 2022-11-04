@@ -274,7 +274,7 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
 
   instance._version = version;
   instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/Defaults`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

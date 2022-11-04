@@ -208,7 +208,7 @@ export function FunctionVersionContentListInstance(version: V1, serviceSid: stri
 
   instance._version = version;
   instance._solution = { serviceSid, functionSid, sid };
-  instance._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

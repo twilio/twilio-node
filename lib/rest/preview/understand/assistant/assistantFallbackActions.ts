@@ -262,7 +262,7 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
 
   instance._version = version;
   instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/FallbackActions`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;

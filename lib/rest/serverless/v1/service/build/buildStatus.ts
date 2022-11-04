@@ -201,7 +201,7 @@ export function BuildStatusListInstance(version: V1, serviceSid: string, sid: st
 
   instance._version = version;
   instance._solution = { serviceSid, sid };
-  instance._uri = `/Services/${serviceSid}/Builds/${sid}/Status`;
+  instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
