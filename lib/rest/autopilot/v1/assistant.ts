@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -28,9 +27,6 @@ import { StyleSheetListInstance } from "./assistant/styleSheet";
 import { TaskListInstance } from "./assistant/task";
 import { WebhookListInstance } from "./assistant/webhook";
 
-
-
-
 /**
  * Options to pass to update a AssistantInstance
  *
@@ -44,14 +40,14 @@ import { WebhookListInstance } from "./assistant/webhook";
  * @property { string } [developmentStage] A string describing the state of the assistant.
  */
 export interface AssistantContextUpdateOptions {
-  "friendlyName"?: string;
-  "logQueries"?: boolean;
-  "uniqueName"?: string;
-  "callbackUrl"?: string;
-  "callbackEvents"?: string;
-  "styleSheet"?: any;
-  "defaults"?: any;
-  "developmentStage"?: string;
+  friendlyName?: string;
+  logQueries?: boolean;
+  uniqueName?: string;
+  callbackUrl?: string;
+  callbackEvents?: string;
+  styleSheet?: any;
+  defaults?: any;
+  developmentStage?: string;
 }
 
 /**
@@ -66,13 +62,13 @@ export interface AssistantContextUpdateOptions {
  * @property { any } [defaults] A JSON object that defines the Assistant\\\&#39;s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
  */
 export interface AssistantListInstanceCreateOptions {
-  "friendlyName"?: string;
-  "logQueries"?: boolean;
-  "uniqueName"?: string;
-  "callbackUrl"?: string;
-  "callbackEvents"?: string;
-  "styleSheet"?: any;
-  "defaults"?: any;
+  friendlyName?: string;
+  logQueries?: boolean;
+  uniqueName?: string;
+  callbackUrl?: string;
+  callbackEvents?: string;
+  styleSheet?: any;
+  defaults?: any;
 }
 /**
  * Options to pass to each
@@ -88,7 +84,7 @@ export interface AssistantListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssistantListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -104,7 +100,7 @@ export interface AssistantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssistantListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -116,15 +112,12 @@ export interface AssistantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssistantListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AssistantContext {
-
   defaults: DefaultsListInstance;
   dialogues: DialogueListInstance;
   fieldTypes: FieldTypeListInstance;
@@ -141,8 +134,9 @@ export interface AssistantContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a AssistantInstance
@@ -151,8 +145,9 @@ export interface AssistantContext {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
 
   /**
    * Update a AssistantInstance
@@ -161,7 +156,9 @@ export interface AssistantContext {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  update(callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
+  update(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
   /**
    * Update a AssistantInstance
    *
@@ -170,9 +167,11 @@ export interface AssistantContext {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  update(params: AssistantContextUpdateOptions, callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
-  update(params?: any, callback?: any): Promise<AssistantInstance>
-
+  update(
+    params: AssistantContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  update(params?: any, callback?: any): Promise<AssistantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -182,7 +181,7 @@ export interface AssistantContext {
 }
 
 export interface AssistantContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class AssistantContextImpl implements AssistantContext {
@@ -204,73 +203,92 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   get defaults(): DefaultsListInstance {
-    this._defaults = this._defaults || DefaultsListInstance(this._version, this._solution.sid);
+    this._defaults =
+      this._defaults || DefaultsListInstance(this._version, this._solution.sid);
     return this._defaults;
   }
 
   get dialogues(): DialogueListInstance {
-    this._dialogues = this._dialogues || DialogueListInstance(this._version, this._solution.sid);
+    this._dialogues =
+      this._dialogues ||
+      DialogueListInstance(this._version, this._solution.sid);
     return this._dialogues;
   }
 
   get fieldTypes(): FieldTypeListInstance {
-    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
+    this._fieldTypes =
+      this._fieldTypes ||
+      FieldTypeListInstance(this._version, this._solution.sid);
     return this._fieldTypes;
   }
 
   get modelBuilds(): ModelBuildListInstance {
-    this._modelBuilds = this._modelBuilds || ModelBuildListInstance(this._version, this._solution.sid);
+    this._modelBuilds =
+      this._modelBuilds ||
+      ModelBuildListInstance(this._version, this._solution.sid);
     return this._modelBuilds;
   }
 
   get queries(): QueryListInstance {
-    this._queries = this._queries || QueryListInstance(this._version, this._solution.sid);
+    this._queries =
+      this._queries || QueryListInstance(this._version, this._solution.sid);
     return this._queries;
   }
 
   get styleSheet(): StyleSheetListInstance {
-    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
+    this._styleSheet =
+      this._styleSheet ||
+      StyleSheetListInstance(this._version, this._solution.sid);
     return this._styleSheet;
   }
 
   get tasks(): TaskListInstance {
-    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
+    this._tasks =
+      this._tasks || TaskListInstance(this._version, this._solution.sid);
     return this._tasks;
   }
 
   get webhooks(): WebhookListInstance {
-    this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.sid);
+    this._webhooks =
+      this._webhooks || WebhookListInstance(this._version, this._solution.sid);
     return this._webhooks;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<AssistantInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssistantInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<AssistantInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -279,38 +297,44 @@ export class AssistantContextImpl implements AssistantContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["logQueries"] !== undefined)
-    data["LogQueries"] = serialize.bool(params["logQueries"]);
+      data["LogQueries"] = serialize.bool(params["logQueries"]);
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["callbackUrl"] !== undefined)
-    data["CallbackUrl"] = params["callbackUrl"];
+      data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackEvents"] !== undefined)
-    data["CallbackEvents"] = params["callbackEvents"];
+      data["CallbackEvents"] = params["callbackEvents"];
     if (params["styleSheet"] !== undefined)
-    data["StyleSheet"] = serialize.object(params["styleSheet"]);
+      data["StyleSheet"] = serialize.object(params["styleSheet"]);
     if (params["defaults"] !== undefined)
-    data["Defaults"] = serialize.object(params["defaults"]);
+      data["Defaults"] = serialize.object(params["defaults"]);
     if (params["developmentStage"] !== undefined)
-    data["DevelopmentStage"] = params["developmentStage"];
-
+      data["DevelopmentStage"] = params["developmentStage"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssistantInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -327,8 +351,9 @@ export class AssistantContextImpl implements AssistantContext {
   }
 }
 
-interface AssistantPayload extends AssistantResource, Page.TwilioResponsePayload {
-}
+interface AssistantPayload
+  extends AssistantResource,
+    Page.TwilioResponsePayload {}
 
 interface AssistantResource {
   account_sid?: string | null;
@@ -428,7 +453,9 @@ export class AssistantInstance {
   callbackEvents?: string | null;
 
   private get _proxy(): AssistantContext {
-    this._context = this._context || new AssistantContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new AssistantContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -439,8 +466,9 @@ export class AssistantInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -451,8 +479,9 @@ export class AssistantInstance {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -463,7 +492,9 @@ export class AssistantInstance {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  update(callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
+  update(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
   /**
    * Update a AssistantInstance
    *
@@ -472,9 +503,11 @@ export class AssistantInstance {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  update(params: AssistantContextUpdateOptions, callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
-  update(params?: any, callback?: any): Promise<AssistantInstance>
-     {
+  update(
+    params: AssistantContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  update(params?: any, callback?: any): Promise<AssistantInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -541,21 +574,21 @@ export class AssistantInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      latestModelBuildSid: this.latestModelBuildSid, 
-      links: this.links, 
-      logQueries: this.logQueries, 
-      developmentStage: this.developmentStage, 
-      needsModelBuild: this.needsModelBuild, 
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      url: this.url, 
-      callbackUrl: this.callbackUrl, 
-      callbackEvents: this.callbackEvents
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      latestModelBuildSid: this.latestModelBuildSid,
+      links: this.links,
+      logQueries: this.logQueries,
+      developmentStage: this.developmentStage,
+      needsModelBuild: this.needsModelBuild,
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      url: this.url,
+      callbackUrl: this.callbackUrl,
+      callbackEvents: this.callbackEvents,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -563,11 +596,9 @@ export class AssistantInstance {
   }
 }
 
-
 export interface AssistantListInstance {
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
-
 
   /**
    * Create a AssistantInstance
@@ -576,7 +607,9 @@ export interface AssistantListInstance {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  create(callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
+  create(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
   /**
    * Create a AssistantInstance
    *
@@ -585,10 +618,11 @@ export interface AssistantListInstance {
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
-  create(params: AssistantListInstanceCreateOptions, callback?: (error: Error | null, item?: AssistantInstance) => any): Promise<AssistantInstance>;
-  create(params?: any, callback?: any): Promise<AssistantInstance>
-
-
+  create(
+    params: AssistantListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  create(params?: any, callback?: any): Promise<AssistantInstance>;
 
   /**
    * Streams AssistantInstance records from the API.
@@ -604,7 +638,9 @@ export interface AssistantListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AssistantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams AssistantInstance records from the API.
    *
@@ -620,7 +656,10 @@ export interface AssistantListInstance {
    * @param { AssistantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AssistantListInstanceEachOptions, callback?: (item: AssistantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AssistantListInstanceEachOptions,
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
@@ -632,7 +671,9 @@ export interface AssistantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  getPage(
+    callback?: (error: Error | null, items: AssistantPage) => any
+  ): Promise<AssistantPage>;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
    *
@@ -644,7 +685,10 @@ export interface AssistantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AssistantPage) => any
+  ): Promise<AssistantPage>;
   getPage(params?: any, callback?: any): Promise<AssistantPage>;
   /**
    * Lists AssistantInstance records from the API as a list.
@@ -654,7 +698,9 @@ export interface AssistantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AssistantInstance[]) => any
+  ): Promise<AssistantInstance[]>;
   /**
    * Lists AssistantInstance records from the API as a list.
    *
@@ -664,7 +710,10 @@ export interface AssistantListInstance {
    * @param { AssistantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AssistantListInstanceOptions, callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
+  list(
+    params?: AssistantListInstanceOptions,
+    callback?: (error: Error | null, items: AssistantInstance[]) => any
+  ): Promise<AssistantInstance[]>;
   list(params?: any, callback?: any): Promise<AssistantInstance[]>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
@@ -676,7 +725,9 @@ export interface AssistantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  page(
+    callback?: (error: Error | null, items: AssistantPage) => any
+  ): Promise<AssistantPage>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    *
@@ -688,7 +739,10 @@ export interface AssistantListInstance {
    * @param { AssistantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AssistantListInstancePageOptions, callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  page(
+    params: AssistantListInstancePageOptions,
+    callback?: (error: Error | null, items: AssistantPage) => any
+  ): Promise<AssistantPage>;
   page(params?: any, callback?: any): Promise<AssistantPage>;
 
   /**
@@ -698,15 +752,13 @@ export interface AssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssistantSolution {
-}
+export interface AssistantSolution {}
 
 interface AssistantListInstanceImpl extends AssistantListInstance {}
 class AssistantListInstanceImpl implements AssistantListInstance {
   _version?: V1;
   _solution?: AssistantSolution;
   _uri?: string;
-
 }
 
 export function AssistantListInstance(version: V1): AssistantListInstance {
@@ -714,13 +766,16 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
   instance.get = function get(sid): AssistantContext {
     return new AssistantContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Assistants`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<AssistantInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<AssistantInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -730,39 +785,47 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["logQueries"] !== undefined)
-    data["LogQueries"] = serialize.bool(params["logQueries"]);
+      data["LogQueries"] = serialize.bool(params["logQueries"]);
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["callbackUrl"] !== undefined)
-    data["CallbackUrl"] = params["callbackUrl"];
+      data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackEvents"] !== undefined)
-    data["CallbackEvents"] = params["callbackEvents"];
+      data["CallbackEvents"] = params["callbackEvents"];
     if (params["styleSheet"] !== undefined)
-    data["StyleSheet"] = serialize.object(params["styleSheet"]);
+      data["StyleSheet"] = serialize.object(params["styleSheet"]);
     if (params["defaults"] !== undefined)
-    data["Defaults"] = serialize.object(params["defaults"]);
-
+      data["Defaults"] = serialize.object(params["defaults"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssistantInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssistantInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<AssistantPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AssistantPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -772,74 +835,98 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssistantPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssistantPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssistantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AssistantPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AssistantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssistantPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AssistantPage extends Page<V1, AssistantPayload, AssistantResource, AssistantInstance> {
-/**
-* Initialize the AssistantPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: AssistantSolution) {
+export class AssistantPage extends Page<
+  V1,
+  AssistantPayload,
+  AssistantResource,
+  AssistantInstance
+> {
+  /**
+   * Initialize the AssistantPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AssistantSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AssistantInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AssistantPayload): AssistantInstance {
-    return new AssistantInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of AssistantInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AssistantPayload): AssistantInstance {
+    return new AssistantInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

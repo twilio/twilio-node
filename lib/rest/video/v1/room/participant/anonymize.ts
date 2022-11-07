@@ -12,20 +12,14 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type RoomParticipantAnonymizeStatus = 'connected'|'disconnected';
-
+type RoomParticipantAnonymizeStatus = "connected" | "disconnected";
 
 export interface AnonymizeContext {
-
-
   /**
    * Update a AnonymizeInstance
    *
@@ -33,8 +27,9 @@ export interface AnonymizeContext {
    *
    * @returns { Promise } Resolves to processed AnonymizeInstance
    */
-  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
-
+  update(
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
+  ): Promise<AnonymizeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -44,14 +39,13 @@ export interface AnonymizeContext {
 }
 
 export interface AnonymizeContextSolution {
-  "roomSid"?: string;
-  "sid"?: string;
+  roomSid?: string;
+  sid?: string;
 }
 
 export class AnonymizeContextImpl implements AnonymizeContext {
   protected _solution: AnonymizeContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
     this._solution = { roomSid, sid };
@@ -59,17 +53,27 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   }
 
   update(callback?: any): Promise<AnonymizeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
-    
-    operationPromise = operationPromise.then(payload => new AnonymizeInstance(operationVersion, payload, this._solution.roomSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AnonymizeInstance(
+          operationVersion,
+          payload,
+          this._solution.roomSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -86,8 +90,7 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   }
 }
 
-interface AnonymizePayload extends AnonymizeResource{
-}
+interface AnonymizePayload extends AnonymizeResource {}
 
 interface AnonymizeResource {
   sid?: string | null;
@@ -107,7 +110,12 @@ export class AnonymizeInstance {
   protected _solution: AnonymizeContextSolution;
   protected _context?: AnonymizeContext;
 
-  constructor(protected _version: V1, payload: AnonymizePayload, roomSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AnonymizePayload,
+    roomSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
     this.accountSid = payload.account_sid;
@@ -166,7 +174,13 @@ export class AnonymizeInstance {
   url?: string | null;
 
   private get _proxy(): AnonymizeContext {
-    this._context = this._context || new AnonymizeContextImpl(this._version, this._solution.roomSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new AnonymizeContextImpl(
+        this._version,
+        this._solution.roomSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -177,8 +191,9 @@ export class AnonymizeInstance {
    *
    * @returns { Promise } Resolves to processed AnonymizeInstance
    */
-  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
-     {
+  update(
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
+  ): Promise<AnonymizeInstance> {
     return this._proxy.update(callback);
   }
 
@@ -189,18 +204,18 @@ export class AnonymizeInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      roomSid: this.roomSid, 
-      accountSid: this.accountSid, 
-      status: this.status, 
-      identity: this.identity, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      startTime: this.startTime, 
-      endTime: this.endTime, 
-      duration: this.duration, 
-      url: this.url
-    }
+      sid: this.sid,
+      roomSid: this.roomSid,
+      accountSid: this.accountSid,
+      status: this.status,
+      identity: this.identity,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      duration: this.duration,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -208,11 +223,9 @@ export class AnonymizeInstance {
   }
 }
 
-
 export interface AnonymizeListInstance {
   (): AnonymizeContext;
   get(): AnonymizeContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -231,15 +244,18 @@ class AnonymizeListInstanceImpl implements AnonymizeListInstance {
   _version?: V1;
   _solution?: AnonymizeSolution;
   _uri?: string;
-
 }
 
-export function AnonymizeListInstance(version: V1, roomSid: string, sid: string): AnonymizeListInstance {
+export function AnonymizeListInstance(
+  version: V1,
+  roomSid: string,
+  sid: string
+): AnonymizeListInstance {
   const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
 
   instance.get = function get(): AnonymizeContext {
     return new AnonymizeContextImpl(version, roomSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { roomSid, sid };
@@ -247,14 +263,14 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

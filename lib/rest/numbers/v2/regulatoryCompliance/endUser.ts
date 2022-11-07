@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,10 +19,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-type EndUserType = 'individual'|'business';
-
+type EndUserType = "individual" | "business";
 
 /**
  * Options to pass to update a EndUserInstance
@@ -32,21 +28,21 @@ type EndUserType = 'individual'|'business';
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserContextUpdateOptions {
-  "friendlyName"?: string;
-  "attributes"?: any;
+  friendlyName?: string;
+  attributes?: any;
 }
 
 /**
  * Options to pass to create a EndUserInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { EndUserType } type 
+ * @property { EndUserType } type
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserListInstanceCreateOptions {
-  "friendlyName": string;
-  "type": EndUserType;
-  "attributes"?: any;
+  friendlyName: string;
+  type: EndUserType;
+  attributes?: any;
 }
 /**
  * Options to pass to each
@@ -62,7 +58,7 @@ export interface EndUserListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EndUserListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: EndUserInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -78,7 +74,7 @@ export interface EndUserListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EndUserListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -90,16 +86,12 @@ export interface EndUserListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EndUserListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EndUserContext {
-
-
   /**
    * Remove a EndUserInstance
    *
@@ -107,8 +99,9 @@ export interface EndUserContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a EndUserInstance
@@ -117,8 +110,9 @@ export interface EndUserContext {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  fetch(callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
 
   /**
    * Update a EndUserInstance
@@ -127,7 +121,9 @@ export interface EndUserContext {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  update(callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>;
+  update(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
   /**
    * Update a EndUserInstance
    *
@@ -136,9 +132,11 @@ export interface EndUserContext {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  update(params: EndUserContextUpdateOptions, callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>;
-  update(params?: any, callback?: any): Promise<EndUserInstance>
-
+  update(
+    params: EndUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+  update(params?: any, callback?: any): Promise<EndUserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -148,13 +146,12 @@ export interface EndUserContext {
 }
 
 export interface EndUserContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class EndUserContextImpl implements EndUserContext {
   protected _solution: EndUserContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -162,33 +159,40 @@ export class EndUserContextImpl implements EndUserContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<EndUserInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EndUserInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<EndUserInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -197,26 +201,32 @@ export class EndUserContextImpl implements EndUserContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = serialize.object(params["attributes"]);
-
+      data["Attributes"] = serialize.object(params["attributes"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EndUserInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -233,8 +243,7 @@ export class EndUserContextImpl implements EndUserContext {
   }
 }
 
-interface EndUserPayload extends EndUserResource, Page.TwilioResponsePayload {
-}
+interface EndUserPayload extends EndUserResource, Page.TwilioResponsePayload {}
 
 interface EndUserResource {
   sid?: string | null;
@@ -295,7 +304,9 @@ export class EndUserInstance {
   url?: string | null;
 
   private get _proxy(): EndUserContext {
-    this._context = this._context || new EndUserContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new EndUserContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -306,8 +317,9 @@ export class EndUserInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -318,8 +330,9 @@ export class EndUserInstance {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  fetch(callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -330,7 +343,9 @@ export class EndUserInstance {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  update(callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>;
+  update(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
   /**
    * Update a EndUserInstance
    *
@@ -339,9 +354,11 @@ export class EndUserInstance {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  update(params: EndUserContextUpdateOptions, callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>;
-  update(params?: any, callback?: any): Promise<EndUserInstance>
-     {
+  update(
+    params: EndUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+  update(params?: any, callback?: any): Promise<EndUserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -352,15 +369,15 @@ export class EndUserInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      type: this.type, 
-      attributes: this.attributes, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      type: this.type,
+      attributes: this.attributes,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -368,11 +385,9 @@ export class EndUserInstance {
   }
 }
 
-
 export interface EndUserListInstance {
   (sid: string): EndUserContext;
   get(sid: string): EndUserContext;
-
 
   /**
    * Create a EndUserInstance
@@ -382,10 +397,11 @@ export interface EndUserListInstance {
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
-  create(params: EndUserListInstanceCreateOptions, callback?: (error: Error | null, item?: EndUserInstance) => any): Promise<EndUserInstance>;
-  create(params: any, callback?: any): Promise<EndUserInstance>
-
-
+  create(
+    params: EndUserListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+  create(params: any, callback?: any): Promise<EndUserInstance>;
 
   /**
    * Streams EndUserInstance records from the API.
@@ -401,7 +417,9 @@ export interface EndUserListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EndUserInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EndUserInstance records from the API.
    *
@@ -417,7 +435,10 @@ export interface EndUserListInstance {
    * @param { EndUserListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EndUserListInstanceEachOptions, callback?: (item: EndUserInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EndUserListInstanceEachOptions,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EndUserInstance records from the API.
@@ -429,7 +450,9 @@ export interface EndUserListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
+  getPage(
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
   /**
    * Retrieve a single target page of EndUserInstance records from the API.
    *
@@ -441,7 +464,10 @@ export interface EndUserListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
   getPage(params?: any, callback?: any): Promise<EndUserPage>;
   /**
    * Lists EndUserInstance records from the API as a list.
@@ -451,7 +477,9 @@ export interface EndUserListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EndUserInstance[]) => any): Promise<EndUserInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
+  ): Promise<EndUserInstance[]>;
   /**
    * Lists EndUserInstance records from the API as a list.
    *
@@ -461,7 +489,10 @@ export interface EndUserListInstance {
    * @param { EndUserListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EndUserListInstanceOptions, callback?: (error: Error | null, items: EndUserInstance[]) => any): Promise<EndUserInstance[]>;
+  list(
+    params?: EndUserListInstanceOptions,
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
+  ): Promise<EndUserInstance[]>;
   list(params?: any, callback?: any): Promise<EndUserInstance[]>;
   /**
    * Retrieve a single page of EndUserInstance records from the API.
@@ -473,7 +504,9 @@ export interface EndUserListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
+  page(
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
   /**
    * Retrieve a single page of EndUserInstance records from the API.
    *
@@ -485,7 +518,10 @@ export interface EndUserListInstance {
    * @param { EndUserListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EndUserListInstancePageOptions, callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
+  page(
+    params: EndUserListInstancePageOptions,
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
   page(params?: any, callback?: any): Promise<EndUserPage>;
 
   /**
@@ -495,15 +531,13 @@ export interface EndUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EndUserSolution {
-}
+export interface EndUserSolution {}
 
 interface EndUserListInstanceImpl extends EndUserListInstance {}
 class EndUserListInstanceImpl implements EndUserListInstance {
   _version?: V2;
   _solution?: EndUserSolution;
   _uri?: string;
-
 }
 
 export function EndUserListInstance(version: V2): EndUserListInstance {
@@ -511,52 +545,65 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
   instance.get = function get(sid): EndUserContext {
     return new EndUserContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RegulatoryCompliance/EndUsers`;
 
-  instance.create = function create(params: any, callback?: any): Promise<EndUserInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<EndUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+      throw new Error("Required parameter \"params['type']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["Type"] = params["type"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = serialize.object(params["attributes"]);
-
+      data["Attributes"] = serialize.object(params["attributes"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EndUserInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EndUserInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<EndUserPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EndUserPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -566,74 +613,98 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EndUserPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EndUserPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EndUserPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EndUserPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EndUserPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EndUserPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class EndUserPage extends Page<V2, EndUserPayload, EndUserResource, EndUserInstance> {
-/**
-* Initialize the EndUserPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: EndUserSolution) {
+export class EndUserPage extends Page<
+  V2,
+  EndUserPayload,
+  EndUserResource,
+  EndUserInstance
+> {
+  /**
+   * Initialize the EndUserPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: EndUserSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EndUserInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EndUserPayload): EndUserInstance {
-    return new EndUserInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of EndUserInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EndUserPayload): EndUserInstance {
+    return new EndUserInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

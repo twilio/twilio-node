@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,16 +19,13 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to update a MessagingConfigurationInstance
  *
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationContextUpdateOptions {
-  "messagingServiceSid": string;
+  messagingServiceSid: string;
 }
 
 /**
@@ -39,8 +35,8 @@ export interface MessagingConfigurationContextUpdateOptions {
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationListInstanceCreateOptions {
-  "country": string;
-  "messagingServiceSid": string;
+  country: string;
+  messagingServiceSid: string;
 }
 /**
  * Options to pass to each
@@ -56,8 +52,11 @@ export interface MessagingConfigurationListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: MessagingConfigurationInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: MessagingConfigurationInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -72,7 +71,7 @@ export interface MessagingConfigurationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -84,16 +83,12 @@ export interface MessagingConfigurationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessagingConfigurationListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface MessagingConfigurationContext {
-
-
   /**
    * Remove a MessagingConfigurationInstance
    *
@@ -101,8 +96,9 @@ export interface MessagingConfigurationContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a MessagingConfigurationInstance
@@ -111,8 +107,12 @@ export interface MessagingConfigurationContext {
    *
    * @returns { Promise } Resolves to processed MessagingConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>
-
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance>;
 
   /**
    * Update a MessagingConfigurationInstance
@@ -122,9 +122,14 @@ export interface MessagingConfigurationContext {
    *
    * @returns { Promise } Resolves to processed MessagingConfigurationInstance
    */
-  update(params: MessagingConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance>
-
+  update(
+    params: MessagingConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance>;
+  update(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -134,14 +139,15 @@ export interface MessagingConfigurationContext {
 }
 
 export interface MessagingConfigurationContextSolution {
-  "serviceSid"?: string;
-  "country"?: string;
+  serviceSid?: string;
+  country?: string;
 }
 
-export class MessagingConfigurationContextImpl implements MessagingConfigurationContext {
+export class MessagingConfigurationContextImpl
+  implements MessagingConfigurationContext
+{
   protected _solution: MessagingConfigurationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, serviceSid: string, country: string) {
     this._solution = { serviceSid, country };
@@ -149,60 +155,87 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<MessagingConfigurationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.country));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessagingConfigurationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.country
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["messagingServiceSid"] === null || params["messagingServiceSid"] === undefined) {
-      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
+    if (
+      params["messagingServiceSid"] === null ||
+      params["messagingServiceSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messagingServiceSid']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["MessagingServiceSid"] = params["messagingServiceSid"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.country));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessagingConfigurationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.country
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -219,8 +252,9 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
   }
 }
 
-interface MessagingConfigurationPayload extends MessagingConfigurationResource, Page.TwilioResponsePayload {
-}
+interface MessagingConfigurationPayload
+  extends MessagingConfigurationResource,
+    Page.TwilioResponsePayload {}
 
 interface MessagingConfigurationResource {
   account_sid?: string | null;
@@ -236,7 +270,12 @@ export class MessagingConfigurationInstance {
   protected _solution: MessagingConfigurationContextSolution;
   protected _context?: MessagingConfigurationContext;
 
-  constructor(protected _version: V2, payload: MessagingConfigurationPayload, serviceSid: string, country?: string) {
+  constructor(
+    protected _version: V2,
+    payload: MessagingConfigurationPayload,
+    serviceSid: string,
+    country?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
     this.country = payload.country;
@@ -278,7 +317,13 @@ export class MessagingConfigurationInstance {
   url?: string | null;
 
   private get _proxy(): MessagingConfigurationContext {
-    this._context = this._context || new MessagingConfigurationContextImpl(this._version, this._solution.serviceSid, this._solution.country);
+    this._context =
+      this._context ||
+      new MessagingConfigurationContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.country
+      );
     return this._context;
   }
 
@@ -289,8 +334,9 @@ export class MessagingConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -301,8 +347,12 @@ export class MessagingConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed MessagingConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>
-     {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -314,9 +364,14 @@ export class MessagingConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed MessagingConfigurationInstance
    */
-  update(params: MessagingConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance>
-     {
+  update(
+    params: MessagingConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance>;
+  update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -327,14 +382,14 @@ export class MessagingConfigurationInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      country: this.country, 
-      messagingServiceSid: this.messagingServiceSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      country: this.country,
+      messagingServiceSid: this.messagingServiceSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -342,11 +397,9 @@ export class MessagingConfigurationInstance {
   }
 }
 
-
 export interface MessagingConfigurationListInstance {
   (country: string): MessagingConfigurationContext;
   get(country: string): MessagingConfigurationContext;
-
 
   /**
    * Create a MessagingConfigurationInstance
@@ -356,10 +409,14 @@ export interface MessagingConfigurationListInstance {
    *
    * @returns { Promise } Resolves to processed MessagingConfigurationInstance
    */
-  create(params: MessagingConfigurationListInstanceCreateOptions, callback?: (error: Error | null, item?: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>;
-  create(params: any, callback?: any): Promise<MessagingConfigurationInstance>
-
-
+  create(
+    params: MessagingConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance>;
+  create(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
   /**
    * Streams MessagingConfigurationInstance records from the API.
@@ -375,7 +432,12 @@ export interface MessagingConfigurationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: MessagingConfigurationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: MessagingConfigurationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams MessagingConfigurationInstance records from the API.
    *
@@ -391,7 +453,13 @@ export interface MessagingConfigurationListInstance {
    * @param { MessagingConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: MessagingConfigurationListInstanceEachOptions, callback?: (item: MessagingConfigurationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: MessagingConfigurationListInstanceEachOptions,
+    callback?: (
+      item: MessagingConfigurationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MessagingConfigurationInstance records from the API.
@@ -403,7 +471,9 @@ export interface MessagingConfigurationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: MessagingConfigurationPage) => any): Promise<MessagingConfigurationPage>;
+  getPage(
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
   /**
    * Retrieve a single target page of MessagingConfigurationInstance records from the API.
    *
@@ -415,7 +485,10 @@ export interface MessagingConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagingConfigurationPage) => any): Promise<MessagingConfigurationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
   getPage(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
   /**
    * Lists MessagingConfigurationInstance records from the API as a list.
@@ -425,7 +498,12 @@ export interface MessagingConfigurationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: MessagingConfigurationInstance[]) => any): Promise<MessagingConfigurationInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: MessagingConfigurationInstance[]
+    ) => any
+  ): Promise<MessagingConfigurationInstance[]>;
   /**
    * Lists MessagingConfigurationInstance records from the API as a list.
    *
@@ -435,7 +513,13 @@ export interface MessagingConfigurationListInstance {
    * @param { MessagingConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: MessagingConfigurationListInstanceOptions, callback?: (error: Error | null, items: MessagingConfigurationInstance[]) => any): Promise<MessagingConfigurationInstance[]>;
+  list(
+    params?: MessagingConfigurationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: MessagingConfigurationInstance[]
+    ) => any
+  ): Promise<MessagingConfigurationInstance[]>;
   list(params?: any, callback?: any): Promise<MessagingConfigurationInstance[]>;
   /**
    * Retrieve a single page of MessagingConfigurationInstance records from the API.
@@ -447,7 +531,9 @@ export interface MessagingConfigurationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: MessagingConfigurationPage) => any): Promise<MessagingConfigurationPage>;
+  page(
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
   /**
    * Retrieve a single page of MessagingConfigurationInstance records from the API.
    *
@@ -459,7 +545,10 @@ export interface MessagingConfigurationListInstance {
    * @param { MessagingConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: MessagingConfigurationListInstancePageOptions, callback?: (error: Error | null, items: MessagingConfigurationPage) => any): Promise<MessagingConfigurationPage>;
+  page(
+    params: MessagingConfigurationListInstancePageOptions,
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
   page(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
 
   /**
@@ -473,63 +562,89 @@ export interface MessagingConfigurationSolution {
   serviceSid?: string;
 }
 
-interface MessagingConfigurationListInstanceImpl extends MessagingConfigurationListInstance {}
-class MessagingConfigurationListInstanceImpl implements MessagingConfigurationListInstance {
+interface MessagingConfigurationListInstanceImpl
+  extends MessagingConfigurationListInstance {}
+class MessagingConfigurationListInstanceImpl
+  implements MessagingConfigurationListInstance
+{
   _version?: V2;
   _solution?: MessagingConfigurationSolution;
   _uri?: string;
-
 }
 
-export function MessagingConfigurationListInstance(version: V2, serviceSid: string): MessagingConfigurationListInstance {
-  const instance = ((country) => instance.get(country)) as MessagingConfigurationListInstanceImpl;
+export function MessagingConfigurationListInstance(
+  version: V2,
+  serviceSid: string
+): MessagingConfigurationListInstance {
+  const instance = ((country) =>
+    instance.get(country)) as MessagingConfigurationListInstanceImpl;
 
   instance.get = function get(country): MessagingConfigurationContext {
     return new MessagingConfigurationContextImpl(version, serviceSid, country);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/MessagingConfigurations`;
 
-  instance.create = function create(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["country"] === null || params["country"] === undefined) {
-      throw new Error('Required parameter "params[\'country\']" missing.');
+      throw new Error("Required parameter \"params['country']\" missing.");
     }
 
-    if (params["messagingServiceSid"] === null || params["messagingServiceSid"] === undefined) {
-      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
+    if (
+      params["messagingServiceSid"] === null ||
+      params["messagingServiceSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messagingServiceSid']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["Country"] = params["country"];
-    
+
     data["MessagingServiceSid"] = params["messagingServiceSid"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagingConfigurationInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessagingConfigurationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<MessagingConfigurationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<MessagingConfigurationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -539,75 +654,110 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagingConfigurationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessagingConfigurationPage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagingConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<MessagingConfigurationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new MessagingConfigurationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessagingConfigurationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class MessagingConfigurationPage extends Page<V2, MessagingConfigurationPayload, MessagingConfigurationResource, MessagingConfigurationInstance> {
-/**
-* Initialize the MessagingConfigurationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: MessagingConfigurationSolution) {
+export class MessagingConfigurationPage extends Page<
+  V2,
+  MessagingConfigurationPayload,
+  MessagingConfigurationResource,
+  MessagingConfigurationInstance
+> {
+  /**
+   * Initialize the MessagingConfigurationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: MessagingConfigurationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of MessagingConfigurationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: MessagingConfigurationPayload): MessagingConfigurationInstance {
+  /**
+   * Build an instance of MessagingConfigurationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: MessagingConfigurationPayload
+  ): MessagingConfigurationInstance {
     return new MessagingConfigurationInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
+      this._version,
+      payload,
+      this._solution.serviceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

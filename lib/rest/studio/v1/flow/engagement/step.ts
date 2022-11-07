@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,8 +19,6 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { StepContextListInstance } from "./step/stepContext";
-
-
 
 /**
  * Options to pass to each
@@ -37,7 +34,7 @@ import { StepContextListInstance } from "./step/stepContext";
  *                         Default is no limit
  */
 export interface StepListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: StepInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -53,7 +50,7 @@ export interface StepListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface StepListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -65,15 +62,12 @@ export interface StepListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface StepListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface StepContext {
-
   stepContext: StepContextListInstance;
 
   /**
@@ -83,8 +77,9 @@ export interface StepContext {
    *
    * @returns { Promise } Resolves to processed StepInstance
    */
-  fetch(callback?: (error: Error | null, item?: StepInstance) => any): Promise<StepInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: StepInstance) => any
+  ): Promise<StepInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,9 +89,9 @@ export interface StepContext {
 }
 
 export interface StepContextSolution {
-  "flowSid"?: string;
-  "engagementSid"?: string;
-  "sid"?: string;
+  flowSid?: string;
+  engagementSid?: string;
+  sid?: string;
 }
 
 export class StepContextImpl implements StepContext {
@@ -105,28 +100,51 @@ export class StepContextImpl implements StepContext {
 
   protected _stepContext?: StepContextListInstance;
 
-  constructor(protected _version: V1, flowSid: string, engagementSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    engagementSid: string,
+    sid: string
+  ) {
     this._solution = { flowSid, engagementSid, sid };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${sid}`;
   }
 
   get stepContext(): StepContextListInstance {
-    this._stepContext = this._stepContext || StepContextListInstance(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.sid);
+    this._stepContext =
+      this._stepContext ||
+      StepContextListInstance(
+        this._version,
+        this._solution.flowSid,
+        this._solution.engagementSid,
+        this._solution.sid
+      );
     return this._stepContext;
   }
 
   fetch(callback?: any): Promise<StepInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new StepInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new StepInstance(
+          operationVersion,
+          payload,
+          this._solution.flowSid,
+          this._solution.engagementSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -143,8 +161,7 @@ export class StepContextImpl implements StepContext {
   }
 }
 
-interface StepPayload extends StepResource, Page.TwilioResponsePayload {
-}
+interface StepPayload extends StepResource, Page.TwilioResponsePayload {}
 
 interface StepResource {
   sid?: string | null;
@@ -165,7 +182,13 @@ export class StepInstance {
   protected _solution: StepContextSolution;
   protected _context?: StepContext;
 
-  constructor(protected _version: V1, payload: StepPayload, flowSid: string, engagementSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: StepPayload,
+    flowSid: string,
+    engagementSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.flowSid = payload.flow_sid;
@@ -232,7 +255,14 @@ export class StepInstance {
   links?: object | null;
 
   private get _proxy(): StepContext {
-    this._context = this._context || new StepContextImpl(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new StepContextImpl(
+        this._version,
+        this._solution.flowSid,
+        this._solution.engagementSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -243,8 +273,9 @@ export class StepInstance {
    *
    * @returns { Promise } Resolves to processed StepInstance
    */
-  fetch(callback?: (error: Error | null, item?: StepInstance) => any): Promise<StepInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: StepInstance) => any
+  ): Promise<StepInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -262,19 +293,19 @@ export class StepInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      flowSid: this.flowSid, 
-      engagementSid: this.engagementSid, 
-      name: this.name, 
-      context: this.context, 
-      transitionedFrom: this.transitionedFrom, 
-      transitionedTo: this.transitionedTo, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      flowSid: this.flowSid,
+      engagementSid: this.engagementSid,
+      name: this.name,
+      context: this.context,
+      transitionedFrom: this.transitionedFrom,
+      transitionedTo: this.transitionedTo,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -282,12 +313,9 @@ export class StepInstance {
   }
 }
 
-
 export interface StepListInstance {
   (sid: string): StepContext;
   get(sid: string): StepContext;
-
-
 
   /**
    * Streams StepInstance records from the API.
@@ -303,7 +331,9 @@ export interface StepListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: StepInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams StepInstance records from the API.
    *
@@ -319,7 +349,10 @@ export interface StepListInstance {
    * @param { StepListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: StepListInstanceEachOptions, callback?: (item: StepInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: StepListInstanceEachOptions,
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of StepInstance records from the API.
@@ -331,7 +364,9 @@ export interface StepListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
+  getPage(
+    callback?: (error: Error | null, items: StepPage) => any
+  ): Promise<StepPage>;
   /**
    * Retrieve a single target page of StepInstance records from the API.
    *
@@ -343,7 +378,10 @@ export interface StepListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: StepPage) => any
+  ): Promise<StepPage>;
   getPage(params?: any, callback?: any): Promise<StepPage>;
   /**
    * Lists StepInstance records from the API as a list.
@@ -353,7 +391,9 @@ export interface StepListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: StepInstance[]) => any): Promise<StepInstance[]>;
+  list(
+    callback?: (error: Error | null, items: StepInstance[]) => any
+  ): Promise<StepInstance[]>;
   /**
    * Lists StepInstance records from the API as a list.
    *
@@ -363,7 +403,10 @@ export interface StepListInstance {
    * @param { StepListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: StepListInstanceOptions, callback?: (error: Error | null, items: StepInstance[]) => any): Promise<StepInstance[]>;
+  list(
+    params?: StepListInstanceOptions,
+    callback?: (error: Error | null, items: StepInstance[]) => any
+  ): Promise<StepInstance[]>;
   list(params?: any, callback?: any): Promise<StepInstance[]>;
   /**
    * Retrieve a single page of StepInstance records from the API.
@@ -375,7 +418,9 @@ export interface StepListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
+  page(
+    callback?: (error: Error | null, items: StepPage) => any
+  ): Promise<StepPage>;
   /**
    * Retrieve a single page of StepInstance records from the API.
    *
@@ -387,7 +432,10 @@ export interface StepListInstance {
    * @param { StepListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: StepListInstancePageOptions, callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
+  page(
+    params: StepListInstancePageOptions,
+    callback?: (error: Error | null, items: StepPage) => any
+  ): Promise<StepPage>;
   page(params?: any, callback?: any): Promise<StepPage>;
 
   /**
@@ -407,21 +455,27 @@ class StepListInstanceImpl implements StepListInstance {
   _version?: V1;
   _solution?: StepSolution;
   _uri?: string;
-
 }
 
-export function StepListInstance(version: V1, flowSid: string, engagementSid: string): StepListInstance {
+export function StepListInstance(
+  version: V1,
+  flowSid: string,
+  engagementSid: string
+): StepListInstance {
   const instance = ((sid) => instance.get(sid)) as StepListInstanceImpl;
 
   instance.get = function get(sid): StepContext {
     return new StepContextImpl(version, flowSid, engagementSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { flowSid, engagementSid };
   instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<StepPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<StepPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -431,76 +485,99 @@ export function StepListInstance(version: V1, flowSid: string, engagementSid: st
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new StepPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new StepPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<StepPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<StepPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new StepPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new StepPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
-/**
-* Initialize the StepPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: StepSolution) {
+export class StepPage extends Page<
+  V1,
+  StepPayload,
+  StepResource,
+  StepInstance
+> {
+  /**
+   * Initialize the StepPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: StepSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of StepInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: StepPayload): StepInstance {
+  /**
+   * Build an instance of StepInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: StepPayload): StepInstance {
     return new StepInstance(
-    this._version,
-    payload,
-        this._solution.flowSid,
-        this._solution.engagementSid,
+      this._version,
+      payload,
+      this._solution.flowSid,
+      this._solution.engagementSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

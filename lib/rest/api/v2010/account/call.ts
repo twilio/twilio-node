@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -31,18 +30,24 @@ import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMe
 
 import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 
+type CallStatus =
+  | "queued"
+  | "ringing"
+  | "in-progress"
+  | "completed"
+  | "busy"
+  | "failed"
+  | "no-answer"
+  | "canceled";
 
-type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
-
-type CallUpdateStatus = 'canceled'|'completed';
-
+type CallUpdateStatus = "canceled" | "completed";
 
 /**
  * Options to pass to update a CallInstance
  *
  * @property { string } [url] The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
  * @property { string } [method] The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { CallUpdateStatus } [status] 
+ * @property { CallUpdateStatus } [status]
  * @property { string } [fallbackUrl] The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
  * @property { string } [fallbackMethod] The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -51,15 +56,15 @@ type CallUpdateStatus = 'canceled'|'completed';
  * @property { number } [timeLimit] The maximum duration of the call in seconds. Constraints depend on account and configuration.
  */
 export interface CallContextUpdateOptions {
-  "url"?: string;
-  "method"?: string;
-  "status"?: CallUpdateStatus;
-  "fallbackUrl"?: string;
-  "fallbackMethod"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "twiml"?: string;
-  "timeLimit"?: number;
+  url?: string;
+  method?: string;
+  status?: CallUpdateStatus;
+  fallbackUrl?: string;
+  fallbackMethod?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  twiml?: string;
+  timeLimit?: number;
 }
 
 /**
@@ -102,41 +107,41 @@ export interface CallContextUpdateOptions {
  * @property { string } [applicationSid] The SID of the Application resource that will handle the call, if the call will be handled by an application.
  */
 export interface CallListInstanceCreateOptions {
-  "to": string;
-  "from": string;
-  "method"?: string;
-  "fallbackUrl"?: string;
-  "fallbackMethod"?: string;
-  "statusCallback"?: string;
-  "statusCallbackEvent"?: Array<string>;
-  "statusCallbackMethod"?: string;
-  "sendDigits"?: string;
-  "timeout"?: number;
-  "record"?: boolean;
-  "recordingChannels"?: string;
-  "recordingStatusCallback"?: string;
-  "recordingStatusCallbackMethod"?: string;
-  "sipAuthUsername"?: string;
-  "sipAuthPassword"?: string;
-  "machineDetection"?: string;
-  "machineDetectionTimeout"?: number;
-  "recordingStatusCallbackEvent"?: Array<string>;
-  "trim"?: string;
-  "callerId"?: string;
-  "machineDetectionSpeechThreshold"?: number;
-  "machineDetectionSpeechEndThreshold"?: number;
-  "machineDetectionSilenceTimeout"?: number;
-  "asyncAmd"?: string;
-  "asyncAmdStatusCallback"?: string;
-  "asyncAmdStatusCallbackMethod"?: string;
-  "byoc"?: string;
-  "callReason"?: string;
-  "callToken"?: string;
-  "recordingTrack"?: string;
-  "timeLimit"?: number;
-  "url"?: string;
-  "twiml"?: string;
-  "applicationSid"?: string;
+  to: string;
+  from: string;
+  method?: string;
+  fallbackUrl?: string;
+  fallbackMethod?: string;
+  statusCallback?: string;
+  statusCallbackEvent?: Array<string>;
+  statusCallbackMethod?: string;
+  sendDigits?: string;
+  timeout?: number;
+  record?: boolean;
+  recordingChannels?: string;
+  recordingStatusCallback?: string;
+  recordingStatusCallbackMethod?: string;
+  sipAuthUsername?: string;
+  sipAuthPassword?: string;
+  machineDetection?: string;
+  machineDetectionTimeout?: number;
+  recordingStatusCallbackEvent?: Array<string>;
+  trim?: string;
+  callerId?: string;
+  machineDetectionSpeechThreshold?: number;
+  machineDetectionSpeechEndThreshold?: number;
+  machineDetectionSilenceTimeout?: number;
+  asyncAmd?: string;
+  asyncAmdStatusCallback?: string;
+  asyncAmdStatusCallbackMethod?: string;
+  byoc?: string;
+  callReason?: string;
+  callToken?: string;
+  recordingTrack?: string;
+  timeLimit?: number;
+  url?: string;
+  twiml?: string;
+  applicationSid?: string;
 }
 /**
  * Options to pass to each
@@ -162,17 +167,17 @@ export interface CallListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CallListInstanceEachOptions {
-  "to"?: string;
-  "from"?: string;
-  "parentCallSid"?: string;
-  "status"?: CallStatus;
-  "startTime"?: Date;
-  "startTimeBefore"?: Date;
-  "startTimeAfter"?: Date;
-  "endTime"?: Date;
-  "endTimeBefore"?: Date;
-  "endTimeAfter"?: Date;
-  "pageSize"?: number;
+  to?: string;
+  from?: string;
+  parentCallSid?: string;
+  status?: CallStatus;
+  startTime?: Date;
+  startTimeBefore?: Date;
+  startTimeAfter?: Date;
+  endTime?: Date;
+  endTimeBefore?: Date;
+  endTimeAfter?: Date;
+  pageSize?: number;
   callback?: (item: CallInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -198,17 +203,17 @@ export interface CallListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CallListInstanceOptions {
-  "to"?: string;
-  "from"?: string;
-  "parentCallSid"?: string;
-  "status"?: CallStatus;
-  "startTime"?: Date;
-  "startTimeBefore"?: Date;
-  "startTimeAfter"?: Date;
-  "endTime"?: Date;
-  "endTimeBefore"?: Date;
-  "endTimeAfter"?: Date;
-  "pageSize"?: number;
+  to?: string;
+  from?: string;
+  parentCallSid?: string;
+  status?: CallStatus;
+  startTime?: Date;
+  startTimeBefore?: Date;
+  startTimeAfter?: Date;
+  endTime?: Date;
+  endTimeBefore?: Date;
+  endTimeAfter?: Date;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -230,25 +235,22 @@ export interface CallListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CallListInstancePageOptions {
-  "to"?: string;
-  "from"?: string;
-  "parentCallSid"?: string;
-  "status"?: CallStatus;
-  "startTime"?: Date;
-  "startTimeBefore"?: Date;
-  "startTimeAfter"?: Date;
-  "endTime"?: Date;
-  "endTimeBefore"?: Date;
-  "endTimeAfter"?: Date;
-  "pageSize"?: number;
+  to?: string;
+  from?: string;
+  parentCallSid?: string;
+  status?: CallStatus;
+  startTime?: Date;
+  startTimeBefore?: Date;
+  startTimeAfter?: Date;
+  endTime?: Date;
+  endTimeBefore?: Date;
+  endTimeAfter?: Date;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CallContext {
-
   events: EventListInstance;
   feedback: FeedbackListInstance;
   notifications: NotificationListInstance;
@@ -266,8 +268,9 @@ export interface CallContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a CallInstance
@@ -276,8 +279,9 @@ export interface CallContext {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
 
   /**
    * Update a CallInstance
@@ -286,7 +290,9 @@ export interface CallContext {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  update(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
+  update(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
   /**
    * Update a CallInstance
    *
@@ -295,9 +301,11 @@ export interface CallContext {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  update(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
-  update(params?: any, callback?: any): Promise<CallInstance>
-
+  update(
+    params: CallContextUpdateOptions,
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+  update(params?: any, callback?: any): Promise<CallInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -307,8 +315,8 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -331,78 +339,144 @@ export class CallContextImpl implements CallContext {
   }
 
   get events(): EventListInstance {
-    this._events = this._events || EventListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._events =
+      this._events ||
+      EventListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._events;
   }
 
   get feedback(): FeedbackListInstance {
-    this._feedback = this._feedback || FeedbackListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._feedback =
+      this._feedback ||
+      FeedbackListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._feedback;
   }
 
   get notifications(): NotificationListInstance {
-    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._notifications =
+      this._notifications ||
+      NotificationListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._notifications;
   }
 
   get payments(): PaymentListInstance {
-    this._payments = this._payments || PaymentListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._payments =
+      this._payments ||
+      PaymentListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._payments;
   }
 
   get recordings(): RecordingListInstance {
-    this._recordings = this._recordings || RecordingListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._recordings =
+      this._recordings ||
+      RecordingListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._recordings;
   }
 
   get siprec(): SiprecListInstance {
-    this._siprec = this._siprec || SiprecListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._siprec =
+      this._siprec ||
+      SiprecListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._siprec;
   }
 
   get streams(): StreamListInstance {
-    this._streams = this._streams || StreamListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._streams =
+      this._streams ||
+      StreamListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._streams;
   }
 
   get userDefinedMessages(): UserDefinedMessageListInstance {
-    this._userDefinedMessages = this._userDefinedMessages || UserDefinedMessageListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._userDefinedMessages =
+      this._userDefinedMessages ||
+      UserDefinedMessageListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._userDefinedMessages;
   }
 
   get userDefinedMessageSubscriptions(): UserDefinedMessageSubscriptionListInstance {
-    this._userDefinedMessageSubscriptions = this._userDefinedMessageSubscriptions || UserDefinedMessageSubscriptionListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._userDefinedMessageSubscriptions =
+      this._userDefinedMessageSubscriptions ||
+      UserDefinedMessageSubscriptionListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._userDefinedMessageSubscriptions;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CallInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CallInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<CallInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -411,40 +485,47 @@ export class CallContextImpl implements CallContext {
 
     let data: any = {};
 
-    
-        if (params["url"] !== undefined)
-    data["Url"] = params["url"];
-    if (params["method"] !== undefined)
-    data["Method"] = params["method"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["url"] !== undefined) data["Url"] = params["url"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
+      data["FallbackUrl"] = params["fallbackUrl"];
     if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
+      data["FallbackMethod"] = params["fallbackMethod"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["twiml"] !== undefined)
-    data["Twiml"] = params["twiml"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
     if (params["timeLimit"] !== undefined)
-    data["TimeLimit"] = params["timeLimit"];
-
+      data["TimeLimit"] = params["timeLimit"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CallInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -461,8 +542,7 @@ export class CallContextImpl implements CallContext {
   }
 }
 
-interface CallPayload extends CallResource, Page.TwilioResponsePayload {
-}
+interface CallPayload extends CallResource, Page.TwilioResponsePayload {}
 
 interface CallResource {
   sid?: string | null;
@@ -497,7 +577,12 @@ export class CallInstance {
   protected _solution: CallContextSolution;
   protected _context?: CallContext;
 
-  constructor(protected _version: V2010, payload: CallPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: CallPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -631,7 +716,13 @@ export class CallInstance {
   subresourceUris?: object | null;
 
   private get _proxy(): CallContext {
-    this._context = this._context || new CallContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new CallContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -642,8 +733,9 @@ export class CallInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -654,8 +746,9 @@ export class CallInstance {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -666,7 +759,9 @@ export class CallInstance {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  update(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
+  update(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
   /**
    * Update a CallInstance
    *
@@ -675,9 +770,11 @@ export class CallInstance {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  update(params: CallContextUpdateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
-  update(params?: any, callback?: any): Promise<CallInstance>
-     {
+  update(
+    params: CallContextUpdateOptions,
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+  update(params?: any, callback?: any): Promise<CallInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -751,40 +848,39 @@ export class CallInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      parentCallSid: this.parentCallSid, 
-      accountSid: this.accountSid, 
-      to: this.to, 
-      toFormatted: this.toFormatted, 
-      from: this.from, 
-      fromFormatted: this.fromFormatted, 
-      phoneNumberSid: this.phoneNumberSid, 
-      status: this.status, 
-      startTime: this.startTime, 
-      endTime: this.endTime, 
-      duration: this.duration, 
-      price: this.price, 
-      priceUnit: this.priceUnit, 
-      direction: this.direction, 
-      answeredBy: this.answeredBy, 
-      apiVersion: this.apiVersion, 
-      forwardedFrom: this.forwardedFrom, 
-      groupSid: this.groupSid, 
-      callerName: this.callerName, 
-      queueTime: this.queueTime, 
-      trunkSid: this.trunkSid, 
-      uri: this.uri, 
-      subresourceUris: this.subresourceUris
-    }
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      parentCallSid: this.parentCallSid,
+      accountSid: this.accountSid,
+      to: this.to,
+      toFormatted: this.toFormatted,
+      from: this.from,
+      fromFormatted: this.fromFormatted,
+      phoneNumberSid: this.phoneNumberSid,
+      status: this.status,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      duration: this.duration,
+      price: this.price,
+      priceUnit: this.priceUnit,
+      direction: this.direction,
+      answeredBy: this.answeredBy,
+      apiVersion: this.apiVersion,
+      forwardedFrom: this.forwardedFrom,
+      groupSid: this.groupSid,
+      callerName: this.callerName,
+      queueTime: this.queueTime,
+      trunkSid: this.trunkSid,
+      uri: this.uri,
+      subresourceUris: this.subresourceUris,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
 
 export interface CallListInstance {
   (sid: string): CallContext;
@@ -800,10 +896,11 @@ export interface CallListInstance {
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
-  create(params: CallListInstanceCreateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
-  create(params: any, callback?: any): Promise<CallInstance>
-
-
+  create(
+    params: CallListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+  create(params: any, callback?: any): Promise<CallInstance>;
 
   /**
    * Streams CallInstance records from the API.
@@ -819,7 +916,9 @@ export interface CallListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams CallInstance records from the API.
    *
@@ -835,7 +934,10 @@ export interface CallListInstance {
    * @param { CallListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CallListInstanceEachOptions,
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CallInstance records from the API.
@@ -847,7 +949,9 @@ export interface CallListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  getPage(
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
   /**
    * Retrieve a single target page of CallInstance records from the API.
    *
@@ -859,7 +963,10 @@ export interface CallListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
   getPage(params?: any, callback?: any): Promise<CallPage>;
   /**
    * Lists CallInstance records from the API as a list.
@@ -869,7 +976,9 @@ export interface CallListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CallInstance[]) => any
+  ): Promise<CallInstance[]>;
   /**
    * Lists CallInstance records from the API as a list.
    *
@@ -879,7 +988,10 @@ export interface CallListInstance {
    * @param { CallListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
+  list(
+    params?: CallListInstanceOptions,
+    callback?: (error: Error | null, items: CallInstance[]) => any
+  ): Promise<CallInstance[]>;
   list(params?: any, callback?: any): Promise<CallInstance[]>;
   /**
    * Retrieve a single page of CallInstance records from the API.
@@ -891,7 +1003,9 @@ export interface CallListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  page(
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    *
@@ -903,7 +1017,10 @@ export interface CallListInstance {
    * @param { CallListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  page(
+    params: CallListInstancePageOptions,
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
   page(params?: any, callback?: any): Promise<CallPage>;
 
   /**
@@ -926,12 +1043,15 @@ class CallListInstanceImpl implements CallListInstance {
   _feedbackSummaries?: FeedbackSummaryListInstance;
 }
 
-export function CallListInstance(version: V2010, accountSid: string): CallListInstance {
+export function CallListInstance(
+  version: V2010,
+  accountSid: string
+): CallListInstance {
   const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
 
   instance.get = function get(sid): CallContext {
     return new CallContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -940,116 +1060,133 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
   Object.defineProperty(instance, "feedbackSummaries", {
     get: function feedbackSummaries() {
       if (!this._feedbackSummaries) {
-        this._feedbackSummaries = FeedbackSummaryListInstance(this._version, this._solution.accountSid);
+        this._feedbackSummaries = FeedbackSummaryListInstance(
+          this._version,
+          this._solution.accountSid
+        );
       }
       return this._feedbackSummaries;
-    }
+    },
   });
 
-  instance.create = function create(params: any, callback?: any): Promise<CallInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<CallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error('Required parameter "params[\'to\']" missing.');
+      throw new Error("Required parameter \"params['to']\" missing.");
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error('Required parameter "params[\'from\']" missing.');
+      throw new Error("Required parameter \"params['from']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["To"] = params["to"];
-    
-    data["From"] = params["from"];
-    if (params["method"] !== undefined)
-    data["Method"] = params["method"];
-    if (params["fallbackUrl"] !== undefined)
-    data["FallbackUrl"] = params["fallbackUrl"];
-    if (params["fallbackMethod"] !== undefined)
-    data["FallbackMethod"] = params["fallbackMethod"];
-    if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
-    if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e => (e)));
-    if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["sendDigits"] !== undefined)
-    data["SendDigits"] = params["sendDigits"];
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
-    if (params["record"] !== undefined)
-    data["Record"] = serialize.bool(params["record"]);
-    if (params["recordingChannels"] !== undefined)
-    data["RecordingChannels"] = params["recordingChannels"];
-    if (params["recordingStatusCallback"] !== undefined)
-    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
-    if (params["recordingStatusCallbackMethod"] !== undefined)
-    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
-    if (params["sipAuthUsername"] !== undefined)
-    data["SipAuthUsername"] = params["sipAuthUsername"];
-    if (params["sipAuthPassword"] !== undefined)
-    data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["machineDetection"] !== undefined)
-    data["MachineDetection"] = params["machineDetection"];
-    if (params["machineDetectionTimeout"] !== undefined)
-    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
-    if (params["recordingStatusCallbackEvent"] !== undefined)
-    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e => (e)));
-    if (params["trim"] !== undefined)
-    data["Trim"] = params["trim"];
-    if (params["callerId"] !== undefined)
-    data["CallerId"] = params["callerId"];
-    if (params["machineDetectionSpeechThreshold"] !== undefined)
-    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
-    if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
-    if (params["machineDetectionSilenceTimeout"] !== undefined)
-    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
-    if (params["asyncAmd"] !== undefined)
-    data["AsyncAmd"] = params["asyncAmd"];
-    if (params["asyncAmdStatusCallback"] !== undefined)
-    data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
-    if (params["asyncAmdStatusCallbackMethod"] !== undefined)
-    data["AsyncAmdStatusCallbackMethod"] = params["asyncAmdStatusCallbackMethod"];
-    if (params["byoc"] !== undefined)
-    data["Byoc"] = params["byoc"];
-    if (params["callReason"] !== undefined)
-    data["CallReason"] = params["callReason"];
-    if (params["callToken"] !== undefined)
-    data["CallToken"] = params["callToken"];
-    if (params["recordingTrack"] !== undefined)
-    data["RecordingTrack"] = params["recordingTrack"];
-    if (params["timeLimit"] !== undefined)
-    data["TimeLimit"] = params["timeLimit"];
-    if (params["url"] !== undefined)
-    data["Url"] = params["url"];
-    if (params["twiml"] !== undefined)
-    data["Twiml"] = params["twiml"];
-    if (params["applicationSid"] !== undefined)
-    data["ApplicationSid"] = params["applicationSid"];
 
+    data["From"] = params["from"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
+    if (params["fallbackUrl"] !== undefined)
+      data["FallbackUrl"] = params["fallbackUrl"];
+    if (params["fallbackMethod"] !== undefined)
+      data["FallbackMethod"] = params["fallbackMethod"];
+    if (params["statusCallback"] !== undefined)
+      data["StatusCallback"] = params["statusCallback"];
+    if (params["statusCallbackEvent"] !== undefined)
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e) => e
+      );
+    if (params["statusCallbackMethod"] !== undefined)
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    if (params["sendDigits"] !== undefined)
+      data["SendDigits"] = params["sendDigits"];
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["record"] !== undefined)
+      data["Record"] = serialize.bool(params["record"]);
+    if (params["recordingChannels"] !== undefined)
+      data["RecordingChannels"] = params["recordingChannels"];
+    if (params["recordingStatusCallback"] !== undefined)
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+    if (params["recordingStatusCallbackMethod"] !== undefined)
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
+    if (params["sipAuthUsername"] !== undefined)
+      data["SipAuthUsername"] = params["sipAuthUsername"];
+    if (params["sipAuthPassword"] !== undefined)
+      data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["machineDetection"] !== undefined)
+      data["MachineDetection"] = params["machineDetection"];
+    if (params["machineDetectionTimeout"] !== undefined)
+      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+    if (params["recordingStatusCallbackEvent"] !== undefined)
+      data["RecordingStatusCallbackEvent"] = serialize.map(
+        params["recordingStatusCallbackEvent"],
+        (e) => e
+      );
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
+    if (params["machineDetectionSpeechThreshold"] !== undefined)
+      data["MachineDetectionSpeechThreshold"] =
+        params["machineDetectionSpeechThreshold"];
+    if (params["machineDetectionSpeechEndThreshold"] !== undefined)
+      data["MachineDetectionSpeechEndThreshold"] =
+        params["machineDetectionSpeechEndThreshold"];
+    if (params["machineDetectionSilenceTimeout"] !== undefined)
+      data["MachineDetectionSilenceTimeout"] =
+        params["machineDetectionSilenceTimeout"];
+    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
+    if (params["asyncAmdStatusCallback"] !== undefined)
+      data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
+    if (params["asyncAmdStatusCallbackMethod"] !== undefined)
+      data["AsyncAmdStatusCallbackMethod"] =
+        params["asyncAmdStatusCallbackMethod"];
+    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    if (params["callReason"] !== undefined)
+      data["CallReason"] = params["callReason"];
+    if (params["callToken"] !== undefined)
+      data["CallToken"] = params["callToken"];
+    if (params["recordingTrack"] !== undefined)
+      data["RecordingTrack"] = params["recordingTrack"];
+    if (params["timeLimit"] !== undefined)
+      data["TimeLimit"] = params["timeLimit"];
+    if (params["url"] !== undefined) data["Url"] = params["url"];
+    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
+    if (params["applicationSid"] !== undefined)
+      data["ApplicationSid"] = params["applicationSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CallInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CallPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CallPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -1059,95 +1196,115 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
 
     let data: any = {};
 
-        if (params["to"] !== undefined)
-    data["To"] = params["to"];
-    if (params["from"] !== undefined)
-    data["From"] = params["from"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["parentCallSid"] !== undefined)
-    data["ParentCallSid"] = params["parentCallSid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["ParentCallSid"] = params["parentCallSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["startTime"] !== undefined)
-    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+      data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
     if (params["startTimeBefore"] !== undefined)
-    data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
+      data["StartTime<"] = serialize.iso8601DateTime(params["startTimeBefore"]);
     if (params["startTimeAfter"] !== undefined)
-    data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
+      data["StartTime>"] = serialize.iso8601DateTime(params["startTimeAfter"]);
     if (params["endTime"] !== undefined)
-    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+      data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
     if (params["endTimeBefore"] !== undefined)
-    data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
+      data["EndTime<"] = serialize.iso8601DateTime(params["endTimeBefore"]);
     if (params["endTimeAfter"] !== undefined)
-    data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CallPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CallPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CallPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CallPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CallPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CallPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
-/**
-* Initialize the CallPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: CallSolution) {
+export class CallPage extends Page<
+  V2010,
+  CallPayload,
+  CallResource,
+  CallInstance
+> {
+  /**
+   * Initialize the CallPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: CallSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CallInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CallPayload): CallInstance {
-    return new CallInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-    );
-    }
+  /**
+   * Build an instance of CallInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CallPayload): CallInstance {
+    return new CallInstance(this._version, payload, this._solution.accountSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

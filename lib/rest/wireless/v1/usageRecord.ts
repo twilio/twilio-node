@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,8 +19,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-type AccountUsageRecordGranularity = 'hourly'|'daily'|'all';
+type AccountUsageRecordGranularity = "hourly" | "daily" | "all";
 
 export class ListAccountUsageRecordResponseMeta {
   "firstPageUrl"?: string;
@@ -32,7 +30,6 @@ export class ListAccountUsageRecordResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 export class WirelessV1AccountUsageRecord {
   /**
@@ -53,7 +50,6 @@ export class WirelessV1AccountUsageRecord {
   "data"?: any | null;
 }
 
-
 /**
  * Options to pass to each
  *
@@ -71,10 +67,10 @@ export class WirelessV1AccountUsageRecord {
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceEachOptions {
-  "end"?: Date;
-  "start"?: Date;
-  "granularity"?: AccountUsageRecordGranularity;
-  "pageSize"?: number;
+  end?: Date;
+  start?: Date;
+  granularity?: AccountUsageRecordGranularity;
+  pageSize?: number;
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -93,10 +89,10 @@ export interface UsageRecordListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UsageRecordListInstanceOptions {
-  "end"?: Date;
-  "start"?: Date;
-  "granularity"?: AccountUsageRecordGranularity;
-  "pageSize"?: number;
+  end?: Date;
+  start?: Date;
+  granularity?: AccountUsageRecordGranularity;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -111,20 +107,15 @@ export interface UsageRecordListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsageRecordListInstancePageOptions {
-  "end"?: Date;
-  "start"?: Date;
-  "granularity"?: AccountUsageRecordGranularity;
-  "pageSize"?: number;
+  end?: Date;
+  start?: Date;
+  granularity?: AccountUsageRecordGranularity;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface UsageRecordListInstance {
-
-
-
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -139,7 +130,9 @@ export interface UsageRecordListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -155,7 +148,10 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: UsageRecordListInstanceEachOptions,
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
@@ -167,7 +163,9 @@ export interface UsageRecordListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
+  getPage(
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    *
@@ -179,7 +177,10 @@ export interface UsageRecordListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
   getPage(params?: any, callback?: any): Promise<UsageRecordPage>;
   /**
    * Lists UsageRecordInstance records from the API as a list.
@@ -189,7 +190,9 @@ export interface UsageRecordListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
+  list(
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+  ): Promise<UsageRecordInstance[]>;
   /**
    * Lists UsageRecordInstance records from the API as a list.
    *
@@ -199,7 +202,10 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: UsageRecordListInstanceOptions, callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
+  list(
+    params?: UsageRecordListInstanceOptions,
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+  ): Promise<UsageRecordInstance[]>;
   list(params?: any, callback?: any): Promise<UsageRecordInstance[]>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
@@ -211,7 +217,9 @@ export interface UsageRecordListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
+  page(
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
    *
@@ -223,7 +231,10 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: UsageRecordListInstancePageOptions, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
+  page(
+    params: UsageRecordListInstancePageOptions,
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
   page(params?: any, callback?: any): Promise<UsageRecordPage>;
 
   /**
@@ -233,25 +244,26 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageRecordSolution {
-}
+export interface UsageRecordSolution {}
 
 interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
 class UsageRecordListInstanceImpl implements UsageRecordListInstance {
   _version?: V1;
   _solution?: UsageRecordSolution;
   _uri?: string;
-
 }
 
 export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   const instance = {} as UsageRecordListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/UsageRecords`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<UsageRecordPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<UsageRecordPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -261,55 +273,77 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     let data: any = {};
 
-        if (params["end"] !== undefined)
-    data["End"] = serialize.iso8601DateTime(params["end"]);
+    if (params["end"] !== undefined)
+      data["End"] = serialize.iso8601DateTime(params["end"]);
     if (params["start"] !== undefined)
-    data["Start"] = serialize.iso8601DateTime(params["start"]);
+      data["Start"] = serialize.iso8601DateTime(params["start"]);
     if (params["granularity"] !== undefined)
-    data["Granularity"] = params["granularity"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["Granularity"] = params["granularity"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UsageRecordPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UsageRecordPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<UsageRecordPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new UsageRecordPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new UsageRecordPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
-}
+interface UsageRecordPayload
+  extends UsageRecordResource,
+    Page.TwilioResponsePayload {}
 
 interface UsageRecordResource {
   usage_records?: Array<WirelessV1AccountUsageRecord>;
@@ -317,11 +351,9 @@ interface UsageRecordResource {
 }
 
 export class UsageRecordInstance {
-
   constructor(protected _version: V1, payload: UsageRecordPayload) {
     this.usageRecords = payload.usage_records;
     this.meta = payload.meta;
-
   }
 
   usageRecords?: Array<WirelessV1AccountUsageRecord>;
@@ -334,9 +366,9 @@ export class UsageRecordInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords, 
-      meta: this.meta
-    }
+      usageRecords: this.usageRecords,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -344,32 +376,37 @@ export class UsageRecordInstance {
   }
 }
 
-export class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
-/**
-* Initialize the UsageRecordPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: UsageRecordSolution) {
+export class UsageRecordPage extends Page<
+  V1,
+  UsageRecordPayload,
+  UsageRecordResource,
+  UsageRecordInstance
+> {
+  /**
+   * Initialize the UsageRecordPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: UsageRecordSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of UsageRecordInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: UsageRecordPayload): UsageRecordInstance {
-    return new UsageRecordInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of UsageRecordInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UsageRecordPayload): UsageRecordInstance {
+    return new UsageRecordInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

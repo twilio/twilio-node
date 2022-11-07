@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,9 +19,6 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber";
-
-
-
 
 /**
  * Options to pass to update a AddressInstance
@@ -37,14 +33,14 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
  */
 export interface AddressContextUpdateOptions {
-  "friendlyName"?: string;
-  "customerName"?: string;
-  "street"?: string;
-  "city"?: string;
-  "region"?: string;
-  "postalCode"?: string;
-  "emergencyEnabled"?: boolean;
-  "autoCorrectAddress"?: boolean;
+  friendlyName?: string;
+  customerName?: string;
+  street?: string;
+  city?: string;
+  region?: string;
+  postalCode?: string;
+  emergencyEnabled?: boolean;
+  autoCorrectAddress?: boolean;
 }
 
 /**
@@ -61,15 +57,15 @@ export interface AddressContextUpdateOptions {
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
  */
 export interface AddressListInstanceCreateOptions {
-  "customerName": string;
-  "street": string;
-  "city": string;
-  "region": string;
-  "postalCode": string;
-  "isoCountry": string;
-  "friendlyName"?: string;
-  "emergencyEnabled"?: boolean;
-  "autoCorrectAddress"?: boolean;
+  customerName: string;
+  street: string;
+  city: string;
+  region: string;
+  postalCode: string;
+  isoCountry: string;
+  friendlyName?: string;
+  emergencyEnabled?: boolean;
+  autoCorrectAddress?: boolean;
 }
 /**
  * Options to pass to each
@@ -88,10 +84,10 @@ export interface AddressListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AddressListInstanceEachOptions {
-  "customerName"?: string;
-  "friendlyName"?: string;
-  "isoCountry"?: string;
-  "pageSize"?: number;
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  pageSize?: number;
   callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -110,10 +106,10 @@ export interface AddressListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AddressListInstanceOptions {
-  "customerName"?: string;
-  "friendlyName"?: string;
-  "isoCountry"?: string;
-  "pageSize"?: number;
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -128,18 +124,15 @@ export interface AddressListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AddressListInstancePageOptions {
-  "customerName"?: string;
-  "friendlyName"?: string;
-  "isoCountry"?: string;
-  "pageSize"?: number;
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AddressContext {
-
   dependentPhoneNumbers: DependentPhoneNumberListInstance;
 
   /**
@@ -149,8 +142,9 @@ export interface AddressContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a AddressInstance
@@ -159,8 +153,9 @@ export interface AddressContext {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  fetch(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
 
   /**
    * Update a AddressInstance
@@ -169,7 +164,9 @@ export interface AddressContext {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  update(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
+  update(
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
    *
@@ -178,9 +175,11 @@ export interface AddressContext {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  update(params: AddressContextUpdateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
-  update(params?: any, callback?: any): Promise<AddressInstance>
-
+  update(
+    params: AddressContextUpdateOptions,
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
+  update(params?: any, callback?: any): Promise<AddressInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -190,8 +189,8 @@ export interface AddressContext {
 }
 
 export interface AddressContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class AddressContextImpl implements AddressContext {
@@ -206,38 +205,56 @@ export class AddressContextImpl implements AddressContext {
   }
 
   get dependentPhoneNumbers(): DependentPhoneNumberListInstance {
-    this._dependentPhoneNumbers = this._dependentPhoneNumbers || DependentPhoneNumberListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._dependentPhoneNumbers =
+      this._dependentPhoneNumbers ||
+      DependentPhoneNumberListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._dependentPhoneNumbers;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<AddressInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<AddressInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -246,38 +263,46 @@ export class AddressContextImpl implements AddressContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["customerName"] !== undefined)
-    data["CustomerName"] = params["customerName"];
-    if (params["street"] !== undefined)
-    data["Street"] = params["street"];
-    if (params["city"] !== undefined)
-    data["City"] = params["city"];
-    if (params["region"] !== undefined)
-    data["Region"] = params["region"];
+      data["CustomerName"] = params["customerName"];
+    if (params["street"] !== undefined) data["Street"] = params["street"];
+    if (params["city"] !== undefined) data["City"] = params["city"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
     if (params["postalCode"] !== undefined)
-    data["PostalCode"] = params["postalCode"];
+      data["PostalCode"] = params["postalCode"];
     if (params["emergencyEnabled"] !== undefined)
-    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+      data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
-    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
-
+      data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -294,8 +319,7 @@ export class AddressContextImpl implements AddressContext {
   }
 }
 
-interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {
-}
+interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {}
 
 interface AddressResource {
   account_sid?: string | null;
@@ -319,7 +343,12 @@ export class AddressInstance {
   protected _solution: AddressContextSolution;
   protected _context?: AddressContext;
 
-  constructor(protected _version: V2010, payload: AddressPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: AddressPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.city = payload.city;
     this.customerName = payload.customer_name;
@@ -401,7 +430,13 @@ export class AddressInstance {
   verified?: boolean | null;
 
   private get _proxy(): AddressContext {
-    this._context = this._context || new AddressContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new AddressContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -412,8 +447,9 @@ export class AddressInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -424,8 +460,9 @@ export class AddressInstance {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  fetch(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -436,7 +473,9 @@ export class AddressInstance {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  update(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
+  update(
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
    *
@@ -445,9 +484,11 @@ export class AddressInstance {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  update(params: AddressContextUpdateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
-  update(params?: any, callback?: any): Promise<AddressInstance>
-     {
+  update(
+    params: AddressContextUpdateOptions,
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
+  update(params?: any, callback?: any): Promise<AddressInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -465,22 +506,22 @@ export class AddressInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      city: this.city, 
-      customerName: this.customerName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      isoCountry: this.isoCountry, 
-      postalCode: this.postalCode, 
-      region: this.region, 
-      sid: this.sid, 
-      street: this.street, 
-      uri: this.uri, 
-      emergencyEnabled: this.emergencyEnabled, 
-      validated: this.validated, 
-      verified: this.verified
-    }
+      accountSid: this.accountSid,
+      city: this.city,
+      customerName: this.customerName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      isoCountry: this.isoCountry,
+      postalCode: this.postalCode,
+      region: this.region,
+      sid: this.sid,
+      street: this.street,
+      uri: this.uri,
+      emergencyEnabled: this.emergencyEnabled,
+      validated: this.validated,
+      verified: this.verified,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -488,11 +529,9 @@ export class AddressInstance {
   }
 }
 
-
 export interface AddressListInstance {
   (sid: string): AddressContext;
   get(sid: string): AddressContext;
-
 
   /**
    * Create a AddressInstance
@@ -502,10 +541,11 @@ export interface AddressListInstance {
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
-  create(params: AddressListInstanceCreateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
-  create(params: any, callback?: any): Promise<AddressInstance>
-
-
+  create(
+    params: AddressListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
+  create(params: any, callback?: any): Promise<AddressInstance>;
 
   /**
    * Streams AddressInstance records from the API.
@@ -521,7 +561,9 @@ export interface AddressListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AddressInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams AddressInstance records from the API.
    *
@@ -537,7 +579,10 @@ export interface AddressListInstance {
    * @param { AddressListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AddressListInstanceEachOptions, callback?: (item: AddressInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AddressListInstanceEachOptions,
+    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
@@ -549,7 +594,9 @@ export interface AddressListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  getPage(
+    callback?: (error: Error | null, items: AddressPage) => any
+  ): Promise<AddressPage>;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
    *
@@ -561,7 +608,10 @@ export interface AddressListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AddressPage) => any
+  ): Promise<AddressPage>;
   getPage(params?: any, callback?: any): Promise<AddressPage>;
   /**
    * Lists AddressInstance records from the API as a list.
@@ -571,7 +621,9 @@ export interface AddressListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AddressInstance[]) => any): Promise<AddressInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AddressInstance[]) => any
+  ): Promise<AddressInstance[]>;
   /**
    * Lists AddressInstance records from the API as a list.
    *
@@ -581,7 +633,10 @@ export interface AddressListInstance {
    * @param { AddressListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AddressListInstanceOptions, callback?: (error: Error | null, items: AddressInstance[]) => any): Promise<AddressInstance[]>;
+  list(
+    params?: AddressListInstanceOptions,
+    callback?: (error: Error | null, items: AddressInstance[]) => any
+  ): Promise<AddressInstance[]>;
   list(params?: any, callback?: any): Promise<AddressInstance[]>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
@@ -593,7 +648,9 @@ export interface AddressListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  page(
+    callback?: (error: Error | null, items: AddressPage) => any
+  ): Promise<AddressPage>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
    *
@@ -605,7 +662,10 @@ export interface AddressListInstance {
    * @param { AddressListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AddressListInstancePageOptions, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  page(
+    params: AddressListInstancePageOptions,
+    callback?: (error: Error | null, items: AddressPage) => any
+  ): Promise<AddressPage>;
   page(params?: any, callback?: any): Promise<AddressPage>;
 
   /**
@@ -624,88 +684,108 @@ class AddressListInstanceImpl implements AddressListInstance {
   _version?: V2010;
   _solution?: AddressSolution;
   _uri?: string;
-
 }
 
-export function AddressListInstance(version: V2010, accountSid: string): AddressListInstance {
+export function AddressListInstance(
+  version: V2010,
+  accountSid: string
+): AddressListInstance {
   const instance = ((sid) => instance.get(sid)) as AddressListInstanceImpl;
 
   instance.get = function get(sid): AddressContext {
     return new AddressContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Addresses.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<AddressInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<AddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["customerName"] === null || params["customerName"] === undefined) {
-      throw new Error('Required parameter "params[\'customerName\']" missing.');
+    if (
+      params["customerName"] === null ||
+      params["customerName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['customerName']\" missing.");
     }
 
     if (params["street"] === null || params["street"] === undefined) {
-      throw new Error('Required parameter "params[\'street\']" missing.');
+      throw new Error("Required parameter \"params['street']\" missing.");
     }
 
     if (params["city"] === null || params["city"] === undefined) {
-      throw new Error('Required parameter "params[\'city\']" missing.');
+      throw new Error("Required parameter \"params['city']\" missing.");
     }
 
     if (params["region"] === null || params["region"] === undefined) {
-      throw new Error('Required parameter "params[\'region\']" missing.');
+      throw new Error("Required parameter \"params['region']\" missing.");
     }
 
     if (params["postalCode"] === null || params["postalCode"] === undefined) {
-      throw new Error('Required parameter "params[\'postalCode\']" missing.');
+      throw new Error("Required parameter \"params['postalCode']\" missing.");
     }
 
     if (params["isoCountry"] === null || params["isoCountry"] === undefined) {
-      throw new Error('Required parameter "params[\'isoCountry\']" missing.');
+      throw new Error("Required parameter \"params['isoCountry']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["CustomerName"] = params["customerName"];
-    
+
     data["Street"] = params["street"];
-    
+
     data["City"] = params["city"];
-    
+
     data["Region"] = params["region"];
-    
+
     data["PostalCode"] = params["postalCode"];
-    
+
     data["IsoCountry"] = params["isoCountry"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["emergencyEnabled"] !== undefined)
-    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+      data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
-    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
-
+      data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AddressInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<AddressPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AddressPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -715,81 +795,108 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
 
     let data: any = {};
 
-        if (params["customerName"] !== undefined)
-    data["CustomerName"] = params["customerName"];
+    if (params["customerName"] !== undefined)
+      data["CustomerName"] = params["customerName"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["isoCountry"] !== undefined)
-    data["IsoCountry"] = params["isoCountry"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["IsoCountry"] = params["isoCountry"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AddressPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AddressPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AddressPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AddressPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AddressPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AddressPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
-/**
-* Initialize the AddressPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: AddressSolution) {
+export class AddressPage extends Page<
+  V2010,
+  AddressPayload,
+  AddressResource,
+  AddressInstance
+> {
+  /**
+   * Initialize the AddressPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: AddressSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AddressInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AddressPayload): AddressInstance {
+  /**
+   * Build an instance of AddressInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AddressPayload): AddressInstance {
     return new AddressInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

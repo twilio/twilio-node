@@ -12,16 +12,20 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type CallFeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'imperfect-audio'|'incorrect-caller-id'|'one-way-audio'|'post-dial-delay'|'unsolicited-call';
-
+type CallFeedbackIssues =
+  | "audio-latency"
+  | "digits-not-captured"
+  | "dropped-call"
+  | "imperfect-audio"
+  | "incorrect-caller-id"
+  | "one-way-audio"
+  | "post-dial-delay"
+  | "unsolicited-call";
 
 /**
  * Options to pass to update a FeedbackInstance
@@ -30,13 +34,11 @@ type CallFeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'
  * @property { Array<CallFeedbackIssues> } [issue] One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
  */
 export interface FeedbackContextUpdateOptions {
-  "qualityScore"?: number;
-  "issue"?: Array<CallFeedbackIssues>;
+  qualityScore?: number;
+  issue?: Array<CallFeedbackIssues>;
 }
 
 export interface FeedbackContext {
-
-
   /**
    * Fetch a FeedbackInstance
    *
@@ -44,8 +46,9 @@ export interface FeedbackContext {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  fetch(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
 
   /**
    * Update a FeedbackInstance
@@ -54,7 +57,9 @@ export interface FeedbackContext {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  update(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  update(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
   /**
    * Update a FeedbackInstance
    *
@@ -63,9 +68,11 @@ export interface FeedbackContext {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  update(params: FeedbackContextUpdateOptions, callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance>
-
+  update(
+    params: FeedbackContextUpdateOptions,
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  update(params?: any, callback?: any): Promise<FeedbackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -75,14 +82,13 @@ export interface FeedbackContext {
 }
 
 export interface FeedbackContextSolution {
-  "accountSid"?: string;
-  "callSid"?: string;
+  accountSid?: string;
+  callSid?: string;
 }
 
 export class FeedbackContextImpl implements FeedbackContext {
   protected _solution: FeedbackContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2010, accountSid: string, callSid: string) {
     this._solution = { accountSid, callSid };
@@ -90,21 +96,31 @@ export class FeedbackContextImpl implements FeedbackContext {
   }
 
   fetch(callback?: any): Promise<FeedbackInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FeedbackInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<FeedbackInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -113,26 +129,37 @@ export class FeedbackContextImpl implements FeedbackContext {
 
     let data: any = {};
 
-    
-        if (params["qualityScore"] !== undefined)
-    data["QualityScore"] = params["qualityScore"];
+    if (params["qualityScore"] !== undefined)
+      data["QualityScore"] = params["qualityScore"];
     if (params["issue"] !== undefined)
-    data["Issue"] = serialize.map(params["issue"], (e => (e)));
-
+      data["Issue"] = serialize.map(params["issue"], (e) => e);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FeedbackInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -149,8 +176,7 @@ export class FeedbackContextImpl implements FeedbackContext {
   }
 }
 
-interface FeedbackPayload extends FeedbackResource{
-}
+interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
   account_sid?: string | null;
@@ -165,7 +191,12 @@ export class FeedbackInstance {
   protected _solution: FeedbackContextSolution;
   protected _context?: FeedbackContext;
 
-  constructor(protected _version: V2010, payload: FeedbackPayload, accountSid: string, callSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: FeedbackPayload,
+    accountSid: string,
+    callSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -202,7 +233,13 @@ export class FeedbackInstance {
   sid?: string | null;
 
   private get _proxy(): FeedbackContext {
-    this._context = this._context || new FeedbackContextImpl(this._version, this._solution.accountSid, this._solution.callSid);
+    this._context =
+      this._context ||
+      new FeedbackContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.callSid
+      );
     return this._context;
   }
 
@@ -213,8 +250,9 @@ export class FeedbackInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  fetch(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -225,7 +263,9 @@ export class FeedbackInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  update(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  update(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
   /**
    * Update a FeedbackInstance
    *
@@ -234,9 +274,11 @@ export class FeedbackInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  update(params: FeedbackContextUpdateOptions, callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance>
-     {
+  update(
+    params: FeedbackContextUpdateOptions,
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  update(params?: any, callback?: any): Promise<FeedbackInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -247,13 +289,13 @@ export class FeedbackInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      issues: this.issues, 
-      qualityScore: this.qualityScore, 
-      sid: this.sid
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      issues: this.issues,
+      qualityScore: this.qualityScore,
+      sid: this.sid,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -261,11 +303,9 @@ export class FeedbackInstance {
   }
 }
 
-
 export interface FeedbackListInstance {
   (): FeedbackContext;
   get(): FeedbackContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -284,15 +324,18 @@ class FeedbackListInstanceImpl implements FeedbackListInstance {
   _version?: V2010;
   _solution?: FeedbackSolution;
   _uri?: string;
-
 }
 
-export function FeedbackListInstance(version: V2010, accountSid: string, callSid: string): FeedbackListInstance {
+export function FeedbackListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string
+): FeedbackListInstance {
   const instance = (() => instance.get()) as FeedbackListInstanceImpl;
 
   instance.get = function get(): FeedbackContext {
     return new FeedbackContextImpl(version, accountSid, callSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
@@ -300,14 +343,14 @@ export function FeedbackListInstance(version: V2010, accountSid: string, callSid
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

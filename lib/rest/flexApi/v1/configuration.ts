@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
-
+type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 
 /**
  * Options to pass to fetch a ConfigurationInstance
@@ -29,12 +25,10 @@ type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
  * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
  */
 export interface ConfigurationContextFetchOptions {
-  "uiVersion"?: string;
+  uiVersion?: string;
 }
 
 export interface ConfigurationContext {
-
-
   /**
    * Fetch a ConfigurationInstance
    *
@@ -42,7 +36,9 @@ export interface ConfigurationContext {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
    *
@@ -51,9 +47,11 @@ export interface ConfigurationContext {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(params: ConfigurationContextFetchOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>
-
+  fetch(
+    params: ConfigurationContextFetchOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -62,21 +60,19 @@ export interface ConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationContextSolution {
-}
+export interface ConfigurationContextSolution {}
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/Configuration`;
   }
 
   fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -85,23 +81,28 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     let data: any = {};
 
-        if (params["uiVersion"] !== undefined)
-    data["UiVersion"] = params["uiVersion"];
-
-    
+    if (params["uiVersion"] !== undefined)
+      data["UiVersion"] = params["uiVersion"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConfigurationInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -118,8 +119,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 }
 
-interface ConfigurationPayload extends ConfigurationResource{
-}
+interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
   account_sid?: string | null;
@@ -220,7 +220,7 @@ export class ConfigurationInstance {
     this.debuggerIntegration = payload.debugger_integration;
     this.flexUiStatusReport = payload.flex_ui_status_report;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -402,7 +402,8 @@ export class ConfigurationInstance {
   flexUiStatusReport?: any | null;
 
   private get _proxy(): ConfigurationContext {
-    this._context = this._context || new ConfigurationContextImpl(this._version);
+    this._context =
+      this._context || new ConfigurationContextImpl(this._version);
     return this._context;
   }
 
@@ -413,7 +414,9 @@ export class ConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
    *
@@ -422,9 +425,11 @@ export class ConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(params: ConfigurationContextFetchOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>
-     {
+  fetch(
+    params: ConfigurationContextFetchOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -435,52 +440,52 @@ export class ConfigurationInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      attributes: this.attributes, 
-      status: this.status, 
-      taskrouterWorkspaceSid: this.taskrouterWorkspaceSid, 
-      taskrouterTargetWorkflowSid: this.taskrouterTargetWorkflowSid, 
-      taskrouterTargetTaskqueueSid: this.taskrouterTargetTaskqueueSid, 
-      taskrouterTaskqueues: this.taskrouterTaskqueues, 
-      taskrouterSkills: this.taskrouterSkills, 
-      taskrouterWorkerChannels: this.taskrouterWorkerChannels, 
-      taskrouterWorkerAttributes: this.taskrouterWorkerAttributes, 
-      taskrouterOfflineActivitySid: this.taskrouterOfflineActivitySid, 
-      runtimeDomain: this.runtimeDomain, 
-      messagingServiceInstanceSid: this.messagingServiceInstanceSid, 
-      chatServiceInstanceSid: this.chatServiceInstanceSid, 
-      flexServiceInstanceSid: this.flexServiceInstanceSid, 
-      uiLanguage: this.uiLanguage, 
-      uiAttributes: this.uiAttributes, 
-      uiDependencies: this.uiDependencies, 
-      uiVersion: this.uiVersion, 
-      serviceVersion: this.serviceVersion, 
-      callRecordingEnabled: this.callRecordingEnabled, 
-      callRecordingWebhookUrl: this.callRecordingWebhookUrl, 
-      crmEnabled: this.crmEnabled, 
-      crmType: this.crmType, 
-      crmCallbackUrl: this.crmCallbackUrl, 
-      crmFallbackUrl: this.crmFallbackUrl, 
-      crmAttributes: this.crmAttributes, 
-      publicAttributes: this.publicAttributes, 
-      pluginServiceEnabled: this.pluginServiceEnabled, 
-      pluginServiceAttributes: this.pluginServiceAttributes, 
-      integrations: this.integrations, 
-      outboundCallFlows: this.outboundCallFlows, 
-      serverlessServiceSids: this.serverlessServiceSids, 
-      queueStatsConfiguration: this.queueStatsConfiguration, 
-      notifications: this.notifications, 
-      markdown: this.markdown, 
-      url: this.url, 
-      flexInsightsHr: this.flexInsightsHr, 
-      flexInsightsDrilldown: this.flexInsightsDrilldown, 
-      flexUrl: this.flexUrl, 
-      channelConfigs: this.channelConfigs, 
-      debuggerIntegration: this.debuggerIntegration, 
-      flexUiStatusReport: this.flexUiStatusReport
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      attributes: this.attributes,
+      status: this.status,
+      taskrouterWorkspaceSid: this.taskrouterWorkspaceSid,
+      taskrouterTargetWorkflowSid: this.taskrouterTargetWorkflowSid,
+      taskrouterTargetTaskqueueSid: this.taskrouterTargetTaskqueueSid,
+      taskrouterTaskqueues: this.taskrouterTaskqueues,
+      taskrouterSkills: this.taskrouterSkills,
+      taskrouterWorkerChannels: this.taskrouterWorkerChannels,
+      taskrouterWorkerAttributes: this.taskrouterWorkerAttributes,
+      taskrouterOfflineActivitySid: this.taskrouterOfflineActivitySid,
+      runtimeDomain: this.runtimeDomain,
+      messagingServiceInstanceSid: this.messagingServiceInstanceSid,
+      chatServiceInstanceSid: this.chatServiceInstanceSid,
+      flexServiceInstanceSid: this.flexServiceInstanceSid,
+      uiLanguage: this.uiLanguage,
+      uiAttributes: this.uiAttributes,
+      uiDependencies: this.uiDependencies,
+      uiVersion: this.uiVersion,
+      serviceVersion: this.serviceVersion,
+      callRecordingEnabled: this.callRecordingEnabled,
+      callRecordingWebhookUrl: this.callRecordingWebhookUrl,
+      crmEnabled: this.crmEnabled,
+      crmType: this.crmType,
+      crmCallbackUrl: this.crmCallbackUrl,
+      crmFallbackUrl: this.crmFallbackUrl,
+      crmAttributes: this.crmAttributes,
+      publicAttributes: this.publicAttributes,
+      pluginServiceEnabled: this.pluginServiceEnabled,
+      pluginServiceAttributes: this.pluginServiceAttributes,
+      integrations: this.integrations,
+      outboundCallFlows: this.outboundCallFlows,
+      serverlessServiceSids: this.serverlessServiceSids,
+      queueStatsConfiguration: this.queueStatsConfiguration,
+      notifications: this.notifications,
+      markdown: this.markdown,
+      url: this.url,
+      flexInsightsHr: this.flexInsightsHr,
+      flexInsightsDrilldown: this.flexInsightsDrilldown,
+      flexUrl: this.flexUrl,
+      channelConfigs: this.channelConfigs,
+      debuggerIntegration: this.debuggerIntegration,
+      flexUiStatusReport: this.flexUiStatusReport,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -488,11 +493,9 @@ export class ConfigurationInstance {
   }
 }
 
-
 export interface ConfigurationListInstance {
   (): ConfigurationContext;
   get(): ConfigurationContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -501,38 +504,38 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationSolution {
-}
+export interface ConfigurationSolution {}
 
 interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
 class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _version?: V1;
   _solution?: ConfigurationSolution;
   _uri?: string;
-
 }
 
-export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
+export function ConfigurationListInstance(
+  version: V1
+): ConfigurationListInstance {
   const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

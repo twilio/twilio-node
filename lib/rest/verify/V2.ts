@@ -66,13 +66,15 @@ export default class V2 extends Version {
   }
 
   get verificationAttempts(): VerificationAttemptListInstance {
-    this._verificationAttempts = this._verificationAttempts || VerificationAttemptListInstance(this);
+    this._verificationAttempts =
+      this._verificationAttempts || VerificationAttemptListInstance(this);
     return this._verificationAttempts;
   }
 
   get verificationAttemptsSummary(): VerificationAttemptsSummaryListInstance {
-    this._verificationAttemptsSummary = this._verificationAttemptsSummary || VerificationAttemptsSummaryListInstance(this);
+    this._verificationAttemptsSummary =
+      this._verificationAttemptsSummary ||
+      VerificationAttemptsSummaryListInstance(this);
     return this._verificationAttemptsSummary;
   }
-
 }

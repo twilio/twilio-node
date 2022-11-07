@@ -12,35 +12,29 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type ChannelChannelType = "public" | "private";
 
-
-type ChannelChannelType = 'public'|'private';
-
-type ChannelWebhookEnabledType = 'true'|'false';
-
+type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a ChannelInstance
  *
  * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { ChannelChannelType } [type] 
+ * @property { ChannelChannelType } [type]
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
  */
 export interface ChannelContextUpdateOptions {
-  "xTwilioWebhookEnabled"?: ChannelWebhookEnabledType;
-  "type"?: ChannelChannelType;
-  "messagingServiceSid"?: string;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  type?: ChannelChannelType;
+  messagingServiceSid?: string;
 }
 
 export interface ChannelContext {
-
-
   /**
    * Update a ChannelInstance
    *
@@ -48,7 +42,9 @@ export interface ChannelContext {
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
-  update(callback?: (error: Error | null, item?: ChannelInstance) => any): Promise<ChannelInstance>;
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
   /**
    * Update a ChannelInstance
    *
@@ -57,9 +53,11 @@ export interface ChannelContext {
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
-  update(params: ChannelContextUpdateOptions, callback?: (error: Error | null, item?: ChannelInstance) => any): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance>
-
+  update(
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  update(params?: any, callback?: any): Promise<ChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -69,14 +67,13 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V3, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
@@ -84,7 +81,7 @@ export class ChannelContextImpl implements ChannelContext {
   }
 
   update(params?: any, callback?: any): Promise<ChannelInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -93,27 +90,38 @@ export class ChannelContextImpl implements ChannelContext {
 
     let data: any = {};
 
-    
-        if (params["type"] !== undefined)
-    data["Type"] = params["type"];
+    if (params["type"] !== undefined) data["Type"] = params["type"];
     if (params["messagingServiceSid"] !== undefined)
-    data["MessagingServiceSid"] = params["messagingServiceSid"];
-
+      data["MessagingServiceSid"] = params["messagingServiceSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ChannelInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ChannelInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -130,8 +138,7 @@ export class ChannelContextImpl implements ChannelContext {
   }
 }
 
-interface ChannelPayload extends ChannelResource{
-}
+interface ChannelPayload extends ChannelResource {}
 
 interface ChannelResource {
   sid?: string | null;
@@ -154,7 +161,12 @@ export class ChannelInstance {
   protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
-  constructor(protected _version: V3, payload: ChannelPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V3,
+    payload: ChannelPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -228,7 +240,13 @@ export class ChannelInstance {
   url?: string | null;
 
   private get _proxy(): ChannelContext {
-    this._context = this._context || new ChannelContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ChannelContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -239,7 +257,9 @@ export class ChannelInstance {
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
-  update(callback?: (error: Error | null, item?: ChannelInstance) => any): Promise<ChannelInstance>;
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
   /**
    * Update a ChannelInstance
    *
@@ -248,9 +268,11 @@ export class ChannelInstance {
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
-  update(params: ChannelContextUpdateOptions, callback?: (error: Error | null, item?: ChannelInstance) => any): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance>
-     {
+  update(
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  update(params?: any, callback?: any): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -261,21 +283,21 @@ export class ChannelInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      friendlyName: this.friendlyName, 
-      uniqueName: this.uniqueName, 
-      attributes: this.attributes, 
-      type: this.type, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      createdBy: this.createdBy, 
-      membersCount: this.membersCount, 
-      messagesCount: this.messagesCount, 
-      messagingServiceSid: this.messagingServiceSid, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      friendlyName: this.friendlyName,
+      uniqueName: this.uniqueName,
+      attributes: this.attributes,
+      type: this.type,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      createdBy: this.createdBy,
+      membersCount: this.membersCount,
+      messagesCount: this.messagesCount,
+      messagingServiceSid: this.messagingServiceSid,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -283,11 +305,9 @@ export class ChannelInstance {
   }
 }
 
-
 export interface ChannelListInstance {
   (serviceSid: string, sid: string): ChannelContext;
   get(serviceSid: string, sid: string): ChannelContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -296,38 +316,37 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChannelSolution {
-}
+export interface ChannelSolution {}
 
 interface ChannelListInstanceImpl extends ChannelListInstance {}
 class ChannelListInstanceImpl implements ChannelListInstance {
   _version?: V3;
   _solution?: ChannelSolution;
   _uri?: string;
-
 }
 
 export function ChannelListInstance(version: V3): ChannelListInstance {
-  const instance = ((serviceSid, sid) => instance.get(serviceSid, sid)) as ChannelListInstanceImpl;
+  const instance = ((serviceSid, sid) =>
+    instance.get(serviceSid, sid)) as ChannelListInstanceImpl;
 
   instance.get = function get(serviceSid, sid): ChannelContext {
     return new ChannelContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

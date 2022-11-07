@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -21,16 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { NotificationListInstance } from "./challenge/notification";
 
+type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
 
+type ChallengeChallengeStatuses = "pending" | "expired" | "approved" | "denied";
 
-type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
+type ChallengeFactorTypes = "push" | "totp";
 
-type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
-
-type ChallengeFactorTypes = 'push'|'totp';
-
-type ChallengeListOrders = 'asc'|'desc';
-
+type ChallengeListOrders = "asc" | "desc";
 
 /**
  * Options to pass to update a ChallengeInstance
@@ -39,8 +35,8 @@ type ChallengeListOrders = 'asc'|'desc';
  * @property { any } [metadata] Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;os\\\&quot;: \\\&quot;Android\\\&quot;}&#x60;. Can be up to 1024 characters in length.
  */
 export interface ChallengeContextUpdateOptions {
-  "authPayload"?: string;
-  "metadata"?: any;
+  authPayload?: string;
+  metadata?: any;
 }
 
 /**
@@ -54,12 +50,12 @@ export interface ChallengeContextUpdateOptions {
  * @property { string } [authPayload] Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long.
  */
 export interface ChallengeListInstanceCreateOptions {
-  "factorSid": string;
-  "expirationDate"?: Date;
+  factorSid: string;
+  expirationDate?: Date;
   "details.message"?: string;
   "details.fields"?: Array<any>;
-  "hiddenDetails"?: any;
-  "authPayload"?: string;
+  hiddenDetails?: any;
+  authPayload?: string;
 }
 /**
  * Options to pass to each
@@ -78,10 +74,10 @@ export interface ChallengeListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChallengeListInstanceEachOptions {
-  "factorSid"?: string;
-  "status"?: ChallengeChallengeStatuses;
-  "order"?: ChallengeListOrders;
-  "pageSize"?: number;
+  factorSid?: string;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
+  pageSize?: number;
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -100,10 +96,10 @@ export interface ChallengeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChallengeListInstanceOptions {
-  "factorSid"?: string;
-  "status"?: ChallengeChallengeStatuses;
-  "order"?: ChallengeListOrders;
-  "pageSize"?: number;
+  factorSid?: string;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -118,18 +114,15 @@ export interface ChallengeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChallengeListInstancePageOptions {
-  "factorSid"?: string;
-  "status"?: ChallengeChallengeStatuses;
-  "order"?: ChallengeListOrders;
-  "pageSize"?: number;
+  factorSid?: string;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ChallengeContext {
-
   notifications: NotificationListInstance;
 
   /**
@@ -139,8 +132,9 @@ export interface ChallengeContext {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  fetch(callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
 
   /**
    * Update a ChallengeInstance
@@ -149,7 +143,9 @@ export interface ChallengeContext {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  update(callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  update(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
   /**
    * Update a ChallengeInstance
    *
@@ -158,9 +154,11 @@ export interface ChallengeContext {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  update(params: ChallengeContextUpdateOptions, callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  update(params?: any, callback?: any): Promise<ChallengeInstance>
-
+  update(
+    params: ChallengeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+  update(params?: any, callback?: any): Promise<ChallengeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -170,9 +168,9 @@ export interface ChallengeContext {
 }
 
 export interface ChallengeContextSolution {
-  "serviceSid"?: string;
-  "identity"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  identity?: string;
+  sid?: string;
 }
 
 export class ChallengeContextImpl implements ChallengeContext {
@@ -181,32 +179,55 @@ export class ChallengeContextImpl implements ChallengeContext {
 
   protected _notifications?: NotificationListInstance;
 
-  constructor(protected _version: V2, serviceSid: string, identity: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    identity: string,
+    sid: string
+  ) {
     this._solution = { serviceSid, identity, sid };
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges/${sid}`;
   }
 
   get notifications(): NotificationListInstance {
-    this._notifications = this._notifications || NotificationListInstance(this._version, this._solution.serviceSid, this._solution.identity, this._solution.sid);
+    this._notifications =
+      this._notifications ||
+      NotificationListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.identity,
+        this._solution.sid
+      );
     return this._notifications;
   }
 
   fetch(callback?: any): Promise<ChallengeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ChallengeInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ChallengeInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ChallengeInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -215,26 +236,38 @@ export class ChallengeContextImpl implements ChallengeContext {
 
     let data: any = {};
 
-    
-        if (params["authPayload"] !== undefined)
-    data["AuthPayload"] = params["authPayload"];
+    if (params["authPayload"] !== undefined)
+      data["AuthPayload"] = params["authPayload"];
     if (params["metadata"] !== undefined)
-    data["Metadata"] = serialize.object(params["metadata"]);
-
+      data["Metadata"] = serialize.object(params["metadata"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ChallengeInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ChallengeInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -251,8 +284,9 @@ export class ChallengeContextImpl implements ChallengeContext {
   }
 }
 
-interface ChallengePayload extends ChallengeResource, Page.TwilioResponsePayload {
-}
+interface ChallengePayload
+  extends ChallengeResource,
+    Page.TwilioResponsePayload {}
 
 interface ChallengeResource {
   sid?: string | null;
@@ -279,7 +313,13 @@ export class ChallengeInstance {
   protected _solution: ChallengeContextSolution;
   protected _context?: ChallengeContext;
 
-  constructor(protected _version: V2, payload: ChallengePayload, serviceSid: string, identity: string, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: ChallengePayload,
+    serviceSid: string,
+    identity: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -367,7 +407,14 @@ export class ChallengeInstance {
   links?: object | null;
 
   private get _proxy(): ChallengeContext {
-    this._context = this._context || new ChallengeContextImpl(this._version, this._solution.serviceSid, this._solution.identity, this._solution.sid);
+    this._context =
+      this._context ||
+      new ChallengeContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.identity,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -378,8 +425,9 @@ export class ChallengeInstance {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  fetch(callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -390,7 +438,9 @@ export class ChallengeInstance {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  update(callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  update(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
   /**
    * Update a ChallengeInstance
    *
@@ -399,9 +449,11 @@ export class ChallengeInstance {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  update(params: ChallengeContextUpdateOptions, callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  update(params?: any, callback?: any): Promise<ChallengeInstance>
-     {
+  update(
+    params: ChallengeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+  update(params?: any, callback?: any): Promise<ChallengeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -419,25 +471,25 @@ export class ChallengeInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      entitySid: this.entitySid, 
-      identity: this.identity, 
-      factorSid: this.factorSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      dateResponded: this.dateResponded, 
-      expirationDate: this.expirationDate, 
-      status: this.status, 
-      respondedReason: this.respondedReason, 
-      details: this.details, 
-      hiddenDetails: this.hiddenDetails, 
-      metadata: this.metadata, 
-      factorType: this.factorType, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      entitySid: this.entitySid,
+      identity: this.identity,
+      factorSid: this.factorSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      dateResponded: this.dateResponded,
+      expirationDate: this.expirationDate,
+      status: this.status,
+      respondedReason: this.respondedReason,
+      details: this.details,
+      hiddenDetails: this.hiddenDetails,
+      metadata: this.metadata,
+      factorType: this.factorType,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -445,11 +497,9 @@ export class ChallengeInstance {
   }
 }
 
-
 export interface ChallengeListInstance {
   (sid: string): ChallengeContext;
   get(sid: string): ChallengeContext;
-
 
   /**
    * Create a ChallengeInstance
@@ -459,10 +509,11 @@ export interface ChallengeListInstance {
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
-  create(params: ChallengeListInstanceCreateOptions, callback?: (error: Error | null, item?: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  create(params: any, callback?: any): Promise<ChallengeInstance>
-
-
+  create(
+    params: ChallengeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+  create(params: any, callback?: any): Promise<ChallengeInstance>;
 
   /**
    * Streams ChallengeInstance records from the API.
@@ -478,7 +529,9 @@ export interface ChallengeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ChallengeInstance records from the API.
    *
@@ -494,7 +547,10 @@ export interface ChallengeListInstance {
    * @param { ChallengeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ChallengeListInstanceEachOptions, callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ChallengeListInstanceEachOptions,
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ChallengeInstance records from the API.
@@ -506,7 +562,9 @@ export interface ChallengeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  getPage(
+    callback?: (error: Error | null, items: ChallengePage) => any
+  ): Promise<ChallengePage>;
   /**
    * Retrieve a single target page of ChallengeInstance records from the API.
    *
@@ -518,7 +576,10 @@ export interface ChallengeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ChallengePage) => any
+  ): Promise<ChallengePage>;
   getPage(params?: any, callback?: any): Promise<ChallengePage>;
   /**
    * Lists ChallengeInstance records from the API as a list.
@@ -528,7 +589,9 @@ export interface ChallengeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ChallengeInstance[]) => any): Promise<ChallengeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ChallengeInstance[]) => any
+  ): Promise<ChallengeInstance[]>;
   /**
    * Lists ChallengeInstance records from the API as a list.
    *
@@ -538,7 +601,10 @@ export interface ChallengeListInstance {
    * @param { ChallengeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ChallengeListInstanceOptions, callback?: (error: Error | null, items: ChallengeInstance[]) => any): Promise<ChallengeInstance[]>;
+  list(
+    params?: ChallengeListInstanceOptions,
+    callback?: (error: Error | null, items: ChallengeInstance[]) => any
+  ): Promise<ChallengeInstance[]>;
   list(params?: any, callback?: any): Promise<ChallengeInstance[]>;
   /**
    * Retrieve a single page of ChallengeInstance records from the API.
@@ -550,7 +616,9 @@ export interface ChallengeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  page(
+    callback?: (error: Error | null, items: ChallengePage) => any
+  ): Promise<ChallengePage>;
   /**
    * Retrieve a single page of ChallengeInstance records from the API.
    *
@@ -562,7 +630,10 @@ export interface ChallengeListInstance {
    * @param { ChallengeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ChallengeListInstancePageOptions, callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  page(
+    params: ChallengeListInstancePageOptions,
+    callback?: (error: Error | null, items: ChallengePage) => any
+  ): Promise<ChallengePage>;
   page(params?: any, callback?: any): Promise<ChallengePage>;
 
   /**
@@ -582,62 +653,85 @@ class ChallengeListInstanceImpl implements ChallengeListInstance {
   _version?: V2;
   _solution?: ChallengeSolution;
   _uri?: string;
-
 }
 
-export function ChallengeListInstance(version: V2, serviceSid: string, identity: string): ChallengeListInstance {
+export function ChallengeListInstance(
+  version: V2,
+  serviceSid: string,
+  identity: string
+): ChallengeListInstance {
   const instance = ((sid) => instance.get(sid)) as ChallengeListInstanceImpl;
 
   instance.get = function get(sid): ChallengeContext {
     return new ChallengeContextImpl(version, serviceSid, identity, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, identity };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges`;
 
-  instance.create = function create(params: any, callback?: any): Promise<ChallengeInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<ChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["factorSid"] === null || params["factorSid"] === undefined) {
-      throw new Error('Required parameter "params[\'factorSid\']" missing.');
+      throw new Error("Required parameter \"params['factorSid']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FactorSid"] = params["factorSid"];
     if (params["expirationDate"] !== undefined)
-    data["ExpirationDate"] = serialize.iso8601DateTime(params["expirationDate"]);
+      data["ExpirationDate"] = serialize.iso8601DateTime(
+        params["expirationDate"]
+      );
     if (params["details.message"] !== undefined)
-    data["Details.Message"] = params["details.message"];
+      data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined)
-    data["Details.Fields"] = serialize.map(params["details.fields"], (e => serialize.object(e)));
+      data["Details.Fields"] = serialize.map(params["details.fields"], (e) =>
+        serialize.object(e)
+      );
     if (params["hiddenDetails"] !== undefined)
-    data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
+      data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
     if (params["authPayload"] !== undefined)
-    data["AuthPayload"] = params["authPayload"];
-
+      data["AuthPayload"] = params["authPayload"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ChallengeInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ChallengeInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ChallengePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ChallengePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -647,82 +741,107 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
 
     let data: any = {};
 
-        if (params["factorSid"] !== undefined)
-    data["FactorSid"] = params["factorSid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["order"] !== undefined)
-    data["Order"] = params["order"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["factorSid"] !== undefined)
+      data["FactorSid"] = params["factorSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ChallengePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ChallengePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ChallengePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ChallengePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ChallengePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ChallengePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource, ChallengeInstance> {
-/**
-* Initialize the ChallengePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: ChallengeSolution) {
+export class ChallengePage extends Page<
+  V2,
+  ChallengePayload,
+  ChallengeResource,
+  ChallengeInstance
+> {
+  /**
+   * Initialize the ChallengePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: ChallengeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ChallengeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ChallengePayload): ChallengeInstance {
+  /**
+   * Build an instance of ChallengeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ChallengePayload): ChallengeInstance {
     return new ChallengeInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.identity,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.identity
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

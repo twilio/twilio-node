@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,9 +19,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-type AuthorizedConnectAppPermission = 'get-all'|'post-all';
+type AuthorizedConnectAppPermission = "get-all" | "post-all";
 
 /**
  * Options to pass to each
@@ -38,8 +35,11 @@ type AuthorizedConnectAppPermission = 'get-all'|'post-all';
  *                         Default is no limit
  */
 export interface AuthorizedConnectAppListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: AuthorizedConnectAppInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -54,7 +54,7 @@ export interface AuthorizedConnectAppListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AuthorizedConnectAppListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -66,16 +66,12 @@ export interface AuthorizedConnectAppListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AuthorizedConnectAppListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AuthorizedConnectAppContext {
-
-
   /**
    * Fetch a AuthorizedConnectAppInstance
    *
@@ -83,8 +79,9 @@ export interface AuthorizedConnectAppContext {
    *
    * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
    */
-  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any
+  ): Promise<AuthorizedConnectAppInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,32 +91,47 @@ export interface AuthorizedConnectAppContext {
 }
 
 export interface AuthorizedConnectAppContextSolution {
-  "accountSid"?: string;
-  "connectAppSid"?: string;
+  accountSid?: string;
+  connectAppSid?: string;
 }
 
-export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
+export class AuthorizedConnectAppContextImpl
+  implements AuthorizedConnectAppContext
+{
   protected _solution: AuthorizedConnectAppContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, connectAppSid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    connectAppSid: string
+  ) {
     this._solution = { accountSid, connectAppSid };
     this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
   }
 
   fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AuthorizedConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.connectAppSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthorizedConnectAppInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.connectAppSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -136,8 +148,9 @@ export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppCont
   }
 }
 
-interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
-}
+interface AuthorizedConnectAppPayload
+  extends AuthorizedConnectAppResource,
+    Page.TwilioResponsePayload {}
 
 interface AuthorizedConnectAppResource {
   account_sid?: string | null;
@@ -156,7 +169,12 @@ export class AuthorizedConnectAppInstance {
   protected _solution: AuthorizedConnectAppContextSolution;
   protected _context?: AuthorizedConnectAppContext;
 
-  constructor(protected _version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: AuthorizedConnectAppPayload,
+    accountSid: string,
+    connectAppSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.connectAppCompanyName = payload.connect_app_company_name;
     this.connectAppDescription = payload.connect_app_description;
@@ -168,7 +186,10 @@ export class AuthorizedConnectAppInstance {
     this.permissions = payload.permissions;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, connectAppSid: connectAppSid || this.connectAppSid };
+    this._solution = {
+      accountSid,
+      connectAppSid: connectAppSid || this.connectAppSid,
+    };
   }
 
   /**
@@ -213,7 +234,13 @@ export class AuthorizedConnectAppInstance {
   uri?: string | null;
 
   private get _proxy(): AuthorizedConnectAppContext {
-    this._context = this._context || new AuthorizedConnectAppContextImpl(this._version, this._solution.accountSid, this._solution.connectAppSid);
+    this._context =
+      this._context ||
+      new AuthorizedConnectAppContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.connectAppSid
+      );
     return this._context;
   }
 
@@ -224,8 +251,9 @@ export class AuthorizedConnectAppInstance {
    *
    * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
    */
-  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any
+  ): Promise<AuthorizedConnectAppInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -236,17 +264,17 @@ export class AuthorizedConnectAppInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      connectAppCompanyName: this.connectAppCompanyName, 
-      connectAppDescription: this.connectAppDescription, 
-      connectAppFriendlyName: this.connectAppFriendlyName, 
-      connectAppHomepageUrl: this.connectAppHomepageUrl, 
-      connectAppSid: this.connectAppSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      permissions: this.permissions, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      connectAppCompanyName: this.connectAppCompanyName,
+      connectAppDescription: this.connectAppDescription,
+      connectAppFriendlyName: this.connectAppFriendlyName,
+      connectAppHomepageUrl: this.connectAppHomepageUrl,
+      connectAppSid: this.connectAppSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      permissions: this.permissions,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -254,12 +282,9 @@ export class AuthorizedConnectAppInstance {
   }
 }
 
-
 export interface AuthorizedConnectAppListInstance {
   (connectAppSid: string): AuthorizedConnectAppContext;
   get(connectAppSid: string): AuthorizedConnectAppContext;
-
-
 
   /**
    * Streams AuthorizedConnectAppInstance records from the API.
@@ -275,7 +300,12 @@ export interface AuthorizedConnectAppListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AuthorizedConnectAppInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams AuthorizedConnectAppInstance records from the API.
    *
@@ -291,7 +321,13 @@ export interface AuthorizedConnectAppListInstance {
    * @param { AuthorizedConnectAppListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AuthorizedConnectAppListInstanceEachOptions, callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AuthorizedConnectAppListInstanceEachOptions,
+    callback?: (
+      item: AuthorizedConnectAppInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
@@ -303,7 +339,9 @@ export interface AuthorizedConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
+  getPage(
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
+  ): Promise<AuthorizedConnectAppPage>;
   /**
    * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
    *
@@ -315,7 +353,10 @@ export interface AuthorizedConnectAppListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
+  ): Promise<AuthorizedConnectAppPage>;
   getPage(params?: any, callback?: any): Promise<AuthorizedConnectAppPage>;
   /**
    * Lists AuthorizedConnectAppInstance records from the API as a list.
@@ -325,7 +366,12 @@ export interface AuthorizedConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): Promise<AuthorizedConnectAppInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: AuthorizedConnectAppInstance[]
+    ) => any
+  ): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Lists AuthorizedConnectAppInstance records from the API as a list.
    *
@@ -335,7 +381,13 @@ export interface AuthorizedConnectAppListInstance {
    * @param { AuthorizedConnectAppListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AuthorizedConnectAppListInstanceOptions, callback?: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): Promise<AuthorizedConnectAppInstance[]>;
+  list(
+    params?: AuthorizedConnectAppListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AuthorizedConnectAppInstance[]
+    ) => any
+  ): Promise<AuthorizedConnectAppInstance[]>;
   list(params?: any, callback?: any): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
@@ -347,7 +399,9 @@ export interface AuthorizedConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
+  page(
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
+  ): Promise<AuthorizedConnectAppPage>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
    *
@@ -359,7 +413,10 @@ export interface AuthorizedConnectAppListInstance {
    * @param { AuthorizedConnectAppListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AuthorizedConnectAppListInstancePageOptions, callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
+  page(
+    params: AuthorizedConnectAppListInstancePageOptions,
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
+  ): Promise<AuthorizedConnectAppPage>;
   page(params?: any, callback?: any): Promise<AuthorizedConnectAppPage>;
 
   /**
@@ -373,26 +430,39 @@ export interface AuthorizedConnectAppSolution {
   accountSid?: string;
 }
 
-interface AuthorizedConnectAppListInstanceImpl extends AuthorizedConnectAppListInstance {}
-class AuthorizedConnectAppListInstanceImpl implements AuthorizedConnectAppListInstance {
+interface AuthorizedConnectAppListInstanceImpl
+  extends AuthorizedConnectAppListInstance {}
+class AuthorizedConnectAppListInstanceImpl
+  implements AuthorizedConnectAppListInstance
+{
   _version?: V2010;
   _solution?: AuthorizedConnectAppSolution;
   _uri?: string;
-
 }
 
-export function AuthorizedConnectAppListInstance(version: V2010, accountSid: string): AuthorizedConnectAppListInstance {
-  const instance = ((connectAppSid) => instance.get(connectAppSid)) as AuthorizedConnectAppListInstanceImpl;
+export function AuthorizedConnectAppListInstance(
+  version: V2010,
+  accountSid: string
+): AuthorizedConnectAppListInstance {
+  const instance = ((connectAppSid) =>
+    instance.get(connectAppSid)) as AuthorizedConnectAppListInstanceImpl;
 
   instance.get = function get(connectAppSid): AuthorizedConnectAppContext {
-    return new AuthorizedConnectAppContextImpl(version, accountSid, connectAppSid);
-  }
+    return new AuthorizedConnectAppContextImpl(
+      version,
+      accountSid,
+      connectAppSid
+    );
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/AuthorizedConnectApps.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<AuthorizedConnectAppPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AuthorizedConnectAppPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -402,75 +472,106 @@ export function AuthorizedConnectAppListInstance(version: V2010, accountSid: str
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AuthorizedConnectAppPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthorizedConnectAppPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AuthorizedConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AuthorizedConnectAppPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AuthorizedConnectAppPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AuthorizedConnectAppPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
-/**
-* Initialize the AuthorizedConnectAppPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution) {
+export class AuthorizedConnectAppPage extends Page<
+  V2010,
+  AuthorizedConnectAppPayload,
+  AuthorizedConnectAppResource,
+  AuthorizedConnectAppInstance
+> {
+  /**
+   * Initialize the AuthorizedConnectAppPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: AuthorizedConnectAppSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AuthorizedConnectAppInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance {
+  /**
+   * Build an instance of AuthorizedConnectAppInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: AuthorizedConnectAppPayload
+  ): AuthorizedConnectAppInstance {
     return new AuthorizedConnectAppInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

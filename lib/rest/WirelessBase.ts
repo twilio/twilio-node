@@ -9,25 +9,25 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V1 from './wireless/V1';
+import Domain from "../base/Domain";
+import V1 from "./wireless/V1";
 
 class WirelessBase extends Domain {
-    _v1?: V1;
+  _v1?: V1;
 
-    /**
-     * Initialize wireless domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://wireless.twilio.com');
-    }
+  /**
+   * Initialize wireless domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://wireless.twilio.com");
+  }
 
-    get v1(): V1 {
-        this._v1 = this._v1 || new V1(this);
-        return this._v1;
-    }
+  get v1(): V1 {
+    this._v1 = this._v1 || new V1(this);
+    return this._v1;
+  }
 }
 
 export = WirelessBase;

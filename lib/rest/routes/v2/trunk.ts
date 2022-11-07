@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a TrunkInstance
@@ -28,13 +24,11 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface TrunkContextUpdateOptions {
-  "voiceRegion"?: string;
-  "friendlyName"?: string;
+  voiceRegion?: string;
+  friendlyName?: string;
 }
 
 export interface TrunkContext {
-
-
   /**
    * Fetch a TrunkInstance
    *
@@ -42,8 +36,9 @@ export interface TrunkContext {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
 
   /**
    * Update a TrunkInstance
@@ -52,7 +47,9 @@ export interface TrunkContext {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  update(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
    *
@@ -61,9 +58,11 @@ export interface TrunkContext {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  update(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance>
-
+  update(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+  update(params?: any, callback?: any): Promise<TrunkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -73,13 +72,12 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  "sipTrunkDomain"?: string;
+  sipTrunkDomain?: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
   protected _solution: TrunkContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sipTrunkDomain: string) {
     this._solution = { sipTrunkDomain };
@@ -87,21 +85,30 @@ export class TrunkContextImpl implements TrunkContext {
   }
 
   fetch(callback?: any): Promise<TrunkInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, this._solution.sipTrunkDomain));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrunkInstance(
+          operationVersion,
+          payload,
+          this._solution.sipTrunkDomain
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<TrunkInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -110,26 +117,36 @@ export class TrunkContextImpl implements TrunkContext {
 
     let data: any = {};
 
-    
-        if (params["voiceRegion"] !== undefined)
-    data["VoiceRegion"] = params["voiceRegion"];
+    if (params["voiceRegion"] !== undefined)
+      data["VoiceRegion"] = params["voiceRegion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload, this._solution.sipTrunkDomain));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrunkInstance(
+          operationVersion,
+          payload,
+          this._solution.sipTrunkDomain
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -146,8 +163,7 @@ export class TrunkContextImpl implements TrunkContext {
   }
 }
 
-interface TrunkPayload extends TrunkResource{
-}
+interface TrunkPayload extends TrunkResource {}
 
 interface TrunkResource {
   sip_trunk_domain?: string | null;
@@ -164,7 +180,11 @@ export class TrunkInstance {
   protected _solution: TrunkContextSolution;
   protected _context?: TrunkContext;
 
-  constructor(protected _version: V2, payload: TrunkPayload, sipTrunkDomain?: string) {
+  constructor(
+    protected _version: V2,
+    payload: TrunkPayload,
+    sipTrunkDomain?: string
+  ) {
     this.sipTrunkDomain = payload.sip_trunk_domain;
     this.url = payload.url;
     this.sid = payload.sid;
@@ -211,7 +231,9 @@ export class TrunkInstance {
   dateUpdated?: Date | null;
 
   private get _proxy(): TrunkContext {
-    this._context = this._context || new TrunkContextImpl(this._version, this._solution.sipTrunkDomain);
+    this._context =
+      this._context ||
+      new TrunkContextImpl(this._version, this._solution.sipTrunkDomain);
     return this._context;
   }
 
@@ -222,8 +244,9 @@ export class TrunkInstance {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -234,7 +257,9 @@ export class TrunkInstance {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  update(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
    *
@@ -243,9 +268,11 @@ export class TrunkInstance {
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
-  update(params: TrunkContextUpdateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance>
-     {
+  update(
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+  update(params?: any, callback?: any): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -256,15 +283,15 @@ export class TrunkInstance {
    */
   toJSON() {
     return {
-      sipTrunkDomain: this.sipTrunkDomain, 
-      url: this.url, 
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      voiceRegion: this.voiceRegion, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated
-    }
+      sipTrunkDomain: this.sipTrunkDomain,
+      url: this.url,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      voiceRegion: this.voiceRegion,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -272,11 +299,9 @@ export class TrunkInstance {
   }
 }
 
-
 export interface TrunkListInstance {
   (sipTrunkDomain: string): TrunkContext;
   get(sipTrunkDomain: string): TrunkContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -285,38 +310,37 @@ export interface TrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrunkSolution {
-}
+export interface TrunkSolution {}
 
 interface TrunkListInstanceImpl extends TrunkListInstance {}
 class TrunkListInstanceImpl implements TrunkListInstance {
   _version?: V2;
   _solution?: TrunkSolution;
   _uri?: string;
-
 }
 
 export function TrunkListInstance(version: V2): TrunkListInstance {
-  const instance = ((sipTrunkDomain) => instance.get(sipTrunkDomain)) as TrunkListInstanceImpl;
+  const instance = ((sipTrunkDomain) =>
+    instance.get(sipTrunkDomain)) as TrunkListInstanceImpl;
 
   instance.get = function get(sipTrunkDomain): TrunkContext {
     return new TrunkContextImpl(version, sipTrunkDomain);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

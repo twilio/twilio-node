@@ -5,7 +5,6 @@
  *       /       /
  */
 
-
 declare class MessagingResponse {
   /**
    * <Response> TwiML for Messages
@@ -24,7 +23,10 @@ declare class MessagingResponse {
    * @param attributes - TwiML attributes
    * @param body - Message Body
    */
-  message(attributes: MessagingResponse.MessageAttributes, body: string): MessagingResponse.Message;
+  message(
+    attributes: MessagingResponse.MessageAttributes,
+    body: string
+  ): MessagingResponse.Message;
   /**
    * <Redirect> TwiML Verb
    *
@@ -45,7 +47,6 @@ declare class MessagingResponse {
 }
 
 declare namespace MessagingResponse {
-
   /**
    * Options to pass to message
    *
@@ -72,9 +73,7 @@ declare namespace MessagingResponse {
     method?: string;
   }
 
-
   class Message {
-
     /**
      * <Body> TwiML Noun
      *

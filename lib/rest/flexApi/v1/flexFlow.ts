@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,22 +19,25 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type FlexFlowChannelType =
+  | "web"
+  | "sms"
+  | "facebook"
+  | "whatsapp"
+  | "line"
+  | "custom";
 
-
-type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
-
-type FlexFlowIntegrationType = 'studio'|'external'|'task';
-
+type FlexFlowIntegrationType = "studio" | "external" | "task";
 
 /**
  * Options to pass to update a FlexFlowInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } [chatServiceSid] The SID of the chat service.
- * @property { FlexFlowChannelType } [channelType] 
+ * @property { FlexFlowChannelType } [channelType]
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
- * @property { FlexFlowIntegrationType } [integrationType] 
+ * @property { FlexFlowIntegrationType } [integrationType]
  * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
  * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
  * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -49,12 +51,12 @@ type FlexFlowIntegrationType = 'studio'|'external'|'task';
  * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
  */
 export interface FlexFlowContextUpdateOptions {
-  "friendlyName"?: string;
-  "chatServiceSid"?: string;
-  "channelType"?: FlexFlowChannelType;
-  "contactIdentity"?: string;
-  "enabled"?: boolean;
-  "integrationType"?: FlexFlowIntegrationType;
+  friendlyName?: string;
+  chatServiceSid?: string;
+  channelType?: FlexFlowChannelType;
+  contactIdentity?: string;
+  enabled?: boolean;
+  integrationType?: FlexFlowIntegrationType;
   "integration.flowSid"?: string;
   "integration.url"?: string;
   "integration.workspaceSid"?: string;
@@ -63,8 +65,8 @@ export interface FlexFlowContextUpdateOptions {
   "integration.timeout"?: number;
   "integration.priority"?: number;
   "integration.creationOnMessage"?: boolean;
-  "longLived"?: boolean;
-  "janitorEnabled"?: boolean;
+  longLived?: boolean;
+  janitorEnabled?: boolean;
   "integration.retryCount"?: number;
 }
 
@@ -73,10 +75,10 @@ export interface FlexFlowContextUpdateOptions {
  *
  * @property { string } friendlyName A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } chatServiceSid The SID of the chat service.
- * @property { FlexFlowChannelType } channelType 
+ * @property { FlexFlowChannelType } channelType
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
- * @property { FlexFlowIntegrationType } [integrationType] 
+ * @property { FlexFlowIntegrationType } [integrationType]
  * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
  * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
  * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -90,12 +92,12 @@ export interface FlexFlowContextUpdateOptions {
  * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
  */
 export interface FlexFlowListInstanceCreateOptions {
-  "friendlyName": string;
-  "chatServiceSid": string;
-  "channelType": FlexFlowChannelType;
-  "contactIdentity"?: string;
-  "enabled"?: boolean;
-  "integrationType"?: FlexFlowIntegrationType;
+  friendlyName: string;
+  chatServiceSid: string;
+  channelType: FlexFlowChannelType;
+  contactIdentity?: string;
+  enabled?: boolean;
+  integrationType?: FlexFlowIntegrationType;
   "integration.flowSid"?: string;
   "integration.url"?: string;
   "integration.workspaceSid"?: string;
@@ -104,8 +106,8 @@ export interface FlexFlowListInstanceCreateOptions {
   "integration.timeout"?: number;
   "integration.priority"?: number;
   "integration.creationOnMessage"?: boolean;
-  "longLived"?: boolean;
-  "janitorEnabled"?: boolean;
+  longLived?: boolean;
+  janitorEnabled?: boolean;
   "integration.retryCount"?: number;
 }
 /**
@@ -123,8 +125,8 @@ export interface FlexFlowListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FlexFlowListInstanceEachOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -141,8 +143,8 @@ export interface FlexFlowListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FlexFlowListInstanceOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -155,17 +157,13 @@ export interface FlexFlowListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FlexFlowListInstancePageOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FlexFlowContext {
-
-
   /**
    * Remove a FlexFlowInstance
    *
@@ -173,8 +171,9 @@ export interface FlexFlowContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FlexFlowInstance
@@ -183,8 +182,9 @@ export interface FlexFlowContext {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
 
   /**
    * Update a FlexFlowInstance
@@ -193,7 +193,9 @@ export interface FlexFlowContext {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  update(callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
+  update(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
   /**
    * Update a FlexFlowInstance
    *
@@ -202,9 +204,11 @@ export interface FlexFlowContext {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  update(params: FlexFlowContextUpdateOptions, callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
-  update(params?: any, callback?: any): Promise<FlexFlowInstance>
-
+  update(
+    params: FlexFlowContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+  update(params?: any, callback?: any): Promise<FlexFlowInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -214,13 +218,12 @@ export interface FlexFlowContext {
 }
 
 export interface FlexFlowContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class FlexFlowContextImpl implements FlexFlowContext {
   protected _solution: FlexFlowContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -228,33 +231,40 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FlexFlowInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlexFlowInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<FlexFlowInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -263,56 +273,64 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["chatServiceSid"] !== undefined)
-    data["ChatServiceSid"] = params["chatServiceSid"];
+      data["ChatServiceSid"] = params["chatServiceSid"];
     if (params["channelType"] !== undefined)
-    data["ChannelType"] = params["channelType"];
+      data["ChannelType"] = params["channelType"];
     if (params["contactIdentity"] !== undefined)
-    data["ContactIdentity"] = params["contactIdentity"];
+      data["ContactIdentity"] = params["contactIdentity"];
     if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["integrationType"] !== undefined)
-    data["IntegrationType"] = params["integrationType"];
+      data["IntegrationType"] = params["integrationType"];
     if (params["integration.flowSid"] !== undefined)
-    data["Integration.FlowSid"] = params["integration.flowSid"];
+      data["Integration.FlowSid"] = params["integration.flowSid"];
     if (params["integration.url"] !== undefined)
-    data["Integration.Url"] = params["integration.url"];
+      data["Integration.Url"] = params["integration.url"];
     if (params["integration.workspaceSid"] !== undefined)
-    data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+      data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
     if (params["integration.workflowSid"] !== undefined)
-    data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+      data["Integration.WorkflowSid"] = params["integration.workflowSid"];
     if (params["integration.channel"] !== undefined)
-    data["Integration.Channel"] = params["integration.channel"];
+      data["Integration.Channel"] = params["integration.channel"];
     if (params["integration.timeout"] !== undefined)
-    data["Integration.Timeout"] = params["integration.timeout"];
+      data["Integration.Timeout"] = params["integration.timeout"];
     if (params["integration.priority"] !== undefined)
-    data["Integration.Priority"] = params["integration.priority"];
+      data["Integration.Priority"] = params["integration.priority"];
     if (params["integration.creationOnMessage"] !== undefined)
-    data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+      data["Integration.CreationOnMessage"] = serialize.bool(
+        params["integration.creationOnMessage"]
+      );
     if (params["longLived"] !== undefined)
-    data["LongLived"] = serialize.bool(params["longLived"]);
+      data["LongLived"] = serialize.bool(params["longLived"]);
     if (params["janitorEnabled"] !== undefined)
-    data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+      data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
     if (params["integration.retryCount"] !== undefined)
-    data["Integration.RetryCount"] = params["integration.retryCount"];
-
+      data["Integration.RetryCount"] = params["integration.retryCount"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlexFlowInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -329,8 +347,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 }
 
-interface FlexFlowPayload extends FlexFlowResource, Page.TwilioResponsePayload {
-}
+interface FlexFlowPayload
+  extends FlexFlowResource,
+    Page.TwilioResponsePayload {}
 
 interface FlexFlowResource {
   account_sid?: string | null;
@@ -424,7 +443,9 @@ export class FlexFlowInstance {
   url?: string | null;
 
   private get _proxy(): FlexFlowContext {
-    this._context = this._context || new FlexFlowContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new FlexFlowContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -435,8 +456,9 @@ export class FlexFlowInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -447,8 +469,9 @@ export class FlexFlowInstance {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -459,7 +482,9 @@ export class FlexFlowInstance {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  update(callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
+  update(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
   /**
    * Update a FlexFlowInstance
    *
@@ -468,9 +493,11 @@ export class FlexFlowInstance {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  update(params: FlexFlowContextUpdateOptions, callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
-  update(params?: any, callback?: any): Promise<FlexFlowInstance>
-     {
+  update(
+    params: FlexFlowContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+  update(params?: any, callback?: any): Promise<FlexFlowInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -481,21 +508,21 @@ export class FlexFlowInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      chatServiceSid: this.chatServiceSid, 
-      channelType: this.channelType, 
-      contactIdentity: this.contactIdentity, 
-      enabled: this.enabled, 
-      integrationType: this.integrationType, 
-      integration: this.integration, 
-      longLived: this.longLived, 
-      janitorEnabled: this.janitorEnabled, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      chatServiceSid: this.chatServiceSid,
+      channelType: this.channelType,
+      contactIdentity: this.contactIdentity,
+      enabled: this.enabled,
+      integrationType: this.integrationType,
+      integration: this.integration,
+      longLived: this.longLived,
+      janitorEnabled: this.janitorEnabled,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -503,11 +530,9 @@ export class FlexFlowInstance {
   }
 }
 
-
 export interface FlexFlowListInstance {
   (sid: string): FlexFlowContext;
   get(sid: string): FlexFlowContext;
-
 
   /**
    * Create a FlexFlowInstance
@@ -517,10 +542,11 @@ export interface FlexFlowListInstance {
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
-  create(params: FlexFlowListInstanceCreateOptions, callback?: (error: Error | null, item?: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
-  create(params: any, callback?: any): Promise<FlexFlowInstance>
-
-
+  create(
+    params: FlexFlowListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+  create(params: any, callback?: any): Promise<FlexFlowInstance>;
 
   /**
    * Streams FlexFlowInstance records from the API.
@@ -536,7 +562,9 @@ export interface FlexFlowListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FlexFlowInstance records from the API.
    *
@@ -552,7 +580,10 @@ export interface FlexFlowListInstance {
    * @param { FlexFlowListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FlexFlowListInstanceEachOptions, callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FlexFlowListInstanceEachOptions,
+    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FlexFlowInstance records from the API.
@@ -564,7 +595,9 @@ export interface FlexFlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FlexFlowPage) => any): Promise<FlexFlowPage>;
+  getPage(
+    callback?: (error: Error | null, items: FlexFlowPage) => any
+  ): Promise<FlexFlowPage>;
   /**
    * Retrieve a single target page of FlexFlowInstance records from the API.
    *
@@ -576,7 +609,10 @@ export interface FlexFlowListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FlexFlowPage) => any): Promise<FlexFlowPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FlexFlowPage) => any
+  ): Promise<FlexFlowPage>;
   getPage(params?: any, callback?: any): Promise<FlexFlowPage>;
   /**
    * Lists FlexFlowInstance records from the API as a list.
@@ -586,7 +622,9 @@ export interface FlexFlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FlexFlowInstance[]) => any): Promise<FlexFlowInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FlexFlowInstance[]) => any
+  ): Promise<FlexFlowInstance[]>;
   /**
    * Lists FlexFlowInstance records from the API as a list.
    *
@@ -596,7 +634,10 @@ export interface FlexFlowListInstance {
    * @param { FlexFlowListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FlexFlowListInstanceOptions, callback?: (error: Error | null, items: FlexFlowInstance[]) => any): Promise<FlexFlowInstance[]>;
+  list(
+    params?: FlexFlowListInstanceOptions,
+    callback?: (error: Error | null, items: FlexFlowInstance[]) => any
+  ): Promise<FlexFlowInstance[]>;
   list(params?: any, callback?: any): Promise<FlexFlowInstance[]>;
   /**
    * Retrieve a single page of FlexFlowInstance records from the API.
@@ -608,7 +649,9 @@ export interface FlexFlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FlexFlowPage) => any): Promise<FlexFlowPage>;
+  page(
+    callback?: (error: Error | null, items: FlexFlowPage) => any
+  ): Promise<FlexFlowPage>;
   /**
    * Retrieve a single page of FlexFlowInstance records from the API.
    *
@@ -620,7 +663,10 @@ export interface FlexFlowListInstance {
    * @param { FlexFlowListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FlexFlowListInstancePageOptions, callback?: (error: Error | null, items: FlexFlowPage) => any): Promise<FlexFlowPage>;
+  page(
+    params: FlexFlowListInstancePageOptions,
+    callback?: (error: Error | null, items: FlexFlowPage) => any
+  ): Promise<FlexFlowPage>;
   page(params?: any, callback?: any): Promise<FlexFlowPage>;
 
   /**
@@ -630,15 +676,13 @@ export interface FlexFlowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlexFlowSolution {
-}
+export interface FlexFlowSolution {}
 
 interface FlexFlowListInstanceImpl extends FlexFlowListInstance {}
 class FlexFlowListInstanceImpl implements FlexFlowListInstance {
   _version?: V1;
   _solution?: FlexFlowSolution;
   _uri?: string;
-
 }
 
 export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
@@ -646,84 +690,104 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
   instance.get = function get(sid): FlexFlowContext {
     return new FlexFlowContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/FlexFlows`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FlexFlowInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FlexFlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
-    if (params["chatServiceSid"] === null || params["chatServiceSid"] === undefined) {
-      throw new Error('Required parameter "params[\'chatServiceSid\']" missing.');
+    if (
+      params["chatServiceSid"] === null ||
+      params["chatServiceSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['chatServiceSid']\" missing."
+      );
     }
 
     if (params["channelType"] === null || params["channelType"] === undefined) {
-      throw new Error('Required parameter "params[\'channelType\']" missing.');
+      throw new Error("Required parameter \"params['channelType']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["ChatServiceSid"] = params["chatServiceSid"];
-    
+
     data["ChannelType"] = params["channelType"];
     if (params["contactIdentity"] !== undefined)
-    data["ContactIdentity"] = params["contactIdentity"];
+      data["ContactIdentity"] = params["contactIdentity"];
     if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["integrationType"] !== undefined)
-    data["IntegrationType"] = params["integrationType"];
+      data["IntegrationType"] = params["integrationType"];
     if (params["integration.flowSid"] !== undefined)
-    data["Integration.FlowSid"] = params["integration.flowSid"];
+      data["Integration.FlowSid"] = params["integration.flowSid"];
     if (params["integration.url"] !== undefined)
-    data["Integration.Url"] = params["integration.url"];
+      data["Integration.Url"] = params["integration.url"];
     if (params["integration.workspaceSid"] !== undefined)
-    data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
+      data["Integration.WorkspaceSid"] = params["integration.workspaceSid"];
     if (params["integration.workflowSid"] !== undefined)
-    data["Integration.WorkflowSid"] = params["integration.workflowSid"];
+      data["Integration.WorkflowSid"] = params["integration.workflowSid"];
     if (params["integration.channel"] !== undefined)
-    data["Integration.Channel"] = params["integration.channel"];
+      data["Integration.Channel"] = params["integration.channel"];
     if (params["integration.timeout"] !== undefined)
-    data["Integration.Timeout"] = params["integration.timeout"];
+      data["Integration.Timeout"] = params["integration.timeout"];
     if (params["integration.priority"] !== undefined)
-    data["Integration.Priority"] = params["integration.priority"];
+      data["Integration.Priority"] = params["integration.priority"];
     if (params["integration.creationOnMessage"] !== undefined)
-    data["Integration.CreationOnMessage"] = serialize.bool(params["integration.creationOnMessage"]);
+      data["Integration.CreationOnMessage"] = serialize.bool(
+        params["integration.creationOnMessage"]
+      );
     if (params["longLived"] !== undefined)
-    data["LongLived"] = serialize.bool(params["longLived"]);
+      data["LongLived"] = serialize.bool(params["longLived"]);
     if (params["janitorEnabled"] !== undefined)
-    data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
+      data["JanitorEnabled"] = serialize.bool(params["janitorEnabled"]);
     if (params["integration.retryCount"] !== undefined)
-    data["Integration.RetryCount"] = params["integration.retryCount"];
-
+      data["Integration.RetryCount"] = params["integration.retryCount"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlexFlowInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FlexFlowPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FlexFlowPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -733,76 +797,100 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlexFlowPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlexFlowPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlexFlowPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FlexFlowPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FlexFlowPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlexFlowPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FlexFlowPage extends Page<V1, FlexFlowPayload, FlexFlowResource, FlexFlowInstance> {
-/**
-* Initialize the FlexFlowPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: FlexFlowSolution) {
+export class FlexFlowPage extends Page<
+  V1,
+  FlexFlowPayload,
+  FlexFlowResource,
+  FlexFlowInstance
+> {
+  /**
+   * Initialize the FlexFlowPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: FlexFlowSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FlexFlowInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FlexFlowPayload): FlexFlowInstance {
-    return new FlexFlowInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of FlexFlowInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FlexFlowPayload): FlexFlowInstance {
+    return new FlexFlowInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

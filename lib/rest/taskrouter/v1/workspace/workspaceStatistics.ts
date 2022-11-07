@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to fetch a WorkspaceStatisticsInstance
@@ -31,16 +27,14 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
  */
 export interface WorkspaceStatisticsContextFetchOptions {
-  "minutes"?: number;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "taskChannel"?: string;
-  "splitByWaitTime"?: string;
+  minutes?: number;
+  startDate?: Date;
+  endDate?: Date;
+  taskChannel?: string;
+  splitByWaitTime?: string;
 }
 
 export interface WorkspaceStatisticsContext {
-
-
   /**
    * Fetch a WorkspaceStatisticsInstance
    *
@@ -48,7 +42,9 @@ export interface WorkspaceStatisticsContext {
    *
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance>;
   /**
    * Fetch a WorkspaceStatisticsInstance
    *
@@ -57,9 +53,11 @@ export interface WorkspaceStatisticsContext {
    *
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
-  fetch(params: WorkspaceStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance>
-
+  fetch(
+    params: WorkspaceStatisticsContextFetchOptions,
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -69,13 +67,14 @@ export interface WorkspaceStatisticsContext {
 }
 
 export interface WorkspaceStatisticsContextSolution {
-  "workspaceSid"?: string;
+  workspaceSid?: string;
 }
 
-export class WorkspaceStatisticsContextImpl implements WorkspaceStatisticsContext {
+export class WorkspaceStatisticsContextImpl
+  implements WorkspaceStatisticsContext
+{
   protected _solution: WorkspaceStatisticsContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, workspaceSid: string) {
     this._solution = { workspaceSid };
@@ -83,7 +82,7 @@ export class WorkspaceStatisticsContextImpl implements WorkspaceStatisticsContex
   }
 
   fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -92,31 +91,40 @@ export class WorkspaceStatisticsContextImpl implements WorkspaceStatisticsContex
 
     let data: any = {};
 
-        if (params["minutes"] !== undefined)
-    data["Minutes"] = params["minutes"];
+    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
+      data["TaskChannel"] = params["taskChannel"];
     if (params["splitByWaitTime"] !== undefined)
-    data["SplitByWaitTime"] = params["splitByWaitTime"];
-
-    
+      data["SplitByWaitTime"] = params["splitByWaitTime"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkspaceStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkspaceStatisticsInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -133,8 +141,7 @@ export class WorkspaceStatisticsContextImpl implements WorkspaceStatisticsContex
   }
 }
 
-interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource{
-}
+interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource {}
 
 interface WorkspaceStatisticsResource {
   realtime?: any | null;
@@ -148,7 +155,11 @@ export class WorkspaceStatisticsInstance {
   protected _solution: WorkspaceStatisticsContextSolution;
   protected _context?: WorkspaceStatisticsContext;
 
-  constructor(protected _version: V1, payload: WorkspaceStatisticsPayload, workspaceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: WorkspaceStatisticsPayload,
+    workspaceSid?: string
+  ) {
     this.realtime = payload.realtime;
     this.cumulative = payload.cumulative;
     this.accountSid = payload.account_sid;
@@ -180,7 +191,12 @@ export class WorkspaceStatisticsInstance {
   url?: string | null;
 
   private get _proxy(): WorkspaceStatisticsContext {
-    this._context = this._context || new WorkspaceStatisticsContextImpl(this._version, this._solution.workspaceSid);
+    this._context =
+      this._context ||
+      new WorkspaceStatisticsContextImpl(
+        this._version,
+        this._solution.workspaceSid
+      );
     return this._context;
   }
 
@@ -191,7 +207,9 @@ export class WorkspaceStatisticsInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance>;
   /**
    * Fetch a WorkspaceStatisticsInstance
    *
@@ -200,9 +218,11 @@ export class WorkspaceStatisticsInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
-  fetch(params: WorkspaceStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance>
-     {
+  fetch(
+    params: WorkspaceStatisticsContextFetchOptions,
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -213,12 +233,12 @@ export class WorkspaceStatisticsInstance {
    */
   toJSON() {
     return {
-      realtime: this.realtime, 
-      cumulative: this.cumulative, 
-      accountSid: this.accountSid, 
-      workspaceSid: this.workspaceSid, 
-      url: this.url
-    }
+      realtime: this.realtime,
+      cumulative: this.cumulative,
+      accountSid: this.accountSid,
+      workspaceSid: this.workspaceSid,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -226,11 +246,9 @@ export class WorkspaceStatisticsInstance {
   }
 }
 
-
 export interface WorkspaceStatisticsListInstance {
   (): WorkspaceStatisticsContext;
   get(): WorkspaceStatisticsContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -243,20 +261,26 @@ export interface WorkspaceStatisticsSolution {
   workspaceSid?: string;
 }
 
-interface WorkspaceStatisticsListInstanceImpl extends WorkspaceStatisticsListInstance {}
-class WorkspaceStatisticsListInstanceImpl implements WorkspaceStatisticsListInstance {
+interface WorkspaceStatisticsListInstanceImpl
+  extends WorkspaceStatisticsListInstance {}
+class WorkspaceStatisticsListInstanceImpl
+  implements WorkspaceStatisticsListInstance
+{
   _version?: V1;
   _solution?: WorkspaceStatisticsSolution;
   _uri?: string;
-
 }
 
-export function WorkspaceStatisticsListInstance(version: V1, workspaceSid: string): WorkspaceStatisticsListInstance {
-  const instance = (() => instance.get()) as WorkspaceStatisticsListInstanceImpl;
+export function WorkspaceStatisticsListInstance(
+  version: V1,
+  workspaceSid: string
+): WorkspaceStatisticsListInstance {
+  const instance = (() =>
+    instance.get()) as WorkspaceStatisticsListInstanceImpl;
 
   instance.get = function get(): WorkspaceStatisticsContext {
     return new WorkspaceStatisticsContextImpl(version, workspaceSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { workspaceSid };
@@ -264,14 +288,14 @@ export function WorkspaceStatisticsListInstance(version: V1, workspaceSid: strin
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

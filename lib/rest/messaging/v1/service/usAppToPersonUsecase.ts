@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to fetch a UsAppToPersonUsecaseInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
  */
 export interface UsAppToPersonUsecaseListInstanceFetchOptions {
-  "brandRegistrationSid"?: string;
+  brandRegistrationSid?: string;
 }
 
 export interface UsAppToPersonUsecaseListInstance {
-
-
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
@@ -39,7 +34,9 @@ export interface UsAppToPersonUsecaseListInstance {
    *
    * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
    */
-  fetch(callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
+  ): Promise<UsAppToPersonUsecaseInstance>;
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
@@ -48,9 +45,11 @@ export interface UsAppToPersonUsecaseListInstance {
    *
    * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
    */
-  fetch(params: UsAppToPersonUsecaseListInstanceFetchOptions, callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
-  fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance>
-
+  fetch(
+    params: UsAppToPersonUsecaseListInstanceFetchOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
+  ): Promise<UsAppToPersonUsecaseInstance>;
+  fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -63,22 +62,30 @@ export interface UsAppToPersonUsecaseSolution {
   messagingServiceSid?: string;
 }
 
-interface UsAppToPersonUsecaseListInstanceImpl extends UsAppToPersonUsecaseListInstance {}
-class UsAppToPersonUsecaseListInstanceImpl implements UsAppToPersonUsecaseListInstance {
+interface UsAppToPersonUsecaseListInstanceImpl
+  extends UsAppToPersonUsecaseListInstance {}
+class UsAppToPersonUsecaseListInstanceImpl
+  implements UsAppToPersonUsecaseListInstance
+{
   _version?: V1;
   _solution?: UsAppToPersonUsecaseSolution;
   _uri?: string;
-
 }
 
-export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSid: string): UsAppToPersonUsecaseListInstance {
+export function UsAppToPersonUsecaseListInstance(
+  version: V1,
+  messagingServiceSid: string
+): UsAppToPersonUsecaseListInstance {
   const instance = {} as UsAppToPersonUsecaseListInstanceImpl;
 
   instance._version = version;
   instance._solution = { messagingServiceSid };
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/Usecases`;
 
-  instance.fetch = function fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance> {
+  instance.fetch = function fetch(
+    params?: any,
+    callback?: any
+  ): Promise<UsAppToPersonUsecaseInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -88,48 +95,62 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
 
     let data: any = {};
 
-        if (params["brandRegistrationSid"] !== undefined)
-    data["BrandRegistrationSid"] = params["brandRegistrationSid"];
-
-    
+    if (params["brandRegistrationSid"] !== undefined)
+      data["BrandRegistrationSid"] = params["brandRegistrationSid"];
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UsAppToPersonUsecaseInstance(operationVersion, payload, this._solution.messagingServiceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UsAppToPersonUsecaseInstance(
+          operationVersion,
+          payload,
+          this._solution.messagingServiceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource{
-}
+interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource {}
 
 interface UsAppToPersonUsecaseResource {
   us_app_to_person_usecases?: Array<any> | null;
 }
 
 export class UsAppToPersonUsecaseInstance {
-
-  constructor(protected _version: V1, payload: UsAppToPersonUsecasePayload, messagingServiceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: UsAppToPersonUsecasePayload,
+    messagingServiceSid?: string
+  ) {
     this.usAppToPersonUsecases = payload.us_app_to_person_usecases;
-
   }
 
   /**
@@ -144,13 +165,11 @@ export class UsAppToPersonUsecaseInstance {
    */
   toJSON() {
     return {
-      usAppToPersonUsecases: this.usAppToPersonUsecases
-    }
+      usAppToPersonUsecases: this.usAppToPersonUsecases,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

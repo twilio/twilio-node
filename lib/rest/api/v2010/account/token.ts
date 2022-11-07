@@ -12,12 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 
 export class ApiV2010AccountTokenIceServers {
   "credential"?: string;
@@ -26,20 +24,16 @@ export class ApiV2010AccountTokenIceServers {
   "urls"?: string;
 }
 
-
-
 /**
  * Options to pass to create a TokenInstance
  *
  * @property { number } [ttl] The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
  */
 export interface TokenListInstanceCreateOptions {
-  "ttl"?: number;
+  ttl?: number;
 }
 
 export interface TokenListInstance {
-
-
   /**
    * Create a TokenInstance
    *
@@ -47,7 +41,9 @@ export interface TokenListInstance {
    *
    * @returns { Promise } Resolves to processed TokenInstance
    */
-  create(callback?: (error: Error | null, item?: TokenInstance) => any): Promise<TokenInstance>;
+  create(
+    callback?: (error: Error | null, item?: TokenInstance) => any
+  ): Promise<TokenInstance>;
   /**
    * Create a TokenInstance
    *
@@ -56,9 +52,11 @@ export interface TokenListInstance {
    *
    * @returns { Promise } Resolves to processed TokenInstance
    */
-  create(params: TokenListInstanceCreateOptions, callback?: (error: Error | null, item?: TokenInstance) => any): Promise<TokenInstance>;
-  create(params?: any, callback?: any): Promise<TokenInstance>
-
+  create(
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TokenInstance) => any
+  ): Promise<TokenInstance>;
+  create(params?: any, callback?: any): Promise<TokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -76,17 +74,22 @@ class TokenListInstanceImpl implements TokenListInstance {
   _version?: V2010;
   _solution?: TokenSolution;
   _uri?: string;
-
 }
 
-export function TokenListInstance(version: V2010, accountSid: string): TokenListInstance {
+export function TokenListInstance(
+  version: V2010,
+  accountSid: string
+): TokenListInstance {
   const instance = {} as TokenListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Tokens.json`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<TokenInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<TokenInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -96,39 +99,46 @@ export function TokenListInstance(version: V2010, accountSid: string): TokenList
 
     let data: any = {};
 
-    
-        if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
-
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TokenInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TokenInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface TokenPayload extends TokenResource{
-}
+interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
   account_sid?: string | null;
@@ -141,8 +151,11 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-
-  constructor(protected _version: V2010, payload: TokenPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: TokenPayload,
+    accountSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -150,7 +163,6 @@ export class TokenInstance {
     this.password = payload.password;
     this.ttl = payload.ttl;
     this.username = payload.username;
-
   }
 
   /**
@@ -189,19 +201,17 @@ export class TokenInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      iceServers: this.iceServers, 
-      password: this.password, 
-      ttl: this.ttl, 
-      username: this.username
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      iceServers: this.iceServers,
+      password: this.password,
+      ttl: this.ttl,
+      username: this.username,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -1,0 +1,6 @@
+.github
+coverage
+
+babel.config.js
+*.md
+*.json

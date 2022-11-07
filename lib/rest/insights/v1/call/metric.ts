@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 
 export class InsightsV1CallMetric {
   "timestamp"?: string | null;
@@ -33,7 +31,6 @@ export class InsightsV1CallMetric {
   "clientEdge"?: any | null;
 }
 
-
 export class ListCallSummariesResponseMeta {
   "firstPageUrl"?: string;
   "nextPageUrl"?: string;
@@ -44,16 +41,20 @@ export class ListCallSummariesResponseMeta {
   "key"?: string;
 }
 
+type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
-type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
-
-type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+type MetricTwilioEdge =
+  | "unknown_edge"
+  | "carrier_edge"
+  | "sip_edge"
+  | "sdk_edge"
+  | "client_edge";
 
 /**
  * Options to pass to each
  *
- * @property { MetricTwilioEdge } [edge] 
- * @property { MetricStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge]
+ * @property { MetricStreamDirection } [direction]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -65,9 +66,9 @@ type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'cli
  *                         Default is no limit
  */
 export interface MetricListInstanceEachOptions {
-  "edge"?: MetricTwilioEdge;
-  "direction"?: MetricStreamDirection;
-  "pageSize"?: number;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
+  pageSize?: number;
   callback?: (item: MetricInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,8 +77,8 @@ export interface MetricListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MetricTwilioEdge } [edge] 
- * @property { MetricStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge]
+ * @property { MetricStreamDirection } [direction]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -85,35 +86,30 @@ export interface MetricListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MetricListInstanceOptions {
-  "edge"?: MetricTwilioEdge;
-  "direction"?: MetricStreamDirection;
-  "pageSize"?: number;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
+  pageSize?: number;
   limit?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property { MetricTwilioEdge } [edge] 
- * @property { MetricStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge]
+ * @property { MetricStreamDirection } [direction]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MetricListInstancePageOptions {
-  "edge"?: MetricTwilioEdge;
-  "direction"?: MetricStreamDirection;
-  "pageSize"?: number;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface MetricListInstance {
-
-
-
   /**
    * Streams MetricInstance records from the API.
    *
@@ -128,7 +124,9 @@ export interface MetricListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: MetricInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams MetricInstance records from the API.
    *
@@ -144,7 +142,10 @@ export interface MetricListInstance {
    * @param { MetricListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: MetricListInstanceEachOptions, callback?: (item: MetricInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: MetricListInstanceEachOptions,
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MetricInstance records from the API.
@@ -156,7 +157,9 @@ export interface MetricListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
+  getPage(
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
   /**
    * Retrieve a single target page of MetricInstance records from the API.
    *
@@ -168,7 +171,10 @@ export interface MetricListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
   getPage(params?: any, callback?: any): Promise<MetricPage>;
   /**
    * Lists MetricInstance records from the API as a list.
@@ -178,7 +184,9 @@ export interface MetricListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: MetricInstance[]) => any): Promise<MetricInstance[]>;
+  list(
+    callback?: (error: Error | null, items: MetricInstance[]) => any
+  ): Promise<MetricInstance[]>;
   /**
    * Lists MetricInstance records from the API as a list.
    *
@@ -188,7 +196,10 @@ export interface MetricListInstance {
    * @param { MetricListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: MetricListInstanceOptions, callback?: (error: Error | null, items: MetricInstance[]) => any): Promise<MetricInstance[]>;
+  list(
+    params?: MetricListInstanceOptions,
+    callback?: (error: Error | null, items: MetricInstance[]) => any
+  ): Promise<MetricInstance[]>;
   list(params?: any, callback?: any): Promise<MetricInstance[]>;
   /**
    * Retrieve a single page of MetricInstance records from the API.
@@ -200,7 +211,9 @@ export interface MetricListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
+  page(
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
   /**
    * Retrieve a single page of MetricInstance records from the API.
    *
@@ -212,7 +225,10 @@ export interface MetricListInstance {
    * @param { MetricListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: MetricListInstancePageOptions, callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
+  page(
+    params: MetricListInstancePageOptions,
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
   page(params?: any, callback?: any): Promise<MetricPage>;
 
   /**
@@ -231,17 +247,22 @@ class MetricListInstanceImpl implements MetricListInstance {
   _version?: V1;
   _solution?: MetricSolution;
   _uri?: string;
-
 }
 
-export function MetricListInstance(version: V1, callSid: string): MetricListInstance {
+export function MetricListInstance(
+  version: V1,
+  callSid: string
+): MetricListInstance {
   const instance = {} as MetricListInstanceImpl;
 
   instance._version = version;
   instance._solution = { callSid };
   instance._uri = `/Voice/${callSid}/Metrics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<MetricPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<MetricPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -251,53 +272,71 @@ export function MetricListInstance(version: V1, callSid: string): MetricListInst
 
     let data: any = {};
 
-        if (params["edge"] !== undefined)
-    data["Edge"] = params["edge"];
+    if (params["edge"] !== undefined) data["Edge"] = params["edge"];
     if (params["direction"] !== undefined)
-    data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MetricPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MetricPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MetricPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<MetricPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new MetricPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MetricPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {
-}
+interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {}
 
 interface MetricResource {
   metrics?: Array<InsightsV1CallMetric>;
@@ -305,11 +344,13 @@ interface MetricResource {
 }
 
 export class MetricInstance {
-
-  constructor(protected _version: V1, payload: MetricPayload, callSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: MetricPayload,
+    callSid?: string
+  ) {
     this.metrics = payload.metrics;
     this.meta = payload.meta;
-
   }
 
   metrics?: Array<InsightsV1CallMetric>;
@@ -322,9 +363,9 @@ export class MetricInstance {
    */
   toJSON() {
     return {
-      metrics: this.metrics, 
-      meta: this.meta
-    }
+      metrics: this.metrics,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -332,33 +373,37 @@ export class MetricInstance {
   }
 }
 
-export class MetricPage extends Page<V1, MetricPayload, MetricResource, MetricInstance> {
-/**
-* Initialize the MetricPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: MetricSolution) {
+export class MetricPage extends Page<
+  V1,
+  MetricPayload,
+  MetricResource,
+  MetricInstance
+> {
+  /**
+   * Initialize the MetricPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: MetricSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of MetricInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: MetricPayload): MetricInstance {
-    return new MetricInstance(
-    this._version,
-    payload,
-        this._solution.callSid,
-    );
-    }
+  /**
+   * Build an instance of MetricInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MetricPayload): MetricInstance {
+    return new MetricInstance(this._version, payload, this._solution.callSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

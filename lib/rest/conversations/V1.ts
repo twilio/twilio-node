@@ -52,12 +52,14 @@ export default class V1 extends Version {
   protected _users?: UserListInstance;
 
   get addressConfigurations(): AddressConfigurationListInstance {
-    this._addressConfigurations = this._addressConfigurations || AddressConfigurationListInstance(this);
+    this._addressConfigurations =
+      this._addressConfigurations || AddressConfigurationListInstance(this);
     return this._addressConfigurations;
   }
 
   get configuration(): ConfigurationListInstance {
-    this._configuration = this._configuration || ConfigurationListInstance(this);
+    this._configuration =
+      this._configuration || ConfigurationListInstance(this);
     return this._configuration;
   }
 
@@ -72,7 +74,9 @@ export default class V1 extends Version {
   }
 
   get participantConversations(): ParticipantConversationListInstance {
-    this._participantConversations = this._participantConversations || ParticipantConversationListInstance(this);
+    this._participantConversations =
+      this._participantConversations ||
+      ParticipantConversationListInstance(this);
     return this._participantConversations;
   }
 
@@ -90,5 +94,4 @@ export default class V1 extends Version {
     this._users = this._users || UserListInstance(this);
     return this._users;
   }
-
 }

@@ -9,25 +9,25 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V2 from './verify/V2';
+import Domain from "../base/Domain";
+import V2 from "./verify/V2";
 
 class VerifyBase extends Domain {
-    _v2?: V2;
+  _v2?: V2;
 
-    /**
-     * Initialize verify domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://verify.twilio.com');
-    }
+  /**
+   * Initialize verify domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://verify.twilio.com");
+  }
 
-    get v2(): V2 {
-        this._v2 = this._v2 || new V2(this);
-        return this._v2;
-    }
+  get v2(): V2 {
+    this._v2 = this._v2 || new V2(this);
+    return this._v2;
+  }
 }
 
 export = VerifyBase;

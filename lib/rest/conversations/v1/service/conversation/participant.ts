@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,10 +19,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type ServiceConversationParticipantWebhookEnabledType = 'true'|'false';
-
+type ServiceConversationParticipantWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ParticipantInstance
@@ -31,7 +27,7 @@ type ServiceConversationParticipantWebhookEnabledType = 'true'|'false';
  * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ParticipantContextRemoveOptions {
-  "xTwilioWebhookEnabled"?: ServiceConversationParticipantWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
 }
 
 /**
@@ -49,16 +45,16 @@ export interface ParticipantContextRemoveOptions {
  * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  */
 export interface ParticipantContextUpdateOptions {
-  "xTwilioWebhookEnabled"?: ServiceConversationParticipantWebhookEnabledType;
-  "dateCreated"?: Date;
-  "dateUpdated"?: Date;
-  "identity"?: string;
-  "attributes"?: string;
-  "roleSid"?: string;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  identity?: string;
+  attributes?: string;
+  roleSid?: string;
   "messagingBinding.proxyAddress"?: string;
   "messagingBinding.projectedAddress"?: string;
-  "lastReadMessageIndex"?: number;
-  "lastReadTimestamp"?: string;
+  lastReadMessageIndex?: number;
+  lastReadTimestamp?: string;
 }
 
 /**
@@ -75,15 +71,15 @@ export interface ParticipantContextUpdateOptions {
  * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
  */
 export interface ParticipantListInstanceCreateOptions {
-  "xTwilioWebhookEnabled"?: ServiceConversationParticipantWebhookEnabledType;
-  "identity"?: string;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
+  identity?: string;
   "messagingBinding.address"?: string;
   "messagingBinding.proxyAddress"?: string;
-  "dateCreated"?: Date;
-  "dateUpdated"?: Date;
-  "attributes"?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  attributes?: string;
   "messagingBinding.projectedAddress"?: string;
-  "roleSid"?: string;
+  roleSid?: string;
 }
 /**
  * Options to pass to each
@@ -99,7 +95,7 @@ export interface ParticipantListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -115,7 +111,7 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -127,16 +123,12 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ParticipantContext {
-
-
   /**
    * Remove a ParticipantInstance
    *
@@ -144,7 +136,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a ParticipantInstance
    *
@@ -153,9 +147,11 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  remove(params: ParticipantContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-
+  remove(
+    params: ParticipantContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a ParticipantInstance
@@ -164,8 +160,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
 
   /**
    * Update a ParticipantInstance
@@ -174,7 +171,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -183,9 +182,11 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance>
-
+  update(
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  update(params?: any, callback?: any): Promise<ParticipantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -195,23 +196,27 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  "chatServiceSid"?: string;
-  "conversationSid"?: string;
-  "sid"?: string;
+  chatServiceSid?: string;
+  conversationSid?: string;
+  sid?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, chatServiceSid: string, conversationSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+    conversationSid: string,
+    sid: string
+  ) {
     this._solution = { chatServiceSid, conversationSid, sid };
     this._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Participants/${sid}`;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -220,38 +225,52 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     let data: any = {};
 
-    
-    
-
     const headers: any = {};
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid,
+          this._solution.conversationSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ParticipantInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -260,41 +279,54 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     let data: any = {};
 
-    
-        if (params["dateCreated"] !== undefined)
-    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["identity"] !== undefined)
-    data["Identity"] = params["identity"];
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-    if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
+      data["Attributes"] = params["attributes"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
     if (params["messagingBinding.proxyAddress"] !== undefined)
-    data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
+      data["MessagingBinding.ProxyAddress"] =
+        params["messagingBinding.proxyAddress"];
     if (params["messagingBinding.projectedAddress"] !== undefined)
-    data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
+      data["MessagingBinding.ProjectedAddress"] =
+        params["messagingBinding.projectedAddress"];
     if (params["lastReadMessageIndex"] !== undefined)
-    data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
+      data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
     if (params["lastReadTimestamp"] !== undefined)
-    data["LastReadTimestamp"] = params["lastReadTimestamp"];
-
+      data["LastReadTimestamp"] = params["lastReadTimestamp"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid,
+          this._solution.conversationSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -311,8 +343,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
+interface ParticipantPayload
+  extends ParticipantResource,
+    Page.TwilioResponsePayload {}
 
 interface ParticipantResource {
   account_sid?: string | null;
@@ -334,7 +367,13 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(protected _version: V1, payload: ParticipantPayload, chatServiceSid: string, conversationSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ParticipantPayload,
+    chatServiceSid: string,
+    conversationSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
     this.conversationSid = payload.conversation_sid;
@@ -346,7 +385,9 @@ export class ParticipantInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
-    this.lastReadMessageIndex = deserialize.integer(payload.last_read_message_index);
+    this.lastReadMessageIndex = deserialize.integer(
+      payload.last_read_message_index
+    );
     this.lastReadTimestamp = payload.last_read_timestamp;
 
     this._solution = { chatServiceSid, conversationSid, sid: sid || this.sid };
@@ -406,7 +447,14 @@ export class ParticipantInstance {
   lastReadTimestamp?: string | null;
 
   private get _proxy(): ParticipantContext {
-    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ParticipantContextImpl(
+        this._version,
+        this._solution.chatServiceSid,
+        this._solution.conversationSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -417,7 +465,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a ParticipantInstance
    *
@@ -426,9 +476,11 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  remove(params: ParticipantContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-     {
+  remove(
+    params: ParticipantContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -439,8 +491,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -451,7 +504,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -460,9 +515,11 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance>
-     {
+  update(
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  update(params?: any, callback?: any): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -473,20 +530,20 @@ export class ParticipantInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      chatServiceSid: this.chatServiceSid, 
-      conversationSid: this.conversationSid, 
-      sid: this.sid, 
-      identity: this.identity, 
-      attributes: this.attributes, 
-      messagingBinding: this.messagingBinding, 
-      roleSid: this.roleSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      lastReadMessageIndex: this.lastReadMessageIndex, 
-      lastReadTimestamp: this.lastReadTimestamp
-    }
+      accountSid: this.accountSid,
+      chatServiceSid: this.chatServiceSid,
+      conversationSid: this.conversationSid,
+      sid: this.sid,
+      identity: this.identity,
+      attributes: this.attributes,
+      messagingBinding: this.messagingBinding,
+      roleSid: this.roleSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      lastReadMessageIndex: this.lastReadMessageIndex,
+      lastReadTimestamp: this.lastReadTimestamp,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -494,11 +551,9 @@ export class ParticipantInstance {
   }
 }
 
-
 export interface ParticipantListInstance {
   (sid: string): ParticipantContext;
   get(sid: string): ParticipantContext;
-
 
   /**
    * Create a ParticipantInstance
@@ -507,7 +562,9 @@ export interface ParticipantListInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  create(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  create(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
   /**
    * Create a ParticipantInstance
    *
@@ -516,10 +573,11 @@ export interface ParticipantListInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  create(params?: any, callback?: any): Promise<ParticipantInstance>
-
-
+  create(
+    params: ParticipantListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  create(params?: any, callback?: any): Promise<ParticipantInstance>;
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -535,7 +593,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ParticipantInstance records from the API.
    *
@@ -551,7 +611,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
@@ -563,7 +626,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -575,7 +640,10 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   getPage(params?: any, callback?: any): Promise<ParticipantPage>;
   /**
    * Lists ParticipantInstance records from the API as a list.
@@ -585,7 +653,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -595,7 +665,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    params?: ParticipantListInstanceOptions,
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
@@ -607,7 +680,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -619,7 +694,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    params: ParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   page(params?: any, callback?: any): Promise<ParticipantPage>;
 
   /**
@@ -639,21 +717,32 @@ class ParticipantListInstanceImpl implements ParticipantListInstance {
   _version?: V1;
   _solution?: ParticipantSolution;
   _uri?: string;
-
 }
 
-export function ParticipantListInstance(version: V1, chatServiceSid: string, conversationSid: string): ParticipantListInstance {
+export function ParticipantListInstance(
+  version: V1,
+  chatServiceSid: string,
+  conversationSid: string
+): ParticipantListInstance {
   const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
 
   instance.get = function get(sid): ParticipantContext {
-    return new ParticipantContextImpl(version, chatServiceSid, conversationSid, sid);
-  }
+    return new ParticipantContextImpl(
+      version,
+      chatServiceSid,
+      conversationSid,
+      sid
+    );
+  };
 
   instance._version = version;
   instance._solution = { chatServiceSid, conversationSid };
   instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Participants`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<ParticipantInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -663,42 +752,57 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
 
     let data: any = {};
 
-    
-        if (params["identity"] !== undefined)
-    data["Identity"] = params["identity"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
     if (params["messagingBinding.address"] !== undefined)
-    data["MessagingBinding.Address"] = params["messagingBinding.address"];
+      data["MessagingBinding.Address"] = params["messagingBinding.address"];
     if (params["messagingBinding.proxyAddress"] !== undefined)
-    data["MessagingBinding.ProxyAddress"] = params["messagingBinding.proxyAddress"];
+      data["MessagingBinding.ProxyAddress"] =
+        params["messagingBinding.proxyAddress"];
     if (params["dateCreated"] !== undefined)
-    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
+      data["Attributes"] = params["attributes"];
     if (params["messagingBinding.projectedAddress"] !== undefined)
-    data["MessagingBinding.ProjectedAddress"] = params["messagingBinding.projectedAddress"];
-    if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
-
+      data["MessagingBinding.ProjectedAddress"] =
+        params["messagingBinding.projectedAddress"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["xTwilioWebhookEnabled"] !== undefined)
+      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid,
+          this._solution.conversationSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -708,76 +812,104 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-/**
-* Initialize the ParticipantPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
+export class ParticipantPage extends Page<
+  V1,
+  ParticipantPayload,
+  ParticipantResource,
+  ParticipantInstance
+> {
+  /**
+   * Initialize the ParticipantPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ParticipantSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ParticipantInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ParticipantPayload): ParticipantInstance {
+  /**
+   * Build an instance of ParticipantInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-    this._version,
-    payload,
-        this._solution.chatServiceSid,
-        this._solution.conversationSid,
+      this._version,
+      payload,
+      this._solution.chatServiceSid,
+      this._solution.conversationSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a SettingsInstance
@@ -27,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { boolean } [dialingPermissionsInheritance] &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
  */
 export interface SettingsContextUpdateOptions {
-  "dialingPermissionsInheritance"?: boolean;
+  dialingPermissionsInheritance?: boolean;
 }
 
 export interface SettingsContext {
-
-
   /**
    * Fetch a SettingsInstance
    *
@@ -40,8 +34,9 @@ export interface SettingsContext {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
 
   /**
    * Update a SettingsInstance
@@ -50,7 +45,9 @@ export interface SettingsContext {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  update(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
   /**
    * Update a SettingsInstance
    *
@@ -59,9 +56,11 @@ export interface SettingsContext {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance>
-
+  update(
+    params: SettingsContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
+  update(params?: any, callback?: any): Promise<SettingsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -70,35 +69,37 @@ export interface SettingsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsContextSolution {
-}
+export interface SettingsContextSolution {}
 
 export class SettingsContextImpl implements SettingsContext {
   protected _solution: SettingsContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/Settings`;
   }
 
   fetch(callback?: any): Promise<SettingsInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingsInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SettingsInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -107,24 +108,31 @@ export class SettingsContextImpl implements SettingsContext {
 
     let data: any = {};
 
-    
-        if (params["dialingPermissionsInheritance"] !== undefined)
-    data["DialingPermissionsInheritance"] = serialize.bool(params["dialingPermissionsInheritance"]);
-
+    if (params["dialingPermissionsInheritance"] !== undefined)
+      data["DialingPermissionsInheritance"] = serialize.bool(
+        params["dialingPermissionsInheritance"]
+      );
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingsInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -141,8 +149,7 @@ export class SettingsContextImpl implements SettingsContext {
   }
 }
 
-interface SettingsPayload extends SettingsResource{
-}
+interface SettingsPayload extends SettingsResource {}
 
 interface SettingsResource {
   dialing_permissions_inheritance?: boolean | null;
@@ -154,10 +161,11 @@ export class SettingsInstance {
   protected _context?: SettingsContext;
 
   constructor(protected _version: V1, payload: SettingsPayload) {
-    this.dialingPermissionsInheritance = payload.dialing_permissions_inheritance;
+    this.dialingPermissionsInheritance =
+      payload.dialing_permissions_inheritance;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -181,8 +189,9 @@ export class SettingsInstance {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -193,7 +202,9 @@ export class SettingsInstance {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  update(callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
   /**
    * Update a SettingsInstance
    *
@@ -202,9 +213,11 @@ export class SettingsInstance {
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
-  update(params: SettingsContextUpdateOptions, callback?: (error: Error | null, item?: SettingsInstance) => any): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance>
-     {
+  update(
+    params: SettingsContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
+  update(params?: any, callback?: any): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -215,9 +228,9 @@ export class SettingsInstance {
    */
   toJSON() {
     return {
-      dialingPermissionsInheritance: this.dialingPermissionsInheritance, 
-      url: this.url
-    }
+      dialingPermissionsInheritance: this.dialingPermissionsInheritance,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -225,11 +238,9 @@ export class SettingsInstance {
   }
 }
 
-
 export interface SettingsListInstance {
   (): SettingsContext;
   get(): SettingsContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -238,15 +249,13 @@ export interface SettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsSolution {
-}
+export interface SettingsSolution {}
 
 interface SettingsListInstanceImpl extends SettingsListInstance {}
 class SettingsListInstanceImpl implements SettingsListInstance {
   _version?: V1;
   _solution?: SettingsSolution;
   _uri?: string;
-
 }
 
 export function SettingsListInstance(version: V1): SettingsListInstance {
@@ -254,22 +263,22 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
 
   instance.get = function get(): SettingsContext {
     return new SettingsContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

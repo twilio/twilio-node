@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -39,10 +36,10 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface NetworkListInstanceEachOptions {
-  "isoCountry"?: string;
-  "mcc"?: string;
-  "mnc"?: string;
-  "pageSize"?: number;
+  isoCountry?: string;
+  mcc?: string;
+  mnc?: string;
+  pageSize?: number;
   callback?: (item: NetworkInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,10 +58,10 @@ export interface NetworkListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface NetworkListInstanceOptions {
-  "isoCountry"?: string;
-  "mcc"?: string;
-  "mnc"?: string;
-  "pageSize"?: number;
+  isoCountry?: string;
+  mcc?: string;
+  mnc?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -79,19 +76,15 @@ export interface NetworkListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NetworkListInstancePageOptions {
-  "isoCountry"?: string;
-  "mcc"?: string;
-  "mnc"?: string;
-  "pageSize"?: number;
+  isoCountry?: string;
+  mcc?: string;
+  mnc?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface NetworkContext {
-
-
   /**
    * Fetch a NetworkInstance
    *
@@ -99,8 +92,9 @@ export interface NetworkContext {
    *
    * @returns { Promise } Resolves to processed NetworkInstance
    */
-  fetch(callback?: (error: Error | null, item?: NetworkInstance) => any): Promise<NetworkInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: NetworkInstance) => any
+  ): Promise<NetworkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -110,13 +104,12 @@ export interface NetworkContext {
 }
 
 export interface NetworkContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class NetworkContextImpl implements NetworkContext {
   protected _solution: NetworkContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -124,17 +117,22 @@ export class NetworkContextImpl implements NetworkContext {
   }
 
   fetch(callback?: any): Promise<NetworkInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new NetworkInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NetworkInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -151,8 +149,7 @@ export class NetworkContextImpl implements NetworkContext {
   }
 }
 
-interface NetworkPayload extends NetworkResource, Page.TwilioResponsePayload {
-}
+interface NetworkPayload extends NetworkResource, Page.TwilioResponsePayload {}
 
 interface NetworkResource {
   sid?: string | null;
@@ -198,7 +195,9 @@ export class NetworkInstance {
   identifiers?: Array<any> | null;
 
   private get _proxy(): NetworkContext {
-    this._context = this._context || new NetworkContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new NetworkContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -209,8 +208,9 @@ export class NetworkInstance {
    *
    * @returns { Promise } Resolves to processed NetworkInstance
    */
-  fetch(callback?: (error: Error | null, item?: NetworkInstance) => any): Promise<NetworkInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: NetworkInstance) => any
+  ): Promise<NetworkInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -221,12 +221,12 @@ export class NetworkInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      url: this.url, 
-      isoCountry: this.isoCountry, 
-      identifiers: this.identifiers
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      url: this.url,
+      isoCountry: this.isoCountry,
+      identifiers: this.identifiers,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -234,12 +234,9 @@ export class NetworkInstance {
   }
 }
 
-
 export interface NetworkListInstance {
   (sid: string): NetworkContext;
   get(sid: string): NetworkContext;
-
-
 
   /**
    * Streams NetworkInstance records from the API.
@@ -255,7 +252,9 @@ export interface NetworkListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: NetworkInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams NetworkInstance records from the API.
    *
@@ -271,7 +270,10 @@ export interface NetworkListInstance {
    * @param { NetworkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: NetworkListInstanceEachOptions, callback?: (item: NetworkInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: NetworkListInstanceEachOptions,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
@@ -283,7 +285,9 @@ export interface NetworkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
+  getPage(
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
    *
@@ -295,7 +299,10 @@ export interface NetworkListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
   getPage(params?: any, callback?: any): Promise<NetworkPage>;
   /**
    * Lists NetworkInstance records from the API as a list.
@@ -305,7 +312,9 @@ export interface NetworkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: NetworkInstance[]) => any): Promise<NetworkInstance[]>;
+  list(
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
+  ): Promise<NetworkInstance[]>;
   /**
    * Lists NetworkInstance records from the API as a list.
    *
@@ -315,7 +324,10 @@ export interface NetworkListInstance {
    * @param { NetworkListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: NetworkListInstanceOptions, callback?: (error: Error | null, items: NetworkInstance[]) => any): Promise<NetworkInstance[]>;
+  list(
+    params?: NetworkListInstanceOptions,
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
+  ): Promise<NetworkInstance[]>;
   list(params?: any, callback?: any): Promise<NetworkInstance[]>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
@@ -327,7 +339,9 @@ export interface NetworkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
+  page(
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
    *
@@ -339,7 +353,10 @@ export interface NetworkListInstance {
    * @param { NetworkListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: NetworkListInstancePageOptions, callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
+  page(
+    params: NetworkListInstancePageOptions,
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
   page(params?: any, callback?: any): Promise<NetworkPage>;
 
   /**
@@ -349,15 +366,13 @@ export interface NetworkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NetworkSolution {
-}
+export interface NetworkSolution {}
 
 interface NetworkListInstanceImpl extends NetworkListInstance {}
 class NetworkListInstanceImpl implements NetworkListInstance {
   _version?: V1;
   _solution?: NetworkSolution;
   _uri?: string;
-
 }
 
 export function NetworkListInstance(version: V1): NetworkListInstance {
@@ -365,13 +380,16 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
   instance.get = function get(sid): NetworkContext {
     return new NetworkContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Networks`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<NetworkPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<NetworkPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -381,80 +399,102 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
     let data: any = {};
 
-        if (params["isoCountry"] !== undefined)
-    data["IsoCountry"] = params["isoCountry"];
-    if (params["mcc"] !== undefined)
-    data["Mcc"] = params["mcc"];
-    if (params["mnc"] !== undefined)
-    data["Mnc"] = params["mnc"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["isoCountry"] !== undefined)
+      data["IsoCountry"] = params["isoCountry"];
+    if (params["mcc"] !== undefined) data["Mcc"] = params["mcc"];
+    if (params["mnc"] !== undefined) data["Mnc"] = params["mnc"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NetworkPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new NetworkPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<NetworkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<NetworkPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new NetworkPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new NetworkPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class NetworkPage extends Page<V1, NetworkPayload, NetworkResource, NetworkInstance> {
-/**
-* Initialize the NetworkPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: NetworkSolution) {
+export class NetworkPage extends Page<
+  V1,
+  NetworkPayload,
+  NetworkResource,
+  NetworkInstance
+> {
+  /**
+   * Initialize the NetworkPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: NetworkSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of NetworkInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: NetworkPayload): NetworkInstance {
-    return new NetworkInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of NetworkInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NetworkPayload): NetworkInstance {
+    return new NetworkInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

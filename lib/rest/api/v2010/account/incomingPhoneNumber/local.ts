@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 
 /**
  * Indicate if a phone can receive calls or messages
@@ -30,7 +28,6 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
   "voice"?: boolean;
   "fax"?: boolean;
 }
-
 
 export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal {
   /**
@@ -153,15 +150,23 @@ export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal {
   "status"?: string | null;
 }
 
+type IncomingPhoneNumberLocalAddressRequirement =
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
 
-type IncomingPhoneNumberLocalAddressRequirement = 'none'|'any'|'local'|'foreign';
+type IncomingPhoneNumberLocalEmergencyAddressStatus =
+  | "registered"
+  | "unregistered"
+  | "pending-registration"
+  | "registration-failure"
+  | "pending-unregistration"
+  | "unregistration-failure";
 
-type IncomingPhoneNumberLocalEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+type IncomingPhoneNumberLocalEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberLocalEmergencyStatus = 'Active'|'Inactive';
-
-type IncomingPhoneNumberLocalVoiceReceiveMode = 'voice'|'fax';
-
+type IncomingPhoneNumberLocalVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a LocalInstance
@@ -184,36 +189,36 @@ type IncomingPhoneNumberLocalVoiceReceiveMode = 'voice'|'fax';
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberLocalEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberLocalEmergencyStatus } [emergencyStatus]
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberLocalVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberLocalVoiceReceiveMode } [voiceReceiveMode]
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface LocalListInstanceCreateOptions {
-  "phoneNumber": string;
-  "apiVersion"?: string;
-  "friendlyName"?: string;
-  "smsApplicationSid"?: string;
-  "smsFallbackMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsMethod"?: string;
-  "smsUrl"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "voiceApplicationSid"?: string;
-  "voiceCallerIdLookup"?: boolean;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceUrl"?: string;
-  "identitySid"?: string;
-  "addressSid"?: string;
-  "emergencyStatus"?: IncomingPhoneNumberLocalEmergencyStatus;
-  "emergencyAddressSid"?: string;
-  "trunkSid"?: string;
-  "voiceReceiveMode"?: IncomingPhoneNumberLocalVoiceReceiveMode;
-  "bundleSid"?: string;
+  phoneNumber: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  identitySid?: string;
+  addressSid?: string;
+  emergencyStatus?: IncomingPhoneNumberLocalEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberLocalVoiceReceiveMode;
+  bundleSid?: string;
 }
 /**
  * Options to pass to each
@@ -233,11 +238,11 @@ export interface LocalListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface LocalListInstanceEachOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -257,11 +262,11 @@ export interface LocalListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface LocalListInstanceOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -277,20 +282,16 @@ export interface LocalListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface LocalListInstancePageOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface LocalListInstance {
-
-
   /**
    * Create a LocalInstance
    *
@@ -299,10 +300,11 @@ export interface LocalListInstance {
    *
    * @returns { Promise } Resolves to processed LocalInstance
    */
-  create(params: LocalListInstanceCreateOptions, callback?: (error: Error | null, item?: LocalInstance) => any): Promise<LocalInstance>;
-  create(params: any, callback?: any): Promise<LocalInstance>
-
-
+  create(
+    params: LocalListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: LocalInstance) => any
+  ): Promise<LocalInstance>;
+  create(params: any, callback?: any): Promise<LocalInstance>;
 
   /**
    * Streams LocalInstance records from the API.
@@ -318,7 +320,9 @@ export interface LocalListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: LocalInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams LocalInstance records from the API.
    *
@@ -334,7 +338,10 @@ export interface LocalListInstance {
    * @param { LocalListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: LocalListInstanceEachOptions, callback?: (item: LocalInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: LocalListInstanceEachOptions,
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of LocalInstance records from the API.
@@ -346,7 +353,9 @@ export interface LocalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+  getPage(
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   /**
    * Retrieve a single target page of LocalInstance records from the API.
    *
@@ -358,7 +367,10 @@ export interface LocalListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   getPage(params?: any, callback?: any): Promise<LocalPage>;
   /**
    * Lists LocalInstance records from the API as a list.
@@ -368,7 +380,9 @@ export interface LocalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: LocalInstance[]) => any): Promise<LocalInstance[]>;
+  list(
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
   /**
    * Lists LocalInstance records from the API as a list.
    *
@@ -378,7 +392,10 @@ export interface LocalListInstance {
    * @param { LocalListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: LocalListInstanceOptions, callback?: (error: Error | null, items: LocalInstance[]) => any): Promise<LocalInstance[]>;
+  list(
+    params?: LocalListInstanceOptions,
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
   list(params?: any, callback?: any): Promise<LocalInstance[]>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
@@ -390,7 +407,9 @@ export interface LocalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+  page(
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
    *
@@ -402,7 +421,10 @@ export interface LocalListInstance {
    * @param { LocalListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: LocalListInstancePageOptions, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+  page(
+    params: LocalListInstancePageOptions,
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   page(params?: any, callback?: any): Promise<LocalPage>;
 
   /**
@@ -421,92 +443,104 @@ class LocalListInstanceImpl implements LocalListInstance {
   _version?: V2010;
   _solution?: LocalSolution;
   _uri?: string;
-
 }
 
-export function LocalListInstance(version: V2010, accountSid: string): LocalListInstance {
+export function LocalListInstance(
+  version: V2010,
+  accountSid: string
+): LocalListInstance {
   const instance = {} as LocalListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/Local.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<LocalInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<LocalInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["PhoneNumber"] = params["phoneNumber"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
+      data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-    data["SmsApplicationSid"] = params["smsApplicationSid"];
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"]
+      );
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["identitySid"] !== undefined)
-    data["IdentitySid"] = params["identitySid"];
+      data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-    data["AddressSid"] = params["addressSid"];
+      data["AddressSid"] = params["addressSid"];
     if (params["emergencyStatus"] !== undefined)
-    data["EmergencyStatus"] = params["emergencyStatus"];
+      data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined)
-    data["TrunkSid"] = params["trunkSid"];
+      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
     if (params["voiceReceiveMode"] !== undefined)
-    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["bundleSid"] !== undefined)
-    data["BundleSid"] = params["bundleSid"];
-
+      data["BundleSid"] = params["bundleSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new LocalInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new LocalInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<LocalPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<LocalPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -516,57 +550,75 @@ export function LocalListInstance(version: V2010, accountSid: string): LocalList
 
     let data: any = {};
 
-        if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+    if (params["beta"] !== undefined)
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined)
-    data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new LocalPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new LocalPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<LocalPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<LocalPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new LocalPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new LocalPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
-}
+interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {}
 
 interface LocalResource {
   incoming_phone_numbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal>;
@@ -581,8 +633,11 @@ interface LocalResource {
 }
 
 export class LocalInstance {
-
-  constructor(protected _version: V2010, payload: LocalPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: LocalPayload,
+    accountSid?: string
+  ) {
     this.incomingPhoneNumbers = payload.incoming_phone_numbers;
     this.end = deserialize.integer(payload.end);
     this.firstPageUri = payload.first_page_uri;
@@ -592,7 +647,6 @@ export class LocalInstance {
     this.previousPageUri = payload.previous_page_uri;
     this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-
   }
 
   incomingPhoneNumbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal>;
@@ -612,16 +666,16 @@ export class LocalInstance {
    */
   toJSON() {
     return {
-      incomingPhoneNumbers: this.incomingPhoneNumbers, 
-      end: this.end, 
-      firstPageUri: this.firstPageUri, 
-      nextPageUri: this.nextPageUri, 
-      page: this.page, 
-      pageSize: this.pageSize, 
-      previousPageUri: this.previousPageUri, 
-      start: this.start, 
-      uri: this.uri
-    }
+      incomingPhoneNumbers: this.incomingPhoneNumbers,
+      end: this.end,
+      firstPageUri: this.firstPageUri,
+      nextPageUri: this.nextPageUri,
+      page: this.page,
+      pageSize: this.pageSize,
+      previousPageUri: this.previousPageUri,
+      start: this.start,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -629,33 +683,37 @@ export class LocalInstance {
   }
 }
 
-export class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalInstance> {
-/**
-* Initialize the LocalPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: LocalSolution) {
+export class LocalPage extends Page<
+  V2010,
+  LocalPayload,
+  LocalResource,
+  LocalInstance
+> {
+  /**
+   * Initialize the LocalPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: LocalSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of LocalInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: LocalPayload): LocalInstance {
-    return new LocalInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-    );
-    }
+  /**
+   * Build an instance of LocalInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: LocalPayload): LocalInstance {
+    return new LocalInstance(this._version, payload, this._solution.accountSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

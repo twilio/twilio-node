@@ -1,4 +1,4 @@
-import { HttpMethod } from '../interfaces';
+import { HttpMethod } from "../interfaces";
 
 declare class Request<TData> {
   constructor(opts: RequestOptions<TData>);
@@ -9,12 +9,12 @@ declare class Request<TData> {
 
 declare namespace Request {
   export interface RequestOptions<TData> {
-    method?: HttpMethod | '*';
+    method?: HttpMethod | "*";
     url?: string;
     auth?: string;
     params?: string;
-    data?: TData | '*';
-    headers?: object | '*';
+    data?: TData | "*";
+    headers?: object | "*";
     ca?: string;
   }
 }

@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a CertificateInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateContextUpdateOptions {
-  "friendlyName"?: string;
-  "deviceSid"?: string;
+  friendlyName?: string;
+  deviceSid?: string;
 }
 
 /**
@@ -42,9 +38,9 @@ export interface CertificateContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  */
 export interface CertificateListInstanceCreateOptions {
-  "certificateData": string;
-  "friendlyName"?: string;
-  "deviceSid"?: string;
+  certificateData: string;
+  friendlyName?: string;
+  deviceSid?: string;
 }
 /**
  * Options to pass to each
@@ -61,8 +57,8 @@ export interface CertificateListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CertificateListInstanceEachOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -79,8 +75,8 @@ export interface CertificateListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CertificateListInstanceOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -93,17 +89,13 @@ export interface CertificateListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CertificateListInstancePageOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CertificateContext {
-
-
   /**
    * Remove a CertificateInstance
    *
@@ -111,8 +103,9 @@ export interface CertificateContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a CertificateInstance
@@ -121,8 +114,9 @@ export interface CertificateContext {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  fetch(callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
 
   /**
    * Update a CertificateInstance
@@ -131,7 +125,9 @@ export interface CertificateContext {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  update(callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>;
+  update(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
   /**
    * Update a CertificateInstance
    *
@@ -140,9 +136,11 @@ export interface CertificateContext {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  update(params: CertificateContextUpdateOptions, callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>;
-  update(params?: any, callback?: any): Promise<CertificateInstance>
-
+  update(
+    params: CertificateContextUpdateOptions,
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+  update(params?: any, callback?: any): Promise<CertificateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -152,48 +150,63 @@ export interface CertificateContext {
 }
 
 export interface CertificateContextSolution {
-  "fleetSid"?: string;
-  "sid"?: string;
+  fleetSid?: string;
+  sid?: string;
 }
 
 export class CertificateContextImpl implements CertificateContext {
   protected _solution: CertificateContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: DeployedDevices, fleetSid: string, sid: string) {
+  constructor(
+    protected _version: DeployedDevices,
+    fleetSid: string,
+    sid: string
+  ) {
     this._solution = { fleetSid, sid };
     this._uri = `/Fleets/${fleetSid}/Certificates/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CertificateInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CertificateInstance(
+          operationVersion,
+          payload,
+          this._solution.fleetSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<CertificateInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -202,26 +215,37 @@ export class CertificateContextImpl implements CertificateContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-
+      data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CertificateInstance(
+          operationVersion,
+          payload,
+          this._solution.fleetSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -238,8 +262,9 @@ export class CertificateContextImpl implements CertificateContext {
   }
 }
 
-interface CertificatePayload extends CertificateResource, Page.TwilioResponsePayload {
-}
+interface CertificatePayload
+  extends CertificateResource,
+    Page.TwilioResponsePayload {}
 
 interface CertificateResource {
   sid?: string | null;
@@ -257,7 +282,12 @@ export class CertificateInstance {
   protected _solution: CertificateContextSolution;
   protected _context?: CertificateContext;
 
-  constructor(protected _version: DeployedDevices, payload: CertificatePayload, fleetSid: string, sid?: string) {
+  constructor(
+    protected _version: DeployedDevices,
+    payload: CertificatePayload,
+    fleetSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.url = payload.url;
     this.friendlyName = payload.friendly_name;
@@ -309,7 +339,13 @@ export class CertificateInstance {
   dateUpdated?: Date | null;
 
   private get _proxy(): CertificateContext {
-    this._context = this._context || new CertificateContextImpl(this._version, this._solution.fleetSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new CertificateContextImpl(
+        this._version,
+        this._solution.fleetSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -320,8 +356,9 @@ export class CertificateInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -332,8 +369,9 @@ export class CertificateInstance {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  fetch(callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -344,7 +382,9 @@ export class CertificateInstance {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  update(callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>;
+  update(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
   /**
    * Update a CertificateInstance
    *
@@ -353,9 +393,11 @@ export class CertificateInstance {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  update(params: CertificateContextUpdateOptions, callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>;
-  update(params?: any, callback?: any): Promise<CertificateInstance>
-     {
+  update(
+    params: CertificateContextUpdateOptions,
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+  update(params?: any, callback?: any): Promise<CertificateInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -366,16 +408,16 @@ export class CertificateInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      url: this.url, 
-      friendlyName: this.friendlyName, 
-      fleetSid: this.fleetSid, 
-      accountSid: this.accountSid, 
-      deviceSid: this.deviceSid, 
-      thumbprint: this.thumbprint, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated
-    }
+      sid: this.sid,
+      url: this.url,
+      friendlyName: this.friendlyName,
+      fleetSid: this.fleetSid,
+      accountSid: this.accountSid,
+      deviceSid: this.deviceSid,
+      thumbprint: this.thumbprint,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -383,11 +425,9 @@ export class CertificateInstance {
   }
 }
 
-
 export interface CertificateListInstance {
   (sid: string): CertificateContext;
   get(sid: string): CertificateContext;
-
 
   /**
    * Create a CertificateInstance
@@ -397,10 +437,11 @@ export interface CertificateListInstance {
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
-  create(params: CertificateListInstanceCreateOptions, callback?: (error: Error | null, item?: CertificateInstance) => any): Promise<CertificateInstance>;
-  create(params: any, callback?: any): Promise<CertificateInstance>
-
-
+  create(
+    params: CertificateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+  create(params: any, callback?: any): Promise<CertificateInstance>;
 
   /**
    * Streams CertificateInstance records from the API.
@@ -416,7 +457,9 @@ export interface CertificateListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CertificateInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams CertificateInstance records from the API.
    *
@@ -432,7 +475,10 @@ export interface CertificateListInstance {
    * @param { CertificateListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CertificateListInstanceEachOptions, callback?: (item: CertificateInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CertificateListInstanceEachOptions,
+    callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CertificateInstance records from the API.
@@ -444,7 +490,9 @@ export interface CertificateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
+  getPage(
+    callback?: (error: Error | null, items: CertificatePage) => any
+  ): Promise<CertificatePage>;
   /**
    * Retrieve a single target page of CertificateInstance records from the API.
    *
@@ -456,7 +504,10 @@ export interface CertificateListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CertificatePage) => any
+  ): Promise<CertificatePage>;
   getPage(params?: any, callback?: any): Promise<CertificatePage>;
   /**
    * Lists CertificateInstance records from the API as a list.
@@ -466,7 +517,9 @@ export interface CertificateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CertificateInstance[]) => any): Promise<CertificateInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CertificateInstance[]) => any
+  ): Promise<CertificateInstance[]>;
   /**
    * Lists CertificateInstance records from the API as a list.
    *
@@ -476,7 +529,10 @@ export interface CertificateListInstance {
    * @param { CertificateListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CertificateListInstanceOptions, callback?: (error: Error | null, items: CertificateInstance[]) => any): Promise<CertificateInstance[]>;
+  list(
+    params?: CertificateListInstanceOptions,
+    callback?: (error: Error | null, items: CertificateInstance[]) => any
+  ): Promise<CertificateInstance[]>;
   list(params?: any, callback?: any): Promise<CertificateInstance[]>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
@@ -488,7 +544,9 @@ export interface CertificateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
+  page(
+    callback?: (error: Error | null, items: CertificatePage) => any
+  ): Promise<CertificatePage>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
    *
@@ -500,7 +558,10 @@ export interface CertificateListInstance {
    * @param { CertificateListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CertificateListInstancePageOptions, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
+  page(
+    params: CertificateListInstancePageOptions,
+    callback?: (error: Error | null, items: CertificatePage) => any
+  ): Promise<CertificatePage>;
   page(params?: any, callback?: any): Promise<CertificatePage>;
 
   /**
@@ -519,56 +580,78 @@ class CertificateListInstanceImpl implements CertificateListInstance {
   _version?: DeployedDevices;
   _solution?: CertificateSolution;
   _uri?: string;
-
 }
 
-export function CertificateListInstance(version: DeployedDevices, fleetSid: string): CertificateListInstance {
+export function CertificateListInstance(
+  version: DeployedDevices,
+  fleetSid: string
+): CertificateListInstance {
   const instance = ((sid) => instance.get(sid)) as CertificateListInstanceImpl;
 
   instance.get = function get(sid): CertificateContext {
     return new CertificateContextImpl(version, fleetSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { fleetSid };
   instance._uri = `/Fleets/${fleetSid}/Certificates`;
 
-  instance.create = function create(params: any, callback?: any): Promise<CertificateInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<CertificateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["certificateData"] === null || params["certificateData"] === undefined) {
-      throw new Error('Required parameter "params[\'certificateData\']" missing.');
+    if (
+      params["certificateData"] === null ||
+      params["certificateData"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['certificateData']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["CertificateData"] = params["certificateData"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-
+      data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CertificateInstance(operationVersion, payload, this._solution.fleetSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CertificateInstance(
+          operationVersion,
+          payload,
+          this._solution.fleetSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CertificatePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CertificatePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -578,77 +661,105 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
 
     let data: any = {};
 
-        if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["deviceSid"] !== undefined)
+      data["DeviceSid"] = params["deviceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CertificatePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CertificatePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CertificatePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CertificatePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CertificatePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CertificatePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
-/**
-* Initialize the CertificatePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution) {
+export class CertificatePage extends Page<
+  DeployedDevices,
+  CertificatePayload,
+  CertificateResource,
+  CertificateInstance
+> {
+  /**
+   * Initialize the CertificatePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: DeployedDevices,
+    response: Response<string>,
+    solution: CertificateSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CertificateInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CertificatePayload): CertificateInstance {
+  /**
+   * Build an instance of CertificateInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CertificatePayload): CertificateInstance {
     return new CertificateInstance(
-    this._version,
-    payload,
-        this._solution.fleetSid,
+      this._version,
+      payload,
+      this._solution.fleetSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

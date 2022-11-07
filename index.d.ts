@@ -1,15 +1,15 @@
-import * as util from './lib/jwt/taskrouter/util';
-import * as FaxResponse from './lib/twiml/FaxResponse';
-import * as MessagingResponse from './lib/twiml/MessagingResponse';
-import * as VoiceResponse from './lib/twiml/VoiceResponse';
-import * as webhookTools from './lib/webhooks/webhooks';
+import * as util from "./lib/jwt/taskrouter/util";
+import * as FaxResponse from "./lib/twiml/FaxResponse";
+import * as MessagingResponse from "./lib/twiml/MessagingResponse";
+import * as VoiceResponse from "./lib/twiml/VoiceResponse";
+import * as webhookTools from "./lib/webhooks/webhooks";
 
-import TwilioClient = require('./lib/rest/Twilio');
+import TwilioClient = require("./lib/rest/Twilio");
 import { ClientOpts } from "./lib/base/BaseTwilio";
-import AccessToken = require('./lib/jwt/AccessToken');
-import ClientCapability = require('./lib/jwt/ClientCapability');
-import TaskRouterCapability = require('./lib/jwt/taskrouter/TaskRouterCapability');
-import RequestClient = require('./lib/base/RequestClient');
+import AccessToken = require("./lib/jwt/AccessToken");
+import ClientCapability = require("./lib/jwt/ClientCapability");
+import TaskRouterCapability = require("./lib/jwt/taskrouter/TaskRouterCapability");
+import RequestClient = require("./lib/base/RequestClient");
 
 interface TwimlConstructor<T> {
   new (): T;

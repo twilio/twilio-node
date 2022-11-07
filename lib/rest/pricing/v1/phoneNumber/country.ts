@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,14 +19,11 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
 export class PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
 }
-
 
 /**
  * Options to pass to each
@@ -43,7 +39,7 @@ export class PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices {
  *                         Default is no limit
  */
 export interface CountryListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -59,7 +55,7 @@ export interface CountryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CountryListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -71,16 +67,12 @@ export interface CountryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CountryListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CountryContext {
-
-
   /**
    * Fetch a CountryInstance
    *
@@ -88,8 +80,9 @@ export interface CountryContext {
    *
    * @returns { Promise } Resolves to processed CountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CountryInstance) => any
+  ): Promise<CountryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -99,13 +92,12 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  "isoCountry"?: string;
+  isoCountry?: string;
 }
 
 export class CountryContextImpl implements CountryContext {
   protected _solution: CountryContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, isoCountry: string) {
     this._solution = { isoCountry };
@@ -113,17 +105,26 @@ export class CountryContextImpl implements CountryContext {
   }
 
   fetch(callback?: any): Promise<CountryInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CountryInstance(operationVersion, payload, this._solution.isoCountry));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CountryInstance(
+          operationVersion,
+          payload,
+          this._solution.isoCountry
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -140,8 +141,7 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
-interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
-}
+interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {}
 
 interface CountryResource {
   country?: string | null;
@@ -155,7 +155,11 @@ export class CountryInstance {
   protected _solution: CountryContextSolution;
   protected _context?: CountryContext;
 
-  constructor(protected _version: V1, payload: CountryPayload, isoCountry?: string) {
+  constructor(
+    protected _version: V1,
+    payload: CountryPayload,
+    isoCountry?: string
+  ) {
     this.country = payload.country;
     this.isoCountry = payload.iso_country;
     this.phoneNumberPrices = payload.phone_number_prices;
@@ -170,7 +174,7 @@ export class CountryInstance {
    */
   country?: string | null;
   /**
-   * The ISO country code 
+   * The ISO country code
    */
   isoCountry?: string | null;
   /**
@@ -187,7 +191,9 @@ export class CountryInstance {
   url?: string | null;
 
   private get _proxy(): CountryContext {
-    this._context = this._context || new CountryContextImpl(this._version, this._solution.isoCountry);
+    this._context =
+      this._context ||
+      new CountryContextImpl(this._version, this._solution.isoCountry);
     return this._context;
   }
 
@@ -198,8 +204,9 @@ export class CountryInstance {
    *
    * @returns { Promise } Resolves to processed CountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CountryInstance) => any
+  ): Promise<CountryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -210,12 +217,12 @@ export class CountryInstance {
    */
   toJSON() {
     return {
-      country: this.country, 
-      isoCountry: this.isoCountry, 
-      phoneNumberPrices: this.phoneNumberPrices, 
-      priceUnit: this.priceUnit, 
-      url: this.url
-    }
+      country: this.country,
+      isoCountry: this.isoCountry,
+      phoneNumberPrices: this.phoneNumberPrices,
+      priceUnit: this.priceUnit,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -223,12 +230,9 @@ export class CountryInstance {
   }
 }
 
-
 export interface CountryListInstance {
   (isoCountry: string): CountryContext;
   get(isoCountry: string): CountryContext;
-
-
 
   /**
    * Streams CountryInstance records from the API.
@@ -244,7 +248,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams CountryInstance records from the API.
    *
@@ -260,7 +266,10 @@ export interface CountryListInstance {
    * @param { CountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CountryListInstanceEachOptions,
+    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
@@ -272,7 +281,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  getPage(
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
    *
@@ -284,7 +295,10 @@ export interface CountryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   getPage(params?: any, callback?: any): Promise<CountryPage>;
   /**
    * Lists CountryInstance records from the API as a list.
@@ -294,7 +308,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CountryInstance[]) => any
+  ): Promise<CountryInstance[]>;
   /**
    * Lists CountryInstance records from the API as a list.
    *
@@ -304,7 +320,10 @@ export interface CountryListInstance {
    * @param { CountryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
+  list(
+    params?: CountryListInstanceOptions,
+    callback?: (error: Error | null, items: CountryInstance[]) => any
+  ): Promise<CountryInstance[]>;
   list(params?: any, callback?: any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
@@ -316,7 +335,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  page(
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    *
@@ -328,7 +349,10 @@ export interface CountryListInstance {
    * @param { CountryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CountryListInstancePageOptions, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  page(
+    params: CountryListInstancePageOptions,
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   page(params?: any, callback?: any): Promise<CountryPage>;
 
   /**
@@ -338,29 +362,31 @@ export interface CountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CountrySolution {
-}
+export interface CountrySolution {}
 
 interface CountryListInstanceImpl extends CountryListInstance {}
 class CountryListInstanceImpl implements CountryListInstance {
   _version?: V1;
   _solution?: CountrySolution;
   _uri?: string;
-
 }
 
 export function CountryListInstance(version: V1): CountryListInstance {
-  const instance = ((isoCountry) => instance.get(isoCountry)) as CountryListInstanceImpl;
+  const instance = ((isoCountry) =>
+    instance.get(isoCountry)) as CountryListInstanceImpl;
 
   instance.get = function get(isoCountry): CountryContext {
     return new CountryContextImpl(version, isoCountry);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/PhoneNumbers/Countries`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<CountryPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CountryPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -370,74 +396,98 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CountryPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CountryPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CountryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CountryPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CountryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CountryPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
-/**
-* Initialize the CountryPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CountrySolution) {
+export class CountryPage extends Page<
+  V1,
+  CountryPayload,
+  CountryResource,
+  CountryInstance
+> {
+  /**
+   * Initialize the CountryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CountrySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CountryInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CountryPayload): CountryInstance {
-    return new CountryInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of CountryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CountryPayload): CountryInstance {
+    return new CountryInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

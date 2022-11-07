@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,9 +19,7 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type EvaluationStatus = 'compliant'|'noncompliant';
+type EvaluationStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to each
@@ -38,7 +35,7 @@ type EvaluationStatus = 'compliant'|'noncompliant';
  *                         Default is no limit
  */
 export interface EvaluationListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -54,7 +51,7 @@ export interface EvaluationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EvaluationListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -66,16 +63,12 @@ export interface EvaluationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EvaluationListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EvaluationContext {
-
-
   /**
    * Fetch a EvaluationInstance
    *
@@ -83,8 +76,9 @@ export interface EvaluationContext {
    *
    * @returns { Promise } Resolves to processed EvaluationInstance
    */
-  fetch(callback?: (error: Error | null, item?: EvaluationInstance) => any): Promise<EvaluationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EvaluationInstance) => any
+  ): Promise<EvaluationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,14 +88,13 @@ export interface EvaluationContext {
 }
 
 export interface EvaluationContextSolution {
-  "bundleSid"?: string;
-  "sid"?: string;
+  bundleSid?: string;
+  sid?: string;
 }
 
 export class EvaluationContextImpl implements EvaluationContext {
   protected _solution: EvaluationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, bundleSid: string, sid: string) {
     this._solution = { bundleSid, sid };
@@ -109,17 +102,27 @@ export class EvaluationContextImpl implements EvaluationContext {
   }
 
   fetch(callback?: any): Promise<EvaluationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EvaluationInstance(operationVersion, payload, this._solution.bundleSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EvaluationInstance(
+          operationVersion,
+          payload,
+          this._solution.bundleSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -136,8 +139,9 @@ export class EvaluationContextImpl implements EvaluationContext {
   }
 }
 
-interface EvaluationPayload extends EvaluationResource, Page.TwilioResponsePayload {
-}
+interface EvaluationPayload
+  extends EvaluationResource,
+    Page.TwilioResponsePayload {}
 
 interface EvaluationResource {
   sid?: string | null;
@@ -154,7 +158,12 @@ export class EvaluationInstance {
   protected _solution: EvaluationContextSolution;
   protected _context?: EvaluationContext;
 
-  constructor(protected _version: V2, payload: EvaluationPayload, bundleSid: string, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: EvaluationPayload,
+    bundleSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
@@ -192,7 +201,13 @@ export class EvaluationInstance {
   url?: string | null;
 
   private get _proxy(): EvaluationContext {
-    this._context = this._context || new EvaluationContextImpl(this._version, this._solution.bundleSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new EvaluationContextImpl(
+        this._version,
+        this._solution.bundleSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -203,8 +218,9 @@ export class EvaluationInstance {
    *
    * @returns { Promise } Resolves to processed EvaluationInstance
    */
-  fetch(callback?: (error: Error | null, item?: EvaluationInstance) => any): Promise<EvaluationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EvaluationInstance) => any
+  ): Promise<EvaluationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -215,15 +231,15 @@ export class EvaluationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      regulationSid: this.regulationSid, 
-      bundleSid: this.bundleSid, 
-      status: this.status, 
-      results: this.results, 
-      dateCreated: this.dateCreated, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      regulationSid: this.regulationSid,
+      bundleSid: this.bundleSid,
+      status: this.status,
+      results: this.results,
+      dateCreated: this.dateCreated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -231,11 +247,9 @@ export class EvaluationInstance {
   }
 }
 
-
 export interface EvaluationListInstance {
   (sid: string): EvaluationContext;
   get(sid: string): EvaluationContext;
-
 
   /**
    * Create a EvaluationInstance
@@ -244,9 +258,9 @@ export interface EvaluationListInstance {
    *
    * @returns { Promise } Resolves to processed EvaluationInstance
    */
-  create(callback?: (error: Error | null, item?: EvaluationInstance) => any): Promise<EvaluationInstance>
-
-
+  create(
+    callback?: (error: Error | null, item?: EvaluationInstance) => any
+  ): Promise<EvaluationInstance>;
 
   /**
    * Streams EvaluationInstance records from the API.
@@ -262,7 +276,9 @@ export interface EvaluationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EvaluationInstance records from the API.
    *
@@ -278,7 +294,10 @@ export interface EvaluationListInstance {
    * @param { EvaluationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EvaluationListInstanceEachOptions, callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EvaluationListInstanceEachOptions,
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EvaluationInstance records from the API.
@@ -290,7 +309,9 @@ export interface EvaluationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EvaluationPage) => any): Promise<EvaluationPage>;
+  getPage(
+    callback?: (error: Error | null, items: EvaluationPage) => any
+  ): Promise<EvaluationPage>;
   /**
    * Retrieve a single target page of EvaluationInstance records from the API.
    *
@@ -302,7 +323,10 @@ export interface EvaluationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EvaluationPage) => any): Promise<EvaluationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EvaluationPage) => any
+  ): Promise<EvaluationPage>;
   getPage(params?: any, callback?: any): Promise<EvaluationPage>;
   /**
    * Lists EvaluationInstance records from the API as a list.
@@ -312,7 +336,9 @@ export interface EvaluationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EvaluationInstance[]) => any): Promise<EvaluationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EvaluationInstance[]) => any
+  ): Promise<EvaluationInstance[]>;
   /**
    * Lists EvaluationInstance records from the API as a list.
    *
@@ -322,7 +348,10 @@ export interface EvaluationListInstance {
    * @param { EvaluationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EvaluationListInstanceOptions, callback?: (error: Error | null, items: EvaluationInstance[]) => any): Promise<EvaluationInstance[]>;
+  list(
+    params?: EvaluationListInstanceOptions,
+    callback?: (error: Error | null, items: EvaluationInstance[]) => any
+  ): Promise<EvaluationInstance[]>;
   list(params?: any, callback?: any): Promise<EvaluationInstance[]>;
   /**
    * Retrieve a single page of EvaluationInstance records from the API.
@@ -334,7 +363,9 @@ export interface EvaluationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EvaluationPage) => any): Promise<EvaluationPage>;
+  page(
+    callback?: (error: Error | null, items: EvaluationPage) => any
+  ): Promise<EvaluationPage>;
   /**
    * Retrieve a single page of EvaluationInstance records from the API.
    *
@@ -346,7 +377,10 @@ export interface EvaluationListInstance {
    * @param { EvaluationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EvaluationListInstancePageOptions, callback?: (error: Error | null, items: EvaluationPage) => any): Promise<EvaluationPage>;
+  page(
+    params: EvaluationListInstancePageOptions,
+    callback?: (error: Error | null, items: EvaluationPage) => any
+  ): Promise<EvaluationPage>;
   page(params?: any, callback?: any): Promise<EvaluationPage>;
 
   /**
@@ -365,35 +399,51 @@ class EvaluationListInstanceImpl implements EvaluationListInstance {
   _version?: V2;
   _solution?: EvaluationSolution;
   _uri?: string;
-
 }
 
-export function EvaluationListInstance(version: V2, bundleSid: string): EvaluationListInstance {
+export function EvaluationListInstance(
+  version: V2,
+  bundleSid: string
+): EvaluationListInstance {
   const instance = ((sid) => instance.get(sid)) as EvaluationListInstanceImpl;
 
   instance.get = function get(sid): EvaluationContext {
     return new EvaluationContextImpl(version, bundleSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { bundleSid };
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations`;
 
-  instance.create = function create(callback?: any): Promise<EvaluationInstance> {
-
+  instance.create = function create(
+    callback?: any
+  ): Promise<EvaluationInstance> {
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post" });
-    
-    operationPromise = operationPromise.then(payload => new EvaluationInstance(operationVersion, payload, this._solution.bundleSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EvaluationInstance(
+          operationVersion,
+          payload,
+          this._solution.bundleSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<EvaluationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EvaluationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -403,75 +453,102 @@ export function EvaluationListInstance(version: V2, bundleSid: string): Evaluati
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EvaluationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EvaluationPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EvaluationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EvaluationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EvaluationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EvaluationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class EvaluationPage extends Page<V2, EvaluationPayload, EvaluationResource, EvaluationInstance> {
-/**
-* Initialize the EvaluationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: EvaluationSolution) {
+export class EvaluationPage extends Page<
+  V2,
+  EvaluationPayload,
+  EvaluationResource,
+  EvaluationInstance
+> {
+  /**
+   * Initialize the EvaluationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: EvaluationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EvaluationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EvaluationPayload): EvaluationInstance {
+  /**
+   * Build an instance of EvaluationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EvaluationPayload): EvaluationInstance {
     return new EvaluationInstance(
-    this._version,
-    payload,
-        this._solution.bundleSid,
+      this._version,
+      payload,
+      this._solution.bundleSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

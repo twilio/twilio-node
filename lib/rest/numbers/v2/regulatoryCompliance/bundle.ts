@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -24,30 +23,33 @@ import { EvaluationListInstance } from "./bundle/evaluation";
 import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
 import { ReplaceItemsListInstance } from "./bundle/replaceItems";
 
+type BundleEndUserType = "individual" | "business";
 
+type BundleSortBy = "valid-until" | "date-updated";
 
-type BundleEndUserType = 'individual'|'business';
+type BundleSortDirection = "ASC" | "DESC";
 
-type BundleSortBy = 'valid-until'|'date-updated';
-
-type BundleSortDirection = 'ASC'|'DESC';
-
-type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
-
+type BundleStatus =
+  | "draft"
+  | "pending-review"
+  | "in-review"
+  | "twilio-rejected"
+  | "twilio-approved"
+  | "provisionally-approved";
 
 /**
  * Options to pass to update a BundleInstance
  *
- * @property { BundleStatus } [status] 
+ * @property { BundleStatus } [status]
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
  */
 export interface BundleContextUpdateOptions {
-  "status"?: BundleStatus;
-  "statusCallback"?: string;
-  "friendlyName"?: string;
-  "email"?: string;
+  status?: BundleStatus;
+  statusCallback?: string;
+  friendlyName?: string;
+  email?: string;
 }
 
 /**
@@ -58,17 +60,17 @@ export interface BundleContextUpdateOptions {
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [regulationSid] The unique string of a regulation that is associated to the Bundle resource.
  * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\&#39;s phone number country ownership request.
- * @property { BundleEndUserType } [endUserType] 
+ * @property { BundleEndUserType } [endUserType]
  * @property { string } [numberType] The type of phone number of the Bundle\\\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
  */
 export interface BundleListInstanceCreateOptions {
-  "friendlyName": string;
-  "email": string;
-  "statusCallback"?: string;
-  "regulationSid"?: string;
-  "isoCountry"?: string;
-  "endUserType"?: BundleEndUserType;
-  "numberType"?: string;
+  friendlyName: string;
+  email: string;
+  statusCallback?: string;
+  regulationSid?: string;
+  isoCountry?: string;
+  endUserType?: BundleEndUserType;
+  numberType?: string;
 }
 /**
  * Options to pass to each
@@ -95,18 +97,18 @@ export interface BundleListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BundleListInstanceEachOptions {
-  "status"?: BundleStatus;
-  "friendlyName"?: string;
-  "regulationSid"?: string;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "hasValidUntilDate"?: boolean;
-  "sortBy"?: BundleSortBy;
-  "sortDirection"?: BundleSortDirection;
-  "validUntilDate"?: Date;
-  "validUntilDateBefore"?: Date;
-  "validUntilDateAfter"?: Date;
-  "pageSize"?: number;
+  status?: BundleStatus;
+  friendlyName?: string;
+  regulationSid?: string;
+  isoCountry?: string;
+  numberType?: string;
+  hasValidUntilDate?: boolean;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
+  validUntilDate?: Date;
+  validUntilDateBefore?: Date;
+  validUntilDateAfter?: Date;
+  pageSize?: number;
   callback?: (item: BundleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -133,18 +135,18 @@ export interface BundleListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BundleListInstanceOptions {
-  "status"?: BundleStatus;
-  "friendlyName"?: string;
-  "regulationSid"?: string;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "hasValidUntilDate"?: boolean;
-  "sortBy"?: BundleSortBy;
-  "sortDirection"?: BundleSortDirection;
-  "validUntilDate"?: Date;
-  "validUntilDateBefore"?: Date;
-  "validUntilDateAfter"?: Date;
-  "pageSize"?: number;
+  status?: BundleStatus;
+  friendlyName?: string;
+  regulationSid?: string;
+  isoCountry?: string;
+  numberType?: string;
+  hasValidUntilDate?: boolean;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
+  validUntilDate?: Date;
+  validUntilDateBefore?: Date;
+  validUntilDateAfter?: Date;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -167,26 +169,23 @@ export interface BundleListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BundleListInstancePageOptions {
-  "status"?: BundleStatus;
-  "friendlyName"?: string;
-  "regulationSid"?: string;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "hasValidUntilDate"?: boolean;
-  "sortBy"?: BundleSortBy;
-  "sortDirection"?: BundleSortDirection;
-  "validUntilDate"?: Date;
-  "validUntilDateBefore"?: Date;
-  "validUntilDateAfter"?: Date;
-  "pageSize"?: number;
+  status?: BundleStatus;
+  friendlyName?: string;
+  regulationSid?: string;
+  isoCountry?: string;
+  numberType?: string;
+  hasValidUntilDate?: boolean;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
+  validUntilDate?: Date;
+  validUntilDateBefore?: Date;
+  validUntilDateAfter?: Date;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface BundleContext {
-
   bundleCopies: BundleCopyListInstance;
   evaluations: EvaluationListInstance;
   itemAssignments: ItemAssignmentListInstance;
@@ -199,8 +198,9 @@ export interface BundleContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a BundleInstance
@@ -209,8 +209,9 @@ export interface BundleContext {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  fetch(callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
 
   /**
    * Update a BundleInstance
@@ -219,7 +220,9 @@ export interface BundleContext {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  update(callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
+  update(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
   /**
    * Update a BundleInstance
    *
@@ -228,9 +231,11 @@ export interface BundleContext {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  update(params: BundleContextUpdateOptions, callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
-  update(params?: any, callback?: any): Promise<BundleInstance>
-
+  update(
+    params: BundleContextUpdateOptions,
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+  update(params?: any, callback?: any): Promise<BundleInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -240,7 +245,7 @@ export interface BundleContext {
 }
 
 export interface BundleContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class BundleContextImpl implements BundleContext {
@@ -258,53 +263,68 @@ export class BundleContextImpl implements BundleContext {
   }
 
   get bundleCopies(): BundleCopyListInstance {
-    this._bundleCopies = this._bundleCopies || BundleCopyListInstance(this._version, this._solution.sid);
+    this._bundleCopies =
+      this._bundleCopies ||
+      BundleCopyListInstance(this._version, this._solution.sid);
     return this._bundleCopies;
   }
 
   get evaluations(): EvaluationListInstance {
-    this._evaluations = this._evaluations || EvaluationListInstance(this._version, this._solution.sid);
+    this._evaluations =
+      this._evaluations ||
+      EvaluationListInstance(this._version, this._solution.sid);
     return this._evaluations;
   }
 
   get itemAssignments(): ItemAssignmentListInstance {
-    this._itemAssignments = this._itemAssignments || ItemAssignmentListInstance(this._version, this._solution.sid);
+    this._itemAssignments =
+      this._itemAssignments ||
+      ItemAssignmentListInstance(this._version, this._solution.sid);
     return this._itemAssignments;
   }
 
   get replaceItems(): ReplaceItemsListInstance {
-    this._replaceItems = this._replaceItems || ReplaceItemsListInstance(this._version, this._solution.sid);
+    this._replaceItems =
+      this._replaceItems ||
+      ReplaceItemsListInstance(this._version, this._solution.sid);
     return this._replaceItems;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<BundleInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new BundleInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BundleInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<BundleInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -313,30 +333,34 @@ export class BundleContextImpl implements BundleContext {
 
     let data: any = {};
 
-    
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["email"] !== undefined)
-    data["Email"] = params["email"];
-
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BundleInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BundleInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -353,8 +377,7 @@ export class BundleContextImpl implements BundleContext {
   }
 }
 
-interface BundlePayload extends BundleResource, Page.TwilioResponsePayload {
-}
+interface BundlePayload extends BundleResource, Page.TwilioResponsePayload {}
 
 interface BundleResource {
   sid?: string | null;
@@ -439,7 +462,8 @@ export class BundleInstance {
   links?: object | null;
 
   private get _proxy(): BundleContext {
-    this._context = this._context || new BundleContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new BundleContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -450,8 +474,9 @@ export class BundleInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -462,8 +487,9 @@ export class BundleInstance {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  fetch(callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -474,7 +500,9 @@ export class BundleInstance {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  update(callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
+  update(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
   /**
    * Update a BundleInstance
    *
@@ -483,9 +511,11 @@ export class BundleInstance {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  update(params: BundleContextUpdateOptions, callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
-  update(params?: any, callback?: any): Promise<BundleInstance>
-     {
+  update(
+    params: BundleContextUpdateOptions,
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+  update(params?: any, callback?: any): Promise<BundleInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -524,19 +554,19 @@ export class BundleInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      regulationSid: this.regulationSid, 
-      friendlyName: this.friendlyName, 
-      status: this.status, 
-      validUntil: this.validUntil, 
-      email: this.email, 
-      statusCallback: this.statusCallback, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      regulationSid: this.regulationSid,
+      friendlyName: this.friendlyName,
+      status: this.status,
+      validUntil: this.validUntil,
+      email: this.email,
+      statusCallback: this.statusCallback,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -544,11 +574,9 @@ export class BundleInstance {
   }
 }
 
-
 export interface BundleListInstance {
   (sid: string): BundleContext;
   get(sid: string): BundleContext;
-
 
   /**
    * Create a BundleInstance
@@ -558,10 +586,11 @@ export interface BundleListInstance {
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
-  create(params: BundleListInstanceCreateOptions, callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
-  create(params: any, callback?: any): Promise<BundleInstance>
-
-
+  create(
+    params: BundleListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+  create(params: any, callback?: any): Promise<BundleInstance>;
 
   /**
    * Streams BundleInstance records from the API.
@@ -577,7 +606,9 @@ export interface BundleListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams BundleInstance records from the API.
    *
@@ -593,7 +624,10 @@ export interface BundleListInstance {
    * @param { BundleListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: BundleListInstanceEachOptions, callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: BundleListInstanceEachOptions,
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BundleInstance records from the API.
@@ -605,7 +639,9 @@ export interface BundleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  getPage(
+    callback?: (error: Error | null, items: BundlePage) => any
+  ): Promise<BundlePage>;
   /**
    * Retrieve a single target page of BundleInstance records from the API.
    *
@@ -617,7 +653,10 @@ export interface BundleListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: BundlePage) => any
+  ): Promise<BundlePage>;
   getPage(params?: any, callback?: any): Promise<BundlePage>;
   /**
    * Lists BundleInstance records from the API as a list.
@@ -627,7 +666,9 @@ export interface BundleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
+  list(
+    callback?: (error: Error | null, items: BundleInstance[]) => any
+  ): Promise<BundleInstance[]>;
   /**
    * Lists BundleInstance records from the API as a list.
    *
@@ -637,7 +678,10 @@ export interface BundleListInstance {
    * @param { BundleListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: BundleListInstanceOptions, callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
+  list(
+    params?: BundleListInstanceOptions,
+    callback?: (error: Error | null, items: BundleInstance[]) => any
+  ): Promise<BundleInstance[]>;
   list(params?: any, callback?: any): Promise<BundleInstance[]>;
   /**
    * Retrieve a single page of BundleInstance records from the API.
@@ -649,7 +693,9 @@ export interface BundleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  page(
+    callback?: (error: Error | null, items: BundlePage) => any
+  ): Promise<BundlePage>;
   /**
    * Retrieve a single page of BundleInstance records from the API.
    *
@@ -661,7 +707,10 @@ export interface BundleListInstance {
    * @param { BundleListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: BundleListInstancePageOptions, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  page(
+    params: BundleListInstancePageOptions,
+    callback?: (error: Error | null, items: BundlePage) => any
+  ): Promise<BundlePage>;
   page(params?: any, callback?: any): Promise<BundlePage>;
 
   /**
@@ -671,15 +720,13 @@ export interface BundleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BundleSolution {
-}
+export interface BundleSolution {}
 
 interface BundleListInstanceImpl extends BundleListInstance {}
 class BundleListInstanceImpl implements BundleListInstance {
   _version?: V2;
   _solution?: BundleSolution;
   _uri?: string;
-
 }
 
 export function BundleListInstance(version: V2): BundleListInstance {
@@ -687,60 +734,73 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance.get = function get(sid): BundleContext {
     return new BundleContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RegulatoryCompliance/Bundles`;
 
-  instance.create = function create(params: any, callback?: any): Promise<BundleInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<BundleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["email"] === null || params["email"] === undefined) {
-      throw new Error('Required parameter "params[\'email\']" missing.');
+      throw new Error("Required parameter \"params['email']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["Email"] = params["email"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["regulationSid"] !== undefined)
-    data["RegulationSid"] = params["regulationSid"];
+      data["RegulationSid"] = params["regulationSid"];
     if (params["isoCountry"] !== undefined)
-    data["IsoCountry"] = params["isoCountry"];
+      data["IsoCountry"] = params["isoCountry"];
     if (params["endUserType"] !== undefined)
-    data["EndUserType"] = params["endUserType"];
+      data["EndUserType"] = params["endUserType"];
     if (params["numberType"] !== undefined)
-    data["NumberType"] = params["numberType"];
-
+      data["NumberType"] = params["numberType"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BundleInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BundleInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<BundlePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<BundlePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -750,96 +810,124 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
     let data: any = {};
 
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["regulationSid"] !== undefined)
-    data["RegulationSid"] = params["regulationSid"];
+      data["RegulationSid"] = params["regulationSid"];
     if (params["isoCountry"] !== undefined)
-    data["IsoCountry"] = params["isoCountry"];
+      data["IsoCountry"] = params["isoCountry"];
     if (params["numberType"] !== undefined)
-    data["NumberType"] = params["numberType"];
+      data["NumberType"] = params["numberType"];
     if (params["hasValidUntilDate"] !== undefined)
-    data["HasValidUntilDate"] = serialize.bool(params["hasValidUntilDate"]);
-    if (params["sortBy"] !== undefined)
-    data["SortBy"] = params["sortBy"];
+      data["HasValidUntilDate"] = serialize.bool(params["hasValidUntilDate"]);
+    if (params["sortBy"] !== undefined) data["SortBy"] = params["sortBy"];
     if (params["sortDirection"] !== undefined)
-    data["SortDirection"] = params["sortDirection"];
+      data["SortDirection"] = params["sortDirection"];
     if (params["validUntilDate"] !== undefined)
-    data["ValidUntilDate"] = serialize.iso8601DateTime(params["validUntilDate"]);
+      data["ValidUntilDate"] = serialize.iso8601DateTime(
+        params["validUntilDate"]
+      );
     if (params["validUntilDateBefore"] !== undefined)
-    data["ValidUntilDate<"] = serialize.iso8601DateTime(params["validUntilDateBefore"]);
+      data["ValidUntilDate<"] = serialize.iso8601DateTime(
+        params["validUntilDateBefore"]
+      );
     if (params["validUntilDateAfter"] !== undefined)
-    data["ValidUntilDate>"] = serialize.iso8601DateTime(params["validUntilDateAfter"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["ValidUntilDate>"] = serialize.iso8601DateTime(
+        params["validUntilDateAfter"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BundlePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BundlePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BundlePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<BundlePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new BundlePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BundlePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class BundlePage extends Page<V2, BundlePayload, BundleResource, BundleInstance> {
-/**
-* Initialize the BundlePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: BundleSolution) {
+export class BundlePage extends Page<
+  V2,
+  BundlePayload,
+  BundleResource,
+  BundleInstance
+> {
+  /**
+   * Initialize the BundlePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: BundleSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of BundleInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: BundlePayload): BundleInstance {
-    return new BundleInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of BundleInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: BundlePayload): BundleInstance {
+    return new BundleInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

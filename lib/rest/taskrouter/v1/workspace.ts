@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -30,10 +29,7 @@ import { WorkspaceCumulativeStatisticsListInstance } from "./workspace/workspace
 import { WorkspaceRealTimeStatisticsListInstance } from "./workspace/workspaceRealTimeStatistics";
 import { WorkspaceStatisticsListInstance } from "./workspace/workspaceStatistics";
 
-
-
-type WorkspaceQueueOrder = 'FIFO'|'LIFO';
-
+type WorkspaceQueueOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a WorkspaceInstance
@@ -44,16 +40,16 @@ type WorkspaceQueueOrder = 'FIFO'|'LIFO';
  * @property { string } [friendlyName] A descriptive string that you create to describe the Workspace resource. For example: &#x60;Sales Call Center&#x60; or &#x60;Customer Support Team&#x60;.
  * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: &#x60;true&#x60; to enable multi-tasking, or &#x60;false&#x60; to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can\\\&#39;t be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
  * @property { string } [timeoutActivitySid] The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
- * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
+ * @property { WorkspaceQueueOrder } [prioritizeQueueOrder]
  */
 export interface WorkspaceContextUpdateOptions {
-  "defaultActivitySid"?: string;
-  "eventCallbackUrl"?: string;
-  "eventsFilter"?: string;
-  "friendlyName"?: string;
-  "multiTaskEnabled"?: boolean;
-  "timeoutActivitySid"?: string;
-  "prioritizeQueueOrder"?: WorkspaceQueueOrder;
+  defaultActivitySid?: string;
+  eventCallbackUrl?: string;
+  eventsFilter?: string;
+  friendlyName?: string;
+  multiTaskEnabled?: boolean;
+  timeoutActivitySid?: string;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
 
 /**
@@ -64,15 +60,15 @@ export interface WorkspaceContextUpdateOptions {
  * @property { string } [eventsFilter] The list of Workspace events for which to call event_callback_url. For example, if &#x60;EventsFilter&#x3D;task.created, task.canceled, worker.activity.update&#x60;, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
  * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: &#x60;true&#x60; to enable multi-tasking, or &#x60;false&#x60; to disable it. However, all workspaces should be created as multi-tasking. The default is &#x60;true&#x60;. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (&#x60;true&#x60;), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
  * @property { string } [template] An available template name. Can be: &#x60;NONE&#x60; or &#x60;FIFO&#x60; and the default is &#x60;NONE&#x60;. Pre-configures the Workspace with the Workflow and Activities specified in the template. &#x60;NONE&#x60; will create a Workspace with only a set of default activities. &#x60;FIFO&#x60; will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
- * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
+ * @property { WorkspaceQueueOrder } [prioritizeQueueOrder]
  */
 export interface WorkspaceListInstanceCreateOptions {
-  "friendlyName": string;
-  "eventCallbackUrl"?: string;
-  "eventsFilter"?: string;
-  "multiTaskEnabled"?: boolean;
-  "template"?: string;
-  "prioritizeQueueOrder"?: WorkspaceQueueOrder;
+  friendlyName: string;
+  eventCallbackUrl?: string;
+  eventsFilter?: string;
+  multiTaskEnabled?: boolean;
+  template?: string;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
 /**
  * Options to pass to each
@@ -89,8 +85,8 @@ export interface WorkspaceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface WorkspaceListInstanceEachOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -107,8 +103,8 @@ export interface WorkspaceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface WorkspaceListInstanceOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -121,16 +117,13 @@ export interface WorkspaceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkspaceListInstancePageOptions {
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface WorkspaceContext {
-
   activities: ActivityListInstance;
   events: EventListInstance;
   tasks: TaskListInstance;
@@ -149,8 +142,9 @@ export interface WorkspaceContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a WorkspaceInstance
@@ -159,8 +153,9 @@ export interface WorkspaceContext {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
 
   /**
    * Update a WorkspaceInstance
@@ -169,7 +164,9 @@ export interface WorkspaceContext {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  update(callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  update(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
   /**
    * Update a WorkspaceInstance
    *
@@ -178,9 +175,11 @@ export interface WorkspaceContext {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  update(params: WorkspaceContextUpdateOptions, callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance>
-
+  update(
+    params: WorkspaceContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+  update(params?: any, callback?: any): Promise<WorkspaceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -190,7 +189,7 @@ export interface WorkspaceContext {
 }
 
 export interface WorkspaceContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class WorkspaceContextImpl implements WorkspaceContext {
@@ -214,83 +213,113 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   get activities(): ActivityListInstance {
-    this._activities = this._activities || ActivityListInstance(this._version, this._solution.sid);
+    this._activities =
+      this._activities ||
+      ActivityListInstance(this._version, this._solution.sid);
     return this._activities;
   }
 
   get events(): EventListInstance {
-    this._events = this._events || EventListInstance(this._version, this._solution.sid);
+    this._events =
+      this._events || EventListInstance(this._version, this._solution.sid);
     return this._events;
   }
 
   get tasks(): TaskListInstance {
-    this._tasks = this._tasks || TaskListInstance(this._version, this._solution.sid);
+    this._tasks =
+      this._tasks || TaskListInstance(this._version, this._solution.sid);
     return this._tasks;
   }
 
   get taskChannels(): TaskChannelListInstance {
-    this._taskChannels = this._taskChannels || TaskChannelListInstance(this._version, this._solution.sid);
+    this._taskChannels =
+      this._taskChannels ||
+      TaskChannelListInstance(this._version, this._solution.sid);
     return this._taskChannels;
   }
 
   get taskQueues(): TaskQueueListInstance {
-    this._taskQueues = this._taskQueues || TaskQueueListInstance(this._version, this._solution.sid);
+    this._taskQueues =
+      this._taskQueues ||
+      TaskQueueListInstance(this._version, this._solution.sid);
     return this._taskQueues;
   }
 
   get workers(): WorkerListInstance {
-    this._workers = this._workers || WorkerListInstance(this._version, this._solution.sid);
+    this._workers =
+      this._workers || WorkerListInstance(this._version, this._solution.sid);
     return this._workers;
   }
 
   get workflows(): WorkflowListInstance {
-    this._workflows = this._workflows || WorkflowListInstance(this._version, this._solution.sid);
+    this._workflows =
+      this._workflows ||
+      WorkflowListInstance(this._version, this._solution.sid);
     return this._workflows;
   }
 
   get cumulativeStatistics(): WorkspaceCumulativeStatisticsListInstance {
-    this._cumulativeStatistics = this._cumulativeStatistics || WorkspaceCumulativeStatisticsListInstance(this._version, this._solution.sid);
+    this._cumulativeStatistics =
+      this._cumulativeStatistics ||
+      WorkspaceCumulativeStatisticsListInstance(
+        this._version,
+        this._solution.sid
+      );
     return this._cumulativeStatistics;
   }
 
   get realTimeStatistics(): WorkspaceRealTimeStatisticsListInstance {
-    this._realTimeStatistics = this._realTimeStatistics || WorkspaceRealTimeStatisticsListInstance(this._version, this._solution.sid);
+    this._realTimeStatistics =
+      this._realTimeStatistics ||
+      WorkspaceRealTimeStatisticsListInstance(
+        this._version,
+        this._solution.sid
+      );
     return this._realTimeStatistics;
   }
 
   get statistics(): WorkspaceStatisticsListInstance {
-    this._statistics = this._statistics || WorkspaceStatisticsListInstance(this._version, this._solution.sid);
+    this._statistics =
+      this._statistics ||
+      WorkspaceStatisticsListInstance(this._version, this._solution.sid);
     return this._statistics;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<WorkspaceInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<WorkspaceInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -299,36 +328,42 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     let data: any = {};
 
-    
-        if (params["defaultActivitySid"] !== undefined)
-    data["DefaultActivitySid"] = params["defaultActivitySid"];
+    if (params["defaultActivitySid"] !== undefined)
+      data["DefaultActivitySid"] = params["defaultActivitySid"];
     if (params["eventCallbackUrl"] !== undefined)
-    data["EventCallbackUrl"] = params["eventCallbackUrl"];
+      data["EventCallbackUrl"] = params["eventCallbackUrl"];
     if (params["eventsFilter"] !== undefined)
-    data["EventsFilter"] = params["eventsFilter"];
+      data["EventsFilter"] = params["eventsFilter"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["multiTaskEnabled"] !== undefined)
-    data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+      data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
     if (params["timeoutActivitySid"] !== undefined)
-    data["TimeoutActivitySid"] = params["timeoutActivitySid"];
+      data["TimeoutActivitySid"] = params["timeoutActivitySid"];
     if (params["prioritizeQueueOrder"] !== undefined)
-    data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
-
+      data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -345,8 +380,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 }
 
-interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
-}
+interface WorkspacePayload
+  extends WorkspaceResource,
+    Page.TwilioResponsePayload {}
 
 interface WorkspaceResource {
   account_sid?: string | null;
@@ -449,7 +485,9 @@ export class WorkspaceInstance {
   links?: object | null;
 
   private get _proxy(): WorkspaceContext {
-    this._context = this._context || new WorkspaceContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new WorkspaceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -460,8 +498,9 @@ export class WorkspaceInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -472,8 +511,9 @@ export class WorkspaceInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -484,7 +524,9 @@ export class WorkspaceInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  update(callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  update(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
   /**
    * Update a WorkspaceInstance
    *
@@ -493,9 +535,11 @@ export class WorkspaceInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  update(params: WorkspaceContextUpdateOptions, callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance>
-     {
+  update(
+    params: WorkspaceContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+  update(params?: any, callback?: any): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -576,22 +620,22 @@ export class WorkspaceInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      defaultActivityName: this.defaultActivityName, 
-      defaultActivitySid: this.defaultActivitySid, 
-      eventCallbackUrl: this.eventCallbackUrl, 
-      eventsFilter: this.eventsFilter, 
-      friendlyName: this.friendlyName, 
-      multiTaskEnabled: this.multiTaskEnabled, 
-      sid: this.sid, 
-      timeoutActivityName: this.timeoutActivityName, 
-      timeoutActivitySid: this.timeoutActivitySid, 
-      prioritizeQueueOrder: this.prioritizeQueueOrder, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      defaultActivityName: this.defaultActivityName,
+      defaultActivitySid: this.defaultActivitySid,
+      eventCallbackUrl: this.eventCallbackUrl,
+      eventsFilter: this.eventsFilter,
+      friendlyName: this.friendlyName,
+      multiTaskEnabled: this.multiTaskEnabled,
+      sid: this.sid,
+      timeoutActivityName: this.timeoutActivityName,
+      timeoutActivitySid: this.timeoutActivitySid,
+      prioritizeQueueOrder: this.prioritizeQueueOrder,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -599,11 +643,9 @@ export class WorkspaceInstance {
   }
 }
 
-
 export interface WorkspaceListInstance {
   (sid: string): WorkspaceContext;
   get(sid: string): WorkspaceContext;
-
 
   /**
    * Create a WorkspaceInstance
@@ -613,10 +655,11 @@ export interface WorkspaceListInstance {
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
-  create(params: WorkspaceListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
-  create(params: any, callback?: any): Promise<WorkspaceInstance>
-
-
+  create(
+    params: WorkspaceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+  create(params: any, callback?: any): Promise<WorkspaceInstance>;
 
   /**
    * Streams WorkspaceInstance records from the API.
@@ -632,7 +675,9 @@ export interface WorkspaceListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -648,7 +693,10 @@ export interface WorkspaceListInstance {
    * @param { WorkspaceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: WorkspaceListInstanceEachOptions, callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: WorkspaceListInstanceEachOptions,
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
@@ -660,7 +708,9 @@ export interface WorkspaceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
+  getPage(
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
    *
@@ -672,7 +722,10 @@ export interface WorkspaceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
   getPage(params?: any, callback?: any): Promise<WorkspacePage>;
   /**
    * Lists WorkspaceInstance records from the API as a list.
@@ -682,7 +735,9 @@ export interface WorkspaceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: WorkspaceInstance[]) => any): Promise<WorkspaceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+  ): Promise<WorkspaceInstance[]>;
   /**
    * Lists WorkspaceInstance records from the API as a list.
    *
@@ -692,7 +747,10 @@ export interface WorkspaceListInstance {
    * @param { WorkspaceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: WorkspaceListInstanceOptions, callback?: (error: Error | null, items: WorkspaceInstance[]) => any): Promise<WorkspaceInstance[]>;
+  list(
+    params?: WorkspaceListInstanceOptions,
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+  ): Promise<WorkspaceInstance[]>;
   list(params?: any, callback?: any): Promise<WorkspaceInstance[]>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
@@ -704,7 +762,9 @@ export interface WorkspaceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
+  page(
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    *
@@ -716,7 +776,10 @@ export interface WorkspaceListInstance {
    * @param { WorkspaceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: WorkspaceListInstancePageOptions, callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
+  page(
+    params: WorkspaceListInstancePageOptions,
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
   page(params?: any, callback?: any): Promise<WorkspacePage>;
 
   /**
@@ -726,15 +789,13 @@ export interface WorkspaceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkspaceSolution {
-}
+export interface WorkspaceSolution {}
 
 interface WorkspaceListInstanceImpl extends WorkspaceListInstance {}
 class WorkspaceListInstanceImpl implements WorkspaceListInstance {
   _version?: V1;
   _solution?: WorkspaceSolution;
   _uri?: string;
-
 }
 
 export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
@@ -742,54 +803,66 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance.get = function get(sid): WorkspaceContext {
     return new WorkspaceContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Workspaces`;
 
-  instance.create = function create(params: any, callback?: any): Promise<WorkspaceInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<WorkspaceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["eventCallbackUrl"] !== undefined)
-    data["EventCallbackUrl"] = params["eventCallbackUrl"];
+      data["EventCallbackUrl"] = params["eventCallbackUrl"];
     if (params["eventsFilter"] !== undefined)
-    data["EventsFilter"] = params["eventsFilter"];
+      data["EventsFilter"] = params["eventsFilter"];
     if (params["multiTaskEnabled"] !== undefined)
-    data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
-    if (params["template"] !== undefined)
-    data["Template"] = params["template"];
+      data["MultiTaskEnabled"] = serialize.bool(params["multiTaskEnabled"]);
+    if (params["template"] !== undefined) data["Template"] = params["template"];
     if (params["prioritizeQueueOrder"] !== undefined)
-    data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
-
+      data["PrioritizeQueueOrder"] = params["prioritizeQueueOrder"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new WorkspaceInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<WorkspacePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<WorkspacePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -799,76 +872,100 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkspacePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new WorkspacePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkspacePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<WorkspacePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new WorkspacePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new WorkspacePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
-/**
-* Initialize the WorkspacePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: WorkspaceSolution) {
+export class WorkspacePage extends Page<
+  V1,
+  WorkspacePayload,
+  WorkspaceResource,
+  WorkspaceInstance
+> {
+  /**
+   * Initialize the WorkspacePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: WorkspaceSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of WorkspaceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: WorkspacePayload): WorkspaceInstance {
-    return new WorkspaceInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of WorkspaceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: WorkspacePayload): WorkspaceInstance {
+    return new WorkspaceInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

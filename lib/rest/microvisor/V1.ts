@@ -42,5 +42,4 @@ export default class V1 extends Version {
     this._devices = this._devices || DeviceListInstance(this);
     return this._devices;
   }
-
 }

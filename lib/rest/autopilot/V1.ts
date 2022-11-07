@@ -39,8 +39,8 @@ export default class V1 extends Version {
   }
 
   get restoreAssistant(): RestoreAssistantListInstance {
-    this._restoreAssistant = this._restoreAssistant || RestoreAssistantListInstance(this);
+    this._restoreAssistant =
+      this._restoreAssistant || RestoreAssistantListInstance(this);
     return this._restoreAssistant;
   }
-
 }

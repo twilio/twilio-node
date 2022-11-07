@@ -12,17 +12,13 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
 import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping";
 
-
-
 export interface AuthTypeRegistrationsListInstance {
-
   credentialListMappings: AuthRegistrationsCredentialListMappingListInstance;
 
   /**
@@ -37,8 +33,11 @@ export interface AuthTypeRegistrationsSolution {
   domainSid?: string;
 }
 
-interface AuthTypeRegistrationsListInstanceImpl extends AuthTypeRegistrationsListInstance {}
-class AuthTypeRegistrationsListInstanceImpl implements AuthTypeRegistrationsListInstance {
+interface AuthTypeRegistrationsListInstanceImpl
+  extends AuthTypeRegistrationsListInstance {}
+class AuthTypeRegistrationsListInstanceImpl
+  implements AuthTypeRegistrationsListInstance
+{
   _version?: V2010;
   _solution?: AuthTypeRegistrationsSolution;
   _uri?: string;
@@ -46,7 +45,11 @@ class AuthTypeRegistrationsListInstanceImpl implements AuthTypeRegistrationsList
   _credentialListMappings?: AuthRegistrationsCredentialListMappingListInstance;
 }
 
-export function AuthTypeRegistrationsListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypeRegistrationsListInstance {
+export function AuthTypeRegistrationsListInstance(
+  version: V2010,
+  accountSid: string,
+  domainSid: string
+): AuthTypeRegistrationsListInstance {
   const instance = {} as AuthTypeRegistrationsListInstanceImpl;
 
   instance._version = version;
@@ -56,21 +59,27 @@ export function AuthTypeRegistrationsListInstance(version: V2010, accountSid: st
   Object.defineProperty(instance, "credentialListMappings", {
     get: function credentialListMappings() {
       if (!this._credentialListMappings) {
-        this._credentialListMappings = AuthRegistrationsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+        this._credentialListMappings =
+          AuthRegistrationsCredentialListMappingListInstance(
+            this._version,
+            this._solution.accountSid,
+            this._solution.domainSid
+          );
       }
       return this._credentialListMappings;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

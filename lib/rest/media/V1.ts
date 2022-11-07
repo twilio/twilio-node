@@ -37,18 +37,20 @@ export default class V1 extends Version {
   protected _playerStreamer?: PlayerStreamerListInstance;
 
   get mediaProcessor(): MediaProcessorListInstance {
-    this._mediaProcessor = this._mediaProcessor || MediaProcessorListInstance(this);
+    this._mediaProcessor =
+      this._mediaProcessor || MediaProcessorListInstance(this);
     return this._mediaProcessor;
   }
 
   get mediaRecording(): MediaRecordingListInstance {
-    this._mediaRecording = this._mediaRecording || MediaRecordingListInstance(this);
+    this._mediaRecording =
+      this._mediaRecording || MediaRecordingListInstance(this);
     return this._mediaRecording;
   }
 
   get playerStreamer(): PlayerStreamerListInstance {
-    this._playerStreamer = this._playerStreamer || PlayerStreamerListInstance(this);
+    this._playerStreamer =
+      this._playerStreamer || PlayerStreamerListInstance(this);
     return this._playerStreamer;
   }
-
 }

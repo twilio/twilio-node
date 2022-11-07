@@ -12,20 +12,14 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type BuildStatusStatus = 'building'|'completed'|'failed';
-
+type BuildStatusStatus = "building" | "completed" | "failed";
 
 export interface BuildStatusContext {
-
-
   /**
    * Fetch a BuildStatusInstance
    *
@@ -33,8 +27,9 @@ export interface BuildStatusContext {
    *
    * @returns { Promise } Resolves to processed BuildStatusInstance
    */
-  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
+  ): Promise<BuildStatusInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -44,14 +39,13 @@ export interface BuildStatusContext {
 }
 
 export interface BuildStatusContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class BuildStatusContextImpl implements BuildStatusContext {
   protected _solution: BuildStatusContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
@@ -59,17 +53,27 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   }
 
   fetch(callback?: any): Promise<BuildStatusInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new BuildStatusInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BuildStatusInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -86,8 +90,7 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   }
 }
 
-interface BuildStatusPayload extends BuildStatusResource{
-}
+interface BuildStatusPayload extends BuildStatusResource {}
 
 interface BuildStatusResource {
   sid?: string | null;
@@ -101,7 +104,12 @@ export class BuildStatusInstance {
   protected _solution: BuildStatusContextSolution;
   protected _context?: BuildStatusContext;
 
-  constructor(protected _version: V1, payload: BuildStatusPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: BuildStatusPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -130,7 +138,13 @@ export class BuildStatusInstance {
   url?: string | null;
 
   private get _proxy(): BuildStatusContext {
-    this._context = this._context || new BuildStatusContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new BuildStatusContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -141,8 +155,9 @@ export class BuildStatusInstance {
    *
    * @returns { Promise } Resolves to processed BuildStatusInstance
    */
-  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
+  ): Promise<BuildStatusInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -153,12 +168,12 @@ export class BuildStatusInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      status: this.status, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      status: this.status,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -166,11 +181,9 @@ export class BuildStatusInstance {
   }
 }
 
-
 export interface BuildStatusListInstance {
   (): BuildStatusContext;
   get(): BuildStatusContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -189,15 +202,18 @@ class BuildStatusListInstanceImpl implements BuildStatusListInstance {
   _version?: V1;
   _solution?: BuildStatusSolution;
   _uri?: string;
-
 }
 
-export function BuildStatusListInstance(version: V1, serviceSid: string, sid: string): BuildStatusListInstance {
+export function BuildStatusListInstance(
+  version: V1,
+  serviceSid: string,
+  sid: string
+): BuildStatusListInstance {
   const instance = (() => instance.get()) as BuildStatusListInstanceImpl;
 
   instance.get = function get(): BuildStatusContext {
     return new BuildStatusContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, sid };
@@ -205,14 +221,14 @@ export function BuildStatusListInstance(version: V1, serviceSid: string, sid: st
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

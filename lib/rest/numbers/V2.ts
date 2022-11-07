@@ -31,8 +31,8 @@ export default class V2 extends Version {
   protected _regulatoryCompliance?: RegulatoryComplianceListInstance;
 
   get regulatoryCompliance(): RegulatoryComplianceListInstance {
-    this._regulatoryCompliance = this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
+    this._regulatoryCompliance =
+      this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
     return this._regulatoryCompliance;
   }
-
 }

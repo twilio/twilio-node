@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a KeyInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyContextUpdateOptions {
-  "friendlyName"?: string;
-  "deviceSid"?: string;
+  friendlyName?: string;
+  deviceSid?: string;
 }
 
 /**
@@ -41,8 +37,8 @@ export interface KeyContextUpdateOptions {
  * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  */
 export interface KeyListInstanceCreateOptions {
-  "friendlyName"?: string;
-  "deviceSid"?: string;
+  friendlyName?: string;
+  deviceSid?: string;
 }
 /**
  * Options to pass to each
@@ -59,8 +55,8 @@ export interface KeyListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceEachOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,8 +73,8 @@ export interface KeyListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface KeyListInstanceOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -91,17 +87,13 @@ export interface KeyListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface KeyListInstancePageOptions {
-  "deviceSid"?: string;
-  "pageSize"?: number;
+  deviceSid?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface KeyContext {
-
-
   /**
    * Remove a KeyInstance
    *
@@ -109,8 +101,9 @@ export interface KeyContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a KeyInstance
@@ -119,8 +112,9 @@ export interface KeyContext {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  fetch(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
 
   /**
    * Update a KeyInstance
@@ -129,7 +123,9 @@ export interface KeyContext {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  update(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  update(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
   /**
    * Update a KeyInstance
    *
@@ -138,9 +134,11 @@ export interface KeyContext {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  update(params: KeyContextUpdateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-  update(params?: any, callback?: any): Promise<KeyInstance>
-
+  update(
+    params: KeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  update(params?: any, callback?: any): Promise<KeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -150,48 +148,63 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  "fleetSid"?: string;
-  "sid"?: string;
+  fleetSid?: string;
+  sid?: string;
 }
 
 export class KeyContextImpl implements KeyContext {
   protected _solution: KeyContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: DeployedDevices, fleetSid: string, sid: string) {
+  constructor(
+    protected _version: DeployedDevices,
+    fleetSid: string,
+    sid: string
+  ) {
     this._solution = { fleetSid, sid };
     this._uri = `/Fleets/${fleetSid}/Keys/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<KeyInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KeyInstance(
+          operationVersion,
+          payload,
+          this._solution.fleetSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<KeyInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -200,26 +213,37 @@ export class KeyContextImpl implements KeyContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-
+      data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KeyInstance(
+          operationVersion,
+          payload,
+          this._solution.fleetSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -236,8 +260,7 @@ export class KeyContextImpl implements KeyContext {
   }
 }
 
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
-}
+interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {}
 
 interface KeyResource {
   sid?: string | null;
@@ -255,7 +278,12 @@ export class KeyInstance {
   protected _solution: KeyContextSolution;
   protected _context?: KeyContext;
 
-  constructor(protected _version: DeployedDevices, payload: KeyPayload, fleetSid: string, sid?: string) {
+  constructor(
+    protected _version: DeployedDevices,
+    payload: KeyPayload,
+    fleetSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.url = payload.url;
     this.friendlyName = payload.friendly_name;
@@ -307,7 +335,13 @@ export class KeyInstance {
   dateUpdated?: Date | null;
 
   private get _proxy(): KeyContext {
-    this._context = this._context || new KeyContextImpl(this._version, this._solution.fleetSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new KeyContextImpl(
+        this._version,
+        this._solution.fleetSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -318,8 +352,9 @@ export class KeyInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -330,8 +365,9 @@ export class KeyInstance {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  fetch(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -342,7 +378,9 @@ export class KeyInstance {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  update(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  update(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
   /**
    * Update a KeyInstance
    *
@@ -351,9 +389,11 @@ export class KeyInstance {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  update(params: KeyContextUpdateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-  update(params?: any, callback?: any): Promise<KeyInstance>
-     {
+  update(
+    params: KeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  update(params?: any, callback?: any): Promise<KeyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -364,16 +404,16 @@ export class KeyInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      url: this.url, 
-      friendlyName: this.friendlyName, 
-      fleetSid: this.fleetSid, 
-      accountSid: this.accountSid, 
-      deviceSid: this.deviceSid, 
-      secret: this.secret, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated
-    }
+      sid: this.sid,
+      url: this.url,
+      friendlyName: this.friendlyName,
+      fleetSid: this.fleetSid,
+      accountSid: this.accountSid,
+      deviceSid: this.deviceSid,
+      secret: this.secret,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -381,11 +421,9 @@ export class KeyInstance {
   }
 }
 
-
 export interface KeyListInstance {
   (sid: string): KeyContext;
   get(sid: string): KeyContext;
-
 
   /**
    * Create a KeyInstance
@@ -394,7 +432,9 @@ export interface KeyListInstance {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  create(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  create(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
   /**
    * Create a KeyInstance
    *
@@ -403,10 +443,11 @@ export interface KeyListInstance {
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
-  create(params: KeyListInstanceCreateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-  create(params?: any, callback?: any): Promise<KeyInstance>
-
-
+  create(
+    params: KeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  create(params?: any, callback?: any): Promise<KeyInstance>;
 
   /**
    * Streams KeyInstance records from the API.
@@ -422,7 +463,9 @@ export interface KeyListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams KeyInstance records from the API.
    *
@@ -438,7 +481,10 @@ export interface KeyListInstance {
    * @param { KeyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: KeyListInstanceEachOptions,
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of KeyInstance records from the API.
@@ -450,7 +496,9 @@ export interface KeyListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  getPage(
+    callback?: (error: Error | null, items: KeyPage) => any
+  ): Promise<KeyPage>;
   /**
    * Retrieve a single target page of KeyInstance records from the API.
    *
@@ -462,7 +510,10 @@ export interface KeyListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: KeyPage) => any
+  ): Promise<KeyPage>;
   getPage(params?: any, callback?: any): Promise<KeyPage>;
   /**
    * Lists KeyInstance records from the API as a list.
@@ -472,7 +523,9 @@ export interface KeyListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  list(
+    callback?: (error: Error | null, items: KeyInstance[]) => any
+  ): Promise<KeyInstance[]>;
   /**
    * Lists KeyInstance records from the API as a list.
    *
@@ -482,7 +535,10 @@ export interface KeyListInstance {
    * @param { KeyListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  list(
+    params?: KeyListInstanceOptions,
+    callback?: (error: Error | null, items: KeyInstance[]) => any
+  ): Promise<KeyInstance[]>;
   list(params?: any, callback?: any): Promise<KeyInstance[]>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
@@ -494,7 +550,9 @@ export interface KeyListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  page(
+    callback?: (error: Error | null, items: KeyPage) => any
+  ): Promise<KeyPage>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
    *
@@ -506,7 +564,10 @@ export interface KeyListInstance {
    * @param { KeyListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  page(
+    params: KeyListInstancePageOptions,
+    callback?: (error: Error | null, items: KeyPage) => any
+  ): Promise<KeyPage>;
   page(params?: any, callback?: any): Promise<KeyPage>;
 
   /**
@@ -525,21 +586,26 @@ class KeyListInstanceImpl implements KeyListInstance {
   _version?: DeployedDevices;
   _solution?: KeySolution;
   _uri?: string;
-
 }
 
-export function KeyListInstance(version: DeployedDevices, fleetSid: string): KeyListInstance {
+export function KeyListInstance(
+  version: DeployedDevices,
+  fleetSid: string
+): KeyListInstance {
   const instance = ((sid) => instance.get(sid)) as KeyListInstanceImpl;
 
   instance.get = function get(sid): KeyContext {
     return new KeyContextImpl(version, fleetSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { fleetSid };
   instance._uri = `/Fleets/${fleetSid}/Keys`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<KeyInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<KeyInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -549,29 +615,38 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-
+      data["DeviceSid"] = params["deviceSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KeyInstance(operationVersion, payload, this._solution.fleetSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<KeyPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<KeyPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -581,77 +656,100 @@ export function KeyListInstance(version: DeployedDevices, fleetSid: string): Key
 
     let data: any = {};
 
-        if (params["deviceSid"] !== undefined)
-    data["DeviceSid"] = params["deviceSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["deviceSid"] !== undefined)
+      data["DeviceSid"] = params["deviceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new KeyPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<KeyPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new KeyPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new KeyPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
-/**
-* Initialize the KeyPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: DeployedDevices, response: Response<string>, solution: KeySolution) {
+export class KeyPage extends Page<
+  DeployedDevices,
+  KeyPayload,
+  KeyResource,
+  KeyInstance
+> {
+  /**
+   * Initialize the KeyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: DeployedDevices,
+    response: Response<string>,
+    solution: KeySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of KeyInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: KeyPayload): KeyInstance {
-    return new KeyInstance(
-    this._version,
-    payload,
-        this._solution.fleetSid,
-    );
-    }
+  /**
+   * Build an instance of KeyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: KeyPayload): KeyInstance {
+    return new KeyInstance(this._version, payload, this._solution.fleetSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

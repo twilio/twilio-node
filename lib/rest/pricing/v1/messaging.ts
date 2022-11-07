@@ -12,17 +12,13 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { CountryListInstance } from "./messaging/country";
 
-
-
 export interface MessagingListInstance {
-
   countries: CountryListInstance;
 
   /**
@@ -32,8 +28,7 @@ export interface MessagingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessagingSolution {
-}
+export interface MessagingSolution {}
 
 interface MessagingListInstanceImpl extends MessagingListInstance {}
 class MessagingListInstanceImpl implements MessagingListInstance {
@@ -48,7 +43,7 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
   const instance = {} as MessagingListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Messaging`;
 
   Object.defineProperty(instance, "countries", {
@@ -57,18 +52,19 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

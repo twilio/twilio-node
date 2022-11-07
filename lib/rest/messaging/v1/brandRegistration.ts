@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,14 +20,25 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
+type BrandRegistrationsBrandFeedback =
+  | "TAX_ID"
+  | "STOCK_SYMBOL"
+  | "NONPROFIT"
+  | "GOVERNMENT_ENTITY"
+  | "OTHERS";
 
+type BrandRegistrationsIdentityStatus =
+  | "SELF_DECLARED"
+  | "UNVERIFIED"
+  | "VERIFIED"
+  | "VETTED_VERIFIED";
 
-type BrandRegistrationsBrandFeedback = 'TAX_ID'|'STOCK_SYMBOL'|'NONPROFIT'|'GOVERNMENT_ENTITY'|'OTHERS';
-
-type BrandRegistrationsIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
-
-type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELETED';
-
+type BrandRegistrationsStatus =
+  | "PENDING"
+  | "APPROVED"
+  | "FAILED"
+  | "IN_REVIEW"
+  | "DELETED";
 
 /**
  * Options to pass to create a BrandRegistrationInstance
@@ -40,11 +50,11 @@ type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELET
  * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */
 export interface BrandRegistrationListInstanceCreateOptions {
-  "customerProfileBundleSid": string;
-  "a2PProfileBundleSid": string;
-  "brandType"?: string;
-  "mock"?: boolean;
-  "skipAutomaticSecVet"?: boolean;
+  customerProfileBundleSid: string;
+  a2PProfileBundleSid: string;
+  brandType?: string;
+  mock?: boolean;
+  skipAutomaticSecVet?: boolean;
 }
 /**
  * Options to pass to each
@@ -60,8 +70,11 @@ export interface BrandRegistrationListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: BrandRegistrationInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -76,7 +89,7 @@ export interface BrandRegistrationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -88,15 +101,12 @@ export interface BrandRegistrationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandRegistrationListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface BrandRegistrationContext {
-
   brandVettings: BrandVettingListInstance;
 
   /**
@@ -106,8 +116,9 @@ export interface BrandRegistrationContext {
    *
    * @returns { Promise } Resolves to processed BrandRegistrationInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance>;
 
   /**
    * Update a BrandRegistrationInstance
@@ -116,8 +127,9 @@ export interface BrandRegistrationContext {
    *
    * @returns { Promise } Resolves to processed BrandRegistrationInstance
    */
-  update(callback?: (error: Error | null, item?: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>
-
+  update(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -127,7 +139,7 @@ export interface BrandRegistrationContext {
 }
 
 export interface BrandRegistrationContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class BrandRegistrationContextImpl implements BrandRegistrationContext {
@@ -142,36 +154,56 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 
   get brandVettings(): BrandVettingListInstance {
-    this._brandVettings = this._brandVettings || BrandVettingListInstance(this._version, this._solution.sid);
+    this._brandVettings =
+      this._brandVettings ||
+      BrandVettingListInstance(this._version, this._solution.sid);
     return this._brandVettings;
   }
 
   fetch(callback?: any): Promise<BrandRegistrationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BrandRegistrationInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(callback?: any): Promise<BrandRegistrationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post" });
-    
-    operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BrandRegistrationInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -188,8 +220,9 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 }
 
-interface BrandRegistrationPayload extends BrandRegistrationResource, Page.TwilioResponsePayload {
-}
+interface BrandRegistrationPayload
+  extends BrandRegistrationResource,
+    Page.TwilioResponsePayload {}
 
 interface BrandRegistrationResource {
   sid?: string | null;
@@ -218,7 +251,11 @@ export class BrandRegistrationInstance {
   protected _solution: BrandRegistrationContextSolution;
   protected _context?: BrandRegistrationContext;
 
-  constructor(protected _version: V1, payload: BrandRegistrationPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: BrandRegistrationPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.customerProfileBundleSid = payload.customer_profile_bundle_sid;
@@ -316,7 +353,9 @@ export class BrandRegistrationInstance {
   links?: object | null;
 
   private get _proxy(): BrandRegistrationContext {
-    this._context = this._context || new BrandRegistrationContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new BrandRegistrationContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -327,8 +366,9 @@ export class BrandRegistrationInstance {
    *
    * @returns { Promise } Resolves to processed BrandRegistrationInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -339,8 +379,9 @@ export class BrandRegistrationInstance {
    *
    * @returns { Promise } Resolves to processed BrandRegistrationInstance
    */
-  update(callback?: (error: Error | null, item?: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>
-     {
+  update(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
     return this._proxy.update(callback);
   }
 
@@ -358,27 +399,27 @@ export class BrandRegistrationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      customerProfileBundleSid: this.customerProfileBundleSid, 
-      a2pProfileBundleSid: this.a2pProfileBundleSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      brandType: this.brandType, 
-      status: this.status, 
-      tcrId: this.tcrId, 
-      failureReason: this.failureReason, 
-      url: this.url, 
-      brandScore: this.brandScore, 
-      brandFeedback: this.brandFeedback, 
-      identityStatus: this.identityStatus, 
-      russell3000: this.russell3000, 
-      governmentEntity: this.governmentEntity, 
-      taxExemptStatus: this.taxExemptStatus, 
-      skipAutomaticSecVet: this.skipAutomaticSecVet, 
-      mock: this.mock, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      customerProfileBundleSid: this.customerProfileBundleSid,
+      a2pProfileBundleSid: this.a2pProfileBundleSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      brandType: this.brandType,
+      status: this.status,
+      tcrId: this.tcrId,
+      failureReason: this.failureReason,
+      url: this.url,
+      brandScore: this.brandScore,
+      brandFeedback: this.brandFeedback,
+      identityStatus: this.identityStatus,
+      russell3000: this.russell3000,
+      governmentEntity: this.governmentEntity,
+      taxExemptStatus: this.taxExemptStatus,
+      skipAutomaticSecVet: this.skipAutomaticSecVet,
+      mock: this.mock,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -386,11 +427,9 @@ export class BrandRegistrationInstance {
   }
 }
 
-
 export interface BrandRegistrationListInstance {
   (sid: string): BrandRegistrationContext;
   get(sid: string): BrandRegistrationContext;
-
 
   /**
    * Create a BrandRegistrationInstance
@@ -400,10 +439,11 @@ export interface BrandRegistrationListInstance {
    *
    * @returns { Promise } Resolves to processed BrandRegistrationInstance
    */
-  create(params: BrandRegistrationListInstanceCreateOptions, callback?: (error: Error | null, item?: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
-  create(params: any, callback?: any): Promise<BrandRegistrationInstance>
-
-
+  create(
+    params: BrandRegistrationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance>;
+  create(params: any, callback?: any): Promise<BrandRegistrationInstance>;
 
   /**
    * Streams BrandRegistrationInstance records from the API.
@@ -419,7 +459,12 @@ export interface BrandRegistrationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: BrandRegistrationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams BrandRegistrationInstance records from the API.
    *
@@ -435,7 +480,13 @@ export interface BrandRegistrationListInstance {
    * @param { BrandRegistrationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: BrandRegistrationListInstanceEachOptions, callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: BrandRegistrationListInstanceEachOptions,
+    callback?: (
+      item: BrandRegistrationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API.
@@ -447,7 +498,9 @@ export interface BrandRegistrationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
+  getPage(
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API.
    *
@@ -459,7 +512,10 @@ export interface BrandRegistrationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
   getPage(params?: any, callback?: any): Promise<BrandRegistrationPage>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list.
@@ -469,7 +525,9 @@ export interface BrandRegistrationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any): Promise<BrandRegistrationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
+  ): Promise<BrandRegistrationInstance[]>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list.
    *
@@ -479,7 +537,10 @@ export interface BrandRegistrationListInstance {
    * @param { BrandRegistrationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: BrandRegistrationListInstanceOptions, callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any): Promise<BrandRegistrationInstance[]>;
+  list(
+    params?: BrandRegistrationListInstanceOptions,
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
+  ): Promise<BrandRegistrationInstance[]>;
   list(params?: any, callback?: any): Promise<BrandRegistrationInstance[]>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API.
@@ -491,7 +552,9 @@ export interface BrandRegistrationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
+  page(
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API.
    *
@@ -503,7 +566,10 @@ export interface BrandRegistrationListInstance {
    * @param { BrandRegistrationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: BrandRegistrationListInstancePageOptions, callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
+  page(
+    params: BrandRegistrationListInstancePageOptions,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
   page(params?: any, callback?: any): Promise<BrandRegistrationPage>;
 
   /**
@@ -513,72 +579,98 @@ export interface BrandRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandRegistrationSolution {
-}
+export interface BrandRegistrationSolution {}
 
-interface BrandRegistrationListInstanceImpl extends BrandRegistrationListInstance {}
-class BrandRegistrationListInstanceImpl implements BrandRegistrationListInstance {
+interface BrandRegistrationListInstanceImpl
+  extends BrandRegistrationListInstance {}
+class BrandRegistrationListInstanceImpl
+  implements BrandRegistrationListInstance
+{
   _version?: V1;
   _solution?: BrandRegistrationSolution;
   _uri?: string;
-
 }
 
-export function BrandRegistrationListInstance(version: V1): BrandRegistrationListInstance {
-  const instance = ((sid) => instance.get(sid)) as BrandRegistrationListInstanceImpl;
+export function BrandRegistrationListInstance(
+  version: V1
+): BrandRegistrationListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as BrandRegistrationListInstanceImpl;
 
   instance.get = function get(sid): BrandRegistrationContext {
     return new BrandRegistrationContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/a2p/BrandRegistrations`;
 
-  instance.create = function create(params: any, callback?: any): Promise<BrandRegistrationInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<BrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["customerProfileBundleSid"] === null || params["customerProfileBundleSid"] === undefined) {
-      throw new Error('Required parameter "params[\'customerProfileBundleSid\']" missing.');
+    if (
+      params["customerProfileBundleSid"] === null ||
+      params["customerProfileBundleSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['customerProfileBundleSid']\" missing."
+      );
     }
 
-    if (params["a2PProfileBundleSid"] === null || params["a2PProfileBundleSid"] === undefined) {
-      throw new Error('Required parameter "params[\'a2PProfileBundleSid\']" missing.');
+    if (
+      params["a2PProfileBundleSid"] === null ||
+      params["a2PProfileBundleSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['a2PProfileBundleSid']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["CustomerProfileBundleSid"] = params["customerProfileBundleSid"];
-    
+
     data["A2PProfileBundleSid"] = params["a2PProfileBundleSid"];
     if (params["brandType"] !== undefined)
-    data["BrandType"] = params["brandType"];
+      data["BrandType"] = params["brandType"];
     if (params["mock"] !== undefined)
-    data["Mock"] = serialize.bool(params["mock"]);
+      data["Mock"] = serialize.bool(params["mock"]);
     if (params["skipAutomaticSecVet"] !== undefined)
-    data["SkipAutomaticSecVet"] = serialize.bool(params["skipAutomaticSecVet"]);
-
+      data["SkipAutomaticSecVet"] = serialize.bool(
+        params["skipAutomaticSecVet"]
+      );
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BrandRegistrationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BrandRegistrationInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<BrandRegistrationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<BrandRegistrationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -588,74 +680,100 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BrandRegistrationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BrandRegistrationPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BrandRegistrationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<BrandRegistrationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new BrandRegistrationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BrandRegistrationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationInstance> {
-/**
-* Initialize the BrandRegistrationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: BrandRegistrationSolution) {
+export class BrandRegistrationPage extends Page<
+  V1,
+  BrandRegistrationPayload,
+  BrandRegistrationResource,
+  BrandRegistrationInstance
+> {
+  /**
+   * Initialize the BrandRegistrationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: BrandRegistrationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of BrandRegistrationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance {
-    return new BrandRegistrationInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of BrandRegistrationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance {
+    return new BrandRegistrationInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,17 +20,35 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ConferenceParticipantListInstance } from "./conference/conferenceParticipant";
 
+type ConferenceConferenceEndReason =
+  | "last_participant_left"
+  | "conference_ended_via_api"
+  | "participant_with_end_conference_on_exit_left"
+  | "last_participant_kicked"
+  | "participant_with_end_conference_on_exit_kicked";
 
+type ConferenceConferenceStatus =
+  | "in_progress"
+  | "not_started"
+  | "completed"
+  | "summary_timeout";
 
-type ConferenceConferenceEndReason = 'last_participant_left'|'conference_ended_via_api'|'participant_with_end_conference_on_exit_left'|'last_participant_kicked'|'participant_with_end_conference_on_exit_kicked';
+type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
 
-type ConferenceConferenceStatus = 'in_progress'|'not_started'|'completed'|'summary_timeout';
+type ConferenceRegion = "us1" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "de1";
 
-type ConferenceProcessingState = 'complete'|'in_progress'|'timeout';
-
-type ConferenceRegion = 'us1'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1';
-
-type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_failure'|'region_configuration_issues'|'quality_warnings'|'participant_behavior_issues'|'high_packet_loss'|'high_jitter'|'high_latency'|'low_mos'|'detected_silence';
+type ConferenceTag =
+  | "invalid_requested_region"
+  | "duplicate_identity"
+  | "start_failure"
+  | "region_configuration_issues"
+  | "quality_warnings"
+  | "participant_behavior_issues"
+  | "high_packet_loss"
+  | "high_jitter"
+  | "high_latency"
+  | "low_mos"
+  | "detected_silence";
 
 /**
  * Options to pass to each
@@ -57,17 +74,17 @@ type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_fail
  *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
-  "conferenceSid"?: string;
-  "friendlyName"?: string;
-  "status"?: string;
-  "createdAfter"?: string;
-  "createdBefore"?: string;
-  "mixerRegion"?: string;
-  "tags"?: string;
-  "subaccount"?: string;
-  "detectedIssues"?: string;
-  "endReason"?: string;
-  "pageSize"?: number;
+  conferenceSid?: string;
+  friendlyName?: string;
+  status?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  mixerRegion?: string;
+  tags?: string;
+  subaccount?: string;
+  detectedIssues?: string;
+  endReason?: string;
+  pageSize?: number;
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -93,17 +110,17 @@ export interface ConferenceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
-  "conferenceSid"?: string;
-  "friendlyName"?: string;
-  "status"?: string;
-  "createdAfter"?: string;
-  "createdBefore"?: string;
-  "mixerRegion"?: string;
-  "tags"?: string;
-  "subaccount"?: string;
-  "detectedIssues"?: string;
-  "endReason"?: string;
-  "pageSize"?: number;
+  conferenceSid?: string;
+  friendlyName?: string;
+  status?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  mixerRegion?: string;
+  tags?: string;
+  subaccount?: string;
+  detectedIssues?: string;
+  endReason?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -125,25 +142,22 @@ export interface ConferenceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
-  "conferenceSid"?: string;
-  "friendlyName"?: string;
-  "status"?: string;
-  "createdAfter"?: string;
-  "createdBefore"?: string;
-  "mixerRegion"?: string;
-  "tags"?: string;
-  "subaccount"?: string;
-  "detectedIssues"?: string;
-  "endReason"?: string;
-  "pageSize"?: number;
+  conferenceSid?: string;
+  friendlyName?: string;
+  status?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  mixerRegion?: string;
+  tags?: string;
+  subaccount?: string;
+  detectedIssues?: string;
+  endReason?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ConferenceContext {
-
   conferenceParticipants: ConferenceParticipantListInstance;
 
   /**
@@ -153,8 +167,9 @@ export interface ConferenceContext {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -164,7 +179,7 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  "conferenceSid"?: string;
+  conferenceSid?: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -179,22 +194,36 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 
   get conferenceParticipants(): ConferenceParticipantListInstance {
-    this._conferenceParticipants = this._conferenceParticipants || ConferenceParticipantListInstance(this._version, this._solution.conferenceSid);
+    this._conferenceParticipants =
+      this._conferenceParticipants ||
+      ConferenceParticipantListInstance(
+        this._version,
+        this._solution.conferenceSid
+      );
     return this._conferenceParticipants;
   }
 
   fetch(callback?: any): Promise<ConferenceInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.conferenceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceInstance(
+          operationVersion,
+          payload,
+          this._solution.conferenceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -211,8 +240,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 }
 
-interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
-}
+interface ConferencePayload
+  extends ConferenceResource,
+    Page.TwilioResponsePayload {}
 
 interface ConferenceResource {
   conference_sid?: string | null;
@@ -244,7 +274,11 @@ export class ConferenceInstance {
   protected _solution: ConferenceContextSolution;
   protected _context?: ConferenceContext;
 
-  constructor(protected _version: V1, payload: ConferencePayload, conferenceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ConferencePayload,
+    conferenceSid?: string
+  ) {
     this.conferenceSid = payload.conference_sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -252,10 +286,14 @@ export class ConferenceInstance {
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.durationSeconds = deserialize.integer(payload.duration_seconds);
-    this.connectDurationSeconds = deserialize.integer(payload.connect_duration_seconds);
+    this.connectDurationSeconds = deserialize.integer(
+      payload.connect_duration_seconds
+    );
     this.status = payload.status;
     this.maxParticipants = deserialize.integer(payload.max_participants);
-    this.maxConcurrentParticipants = deserialize.integer(payload.max_concurrent_participants);
+    this.maxConcurrentParticipants = deserialize.integer(
+      payload.max_concurrent_participants
+    );
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
     this.endReason = payload.end_reason;
     this.endedBy = payload.ended_by;
@@ -351,7 +389,9 @@ export class ConferenceInstance {
   links?: object | null;
 
   private get _proxy(): ConferenceContext {
-    this._context = this._context || new ConferenceContextImpl(this._version, this._solution.conferenceSid);
+    this._context =
+      this._context ||
+      new ConferenceContextImpl(this._version, this._solution.conferenceSid);
     return this._context;
   }
 
@@ -362,8 +402,9 @@ export class ConferenceInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -381,30 +422,30 @@ export class ConferenceInstance {
    */
   toJSON() {
     return {
-      conferenceSid: this.conferenceSid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      createTime: this.createTime, 
-      startTime: this.startTime, 
-      endTime: this.endTime, 
-      durationSeconds: this.durationSeconds, 
-      connectDurationSeconds: this.connectDurationSeconds, 
-      status: this.status, 
-      maxParticipants: this.maxParticipants, 
-      maxConcurrentParticipants: this.maxConcurrentParticipants, 
-      uniqueParticipants: this.uniqueParticipants, 
-      endReason: this.endReason, 
-      endedBy: this.endedBy, 
-      mixerRegion: this.mixerRegion, 
-      mixerRegionRequested: this.mixerRegionRequested, 
-      recordingEnabled: this.recordingEnabled, 
-      detectedIssues: this.detectedIssues, 
-      tags: this.tags, 
-      tagInfo: this.tagInfo, 
-      processingState: this.processingState, 
-      url: this.url, 
-      links: this.links
-    }
+      conferenceSid: this.conferenceSid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      createTime: this.createTime,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      durationSeconds: this.durationSeconds,
+      connectDurationSeconds: this.connectDurationSeconds,
+      status: this.status,
+      maxParticipants: this.maxParticipants,
+      maxConcurrentParticipants: this.maxConcurrentParticipants,
+      uniqueParticipants: this.uniqueParticipants,
+      endReason: this.endReason,
+      endedBy: this.endedBy,
+      mixerRegion: this.mixerRegion,
+      mixerRegionRequested: this.mixerRegionRequested,
+      recordingEnabled: this.recordingEnabled,
+      detectedIssues: this.detectedIssues,
+      tags: this.tags,
+      tagInfo: this.tagInfo,
+      processingState: this.processingState,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -412,12 +453,9 @@ export class ConferenceInstance {
   }
 }
 
-
 export interface ConferenceListInstance {
   (conferenceSid: string): ConferenceContext;
   get(conferenceSid: string): ConferenceContext;
-
-
 
   /**
    * Streams ConferenceInstance records from the API.
@@ -433,7 +471,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ConferenceInstance records from the API.
    *
@@ -449,7 +489,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ConferenceListInstanceEachOptions,
+    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
@@ -461,7 +504,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  getPage(
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
    *
@@ -473,7 +518,10 @@ export interface ConferenceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   getPage(params?: any, callback?: any): Promise<ConferencePage>;
   /**
    * Lists ConferenceInstance records from the API as a list.
@@ -483,7 +531,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ConferenceInstance[]) => any
+  ): Promise<ConferenceInstance[]>;
   /**
    * Lists ConferenceInstance records from the API as a list.
    *
@@ -493,7 +543,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(
+    params?: ConferenceListInstanceOptions,
+    callback?: (error: Error | null, items: ConferenceInstance[]) => any
+  ): Promise<ConferenceInstance[]>;
   list(params?: any, callback?: any): Promise<ConferenceInstance[]>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
@@ -505,7 +558,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    *
@@ -517,7 +572,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(
+    params: ConferenceListInstancePageOptions,
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   page(params?: any, callback?: any): Promise<ConferencePage>;
 
   /**
@@ -527,29 +585,31 @@ export interface ConferenceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConferenceSolution {
-}
+export interface ConferenceSolution {}
 
 interface ConferenceListInstanceImpl extends ConferenceListInstance {}
 class ConferenceListInstanceImpl implements ConferenceListInstance {
   _version?: V1;
   _solution?: ConferenceSolution;
   _uri?: string;
-
 }
 
 export function ConferenceListInstance(version: V1): ConferenceListInstance {
-  const instance = ((conferenceSid) => instance.get(conferenceSid)) as ConferenceListInstanceImpl;
+  const instance = ((conferenceSid) =>
+    instance.get(conferenceSid)) as ConferenceListInstanceImpl;
 
   instance.get = function get(conferenceSid): ConferenceContext {
     return new ConferenceContextImpl(version, conferenceSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Conferences`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ConferencePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ConferencePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -559,94 +619,116 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
 
     let data: any = {};
 
-        if (params["conferenceSid"] !== undefined)
-    data["ConferenceSid"] = params["conferenceSid"];
+    if (params["conferenceSid"] !== undefined)
+      data["ConferenceSid"] = params["conferenceSid"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["createdAfter"] !== undefined)
-    data["CreatedAfter"] = params["createdAfter"];
+      data["CreatedAfter"] = params["createdAfter"];
     if (params["createdBefore"] !== undefined)
-    data["CreatedBefore"] = params["createdBefore"];
+      data["CreatedBefore"] = params["createdBefore"];
     if (params["mixerRegion"] !== undefined)
-    data["MixerRegion"] = params["mixerRegion"];
-    if (params["tags"] !== undefined)
-    data["Tags"] = params["tags"];
+      data["MixerRegion"] = params["mixerRegion"];
+    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
     if (params["subaccount"] !== undefined)
-    data["Subaccount"] = params["subaccount"];
+      data["Subaccount"] = params["subaccount"];
     if (params["detectedIssues"] !== undefined)
-    data["DetectedIssues"] = params["detectedIssues"];
+      data["DetectedIssues"] = params["detectedIssues"];
     if (params["endReason"] !== undefined)
-    data["EndReason"] = params["endReason"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["EndReason"] = params["endReason"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConferencePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ConferencePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConferencePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ConferencePage extends Page<V1, ConferencePayload, ConferenceResource, ConferenceInstance> {
-/**
-* Initialize the ConferencePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ConferenceSolution) {
+export class ConferencePage extends Page<
+  V1,
+  ConferencePayload,
+  ConferenceResource,
+  ConferenceInstance
+> {
+  /**
+   * Initialize the ConferencePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ConferenceSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConferenceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConferencePayload): ConferenceInstance {
-    return new ConferenceInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of ConferenceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ConferencePayload): ConferenceInstance {
+    return new ConferenceInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 
 export class ApiV2010AccountCallCallEvent {
   /**
@@ -31,7 +29,6 @@ export class ApiV2010AccountCallCallEvent {
    */
   "response"?: any | null;
 }
-
 
 /**
  * Options to pass to each
@@ -47,7 +44,7 @@ export class ApiV2010AccountCallCallEvent {
  *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +60,7 @@ export interface EventListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EventListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -75,17 +72,12 @@ export interface EventListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EventListInstance {
-
-
-
   /**
    * Streams EventInstance records from the API.
    *
@@ -100,7 +92,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EventInstance records from the API.
    *
@@ -116,7 +110,10 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
@@ -128,7 +125,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  getPage(
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
@@ -140,7 +139,10 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   getPage(params?: any, callback?: any): Promise<EventPage>;
   /**
    * Lists EventInstance records from the API as a list.
@@ -150,7 +152,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -160,7 +164,10 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(
+    params?: EventListInstanceOptions,
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
   list(params?: any, callback?: any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
@@ -172,7 +179,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -184,7 +193,10 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(
+    params: EventListInstancePageOptions,
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   page(params?: any, callback?: any): Promise<EventPage>;
 
   /**
@@ -204,17 +216,23 @@ class EventListInstanceImpl implements EventListInstance {
   _version?: V2010;
   _solution?: EventSolution;
   _uri?: string;
-
 }
 
-export function EventListInstance(version: V2010, accountSid: string, callSid: string): EventListInstance {
+export function EventListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string
+): EventListInstance {
   const instance = {} as EventListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Events.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<EventPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EventPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -224,49 +242,68 @@ export function EventListInstance(version: V2010, accountSid: string, callSid: s
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EventPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EventPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EventPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EventPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface EventPayload extends EventResource, Page.TwilioResponsePayload {
-}
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {}
 
 interface EventResource {
   events?: Array<ApiV2010AccountCallCallEvent>;
@@ -281,8 +318,12 @@ interface EventResource {
 }
 
 export class EventInstance {
-
-  constructor(protected _version: V2010, payload: EventPayload, accountSid: string, callSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: EventPayload,
+    accountSid: string,
+    callSid?: string
+  ) {
     this.events = payload.events;
     this.end = deserialize.integer(payload.end);
     this.firstPageUri = payload.first_page_uri;
@@ -292,7 +333,6 @@ export class EventInstance {
     this.previousPageUri = payload.previous_page_uri;
     this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-
   }
 
   events?: Array<ApiV2010AccountCallCallEvent>;
@@ -312,16 +352,16 @@ export class EventInstance {
    */
   toJSON() {
     return {
-      events: this.events, 
-      end: this.end, 
-      firstPageUri: this.firstPageUri, 
-      nextPageUri: this.nextPageUri, 
-      page: this.page, 
-      pageSize: this.pageSize, 
-      previousPageUri: this.previousPageUri, 
-      start: this.start, 
-      uri: this.uri
-    }
+      events: this.events,
+      end: this.end,
+      firstPageUri: this.firstPageUri,
+      nextPageUri: this.nextPageUri,
+      page: this.page,
+      pageSize: this.pageSize,
+      previousPageUri: this.previousPageUri,
+      start: this.start,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -329,34 +369,42 @@ export class EventInstance {
   }
 }
 
-export class EventPage extends Page<V2010, EventPayload, EventResource, EventInstance> {
-/**
-* Initialize the EventPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: EventSolution) {
+export class EventPage extends Page<
+  V2010,
+  EventPayload,
+  EventResource,
+  EventInstance
+> {
+  /**
+   * Initialize the EventPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: EventSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EventInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EventPayload): EventInstance {
+  /**
+   * Build an instance of EventInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EventPayload): EventInstance {
     return new EventInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.callSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.callSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

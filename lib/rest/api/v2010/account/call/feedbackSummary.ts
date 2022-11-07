@@ -12,16 +12,16 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
-
+type CallFeedbackSummaryStatus =
+  | "queued"
+  | "in-progress"
+  | "completed"
+  | "failed";
 
 /**
  * Options to pass to create a FeedbackSummaryInstance
@@ -33,16 +33,14 @@ type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
  * @property { string } [statusCallbackMethod] The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
-  "startDate": Date;
-  "endDate": Date;
-  "includeSubaccounts"?: boolean;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
+  startDate: Date;
+  endDate: Date;
+  includeSubaccounts?: boolean;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
 }
 
 export interface FeedbackSummaryContext {
-
-
   /**
    * Remove a FeedbackSummaryInstance
    *
@@ -50,8 +48,9 @@ export interface FeedbackSummaryContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FeedbackSummaryInstance
@@ -60,8 +59,9 @@ export interface FeedbackSummaryContext {
    *
    * @returns { Promise } Resolves to processed FeedbackSummaryInstance
    */
-  fetch(callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
+  ): Promise<FeedbackSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,14 +71,13 @@ export interface FeedbackSummaryContext {
 }
 
 export interface FeedbackSummaryContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   protected _solution: FeedbackSummaryContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -86,29 +85,41 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FeedbackSummaryInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FeedbackSummaryInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FeedbackSummaryInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -125,8 +136,7 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   }
 }
 
-interface FeedbackSummaryPayload extends FeedbackSummaryResource{
-}
+interface FeedbackSummaryPayload extends FeedbackSummaryResource {}
 
 interface FeedbackSummaryResource {
   account_sid?: string | null;
@@ -149,7 +159,12 @@ export class FeedbackSummaryInstance {
   protected _solution: FeedbackSummaryContextSolution;
   protected _context?: FeedbackSummaryContext;
 
-  constructor(protected _version: V2010, payload: FeedbackSummaryPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: FeedbackSummaryPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.callCount = deserialize.integer(payload.call_count);
     this.callFeedbackCount = deserialize.integer(payload.call_feedback_count);
@@ -160,7 +175,8 @@ export class FeedbackSummaryInstance {
     this.issues = payload.issues;
     this.qualityScoreAverage = payload.quality_score_average;
     this.qualityScoreMedian = payload.quality_score_median;
-    this.qualityScoreStandardDeviation = payload.quality_score_standard_deviation;
+    this.qualityScoreStandardDeviation =
+      payload.quality_score_standard_deviation;
     this.sid = payload.sid;
     this.startDate = deserialize.iso8601Date(payload.start_date);
     this.status = payload.status;
@@ -223,7 +239,13 @@ export class FeedbackSummaryInstance {
   status?: CallFeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
-    this._context = this._context || new FeedbackSummaryContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new FeedbackSummaryContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -234,8 +256,9 @@ export class FeedbackSummaryInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -246,8 +269,9 @@ export class FeedbackSummaryInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackSummaryInstance
    */
-  fetch(callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
+  ): Promise<FeedbackSummaryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -258,21 +282,21 @@ export class FeedbackSummaryInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      callCount: this.callCount, 
-      callFeedbackCount: this.callFeedbackCount, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      endDate: this.endDate, 
-      includeSubaccounts: this.includeSubaccounts, 
-      issues: this.issues, 
-      qualityScoreAverage: this.qualityScoreAverage, 
-      qualityScoreMedian: this.qualityScoreMedian, 
-      qualityScoreStandardDeviation: this.qualityScoreStandardDeviation, 
-      sid: this.sid, 
-      startDate: this.startDate, 
-      status: this.status
-    }
+      accountSid: this.accountSid,
+      callCount: this.callCount,
+      callFeedbackCount: this.callFeedbackCount,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      endDate: this.endDate,
+      includeSubaccounts: this.includeSubaccounts,
+      issues: this.issues,
+      qualityScoreAverage: this.qualityScoreAverage,
+      qualityScoreMedian: this.qualityScoreMedian,
+      qualityScoreStandardDeviation: this.qualityScoreStandardDeviation,
+      sid: this.sid,
+      startDate: this.startDate,
+      status: this.status,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -280,11 +304,9 @@ export class FeedbackSummaryInstance {
   }
 }
 
-
 export interface FeedbackSummaryListInstance {
   (sid: string): FeedbackSummaryContext;
   get(sid: string): FeedbackSummaryContext;
-
 
   /**
    * Create a FeedbackSummaryInstance
@@ -294,9 +316,11 @@ export interface FeedbackSummaryListInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackSummaryInstance
    */
-  create(params: FeedbackSummaryListInstanceCreateOptions, callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
-  create(params: any, callback?: any): Promise<FeedbackSummaryInstance>
-
+  create(
+    params: FeedbackSummaryListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
+  ): Promise<FeedbackSummaryInstance>;
+  create(params: any, callback?: any): Promise<FeedbackSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -314,73 +338,88 @@ class FeedbackSummaryListInstanceImpl implements FeedbackSummaryListInstance {
   _version?: V2010;
   _solution?: FeedbackSummarySolution;
   _uri?: string;
-
 }
 
-export function FeedbackSummaryListInstance(version: V2010, accountSid: string): FeedbackSummaryListInstance {
-  const instance = ((sid) => instance.get(sid)) as FeedbackSummaryListInstanceImpl;
+export function FeedbackSummaryListInstance(
+  version: V2010,
+  accountSid: string
+): FeedbackSummaryListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as FeedbackSummaryListInstanceImpl;
 
   instance.get = function get(sid): FeedbackSummaryContext {
     return new FeedbackSummaryContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Calls/FeedbackSummary.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FeedbackSummaryInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FeedbackSummaryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["startDate"] === null || params["startDate"] === undefined) {
-      throw new Error('Required parameter "params[\'startDate\']" missing.');
+      throw new Error("Required parameter \"params['startDate']\" missing.");
     }
 
     if (params["endDate"] === null || params["endDate"] === undefined) {
-      throw new Error('Required parameter "params[\'endDate\']" missing.');
+      throw new Error("Required parameter \"params['endDate']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["StartDate"] = serialize.iso8601Date(params["startDate"]);
-    
+
     data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FeedbackSummaryInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FeedbackSummaryInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

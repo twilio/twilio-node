@@ -12,28 +12,23 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-type MessageFeedbackOutcome = 'confirmed'|'unconfirmed';
-
+type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
 
 /**
  * Options to pass to create a FeedbackInstance
  *
- * @property { MessageFeedbackOutcome } [outcome] 
+ * @property { MessageFeedbackOutcome } [outcome]
  */
 export interface FeedbackListInstanceCreateOptions {
-  "outcome"?: MessageFeedbackOutcome;
+  outcome?: MessageFeedbackOutcome;
 }
 
 export interface FeedbackListInstance {
-
-
   /**
    * Create a FeedbackInstance
    *
@@ -41,7 +36,9 @@ export interface FeedbackListInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  create(callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  create(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
   /**
    * Create a FeedbackInstance
    *
@@ -50,9 +47,11 @@ export interface FeedbackListInstance {
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
-  create(params: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, item?: FeedbackInstance) => any): Promise<FeedbackInstance>;
-  create(params?: any, callback?: any): Promise<FeedbackInstance>
-
+  create(
+    params: FeedbackListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  create(params?: any, callback?: any): Promise<FeedbackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,17 +70,23 @@ class FeedbackListInstanceImpl implements FeedbackListInstance {
   _version?: V2010;
   _solution?: FeedbackSolution;
   _uri?: string;
-
 }
 
-export function FeedbackListInstance(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance {
+export function FeedbackListInstance(
+  version: V2010,
+  accountSid: string,
+  messageSid: string
+): FeedbackListInstance {
   const instance = {} as FeedbackListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid, messageSid };
   instance._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Feedback.json`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<FeedbackInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -91,39 +96,51 @@ export function FeedbackListInstance(version: V2010, accountSid: string, message
 
     let data: any = {};
 
-    
-        if (params["outcome"] !== undefined)
-    data["Outcome"] = params["outcome"];
-
+    if (params["outcome"] !== undefined) data["Outcome"] = params["outcome"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FeedbackInstance(operationVersion, payload, this._solution.accountSid, this._solution.messageSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FeedbackInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.messageSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface FeedbackPayload extends FeedbackResource{
-}
+interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
   account_sid?: string | null;
@@ -135,15 +152,18 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
-
-  constructor(protected _version: V2010, payload: FeedbackPayload, accountSid: string, messageSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: FeedbackPayload,
+    accountSid: string,
+    messageSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;
     this.outcome = payload.outcome;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
-
   }
 
   /**
@@ -175,18 +195,16 @@ export class FeedbackInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      messageSid: this.messageSid, 
-      outcome: this.outcome, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      messageSid: this.messageSid,
+      outcome: this.outcome,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

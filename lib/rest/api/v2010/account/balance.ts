@@ -12,17 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
 export interface BalanceListInstance {
-
-
   /**
    * Fetch a BalanceInstance
    *
@@ -30,8 +25,9 @@ export interface BalanceListInstance {
    *
    * @returns { Promise } Resolves to processed BalanceInstance
    */
-  fetch(callback?: (error: Error | null, item?: BalanceInstance) => any): Promise<BalanceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: BalanceInstance) => any
+  ): Promise<BalanceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -49,10 +45,12 @@ class BalanceListInstanceImpl implements BalanceListInstance {
   _version?: V2010;
   _solution?: BalanceSolution;
   _uri?: string;
-
 }
 
-export function BalanceListInstance(version: V2010, accountSid: string): BalanceListInstance {
+export function BalanceListInstance(
+  version: V2010,
+  accountSid: string
+): BalanceListInstance {
   const instance = {} as BalanceListInstanceImpl;
 
   instance._version = version;
@@ -60,32 +58,43 @@ export function BalanceListInstance(version: V2010, accountSid: string): Balance
   instance._uri = `/Accounts/${accountSid}/Balance.json`;
 
   instance.fetch = function fetch(callback?: any): Promise<BalanceInstance> {
-
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new BalanceInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BalanceInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface BalancePayload extends BalanceResource{
-}
+interface BalancePayload extends BalanceResource {}
 
 interface BalanceResource {
   account_sid?: string | null;
@@ -94,12 +103,14 @@ interface BalanceResource {
 }
 
 export class BalanceInstance {
-
-  constructor(protected _version: V2010, payload: BalancePayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: BalancePayload,
+    accountSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.balance = payload.balance;
     this.currency = payload.currency;
-
   }
 
   /**
@@ -122,15 +133,13 @@ export class BalanceInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      balance: this.balance, 
-      currency: this.currency
-    }
+      accountSid: this.accountSid,
+      balance: this.balance,
+      currency: this.currency,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

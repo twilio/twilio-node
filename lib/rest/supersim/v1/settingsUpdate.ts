@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 
 export class ListBillingPeriodResponseMeta {
   "firstPageUrl"?: string;
@@ -30,7 +28,6 @@ export class ListBillingPeriodResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 export class SupersimV1SettingsUpdate {
   /**
@@ -64,7 +61,6 @@ export class SupersimV1SettingsUpdate {
   "dateUpdated"?: Date | null;
 }
 
-
 /**
  * Options to pass to each
  *
@@ -80,9 +76,12 @@ export class SupersimV1SettingsUpdate {
  *                         Default is no limit
  */
 export interface SettingsUpdateListInstanceEachOptions {
-  "sim"?: string;
-  "pageSize"?: number;
-  callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void;
+  sim?: string;
+  pageSize?: number;
+  callback?: (
+    item: SettingsUpdateInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -98,8 +97,8 @@ export interface SettingsUpdateListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SettingsUpdateListInstanceOptions {
-  "sim"?: string;
-  "pageSize"?: number;
+  sim?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -112,18 +111,13 @@ export interface SettingsUpdateListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SettingsUpdateListInstancePageOptions {
-  "sim"?: string;
-  "pageSize"?: number;
+  sim?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SettingsUpdateListInstance {
-
-
-
   /**
    * Streams SettingsUpdateInstance records from the API.
    *
@@ -138,7 +132,12 @@ export interface SettingsUpdateListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: SettingsUpdateInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams SettingsUpdateInstance records from the API.
    *
@@ -154,7 +153,13 @@ export interface SettingsUpdateListInstance {
    * @param { SettingsUpdateListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SettingsUpdateListInstanceEachOptions, callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SettingsUpdateListInstanceEachOptions,
+    callback?: (
+      item: SettingsUpdateInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API.
@@ -166,7 +171,9 @@ export interface SettingsUpdateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
+  getPage(
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API.
    *
@@ -178,7 +185,10 @@ export interface SettingsUpdateListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
   getPage(params?: any, callback?: any): Promise<SettingsUpdatePage>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list.
@@ -188,7 +198,9 @@ export interface SettingsUpdateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any): Promise<SettingsUpdateInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+  ): Promise<SettingsUpdateInstance[]>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list.
    *
@@ -198,7 +210,10 @@ export interface SettingsUpdateListInstance {
    * @param { SettingsUpdateListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SettingsUpdateListInstanceOptions, callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any): Promise<SettingsUpdateInstance[]>;
+  list(
+    params?: SettingsUpdateListInstanceOptions,
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+  ): Promise<SettingsUpdateInstance[]>;
   list(params?: any, callback?: any): Promise<SettingsUpdateInstance[]>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API.
@@ -210,7 +225,9 @@ export interface SettingsUpdateListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
+  page(
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API.
    *
@@ -222,7 +239,10 @@ export interface SettingsUpdateListInstance {
    * @param { SettingsUpdateListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SettingsUpdateListInstancePageOptions, callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
+  page(
+    params: SettingsUpdateListInstancePageOptions,
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
   page(params?: any, callback?: any): Promise<SettingsUpdatePage>;
 
   /**
@@ -232,25 +252,28 @@ export interface SettingsUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsUpdateSolution {
-}
+export interface SettingsUpdateSolution {}
 
 interface SettingsUpdateListInstanceImpl extends SettingsUpdateListInstance {}
 class SettingsUpdateListInstanceImpl implements SettingsUpdateListInstance {
   _version?: V1;
   _solution?: SettingsUpdateSolution;
   _uri?: string;
-
 }
 
-export function SettingsUpdateListInstance(version: V1): SettingsUpdateListInstance {
+export function SettingsUpdateListInstance(
+  version: V1
+): SettingsUpdateListInstance {
   const instance = {} as SettingsUpdateListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/SettingsUpdates`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<SettingsUpdatePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SettingsUpdatePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -260,51 +283,73 @@ export function SettingsUpdateListInstance(version: V1): SettingsUpdateListInsta
 
     let data: any = {};
 
-        if (params["sim"] !== undefined)
-    data["Sim"] = params["sim"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SettingsUpdatePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SettingsUpdatePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SettingsUpdatePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SettingsUpdatePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SettingsUpdatePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SettingsUpdatePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface SettingsUpdatePayload extends SettingsUpdateResource, Page.TwilioResponsePayload {
-}
+interface SettingsUpdatePayload
+  extends SettingsUpdateResource,
+    Page.TwilioResponsePayload {}
 
 interface SettingsUpdateResource {
   settings_updates?: Array<SupersimV1SettingsUpdate>;
@@ -312,11 +357,9 @@ interface SettingsUpdateResource {
 }
 
 export class SettingsUpdateInstance {
-
   constructor(protected _version: V1, payload: SettingsUpdatePayload) {
     this.settingsUpdates = payload.settings_updates;
     this.meta = payload.meta;
-
   }
 
   settingsUpdates?: Array<SupersimV1SettingsUpdate>;
@@ -329,9 +372,9 @@ export class SettingsUpdateInstance {
    */
   toJSON() {
     return {
-      settingsUpdates: this.settingsUpdates, 
-      meta: this.meta
-    }
+      settingsUpdates: this.settingsUpdates,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -339,32 +382,37 @@ export class SettingsUpdateInstance {
   }
 }
 
-export class SettingsUpdatePage extends Page<V1, SettingsUpdatePayload, SettingsUpdateResource, SettingsUpdateInstance> {
-/**
-* Initialize the SettingsUpdatePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SettingsUpdateSolution) {
+export class SettingsUpdatePage extends Page<
+  V1,
+  SettingsUpdatePayload,
+  SettingsUpdateResource,
+  SettingsUpdateInstance
+> {
+  /**
+   * Initialize the SettingsUpdatePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: SettingsUpdateSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SettingsUpdateInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SettingsUpdatePayload): SettingsUpdateInstance {
-    return new SettingsUpdateInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of SettingsUpdateInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SettingsUpdatePayload): SettingsUpdateInstance {
+    return new SettingsUpdateInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

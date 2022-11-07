@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a QueryInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [status] A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 export interface QueryContextUpdateOptions {
-  "sampleSid"?: string;
-  "status"?: string;
+  sampleSid?: string;
+  status?: string;
 }
 
 /**
@@ -44,11 +40,11 @@ export interface QueryContextUpdateOptions {
  * @property { string } [field] Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
  */
 export interface QueryListInstanceCreateOptions {
-  "language": string;
-  "query": string;
-  "tasks"?: string;
-  "modelBuild"?: string;
-  "field"?: string;
+  language: string;
+  query: string;
+  tasks?: string;
+  modelBuild?: string;
+  field?: string;
 }
 /**
  * Options to pass to each
@@ -67,10 +63,10 @@ export interface QueryListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface QueryListInstanceEachOptions {
-  "language"?: string;
-  "modelBuild"?: string;
-  "status"?: string;
-  "pageSize"?: number;
+  language?: string;
+  modelBuild?: string;
+  status?: string;
+  pageSize?: number;
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -89,10 +85,10 @@ export interface QueryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface QueryListInstanceOptions {
-  "language"?: string;
-  "modelBuild"?: string;
-  "status"?: string;
-  "pageSize"?: number;
+  language?: string;
+  modelBuild?: string;
+  status?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -107,19 +103,15 @@ export interface QueryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueryListInstancePageOptions {
-  "language"?: string;
-  "modelBuild"?: string;
-  "status"?: string;
-  "pageSize"?: number;
+  language?: string;
+  modelBuild?: string;
+  status?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface QueryContext {
-
-
   /**
    * Remove a QueryInstance
    *
@@ -127,8 +119,9 @@ export interface QueryContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a QueryInstance
@@ -137,8 +130,9 @@ export interface QueryContext {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  fetch(callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
 
   /**
    * Update a QueryInstance
@@ -147,7 +141,9 @@ export interface QueryContext {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  update(callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
+  update(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
   /**
    * Update a QueryInstance
    *
@@ -156,9 +152,11 @@ export interface QueryContext {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  update(params: QueryContextUpdateOptions, callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
-  update(params?: any, callback?: any): Promise<QueryInstance>
-
+  update(
+    params: QueryContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+  update(params?: any, callback?: any): Promise<QueryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -168,48 +166,63 @@ export interface QueryContext {
 }
 
 export interface QueryContextSolution {
-  "assistantSid"?: string;
-  "sid"?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class QueryContextImpl implements QueryContext {
   protected _solution: QueryContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: Understand, assistantSid: string, sid: string) {
+  constructor(
+    protected _version: Understand,
+    assistantSid: string,
+    sid: string
+  ) {
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/Queries/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<QueryInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueryInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<QueryInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -218,26 +231,36 @@ export class QueryContextImpl implements QueryContext {
 
     let data: any = {};
 
-    
-        if (params["sampleSid"] !== undefined)
-    data["SampleSid"] = params["sampleSid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-
+    if (params["sampleSid"] !== undefined)
+      data["SampleSid"] = params["sampleSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueryInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -254,8 +277,7 @@ export class QueryContextImpl implements QueryContext {
   }
 }
 
-interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {
-}
+interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {}
 
 interface QueryResource {
   account_sid?: string | null;
@@ -277,7 +299,12 @@ export class QueryInstance {
   protected _solution: QueryContextSolution;
   protected _context?: QueryContext;
 
-  constructor(protected _version: Understand, payload: QueryPayload, assistantSid: string, sid?: string) {
+  constructor(
+    protected _version: Understand,
+    payload: QueryPayload,
+    assistantSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -346,7 +373,13 @@ export class QueryInstance {
   sourceChannel?: string | null;
 
   private get _proxy(): QueryContext {
-    this._context = this._context || new QueryContextImpl(this._version, this._solution.assistantSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new QueryContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -357,8 +390,9 @@ export class QueryInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -369,8 +403,9 @@ export class QueryInstance {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  fetch(callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -381,7 +416,9 @@ export class QueryInstance {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  update(callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
+  update(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
   /**
    * Update a QueryInstance
    *
@@ -390,9 +427,11 @@ export class QueryInstance {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  update(params: QueryContextUpdateOptions, callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
-  update(params?: any, callback?: any): Promise<QueryInstance>
-     {
+  update(
+    params: QueryContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+  update(params?: any, callback?: any): Promise<QueryInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -403,20 +442,20 @@ export class QueryInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      results: this.results, 
-      language: this.language, 
-      modelBuildSid: this.modelBuildSid, 
-      query: this.query, 
-      sampleSid: this.sampleSid, 
-      assistantSid: this.assistantSid, 
-      sid: this.sid, 
-      status: this.status, 
-      url: this.url, 
-      sourceChannel: this.sourceChannel
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      results: this.results,
+      language: this.language,
+      modelBuildSid: this.modelBuildSid,
+      query: this.query,
+      sampleSid: this.sampleSid,
+      assistantSid: this.assistantSid,
+      sid: this.sid,
+      status: this.status,
+      url: this.url,
+      sourceChannel: this.sourceChannel,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -424,11 +463,9 @@ export class QueryInstance {
   }
 }
 
-
 export interface QueryListInstance {
   (sid: string): QueryContext;
   get(sid: string): QueryContext;
-
 
   /**
    * Create a QueryInstance
@@ -438,10 +475,11 @@ export interface QueryListInstance {
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
-  create(params: QueryListInstanceCreateOptions, callback?: (error: Error | null, item?: QueryInstance) => any): Promise<QueryInstance>;
-  create(params: any, callback?: any): Promise<QueryInstance>
-
-
+  create(
+    params: QueryListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+  create(params: any, callback?: any): Promise<QueryInstance>;
 
   /**
    * Streams QueryInstance records from the API.
@@ -457,7 +495,9 @@ export interface QueryListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: QueryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: QueryInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams QueryInstance records from the API.
    *
@@ -473,7 +513,10 @@ export interface QueryListInstance {
    * @param { QueryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: QueryListInstanceEachOptions, callback?: (item: QueryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: QueryListInstanceEachOptions,
+    callback?: (item: QueryInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of QueryInstance records from the API.
@@ -485,7 +528,9 @@ export interface QueryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
+  getPage(
+    callback?: (error: Error | null, items: QueryPage) => any
+  ): Promise<QueryPage>;
   /**
    * Retrieve a single target page of QueryInstance records from the API.
    *
@@ -497,7 +542,10 @@ export interface QueryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: QueryPage) => any
+  ): Promise<QueryPage>;
   getPage(params?: any, callback?: any): Promise<QueryPage>;
   /**
    * Lists QueryInstance records from the API as a list.
@@ -507,7 +555,9 @@ export interface QueryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: QueryInstance[]) => any): Promise<QueryInstance[]>;
+  list(
+    callback?: (error: Error | null, items: QueryInstance[]) => any
+  ): Promise<QueryInstance[]>;
   /**
    * Lists QueryInstance records from the API as a list.
    *
@@ -517,7 +567,10 @@ export interface QueryListInstance {
    * @param { QueryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: QueryListInstanceOptions, callback?: (error: Error | null, items: QueryInstance[]) => any): Promise<QueryInstance[]>;
+  list(
+    params?: QueryListInstanceOptions,
+    callback?: (error: Error | null, items: QueryInstance[]) => any
+  ): Promise<QueryInstance[]>;
   list(params?: any, callback?: any): Promise<QueryInstance[]>;
   /**
    * Retrieve a single page of QueryInstance records from the API.
@@ -529,7 +582,9 @@ export interface QueryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
+  page(
+    callback?: (error: Error | null, items: QueryPage) => any
+  ): Promise<QueryPage>;
   /**
    * Retrieve a single page of QueryInstance records from the API.
    *
@@ -541,7 +596,10 @@ export interface QueryListInstance {
    * @param { QueryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: QueryListInstancePageOptions, callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
+  page(
+    params: QueryListInstancePageOptions,
+    callback?: (error: Error | null, items: QueryPage) => any
+  ): Promise<QueryPage>;
   page(params?: any, callback?: any): Promise<QueryPage>;
 
   /**
@@ -560,64 +618,79 @@ class QueryListInstanceImpl implements QueryListInstance {
   _version?: Understand;
   _solution?: QuerySolution;
   _uri?: string;
-
 }
 
-export function QueryListInstance(version: Understand, assistantSid: string): QueryListInstance {
+export function QueryListInstance(
+  version: Understand,
+  assistantSid: string
+): QueryListInstance {
   const instance = ((sid) => instance.get(sid)) as QueryListInstanceImpl;
 
   instance.get = function get(sid): QueryContext {
     return new QueryContextImpl(version, assistantSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid };
   instance._uri = `/Assistants/${assistantSid}/Queries`;
 
-  instance.create = function create(params: any, callback?: any): Promise<QueryInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<QueryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["language"] === null || params["language"] === undefined) {
-      throw new Error('Required parameter "params[\'language\']" missing.');
+      throw new Error("Required parameter \"params['language']\" missing.");
     }
 
     if (params["query"] === null || params["query"] === undefined) {
-      throw new Error('Required parameter "params[\'query\']" missing.');
+      throw new Error("Required parameter \"params['query']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Language"] = params["language"];
-    
-    data["Query"] = params["query"];
-    if (params["tasks"] !== undefined)
-    data["Tasks"] = params["tasks"];
-    if (params["modelBuild"] !== undefined)
-    data["ModelBuild"] = params["modelBuild"];
-    if (params["field"] !== undefined)
-    data["Field"] = params["field"];
 
+    data["Query"] = params["query"];
+    if (params["tasks"] !== undefined) data["Tasks"] = params["tasks"];
+    if (params["modelBuild"] !== undefined)
+      data["ModelBuild"] = params["modelBuild"];
+    if (params["field"] !== undefined) data["Field"] = params["field"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueryInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<QueryPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<QueryPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -627,81 +700,106 @@ export function QueryListInstance(version: Understand, assistantSid: string): Qu
 
     let data: any = {};
 
-        if (params["language"] !== undefined)
-    data["Language"] = params["language"];
+    if (params["language"] !== undefined) data["Language"] = params["language"];
     if (params["modelBuild"] !== undefined)
-    data["ModelBuild"] = params["modelBuild"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["ModelBuild"] = params["modelBuild"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueryPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new QueryPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<QueryPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new QueryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new QueryPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class QueryPage extends Page<Understand, QueryPayload, QueryResource, QueryInstance> {
-/**
-* Initialize the QueryPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: Understand, response: Response<string>, solution: QuerySolution) {
+export class QueryPage extends Page<
+  Understand,
+  QueryPayload,
+  QueryResource,
+  QueryInstance
+> {
+  /**
+   * Initialize the QueryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Understand,
+    response: Response<string>,
+    solution: QuerySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of QueryInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: QueryPayload): QueryInstance {
+  /**
+   * Build an instance of QueryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: QueryPayload): QueryInstance {
     return new QueryInstance(
-    this._version,
-    payload,
-        this._solution.assistantSid,
+      this._version,
+      payload,
+      this._solution.assistantSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

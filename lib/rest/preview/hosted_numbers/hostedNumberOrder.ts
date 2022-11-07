@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,11 +20,18 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
+type HostedNumberOrderStatus =
+  | "received"
+  | "pending-verification"
+  | "verified"
+  | "pending-loa"
+  | "carrier-processing"
+  | "testing"
+  | "completed"
+  | "failed"
+  | "action-required";
 
-
-type HostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
-
-type HostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
+type HostedNumberOrderVerificationType = "phone-call" | "phone-bill";
 
 /**
  * A mapping of phone number capabilities.
@@ -37,8 +43,6 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
   "fax"?: boolean;
 }
 
-
-
 /**
  * Options to pass to update a HostedNumberOrderInstance
  *
@@ -46,24 +50,24 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
  * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
  * @property { string } [email] Email of the owner of this phone number that is being hosted.
  * @property { Array<string> } [ccEmails] Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
- * @property { HostedNumberOrderStatus } [status] 
+ * @property { HostedNumberOrderStatus } [status]
  * @property { string } [verificationCode] A verification code that is given to the user via a phone call to the phone number that is being hosted.
- * @property { HostedNumberOrderVerificationType } [verificationType] 
+ * @property { HostedNumberOrderVerificationType } [verificationType]
  * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  * @property { string } [extension] Digits to dial after connecting the verification call.
  * @property { number } [callDelay] The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
  */
 export interface HostedNumberOrderContextUpdateOptions {
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "email"?: string;
-  "ccEmails"?: Array<string>;
-  "status"?: HostedNumberOrderStatus;
-  "verificationCode"?: string;
-  "verificationType"?: HostedNumberOrderVerificationType;
-  "verificationDocumentSid"?: string;
-  "extension"?: string;
-  "callDelay"?: number;
+  friendlyName?: string;
+  uniqueName?: string;
+  email?: string;
+  ccEmails?: Array<string>;
+  status?: HostedNumberOrderStatus;
+  verificationCode?: string;
+  verificationType?: HostedNumberOrderVerificationType;
+  verificationDocumentSid?: string;
+  extension?: string;
+  callDelay?: number;
 }
 
 /**
@@ -84,27 +88,27 @@ export interface HostedNumberOrderContextUpdateOptions {
  * @property { string } [smsApplicationSid] Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application.
  * @property { string } [addressSid] Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
  * @property { string } [email] Optional. Email of the owner of this phone number that is being hosted.
- * @property { HostedNumberOrderVerificationType } [verificationType] 
+ * @property { HostedNumberOrderVerificationType } [verificationType]
  * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  */
 export interface HostedNumberOrderListInstanceCreateOptions {
-  "phoneNumber": string;
-  "smsCapability": boolean;
-  "accountSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "ccEmails"?: Array<string>;
-  "smsUrl"?: string;
-  "smsMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsFallbackMethod"?: string;
-  "statusCallbackUrl"?: string;
-  "statusCallbackMethod"?: string;
-  "smsApplicationSid"?: string;
-  "addressSid"?: string;
-  "email"?: string;
-  "verificationType"?: HostedNumberOrderVerificationType;
-  "verificationDocumentSid"?: string;
+  phoneNumber: string;
+  smsCapability: boolean;
+  accountSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  ccEmails?: Array<string>;
+  smsUrl?: string;
+  smsMethod?: string;
+  smsFallbackUrl?: string;
+  smsFallbackMethod?: string;
+  statusCallbackUrl?: string;
+  statusCallbackMethod?: string;
+  smsApplicationSid?: string;
+  addressSid?: string;
+  email?: string;
+  verificationType?: HostedNumberOrderVerificationType;
+  verificationDocumentSid?: string;
 }
 /**
  * Options to pass to each
@@ -125,13 +129,16 @@ export interface HostedNumberOrderListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceEachOptions {
-  "status"?: HostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
-  callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void;
+  status?: HostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
+  callback?: (
+    item: HostedNumberOrderInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -151,12 +158,12 @@ export interface HostedNumberOrderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceOptions {
-  "status"?: HostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
+  status?: HostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -173,21 +180,17 @@ export interface HostedNumberOrderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface HostedNumberOrderListInstancePageOptions {
-  "status"?: HostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
+  status?: HostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface HostedNumberOrderContext {
-
-
   /**
    * Remove a HostedNumberOrderInstance
    *
@@ -195,8 +198,9 @@ export interface HostedNumberOrderContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a HostedNumberOrderInstance
@@ -205,8 +209,9 @@ export interface HostedNumberOrderContext {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  fetch(callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
 
   /**
    * Update a HostedNumberOrderInstance
@@ -215,7 +220,9 @@ export interface HostedNumberOrderContext {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  update(callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
+  update(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
   /**
    * Update a HostedNumberOrderInstance
    *
@@ -224,9 +231,11 @@ export interface HostedNumberOrderContext {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  update(params: HostedNumberOrderContextUpdateOptions, callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
-  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance>
-
+  update(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -236,13 +245,12 @@ export interface HostedNumberOrderContext {
 }
 
 export interface HostedNumberOrderContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   protected _solution: HostedNumberOrderContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: HostedNumbers, sid: string) {
     this._solution = { sid };
@@ -250,33 +258,44 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<HostedNumberOrderInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new HostedNumberOrderInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<HostedNumberOrderInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -285,42 +304,50 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-    if (params["email"] !== undefined)
-    data["Email"] = params["email"];
+      data["UniqueName"] = params["uniqueName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
     if (params["ccEmails"] !== undefined)
-    data["CcEmails"] = serialize.map(params["ccEmails"], (e => (e)));
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["verificationCode"] !== undefined)
-    data["VerificationCode"] = params["verificationCode"];
+      data["VerificationCode"] = params["verificationCode"];
     if (params["verificationType"] !== undefined)
-    data["VerificationType"] = params["verificationType"];
+      data["VerificationType"] = params["verificationType"];
     if (params["verificationDocumentSid"] !== undefined)
-    data["VerificationDocumentSid"] = params["verificationDocumentSid"];
+      data["VerificationDocumentSid"] = params["verificationDocumentSid"];
     if (params["extension"] !== undefined)
-    data["Extension"] = params["extension"];
+      data["Extension"] = params["extension"];
     if (params["callDelay"] !== undefined)
-    data["CallDelay"] = params["callDelay"];
-
+      data["CallDelay"] = params["callDelay"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new HostedNumberOrderInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -337,8 +364,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   }
 }
 
-interface HostedNumberOrderPayload extends HostedNumberOrderResource, Page.TwilioResponsePayload {
-}
+interface HostedNumberOrderPayload
+  extends HostedNumberOrderResource,
+    Page.TwilioResponsePayload {}
 
 interface HostedNumberOrderResource {
   sid?: string | null;
@@ -370,7 +398,11 @@ export class HostedNumberOrderInstance {
   protected _solution: HostedNumberOrderContextSolution;
   protected _context?: HostedNumberOrderContext;
 
-  constructor(protected _version: HostedNumbers, payload: HostedNumberOrderPayload, sid?: string) {
+  constructor(
+    protected _version: HostedNumbers,
+    payload: HostedNumberOrderPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.incomingPhoneNumberSid = payload.incoming_phone_number_sid;
@@ -384,7 +416,9 @@ export class HostedNumberOrderInstance {
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.verificationAttempts = deserialize.integer(payload.verification_attempts);
+    this.verificationAttempts = deserialize.integer(
+      payload.verification_attempts
+    );
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
     this.url = payload.url;
@@ -483,7 +517,9 @@ export class HostedNumberOrderInstance {
   verificationCallSids?: Array<string> | null;
 
   private get _proxy(): HostedNumberOrderContext {
-    this._context = this._context || new HostedNumberOrderContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new HostedNumberOrderContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -494,8 +530,9 @@ export class HostedNumberOrderInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -506,8 +543,9 @@ export class HostedNumberOrderInstance {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  fetch(callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -518,7 +556,9 @@ export class HostedNumberOrderInstance {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  update(callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
+  update(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
   /**
    * Update a HostedNumberOrderInstance
    *
@@ -527,9 +567,11 @@ export class HostedNumberOrderInstance {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  update(params: HostedNumberOrderContextUpdateOptions, callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
-  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance>
-     {
+  update(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -540,30 +582,30 @@ export class HostedNumberOrderInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      incomingPhoneNumberSid: this.incomingPhoneNumberSid, 
-      addressSid: this.addressSid, 
-      signingDocumentSid: this.signingDocumentSid, 
-      phoneNumber: this.phoneNumber, 
-      capabilities: this.capabilities, 
-      friendlyName: this.friendlyName, 
-      uniqueName: this.uniqueName, 
-      status: this.status, 
-      failureReason: this.failureReason, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      verificationAttempts: this.verificationAttempts, 
-      email: this.email, 
-      ccEmails: this.ccEmails, 
-      url: this.url, 
-      verificationType: this.verificationType, 
-      verificationDocumentSid: this.verificationDocumentSid, 
-      extension: this.extension, 
-      callDelay: this.callDelay, 
-      verificationCode: this.verificationCode, 
-      verificationCallSids: this.verificationCallSids
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+      addressSid: this.addressSid,
+      signingDocumentSid: this.signingDocumentSid,
+      phoneNumber: this.phoneNumber,
+      capabilities: this.capabilities,
+      friendlyName: this.friendlyName,
+      uniqueName: this.uniqueName,
+      status: this.status,
+      failureReason: this.failureReason,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      verificationAttempts: this.verificationAttempts,
+      email: this.email,
+      ccEmails: this.ccEmails,
+      url: this.url,
+      verificationType: this.verificationType,
+      verificationDocumentSid: this.verificationDocumentSid,
+      extension: this.extension,
+      callDelay: this.callDelay,
+      verificationCode: this.verificationCode,
+      verificationCallSids: this.verificationCallSids,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -571,11 +613,9 @@ export class HostedNumberOrderInstance {
   }
 }
 
-
 export interface HostedNumberOrderListInstance {
   (sid: string): HostedNumberOrderContext;
   get(sid: string): HostedNumberOrderContext;
-
 
   /**
    * Create a HostedNumberOrderInstance
@@ -585,10 +625,11 @@ export interface HostedNumberOrderListInstance {
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
-  create(params: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
-  create(params: any, callback?: any): Promise<HostedNumberOrderInstance>
-
-
+  create(
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+  create(params: any, callback?: any): Promise<HostedNumberOrderInstance>;
 
   /**
    * Streams HostedNumberOrderInstance records from the API.
@@ -604,7 +645,12 @@ export interface HostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: HostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams HostedNumberOrderInstance records from the API.
    *
@@ -620,7 +666,13 @@ export interface HostedNumberOrderListInstance {
    * @param { HostedNumberOrderListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: HostedNumberOrderListInstanceEachOptions, callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: HostedNumberOrderListInstanceEachOptions,
+    callback?: (
+      item: HostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
@@ -632,7 +684,9 @@ export interface HostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
+  getPage(
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
+  ): Promise<HostedNumberOrderPage>;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
    *
@@ -644,7 +698,10 @@ export interface HostedNumberOrderListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
+  ): Promise<HostedNumberOrderPage>;
   getPage(params?: any, callback?: any): Promise<HostedNumberOrderPage>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list.
@@ -654,7 +711,9 @@ export interface HostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any): Promise<HostedNumberOrderInstance[]>;
+  list(
+    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
+  ): Promise<HostedNumberOrderInstance[]>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list.
    *
@@ -664,7 +723,10 @@ export interface HostedNumberOrderListInstance {
    * @param { HostedNumberOrderListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: HostedNumberOrderListInstanceOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any): Promise<HostedNumberOrderInstance[]>;
+  list(
+    params?: HostedNumberOrderListInstanceOptions,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
+  ): Promise<HostedNumberOrderInstance[]>;
   list(params?: any, callback?: any): Promise<HostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
@@ -676,7 +738,9 @@ export interface HostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
+  page(
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
+  ): Promise<HostedNumberOrderPage>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
    *
@@ -688,7 +752,10 @@ export interface HostedNumberOrderListInstance {
    * @param { HostedNumberOrderListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: HostedNumberOrderListInstancePageOptions, callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
+  page(
+    params: HostedNumberOrderListInstancePageOptions,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
+  ): Promise<HostedNumberOrderPage>;
   page(params?: any, callback?: any): Promise<HostedNumberOrderPage>;
 
   /**
@@ -698,96 +765,113 @@ export interface HostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface HostedNumberOrderSolution {
-}
+export interface HostedNumberOrderSolution {}
 
-interface HostedNumberOrderListInstanceImpl extends HostedNumberOrderListInstance {}
-class HostedNumberOrderListInstanceImpl implements HostedNumberOrderListInstance {
+interface HostedNumberOrderListInstanceImpl
+  extends HostedNumberOrderListInstance {}
+class HostedNumberOrderListInstanceImpl
+  implements HostedNumberOrderListInstance
+{
   _version?: HostedNumbers;
   _solution?: HostedNumberOrderSolution;
   _uri?: string;
-
 }
 
-export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNumberOrderListInstance {
-  const instance = ((sid) => instance.get(sid)) as HostedNumberOrderListInstanceImpl;
+export function HostedNumberOrderListInstance(
+  version: HostedNumbers
+): HostedNumberOrderListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as HostedNumberOrderListInstanceImpl;
 
   instance.get = function get(sid): HostedNumberOrderContext {
     return new HostedNumberOrderContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/HostedNumberOrders`;
 
-  instance.create = function create(params: any, callback?: any): Promise<HostedNumberOrderInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
-    if (params["smsCapability"] === null || params["smsCapability"] === undefined) {
-      throw new Error('Required parameter "params[\'smsCapability\']" missing.');
+    if (
+      params["smsCapability"] === null ||
+      params["smsCapability"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['smsCapability']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["PhoneNumber"] = params["phoneNumber"];
-    
+
     data["SmsCapability"] = serialize.bool(params["smsCapability"]);
     if (params["accountSid"] !== undefined)
-    data["AccountSid"] = params["accountSid"];
+      data["AccountSid"] = params["accountSid"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+      data["UniqueName"] = params["uniqueName"];
     if (params["ccEmails"] !== undefined)
-    data["CcEmails"] = serialize.map(params["ccEmails"], (e => (e)));
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["statusCallbackUrl"] !== undefined)
-    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["smsApplicationSid"] !== undefined)
-    data["SmsApplicationSid"] = params["smsApplicationSid"];
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["addressSid"] !== undefined)
-    data["AddressSid"] = params["addressSid"];
-    if (params["email"] !== undefined)
-    data["Email"] = params["email"];
+      data["AddressSid"] = params["addressSid"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
     if (params["verificationType"] !== undefined)
-    data["VerificationType"] = params["verificationType"];
+      data["VerificationType"] = params["verificationType"];
     if (params["verificationDocumentSid"] !== undefined)
-    data["VerificationDocumentSid"] = params["verificationDocumentSid"];
-
+      data["VerificationDocumentSid"] = params["verificationDocumentSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new HostedNumberOrderInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<HostedNumberOrderPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<HostedNumberOrderPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -797,84 +881,109 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
 
     let data: any = {};
 
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
+      data["PhoneNumber"] = params["phoneNumber"];
     if (params["incomingPhoneNumberSid"] !== undefined)
-    data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
+      data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["UniqueName"] = params["uniqueName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new HostedNumberOrderPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<HostedNumberOrderPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<HostedNumberOrderPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new HostedNumberOrderPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new HostedNumberOrderPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
-/**
-* Initialize the HostedNumberOrderPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution) {
+export class HostedNumberOrderPage extends Page<
+  HostedNumbers,
+  HostedNumberOrderPayload,
+  HostedNumberOrderResource,
+  HostedNumberOrderInstance
+> {
+  /**
+   * Initialize the HostedNumberOrderPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: HostedNumbers,
+    response: Response<string>,
+    solution: HostedNumberOrderSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of HostedNumberOrderInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance {
-    return new HostedNumberOrderInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of HostedNumberOrderInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance {
+    return new HostedNumberOrderInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

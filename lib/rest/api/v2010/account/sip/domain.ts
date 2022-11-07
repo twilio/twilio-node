@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -22,9 +21,6 @@ const serialize = require("../../../../../base/serialize");
 import { AuthTypesListInstance } from "./domain/authTypes";
 import { CredentialListMappingListInstance } from "./domain/credentialListMapping";
 import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping";
-
-
-
 
 /**
  * Options to pass to update a DomainInstance
@@ -44,19 +40,19 @@ import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControl
  * @property { string } [emergencyCallerSid] Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
  */
 export interface DomainContextUpdateOptions {
-  "friendlyName"?: string;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceStatusCallbackMethod"?: string;
-  "voiceStatusCallbackUrl"?: string;
-  "voiceUrl"?: string;
-  "sipRegistration"?: boolean;
-  "domainName"?: string;
-  "emergencyCallingEnabled"?: boolean;
-  "secure"?: boolean;
-  "byocTrunkSid"?: string;
-  "emergencyCallerSid"?: string;
+  friendlyName?: string;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceStatusCallbackMethod?: string;
+  voiceStatusCallbackUrl?: string;
+  voiceUrl?: string;
+  sipRegistration?: boolean;
+  domainName?: string;
+  emergencyCallingEnabled?: boolean;
+  secure?: boolean;
+  byocTrunkSid?: string;
+  emergencyCallerSid?: string;
 }
 
 /**
@@ -77,19 +73,19 @@ export interface DomainContextUpdateOptions {
  * @property { string } [emergencyCallerSid] Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
  */
 export interface DomainListInstanceCreateOptions {
-  "domainName": string;
-  "friendlyName"?: string;
-  "voiceUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceFallbackMethod"?: string;
-  "voiceStatusCallbackUrl"?: string;
-  "voiceStatusCallbackMethod"?: string;
-  "sipRegistration"?: boolean;
-  "emergencyCallingEnabled"?: boolean;
-  "secure"?: boolean;
-  "byocTrunkSid"?: string;
-  "emergencyCallerSid"?: string;
+  domainName: string;
+  friendlyName?: string;
+  voiceUrl?: string;
+  voiceMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceFallbackMethod?: string;
+  voiceStatusCallbackUrl?: string;
+  voiceStatusCallbackMethod?: string;
+  sipRegistration?: boolean;
+  emergencyCallingEnabled?: boolean;
+  secure?: boolean;
+  byocTrunkSid?: string;
+  emergencyCallerSid?: string;
 }
 /**
  * Options to pass to each
@@ -105,7 +101,7 @@ export interface DomainListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface DomainListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -121,7 +117,7 @@ export interface DomainListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DomainListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -133,15 +129,12 @@ export interface DomainListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DomainListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface DomainContext {
-
   auth: AuthTypesListInstance;
   credentialListMappings: CredentialListMappingListInstance;
   ipAccessControlListMappings: IpAccessControlListMappingListInstance;
@@ -153,8 +146,9 @@ export interface DomainContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a DomainInstance
@@ -163,8 +157,9 @@ export interface DomainContext {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  fetch(callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
 
   /**
    * Update a DomainInstance
@@ -173,7 +168,9 @@ export interface DomainContext {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  update(callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>;
+  update(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
   /**
    * Update a DomainInstance
    *
@@ -182,9 +179,11 @@ export interface DomainContext {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  update(params: DomainContextUpdateOptions, callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance>
-
+  update(
+    params: DomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+  update(params?: any, callback?: any): Promise<DomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -194,8 +193,8 @@ export interface DomainContext {
 }
 
 export interface DomainContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class DomainContextImpl implements DomainContext {
@@ -212,48 +211,78 @@ export class DomainContextImpl implements DomainContext {
   }
 
   get auth(): AuthTypesListInstance {
-    this._auth = this._auth || AuthTypesListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._auth =
+      this._auth ||
+      AuthTypesListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._auth;
   }
 
   get credentialListMappings(): CredentialListMappingListInstance {
-    this._credentialListMappings = this._credentialListMappings || CredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._credentialListMappings =
+      this._credentialListMappings ||
+      CredentialListMappingListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._credentialListMappings;
   }
 
   get ipAccessControlListMappings(): IpAccessControlListMappingListInstance {
-    this._ipAccessControlListMappings = this._ipAccessControlListMappings || IpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._ipAccessControlListMappings =
+      this._ipAccessControlListMappings ||
+      IpAccessControlListMappingListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._ipAccessControlListMappings;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<DomainInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new DomainInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DomainInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<DomainInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -262,48 +291,60 @@ export class DomainContextImpl implements DomainContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceStatusCallbackMethod"] !== undefined)
-    data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+      data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
     if (params["voiceStatusCallbackUrl"] !== undefined)
-    data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["sipRegistration"] !== undefined)
-    data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+      data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
     if (params["domainName"] !== undefined)
-    data["DomainName"] = params["domainName"];
+      data["DomainName"] = params["domainName"];
     if (params["emergencyCallingEnabled"] !== undefined)
-    data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
+      data["EmergencyCallingEnabled"] = serialize.bool(
+        params["emergencyCallingEnabled"]
+      );
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["byocTrunkSid"] !== undefined)
-    data["ByocTrunkSid"] = params["byocTrunkSid"];
+      data["ByocTrunkSid"] = params["byocTrunkSid"];
     if (params["emergencyCallerSid"] !== undefined)
-    data["EmergencyCallerSid"] = params["emergencyCallerSid"];
-
+      data["EmergencyCallerSid"] = params["emergencyCallerSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DomainInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DomainInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -319,12 +360,29 @@ export class DomainContextImpl implements DomainContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type DomainVoiceFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type DomainVoiceMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type DomainVoiceStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type DomainVoiceFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DomainVoiceMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DomainVoiceStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {
-}
+interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {}
 
 interface DomainResource {
   account_sid?: string | null;
@@ -354,7 +412,12 @@ export class DomainInstance {
   protected _solution: DomainContextSolution;
   protected _context?: DomainContext;
 
-  constructor(protected _version: V2010, payload: DomainPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: DomainPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
     this.authType = payload.auth_type;
@@ -466,7 +529,13 @@ export class DomainInstance {
   emergencyCallerSid?: string | null;
 
   private get _proxy(): DomainContext {
-    this._context = this._context || new DomainContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new DomainContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -477,8 +546,9 @@ export class DomainInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -489,8 +559,9 @@ export class DomainInstance {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  fetch(callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -501,7 +572,9 @@ export class DomainInstance {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  update(callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>;
+  update(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
   /**
    * Update a DomainInstance
    *
@@ -510,9 +583,11 @@ export class DomainInstance {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  update(params: DomainContextUpdateOptions, callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance>
-     {
+  update(
+    params: DomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+  update(params?: any, callback?: any): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -544,28 +619,28 @@ export class DomainInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      apiVersion: this.apiVersion, 
-      authType: this.authType, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      domainName: this.domainName, 
-      friendlyName: this.friendlyName, 
-      sid: this.sid, 
-      uri: this.uri, 
-      voiceFallbackMethod: this.voiceFallbackMethod, 
-      voiceFallbackUrl: this.voiceFallbackUrl, 
-      voiceMethod: this.voiceMethod, 
-      voiceStatusCallbackMethod: this.voiceStatusCallbackMethod, 
-      voiceStatusCallbackUrl: this.voiceStatusCallbackUrl, 
-      voiceUrl: this.voiceUrl, 
-      subresourceUris: this.subresourceUris, 
-      sipRegistration: this.sipRegistration, 
-      emergencyCallingEnabled: this.emergencyCallingEnabled, 
-      secure: this.secure, 
-      byocTrunkSid: this.byocTrunkSid, 
-      emergencyCallerSid: this.emergencyCallerSid
-    }
+      accountSid: this.accountSid,
+      apiVersion: this.apiVersion,
+      authType: this.authType,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      domainName: this.domainName,
+      friendlyName: this.friendlyName,
+      sid: this.sid,
+      uri: this.uri,
+      voiceFallbackMethod: this.voiceFallbackMethod,
+      voiceFallbackUrl: this.voiceFallbackUrl,
+      voiceMethod: this.voiceMethod,
+      voiceStatusCallbackMethod: this.voiceStatusCallbackMethod,
+      voiceStatusCallbackUrl: this.voiceStatusCallbackUrl,
+      voiceUrl: this.voiceUrl,
+      subresourceUris: this.subresourceUris,
+      sipRegistration: this.sipRegistration,
+      emergencyCallingEnabled: this.emergencyCallingEnabled,
+      secure: this.secure,
+      byocTrunkSid: this.byocTrunkSid,
+      emergencyCallerSid: this.emergencyCallerSid,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -573,11 +648,9 @@ export class DomainInstance {
   }
 }
 
-
 export interface DomainListInstance {
   (sid: string): DomainContext;
   get(sid: string): DomainContext;
-
 
   /**
    * Create a DomainInstance
@@ -587,10 +660,11 @@ export interface DomainListInstance {
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
-  create(params: DomainListInstanceCreateOptions, callback?: (error: Error | null, item?: DomainInstance) => any): Promise<DomainInstance>;
-  create(params: any, callback?: any): Promise<DomainInstance>
-
-
+  create(
+    params: DomainListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+  create(params: any, callback?: any): Promise<DomainInstance>;
 
   /**
    * Streams DomainInstance records from the API.
@@ -606,7 +680,9 @@ export interface DomainListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: DomainInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams DomainInstance records from the API.
    *
@@ -622,7 +698,10 @@ export interface DomainListInstance {
    * @param { DomainListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: DomainListInstanceEachOptions, callback?: (item: DomainInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: DomainListInstanceEachOptions,
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
@@ -634,7 +713,9 @@ export interface DomainListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
+  getPage(
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
    *
@@ -646,7 +727,10 @@ export interface DomainListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
   getPage(params?: any, callback?: any): Promise<DomainPage>;
   /**
    * Lists DomainInstance records from the API as a list.
@@ -656,7 +740,9 @@ export interface DomainListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DomainInstance[]) => any): Promise<DomainInstance[]>;
+  list(
+    callback?: (error: Error | null, items: DomainInstance[]) => any
+  ): Promise<DomainInstance[]>;
   /**
    * Lists DomainInstance records from the API as a list.
    *
@@ -666,7 +752,10 @@ export interface DomainListInstance {
    * @param { DomainListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: DomainListInstanceOptions, callback?: (error: Error | null, items: DomainInstance[]) => any): Promise<DomainInstance[]>;
+  list(
+    params?: DomainListInstanceOptions,
+    callback?: (error: Error | null, items: DomainInstance[]) => any
+  ): Promise<DomainInstance[]>;
   list(params?: any, callback?: any): Promise<DomainInstance[]>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
@@ -678,7 +767,9 @@ export interface DomainListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
+  page(
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    *
@@ -690,7 +781,10 @@ export interface DomainListInstance {
    * @param { DomainListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: DomainListInstancePageOptions, callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
+  page(
+    params: DomainListInstancePageOptions,
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
   page(params?: any, callback?: any): Promise<DomainPage>;
 
   /**
@@ -709,76 +803,90 @@ class DomainListInstanceImpl implements DomainListInstance {
   _version?: V2010;
   _solution?: DomainSolution;
   _uri?: string;
-
 }
 
-export function DomainListInstance(version: V2010, accountSid: string): DomainListInstance {
+export function DomainListInstance(
+  version: V2010,
+  accountSid: string
+): DomainListInstance {
   const instance = ((sid) => instance.get(sid)) as DomainListInstanceImpl;
 
   instance.get = function get(sid): DomainContext {
     return new DomainContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<DomainInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<DomainInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["domainName"] === null || params["domainName"] === undefined) {
-      throw new Error('Required parameter "params[\'domainName\']" missing.');
+      throw new Error("Required parameter \"params['domainName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["DomainName"] = params["domainName"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
+      data["VoiceMethod"] = params["voiceMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceStatusCallbackUrl"] !== undefined)
-    data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
+      data["VoiceStatusCallbackUrl"] = params["voiceStatusCallbackUrl"];
     if (params["voiceStatusCallbackMethod"] !== undefined)
-    data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
+      data["VoiceStatusCallbackMethod"] = params["voiceStatusCallbackMethod"];
     if (params["sipRegistration"] !== undefined)
-    data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
+      data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
     if (params["emergencyCallingEnabled"] !== undefined)
-    data["EmergencyCallingEnabled"] = serialize.bool(params["emergencyCallingEnabled"]);
+      data["EmergencyCallingEnabled"] = serialize.bool(
+        params["emergencyCallingEnabled"]
+      );
     if (params["secure"] !== undefined)
-    data["Secure"] = serialize.bool(params["secure"]);
+      data["Secure"] = serialize.bool(params["secure"]);
     if (params["byocTrunkSid"] !== undefined)
-    data["ByocTrunkSid"] = params["byocTrunkSid"];
+      data["ByocTrunkSid"] = params["byocTrunkSid"];
     if (params["emergencyCallerSid"] !== undefined)
-    data["EmergencyCallerSid"] = params["emergencyCallerSid"];
-
+      data["EmergencyCallerSid"] = params["emergencyCallerSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DomainInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DomainInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<DomainPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<DomainPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -788,75 +896,102 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DomainPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new DomainPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DomainPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<DomainPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new DomainPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new DomainPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
-/**
-* Initialize the DomainPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: DomainSolution) {
+export class DomainPage extends Page<
+  V2010,
+  DomainPayload,
+  DomainResource,
+  DomainInstance
+> {
+  /**
+   * Initialize the DomainPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: DomainSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of DomainInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: DomainPayload): DomainInstance {
+  /**
+   * Build an instance of DomainInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DomainPayload): DomainInstance {
     return new DomainInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

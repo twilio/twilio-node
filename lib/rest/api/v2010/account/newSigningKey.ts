@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a NewSigningKeyInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewSigningKeyListInstanceCreateOptions {
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 export interface NewSigningKeyListInstance {
-
-
   /**
    * Create a NewSigningKeyInstance
    *
@@ -39,7 +34,9 @@ export interface NewSigningKeyListInstance {
    *
    * @returns { Promise } Resolves to processed NewSigningKeyInstance
    */
-  create(callback?: (error: Error | null, item?: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
+  create(
+    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
+  ): Promise<NewSigningKeyInstance>;
   /**
    * Create a NewSigningKeyInstance
    *
@@ -48,9 +45,11 @@ export interface NewSigningKeyListInstance {
    *
    * @returns { Promise } Resolves to processed NewSigningKeyInstance
    */
-  create(params: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, item?: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewSigningKeyInstance>
-
+  create(
+    params: NewSigningKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
+  ): Promise<NewSigningKeyInstance>;
+  create(params?: any, callback?: any): Promise<NewSigningKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -68,17 +67,22 @@ class NewSigningKeyListInstanceImpl implements NewSigningKeyListInstance {
   _version?: V2010;
   _solution?: NewSigningKeySolution;
   _uri?: string;
-
 }
 
-export function NewSigningKeyListInstance(version: V2010, accountSid: string): NewSigningKeyListInstance {
+export function NewSigningKeyListInstance(
+  version: V2010,
+  accountSid: string
+): NewSigningKeyListInstance {
   const instance = {} as NewSigningKeyListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<NewSigningKeyInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<NewSigningKeyInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -88,39 +92,51 @@ export function NewSigningKeyListInstance(version: V2010, accountSid: string): N
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NewSigningKeyInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NewSigningKeyInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface NewSigningKeyPayload extends NewSigningKeyResource{
-}
+interface NewSigningKeyPayload extends NewSigningKeyResource {}
 
 interface NewSigningKeyResource {
   sid?: string | null;
@@ -131,14 +147,16 @@ interface NewSigningKeyResource {
 }
 
 export class NewSigningKeyInstance {
-
-  constructor(protected _version: V2010, payload: NewSigningKeyPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: NewSigningKeyPayload,
+    accountSid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.secret = payload.secret;
-
   }
 
   /**
@@ -169,17 +187,15 @@ export class NewSigningKeyInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      secret: this.secret
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      secret: this.secret,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

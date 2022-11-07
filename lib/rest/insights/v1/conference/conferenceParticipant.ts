@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,20 +19,39 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ConferenceParticipantCallDirection = "inbound" | "outbound";
 
+type ConferenceParticipantCallStatus =
+  | "answered"
+  | "completed"
+  | "busy"
+  | "fail"
+  | "noanswer"
+  | "ringing"
+  | "canceled";
 
-type ConferenceParticipantCallDirection = 'inbound'|'outbound';
+type ConferenceParticipantCallType = "carrier" | "client" | "sip";
 
-type ConferenceParticipantCallStatus = 'answered'|'completed'|'busy'|'fail'|'noanswer'|'ringing'|'canceled';
+type ConferenceParticipantJitterBufferSize =
+  | "large"
+  | "small"
+  | "medium"
+  | "off";
 
-type ConferenceParticipantCallType = 'carrier'|'client'|'sip';
+type ConferenceParticipantProcessingState =
+  | "complete"
+  | "in_progress"
+  | "timeout";
 
-type ConferenceParticipantJitterBufferSize = 'large'|'small'|'medium'|'off';
-
-type ConferenceParticipantProcessingState = 'complete'|'in_progress'|'timeout';
-
-type ConferenceParticipantRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1';
-
+type ConferenceParticipantRegion =
+  | "us1"
+  | "us2"
+  | "au1"
+  | "br1"
+  | "ie1"
+  | "jp1"
+  | "sg1"
+  | "de1";
 
 /**
  * Options to pass to fetch a ConferenceParticipantInstance
@@ -42,8 +60,8 @@ type ConferenceParticipantRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de
  * @property { string } [metrics] Object. Contains participant call quality metrics.
  */
 export interface ConferenceParticipantContextFetchOptions {
-  "events"?: string;
-  "metrics"?: string;
+  events?: string;
+  metrics?: string;
 }
 /**
  * Options to pass to each
@@ -62,11 +80,14 @@ export interface ConferenceParticipantContextFetchOptions {
  *                         Default is no limit
  */
 export interface ConferenceParticipantListInstanceEachOptions {
-  "participantSid"?: string;
-  "label"?: string;
-  "events"?: string;
-  "pageSize"?: number;
-  callback?: (item: ConferenceParticipantInstance, done: (err?: Error) => void) => void;
+  participantSid?: string;
+  label?: string;
+  events?: string;
+  pageSize?: number;
+  callback?: (
+    item: ConferenceParticipantInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -84,10 +105,10 @@ export interface ConferenceParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceParticipantListInstanceOptions {
-  "participantSid"?: string;
-  "label"?: string;
-  "events"?: string;
-  "pageSize"?: number;
+  participantSid?: string;
+  label?: string;
+  events?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -102,19 +123,15 @@ export interface ConferenceParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceParticipantListInstancePageOptions {
-  "participantSid"?: string;
-  "label"?: string;
-  "events"?: string;
-  "pageSize"?: number;
+  participantSid?: string;
+  label?: string;
+  events?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ConferenceParticipantContext {
-
-
   /**
    * Fetch a ConferenceParticipantInstance
    *
@@ -122,7 +139,12 @@ export interface ConferenceParticipantContext {
    *
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceParticipantInstance) => any): Promise<ConferenceParticipantInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance>;
   /**
    * Fetch a ConferenceParticipantInstance
    *
@@ -131,9 +153,14 @@ export interface ConferenceParticipantContext {
    *
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
-  fetch(params: ConferenceParticipantContextFetchOptions, callback?: (error: Error | null, item?: ConferenceParticipantInstance) => any): Promise<ConferenceParticipantInstance>;
-  fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance>
-
+  fetch(
+    params: ConferenceParticipantContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance>;
+  fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -143,22 +170,27 @@ export interface ConferenceParticipantContext {
 }
 
 export interface ConferenceParticipantContextSolution {
-  "conferenceSid"?: string;
-  "participantSid"?: string;
+  conferenceSid?: string;
+  participantSid?: string;
 }
 
-export class ConferenceParticipantContextImpl implements ConferenceParticipantContext {
+export class ConferenceParticipantContextImpl
+  implements ConferenceParticipantContext
+{
   protected _solution: ConferenceParticipantContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, conferenceSid: string, participantSid: string) {
+  constructor(
+    protected _version: V1,
+    conferenceSid: string,
+    participantSid: string
+  ) {
     this._solution = { conferenceSid, participantSid };
     this._uri = `/Conferences/${conferenceSid}/Participants/${participantSid}`;
   }
 
   fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -167,25 +199,34 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
 
     let data: any = {};
 
-        if (params["events"] !== undefined)
-    data["Events"] = params["events"];
-    if (params["metrics"] !== undefined)
-    data["Metrics"] = params["metrics"];
-
-    
+    if (params["events"] !== undefined) data["Events"] = params["events"];
+    if (params["metrics"] !== undefined) data["Metrics"] = params["metrics"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferenceParticipantInstance(operationVersion, payload, this._solution.conferenceSid, this._solution.participantSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.conferenceSid,
+          this._solution.participantSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -202,8 +243,9 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
   }
 }
 
-interface ConferenceParticipantPayload extends ConferenceParticipantResource, Page.TwilioResponsePayload {
-}
+interface ConferenceParticipantPayload
+  extends ConferenceParticipantResource,
+    Page.TwilioResponsePayload {}
 
 interface ConferenceParticipantResource {
   participant_sid?: string | null;
@@ -239,7 +281,12 @@ export class ConferenceParticipantInstance {
   protected _solution: ConferenceParticipantContextSolution;
   protected _context?: ConferenceParticipantContext;
 
-  constructor(protected _version: V1, payload: ConferenceParticipantPayload, conferenceSid: string, participantSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ConferenceParticipantPayload,
+    conferenceSid: string,
+    participantSid?: string
+  ) {
     this.participantSid = payload.participant_sid;
     this.label = payload.label;
     this.conferenceSid = payload.conference_sid;
@@ -254,8 +301,12 @@ export class ConferenceParticipantInstance {
     this.joinTime = deserialize.iso8601DateTime(payload.join_time);
     this.leaveTime = deserialize.iso8601DateTime(payload.leave_time);
     this.durationSeconds = deserialize.integer(payload.duration_seconds);
-    this.outboundQueueLength = deserialize.integer(payload.outbound_queue_length);
-    this.outboundTimeInQueue = deserialize.integer(payload.outbound_time_in_queue);
+    this.outboundQueueLength = deserialize.integer(
+      payload.outbound_queue_length
+    );
+    this.outboundTimeInQueue = deserialize.integer(
+      payload.outbound_time_in_queue
+    );
     this.jitterBufferSize = payload.jitter_buffer_size;
     this.isCoach = payload.is_coach;
     this.coachedParticipants = payload.coached_participants;
@@ -268,7 +319,10 @@ export class ConferenceParticipantInstance {
     this.metrics = payload.metrics;
     this.url = payload.url;
 
-    this._solution = { conferenceSid, participantSid: participantSid || this.participantSid };
+    this._solution = {
+      conferenceSid,
+      participantSid: participantSid || this.participantSid,
+    };
   }
 
   /**
@@ -360,7 +414,13 @@ export class ConferenceParticipantInstance {
   url?: string | null;
 
   private get _proxy(): ConferenceParticipantContext {
-    this._context = this._context || new ConferenceParticipantContextImpl(this._version, this._solution.conferenceSid, this._solution.participantSid);
+    this._context =
+      this._context ||
+      new ConferenceParticipantContextImpl(
+        this._version,
+        this._solution.conferenceSid,
+        this._solution.participantSid
+      );
     return this._context;
   }
 
@@ -371,7 +431,12 @@ export class ConferenceParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceParticipantInstance) => any): Promise<ConferenceParticipantInstance>;
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance>;
   /**
    * Fetch a ConferenceParticipantInstance
    *
@@ -380,9 +445,14 @@ export class ConferenceParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
-  fetch(params: ConferenceParticipantContextFetchOptions, callback?: (error: Error | null, item?: ConferenceParticipantInstance) => any): Promise<ConferenceParticipantInstance>;
-  fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance>
-     {
+  fetch(
+    params: ConferenceParticipantContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance>;
+  fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -393,34 +463,34 @@ export class ConferenceParticipantInstance {
    */
   toJSON() {
     return {
-      participantSid: this.participantSid, 
-      label: this.label, 
-      conferenceSid: this.conferenceSid, 
-      callSid: this.callSid, 
-      accountSid: this.accountSid, 
-      callDirection: this.callDirection, 
-      from: this.from, 
-      to: this.to, 
-      callStatus: this.callStatus, 
-      countryCode: this.countryCode, 
-      isModerator: this.isModerator, 
-      joinTime: this.joinTime, 
-      leaveTime: this.leaveTime, 
-      durationSeconds: this.durationSeconds, 
-      outboundQueueLength: this.outboundQueueLength, 
-      outboundTimeInQueue: this.outboundTimeInQueue, 
-      jitterBufferSize: this.jitterBufferSize, 
-      isCoach: this.isCoach, 
-      coachedParticipants: this.coachedParticipants, 
-      participantRegion: this.participantRegion, 
-      conferenceRegion: this.conferenceRegion, 
-      callType: this.callType, 
-      processingState: this.processingState, 
-      properties: this.properties, 
-      events: this.events, 
-      metrics: this.metrics, 
-      url: this.url
-    }
+      participantSid: this.participantSid,
+      label: this.label,
+      conferenceSid: this.conferenceSid,
+      callSid: this.callSid,
+      accountSid: this.accountSid,
+      callDirection: this.callDirection,
+      from: this.from,
+      to: this.to,
+      callStatus: this.callStatus,
+      countryCode: this.countryCode,
+      isModerator: this.isModerator,
+      joinTime: this.joinTime,
+      leaveTime: this.leaveTime,
+      durationSeconds: this.durationSeconds,
+      outboundQueueLength: this.outboundQueueLength,
+      outboundTimeInQueue: this.outboundTimeInQueue,
+      jitterBufferSize: this.jitterBufferSize,
+      isCoach: this.isCoach,
+      coachedParticipants: this.coachedParticipants,
+      participantRegion: this.participantRegion,
+      conferenceRegion: this.conferenceRegion,
+      callType: this.callType,
+      processingState: this.processingState,
+      properties: this.properties,
+      events: this.events,
+      metrics: this.metrics,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -428,12 +498,9 @@ export class ConferenceParticipantInstance {
   }
 }
 
-
 export interface ConferenceParticipantListInstance {
   (participantSid: string): ConferenceParticipantContext;
   get(participantSid: string): ConferenceParticipantContext;
-
-
 
   /**
    * Streams ConferenceParticipantInstance records from the API.
@@ -449,7 +516,12 @@ export interface ConferenceParticipantListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConferenceParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: ConferenceParticipantInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams ConferenceParticipantInstance records from the API.
    *
@@ -465,7 +537,13 @@ export interface ConferenceParticipantListInstance {
    * @param { ConferenceParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ConferenceParticipantListInstanceEachOptions, callback?: (item: ConferenceParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ConferenceParticipantListInstanceEachOptions,
+    callback?: (
+      item: ConferenceParticipantInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConferenceParticipantInstance records from the API.
@@ -477,7 +555,9 @@ export interface ConferenceParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ConferenceParticipantPage) => any): Promise<ConferenceParticipantPage>;
+  getPage(
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
+  ): Promise<ConferenceParticipantPage>;
   /**
    * Retrieve a single target page of ConferenceParticipantInstance records from the API.
    *
@@ -489,7 +569,10 @@ export interface ConferenceParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferenceParticipantPage) => any): Promise<ConferenceParticipantPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
+  ): Promise<ConferenceParticipantPage>;
   getPage(params?: any, callback?: any): Promise<ConferenceParticipantPage>;
   /**
    * Lists ConferenceParticipantInstance records from the API as a list.
@@ -499,7 +582,12 @@ export interface ConferenceParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConferenceParticipantInstance[]) => any): Promise<ConferenceParticipantInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: ConferenceParticipantInstance[]
+    ) => any
+  ): Promise<ConferenceParticipantInstance[]>;
   /**
    * Lists ConferenceParticipantInstance records from the API as a list.
    *
@@ -509,7 +597,13 @@ export interface ConferenceParticipantListInstance {
    * @param { ConferenceParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ConferenceParticipantListInstanceOptions, callback?: (error: Error | null, items: ConferenceParticipantInstance[]) => any): Promise<ConferenceParticipantInstance[]>;
+  list(
+    params?: ConferenceParticipantListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ConferenceParticipantInstance[]
+    ) => any
+  ): Promise<ConferenceParticipantInstance[]>;
   list(params?: any, callback?: any): Promise<ConferenceParticipantInstance[]>;
   /**
    * Retrieve a single page of ConferenceParticipantInstance records from the API.
@@ -521,7 +615,9 @@ export interface ConferenceParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConferenceParticipantPage) => any): Promise<ConferenceParticipantPage>;
+  page(
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
+  ): Promise<ConferenceParticipantPage>;
   /**
    * Retrieve a single page of ConferenceParticipantInstance records from the API.
    *
@@ -533,7 +629,10 @@ export interface ConferenceParticipantListInstance {
    * @param { ConferenceParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ConferenceParticipantListInstancePageOptions, callback?: (error: Error | null, items: ConferenceParticipantPage) => any): Promise<ConferenceParticipantPage>;
+  page(
+    params: ConferenceParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
+  ): Promise<ConferenceParticipantPage>;
   page(params?: any, callback?: any): Promise<ConferenceParticipantPage>;
 
   /**
@@ -547,26 +646,39 @@ export interface ConferenceParticipantSolution {
   conferenceSid?: string;
 }
 
-interface ConferenceParticipantListInstanceImpl extends ConferenceParticipantListInstance {}
-class ConferenceParticipantListInstanceImpl implements ConferenceParticipantListInstance {
+interface ConferenceParticipantListInstanceImpl
+  extends ConferenceParticipantListInstance {}
+class ConferenceParticipantListInstanceImpl
+  implements ConferenceParticipantListInstance
+{
   _version?: V1;
   _solution?: ConferenceParticipantSolution;
   _uri?: string;
-
 }
 
-export function ConferenceParticipantListInstance(version: V1, conferenceSid: string): ConferenceParticipantListInstance {
-  const instance = ((participantSid) => instance.get(participantSid)) as ConferenceParticipantListInstanceImpl;
+export function ConferenceParticipantListInstance(
+  version: V1,
+  conferenceSid: string
+): ConferenceParticipantListInstance {
+  const instance = ((participantSid) =>
+    instance.get(participantSid)) as ConferenceParticipantListInstanceImpl;
 
   instance.get = function get(participantSid): ConferenceParticipantContext {
-    return new ConferenceParticipantContextImpl(version, conferenceSid, participantSid);
-  }
+    return new ConferenceParticipantContextImpl(
+      version,
+      conferenceSid,
+      participantSid
+    );
+  };
 
   instance._version = version;
   instance._solution = { conferenceSid };
   instance._uri = `/Conferences/${conferenceSid}/Participants`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ConferenceParticipantPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ConferenceParticipantPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -576,81 +688,110 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
 
     let data: any = {};
 
-        if (params["participantSid"] !== undefined)
-    data["ParticipantSid"] = params["participantSid"];
-    if (params["label"] !== undefined)
-    data["Label"] = params["label"];
-    if (params["events"] !== undefined)
-    data["Events"] = params["events"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["participantSid"] !== undefined)
+      data["ParticipantSid"] = params["participantSid"];
+    if (params["label"] !== undefined) data["Label"] = params["label"];
+    if (params["events"] !== undefined) data["Events"] = params["events"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferenceParticipantPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceParticipantPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferenceParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ConferenceParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ConferenceParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceParticipantPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ConferenceParticipantPage extends Page<V1, ConferenceParticipantPayload, ConferenceParticipantResource, ConferenceParticipantInstance> {
-/**
-* Initialize the ConferenceParticipantPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ConferenceParticipantSolution) {
+export class ConferenceParticipantPage extends Page<
+  V1,
+  ConferenceParticipantPayload,
+  ConferenceParticipantResource,
+  ConferenceParticipantInstance
+> {
+  /**
+   * Initialize the ConferenceParticipantPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ConferenceParticipantSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConferenceParticipantInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConferenceParticipantPayload): ConferenceParticipantInstance {
+  /**
+   * Build an instance of ConferenceParticipantInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: ConferenceParticipantPayload
+  ): ConferenceParticipantInstance {
     return new ConferenceParticipantInstance(
-    this._version,
-    payload,
-        this._solution.conferenceSid,
+      this._version,
+      payload,
+      this._solution.conferenceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

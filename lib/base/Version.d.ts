@@ -1,4 +1,4 @@
-import Domain = require('./Domain');
+import Domain = require("./Domain");
 import { RequestOpts } from "./BaseTwilio";
 
 declare class Version {
@@ -74,8 +74,14 @@ declare class Version {
   readLimits(opts: Version.PageLimitOptions): Version.PageLimit;
 
   setPromiseCallback(operationPromise: any, callback: any): Promise<any>;
-  each<T>(params?: any, callback?: (item: T, done: (err?: Error) => void) => void) : void;
-  list<T>(params?: any, callback?: (error: Error | null, items: T) => any): Promise<T>;
+  each<T>(
+    params?: any,
+    callback?: (item: T, done: (err?: Error) => void) => void
+  ): void;
+  list<T>(
+    params?: any,
+    callback?: (error: Error | null, items: T) => any
+  ): Promise<T>;
 }
 
 declare namespace Version {

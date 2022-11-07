@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -21,10 +20,7 @@ import { BulkCountryUpdateListInstance } from "./dialingPermissions/bulkCountryU
 import { CountryListInstance } from "./dialingPermissions/country";
 import { SettingsListInstance } from "./dialingPermissions/settings";
 
-
-
 export interface DialingPermissionsListInstance {
-
   bulkCountryUpdates: BulkCountryUpdateListInstance;
   countries: CountryListInstance;
   settings: SettingsListInstance;
@@ -36,11 +32,13 @@ export interface DialingPermissionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DialingPermissionsSolution {
-}
+export interface DialingPermissionsSolution {}
 
-interface DialingPermissionsListInstanceImpl extends DialingPermissionsListInstance {}
-class DialingPermissionsListInstanceImpl implements DialingPermissionsListInstance {
+interface DialingPermissionsListInstanceImpl
+  extends DialingPermissionsListInstance {}
+class DialingPermissionsListInstanceImpl
+  implements DialingPermissionsListInstance
+{
   _version?: V1;
   _solution?: DialingPermissionsSolution;
   _uri?: string;
@@ -50,11 +48,13 @@ class DialingPermissionsListInstanceImpl implements DialingPermissionsListInstan
   _settings?: SettingsListInstance;
 }
 
-export function DialingPermissionsListInstance(version: V1): DialingPermissionsListInstance {
+export function DialingPermissionsListInstance(
+  version: V1
+): DialingPermissionsListInstance {
   const instance = {} as DialingPermissionsListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/DialingPermissions`;
 
   Object.defineProperty(instance, "bulkCountryUpdates", {
@@ -63,7 +63,7 @@ export function DialingPermissionsListInstance(version: V1): DialingPermissionsL
         this._bulkCountryUpdates = BulkCountryUpdateListInstance(this._version);
       }
       return this._bulkCountryUpdates;
-    }
+    },
   });
 
   Object.defineProperty(instance, "countries", {
@@ -72,7 +72,7 @@ export function DialingPermissionsListInstance(version: V1): DialingPermissionsL
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
-    }
+    },
   });
 
   Object.defineProperty(instance, "settings", {
@@ -81,18 +81,19 @@ export function DialingPermissionsListInstance(version: V1): DialingPermissionsL
         this._settings = SettingsListInstance(this._version);
       }
       return this._settings;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

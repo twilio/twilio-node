@@ -49,7 +49,8 @@ export default class V1 extends Version {
   protected _trustProducts?: TrustProductsListInstance;
 
   get customerProfiles(): CustomerProfilesListInstance {
-    this._customerProfiles = this._customerProfiles || CustomerProfilesListInstance(this);
+    this._customerProfiles =
+      this._customerProfiles || CustomerProfilesListInstance(this);
     return this._customerProfiles;
   }
 
@@ -69,18 +70,20 @@ export default class V1 extends Version {
   }
 
   get supportingDocuments(): SupportingDocumentListInstance {
-    this._supportingDocuments = this._supportingDocuments || SupportingDocumentListInstance(this);
+    this._supportingDocuments =
+      this._supportingDocuments || SupportingDocumentListInstance(this);
     return this._supportingDocuments;
   }
 
   get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
-    this._supportingDocumentTypes = this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
+    this._supportingDocumentTypes =
+      this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
     return this._supportingDocumentTypes;
   }
 
   get trustProducts(): TrustProductsListInstance {
-    this._trustProducts = this._trustProducts || TrustProductsListInstance(this);
+    this._trustProducts =
+      this._trustProducts || TrustProductsListInstance(this);
     return this._trustProducts;
   }
-
 }

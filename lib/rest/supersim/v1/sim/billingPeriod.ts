@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 
 export class ListBillingPeriodResponseMeta {
   "firstPageUrl"?: string;
@@ -30,7 +28,6 @@ export class ListBillingPeriodResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 export class SupersimV1SimBillingPeriod {
   /**
@@ -64,7 +61,6 @@ export class SupersimV1SimBillingPeriod {
   "dateUpdated"?: Date | null;
 }
 
-
 /**
  * Options to pass to each
  *
@@ -79,7 +75,7 @@ export class SupersimV1SimBillingPeriod {
  *                         Default is no limit
  */
 export interface BillingPeriodListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -95,7 +91,7 @@ export interface BillingPeriodListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BillingPeriodListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -107,17 +103,12 @@ export interface BillingPeriodListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BillingPeriodListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface BillingPeriodListInstance {
-
-
-
   /**
    * Streams BillingPeriodInstance records from the API.
    *
@@ -132,7 +123,12 @@ export interface BillingPeriodListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: BillingPeriodInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams BillingPeriodInstance records from the API.
    *
@@ -148,7 +144,13 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: BillingPeriodListInstanceEachOptions, callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: BillingPeriodListInstanceEachOptions,
+    callback?: (
+      item: BillingPeriodInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API.
@@ -160,7 +162,9 @@ export interface BillingPeriodListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
+  getPage(
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API.
    *
@@ -172,7 +176,10 @@ export interface BillingPeriodListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
   getPage(params?: any, callback?: any): Promise<BillingPeriodPage>;
   /**
    * Lists BillingPeriodInstance records from the API as a list.
@@ -182,7 +189,9 @@ export interface BillingPeriodListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: BillingPeriodInstance[]) => any): Promise<BillingPeriodInstance[]>;
+  list(
+    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
+  ): Promise<BillingPeriodInstance[]>;
   /**
    * Lists BillingPeriodInstance records from the API as a list.
    *
@@ -192,7 +201,10 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: BillingPeriodListInstanceOptions, callback?: (error: Error | null, items: BillingPeriodInstance[]) => any): Promise<BillingPeriodInstance[]>;
+  list(
+    params?: BillingPeriodListInstanceOptions,
+    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
+  ): Promise<BillingPeriodInstance[]>;
   list(params?: any, callback?: any): Promise<BillingPeriodInstance[]>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API.
@@ -204,7 +216,9 @@ export interface BillingPeriodListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
+  page(
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API.
    *
@@ -216,7 +230,10 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: BillingPeriodListInstancePageOptions, callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
+  page(
+    params: BillingPeriodListInstancePageOptions,
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
   page(params?: any, callback?: any): Promise<BillingPeriodPage>;
 
   /**
@@ -235,17 +252,22 @@ class BillingPeriodListInstanceImpl implements BillingPeriodListInstance {
   _version?: V1;
   _solution?: BillingPeriodSolution;
   _uri?: string;
-
 }
 
-export function BillingPeriodListInstance(version: V1, simSid: string): BillingPeriodListInstance {
+export function BillingPeriodListInstance(
+  version: V1,
+  simSid: string
+): BillingPeriodListInstance {
   const instance = {} as BillingPeriodListInstanceImpl;
 
   instance._version = version;
   instance._solution = { simSid };
   instance._uri = `/Sims/${simSid}/BillingPeriods`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<BillingPeriodPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<BillingPeriodPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -255,49 +277,71 @@ export function BillingPeriodListInstance(version: V1, simSid: string): BillingP
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BillingPeriodPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BillingPeriodPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BillingPeriodPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<BillingPeriodPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new BillingPeriodPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BillingPeriodPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface BillingPeriodPayload extends BillingPeriodResource, Page.TwilioResponsePayload {
-}
+interface BillingPeriodPayload
+  extends BillingPeriodResource,
+    Page.TwilioResponsePayload {}
 
 interface BillingPeriodResource {
   billing_periods?: Array<SupersimV1SimBillingPeriod>;
@@ -305,11 +349,13 @@ interface BillingPeriodResource {
 }
 
 export class BillingPeriodInstance {
-
-  constructor(protected _version: V1, payload: BillingPeriodPayload, simSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: BillingPeriodPayload,
+    simSid?: string
+  ) {
     this.billingPeriods = payload.billing_periods;
     this.meta = payload.meta;
-
   }
 
   billingPeriods?: Array<SupersimV1SimBillingPeriod>;
@@ -322,9 +368,9 @@ export class BillingPeriodInstance {
    */
   toJSON() {
     return {
-      billingPeriods: this.billingPeriods, 
-      meta: this.meta
-    }
+      billingPeriods: this.billingPeriods,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -332,33 +378,41 @@ export class BillingPeriodInstance {
   }
 }
 
-export class BillingPeriodPage extends Page<V1, BillingPeriodPayload, BillingPeriodResource, BillingPeriodInstance> {
-/**
-* Initialize the BillingPeriodPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: BillingPeriodSolution) {
+export class BillingPeriodPage extends Page<
+  V1,
+  BillingPeriodPayload,
+  BillingPeriodResource,
+  BillingPeriodInstance
+> {
+  /**
+   * Initialize the BillingPeriodPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: BillingPeriodSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of BillingPeriodInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: BillingPeriodPayload): BillingPeriodInstance {
+  /**
+   * Build an instance of BillingPeriodInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: BillingPeriodPayload): BillingPeriodInstance {
     return new BillingPeriodInstance(
-    this._version,
-    payload,
-        this._solution.simSid,
+      this._version,
+      payload,
+      this._solution.simSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

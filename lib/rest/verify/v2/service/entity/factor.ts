@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,14 +19,11 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type FactorFactorStatuses = "unverified" | "verified";
 
+type FactorFactorTypes = "push" | "totp";
 
-type FactorFactorStatuses = 'unverified'|'verified';
-
-type FactorFactorTypes = 'push'|'totp';
-
-type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
-
+type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 
 /**
  * Options to pass to update a FactorInstance
@@ -39,12 +35,12 @@ type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
  * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
  * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
  * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorTotpAlgorithms } [config.alg] 
+ * @property { FactorTotpAlgorithms } [config.alg]
  * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
  */
 export interface FactorContextUpdateOptions {
-  "authPayload"?: string;
-  "friendlyName"?: string;
+  authPayload?: string;
+  friendlyName?: string;
   "config.notificationToken"?: string;
   "config.sdkVersion"?: string;
   "config.timeStep"?: number;
@@ -67,7 +63,7 @@ export interface FactorContextUpdateOptions {
  *                         Default is no limit
  */
 export interface FactorListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -83,7 +79,7 @@ export interface FactorListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FactorListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -95,16 +91,12 @@ export interface FactorListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FactorListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FactorContext {
-
-
   /**
    * Remove a FactorInstance
    *
@@ -112,8 +104,9 @@ export interface FactorContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FactorInstance
@@ -122,8 +115,9 @@ export interface FactorContext {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  fetch(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
 
   /**
    * Update a FactorInstance
@@ -132,7 +126,9 @@ export interface FactorContext {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  update(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
+  update(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
   /**
    * Update a FactorInstance
    *
@@ -141,9 +137,11 @@ export interface FactorContext {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  update(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance>
-
+  update(
+    params: FactorContextUpdateOptions,
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
+  update(params?: any, callback?: any): Promise<FactorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -153,49 +151,66 @@ export interface FactorContext {
 }
 
 export interface FactorContextSolution {
-  "serviceSid"?: string;
-  "identity"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  identity?: string;
+  sid?: string;
 }
 
 export class FactorContextImpl implements FactorContext {
   protected _solution: FactorContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2, serviceSid: string, identity: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    identity: string,
+    sid: string
+  ) {
     this._solution = { serviceSid, identity, sid };
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FactorInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FactorInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<FactorInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -204,40 +219,53 @@ export class FactorContextImpl implements FactorContext {
 
     let data: any = {};
 
-    
-        if (params["authPayload"] !== undefined)
-    data["AuthPayload"] = params["authPayload"];
+    if (params["authPayload"] !== undefined)
+      data["AuthPayload"] = params["authPayload"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["config.notificationToken"] !== undefined)
-    data["Config.NotificationToken"] = params["config.notificationToken"];
+      data["Config.NotificationToken"] = params["config.notificationToken"];
     if (params["config.sdkVersion"] !== undefined)
-    data["Config.SdkVersion"] = params["config.sdkVersion"];
+      data["Config.SdkVersion"] = params["config.sdkVersion"];
     if (params["config.timeStep"] !== undefined)
-    data["Config.TimeStep"] = params["config.timeStep"];
+      data["Config.TimeStep"] = params["config.timeStep"];
     if (params["config.skew"] !== undefined)
-    data["Config.Skew"] = params["config.skew"];
+      data["Config.Skew"] = params["config.skew"];
     if (params["config.codeLength"] !== undefined)
-    data["Config.CodeLength"] = params["config.codeLength"];
+      data["Config.CodeLength"] = params["config.codeLength"];
     if (params["config.alg"] !== undefined)
-    data["Config.Alg"] = params["config.alg"];
+      data["Config.Alg"] = params["config.alg"];
     if (params["config.notificationPlatform"] !== undefined)
-    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
-
+      data["Config.NotificationPlatform"] =
+        params["config.notificationPlatform"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FactorInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FactorInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -254,8 +282,7 @@ export class FactorContextImpl implements FactorContext {
   }
 }
 
-interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {
-}
+interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {}
 
 interface FactorResource {
   sid?: string | null;
@@ -277,7 +304,13 @@ export class FactorInstance {
   protected _solution: FactorContextSolution;
   protected _context?: FactorContext;
 
-  constructor(protected _version: V2, payload: FactorPayload, serviceSid: string, identity: string, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: FactorPayload,
+    serviceSid: string,
+    identity: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -343,7 +376,14 @@ export class FactorInstance {
   url?: string | null;
 
   private get _proxy(): FactorContext {
-    this._context = this._context || new FactorContextImpl(this._version, this._solution.serviceSid, this._solution.identity, this._solution.sid);
+    this._context =
+      this._context ||
+      new FactorContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.identity,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -354,8 +394,9 @@ export class FactorInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -366,8 +407,9 @@ export class FactorInstance {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  fetch(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -378,7 +420,9 @@ export class FactorInstance {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  update(callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
+  update(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
   /**
    * Update a FactorInstance
    *
@@ -387,9 +431,11 @@ export class FactorInstance {
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
-  update(params: FactorContextUpdateOptions, callback?: (error: Error | null, item?: FactorInstance) => any): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance>
-     {
+  update(
+    params: FactorContextUpdateOptions,
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
+  update(params?: any, callback?: any): Promise<FactorInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -400,20 +446,20 @@ export class FactorInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      entitySid: this.entitySid, 
-      identity: this.identity, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      status: this.status, 
-      factorType: this.factorType, 
-      config: this.config, 
-      metadata: this.metadata, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      entitySid: this.entitySid,
+      identity: this.identity,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      status: this.status,
+      factorType: this.factorType,
+      config: this.config,
+      metadata: this.metadata,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -421,12 +467,9 @@ export class FactorInstance {
   }
 }
 
-
 export interface FactorListInstance {
   (sid: string): FactorContext;
   get(sid: string): FactorContext;
-
-
 
   /**
    * Streams FactorInstance records from the API.
@@ -442,7 +485,9 @@ export interface FactorListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FactorInstance records from the API.
    *
@@ -458,7 +503,10 @@ export interface FactorListInstance {
    * @param { FactorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FactorListInstanceEachOptions, callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FactorListInstanceEachOptions,
+    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
@@ -470,7 +518,9 @@ export interface FactorListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  getPage(
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
    *
@@ -482,7 +532,10 @@ export interface FactorListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
   getPage(params?: any, callback?: any): Promise<FactorPage>;
   /**
    * Lists FactorInstance records from the API as a list.
@@ -492,7 +545,9 @@ export interface FactorListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FactorInstance[]) => any
+  ): Promise<FactorInstance[]>;
   /**
    * Lists FactorInstance records from the API as a list.
    *
@@ -502,7 +557,10 @@ export interface FactorListInstance {
    * @param { FactorListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FactorListInstanceOptions, callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
+  list(
+    params?: FactorListInstanceOptions,
+    callback?: (error: Error | null, items: FactorInstance[]) => any
+  ): Promise<FactorInstance[]>;
   list(params?: any, callback?: any): Promise<FactorInstance[]>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
@@ -514,7 +572,9 @@ export interface FactorListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  page(
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
    *
@@ -526,7 +586,10 @@ export interface FactorListInstance {
    * @param { FactorListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FactorListInstancePageOptions, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  page(
+    params: FactorListInstancePageOptions,
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
   page(params?: any, callback?: any): Promise<FactorPage>;
 
   /**
@@ -546,21 +609,27 @@ class FactorListInstanceImpl implements FactorListInstance {
   _version?: V2;
   _solution?: FactorSolution;
   _uri?: string;
-
 }
 
-export function FactorListInstance(version: V2, serviceSid: string, identity: string): FactorListInstance {
+export function FactorListInstance(
+  version: V2,
+  serviceSid: string,
+  identity: string
+): FactorListInstance {
   const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
 
   instance.get = function get(sid): FactorContext {
     return new FactorContextImpl(version, serviceSid, identity, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, identity };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<FactorPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FactorPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -570,76 +639,103 @@ export function FactorListInstance(version: V2, serviceSid: string, identity: st
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FactorPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FactorPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FactorPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FactorPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FactorPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FactorPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {
-/**
-* Initialize the FactorPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: FactorSolution) {
+export class FactorPage extends Page<
+  V2,
+  FactorPayload,
+  FactorResource,
+  FactorInstance
+> {
+  /**
+   * Initialize the FactorPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: FactorSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FactorInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FactorPayload): FactorInstance {
+  /**
+   * Build an instance of FactorInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FactorPayload): FactorInstance {
     return new FactorInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.identity,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.identity
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

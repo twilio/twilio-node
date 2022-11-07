@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a ShortCodeInstance
@@ -34,12 +30,12 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [smsFallbackMethod] The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
  */
 export interface ShortCodeContextUpdateOptions {
-  "friendlyName"?: string;
-  "apiVersion"?: string;
-  "smsUrl"?: string;
-  "smsMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsFallbackMethod"?: string;
+  friendlyName?: string;
+  apiVersion?: string;
+  smsUrl?: string;
+  smsMethod?: string;
+  smsFallbackUrl?: string;
+  smsFallbackMethod?: string;
 }
 /**
  * Options to pass to each
@@ -57,9 +53,9 @@ export interface ShortCodeContextUpdateOptions {
  *                         Default is no limit
  */
 export interface ShortCodeListInstanceEachOptions {
-  "friendlyName"?: string;
-  "shortCode"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  shortCode?: string;
+  pageSize?: number;
   callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,9 +73,9 @@ export interface ShortCodeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ShortCodeListInstanceOptions {
-  "friendlyName"?: string;
-  "shortCode"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  shortCode?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -93,18 +89,14 @@ export interface ShortCodeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ShortCodeListInstancePageOptions {
-  "friendlyName"?: string;
-  "shortCode"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  shortCode?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ShortCodeContext {
-
-
   /**
    * Fetch a ShortCodeInstance
    *
@@ -112,8 +104,9 @@ export interface ShortCodeContext {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  fetch(callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
 
   /**
    * Update a ShortCodeInstance
@@ -122,7 +115,9 @@ export interface ShortCodeContext {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  update(callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
+  update(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
   /**
    * Update a ShortCodeInstance
    *
@@ -131,9 +126,11 @@ export interface ShortCodeContext {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  update(params: ShortCodeContextUpdateOptions, callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
-  update(params?: any, callback?: any): Promise<ShortCodeInstance>
-
+  update(
+    params: ShortCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
+  update(params?: any, callback?: any): Promise<ShortCodeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -143,14 +140,13 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
   protected _solution: ShortCodeContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -158,21 +154,31 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 
   fetch(callback?: any): Promise<ShortCodeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ShortCodeInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ShortCodeInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ShortCodeInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -181,34 +187,44 @@ export class ShortCodeContextImpl implements ShortCodeContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["ApiVersion"] = params["apiVersion"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
+      data["SmsMethod"] = params["smsMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
-
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ShortCodeInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ShortCodeInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -224,11 +240,24 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type ShortCodeSmsFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type ShortCodeSmsMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type ShortCodeSmsFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type ShortCodeSmsMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
-}
+interface ShortCodePayload
+  extends ShortCodeResource,
+    Page.TwilioResponsePayload {}
 
 interface ShortCodeResource {
   account_sid?: string | null;
@@ -249,7 +278,12 @@ export class ShortCodeInstance {
   protected _solution: ShortCodeContextSolution;
   protected _context?: ShortCodeContext;
 
-  constructor(protected _version: V2010, payload: ShortCodePayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: ShortCodePayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -316,7 +350,13 @@ export class ShortCodeInstance {
   uri?: string | null;
 
   private get _proxy(): ShortCodeContext {
-    this._context = this._context || new ShortCodeContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ShortCodeContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -327,8 +367,9 @@ export class ShortCodeInstance {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  fetch(callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -339,7 +380,9 @@ export class ShortCodeInstance {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  update(callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
+  update(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
   /**
    * Update a ShortCodeInstance
    *
@@ -348,9 +391,11 @@ export class ShortCodeInstance {
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
-  update(params: ShortCodeContextUpdateOptions, callback?: (error: Error | null, item?: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
-  update(params?: any, callback?: any): Promise<ShortCodeInstance>
-     {
+  update(
+    params: ShortCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
+  update(params?: any, callback?: any): Promise<ShortCodeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -361,19 +406,19 @@ export class ShortCodeInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      apiVersion: this.apiVersion, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      shortCode: this.shortCode, 
-      sid: this.sid, 
-      smsFallbackMethod: this.smsFallbackMethod, 
-      smsFallbackUrl: this.smsFallbackUrl, 
-      smsMethod: this.smsMethod, 
-      smsUrl: this.smsUrl, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      apiVersion: this.apiVersion,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      shortCode: this.shortCode,
+      sid: this.sid,
+      smsFallbackMethod: this.smsFallbackMethod,
+      smsFallbackUrl: this.smsFallbackUrl,
+      smsMethod: this.smsMethod,
+      smsUrl: this.smsUrl,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -381,12 +426,9 @@ export class ShortCodeInstance {
   }
 }
 
-
 export interface ShortCodeListInstance {
   (sid: string): ShortCodeContext;
   get(sid: string): ShortCodeContext;
-
-
 
   /**
    * Streams ShortCodeInstance records from the API.
@@ -402,7 +444,9 @@ export interface ShortCodeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ShortCodeInstance records from the API.
    *
@@ -418,7 +462,10 @@ export interface ShortCodeListInstance {
    * @param { ShortCodeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ShortCodeListInstanceEachOptions, callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ShortCodeListInstanceEachOptions,
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
@@ -430,7 +477,9 @@ export interface ShortCodeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
+  getPage(
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
    *
@@ -442,7 +491,10 @@ export interface ShortCodeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   getPage(params?: any, callback?: any): Promise<ShortCodePage>;
   /**
    * Lists ShortCodeInstance records from the API as a list.
@@ -452,7 +504,9 @@ export interface ShortCodeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ShortCodeInstance[]) => any): Promise<ShortCodeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
   /**
    * Lists ShortCodeInstance records from the API as a list.
    *
@@ -462,7 +516,10 @@ export interface ShortCodeListInstance {
    * @param { ShortCodeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ShortCodeListInstanceOptions, callback?: (error: Error | null, items: ShortCodeInstance[]) => any): Promise<ShortCodeInstance[]>;
+  list(
+    params?: ShortCodeListInstanceOptions,
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
   list(params?: any, callback?: any): Promise<ShortCodeInstance[]>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
@@ -474,7 +531,9 @@ export interface ShortCodeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
+  page(
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
    *
@@ -486,7 +545,10 @@ export interface ShortCodeListInstance {
    * @param { ShortCodeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ShortCodeListInstancePageOptions, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
+  page(
+    params: ShortCodeListInstancePageOptions,
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   page(params?: any, callback?: any): Promise<ShortCodePage>;
 
   /**
@@ -505,21 +567,26 @@ class ShortCodeListInstanceImpl implements ShortCodeListInstance {
   _version?: V2010;
   _solution?: ShortCodeSolution;
   _uri?: string;
-
 }
 
-export function ShortCodeListInstance(version: V2010, accountSid: string): ShortCodeListInstance {
+export function ShortCodeListInstance(
+  version: V2010,
+  accountSid: string
+): ShortCodeListInstance {
   const instance = ((sid) => instance.get(sid)) as ShortCodeListInstanceImpl;
 
   instance.get = function get(sid): ShortCodeContext {
     return new ShortCodeContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/SMS/ShortCodes.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ShortCodePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ShortCodePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -529,79 +596,106 @@ export function ShortCodeListInstance(version: V2010, accountSid: string): Short
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["shortCode"] !== undefined)
-    data["ShortCode"] = params["shortCode"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["ShortCode"] = params["shortCode"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ShortCodePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ShortCodePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ShortCodePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ShortCodePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ShortCodePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ShortCodePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ShortCodePage extends Page<V2010, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
-/**
-* Initialize the ShortCodePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: ShortCodeSolution) {
+export class ShortCodePage extends Page<
+  V2010,
+  ShortCodePayload,
+  ShortCodeResource,
+  ShortCodeInstance
+> {
+  /**
+   * Initialize the ShortCodePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: ShortCodeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ShortCodeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ShortCodePayload): ShortCodeInstance {
+  /**
+   * Build an instance of ShortCodeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ShortCodePayload): ShortCodeInstance {
     return new ShortCodeInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,14 +19,11 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type IpCommandDirection = "to_sim" | "from_sim";
 
+type IpCommandPayloadType = "text" | "binary";
 
-type IpCommandDirection = 'to_sim'|'from_sim';
-
-type IpCommandPayloadType = 'text'|'binary';
-
-type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
-
+type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**
  * Options to pass to create a IpCommandInstance
@@ -35,17 +31,17 @@ type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
  * @property { string } sim The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
  * @property { string } payload The payload to be delivered to the device.
  * @property { number } devicePort The device port to which the IP Command will be sent.
- * @property { IpCommandPayloadType } [payloadType] 
+ * @property { IpCommandPayloadType } [payloadType]
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; after we have sent the IP Command.
  * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
  */
 export interface IpCommandListInstanceCreateOptions {
-  "sim": string;
-  "payload": string;
-  "devicePort": number;
-  "payloadType"?: IpCommandPayloadType;
-  "callbackUrl"?: string;
-  "callbackMethod"?: string;
+  sim: string;
+  payload: string;
+  devicePort: number;
+  payloadType?: IpCommandPayloadType;
+  callbackUrl?: string;
+  callbackMethod?: string;
 }
 /**
  * Options to pass to each
@@ -65,11 +61,11 @@ export interface IpCommandListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface IpCommandListInstanceEachOptions {
-  "sim"?: string;
-  "simIccid"?: string;
-  "status"?: IpCommandStatus;
-  "direction"?: IpCommandDirection;
-  "pageSize"?: number;
+  sim?: string;
+  simIccid?: string;
+  status?: IpCommandStatus;
+  direction?: IpCommandDirection;
+  pageSize?: number;
   callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -89,11 +85,11 @@ export interface IpCommandListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface IpCommandListInstanceOptions {
-  "sim"?: string;
-  "simIccid"?: string;
-  "status"?: IpCommandStatus;
-  "direction"?: IpCommandDirection;
-  "pageSize"?: number;
+  sim?: string;
+  simIccid?: string;
+  status?: IpCommandStatus;
+  direction?: IpCommandDirection;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -109,20 +105,16 @@ export interface IpCommandListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpCommandListInstancePageOptions {
-  "sim"?: string;
-  "simIccid"?: string;
-  "status"?: IpCommandStatus;
-  "direction"?: IpCommandDirection;
-  "pageSize"?: number;
+  sim?: string;
+  simIccid?: string;
+  status?: IpCommandStatus;
+  direction?: IpCommandDirection;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface IpCommandContext {
-
-
   /**
    * Fetch a IpCommandInstance
    *
@@ -130,8 +122,9 @@ export interface IpCommandContext {
    *
    * @returns { Promise } Resolves to processed IpCommandInstance
    */
-  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -141,13 +134,12 @@ export interface IpCommandContext {
 }
 
 export interface IpCommandContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class IpCommandContextImpl implements IpCommandContext {
   protected _solution: IpCommandContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -155,17 +147,22 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 
   fetch(callback?: any): Promise<IpCommandInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new IpCommandInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IpCommandInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -182,8 +179,9 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 }
 
-interface IpCommandPayload extends IpCommandResource, Page.TwilioResponsePayload {
-}
+interface IpCommandPayload
+  extends IpCommandResource,
+    Page.TwilioResponsePayload {}
 
 interface IpCommandResource {
   sid?: string | null;
@@ -268,7 +266,9 @@ export class IpCommandInstance {
   url?: string | null;
 
   private get _proxy(): IpCommandContext {
-    this._context = this._context || new IpCommandContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new IpCommandContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -279,8 +279,9 @@ export class IpCommandInstance {
    *
    * @returns { Promise } Resolves to processed IpCommandInstance
    */
-  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -291,20 +292,20 @@ export class IpCommandInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      simSid: this.simSid, 
-      simIccid: this.simIccid, 
-      status: this.status, 
-      direction: this.direction, 
-      deviceIp: this.deviceIp, 
-      devicePort: this.devicePort, 
-      payloadType: this.payloadType, 
-      payload: this.payload, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      simSid: this.simSid,
+      simIccid: this.simIccid,
+      status: this.status,
+      direction: this.direction,
+      deviceIp: this.deviceIp,
+      devicePort: this.devicePort,
+      payloadType: this.payloadType,
+      payload: this.payload,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -312,11 +313,9 @@ export class IpCommandInstance {
   }
 }
 
-
 export interface IpCommandListInstance {
   (sid: string): IpCommandContext;
   get(sid: string): IpCommandContext;
-
 
   /**
    * Create a IpCommandInstance
@@ -326,10 +325,11 @@ export interface IpCommandListInstance {
    *
    * @returns { Promise } Resolves to processed IpCommandInstance
    */
-  create(params: IpCommandListInstanceCreateOptions, callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>;
-  create(params: any, callback?: any): Promise<IpCommandInstance>
-
-
+  create(
+    params: IpCommandListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance>;
+  create(params: any, callback?: any): Promise<IpCommandInstance>;
 
   /**
    * Streams IpCommandInstance records from the API.
@@ -345,7 +345,9 @@ export interface IpCommandListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams IpCommandInstance records from the API.
    *
@@ -361,7 +363,10 @@ export interface IpCommandListInstance {
    * @param { IpCommandListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: IpCommandListInstanceEachOptions, callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: IpCommandListInstanceEachOptions,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API.
@@ -373,7 +378,9 @@ export interface IpCommandListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: IpCommandPage) => any): Promise<IpCommandPage>;
+  getPage(
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API.
    *
@@ -385,7 +392,10 @@ export interface IpCommandListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: IpCommandPage) => any): Promise<IpCommandPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
   getPage(params?: any, callback?: any): Promise<IpCommandPage>;
   /**
    * Lists IpCommandInstance records from the API as a list.
@@ -395,7 +405,9 @@ export interface IpCommandListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: IpCommandInstance[]) => any): Promise<IpCommandInstance[]>;
+  list(
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
+  ): Promise<IpCommandInstance[]>;
   /**
    * Lists IpCommandInstance records from the API as a list.
    *
@@ -405,7 +417,10 @@ export interface IpCommandListInstance {
    * @param { IpCommandListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: IpCommandListInstanceOptions, callback?: (error: Error | null, items: IpCommandInstance[]) => any): Promise<IpCommandInstance[]>;
+  list(
+    params?: IpCommandListInstanceOptions,
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
+  ): Promise<IpCommandInstance[]>;
   list(params?: any, callback?: any): Promise<IpCommandInstance[]>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API.
@@ -417,7 +432,9 @@ export interface IpCommandListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: IpCommandPage) => any): Promise<IpCommandPage>;
+  page(
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API.
    *
@@ -429,7 +446,10 @@ export interface IpCommandListInstance {
    * @param { IpCommandListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: IpCommandListInstancePageOptions, callback?: (error: Error | null, items: IpCommandPage) => any): Promise<IpCommandPage>;
+  page(
+    params: IpCommandListInstancePageOptions,
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
   page(params?: any, callback?: any): Promise<IpCommandPage>;
 
   /**
@@ -439,15 +459,13 @@ export interface IpCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpCommandSolution {
-}
+export interface IpCommandSolution {}
 
 interface IpCommandListInstanceImpl extends IpCommandListInstance {}
 class IpCommandListInstanceImpl implements IpCommandListInstance {
   _version?: V1;
   _solution?: IpCommandSolution;
   _uri?: string;
-
 }
 
 export function IpCommandListInstance(version: V1): IpCommandListInstance {
@@ -455,62 +473,72 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance.get = function get(sid): IpCommandContext {
     return new IpCommandContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/IpCommands`;
 
-  instance.create = function create(params: any, callback?: any): Promise<IpCommandInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<IpCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["sim"] === null || params["sim"] === undefined) {
-      throw new Error('Required parameter "params[\'sim\']" missing.');
+      throw new Error("Required parameter \"params['sim']\" missing.");
     }
 
     if (params["payload"] === null || params["payload"] === undefined) {
-      throw new Error('Required parameter "params[\'payload\']" missing.');
+      throw new Error("Required parameter \"params['payload']\" missing.");
     }
 
     if (params["devicePort"] === null || params["devicePort"] === undefined) {
-      throw new Error('Required parameter "params[\'devicePort\']" missing.');
+      throw new Error("Required parameter \"params['devicePort']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Sim"] = params["sim"];
-    
+
     data["Payload"] = params["payload"];
-    
+
     data["DevicePort"] = params["devicePort"];
     if (params["payloadType"] !== undefined)
-    data["PayloadType"] = params["payloadType"];
+      data["PayloadType"] = params["payloadType"];
     if (params["callbackUrl"] !== undefined)
-    data["CallbackUrl"] = params["callbackUrl"];
+      data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackMethod"] !== undefined)
-    data["CallbackMethod"] = params["callbackMethod"];
-
+      data["CallbackMethod"] = params["callbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IpCommandInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new IpCommandInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<IpCommandPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<IpCommandPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -520,82 +548,103 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let data: any = {};
 
-        if (params["sim"] !== undefined)
-    data["Sim"] = params["sim"];
-    if (params["simIccid"] !== undefined)
-    data["SimIccid"] = params["simIccid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["simIccid"] !== undefined) data["SimIccid"] = params["simIccid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["direction"] !== undefined)
-    data["Direction"] = params["direction"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["Direction"] = params["direction"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IpCommandPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new IpCommandPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IpCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<IpCommandPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new IpCommandPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new IpCommandPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class IpCommandPage extends Page<V1, IpCommandPayload, IpCommandResource, IpCommandInstance> {
-/**
-* Initialize the IpCommandPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: IpCommandSolution) {
+export class IpCommandPage extends Page<
+  V1,
+  IpCommandPayload,
+  IpCommandResource,
+  IpCommandInstance
+> {
+  /**
+   * Initialize the IpCommandPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: IpCommandSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of IpCommandInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: IpCommandPayload): IpCommandInstance {
-    return new IpCommandInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of IpCommandInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: IpCommandPayload): IpCommandInstance {
+    return new IpCommandInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

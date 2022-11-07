@@ -21,7 +21,7 @@ export function iso8601DateTime<T>(data: T): T;
 /**
  * Turns a map of params int oa flattened map separated by dots
  * if the parameter is an object, otherwise returns an empty map
- * 
+ *
  * @param m map to transform
  * @param prefix to append to each flattened value
  * @returns flattened map
@@ -32,7 +32,7 @@ export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {};
 /**
  * Turns an object into a JSON string if the parameter
  * is an object, otherwise returns the passed in object
- * 
+ *
  * @param o json object or array
  * @returns stringified object
  */
@@ -41,11 +41,11 @@ export function object<T>(o: T): T;
 
 /**
  * Coerces a boolean literal into a string
- * 
+ *
  * @param input boolean or string to be coerced
  * @returns a string 'true' or 'false' if passed a boolean, else the value
  */
-export function bool(input: boolean): 'true' | 'false';
+export function bool(input: boolean): "true" | "false";
 export function bool(input: string): string;
 
 /**
@@ -56,5 +56,8 @@ export function bool(input: string): string;
  * @returns new array with transform applied to each element.
  */
 type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
-export function map<TInput, TOutput>(input: Array<TInput>, transform: MapFunction<TInput, TOutput>): Array<TOutput>
+export function map<TInput, TOutput>(
+  input: Array<TInput>,
+  transform: MapFunction<TInput, TOutput>
+): Array<TOutput>;
 export function map<T>(input: T, transform?: any): T;

@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -36,7 +33,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface EndUserTypeListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +49,7 @@ export interface EndUserTypeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EndUserTypeListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -64,16 +61,12 @@ export interface EndUserTypeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EndUserTypeListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EndUserTypeContext {
-
-
   /**
    * Fetch a EndUserTypeInstance
    *
@@ -81,8 +74,9 @@ export interface EndUserTypeContext {
    *
    * @returns { Promise } Resolves to processed EndUserTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: EndUserTypeInstance) => any): Promise<EndUserTypeInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+  ): Promise<EndUserTypeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -92,13 +86,12 @@ export interface EndUserTypeContext {
 }
 
 export interface EndUserTypeContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class EndUserTypeContextImpl implements EndUserTypeContext {
   protected _solution: EndUserTypeContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -106,17 +99,22 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   }
 
   fetch(callback?: any): Promise<EndUserTypeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EndUserTypeInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EndUserTypeInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -133,8 +131,9 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   }
 }
 
-interface EndUserTypePayload extends EndUserTypeResource, Page.TwilioResponsePayload {
-}
+interface EndUserTypePayload
+  extends EndUserTypeResource,
+    Page.TwilioResponsePayload {}
 
 interface EndUserTypeResource {
   sid?: string | null;
@@ -148,7 +147,11 @@ export class EndUserTypeInstance {
   protected _solution: EndUserTypeContextSolution;
   protected _context?: EndUserTypeContext;
 
-  constructor(protected _version: V2, payload: EndUserTypePayload, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: EndUserTypePayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.machineName = payload.machine_name;
@@ -180,7 +183,9 @@ export class EndUserTypeInstance {
   url?: string | null;
 
   private get _proxy(): EndUserTypeContext {
-    this._context = this._context || new EndUserTypeContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new EndUserTypeContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -191,8 +196,9 @@ export class EndUserTypeInstance {
    *
    * @returns { Promise } Resolves to processed EndUserTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: EndUserTypeInstance) => any): Promise<EndUserTypeInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+  ): Promise<EndUserTypeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -203,12 +209,12 @@ export class EndUserTypeInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      machineName: this.machineName, 
-      fields: this.fields, 
-      url: this.url
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      machineName: this.machineName,
+      fields: this.fields,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -216,12 +222,9 @@ export class EndUserTypeInstance {
   }
 }
 
-
 export interface EndUserTypeListInstance {
   (sid: string): EndUserTypeContext;
   get(sid: string): EndUserTypeContext;
-
-
 
   /**
    * Streams EndUserTypeInstance records from the API.
@@ -237,7 +240,9 @@ export interface EndUserTypeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EndUserTypeInstance records from the API.
    *
@@ -253,7 +258,10 @@ export interface EndUserTypeListInstance {
    * @param { EndUserTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EndUserTypeListInstanceEachOptions, callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EndUserTypeListInstanceEachOptions,
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EndUserTypeInstance records from the API.
@@ -265,7 +273,9 @@ export interface EndUserTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
+  getPage(
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
   /**
    * Retrieve a single target page of EndUserTypeInstance records from the API.
    *
@@ -277,7 +287,10 @@ export interface EndUserTypeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
   getPage(params?: any, callback?: any): Promise<EndUserTypePage>;
   /**
    * Lists EndUserTypeInstance records from the API as a list.
@@ -287,7 +300,9 @@ export interface EndUserTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EndUserTypeInstance[]) => any): Promise<EndUserTypeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+  ): Promise<EndUserTypeInstance[]>;
   /**
    * Lists EndUserTypeInstance records from the API as a list.
    *
@@ -297,7 +312,10 @@ export interface EndUserTypeListInstance {
    * @param { EndUserTypeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EndUserTypeListInstanceOptions, callback?: (error: Error | null, items: EndUserTypeInstance[]) => any): Promise<EndUserTypeInstance[]>;
+  list(
+    params?: EndUserTypeListInstanceOptions,
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+  ): Promise<EndUserTypeInstance[]>;
   list(params?: any, callback?: any): Promise<EndUserTypeInstance[]>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
@@ -309,7 +327,9 @@ export interface EndUserTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
+  page(
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
    *
@@ -321,7 +341,10 @@ export interface EndUserTypeListInstance {
    * @param { EndUserTypeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EndUserTypeListInstancePageOptions, callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
+  page(
+    params: EndUserTypeListInstancePageOptions,
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
   page(params?: any, callback?: any): Promise<EndUserTypePage>;
 
   /**
@@ -331,15 +354,13 @@ export interface EndUserTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EndUserTypeSolution {
-}
+export interface EndUserTypeSolution {}
 
 interface EndUserTypeListInstanceImpl extends EndUserTypeListInstance {}
 class EndUserTypeListInstanceImpl implements EndUserTypeListInstance {
   _version?: V2;
   _solution?: EndUserTypeSolution;
   _uri?: string;
-
 }
 
 export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
@@ -347,13 +368,16 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
 
   instance.get = function get(sid): EndUserTypeContext {
     return new EndUserTypeContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RegulatoryCompliance/EndUserTypes`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<EndUserTypePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EndUserTypePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -363,74 +387,99 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EndUserTypePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EndUserTypePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EndUserTypePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EndUserTypePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EndUserTypePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EndUserTypePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class EndUserTypePage extends Page<V2, EndUserTypePayload, EndUserTypeResource, EndUserTypeInstance> {
-/**
-* Initialize the EndUserTypePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: EndUserTypeSolution) {
+export class EndUserTypePage extends Page<
+  V2,
+  EndUserTypePayload,
+  EndUserTypeResource,
+  EndUserTypeInstance
+> {
+  /**
+   * Initialize the EndUserTypePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: EndUserTypeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EndUserTypeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EndUserTypePayload): EndUserTypeInstance {
-    return new EndUserTypeInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of EndUserTypeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EndUserTypePayload): EndUserTypeInstance {
+    return new EndUserTypeInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,29 +12,23 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to update a SipDomainInstance
  *
- * @property { string } [voiceRegion] 
- * @property { string } [friendlyName] 
+ * @property { string } [voiceRegion]
+ * @property { string } [friendlyName]
  */
 export interface SipDomainContextUpdateOptions {
-  "voiceRegion"?: string;
-  "friendlyName"?: string;
+  voiceRegion?: string;
+  friendlyName?: string;
 }
 
 export interface SipDomainContext {
-
-
   /**
    * Fetch a SipDomainInstance
    *
@@ -42,8 +36,9 @@ export interface SipDomainContext {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  fetch(callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
 
   /**
    * Update a SipDomainInstance
@@ -52,7 +47,9 @@ export interface SipDomainContext {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  update(callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>;
+  update(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
   /**
    * Update a SipDomainInstance
    *
@@ -61,9 +58,11 @@ export interface SipDomainContext {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  update(params: SipDomainContextUpdateOptions, callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance>
-
+  update(
+    params: SipDomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
+  update(params?: any, callback?: any): Promise<SipDomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -73,13 +72,12 @@ export interface SipDomainContext {
 }
 
 export interface SipDomainContextSolution {
-  "sipDomain"?: string;
+  sipDomain?: string;
 }
 
 export class SipDomainContextImpl implements SipDomainContext {
   protected _solution: SipDomainContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sipDomain: string) {
     this._solution = { sipDomain };
@@ -87,21 +85,30 @@ export class SipDomainContextImpl implements SipDomainContext {
   }
 
   fetch(callback?: any): Promise<SipDomainInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SipDomainInstance(operationVersion, payload, this._solution.sipDomain));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SipDomainInstance(
+          operationVersion,
+          payload,
+          this._solution.sipDomain
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SipDomainInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -110,26 +117,36 @@ export class SipDomainContextImpl implements SipDomainContext {
 
     let data: any = {};
 
-    
-        if (params["voiceRegion"] !== undefined)
-    data["VoiceRegion"] = params["voiceRegion"];
+    if (params["voiceRegion"] !== undefined)
+      data["VoiceRegion"] = params["voiceRegion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SipDomainInstance(operationVersion, payload, this._solution.sipDomain));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SipDomainInstance(
+          operationVersion,
+          payload,
+          this._solution.sipDomain
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -146,8 +163,7 @@ export class SipDomainContextImpl implements SipDomainContext {
   }
 }
 
-interface SipDomainPayload extends SipDomainResource{
-}
+interface SipDomainPayload extends SipDomainResource {}
 
 interface SipDomainResource {
   sip_domain?: string | null;
@@ -164,7 +180,11 @@ export class SipDomainInstance {
   protected _solution: SipDomainContextSolution;
   protected _context?: SipDomainContext;
 
-  constructor(protected _version: V2, payload: SipDomainPayload, sipDomain?: string) {
+  constructor(
+    protected _version: V2,
+    payload: SipDomainPayload,
+    sipDomain?: string
+  ) {
     this.sipDomain = payload.sip_domain;
     this.url = payload.url;
     this.sid = payload.sid;
@@ -187,7 +207,9 @@ export class SipDomainInstance {
   dateUpdated?: Date | null;
 
   private get _proxy(): SipDomainContext {
-    this._context = this._context || new SipDomainContextImpl(this._version, this._solution.sipDomain);
+    this._context =
+      this._context ||
+      new SipDomainContextImpl(this._version, this._solution.sipDomain);
     return this._context;
   }
 
@@ -198,8 +220,9 @@ export class SipDomainInstance {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  fetch(callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -210,7 +233,9 @@ export class SipDomainInstance {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  update(callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>;
+  update(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
   /**
    * Update a SipDomainInstance
    *
@@ -219,9 +244,11 @@ export class SipDomainInstance {
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
-  update(params: SipDomainContextUpdateOptions, callback?: (error: Error | null, item?: SipDomainInstance) => any): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance>
-     {
+  update(
+    params: SipDomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
+  update(params?: any, callback?: any): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -232,15 +259,15 @@ export class SipDomainInstance {
    */
   toJSON() {
     return {
-      sipDomain: this.sipDomain, 
-      url: this.url, 
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      voiceRegion: this.voiceRegion, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated
-    }
+      sipDomain: this.sipDomain,
+      url: this.url,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      voiceRegion: this.voiceRegion,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -248,11 +275,9 @@ export class SipDomainInstance {
   }
 }
 
-
 export interface SipDomainListInstance {
   (sipDomain: string): SipDomainContext;
   get(sipDomain: string): SipDomainContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -261,38 +286,37 @@ export interface SipDomainListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SipDomainSolution {
-}
+export interface SipDomainSolution {}
 
 interface SipDomainListInstanceImpl extends SipDomainListInstance {}
 class SipDomainListInstanceImpl implements SipDomainListInstance {
   _version?: V2;
   _solution?: SipDomainSolution;
   _uri?: string;
-
 }
 
 export function SipDomainListInstance(version: V2): SipDomainListInstance {
-  const instance = ((sipDomain) => instance.get(sipDomain)) as SipDomainListInstanceImpl;
+  const instance = ((sipDomain) =>
+    instance.get(sipDomain)) as SipDomainListInstanceImpl;
 
   instance.get = function get(sipDomain): SipDomainContext {
     return new SipDomainContextImpl(version, sipDomain);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

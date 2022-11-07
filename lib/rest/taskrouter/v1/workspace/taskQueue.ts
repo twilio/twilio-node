@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -25,9 +24,7 @@ import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics
 
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
-
-type TaskQueueTaskOrder = 'FIFO'|'LIFO';
-
+type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a TaskQueueInstance
@@ -37,15 +34,15 @@ type TaskQueueTaskOrder = 'FIFO'|'LIFO';
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned for them.
  * @property { number } [maxReservedWorkers] The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
- * @property { TaskQueueTaskOrder } [taskOrder] 
+ * @property { TaskQueueTaskOrder } [taskOrder]
  */
 export interface TaskQueueContextUpdateOptions {
-  "friendlyName"?: string;
-  "targetWorkers"?: string;
-  "reservationActivitySid"?: string;
-  "assignmentActivitySid"?: string;
-  "maxReservedWorkers"?: number;
-  "taskOrder"?: TaskQueueTaskOrder;
+  friendlyName?: string;
+  targetWorkers?: string;
+  reservationActivitySid?: string;
+  assignmentActivitySid?: string;
+  maxReservedWorkers?: number;
+  taskOrder?: TaskQueueTaskOrder;
 }
 
 /**
@@ -54,17 +51,17 @@ export interface TaskQueueContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
  * @property { string } [targetWorkers] A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;\\\&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;\\\&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
  * @property { number } [maxReservedWorkers] The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
- * @property { TaskQueueTaskOrder } [taskOrder] 
+ * @property { TaskQueueTaskOrder } [taskOrder]
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned to them.
  */
 export interface TaskQueueListInstanceCreateOptions {
-  "friendlyName": string;
-  "targetWorkers"?: string;
-  "maxReservedWorkers"?: number;
-  "taskOrder"?: TaskQueueTaskOrder;
-  "reservationActivitySid"?: string;
-  "assignmentActivitySid"?: string;
+  friendlyName: string;
+  targetWorkers?: string;
+  maxReservedWorkers?: number;
+  taskOrder?: TaskQueueTaskOrder;
+  reservationActivitySid?: string;
+  assignmentActivitySid?: string;
 }
 /**
  * Options to pass to each
@@ -84,11 +81,11 @@ export interface TaskQueueListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TaskQueueListInstanceEachOptions {
-  "friendlyName"?: string;
-  "evaluateWorkerAttributes"?: string;
-  "workerSid"?: string;
-  "ordering"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  evaluateWorkerAttributes?: string;
+  workerSid?: string;
+  ordering?: string;
+  pageSize?: number;
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -108,11 +105,11 @@ export interface TaskQueueListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TaskQueueListInstanceOptions {
-  "friendlyName"?: string;
-  "evaluateWorkerAttributes"?: string;
-  "workerSid"?: string;
-  "ordering"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  evaluateWorkerAttributes?: string;
+  workerSid?: string;
+  ordering?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -128,19 +125,16 @@ export interface TaskQueueListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskQueueListInstancePageOptions {
-  "friendlyName"?: string;
-  "evaluateWorkerAttributes"?: string;
-  "workerSid"?: string;
-  "ordering"?: string;
-  "pageSize"?: number;
+  friendlyName?: string;
+  evaluateWorkerAttributes?: string;
+  workerSid?: string;
+  ordering?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface TaskQueueContext {
-
   cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
   realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
   statistics: TaskQueueStatisticsListInstance;
@@ -152,8 +146,9 @@ export interface TaskQueueContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a TaskQueueInstance
@@ -162,8 +157,9 @@ export interface TaskQueueContext {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
 
   /**
    * Update a TaskQueueInstance
@@ -172,7 +168,9 @@ export interface TaskQueueContext {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  update(callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
   /**
    * Update a TaskQueueInstance
    *
@@ -181,9 +179,11 @@ export interface TaskQueueContext {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  update(params: TaskQueueContextUpdateOptions, callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
-  update(params?: any, callback?: any): Promise<TaskQueueInstance>
-
+  update(
+    params: TaskQueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+  update(params?: any, callback?: any): Promise<TaskQueueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -193,8 +193,8 @@ export interface TaskQueueContext {
 }
 
 export interface TaskQueueContextSolution {
-  "workspaceSid"?: string;
-  "sid"?: string;
+  workspaceSid?: string;
+  sid?: string;
 }
 
 export class TaskQueueContextImpl implements TaskQueueContext {
@@ -211,48 +211,78 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   }
 
   get cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
-    this._cumulativeStatistics = this._cumulativeStatistics || TaskQueueCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._cumulativeStatistics =
+      this._cumulativeStatistics ||
+      TaskQueueCumulativeStatisticsListInstance(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._cumulativeStatistics;
   }
 
   get realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
-    this._realTimeStatistics = this._realTimeStatistics || TaskQueueRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._realTimeStatistics =
+      this._realTimeStatistics ||
+      TaskQueueRealTimeStatisticsListInstance(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._realTimeStatistics;
   }
 
   get statistics(): TaskQueueStatisticsListInstance {
-    this._statistics = this._statistics || TaskQueueStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._statistics =
+      this._statistics ||
+      TaskQueueStatisticsListInstance(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._statistics;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<TaskQueueInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskQueueInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<TaskQueueInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -261,34 +291,45 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["targetWorkers"] !== undefined)
-    data["TargetWorkers"] = params["targetWorkers"];
+      data["TargetWorkers"] = params["targetWorkers"];
     if (params["reservationActivitySid"] !== undefined)
-    data["ReservationActivitySid"] = params["reservationActivitySid"];
+      data["ReservationActivitySid"] = params["reservationActivitySid"];
     if (params["assignmentActivitySid"] !== undefined)
-    data["AssignmentActivitySid"] = params["assignmentActivitySid"];
+      data["AssignmentActivitySid"] = params["assignmentActivitySid"];
     if (params["maxReservedWorkers"] !== undefined)
-    data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+      data["MaxReservedWorkers"] = params["maxReservedWorkers"];
     if (params["taskOrder"] !== undefined)
-    data["TaskOrder"] = params["taskOrder"];
-
+      data["TaskOrder"] = params["taskOrder"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskQueueInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -305,8 +346,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   }
 }
 
-interface TaskQueuePayload extends TaskQueueResource, Page.TwilioResponsePayload {
-}
+interface TaskQueuePayload
+  extends TaskQueueResource,
+    Page.TwilioResponsePayload {}
 
 interface TaskQueueResource {
   account_sid?: string | null;
@@ -330,7 +372,12 @@ export class TaskQueueInstance {
   protected _solution: TaskQueueContextSolution;
   protected _context?: TaskQueueContext;
 
-  constructor(protected _version: V1, payload: TaskQueuePayload, workspaceSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: TaskQueuePayload,
+    workspaceSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.assignmentActivitySid = payload.assignment_activity_sid;
     this.assignmentActivityName = payload.assignment_activity_name;
@@ -409,7 +456,13 @@ export class TaskQueueInstance {
   links?: object | null;
 
   private get _proxy(): TaskQueueContext {
-    this._context = this._context || new TaskQueueContextImpl(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new TaskQueueContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -420,8 +473,9 @@ export class TaskQueueInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -432,8 +486,9 @@ export class TaskQueueInstance {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -444,7 +499,9 @@ export class TaskQueueInstance {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  update(callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
   /**
    * Update a TaskQueueInstance
    *
@@ -453,9 +510,11 @@ export class TaskQueueInstance {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  update(params: TaskQueueContextUpdateOptions, callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
-  update(params?: any, callback?: any): Promise<TaskQueueInstance>
-     {
+  update(
+    params: TaskQueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+  update(params?: any, callback?: any): Promise<TaskQueueInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -487,29 +546,28 @@ export class TaskQueueInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      assignmentActivitySid: this.assignmentActivitySid, 
-      assignmentActivityName: this.assignmentActivityName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      maxReservedWorkers: this.maxReservedWorkers, 
-      reservationActivitySid: this.reservationActivitySid, 
-      reservationActivityName: this.reservationActivityName, 
-      sid: this.sid, 
-      targetWorkers: this.targetWorkers, 
-      taskOrder: this.taskOrder, 
-      url: this.url, 
-      workspaceSid: this.workspaceSid, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      assignmentActivitySid: this.assignmentActivitySid,
+      assignmentActivityName: this.assignmentActivityName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      maxReservedWorkers: this.maxReservedWorkers,
+      reservationActivitySid: this.reservationActivitySid,
+      reservationActivityName: this.reservationActivityName,
+      sid: this.sid,
+      targetWorkers: this.targetWorkers,
+      taskOrder: this.taskOrder,
+      url: this.url,
+      workspaceSid: this.workspaceSid,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
 
 export interface TaskQueueListInstance {
   (sid: string): TaskQueueContext;
@@ -525,10 +583,11 @@ export interface TaskQueueListInstance {
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
-  create(params: TaskQueueListInstanceCreateOptions, callback?: (error: Error | null, item?: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
-  create(params: any, callback?: any): Promise<TaskQueueInstance>
-
-
+  create(
+    params: TaskQueueListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+  create(params: any, callback?: any): Promise<TaskQueueInstance>;
 
   /**
    * Streams TaskQueueInstance records from the API.
@@ -544,7 +603,9 @@ export interface TaskQueueListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams TaskQueueInstance records from the API.
    *
@@ -560,7 +621,10 @@ export interface TaskQueueListInstance {
    * @param { TaskQueueListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: TaskQueueListInstanceEachOptions, callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: TaskQueueListInstanceEachOptions,
+    callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TaskQueueInstance records from the API.
@@ -572,7 +636,9 @@ export interface TaskQueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
+  getPage(
+    callback?: (error: Error | null, items: TaskQueuePage) => any
+  ): Promise<TaskQueuePage>;
   /**
    * Retrieve a single target page of TaskQueueInstance records from the API.
    *
@@ -584,7 +650,10 @@ export interface TaskQueueListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: TaskQueuePage) => any
+  ): Promise<TaskQueuePage>;
   getPage(params?: any, callback?: any): Promise<TaskQueuePage>;
   /**
    * Lists TaskQueueInstance records from the API as a list.
@@ -594,7 +663,9 @@ export interface TaskQueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TaskQueueInstance[]) => any): Promise<TaskQueueInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TaskQueueInstance[]) => any
+  ): Promise<TaskQueueInstance[]>;
   /**
    * Lists TaskQueueInstance records from the API as a list.
    *
@@ -604,7 +675,10 @@ export interface TaskQueueListInstance {
    * @param { TaskQueueListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: TaskQueueListInstanceOptions, callback?: (error: Error | null, items: TaskQueueInstance[]) => any): Promise<TaskQueueInstance[]>;
+  list(
+    params?: TaskQueueListInstanceOptions,
+    callback?: (error: Error | null, items: TaskQueueInstance[]) => any
+  ): Promise<TaskQueueInstance[]>;
   list(params?: any, callback?: any): Promise<TaskQueueInstance[]>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
@@ -616,7 +690,9 @@ export interface TaskQueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
+  page(
+    callback?: (error: Error | null, items: TaskQueuePage) => any
+  ): Promise<TaskQueuePage>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
    *
@@ -628,7 +704,10 @@ export interface TaskQueueListInstance {
    * @param { TaskQueueListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: TaskQueueListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
+  page(
+    params: TaskQueueListInstancePageOptions,
+    callback?: (error: Error | null, items: TaskQueuePage) => any
+  ): Promise<TaskQueuePage>;
   page(params?: any, callback?: any): Promise<TaskQueuePage>;
 
   /**
@@ -651,12 +730,15 @@ class TaskQueueListInstanceImpl implements TaskQueueListInstance {
   _statistics?: TaskQueuesStatisticsListInstance;
 }
 
-export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQueueListInstance {
+export function TaskQueueListInstance(
+  version: V1,
+  workspaceSid: string
+): TaskQueueListInstance {
   const instance = ((sid) => instance.get(sid)) as TaskQueueListInstanceImpl;
 
   instance.get = function get(sid): TaskQueueContext {
     return new TaskQueueContextImpl(version, workspaceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { workspaceSid };
@@ -665,54 +747,75 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
       if (!this._statistics) {
-        this._statistics = TaskQueuesStatisticsListInstance(this._version, this._solution.workspaceSid);
+        this._statistics = TaskQueuesStatisticsListInstance(
+          this._version,
+          this._solution.workspaceSid
+        );
       }
       return this._statistics;
-    }
+    },
   });
 
-  instance.create = function create(params: any, callback?: any): Promise<TaskQueueInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<TaskQueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["targetWorkers"] !== undefined)
-    data["TargetWorkers"] = params["targetWorkers"];
+      data["TargetWorkers"] = params["targetWorkers"];
     if (params["maxReservedWorkers"] !== undefined)
-    data["MaxReservedWorkers"] = params["maxReservedWorkers"];
+      data["MaxReservedWorkers"] = params["maxReservedWorkers"];
     if (params["taskOrder"] !== undefined)
-    data["TaskOrder"] = params["taskOrder"];
+      data["TaskOrder"] = params["taskOrder"];
     if (params["reservationActivitySid"] !== undefined)
-    data["ReservationActivitySid"] = params["reservationActivitySid"];
+      data["ReservationActivitySid"] = params["reservationActivitySid"];
     if (params["assignmentActivitySid"] !== undefined)
-    data["AssignmentActivitySid"] = params["assignmentActivitySid"];
-
+      data["AssignmentActivitySid"] = params["assignmentActivitySid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskQueueInstance(operationVersion, payload, this._solution.workspaceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskQueueInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<TaskQueuePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<TaskQueuePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -722,83 +825,109 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
 
     let data: any = {};
 
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["evaluateWorkerAttributes"] !== undefined)
-    data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
+      data["EvaluateWorkerAttributes"] = params["evaluateWorkerAttributes"];
     if (params["workerSid"] !== undefined)
-    data["WorkerSid"] = params["workerSid"];
-    if (params["ordering"] !== undefined)
-    data["Ordering"] = params["ordering"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["WorkerSid"] = params["workerSid"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskQueuePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TaskQueuePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskQueuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<TaskQueuePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new TaskQueuePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TaskQueuePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
-/**
-* Initialize the TaskQueuePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: TaskQueueSolution) {
+export class TaskQueuePage extends Page<
+  V1,
+  TaskQueuePayload,
+  TaskQueueResource,
+  TaskQueueInstance
+> {
+  /**
+   * Initialize the TaskQueuePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: TaskQueueSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TaskQueueInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TaskQueuePayload): TaskQueueInstance {
+  /**
+   * Build an instance of TaskQueueInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TaskQueuePayload): TaskQueueInstance {
     return new TaskQueueInstance(
-    this._version,
-    payload,
-        this._solution.workspaceSid,
+      this._version,
+      payload,
+      this._solution.workspaceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

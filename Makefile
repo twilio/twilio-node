@@ -1,4 +1,4 @@
-.PHONY: test-install install test test-docker docs clean
+.PHONY: test-install install test test-docker docs clean prettier
 
 test-install:
 	npm install --only=dev
@@ -20,6 +20,9 @@ docs:
 
 clean:
 	rm -rf node_modules
+
+prettier:
+	npm run prettier
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")

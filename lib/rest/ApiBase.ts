@@ -9,25 +9,25 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V2010 from './api/V2010';
+import Domain from "../base/Domain";
+import V2010 from "./api/V2010";
 
 class ApiBase extends Domain {
-    _v2010?: V2010;
+  _v2010?: V2010;
 
-    /**
-     * Initialize api domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://api.twilio.com');
-    }
+  /**
+   * Initialize api domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://api.twilio.com");
+  }
 
-    get v2010(): V2010 {
-        this._v2010 = this._v2010 || new V2010(this);
-        return this._v2010;
-    }
+  get v2010(): V2010 {
+    this._v2010 = this._v2010 || new V2010(this);
+    return this._v2010;
+  }
 }
 
 export = ApiBase;

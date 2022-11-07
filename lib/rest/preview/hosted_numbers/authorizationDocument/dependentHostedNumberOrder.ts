@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,8 +19,16 @@ import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+type DependentHostedNumberOrderStatus =
+  | "received"
+  | "pending-verification"
+  | "verified"
+  | "pending-loa"
+  | "carrier-processing"
+  | "testing"
+  | "completed"
+  | "failed"
+  | "action-required";
 
 export class ListDeployedDevicesCertificateResponseMeta {
   "firstPageUrl"?: string;
@@ -32,7 +39,6 @@ export class ListDeployedDevicesCertificateResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder {
   /**
@@ -116,7 +122,6 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
   "verificationCallSids"?: Array<string> | null;
 }
 
-
 /**
  * A mapping of phone number capabilities.
  */
@@ -126,7 +131,6 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
   "voice"?: boolean;
   "fax"?: boolean;
 }
-
 
 /**
  * Options to pass to each
@@ -147,13 +151,16 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceEachOptions {
-  "status"?: DependentHostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
-  callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void;
+  status?: DependentHostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
+  callback?: (
+    item: DependentHostedNumberOrderInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -173,12 +180,12 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceOptions {
-  "status"?: DependentHostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
+  status?: DependentHostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -195,22 +202,17 @@ export interface DependentHostedNumberOrderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DependentHostedNumberOrderListInstancePageOptions {
-  "status"?: DependentHostedNumberOrderStatus;
-  "phoneNumber"?: string;
-  "incomingPhoneNumberSid"?: string;
-  "friendlyName"?: string;
-  "uniqueName"?: string;
-  "pageSize"?: number;
+  status?: DependentHostedNumberOrderStatus;
+  phoneNumber?: string;
+  incomingPhoneNumberSid?: string;
+  friendlyName?: string;
+  uniqueName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface DependentHostedNumberOrderListInstance {
-
-
-
   /**
    * Streams DependentHostedNumberOrderInstance records from the API.
    *
@@ -225,7 +227,12 @@ export interface DependentHostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: DependentHostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams DependentHostedNumberOrderInstance records from the API.
    *
@@ -241,7 +248,13 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { DependentHostedNumberOrderListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: DependentHostedNumberOrderListInstanceEachOptions, callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: DependentHostedNumberOrderListInstanceEachOptions,
+    callback?: (
+      item: DependentHostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
@@ -253,7 +266,12 @@ export interface DependentHostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
+  getPage(
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
    *
@@ -265,8 +283,17 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
-  getPage(params?: any, callback?: any): Promise<DependentHostedNumberOrderPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
+  getPage(
+    params?: any,
+    callback?: any
+  ): Promise<DependentHostedNumberOrderPage>;
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list.
    *
@@ -275,7 +302,12 @@ export interface DependentHostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DependentHostedNumberOrderInstance[]) => any): Promise<DependentHostedNumberOrderInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderInstance[]
+    ) => any
+  ): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list.
    *
@@ -285,8 +317,17 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { DependentHostedNumberOrderListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: DependentHostedNumberOrderListInstanceOptions, callback?: (error: Error | null, items: DependentHostedNumberOrderInstance[]) => any): Promise<DependentHostedNumberOrderInstance[]>;
-  list(params?: any, callback?: any): Promise<DependentHostedNumberOrderInstance[]>;
+  list(
+    params?: DependentHostedNumberOrderListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderInstance[]
+    ) => any
+  ): Promise<DependentHostedNumberOrderInstance[]>;
+  list(
+    params?: any,
+    callback?: any
+  ): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
    *
@@ -297,7 +338,12 @@ export interface DependentHostedNumberOrderListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
+  page(
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
    *
@@ -309,7 +355,13 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { DependentHostedNumberOrderListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: DependentHostedNumberOrderListInstancePageOptions, callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
+  page(
+    params: DependentHostedNumberOrderListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
   page(params?: any, callback?: any): Promise<DependentHostedNumberOrderPage>;
 
   /**
@@ -323,22 +375,30 @@ export interface DependentHostedNumberOrderSolution {
   signingDocumentSid?: string;
 }
 
-interface DependentHostedNumberOrderListInstanceImpl extends DependentHostedNumberOrderListInstance {}
-class DependentHostedNumberOrderListInstanceImpl implements DependentHostedNumberOrderListInstance {
+interface DependentHostedNumberOrderListInstanceImpl
+  extends DependentHostedNumberOrderListInstance {}
+class DependentHostedNumberOrderListInstanceImpl
+  implements DependentHostedNumberOrderListInstance
+{
   _version?: HostedNumbers;
   _solution?: DependentHostedNumberOrderSolution;
   _uri?: string;
-
 }
 
-export function DependentHostedNumberOrderListInstance(version: HostedNumbers, signingDocumentSid: string): DependentHostedNumberOrderListInstance {
+export function DependentHostedNumberOrderListInstance(
+  version: HostedNumbers,
+  signingDocumentSid: string
+): DependentHostedNumberOrderListInstance {
   const instance = {} as DependentHostedNumberOrderListInstanceImpl;
 
   instance._version = version;
   instance._solution = { signingDocumentSid };
   instance._uri = `/AuthorizationDocuments/${signingDocumentSid}/DependentHostedNumberOrders`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<DependentHostedNumberOrderPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<DependentHostedNumberOrderPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -348,59 +408,89 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
 
     let data: any = {};
 
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
+      data["PhoneNumber"] = params["phoneNumber"];
     if (params["incomingPhoneNumberSid"] !== undefined)
-    data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
+      data["IncomingPhoneNumberSid"] = params["incomingPhoneNumberSid"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["UniqueName"] = params["uniqueName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DependentHostedNumberOrderPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DependentHostedNumberOrderPage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DependentHostedNumberOrderPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<DependentHostedNumberOrderPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new DependentHostedNumberOrderPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DependentHostedNumberOrderPage(
+          this._version,
+          payload,
+          this._solution
+        )
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface DependentHostedNumberOrderPayload extends DependentHostedNumberOrderResource, Page.TwilioResponsePayload {
-}
+interface DependentHostedNumberOrderPayload
+  extends DependentHostedNumberOrderResource,
+    Page.TwilioResponsePayload {}
 
 interface DependentHostedNumberOrderResource {
   items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
@@ -408,11 +498,13 @@ interface DependentHostedNumberOrderResource {
 }
 
 export class DependentHostedNumberOrderInstance {
-
-  constructor(protected _version: HostedNumbers, payload: DependentHostedNumberOrderPayload, signingDocumentSid?: string) {
+  constructor(
+    protected _version: HostedNumbers,
+    payload: DependentHostedNumberOrderPayload,
+    signingDocumentSid?: string
+  ) {
     this.items = payload.items;
     this.meta = payload.meta;
-
   }
 
   items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
@@ -425,9 +517,9 @@ export class DependentHostedNumberOrderInstance {
    */
   toJSON() {
     return {
-      items: this.items, 
-      meta: this.meta
-    }
+      items: this.items,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -435,33 +527,43 @@ export class DependentHostedNumberOrderInstance {
   }
 }
 
-export class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
-/**
-* Initialize the DependentHostedNumberOrderPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: HostedNumbers, response: Response<string>, solution: DependentHostedNumberOrderSolution) {
+export class DependentHostedNumberOrderPage extends Page<
+  HostedNumbers,
+  DependentHostedNumberOrderPayload,
+  DependentHostedNumberOrderResource,
+  DependentHostedNumberOrderInstance
+> {
+  /**
+   * Initialize the DependentHostedNumberOrderPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: HostedNumbers,
+    response: Response<string>,
+    solution: DependentHostedNumberOrderSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of DependentHostedNumberOrderInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: DependentHostedNumberOrderPayload): DependentHostedNumberOrderInstance {
+  /**
+   * Build an instance of DependentHostedNumberOrderInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: DependentHostedNumberOrderPayload
+  ): DependentHostedNumberOrderInstance {
     return new DependentHostedNumberOrderInstance(
-    this._version,
-    payload,
-        this._solution.signingDocumentSid,
+      this._version,
+      payload,
+      this._solution.signingDocumentSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

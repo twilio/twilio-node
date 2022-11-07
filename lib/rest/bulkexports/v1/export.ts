@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -22,10 +21,7 @@ import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 
 import { JobListInstance } from "./export/job";
 
-
-
 export interface ExportContext {
-
   days: DayListInstance;
   exportCustomJobs: ExportCustomJobListInstance;
 
@@ -36,8 +32,9 @@ export interface ExportContext {
    *
    * @returns { Promise } Resolves to processed ExportInstance
    */
-  fetch(callback?: (error: Error | null, item?: ExportInstance) => any): Promise<ExportInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ExportInstance) => any
+  ): Promise<ExportInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -47,7 +44,7 @@ export interface ExportContext {
 }
 
 export interface ExportContextSolution {
-  "resourceType"?: string;
+  resourceType?: string;
 }
 
 export class ExportContextImpl implements ExportContext {
@@ -63,27 +60,39 @@ export class ExportContextImpl implements ExportContext {
   }
 
   get days(): DayListInstance {
-    this._days = this._days || DayListInstance(this._version, this._solution.resourceType);
+    this._days =
+      this._days || DayListInstance(this._version, this._solution.resourceType);
     return this._days;
   }
 
   get exportCustomJobs(): ExportCustomJobListInstance {
-    this._exportCustomJobs = this._exportCustomJobs || ExportCustomJobListInstance(this._version, this._solution.resourceType);
+    this._exportCustomJobs =
+      this._exportCustomJobs ||
+      ExportCustomJobListInstance(this._version, this._solution.resourceType);
     return this._exportCustomJobs;
   }
 
   fetch(callback?: any): Promise<ExportInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ExportInstance(operationVersion, payload, this._solution.resourceType));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ExportInstance(
+          operationVersion,
+          payload,
+          this._solution.resourceType
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -100,8 +109,7 @@ export class ExportContextImpl implements ExportContext {
   }
 }
 
-interface ExportPayload extends ExportResource{
-}
+interface ExportPayload extends ExportResource {}
 
 interface ExportResource {
   resource_type?: string | null;
@@ -113,7 +121,11 @@ export class ExportInstance {
   protected _solution: ExportContextSolution;
   protected _context?: ExportContext;
 
-  constructor(protected _version: V1, payload: ExportPayload, resourceType?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ExportPayload,
+    resourceType?: string
+  ) {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
     this.links = payload.links;
@@ -135,7 +147,9 @@ export class ExportInstance {
   links?: object | null;
 
   private get _proxy(): ExportContext {
-    this._context = this._context || new ExportContextImpl(this._version, this._solution.resourceType);
+    this._context =
+      this._context ||
+      new ExportContextImpl(this._version, this._solution.resourceType);
     return this._context;
   }
 
@@ -146,8 +160,9 @@ export class ExportInstance {
    *
    * @returns { Promise } Resolves to processed ExportInstance
    */
-  fetch(callback?: (error: Error | null, item?: ExportInstance) => any): Promise<ExportInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ExportInstance) => any
+  ): Promise<ExportInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -172,17 +187,16 @@ export class ExportInstance {
    */
   toJSON() {
     return {
-      resourceType: this.resourceType, 
-      url: this.url, 
-      links: this.links
-    }
+      resourceType: this.resourceType,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
 
 export interface ExportListInstance {
   (resourceType: string): ExportContext;
@@ -197,8 +211,7 @@ export interface ExportListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportSolution {
-}
+export interface ExportSolution {}
 
 interface ExportListInstanceImpl extends ExportListInstance {}
 class ExportListInstanceImpl implements ExportListInstance {
@@ -210,14 +223,15 @@ class ExportListInstanceImpl implements ExportListInstance {
 }
 
 export function ExportListInstance(version: V1): ExportListInstance {
-  const instance = ((resourceType) => instance.get(resourceType)) as ExportListInstanceImpl;
+  const instance = ((resourceType) =>
+    instance.get(resourceType)) as ExportListInstanceImpl;
 
   instance.get = function get(resourceType): ExportContext {
     return new ExportContextImpl(version, resourceType);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Exports`;
 
   Object.defineProperty(instance, "jobs", {
@@ -226,19 +240,19 @@ export function ExportListInstance(version: V1): ExportListInstance {
         this._jobs = JobListInstance(this._version);
       }
       return this._jobs;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-
 export interface JobContext {
-
-
   /**
    * Remove a JobInstance
    *
@@ -31,8 +25,9 @@ export interface JobContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a JobInstance
@@ -41,8 +36,9 @@ export interface JobContext {
    *
    * @returns { Promise } Resolves to processed JobInstance
    */
-  fetch(callback?: (error: Error | null, item?: JobInstance) => any): Promise<JobInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: JobInstance) => any
+  ): Promise<JobInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -52,13 +48,12 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  "jobSid"?: string;
+  jobSid?: string;
 }
 
 export class JobContextImpl implements JobContext {
   protected _solution: JobContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, jobSid: string) {
     this._solution = { jobSid };
@@ -66,29 +61,36 @@ export class JobContextImpl implements JobContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<JobInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new JobInstance(operationVersion, payload, this._solution.jobSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new JobInstance(operationVersion, payload, this._solution.jobSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -105,8 +107,7 @@ export class JobContextImpl implements JobContext {
   }
 }
 
-interface JobPayload extends JobResource{
-}
+interface JobPayload extends JobResource {}
 
 interface JobResource {
   resource_type?: string | null;
@@ -191,7 +192,8 @@ export class JobInstance {
   estimatedCompletionTime?: string | null;
 
   private get _proxy(): JobContext {
-    this._context = this._context || new JobContextImpl(this._version, this._solution.jobSid);
+    this._context =
+      this._context || new JobContextImpl(this._version, this._solution.jobSid);
     return this._context;
   }
 
@@ -202,8 +204,9 @@ export class JobInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -214,8 +217,9 @@ export class JobInstance {
    *
    * @returns { Promise } Resolves to processed JobInstance
    */
-  fetch(callback?: (error: Error | null, item?: JobInstance) => any): Promise<JobInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: JobInstance) => any
+  ): Promise<JobInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -226,19 +230,19 @@ export class JobInstance {
    */
   toJSON() {
     return {
-      resourceType: this.resourceType, 
-      friendlyName: this.friendlyName, 
-      details: this.details, 
-      startDay: this.startDay, 
-      endDay: this.endDay, 
-      jobSid: this.jobSid, 
-      webhookUrl: this.webhookUrl, 
-      webhookMethod: this.webhookMethod, 
-      email: this.email, 
-      url: this.url, 
-      jobQueuePosition: this.jobQueuePosition, 
-      estimatedCompletionTime: this.estimatedCompletionTime
-    }
+      resourceType: this.resourceType,
+      friendlyName: this.friendlyName,
+      details: this.details,
+      startDay: this.startDay,
+      endDay: this.endDay,
+      jobSid: this.jobSid,
+      webhookUrl: this.webhookUrl,
+      webhookMethod: this.webhookMethod,
+      email: this.email,
+      url: this.url,
+      jobQueuePosition: this.jobQueuePosition,
+      estimatedCompletionTime: this.estimatedCompletionTime,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -246,11 +250,9 @@ export class JobInstance {
   }
 }
 
-
 export interface JobListInstance {
   (jobSid: string): JobContext;
   get(jobSid: string): JobContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -259,15 +261,13 @@ export interface JobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface JobSolution {
-}
+export interface JobSolution {}
 
 interface JobListInstanceImpl extends JobListInstance {}
 class JobListInstanceImpl implements JobListInstance {
   _version?: V1;
   _solution?: JobSolution;
   _uri?: string;
-
 }
 
 export function JobListInstance(version: V1): JobListInstance {
@@ -275,22 +275,22 @@ export function JobListInstance(version: V1): JobListInstance {
 
   instance.get = function get(jobSid): JobContext {
     return new JobContextImpl(version, jobSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

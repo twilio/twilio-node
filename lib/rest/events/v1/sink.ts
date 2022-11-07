@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -22,12 +21,9 @@ const serialize = require("../../../base/serialize");
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
+type SinkSinkType = "kinesis" | "webhook" | "segment";
 
-
-type SinkSinkType = 'kinesis'|'webhook'|'segment';
-
-type SinkStatus = 'initialized'|'validating'|'active'|'failed';
-
+type SinkStatus = "initialized" | "validating" | "active" | "failed";
 
 /**
  * Options to pass to update a SinkInstance
@@ -35,7 +31,7 @@ type SinkStatus = 'initialized'|'validating'|'active'|'failed';
  * @property { string } description A human readable description for the Sink **This value should not contain PII.**
  */
 export interface SinkContextUpdateOptions {
-  "description": string;
+  description: string;
 }
 
 /**
@@ -43,12 +39,12 @@ export interface SinkContextUpdateOptions {
  *
  * @property { string } description A human readable description for the Sink **This value should not contain PII.**
  * @property { any } sinkConfiguration The information required for Twilio to connect to the provided Sink encoded as JSON.
- * @property { SinkSinkType } sinkType 
+ * @property { SinkSinkType } sinkType
  */
 export interface SinkListInstanceCreateOptions {
-  "description": string;
-  "sinkConfiguration": any;
-  "sinkType": SinkSinkType;
+  description: string;
+  sinkConfiguration: any;
+  sinkType: SinkSinkType;
 }
 /**
  * Options to pass to each
@@ -66,9 +62,9 @@ export interface SinkListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SinkListInstanceEachOptions {
-  "inUse"?: boolean;
-  "status"?: string;
-  "pageSize"?: number;
+  inUse?: boolean;
+  status?: string;
+  pageSize?: number;
   callback?: (item: SinkInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -86,9 +82,9 @@ export interface SinkListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SinkListInstanceOptions {
-  "inUse"?: boolean;
-  "status"?: string;
-  "pageSize"?: number;
+  inUse?: boolean;
+  status?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -102,17 +98,14 @@ export interface SinkListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SinkListInstancePageOptions {
-  "inUse"?: boolean;
-  "status"?: string;
-  "pageSize"?: number;
+  inUse?: boolean;
+  status?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SinkContext {
-
   sinkTest: SinkTestListInstance;
   sinkValidate: SinkValidateListInstance;
 
@@ -123,8 +116,9 @@ export interface SinkContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a SinkInstance
@@ -133,8 +127,9 @@ export interface SinkContext {
    *
    * @returns { Promise } Resolves to processed SinkInstance
    */
-  fetch(callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance>;
 
   /**
    * Update a SinkInstance
@@ -144,9 +139,11 @@ export interface SinkContext {
    *
    * @returns { Promise } Resolves to processed SinkInstance
    */
-  update(params: SinkContextUpdateOptions, callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>;
-  update(params: any, callback?: any): Promise<SinkInstance>
-
+  update(
+    params: SinkContextUpdateOptions,
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance>;
+  update(params: any, callback?: any): Promise<SinkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -156,7 +153,7 @@ export interface SinkContext {
 }
 
 export interface SinkContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class SinkContextImpl implements SinkContext {
@@ -172,70 +169,85 @@ export class SinkContextImpl implements SinkContext {
   }
 
   get sinkTest(): SinkTestListInstance {
-    this._sinkTest = this._sinkTest || SinkTestListInstance(this._version, this._solution.sid);
+    this._sinkTest =
+      this._sinkTest || SinkTestListInstance(this._version, this._solution.sid);
     return this._sinkTest;
   }
 
   get sinkValidate(): SinkValidateListInstance {
-    this._sinkValidate = this._sinkValidate || SinkValidateListInstance(this._version, this._solution.sid);
+    this._sinkValidate =
+      this._sinkValidate ||
+      SinkValidateListInstance(this._version, this._solution.sid);
     return this._sinkValidate;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SinkInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SinkInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<SinkInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["description"] === null || params["description"] === undefined) {
-      throw new Error('Required parameter "params[\'description\']" missing.');
+      throw new Error("Required parameter \"params['description']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Description"] = params["description"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SinkInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -252,8 +264,7 @@ export class SinkContextImpl implements SinkContext {
   }
 }
 
-interface SinkPayload extends SinkResource, Page.TwilioResponsePayload {
-}
+interface SinkPayload extends SinkResource, Page.TwilioResponsePayload {}
 
 interface SinkResource {
   date_created?: Date | null;
@@ -317,7 +328,8 @@ export class SinkInstance {
   links?: object | null;
 
   private get _proxy(): SinkContext {
-    this._context = this._context || new SinkContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new SinkContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -328,8 +340,9 @@ export class SinkInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -340,8 +353,9 @@ export class SinkInstance {
    *
    * @returns { Promise } Resolves to processed SinkInstance
    */
-  fetch(callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -353,9 +367,11 @@ export class SinkInstance {
    *
    * @returns { Promise } Resolves to processed SinkInstance
    */
-  update(params: SinkContextUpdateOptions, callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>;
-  update(params: any, callback?: any): Promise<SinkInstance>
-     {
+  update(
+    params: SinkContextUpdateOptions,
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance>;
+  update(params: any, callback?: any): Promise<SinkInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -380,16 +396,16 @@ export class SinkInstance {
    */
   toJSON() {
     return {
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      description: this.description, 
-      sid: this.sid, 
-      sinkConfiguration: this.sinkConfiguration, 
-      sinkType: this.sinkType, 
-      status: this.status, 
-      url: this.url, 
-      links: this.links
-    }
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      description: this.description,
+      sid: this.sid,
+      sinkConfiguration: this.sinkConfiguration,
+      sinkType: this.sinkType,
+      status: this.status,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -397,11 +413,9 @@ export class SinkInstance {
   }
 }
 
-
 export interface SinkListInstance {
   (sid: string): SinkContext;
   get(sid: string): SinkContext;
-
 
   /**
    * Create a SinkInstance
@@ -411,10 +425,11 @@ export interface SinkListInstance {
    *
    * @returns { Promise } Resolves to processed SinkInstance
    */
-  create(params: SinkListInstanceCreateOptions, callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>;
-  create(params: any, callback?: any): Promise<SinkInstance>
-
-
+  create(
+    params: SinkListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance>;
+  create(params: any, callback?: any): Promise<SinkInstance>;
 
   /**
    * Streams SinkInstance records from the API.
@@ -430,7 +445,9 @@ export interface SinkListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SinkInstance records from the API.
    *
@@ -446,7 +463,10 @@ export interface SinkListInstance {
    * @param { SinkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SinkListInstanceEachOptions, callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SinkListInstanceEachOptions,
+    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SinkInstance records from the API.
@@ -458,7 +478,9 @@ export interface SinkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  getPage(
+    callback?: (error: Error | null, items: SinkPage) => any
+  ): Promise<SinkPage>;
   /**
    * Retrieve a single target page of SinkInstance records from the API.
    *
@@ -470,7 +492,10 @@ export interface SinkListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SinkPage) => any
+  ): Promise<SinkPage>;
   getPage(params?: any, callback?: any): Promise<SinkPage>;
   /**
    * Lists SinkInstance records from the API as a list.
@@ -480,7 +505,9 @@ export interface SinkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SinkInstance[]) => any
+  ): Promise<SinkInstance[]>;
   /**
    * Lists SinkInstance records from the API as a list.
    *
@@ -490,7 +517,10 @@ export interface SinkListInstance {
    * @param { SinkListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SinkListInstanceOptions, callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
+  list(
+    params?: SinkListInstanceOptions,
+    callback?: (error: Error | null, items: SinkInstance[]) => any
+  ): Promise<SinkInstance[]>;
   list(params?: any, callback?: any): Promise<SinkInstance[]>;
   /**
    * Retrieve a single page of SinkInstance records from the API.
@@ -502,7 +532,9 @@ export interface SinkListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  page(
+    callback?: (error: Error | null, items: SinkPage) => any
+  ): Promise<SinkPage>;
   /**
    * Retrieve a single page of SinkInstance records from the API.
    *
@@ -514,7 +546,10 @@ export interface SinkListInstance {
    * @param { SinkListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SinkListInstancePageOptions, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  page(
+    params: SinkListInstancePageOptions,
+    callback?: (error: Error | null, items: SinkPage) => any
+  ): Promise<SinkPage>;
   page(params?: any, callback?: any): Promise<SinkPage>;
 
   /**
@@ -524,15 +559,13 @@ export interface SinkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SinkSolution {
-}
+export interface SinkSolution {}
 
 interface SinkListInstanceImpl extends SinkListInstance {}
 class SinkListInstanceImpl implements SinkListInstance {
   _version?: V1;
   _solution?: SinkSolution;
   _uri?: string;
-
 }
 
 export function SinkListInstance(version: V1): SinkListInstance {
@@ -540,56 +573,71 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
   instance.get = function get(sid): SinkContext {
     return new SinkContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Sinks`;
 
-  instance.create = function create(params: any, callback?: any): Promise<SinkInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<SinkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["description"] === null || params["description"] === undefined) {
-      throw new Error('Required parameter "params[\'description\']" missing.');
+      throw new Error("Required parameter \"params['description']\" missing.");
     }
 
-    if (params["sinkConfiguration"] === null || params["sinkConfiguration"] === undefined) {
-      throw new Error('Required parameter "params[\'sinkConfiguration\']" missing.');
+    if (
+      params["sinkConfiguration"] === null ||
+      params["sinkConfiguration"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['sinkConfiguration']\" missing."
+      );
     }
 
     if (params["sinkType"] === null || params["sinkType"] === undefined) {
-      throw new Error('Required parameter "params[\'sinkType\']" missing.');
+      throw new Error("Required parameter \"params['sinkType']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Description"] = params["description"];
-    
+
     data["SinkConfiguration"] = serialize.object(params["sinkConfiguration"]);
-    
+
     data["SinkType"] = params["sinkType"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SinkInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SinkPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SinkPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -599,78 +647,97 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
     let data: any = {};
 
-        if (params["inUse"] !== undefined)
-    data["InUse"] = serialize.bool(params["inUse"]);
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["inUse"] !== undefined)
+      data["InUse"] = serialize.bool(params["inUse"]);
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SinkPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SinkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SinkPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SinkPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SinkPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SinkPage extends Page<V1, SinkPayload, SinkResource, SinkInstance> {
-/**
-* Initialize the SinkPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SinkSolution) {
+export class SinkPage extends Page<
+  V1,
+  SinkPayload,
+  SinkResource,
+  SinkInstance
+> {
+  /**
+   * Initialize the SinkPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: SinkSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SinkInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SinkPayload): SinkInstance {
-    return new SinkInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of SinkInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SinkPayload): SinkInstance {
+    return new SinkInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

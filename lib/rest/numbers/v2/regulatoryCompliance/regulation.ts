@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,9 +19,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-type RegulationEndUserType = 'individual'|'business';
+type RegulationEndUserType = "individual" | "business";
 
 /**
  * Options to pass to each
@@ -41,10 +38,10 @@ type RegulationEndUserType = 'individual'|'business';
  *                         Default is no limit
  */
 export interface RegulationListInstanceEachOptions {
-  "endUserType"?: RegulationEndUserType;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "pageSize"?: number;
+  endUserType?: RegulationEndUserType;
+  isoCountry?: string;
+  numberType?: string;
+  pageSize?: number;
   callback?: (item: RegulationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,10 +60,10 @@ export interface RegulationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RegulationListInstanceOptions {
-  "endUserType"?: RegulationEndUserType;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "pageSize"?: number;
+  endUserType?: RegulationEndUserType;
+  isoCountry?: string;
+  numberType?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -81,19 +78,15 @@ export interface RegulationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RegulationListInstancePageOptions {
-  "endUserType"?: RegulationEndUserType;
-  "isoCountry"?: string;
-  "numberType"?: string;
-  "pageSize"?: number;
+  endUserType?: RegulationEndUserType;
+  isoCountry?: string;
+  numberType?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface RegulationContext {
-
-
   /**
    * Fetch a RegulationInstance
    *
@@ -101,8 +94,9 @@ export interface RegulationContext {
    *
    * @returns { Promise } Resolves to processed RegulationInstance
    */
-  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -112,13 +106,12 @@ export interface RegulationContext {
 }
 
 export interface RegulationContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class RegulationContextImpl implements RegulationContext {
   protected _solution: RegulationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -126,17 +119,22 @@ export class RegulationContextImpl implements RegulationContext {
   }
 
   fetch(callback?: any): Promise<RegulationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new RegulationInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RegulationInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -153,8 +151,9 @@ export class RegulationContextImpl implements RegulationContext {
   }
 }
 
-interface RegulationPayload extends RegulationResource, Page.TwilioResponsePayload {
-}
+interface RegulationPayload
+  extends RegulationResource,
+    Page.TwilioResponsePayload {}
 
 interface RegulationResource {
   sid?: string | null;
@@ -170,7 +169,11 @@ export class RegulationInstance {
   protected _solution: RegulationContextSolution;
   protected _context?: RegulationContext;
 
-  constructor(protected _version: V2, payload: RegulationPayload, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: RegulationPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.isoCountry = payload.iso_country;
@@ -209,7 +212,9 @@ export class RegulationInstance {
   url?: string | null;
 
   private get _proxy(): RegulationContext {
-    this._context = this._context || new RegulationContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new RegulationContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -220,8 +225,9 @@ export class RegulationInstance {
    *
    * @returns { Promise } Resolves to processed RegulationInstance
    */
-  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -232,14 +238,14 @@ export class RegulationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      isoCountry: this.isoCountry, 
-      numberType: this.numberType, 
-      endUserType: this.endUserType, 
-      requirements: this.requirements, 
-      url: this.url
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      isoCountry: this.isoCountry,
+      numberType: this.numberType,
+      endUserType: this.endUserType,
+      requirements: this.requirements,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -247,12 +253,9 @@ export class RegulationInstance {
   }
 }
 
-
 export interface RegulationListInstance {
   (sid: string): RegulationContext;
   get(sid: string): RegulationContext;
-
-
 
   /**
    * Streams RegulationInstance records from the API.
@@ -268,7 +271,9 @@ export interface RegulationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: RegulationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams RegulationInstance records from the API.
    *
@@ -284,7 +289,10 @@ export interface RegulationListInstance {
    * @param { RegulationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: RegulationListInstanceEachOptions, callback?: (item: RegulationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: RegulationListInstanceEachOptions,
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RegulationInstance records from the API.
@@ -296,7 +304,9 @@ export interface RegulationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: RegulationPage) => any): Promise<RegulationPage>;
+  getPage(
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
   /**
    * Retrieve a single target page of RegulationInstance records from the API.
    *
@@ -308,7 +318,10 @@ export interface RegulationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RegulationPage) => any): Promise<RegulationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
   getPage(params?: any, callback?: any): Promise<RegulationPage>;
   /**
    * Lists RegulationInstance records from the API as a list.
@@ -318,7 +331,9 @@ export interface RegulationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: RegulationInstance[]) => any): Promise<RegulationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: RegulationInstance[]) => any
+  ): Promise<RegulationInstance[]>;
   /**
    * Lists RegulationInstance records from the API as a list.
    *
@@ -328,7 +343,10 @@ export interface RegulationListInstance {
    * @param { RegulationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: RegulationListInstanceOptions, callback?: (error: Error | null, items: RegulationInstance[]) => any): Promise<RegulationInstance[]>;
+  list(
+    params?: RegulationListInstanceOptions,
+    callback?: (error: Error | null, items: RegulationInstance[]) => any
+  ): Promise<RegulationInstance[]>;
   list(params?: any, callback?: any): Promise<RegulationInstance[]>;
   /**
    * Retrieve a single page of RegulationInstance records from the API.
@@ -340,7 +358,9 @@ export interface RegulationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: RegulationPage) => any): Promise<RegulationPage>;
+  page(
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
   /**
    * Retrieve a single page of RegulationInstance records from the API.
    *
@@ -352,7 +372,10 @@ export interface RegulationListInstance {
    * @param { RegulationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: RegulationListInstancePageOptions, callback?: (error: Error | null, items: RegulationPage) => any): Promise<RegulationPage>;
+  page(
+    params: RegulationListInstancePageOptions,
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
   page(params?: any, callback?: any): Promise<RegulationPage>;
 
   /**
@@ -362,15 +385,13 @@ export interface RegulationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RegulationSolution {
-}
+export interface RegulationSolution {}
 
 interface RegulationListInstanceImpl extends RegulationListInstance {}
 class RegulationListInstanceImpl implements RegulationListInstance {
   _version?: V2;
   _solution?: RegulationSolution;
   _uri?: string;
-
 }
 
 export function RegulationListInstance(version: V2): RegulationListInstance {
@@ -378,13 +399,16 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
   instance.get = function get(sid): RegulationContext {
     return new RegulationContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RegulatoryCompliance/Regulations`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<RegulationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<RegulationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -394,80 +418,104 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
     let data: any = {};
 
-        if (params["endUserType"] !== undefined)
-    data["EndUserType"] = params["endUserType"];
+    if (params["endUserType"] !== undefined)
+      data["EndUserType"] = params["endUserType"];
     if (params["isoCountry"] !== undefined)
-    data["IsoCountry"] = params["isoCountry"];
+      data["IsoCountry"] = params["isoCountry"];
     if (params["numberType"] !== undefined)
-    data["NumberType"] = params["numberType"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["NumberType"] = params["numberType"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RegulationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RegulationPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RegulationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<RegulationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new RegulationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RegulationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class RegulationPage extends Page<V2, RegulationPayload, RegulationResource, RegulationInstance> {
-/**
-* Initialize the RegulationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: RegulationSolution) {
+export class RegulationPage extends Page<
+  V2,
+  RegulationPayload,
+  RegulationResource,
+  RegulationInstance
+> {
+  /**
+   * Initialize the RegulationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: RegulationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of RegulationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: RegulationPayload): RegulationInstance {
-    return new RegulationInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of RegulationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RegulationPayload): RegulationInstance {
+    return new RegulationInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

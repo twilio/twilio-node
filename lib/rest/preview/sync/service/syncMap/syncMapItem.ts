@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,12 +19,9 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type SyncMapItemQueryFromBoundType = "inclusive" | "exclusive";
 
-
-type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
-
-type SyncMapItemQueryResultOrder = 'asc'|'desc';
-
+type SyncMapItemQueryResultOrder = "asc" | "desc";
 
 /**
  * Options to pass to remove a SyncMapItemInstance
@@ -33,36 +29,36 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextRemoveOptions {
-  "ifMatch"?: string;
+  ifMatch?: string;
 }
 
 /**
  * Options to pass to update a SyncMapItemInstance
  *
- * @property { any } data 
+ * @property { any } data
  * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextUpdateOptions {
-  "data": any;
-  "ifMatch"?: string;
+  data: any;
+  ifMatch?: string;
 }
 
 /**
  * Options to pass to create a SyncMapItemInstance
  *
- * @property { string } key 
- * @property { any } data 
+ * @property { string } key
+ * @property { any } data
  */
 export interface SyncMapItemListInstanceCreateOptions {
-  "key": string;
-  "data": any;
+  key: string;
+  data: any;
 }
 /**
  * Options to pass to each
  *
- * @property { SyncMapItemQueryResultOrder } [order] 
- * @property { string } [from] 
- * @property { SyncMapItemQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryResultOrder } [order]
+ * @property { string } [from]
+ * @property { SyncMapItemQueryFromBoundType } [bounds]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -74,10 +70,10 @@ export interface SyncMapItemListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncMapItemListInstanceEachOptions {
-  "order"?: SyncMapItemQueryResultOrder;
-  "from"?: string;
-  "bounds"?: SyncMapItemQueryFromBoundType;
-  "pageSize"?: number;
+  order?: SyncMapItemQueryResultOrder;
+  from?: string;
+  bounds?: SyncMapItemQueryFromBoundType;
+  pageSize?: number;
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -86,9 +82,9 @@ export interface SyncMapItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SyncMapItemQueryResultOrder } [order] 
- * @property { string } [from] 
- * @property { SyncMapItemQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryResultOrder } [order]
+ * @property { string } [from]
+ * @property { SyncMapItemQueryFromBoundType } [bounds]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -96,37 +92,33 @@ export interface SyncMapItemListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncMapItemListInstanceOptions {
-  "order"?: SyncMapItemQueryResultOrder;
-  "from"?: string;
-  "bounds"?: SyncMapItemQueryFromBoundType;
-  "pageSize"?: number;
+  order?: SyncMapItemQueryResultOrder;
+  from?: string;
+  bounds?: SyncMapItemQueryFromBoundType;
+  pageSize?: number;
   limit?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property { SyncMapItemQueryResultOrder } [order] 
- * @property { string } [from] 
- * @property { SyncMapItemQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryResultOrder } [order]
+ * @property { string } [from]
+ * @property { SyncMapItemQueryFromBoundType } [bounds]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapItemListInstancePageOptions {
-  "order"?: SyncMapItemQueryResultOrder;
-  "from"?: string;
-  "bounds"?: SyncMapItemQueryFromBoundType;
-  "pageSize"?: number;
+  order?: SyncMapItemQueryResultOrder;
+  from?: string;
+  bounds?: SyncMapItemQueryFromBoundType;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SyncMapItemContext {
-
-
   /**
    * Remove a SyncMapItemInstance
    *
@@ -134,7 +126,9 @@ export interface SyncMapItemContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a SyncMapItemInstance
    *
@@ -143,9 +137,11 @@ export interface SyncMapItemContext {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  remove(params: SyncMapItemContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-
+  remove(
+    params: SyncMapItemContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a SyncMapItemInstance
@@ -154,8 +150,9 @@ export interface SyncMapItemContext {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  fetch(callback?: (error: Error | null, item?: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
 
   /**
    * Update a SyncMapItemInstance
@@ -165,9 +162,11 @@ export interface SyncMapItemContext {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  update(params: SyncMapItemContextUpdateOptions, callback?: (error: Error | null, item?: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
-  update(params: any, callback?: any): Promise<SyncMapItemInstance>
-
+  update(
+    params: SyncMapItemContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
+  update(params: any, callback?: any): Promise<SyncMapItemInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -177,23 +176,27 @@ export interface SyncMapItemContext {
 }
 
 export interface SyncMapItemContextSolution {
-  "serviceSid"?: string;
-  "mapSid"?: string;
-  "key"?: string;
+  serviceSid?: string;
+  mapSid?: string;
+  key?: string;
 }
 
 export class SyncMapItemContextImpl implements SyncMapItemContext {
   protected _solution: SyncMapItemContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: Sync, serviceSid: string, mapSid: string, key: string) {
+  constructor(
+    protected _version: Sync,
+    serviceSid: string,
+    mapSid: string,
+    key: string
+  ) {
     this._solution = { serviceSid, mapSid, key };
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -202,66 +205,92 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     let data: any = {};
 
-    
-    
-
     const headers: any = {};
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SyncMapItemInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.mapSid, this._solution.key));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncMapItemInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.mapSid,
+          this._solution.key
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<SyncMapItemInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["data"] === null || params["data"] === undefined) {
-      throw new Error('Required parameter "params[\'data\']" missing.');
+      throw new Error("Required parameter \"params['data']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Data"] = serialize.object(params["data"]);
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.mapSid, this._solution.key));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncMapItemInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.mapSid,
+          this._solution.key
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -278,8 +307,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   }
 }
 
-interface SyncMapItemPayload extends SyncMapItemResource, Page.TwilioResponsePayload {
-}
+interface SyncMapItemPayload
+  extends SyncMapItemResource,
+    Page.TwilioResponsePayload {}
 
 interface SyncMapItemResource {
   key?: string | null;
@@ -298,7 +328,13 @@ export class SyncMapItemInstance {
   protected _solution: SyncMapItemContextSolution;
   protected _context?: SyncMapItemContext;
 
-  constructor(protected _version: Sync, payload: SyncMapItemPayload, serviceSid: string, mapSid: string, key?: string) {
+  constructor(
+    protected _version: Sync,
+    payload: SyncMapItemPayload,
+    serviceSid: string,
+    mapSid: string,
+    key?: string
+  ) {
     this.key = payload.key;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -325,7 +361,14 @@ export class SyncMapItemInstance {
   createdBy?: string | null;
 
   private get _proxy(): SyncMapItemContext {
-    this._context = this._context || new SyncMapItemContextImpl(this._version, this._solution.serviceSid, this._solution.mapSid, this._solution.key);
+    this._context =
+      this._context ||
+      new SyncMapItemContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.mapSid,
+        this._solution.key
+      );
     return this._context;
   }
 
@@ -336,7 +379,9 @@ export class SyncMapItemInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a SyncMapItemInstance
    *
@@ -345,9 +390,11 @@ export class SyncMapItemInstance {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  remove(params: SyncMapItemContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-     {
+  remove(
+    params: SyncMapItemContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -358,8 +405,9 @@ export class SyncMapItemInstance {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  fetch(callback?: (error: Error | null, item?: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -371,9 +419,11 @@ export class SyncMapItemInstance {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  update(params: SyncMapItemContextUpdateOptions, callback?: (error: Error | null, item?: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
-  update(params: any, callback?: any): Promise<SyncMapItemInstance>
-     {
+  update(
+    params: SyncMapItemContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
+  update(params: any, callback?: any): Promise<SyncMapItemInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -384,17 +434,17 @@ export class SyncMapItemInstance {
    */
   toJSON() {
     return {
-      key: this.key, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      mapSid: this.mapSid, 
-      url: this.url, 
-      revision: this.revision, 
-      data: this.data, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      createdBy: this.createdBy
-    }
+      key: this.key,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      mapSid: this.mapSid,
+      url: this.url,
+      revision: this.revision,
+      data: this.data,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      createdBy: this.createdBy,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -402,11 +452,9 @@ export class SyncMapItemInstance {
   }
 }
 
-
 export interface SyncMapItemListInstance {
   (key: string): SyncMapItemContext;
   get(key: string): SyncMapItemContext;
-
 
   /**
    * Create a SyncMapItemInstance
@@ -416,10 +464,11 @@ export interface SyncMapItemListInstance {
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
-  create(params: SyncMapItemListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
-  create(params: any, callback?: any): Promise<SyncMapItemInstance>
-
-
+  create(
+    params: SyncMapItemListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
+  create(params: any, callback?: any): Promise<SyncMapItemInstance>;
 
   /**
    * Streams SyncMapItemInstance records from the API.
@@ -435,7 +484,9 @@ export interface SyncMapItemListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SyncMapItemInstance records from the API.
    *
@@ -451,7 +502,10 @@ export interface SyncMapItemListInstance {
    * @param { SyncMapItemListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SyncMapItemListInstanceEachOptions, callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SyncMapItemListInstanceEachOptions,
+    callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SyncMapItemInstance records from the API.
@@ -463,7 +517,9 @@ export interface SyncMapItemListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
+  getPage(
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
   /**
    * Retrieve a single target page of SyncMapItemInstance records from the API.
    *
@@ -475,7 +531,10 @@ export interface SyncMapItemListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
   getPage(params?: any, callback?: any): Promise<SyncMapItemPage>;
   /**
    * Lists SyncMapItemInstance records from the API as a list.
@@ -485,7 +544,9 @@ export interface SyncMapItemListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SyncMapItemInstance[]) => any): Promise<SyncMapItemInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
+  ): Promise<SyncMapItemInstance[]>;
   /**
    * Lists SyncMapItemInstance records from the API as a list.
    *
@@ -495,7 +556,10 @@ export interface SyncMapItemListInstance {
    * @param { SyncMapItemListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SyncMapItemListInstanceOptions, callback?: (error: Error | null, items: SyncMapItemInstance[]) => any): Promise<SyncMapItemInstance[]>;
+  list(
+    params?: SyncMapItemListInstanceOptions,
+    callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
+  ): Promise<SyncMapItemInstance[]>;
   list(params?: any, callback?: any): Promise<SyncMapItemInstance[]>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
@@ -507,7 +571,9 @@ export interface SyncMapItemListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
+  page(
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
    *
@@ -519,7 +585,10 @@ export interface SyncMapItemListInstance {
    * @param { SyncMapItemListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SyncMapItemListInstancePageOptions, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
+  page(
+    params: SyncMapItemListInstancePageOptions,
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
   page(params?: any, callback?: any): Promise<SyncMapItemPage>;
 
   /**
@@ -539,58 +608,77 @@ class SyncMapItemListInstanceImpl implements SyncMapItemListInstance {
   _version?: Sync;
   _solution?: SyncMapItemSolution;
   _uri?: string;
-
 }
 
-export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance {
+export function SyncMapItemListInstance(
+  version: Sync,
+  serviceSid: string,
+  mapSid: string
+): SyncMapItemListInstance {
   const instance = ((key) => instance.get(key)) as SyncMapItemListInstanceImpl;
 
   instance.get = function get(key): SyncMapItemContext {
     return new SyncMapItemContextImpl(version, serviceSid, mapSid, key);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, mapSid };
   instance._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
-  instance.create = function create(params: any, callback?: any): Promise<SyncMapItemInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["key"] === null || params["key"] === undefined) {
-      throw new Error('Required parameter "params[\'key\']" missing.');
+      throw new Error("Required parameter \"params['key']\" missing.");
     }
 
     if (params["data"] === null || params["data"] === undefined) {
-      throw new Error('Required parameter "params[\'data\']" missing.');
+      throw new Error("Required parameter \"params['data']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Key"] = params["key"];
-    
+
     data["Data"] = serialize.object(params["data"]);
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.mapSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncMapItemInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.mapSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SyncMapItemPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SyncMapItemPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -600,82 +688,107 @@ export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSi
 
     let data: any = {};
 
-        if (params["order"] !== undefined)
-    data["Order"] = params["order"];
-    if (params["from"] !== undefined)
-    data["From"] = params["from"];
-    if (params["bounds"] !== undefined)
-    data["Bounds"] = params["bounds"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
+    if (params["bounds"] !== undefined) data["Bounds"] = params["bounds"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapItemPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncMapItemPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapItemPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SyncMapItemPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SyncMapItemPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SyncMapItemPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SyncMapItemPage extends Page<Sync, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
-/**
-* Initialize the SyncMapItemPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: Sync, response: Response<string>, solution: SyncMapItemSolution) {
+export class SyncMapItemPage extends Page<
+  Sync,
+  SyncMapItemPayload,
+  SyncMapItemResource,
+  SyncMapItemInstance
+> {
+  /**
+   * Initialize the SyncMapItemPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Sync,
+    response: Response<string>,
+    solution: SyncMapItemSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SyncMapItemInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SyncMapItemPayload): SyncMapItemInstance {
+  /**
+   * Build an instance of SyncMapItemInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SyncMapItemPayload): SyncMapItemInstance {
     return new SyncMapItemInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.mapSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.mapSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

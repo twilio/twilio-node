@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-
 export interface ExecutionContextContext {
-
-
   /**
    * Fetch a ExecutionContextInstance
    *
@@ -31,8 +25,9 @@ export interface ExecutionContextContext {
    *
    * @returns { Promise } Resolves to processed ExecutionContextInstance
    */
-  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
+  ): Promise<ExecutionContextInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -42,14 +37,13 @@ export interface ExecutionContextContext {
 }
 
 export interface ExecutionContextContextSolution {
-  "flowSid"?: string;
-  "executionSid"?: string;
+  flowSid?: string;
+  executionSid?: string;
 }
 
 export class ExecutionContextContextImpl implements ExecutionContextContext {
   protected _solution: ExecutionContextContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, flowSid: string, executionSid: string) {
     this._solution = { flowSid, executionSid };
@@ -57,17 +51,27 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 
   fetch(callback?: any): Promise<ExecutionContextInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ExecutionContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.executionSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ExecutionContextInstance(
+          operationVersion,
+          payload,
+          this._solution.flowSid,
+          this._solution.executionSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -84,8 +88,7 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 }
 
-interface ExecutionContextPayload extends ExecutionContextResource{
-}
+interface ExecutionContextPayload extends ExecutionContextResource {}
 
 interface ExecutionContextResource {
   account_sid?: string | null;
@@ -99,14 +102,22 @@ export class ExecutionContextInstance {
   protected _solution: ExecutionContextContextSolution;
   protected _context?: ExecutionContextContext;
 
-  constructor(protected _version: V2, payload: ExecutionContextPayload, flowSid: string, executionSid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: ExecutionContextPayload,
+    flowSid: string,
+    executionSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
     this.flowSid = payload.flow_sid;
     this.executionSid = payload.execution_sid;
     this.url = payload.url;
 
-    this._solution = { flowSid, executionSid: executionSid || this.executionSid };
+    this._solution = {
+      flowSid,
+      executionSid: executionSid || this.executionSid,
+    };
   }
 
   /**
@@ -131,7 +142,13 @@ export class ExecutionContextInstance {
   url?: string | null;
 
   private get _proxy(): ExecutionContextContext {
-    this._context = this._context || new ExecutionContextContextImpl(this._version, this._solution.flowSid, this._solution.executionSid);
+    this._context =
+      this._context ||
+      new ExecutionContextContextImpl(
+        this._version,
+        this._solution.flowSid,
+        this._solution.executionSid
+      );
     return this._context;
   }
 
@@ -142,8 +159,9 @@ export class ExecutionContextInstance {
    *
    * @returns { Promise } Resolves to processed ExecutionContextInstance
    */
-  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
+  ): Promise<ExecutionContextInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -154,12 +172,12 @@ export class ExecutionContextInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      context: this.context, 
-      flowSid: this.flowSid, 
-      executionSid: this.executionSid, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      context: this.context,
+      flowSid: this.flowSid,
+      executionSid: this.executionSid,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -167,11 +185,9 @@ export class ExecutionContextInstance {
   }
 }
 
-
 export interface ExecutionContextListInstance {
   (): ExecutionContextContext;
   get(): ExecutionContextContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -185,20 +201,24 @@ export interface ExecutionContextSolution {
   executionSid?: string;
 }
 
-interface ExecutionContextListInstanceImpl extends ExecutionContextListInstance {}
+interface ExecutionContextListInstanceImpl
+  extends ExecutionContextListInstance {}
 class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
   _version?: V2;
   _solution?: ExecutionContextSolution;
   _uri?: string;
-
 }
 
-export function ExecutionContextListInstance(version: V2, flowSid: string, executionSid: string): ExecutionContextListInstance {
+export function ExecutionContextListInstance(
+  version: V2,
+  flowSid: string,
+  executionSid: string
+): ExecutionContextListInstance {
   const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
 
   instance.get = function get(): ExecutionContextContext {
     return new ExecutionContextContextImpl(version, flowSid, executionSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { flowSid, executionSid };
@@ -206,14 +226,14 @@ export function ExecutionContextListInstance(version: V2, flowSid: string, execu
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

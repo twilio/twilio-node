@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
@@ -20,10 +19,7 @@ const serialize = require("../../../../../../base/serialize");
 import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
 import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
 
-
-
 export interface AuthTypesListInstance {
-
   calls: AuthTypeCallsListInstance;
   registrations: AuthTypeRegistrationsListInstance;
 
@@ -49,7 +45,11 @@ class AuthTypesListInstanceImpl implements AuthTypesListInstance {
   _registrations?: AuthTypeRegistrationsListInstance;
 }
 
-export function AuthTypesListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypesListInstance {
+export function AuthTypesListInstance(
+  version: V2010,
+  accountSid: string,
+  domainSid: string
+): AuthTypesListInstance {
   const instance = {} as AuthTypesListInstanceImpl;
 
   instance._version = version;
@@ -59,30 +59,39 @@ export function AuthTypesListInstance(version: V2010, accountSid: string, domain
   Object.defineProperty(instance, "calls", {
     get: function calls() {
       if (!this._calls) {
-        this._calls = AuthTypeCallsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+        this._calls = AuthTypeCallsListInstance(
+          this._version,
+          this._solution.accountSid,
+          this._solution.domainSid
+        );
       }
       return this._calls;
-    }
+    },
   });
 
   Object.defineProperty(instance, "registrations", {
     get: function registrations() {
       if (!this._registrations) {
-        this._registrations = AuthTypeRegistrationsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+        this._registrations = AuthTypeRegistrationsListInstance(
+          this._version,
+          this._solution.accountSid,
+          this._solution.domainSid
+        );
       }
       return this._registrations;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,10 +19,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-type CompositionHookFormat = 'mp4'|'webm';
-
+type CompositionHookFormat = "mp4" | "webm";
 
 /**
  * Options to pass to update a CompositionHookInstance
@@ -34,22 +30,22 @@ type CompositionHookFormat = 'mp4'|'webm';
  * @property { Array<string> } [audioSources] An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; includes tracks named &#x60;student&#x60; as well as &#x60;studentTeam&#x60;.
  * @property { Array<string> } [audioSourcesExcluded] An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except for those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; excludes &#x60;student&#x60; as well as &#x60;studentTeam&#x60;. This parameter can also be empty.
  * @property { boolean } [trim] Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is &#x60;true&#x60;. Compositions with &#x60;trim&#x60; enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
- * @property { CompositionHookFormat } [format] 
+ * @property { CompositionHookFormat } [format]
  * @property { string } [resolution] A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to &#x60;640x480&#x60;.  The string\\\&#39;s format is &#x60;{width}x{height}&#x60; where:   * 16 &lt;&#x3D; &#x60;{width}&#x60; &lt;&#x3D; 1280 * 16 &lt;&#x3D; &#x60;{height}&#x60; &lt;&#x3D; 1280 * &#x60;{width}&#x60; * &#x60;{height}&#x60; &lt;&#x3D; 921,600  Typical values are:   * HD &#x3D; &#x60;1280x720&#x60; * PAL &#x3D; &#x60;1024x576&#x60; * VGA &#x3D; &#x60;640x480&#x60; * CIF &#x3D; &#x60;320x240&#x60;  Note that the &#x60;resolution&#x60; imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
  */
 export interface CompositionHookContextUpdateOptions {
-  "friendlyName": string;
-  "enabled"?: boolean;
-  "videoLayout"?: any;
-  "audioSources"?: Array<string>;
-  "audioSourcesExcluded"?: Array<string>;
-  "trim"?: boolean;
-  "format"?: CompositionHookFormat;
-  "resolution"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
+  friendlyName: string;
+  enabled?: boolean;
+  videoLayout?: any;
+  audioSources?: Array<string>;
+  audioSourcesExcluded?: Array<string>;
+  trim?: boolean;
+  format?: CompositionHookFormat;
+  resolution?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
 }
 
 /**
@@ -61,22 +57,22 @@ export interface CompositionHookContextUpdateOptions {
  * @property { Array<string> } [audioSources] An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; includes tracks named &#x60;student&#x60; as well as &#x60;studentTeam&#x60;.
  * @property { Array<string> } [audioSourcesExcluded] An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except for those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; excludes &#x60;student&#x60; as well as &#x60;studentTeam&#x60;. This parameter can also be empty.
  * @property { string } [resolution] A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to &#x60;640x480&#x60;.  The string\\\&#39;s format is &#x60;{width}x{height}&#x60; where:   * 16 &lt;&#x3D; &#x60;{width}&#x60; &lt;&#x3D; 1280 * 16 &lt;&#x3D; &#x60;{height}&#x60; &lt;&#x3D; 1280 * &#x60;{width}&#x60; * &#x60;{height}&#x60; &lt;&#x3D; 921,600  Typical values are:   * HD &#x3D; &#x60;1280x720&#x60; * PAL &#x3D; &#x60;1024x576&#x60; * VGA &#x3D; &#x60;640x480&#x60; * CIF &#x3D; &#x60;320x240&#x60;  Note that the &#x60;resolution&#x60; imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
- * @property { CompositionHookFormat } [format] 
+ * @property { CompositionHookFormat } [format]
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
  * @property { boolean } [trim] Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is &#x60;true&#x60;. Compositions with &#x60;trim&#x60; enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
  */
 export interface CompositionHookListInstanceCreateOptions {
-  "friendlyName": string;
-  "enabled"?: boolean;
-  "videoLayout"?: any;
-  "audioSources"?: Array<string>;
-  "audioSourcesExcluded"?: Array<string>;
-  "resolution"?: string;
-  "format"?: CompositionHookFormat;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "trim"?: boolean;
+  friendlyName: string;
+  enabled?: boolean;
+  videoLayout?: any;
+  audioSources?: Array<string>;
+  audioSourcesExcluded?: Array<string>;
+  resolution?: string;
+  format?: CompositionHookFormat;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  trim?: boolean;
 }
 /**
  * Options to pass to each
@@ -96,12 +92,15 @@ export interface CompositionHookListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CompositionHookListInstanceEachOptions {
-  "enabled"?: boolean;
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
-  "friendlyName"?: string;
-  "pageSize"?: number;
-  callback?: (item: CompositionHookInstance, done: (err?: Error) => void) => void;
+  enabled?: boolean;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  friendlyName?: string;
+  pageSize?: number;
+  callback?: (
+    item: CompositionHookInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -120,11 +119,11 @@ export interface CompositionHookListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CompositionHookListInstanceOptions {
-  "enabled"?: boolean;
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  enabled?: boolean;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  friendlyName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -140,20 +139,16 @@ export interface CompositionHookListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CompositionHookListInstancePageOptions {
-  "enabled"?: boolean;
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  enabled?: boolean;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  friendlyName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CompositionHookContext {
-
-
   /**
    * Remove a CompositionHookInstance
    *
@@ -161,8 +156,9 @@ export interface CompositionHookContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a CompositionHookInstance
@@ -171,8 +167,9 @@ export interface CompositionHookContext {
    *
    * @returns { Promise } Resolves to processed CompositionHookInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionHookInstance) => any): Promise<CompositionHookInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance>;
 
   /**
    * Update a CompositionHookInstance
@@ -182,9 +179,11 @@ export interface CompositionHookContext {
    *
    * @returns { Promise } Resolves to processed CompositionHookInstance
    */
-  update(params: CompositionHookContextUpdateOptions, callback?: (error: Error | null, item?: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
-  update(params: any, callback?: any): Promise<CompositionHookInstance>
-
+  update(
+    params: CompositionHookContextUpdateOptions,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance>;
+  update(params: any, callback?: any): Promise<CompositionHookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -194,13 +193,12 @@ export interface CompositionHookContext {
 }
 
 export interface CompositionHookContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class CompositionHookContextImpl implements CompositionHookContext {
   protected _solution: CompositionHookContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -208,78 +206,103 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CompositionHookInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CompositionHookInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<CompositionHookInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["videoLayout"] !== undefined)
-    data["VideoLayout"] = serialize.object(params["videoLayout"]);
+      data["VideoLayout"] = serialize.object(params["videoLayout"]);
     if (params["audioSources"] !== undefined)
-    data["AudioSources"] = serialize.map(params["audioSources"], (e => (e)));
+      data["AudioSources"] = serialize.map(params["audioSources"], (e) => e);
     if (params["audioSourcesExcluded"] !== undefined)
-    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], (e => (e)));
+      data["AudioSourcesExcluded"] = serialize.map(
+        params["audioSourcesExcluded"],
+        (e) => e
+      );
     if (params["trim"] !== undefined)
-    data["Trim"] = serialize.bool(params["trim"]);
-    if (params["format"] !== undefined)
-    data["Format"] = params["format"];
+      data["Trim"] = serialize.bool(params["trim"]);
+    if (params["format"] !== undefined) data["Format"] = params["format"];
     if (params["resolution"] !== undefined)
-    data["Resolution"] = params["resolution"];
+      data["Resolution"] = params["resolution"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CompositionHookInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -295,10 +318,17 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type CompositionHookStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type CompositionHookStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface CompositionHookPayload extends CompositionHookResource, Page.TwilioResponsePayload {
-}
+interface CompositionHookPayload
+  extends CompositionHookResource,
+    Page.TwilioResponsePayload {}
 
 interface CompositionHookResource {
   account_sid?: string | null;
@@ -322,7 +352,11 @@ export class CompositionHookInstance {
   protected _solution: CompositionHookContextSolution;
   protected _context?: CompositionHookContext;
 
-  constructor(protected _version: V1, payload: CompositionHookPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: CompositionHookPayload,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.enabled = payload.enabled;
@@ -401,7 +435,9 @@ export class CompositionHookInstance {
   url?: string | null;
 
   private get _proxy(): CompositionHookContext {
-    this._context = this._context || new CompositionHookContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new CompositionHookContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -412,8 +448,9 @@ export class CompositionHookInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -424,8 +461,9 @@ export class CompositionHookInstance {
    *
    * @returns { Promise } Resolves to processed CompositionHookInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionHookInstance) => any): Promise<CompositionHookInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -437,9 +475,11 @@ export class CompositionHookInstance {
    *
    * @returns { Promise } Resolves to processed CompositionHookInstance
    */
-  update(params: CompositionHookContextUpdateOptions, callback?: (error: Error | null, item?: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
-  update(params: any, callback?: any): Promise<CompositionHookInstance>
-     {
+  update(
+    params: CompositionHookContextUpdateOptions,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance>;
+  update(params: any, callback?: any): Promise<CompositionHookInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -450,22 +490,22 @@ export class CompositionHookInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      enabled: this.enabled, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      sid: this.sid, 
-      audioSources: this.audioSources, 
-      audioSourcesExcluded: this.audioSourcesExcluded, 
-      videoLayout: this.videoLayout, 
-      resolution: this.resolution, 
-      trim: this.trim, 
-      format: this.format, 
-      statusCallback: this.statusCallback, 
-      statusCallbackMethod: this.statusCallbackMethod, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      enabled: this.enabled,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      sid: this.sid,
+      audioSources: this.audioSources,
+      audioSourcesExcluded: this.audioSourcesExcluded,
+      videoLayout: this.videoLayout,
+      resolution: this.resolution,
+      trim: this.trim,
+      format: this.format,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -473,11 +513,9 @@ export class CompositionHookInstance {
   }
 }
 
-
 export interface CompositionHookListInstance {
   (sid: string): CompositionHookContext;
   get(sid: string): CompositionHookContext;
-
 
   /**
    * Create a CompositionHookInstance
@@ -487,10 +525,11 @@ export interface CompositionHookListInstance {
    *
    * @returns { Promise } Resolves to processed CompositionHookInstance
    */
-  create(params: CompositionHookListInstanceCreateOptions, callback?: (error: Error | null, item?: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
-  create(params: any, callback?: any): Promise<CompositionHookInstance>
-
-
+  create(
+    params: CompositionHookListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance>;
+  create(params: any, callback?: any): Promise<CompositionHookInstance>;
 
   /**
    * Streams CompositionHookInstance records from the API.
@@ -506,7 +545,12 @@ export interface CompositionHookListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CompositionHookInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: CompositionHookInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams CompositionHookInstance records from the API.
    *
@@ -522,7 +566,13 @@ export interface CompositionHookListInstance {
    * @param { CompositionHookListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CompositionHookListInstanceEachOptions, callback?: (item: CompositionHookInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CompositionHookListInstanceEachOptions,
+    callback?: (
+      item: CompositionHookInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CompositionHookInstance records from the API.
@@ -534,7 +584,9 @@ export interface CompositionHookListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CompositionHookPage) => any): Promise<CompositionHookPage>;
+  getPage(
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
   /**
    * Retrieve a single target page of CompositionHookInstance records from the API.
    *
@@ -546,7 +598,10 @@ export interface CompositionHookListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CompositionHookPage) => any): Promise<CompositionHookPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
   getPage(params?: any, callback?: any): Promise<CompositionHookPage>;
   /**
    * Lists CompositionHookInstance records from the API as a list.
@@ -556,7 +611,9 @@ export interface CompositionHookListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CompositionHookInstance[]) => any): Promise<CompositionHookInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CompositionHookInstance[]) => any
+  ): Promise<CompositionHookInstance[]>;
   /**
    * Lists CompositionHookInstance records from the API as a list.
    *
@@ -566,7 +623,10 @@ export interface CompositionHookListInstance {
    * @param { CompositionHookListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CompositionHookListInstanceOptions, callback?: (error: Error | null, items: CompositionHookInstance[]) => any): Promise<CompositionHookInstance[]>;
+  list(
+    params?: CompositionHookListInstanceOptions,
+    callback?: (error: Error | null, items: CompositionHookInstance[]) => any
+  ): Promise<CompositionHookInstance[]>;
   list(params?: any, callback?: any): Promise<CompositionHookInstance[]>;
   /**
    * Retrieve a single page of CompositionHookInstance records from the API.
@@ -578,7 +638,9 @@ export interface CompositionHookListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CompositionHookPage) => any): Promise<CompositionHookPage>;
+  page(
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
   /**
    * Retrieve a single page of CompositionHookInstance records from the API.
    *
@@ -590,7 +652,10 @@ export interface CompositionHookListInstance {
    * @param { CompositionHookListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CompositionHookListInstancePageOptions, callback?: (error: Error | null, items: CompositionHookPage) => any): Promise<CompositionHookPage>;
+  page(
+    params: CompositionHookListInstancePageOptions,
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
   page(params?: any, callback?: any): Promise<CompositionHookPage>;
 
   /**
@@ -600,78 +665,94 @@ export interface CompositionHookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionHookSolution {
-}
+export interface CompositionHookSolution {}
 
 interface CompositionHookListInstanceImpl extends CompositionHookListInstance {}
 class CompositionHookListInstanceImpl implements CompositionHookListInstance {
   _version?: V1;
   _solution?: CompositionHookSolution;
   _uri?: string;
-
 }
 
-export function CompositionHookListInstance(version: V1): CompositionHookListInstance {
-  const instance = ((sid) => instance.get(sid)) as CompositionHookListInstanceImpl;
+export function CompositionHookListInstance(
+  version: V1
+): CompositionHookListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as CompositionHookListInstanceImpl;
 
   instance.get = function get(sid): CompositionHookContext {
     return new CompositionHookContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/CompositionHooks`;
 
-  instance.create = function create(params: any, callback?: any): Promise<CompositionHookInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["videoLayout"] !== undefined)
-    data["VideoLayout"] = serialize.object(params["videoLayout"]);
+      data["VideoLayout"] = serialize.object(params["videoLayout"]);
     if (params["audioSources"] !== undefined)
-    data["AudioSources"] = serialize.map(params["audioSources"], (e => (e)));
+      data["AudioSources"] = serialize.map(params["audioSources"], (e) => e);
     if (params["audioSourcesExcluded"] !== undefined)
-    data["AudioSourcesExcluded"] = serialize.map(params["audioSourcesExcluded"], (e => (e)));
+      data["AudioSourcesExcluded"] = serialize.map(
+        params["audioSourcesExcluded"],
+        (e) => e
+      );
     if (params["resolution"] !== undefined)
-    data["Resolution"] = params["resolution"];
-    if (params["format"] !== undefined)
-    data["Format"] = params["format"];
+      data["Resolution"] = params["resolution"];
+    if (params["format"] !== undefined) data["Format"] = params["format"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["trim"] !== undefined)
-    data["Trim"] = serialize.bool(params["trim"]);
-
+      data["Trim"] = serialize.bool(params["trim"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CompositionHookInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CompositionHookPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CompositionHookPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -681,82 +762,112 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
 
     let data: any = {};
 
-        if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+    if (params["enabled"] !== undefined)
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["dateCreatedAfter"] !== undefined)
-    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"]
+      );
     if (params["dateCreatedBefore"] !== undefined)
-    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"]
+      );
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CompositionHookPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CompositionHookPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CompositionHookPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CompositionHookPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CompositionHookPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CompositionHookPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CompositionHookPage extends Page<V1, CompositionHookPayload, CompositionHookResource, CompositionHookInstance> {
-/**
-* Initialize the CompositionHookPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CompositionHookSolution) {
+export class CompositionHookPage extends Page<
+  V1,
+  CompositionHookPayload,
+  CompositionHookResource,
+  CompositionHookInstance
+> {
+  /**
+   * Initialize the CompositionHookPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CompositionHookSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CompositionHookInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CompositionHookPayload): CompositionHookInstance {
-    return new CompositionHookInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of CompositionHookInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CompositionHookPayload): CompositionHookInstance {
+    return new CompositionHookInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

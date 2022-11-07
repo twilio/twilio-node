@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to create a FieldValueInstance
@@ -31,9 +27,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [synonymOf] The string value that indicates which word the field value is a synonym of.
  */
 export interface FieldValueListInstanceCreateOptions {
-  "language": string;
-  "value": string;
-  "synonymOf"?: string;
+  language: string;
+  value: string;
+  synonymOf?: string;
 }
 /**
  * Options to pass to each
@@ -50,8 +46,8 @@ export interface FieldValueListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FieldValueListInstanceEachOptions {
-  "language"?: string;
-  "pageSize"?: number;
+  language?: string;
+  pageSize?: number;
   callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -68,8 +64,8 @@ export interface FieldValueListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FieldValueListInstanceOptions {
-  "language"?: string;
-  "pageSize"?: number;
+  language?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -82,17 +78,13 @@ export interface FieldValueListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FieldValueListInstancePageOptions {
-  "language"?: string;
-  "pageSize"?: number;
+  language?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FieldValueContext {
-
-
   /**
    * Remove a FieldValueInstance
    *
@@ -100,8 +92,9 @@ export interface FieldValueContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FieldValueInstance
@@ -110,8 +103,9 @@ export interface FieldValueContext {
    *
    * @returns { Promise } Resolves to processed FieldValueInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldValueInstance) => any): Promise<FieldValueInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FieldValueInstance) => any
+  ): Promise<FieldValueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -121,45 +115,62 @@ export interface FieldValueContext {
 }
 
 export interface FieldValueContextSolution {
-  "assistantSid"?: string;
-  "fieldTypeSid"?: string;
-  "sid"?: string;
+  assistantSid?: string;
+  fieldTypeSid?: string;
+  sid?: string;
 }
 
 export class FieldValueContextImpl implements FieldValueContext {
   protected _solution: FieldValueContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, assistantSid: string, fieldTypeSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    assistantSid: string,
+    fieldTypeSid: string,
+    sid: string
+  ) {
     this._solution = { assistantSid, fieldTypeSid, sid };
     this._uri = `/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FieldValueInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FieldValueInstance(operationVersion, payload, this._solution.assistantSid, this._solution.fieldTypeSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldValueInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.fieldTypeSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -176,8 +187,9 @@ export class FieldValueContextImpl implements FieldValueContext {
   }
 }
 
-interface FieldValuePayload extends FieldValueResource, Page.TwilioResponsePayload {
-}
+interface FieldValuePayload
+  extends FieldValueResource,
+    Page.TwilioResponsePayload {}
 
 interface FieldValueResource {
   account_sid?: string | null;
@@ -196,7 +208,13 @@ export class FieldValueInstance {
   protected _solution: FieldValueContextSolution;
   protected _context?: FieldValueContext;
 
-  constructor(protected _version: V1, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FieldValuePayload,
+    assistantSid: string,
+    fieldTypeSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -253,7 +271,14 @@ export class FieldValueInstance {
   synonymOf?: string | null;
 
   private get _proxy(): FieldValueContext {
-    this._context = this._context || new FieldValueContextImpl(this._version, this._solution.assistantSid, this._solution.fieldTypeSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new FieldValueContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.fieldTypeSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -264,8 +289,9 @@ export class FieldValueInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -276,8 +302,9 @@ export class FieldValueInstance {
    *
    * @returns { Promise } Resolves to processed FieldValueInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldValueInstance) => any): Promise<FieldValueInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FieldValueInstance) => any
+  ): Promise<FieldValueInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -288,17 +315,17 @@ export class FieldValueInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      fieldTypeSid: this.fieldTypeSid, 
-      language: this.language, 
-      assistantSid: this.assistantSid, 
-      sid: this.sid, 
-      value: this.value, 
-      url: this.url, 
-      synonymOf: this.synonymOf
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      fieldTypeSid: this.fieldTypeSid,
+      language: this.language,
+      assistantSid: this.assistantSid,
+      sid: this.sid,
+      value: this.value,
+      url: this.url,
+      synonymOf: this.synonymOf,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -306,11 +333,9 @@ export class FieldValueInstance {
   }
 }
 
-
 export interface FieldValueListInstance {
   (sid: string): FieldValueContext;
   get(sid: string): FieldValueContext;
-
 
   /**
    * Create a FieldValueInstance
@@ -320,10 +345,11 @@ export interface FieldValueListInstance {
    *
    * @returns { Promise } Resolves to processed FieldValueInstance
    */
-  create(params: FieldValueListInstanceCreateOptions, callback?: (error: Error | null, item?: FieldValueInstance) => any): Promise<FieldValueInstance>;
-  create(params: any, callback?: any): Promise<FieldValueInstance>
-
-
+  create(
+    params: FieldValueListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FieldValueInstance) => any
+  ): Promise<FieldValueInstance>;
+  create(params: any, callback?: any): Promise<FieldValueInstance>;
 
   /**
    * Streams FieldValueInstance records from the API.
@@ -339,7 +365,9 @@ export interface FieldValueListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FieldValueInstance records from the API.
    *
@@ -355,7 +383,10 @@ export interface FieldValueListInstance {
    * @param { FieldValueListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FieldValueListInstanceEachOptions, callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FieldValueListInstanceEachOptions,
+    callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FieldValueInstance records from the API.
@@ -367,7 +398,9 @@ export interface FieldValueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
+  getPage(
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
   /**
    * Retrieve a single target page of FieldValueInstance records from the API.
    *
@@ -379,7 +412,10 @@ export interface FieldValueListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
   getPage(params?: any, callback?: any): Promise<FieldValuePage>;
   /**
    * Lists FieldValueInstance records from the API as a list.
@@ -389,7 +425,9 @@ export interface FieldValueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FieldValueInstance[]) => any): Promise<FieldValueInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FieldValueInstance[]) => any
+  ): Promise<FieldValueInstance[]>;
   /**
    * Lists FieldValueInstance records from the API as a list.
    *
@@ -399,7 +437,10 @@ export interface FieldValueListInstance {
    * @param { FieldValueListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FieldValueListInstanceOptions, callback?: (error: Error | null, items: FieldValueInstance[]) => any): Promise<FieldValueInstance[]>;
+  list(
+    params?: FieldValueListInstanceOptions,
+    callback?: (error: Error | null, items: FieldValueInstance[]) => any
+  ): Promise<FieldValueInstance[]>;
   list(params?: any, callback?: any): Promise<FieldValueInstance[]>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
@@ -411,7 +452,9 @@ export interface FieldValueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
+  page(
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
    *
@@ -423,7 +466,10 @@ export interface FieldValueListInstance {
    * @param { FieldValueListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FieldValueListInstancePageOptions, callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
+  page(
+    params: FieldValueListInstancePageOptions,
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
   page(params?: any, callback?: any): Promise<FieldValuePage>;
 
   /**
@@ -443,60 +489,79 @@ class FieldValueListInstanceImpl implements FieldValueListInstance {
   _version?: V1;
   _solution?: FieldValueSolution;
   _uri?: string;
-
 }
 
-export function FieldValueListInstance(version: V1, assistantSid: string, fieldTypeSid: string): FieldValueListInstance {
+export function FieldValueListInstance(
+  version: V1,
+  assistantSid: string,
+  fieldTypeSid: string
+): FieldValueListInstance {
   const instance = ((sid) => instance.get(sid)) as FieldValueListInstanceImpl;
 
   instance.get = function get(sid): FieldValueContext {
     return new FieldValueContextImpl(version, assistantSid, fieldTypeSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid, fieldTypeSid };
   instance._uri = `/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FieldValueInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FieldValueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["language"] === null || params["language"] === undefined) {
-      throw new Error('Required parameter "params[\'language\']" missing.');
+      throw new Error("Required parameter \"params['language']\" missing.");
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error('Required parameter "params[\'value\']" missing.');
+      throw new Error("Required parameter \"params['value']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Language"] = params["language"];
-    
+
     data["Value"] = params["value"];
     if (params["synonymOf"] !== undefined)
-    data["SynonymOf"] = params["synonymOf"];
-
+      data["SynonymOf"] = params["synonymOf"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldValueInstance(operationVersion, payload, this._solution.assistantSid, this._solution.fieldTypeSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldValueInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.fieldTypeSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FieldValuePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FieldValuePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -506,78 +571,104 @@ export function FieldValueListInstance(version: V1, assistantSid: string, fieldT
 
     let data: any = {};
 
-        if (params["language"] !== undefined)
-    data["Language"] = params["language"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["language"] !== undefined) data["Language"] = params["language"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldValuePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldValuePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldValuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FieldValuePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FieldValuePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldValuePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FieldValuePage extends Page<V1, FieldValuePayload, FieldValueResource, FieldValueInstance> {
-/**
-* Initialize the FieldValuePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: FieldValueSolution) {
+export class FieldValuePage extends Page<
+  V1,
+  FieldValuePayload,
+  FieldValueResource,
+  FieldValueInstance
+> {
+  /**
+   * Initialize the FieldValuePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: FieldValueSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FieldValueInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FieldValuePayload): FieldValueInstance {
+  /**
+   * Build an instance of FieldValueInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FieldValuePayload): FieldValueInstance {
     return new FieldValueInstance(
-    this._version,
-    payload,
-        this._solution.assistantSid,
-        this._solution.fieldTypeSid,
+      this._version,
+      payload,
+      this._solution.assistantSid,
+      this._solution.fieldTypeSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

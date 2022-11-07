@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 
 export class ConversationsV1ServiceServiceParticipantConversation {
   /**
@@ -85,7 +83,6 @@ export class ConversationsV1ServiceServiceParticipantConversation {
   "links"?: object | null;
 }
 
-
 export class ListConfigurationAddressResponseMeta {
   "firstPageUrl"?: string;
   "nextPageUrl"?: string;
@@ -95,7 +92,6 @@ export class ListConfigurationAddressResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 /**
  * Options to pass to each
@@ -113,10 +109,13 @@ export class ListConfigurationAddressResponseMeta {
  *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceEachOptions {
-  "identity"?: string;
-  "address"?: string;
-  "pageSize"?: number;
-  callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void;
+  identity?: string;
+  address?: string;
+  pageSize?: number;
+  callback?: (
+    item: ParticipantConversationInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -133,9 +132,9 @@ export interface ParticipantConversationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceOptions {
-  "identity"?: string;
-  "address"?: string;
-  "pageSize"?: number;
+  identity?: string;
+  address?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -149,19 +148,14 @@ export interface ParticipantConversationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantConversationListInstancePageOptions {
-  "identity"?: string;
-  "address"?: string;
-  "pageSize"?: number;
+  identity?: string;
+  address?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ParticipantConversationListInstance {
-
-
-
   /**
    * Streams ParticipantConversationInstance records from the API.
    *
@@ -176,7 +170,12 @@ export interface ParticipantConversationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: ParticipantConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams ParticipantConversationInstance records from the API.
    *
@@ -192,7 +191,13 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ParticipantConversationListInstanceEachOptions, callback?: (item: ParticipantConversationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ParticipantConversationListInstanceEachOptions,
+    callback?: (
+      item: ParticipantConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API.
@@ -204,7 +209,9 @@ export interface ParticipantConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
+  getPage(
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API.
    *
@@ -216,7 +223,10 @@ export interface ParticipantConversationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
   getPage(params?: any, callback?: any): Promise<ParticipantConversationPage>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list.
@@ -226,7 +236,12 @@ export interface ParticipantConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ParticipantConversationInstance[]) => any): Promise<ParticipantConversationInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: ParticipantConversationInstance[]
+    ) => any
+  ): Promise<ParticipantConversationInstance[]>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list.
    *
@@ -236,8 +251,17 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ParticipantConversationListInstanceOptions, callback?: (error: Error | null, items: ParticipantConversationInstance[]) => any): Promise<ParticipantConversationInstance[]>;
-  list(params?: any, callback?: any): Promise<ParticipantConversationInstance[]>;
+  list(
+    params?: ParticipantConversationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ParticipantConversationInstance[]
+    ) => any
+  ): Promise<ParticipantConversationInstance[]>;
+  list(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantConversationInstance[]>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API.
    *
@@ -248,7 +272,9 @@ export interface ParticipantConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
+  page(
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API.
    *
@@ -260,7 +286,10 @@ export interface ParticipantConversationListInstance {
    * @param { ParticipantConversationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ParticipantConversationListInstancePageOptions, callback?: (error: Error | null, items: ParticipantConversationPage) => any): Promise<ParticipantConversationPage>;
+  page(
+    params: ParticipantConversationListInstancePageOptions,
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
   page(params?: any, callback?: any): Promise<ParticipantConversationPage>;
 
   /**
@@ -274,22 +303,30 @@ export interface ParticipantConversationSolution {
   chatServiceSid?: string;
 }
 
-interface ParticipantConversationListInstanceImpl extends ParticipantConversationListInstance {}
-class ParticipantConversationListInstanceImpl implements ParticipantConversationListInstance {
+interface ParticipantConversationListInstanceImpl
+  extends ParticipantConversationListInstance {}
+class ParticipantConversationListInstanceImpl
+  implements ParticipantConversationListInstance
+{
   _version?: V1;
   _solution?: ParticipantConversationSolution;
   _uri?: string;
-
 }
 
-export function ParticipantConversationListInstance(version: V1, chatServiceSid: string): ParticipantConversationListInstance {
+export function ParticipantConversationListInstance(
+  version: V1,
+  chatServiceSid: string
+): ParticipantConversationListInstance {
   const instance = {} as ParticipantConversationListInstanceImpl;
 
   instance._version = version;
   instance._solution = { chatServiceSid };
   instance._uri = `/Services/${chatServiceSid}/ParticipantConversations`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantConversationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantConversationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -299,53 +336,78 @@ export function ParticipantConversationListInstance(version: V1, chatServiceSid:
 
     let data: any = {};
 
-        if (params["identity"] !== undefined)
-    data["Identity"] = params["identity"];
-    if (params["address"] !== undefined)
-    data["Address"] = params["address"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined) data["Identity"] = params["identity"];
+    if (params["address"] !== undefined) data["Address"] = params["address"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantConversationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantConversationPage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ParticipantConversationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ParticipantConversationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantConversationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface ParticipantConversationPayload extends ParticipantConversationResource, Page.TwilioResponsePayload {
-}
+interface ParticipantConversationPayload
+  extends ParticipantConversationResource,
+    Page.TwilioResponsePayload {}
 
 interface ParticipantConversationResource {
   conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
@@ -353,11 +415,13 @@ interface ParticipantConversationResource {
 }
 
 export class ParticipantConversationInstance {
-
-  constructor(protected _version: V1, payload: ParticipantConversationPayload, chatServiceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ParticipantConversationPayload,
+    chatServiceSid?: string
+  ) {
     this.conversations = payload.conversations;
     this.meta = payload.meta;
-
   }
 
   conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
@@ -370,9 +434,9 @@ export class ParticipantConversationInstance {
    */
   toJSON() {
     return {
-      conversations: this.conversations, 
-      meta: this.meta
-    }
+      conversations: this.conversations,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -380,33 +444,43 @@ export class ParticipantConversationInstance {
   }
 }
 
-export class ParticipantConversationPage extends Page<V1, ParticipantConversationPayload, ParticipantConversationResource, ParticipantConversationInstance> {
-/**
-* Initialize the ParticipantConversationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ParticipantConversationSolution) {
+export class ParticipantConversationPage extends Page<
+  V1,
+  ParticipantConversationPayload,
+  ParticipantConversationResource,
+  ParticipantConversationInstance
+> {
+  /**
+   * Initialize the ParticipantConversationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ParticipantConversationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ParticipantConversationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ParticipantConversationPayload): ParticipantConversationInstance {
+  /**
+   * Build an instance of ParticipantConversationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: ParticipantConversationPayload
+  ): ParticipantConversationInstance {
     return new ParticipantConversationInstance(
-    this._version,
-    payload,
-        this._solution.chatServiceSid,
+      this._version,
+      payload,
+      this._solution.chatServiceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

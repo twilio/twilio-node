@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,24 +19,21 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ServiceUserConversationNotificationLevel = "default" | "muted";
 
-
-type ServiceUserConversationNotificationLevel = 'default'|'muted';
-
-type ServiceUserConversationState = 'inactive'|'active'|'closed';
-
+type ServiceUserConversationState = "inactive" | "active" | "closed";
 
 /**
  * Options to pass to update a UserConversationInstance
  *
- * @property { ServiceUserConversationNotificationLevel } [notificationLevel] 
+ * @property { ServiceUserConversationNotificationLevel } [notificationLevel]
  * @property { Date } [lastReadTimestamp] The date of the last message read in conversation by the user, given in ISO 8601 format.
  * @property { number } [lastReadMessageIndex] The index of the last Message in the Conversation that the Participant has read.
  */
 export interface UserConversationContextUpdateOptions {
-  "notificationLevel"?: ServiceUserConversationNotificationLevel;
-  "lastReadTimestamp"?: Date;
-  "lastReadMessageIndex"?: number;
+  notificationLevel?: ServiceUserConversationNotificationLevel;
+  lastReadTimestamp?: Date;
+  lastReadMessageIndex?: number;
 }
 /**
  * Options to pass to each
@@ -53,8 +49,11 @@ export interface UserConversationContextUpdateOptions {
  *                         Default is no limit
  */
 export interface UserConversationListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: UserConversationInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: UserConversationInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -69,7 +68,7 @@ export interface UserConversationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserConversationListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -81,16 +80,12 @@ export interface UserConversationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserConversationListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface UserConversationContext {
-
-
   /**
    * Remove a UserConversationInstance
    *
@@ -98,8 +93,9 @@ export interface UserConversationContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a UserConversationInstance
@@ -108,8 +104,9 @@ export interface UserConversationContext {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
 
   /**
    * Update a UserConversationInstance
@@ -118,7 +115,9 @@ export interface UserConversationContext {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  update(callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
   /**
    * Update a UserConversationInstance
    *
@@ -127,9 +126,11 @@ export interface UserConversationContext {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  update(params: UserConversationContextUpdateOptions, callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>;
-  update(params?: any, callback?: any): Promise<UserConversationInstance>
-
+  update(
+    params: UserConversationContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
+  update(params?: any, callback?: any): Promise<UserConversationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -139,49 +140,66 @@ export interface UserConversationContext {
 }
 
 export interface UserConversationContextSolution {
-  "chatServiceSid"?: string;
-  "userSid"?: string;
-  "conversationSid"?: string;
+  chatServiceSid?: string;
+  userSid?: string;
+  conversationSid?: string;
 }
 
 export class UserConversationContextImpl implements UserConversationContext {
   protected _solution: UserConversationContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, chatServiceSid: string, userSid: string, conversationSid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+    userSid: string,
+    conversationSid: string
+  ) {
     this._solution = { chatServiceSid, userSid, conversationSid };
     this._uri = `/Services/${chatServiceSid}/Users/${userSid}/Conversations/${conversationSid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<UserConversationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new UserConversationInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.userSid, this._solution.conversationSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserConversationInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid,
+          this._solution.userSid,
+          this._solution.conversationSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<UserConversationInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -190,28 +208,42 @@ export class UserConversationContextImpl implements UserConversationContext {
 
     let data: any = {};
 
-    
-        if (params["notificationLevel"] !== undefined)
-    data["NotificationLevel"] = params["notificationLevel"];
+    if (params["notificationLevel"] !== undefined)
+      data["NotificationLevel"] = params["notificationLevel"];
     if (params["lastReadTimestamp"] !== undefined)
-    data["LastReadTimestamp"] = serialize.iso8601DateTime(params["lastReadTimestamp"]);
+      data["LastReadTimestamp"] = serialize.iso8601DateTime(
+        params["lastReadTimestamp"]
+      );
     if (params["lastReadMessageIndex"] !== undefined)
-    data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
-
+      data["LastReadMessageIndex"] = params["lastReadMessageIndex"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserConversationInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.userSid, this._solution.conversationSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserConversationInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid,
+          this._solution.userSid,
+          this._solution.conversationSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -228,8 +260,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   }
 }
 
-interface UserConversationPayload extends UserConversationResource, Page.TwilioResponsePayload {
-}
+interface UserConversationPayload
+  extends UserConversationResource,
+    Page.TwilioResponsePayload {}
 
 interface UserConversationResource {
   account_sid?: string | null;
@@ -256,12 +289,22 @@ export class UserConversationInstance {
   protected _solution: UserConversationContextSolution;
   protected _context?: UserConversationContext;
 
-  constructor(protected _version: V1, payload: UserConversationPayload, chatServiceSid: string, userSid: string, conversationSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: UserConversationPayload,
+    chatServiceSid: string,
+    userSid: string,
+    conversationSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
     this.conversationSid = payload.conversation_sid;
-    this.unreadMessagesCount = deserialize.integer(payload.unread_messages_count);
-    this.lastReadMessageIndex = deserialize.integer(payload.last_read_message_index);
+    this.unreadMessagesCount = deserialize.integer(
+      payload.unread_messages_count
+    );
+    this.lastReadMessageIndex = deserialize.integer(
+      payload.last_read_message_index
+    );
     this.participantSid = payload.participant_sid;
     this.userSid = payload.user_sid;
     this.friendlyName = payload.friendly_name;
@@ -276,7 +319,11 @@ export class UserConversationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { chatServiceSid, userSid, conversationSid: conversationSid || this.conversationSid };
+    this._solution = {
+      chatServiceSid,
+      userSid,
+      conversationSid: conversationSid || this.conversationSid,
+    };
   }
 
   /**
@@ -344,7 +391,14 @@ export class UserConversationInstance {
   links?: object | null;
 
   private get _proxy(): UserConversationContext {
-    this._context = this._context || new UserConversationContextImpl(this._version, this._solution.chatServiceSid, this._solution.userSid, this._solution.conversationSid);
+    this._context =
+      this._context ||
+      new UserConversationContextImpl(
+        this._version,
+        this._solution.chatServiceSid,
+        this._solution.userSid,
+        this._solution.conversationSid
+      );
     return this._context;
   }
 
@@ -355,8 +409,9 @@ export class UserConversationInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -367,8 +422,9 @@ export class UserConversationInstance {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -379,7 +435,9 @@ export class UserConversationInstance {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  update(callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
   /**
    * Update a UserConversationInstance
    *
@@ -388,9 +446,11 @@ export class UserConversationInstance {
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
-  update(params: UserConversationContextUpdateOptions, callback?: (error: Error | null, item?: UserConversationInstance) => any): Promise<UserConversationInstance>;
-  update(params?: any, callback?: any): Promise<UserConversationInstance>
-     {
+  update(
+    params: UserConversationContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
+  update(params?: any, callback?: any): Promise<UserConversationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -401,25 +461,25 @@ export class UserConversationInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      chatServiceSid: this.chatServiceSid, 
-      conversationSid: this.conversationSid, 
-      unreadMessagesCount: this.unreadMessagesCount, 
-      lastReadMessageIndex: this.lastReadMessageIndex, 
-      participantSid: this.participantSid, 
-      userSid: this.userSid, 
-      friendlyName: this.friendlyName, 
-      conversationState: this.conversationState, 
-      timers: this.timers, 
-      attributes: this.attributes, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      createdBy: this.createdBy, 
-      notificationLevel: this.notificationLevel, 
-      uniqueName: this.uniqueName, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      chatServiceSid: this.chatServiceSid,
+      conversationSid: this.conversationSid,
+      unreadMessagesCount: this.unreadMessagesCount,
+      lastReadMessageIndex: this.lastReadMessageIndex,
+      participantSid: this.participantSid,
+      userSid: this.userSid,
+      friendlyName: this.friendlyName,
+      conversationState: this.conversationState,
+      timers: this.timers,
+      attributes: this.attributes,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      createdBy: this.createdBy,
+      notificationLevel: this.notificationLevel,
+      uniqueName: this.uniqueName,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -427,12 +487,9 @@ export class UserConversationInstance {
   }
 }
 
-
 export interface UserConversationListInstance {
   (conversationSid: string): UserConversationContext;
   get(conversationSid: string): UserConversationContext;
-
-
 
   /**
    * Streams UserConversationInstance records from the API.
@@ -448,7 +505,12 @@ export interface UserConversationListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: UserConversationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: UserConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams UserConversationInstance records from the API.
    *
@@ -464,7 +526,13 @@ export interface UserConversationListInstance {
    * @param { UserConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: UserConversationListInstanceEachOptions, callback?: (item: UserConversationInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: UserConversationListInstanceEachOptions,
+    callback?: (
+      item: UserConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UserConversationInstance records from the API.
@@ -476,7 +544,9 @@ export interface UserConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: UserConversationPage) => any): Promise<UserConversationPage>;
+  getPage(
+    callback?: (error: Error | null, items: UserConversationPage) => any
+  ): Promise<UserConversationPage>;
   /**
    * Retrieve a single target page of UserConversationInstance records from the API.
    *
@@ -488,7 +558,10 @@ export interface UserConversationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserConversationPage) => any): Promise<UserConversationPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: UserConversationPage) => any
+  ): Promise<UserConversationPage>;
   getPage(params?: any, callback?: any): Promise<UserConversationPage>;
   /**
    * Lists UserConversationInstance records from the API as a list.
@@ -498,7 +571,9 @@ export interface UserConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: UserConversationInstance[]) => any): Promise<UserConversationInstance[]>;
+  list(
+    callback?: (error: Error | null, items: UserConversationInstance[]) => any
+  ): Promise<UserConversationInstance[]>;
   /**
    * Lists UserConversationInstance records from the API as a list.
    *
@@ -508,7 +583,10 @@ export interface UserConversationListInstance {
    * @param { UserConversationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: UserConversationListInstanceOptions, callback?: (error: Error | null, items: UserConversationInstance[]) => any): Promise<UserConversationInstance[]>;
+  list(
+    params?: UserConversationListInstanceOptions,
+    callback?: (error: Error | null, items: UserConversationInstance[]) => any
+  ): Promise<UserConversationInstance[]>;
   list(params?: any, callback?: any): Promise<UserConversationInstance[]>;
   /**
    * Retrieve a single page of UserConversationInstance records from the API.
@@ -520,7 +598,9 @@ export interface UserConversationListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: UserConversationPage) => any): Promise<UserConversationPage>;
+  page(
+    callback?: (error: Error | null, items: UserConversationPage) => any
+  ): Promise<UserConversationPage>;
   /**
    * Retrieve a single page of UserConversationInstance records from the API.
    *
@@ -532,7 +612,10 @@ export interface UserConversationListInstance {
    * @param { UserConversationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: UserConversationListInstancePageOptions, callback?: (error: Error | null, items: UserConversationPage) => any): Promise<UserConversationPage>;
+  page(
+    params: UserConversationListInstancePageOptions,
+    callback?: (error: Error | null, items: UserConversationPage) => any
+  ): Promise<UserConversationPage>;
   page(params?: any, callback?: any): Promise<UserConversationPage>;
 
   /**
@@ -547,26 +630,39 @@ export interface UserConversationSolution {
   userSid?: string;
 }
 
-interface UserConversationListInstanceImpl extends UserConversationListInstance {}
+interface UserConversationListInstanceImpl
+  extends UserConversationListInstance {}
 class UserConversationListInstanceImpl implements UserConversationListInstance {
   _version?: V1;
   _solution?: UserConversationSolution;
   _uri?: string;
-
 }
 
-export function UserConversationListInstance(version: V1, chatServiceSid: string, userSid: string): UserConversationListInstance {
-  const instance = ((conversationSid) => instance.get(conversationSid)) as UserConversationListInstanceImpl;
+export function UserConversationListInstance(
+  version: V1,
+  chatServiceSid: string,
+  userSid: string
+): UserConversationListInstance {
+  const instance = ((conversationSid) =>
+    instance.get(conversationSid)) as UserConversationListInstanceImpl;
 
   instance.get = function get(conversationSid): UserConversationContext {
-    return new UserConversationContextImpl(version, chatServiceSid, userSid, conversationSid);
-  }
+    return new UserConversationContextImpl(
+      version,
+      chatServiceSid,
+      userSid,
+      conversationSid
+    );
+  };
 
   instance._version = version;
   instance._solution = { chatServiceSid, userSid };
   instance._uri = `/Services/${chatServiceSid}/Users/${userSid}/Conversations`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<UserConversationPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<UserConversationPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -576,76 +672,105 @@ export function UserConversationListInstance(version: V1, chatServiceSid: string
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserConversationPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserConversationPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<UserConversationPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new UserConversationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserConversationPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class UserConversationPage extends Page<V1, UserConversationPayload, UserConversationResource, UserConversationInstance> {
-/**
-* Initialize the UserConversationPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: UserConversationSolution) {
+export class UserConversationPage extends Page<
+  V1,
+  UserConversationPayload,
+  UserConversationResource,
+  UserConversationInstance
+> {
+  /**
+   * Initialize the UserConversationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: UserConversationSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of UserConversationInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: UserConversationPayload): UserConversationInstance {
+  /**
+   * Build an instance of UserConversationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UserConversationPayload): UserConversationInstance {
     return new UserConversationInstance(
-    this._version,
-    payload,
-        this._solution.chatServiceSid,
-        this._solution.userSid,
+      this._version,
+      payload,
+      this._solution.chatServiceSid,
+      this._solution.userSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

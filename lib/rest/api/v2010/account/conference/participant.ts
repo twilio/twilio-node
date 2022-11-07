@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,10 +19,13 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
-
+type ParticipantStatus =
+  | "queued"
+  | "connecting"
+  | "ringing"
+  | "connected"
+  | "complete"
+  | "failed";
 
 /**
  * Options to pass to update a ParticipantInstance
@@ -42,18 +44,18 @@ type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|
  * @property { string } [callSidToCoach] The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;.
  */
 export interface ParticipantContextUpdateOptions {
-  "muted"?: boolean;
-  "hold"?: boolean;
-  "holdUrl"?: string;
-  "holdMethod"?: string;
-  "announceUrl"?: string;
-  "announceMethod"?: string;
-  "waitUrl"?: string;
-  "waitMethod"?: string;
-  "beepOnExit"?: boolean;
-  "endConferenceOnExit"?: boolean;
-  "coaching"?: boolean;
-  "callSidToCoach"?: string;
+  muted?: boolean;
+  hold?: boolean;
+  holdUrl?: string;
+  holdMethod?: string;
+  announceUrl?: string;
+  announceMethod?: string;
+  waitUrl?: string;
+  waitMethod?: string;
+  beepOnExit?: boolean;
+  endConferenceOnExit?: boolean;
+  coaching?: boolean;
+  callSidToCoach?: string;
 }
 
 /**
@@ -107,52 +109,52 @@ export interface ParticipantContextUpdateOptions {
  * @property { string } [amdStatusCallbackMethod] The HTTP method we should use when calling the &#x60;amd_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
  */
 export interface ParticipantListInstanceCreateOptions {
-  "from": string;
-  "to": string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "statusCallbackEvent"?: Array<string>;
-  "label"?: string;
-  "timeout"?: number;
-  "record"?: boolean;
-  "muted"?: boolean;
-  "beep"?: string;
-  "startConferenceOnEnter"?: boolean;
-  "endConferenceOnExit"?: boolean;
-  "waitUrl"?: string;
-  "waitMethod"?: string;
-  "earlyMedia"?: boolean;
-  "maxParticipants"?: number;
-  "conferenceRecord"?: string;
-  "conferenceTrim"?: string;
-  "conferenceStatusCallback"?: string;
-  "conferenceStatusCallbackMethod"?: string;
-  "conferenceStatusCallbackEvent"?: Array<string>;
-  "recordingChannels"?: string;
-  "recordingStatusCallback"?: string;
-  "recordingStatusCallbackMethod"?: string;
-  "sipAuthUsername"?: string;
-  "sipAuthPassword"?: string;
-  "region"?: string;
-  "conferenceRecordingStatusCallback"?: string;
-  "conferenceRecordingStatusCallbackMethod"?: string;
-  "recordingStatusCallbackEvent"?: Array<string>;
-  "conferenceRecordingStatusCallbackEvent"?: Array<string>;
-  "coaching"?: boolean;
-  "callSidToCoach"?: string;
-  "jitterBufferSize"?: string;
-  "byoc"?: string;
-  "callerId"?: string;
-  "callReason"?: string;
-  "recordingTrack"?: string;
-  "timeLimit"?: number;
-  "machineDetection"?: string;
-  "machineDetectionTimeout"?: number;
-  "machineDetectionSpeechThreshold"?: number;
-  "machineDetectionSpeechEndThreshold"?: number;
-  "machineDetectionSilenceTimeout"?: number;
-  "amdStatusCallback"?: string;
-  "amdStatusCallbackMethod"?: string;
+  from: string;
+  to: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  statusCallbackEvent?: Array<string>;
+  label?: string;
+  timeout?: number;
+  record?: boolean;
+  muted?: boolean;
+  beep?: string;
+  startConferenceOnEnter?: boolean;
+  endConferenceOnExit?: boolean;
+  waitUrl?: string;
+  waitMethod?: string;
+  earlyMedia?: boolean;
+  maxParticipants?: number;
+  conferenceRecord?: string;
+  conferenceTrim?: string;
+  conferenceStatusCallback?: string;
+  conferenceStatusCallbackMethod?: string;
+  conferenceStatusCallbackEvent?: Array<string>;
+  recordingChannels?: string;
+  recordingStatusCallback?: string;
+  recordingStatusCallbackMethod?: string;
+  sipAuthUsername?: string;
+  sipAuthPassword?: string;
+  region?: string;
+  conferenceRecordingStatusCallback?: string;
+  conferenceRecordingStatusCallbackMethod?: string;
+  recordingStatusCallbackEvent?: Array<string>;
+  conferenceRecordingStatusCallbackEvent?: Array<string>;
+  coaching?: boolean;
+  callSidToCoach?: string;
+  jitterBufferSize?: string;
+  byoc?: string;
+  callerId?: string;
+  callReason?: string;
+  recordingTrack?: string;
+  timeLimit?: number;
+  machineDetection?: string;
+  machineDetectionTimeout?: number;
+  machineDetectionSpeechThreshold?: number;
+  machineDetectionSpeechEndThreshold?: number;
+  machineDetectionSilenceTimeout?: number;
+  amdStatusCallback?: string;
+  amdStatusCallbackMethod?: string;
 }
 /**
  * Options to pass to each
@@ -171,10 +173,10 @@ export interface ParticipantListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  "muted"?: boolean;
-  "hold"?: boolean;
-  "coaching"?: boolean;
-  "pageSize"?: number;
+  muted?: boolean;
+  hold?: boolean;
+  coaching?: boolean;
+  pageSize?: number;
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -193,10 +195,10 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  "muted"?: boolean;
-  "hold"?: boolean;
-  "coaching"?: boolean;
-  "pageSize"?: number;
+  muted?: boolean;
+  hold?: boolean;
+  coaching?: boolean;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -211,19 +213,15 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  "muted"?: boolean;
-  "hold"?: boolean;
-  "coaching"?: boolean;
-  "pageSize"?: number;
+  muted?: boolean;
+  hold?: boolean;
+  coaching?: boolean;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ParticipantContext {
-
-
   /**
    * Remove a ParticipantInstance
    *
@@ -231,8 +229,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a ParticipantInstance
@@ -241,8 +240,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
 
   /**
    * Update a ParticipantInstance
@@ -251,7 +251,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -260,9 +262,11 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance>
-
+  update(
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  update(params?: any, callback?: any): Promise<ParticipantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -272,49 +276,66 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  "accountSid"?: string;
-  "conferenceSid"?: string;
-  "callSid"?: string;
+  accountSid?: string;
+  conferenceSid?: string;
+  callSid?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, conferenceSid: string, callSid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    conferenceSid: string,
+    callSid: string
+  ) {
     this._solution = { accountSid, conferenceSid, callSid };
     this._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants/${callSid}.json`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.conferenceSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ParticipantInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -323,46 +344,58 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     let data: any = {};
 
-    
-        if (params["muted"] !== undefined)
-    data["Muted"] = serialize.bool(params["muted"]);
+    if (params["muted"] !== undefined)
+      data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-    data["Hold"] = serialize.bool(params["hold"]);
-    if (params["holdUrl"] !== undefined)
-    data["HoldUrl"] = params["holdUrl"];
+      data["Hold"] = serialize.bool(params["hold"]);
+    if (params["holdUrl"] !== undefined) data["HoldUrl"] = params["holdUrl"];
     if (params["holdMethod"] !== undefined)
-    data["HoldMethod"] = params["holdMethod"];
+      data["HoldMethod"] = params["holdMethod"];
     if (params["announceUrl"] !== undefined)
-    data["AnnounceUrl"] = params["announceUrl"];
+      data["AnnounceUrl"] = params["announceUrl"];
     if (params["announceMethod"] !== undefined)
-    data["AnnounceMethod"] = params["announceMethod"];
-    if (params["waitUrl"] !== undefined)
-    data["WaitUrl"] = params["waitUrl"];
+      data["AnnounceMethod"] = params["announceMethod"];
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-    data["WaitMethod"] = params["waitMethod"];
+      data["WaitMethod"] = params["waitMethod"];
     if (params["beepOnExit"] !== undefined)
-    data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
+      data["BeepOnExit"] = serialize.bool(params["beepOnExit"]);
     if (params["endConferenceOnExit"] !== undefined)
-    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"]
+      );
     if (params["coaching"] !== undefined)
-    data["Coaching"] = serialize.bool(params["coaching"]);
+      data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-    data["CallSidToCoach"] = params["callSidToCoach"];
-
+      data["CallSidToCoach"] = params["callSidToCoach"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.conferenceSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -379,8 +412,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
+interface ParticipantPayload
+  extends ParticipantResource,
+    Page.TwilioResponsePayload {}
 
 interface ParticipantResource {
   account_sid?: string | null;
@@ -403,7 +437,13 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(protected _version: V2010, payload: ParticipantPayload, accountSid: string, conferenceSid: string, callSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: ParticipantPayload,
+    accountSid: string,
+    conferenceSid: string,
+    callSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.label = payload.label;
@@ -419,7 +459,11 @@ export class ParticipantInstance {
     this.status = payload.status;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, conferenceSid, callSid: callSid || this.callSid };
+    this._solution = {
+      accountSid,
+      conferenceSid,
+      callSid: callSid || this.callSid,
+    };
   }
 
   /**
@@ -477,7 +521,14 @@ export class ParticipantInstance {
   uri?: string | null;
 
   private get _proxy(): ParticipantContext {
-    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.accountSid, this._solution.conferenceSid, this._solution.callSid);
+    this._context =
+      this._context ||
+      new ParticipantContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.conferenceSid,
+        this._solution.callSid
+      );
     return this._context;
   }
 
@@ -488,8 +539,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -500,8 +552,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -512,7 +565,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -521,9 +576,11 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  update(params: ParticipantContextUpdateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance>
-     {
+  update(
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  update(params?: any, callback?: any): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -534,21 +591,21 @@ export class ParticipantInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      callSid: this.callSid, 
-      label: this.label, 
-      callSidToCoach: this.callSidToCoach, 
-      coaching: this.coaching, 
-      conferenceSid: this.conferenceSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      endConferenceOnExit: this.endConferenceOnExit, 
-      muted: this.muted, 
-      hold: this.hold, 
-      startConferenceOnEnter: this.startConferenceOnEnter, 
-      status: this.status, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      callSid: this.callSid,
+      label: this.label,
+      callSidToCoach: this.callSidToCoach,
+      coaching: this.coaching,
+      conferenceSid: this.conferenceSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      endConferenceOnExit: this.endConferenceOnExit,
+      muted: this.muted,
+      hold: this.hold,
+      startConferenceOnEnter: this.startConferenceOnEnter,
+      status: this.status,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -556,11 +613,9 @@ export class ParticipantInstance {
   }
 }
 
-
 export interface ParticipantListInstance {
   (callSid: string): ParticipantContext;
   get(callSid: string): ParticipantContext;
-
 
   /**
    * Create a ParticipantInstance
@@ -570,10 +625,11 @@ export interface ParticipantListInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  create(params: any, callback?: any): Promise<ParticipantInstance>
-
-
+  create(
+    params: ParticipantListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  create(params: any, callback?: any): Promise<ParticipantInstance>;
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -589,7 +645,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ParticipantInstance records from the API.
    *
@@ -605,7 +663,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
@@ -617,7 +678,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -629,7 +692,10 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   getPage(params?: any, callback?: any): Promise<ParticipantPage>;
   /**
    * Lists ParticipantInstance records from the API as a list.
@@ -639,7 +705,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -649,7 +717,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    params?: ParticipantListInstanceOptions,
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
@@ -661,7 +732,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -673,7 +746,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    params: ParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   page(params?: any, callback?: any): Promise<ParticipantPage>;
 
   /**
@@ -693,146 +769,187 @@ class ParticipantListInstanceImpl implements ParticipantListInstance {
   _version?: V2010;
   _solution?: ParticipantSolution;
   _uri?: string;
-
 }
 
-export function ParticipantListInstance(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance {
-  const instance = ((callSid) => instance.get(callSid)) as ParticipantListInstanceImpl;
+export function ParticipantListInstance(
+  version: V2010,
+  accountSid: string,
+  conferenceSid: string
+): ParticipantListInstance {
+  const instance = ((callSid) =>
+    instance.get(callSid)) as ParticipantListInstanceImpl;
 
   instance.get = function get(callSid): ParticipantContext {
-    return new ParticipantContextImpl(version, accountSid, conferenceSid, callSid);
-  }
+    return new ParticipantContextImpl(
+      version,
+      accountSid,
+      conferenceSid,
+      callSid
+    );
+  };
 
   instance._version = version;
   instance._solution = { accountSid, conferenceSid };
   instance._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<ParticipantInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<ParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["from"] === null || params["from"] === undefined) {
-      throw new Error('Required parameter "params[\'from\']" missing.');
+      throw new Error("Required parameter \"params['from']\" missing.");
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error('Required parameter "params[\'to\']" missing.');
+      throw new Error("Required parameter \"params['to']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["From"] = params["from"];
-    
+
     data["To"] = params["to"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["statusCallbackEvent"] !== undefined)
-    data["StatusCallbackEvent"] = serialize.map(params["statusCallbackEvent"], (e => (e)));
-    if (params["label"] !== undefined)
-    data["Label"] = params["label"];
-    if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
+      data["StatusCallbackEvent"] = serialize.map(
+        params["statusCallbackEvent"],
+        (e) => e
+      );
+    if (params["label"] !== undefined) data["Label"] = params["label"];
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
-    data["Record"] = serialize.bool(params["record"]);
+      data["Record"] = serialize.bool(params["record"]);
     if (params["muted"] !== undefined)
-    data["Muted"] = serialize.bool(params["muted"]);
-    if (params["beep"] !== undefined)
-    data["Beep"] = params["beep"];
+      data["Muted"] = serialize.bool(params["muted"]);
+    if (params["beep"] !== undefined) data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
-    data["StartConferenceOnEnter"] = serialize.bool(params["startConferenceOnEnter"]);
+      data["StartConferenceOnEnter"] = serialize.bool(
+        params["startConferenceOnEnter"]
+      );
     if (params["endConferenceOnExit"] !== undefined)
-    data["EndConferenceOnExit"] = serialize.bool(params["endConferenceOnExit"]);
-    if (params["waitUrl"] !== undefined)
-    data["WaitUrl"] = params["waitUrl"];
+      data["EndConferenceOnExit"] = serialize.bool(
+        params["endConferenceOnExit"]
+      );
+    if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
-    data["WaitMethod"] = params["waitMethod"];
+      data["WaitMethod"] = params["waitMethod"];
     if (params["earlyMedia"] !== undefined)
-    data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
+      data["EarlyMedia"] = serialize.bool(params["earlyMedia"]);
     if (params["maxParticipants"] !== undefined)
-    data["MaxParticipants"] = params["maxParticipants"];
+      data["MaxParticipants"] = params["maxParticipants"];
     if (params["conferenceRecord"] !== undefined)
-    data["ConferenceRecord"] = params["conferenceRecord"];
+      data["ConferenceRecord"] = params["conferenceRecord"];
     if (params["conferenceTrim"] !== undefined)
-    data["ConferenceTrim"] = params["conferenceTrim"];
+      data["ConferenceTrim"] = params["conferenceTrim"];
     if (params["conferenceStatusCallback"] !== undefined)
-    data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
+      data["ConferenceStatusCallback"] = params["conferenceStatusCallback"];
     if (params["conferenceStatusCallbackMethod"] !== undefined)
-    data["ConferenceStatusCallbackMethod"] = params["conferenceStatusCallbackMethod"];
+      data["ConferenceStatusCallbackMethod"] =
+        params["conferenceStatusCallbackMethod"];
     if (params["conferenceStatusCallbackEvent"] !== undefined)
-    data["ConferenceStatusCallbackEvent"] = serialize.map(params["conferenceStatusCallbackEvent"], (e => (e)));
+      data["ConferenceStatusCallbackEvent"] = serialize.map(
+        params["conferenceStatusCallbackEvent"],
+        (e) => e
+      );
     if (params["recordingChannels"] !== undefined)
-    data["RecordingChannels"] = params["recordingChannels"];
+      data["RecordingChannels"] = params["recordingChannels"];
     if (params["recordingStatusCallback"] !== undefined)
-    data["RecordingStatusCallback"] = params["recordingStatusCallback"];
+      data["RecordingStatusCallback"] = params["recordingStatusCallback"];
     if (params["recordingStatusCallbackMethod"] !== undefined)
-    data["RecordingStatusCallbackMethod"] = params["recordingStatusCallbackMethod"];
+      data["RecordingStatusCallbackMethod"] =
+        params["recordingStatusCallbackMethod"];
     if (params["sipAuthUsername"] !== undefined)
-    data["SipAuthUsername"] = params["sipAuthUsername"];
+      data["SipAuthUsername"] = params["sipAuthUsername"];
     if (params["sipAuthPassword"] !== undefined)
-    data["SipAuthPassword"] = params["sipAuthPassword"];
-    if (params["region"] !== undefined)
-    data["Region"] = params["region"];
+      data["SipAuthPassword"] = params["sipAuthPassword"];
+    if (params["region"] !== undefined) data["Region"] = params["region"];
     if (params["conferenceRecordingStatusCallback"] !== undefined)
-    data["ConferenceRecordingStatusCallback"] = params["conferenceRecordingStatusCallback"];
+      data["ConferenceRecordingStatusCallback"] =
+        params["conferenceRecordingStatusCallback"];
     if (params["conferenceRecordingStatusCallbackMethod"] !== undefined)
-    data["ConferenceRecordingStatusCallbackMethod"] = params["conferenceRecordingStatusCallbackMethod"];
+      data["ConferenceRecordingStatusCallbackMethod"] =
+        params["conferenceRecordingStatusCallbackMethod"];
     if (params["recordingStatusCallbackEvent"] !== undefined)
-    data["RecordingStatusCallbackEvent"] = serialize.map(params["recordingStatusCallbackEvent"], (e => (e)));
+      data["RecordingStatusCallbackEvent"] = serialize.map(
+        params["recordingStatusCallbackEvent"],
+        (e) => e
+      );
     if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
-    data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(params["conferenceRecordingStatusCallbackEvent"], (e => (e)));
+      data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(
+        params["conferenceRecordingStatusCallbackEvent"],
+        (e) => e
+      );
     if (params["coaching"] !== undefined)
-    data["Coaching"] = serialize.bool(params["coaching"]);
+      data["Coaching"] = serialize.bool(params["coaching"]);
     if (params["callSidToCoach"] !== undefined)
-    data["CallSidToCoach"] = params["callSidToCoach"];
+      data["CallSidToCoach"] = params["callSidToCoach"];
     if (params["jitterBufferSize"] !== undefined)
-    data["JitterBufferSize"] = params["jitterBufferSize"];
-    if (params["byoc"] !== undefined)
-    data["Byoc"] = params["byoc"];
-    if (params["callerId"] !== undefined)
-    data["CallerId"] = params["callerId"];
+      data["JitterBufferSize"] = params["jitterBufferSize"];
+    if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
+    if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
     if (params["callReason"] !== undefined)
-    data["CallReason"] = params["callReason"];
+      data["CallReason"] = params["callReason"];
     if (params["recordingTrack"] !== undefined)
-    data["RecordingTrack"] = params["recordingTrack"];
+      data["RecordingTrack"] = params["recordingTrack"];
     if (params["timeLimit"] !== undefined)
-    data["TimeLimit"] = params["timeLimit"];
+      data["TimeLimit"] = params["timeLimit"];
     if (params["machineDetection"] !== undefined)
-    data["MachineDetection"] = params["machineDetection"];
+      data["MachineDetection"] = params["machineDetection"];
     if (params["machineDetectionTimeout"] !== undefined)
-    data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
+      data["MachineDetectionTimeout"] = params["machineDetectionTimeout"];
     if (params["machineDetectionSpeechThreshold"] !== undefined)
-    data["MachineDetectionSpeechThreshold"] = params["machineDetectionSpeechThreshold"];
+      data["MachineDetectionSpeechThreshold"] =
+        params["machineDetectionSpeechThreshold"];
     if (params["machineDetectionSpeechEndThreshold"] !== undefined)
-    data["MachineDetectionSpeechEndThreshold"] = params["machineDetectionSpeechEndThreshold"];
+      data["MachineDetectionSpeechEndThreshold"] =
+        params["machineDetectionSpeechEndThreshold"];
     if (params["machineDetectionSilenceTimeout"] !== undefined)
-    data["MachineDetectionSilenceTimeout"] = params["machineDetectionSilenceTimeout"];
+      data["MachineDetectionSilenceTimeout"] =
+        params["machineDetectionSilenceTimeout"];
     if (params["amdStatusCallback"] !== undefined)
-    data["AmdStatusCallback"] = params["amdStatusCallback"];
+      data["AmdStatusCallback"] = params["amdStatusCallback"];
     if (params["amdStatusCallbackMethod"] !== undefined)
-    data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
-
+      data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.conferenceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -842,82 +959,110 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
 
     let data: any = {};
 
-        if (params["muted"] !== undefined)
-    data["Muted"] = serialize.bool(params["muted"]);
+    if (params["muted"] !== undefined)
+      data["Muted"] = serialize.bool(params["muted"]);
     if (params["hold"] !== undefined)
-    data["Hold"] = serialize.bool(params["hold"]);
+      data["Hold"] = serialize.bool(params["hold"]);
     if (params["coaching"] !== undefined)
-    data["Coaching"] = serialize.bool(params["coaching"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["Coaching"] = serialize.bool(params["coaching"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-/**
-* Initialize the ParticipantPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: ParticipantSolution) {
+export class ParticipantPage extends Page<
+  V2010,
+  ParticipantPayload,
+  ParticipantResource,
+  ParticipantInstance
+> {
+  /**
+   * Initialize the ParticipantPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: ParticipantSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ParticipantInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ParticipantPayload): ParticipantInstance {
+  /**
+   * Build an instance of ParticipantInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.conferenceSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.conferenceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

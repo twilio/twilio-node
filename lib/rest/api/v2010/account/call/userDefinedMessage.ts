@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a UserDefinedMessageInstance
@@ -27,13 +24,11 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 export interface UserDefinedMessageListInstanceCreateOptions {
-  "content": string;
-  "idempotencyKey"?: string;
+  content: string;
+  idempotencyKey?: string;
 }
 
 export interface UserDefinedMessageListInstance {
-
-
   /**
    * Create a UserDefinedMessageInstance
    *
@@ -42,9 +37,11 @@ export interface UserDefinedMessageListInstance {
    *
    * @returns { Promise } Resolves to processed UserDefinedMessageInstance
    */
-  create(params: UserDefinedMessageListInstanceCreateOptions, callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any): Promise<UserDefinedMessageInstance>;
-  create(params: any, callback?: any): Promise<UserDefinedMessageInstance>
-
+  create(
+    params: UserDefinedMessageListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
+  ): Promise<UserDefinedMessageInstance>;
+  create(params: any, callback?: any): Promise<UserDefinedMessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -58,67 +55,88 @@ export interface UserDefinedMessageSolution {
   callSid?: string;
 }
 
-interface UserDefinedMessageListInstanceImpl extends UserDefinedMessageListInstance {}
-class UserDefinedMessageListInstanceImpl implements UserDefinedMessageListInstance {
+interface UserDefinedMessageListInstanceImpl
+  extends UserDefinedMessageListInstance {}
+class UserDefinedMessageListInstanceImpl
+  implements UserDefinedMessageListInstance
+{
   _version?: V2010;
   _solution?: UserDefinedMessageSolution;
   _uri?: string;
-
 }
 
-export function UserDefinedMessageListInstance(version: V2010, accountSid: string, callSid: string): UserDefinedMessageListInstance {
+export function UserDefinedMessageListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string
+): UserDefinedMessageListInstance {
   const instance = {} as UserDefinedMessageListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessages.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<UserDefinedMessageInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<UserDefinedMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["content"] === null || params["content"] === undefined) {
-      throw new Error('Required parameter "params[\'content\']" missing.');
+      throw new Error("Required parameter \"params['content']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Content"] = params["content"];
     if (params["idempotencyKey"] !== undefined)
-    data["IdempotencyKey"] = params["idempotencyKey"];
-
+      data["IdempotencyKey"] = params["idempotencyKey"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserDefinedMessageInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserDefinedMessageInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface UserDefinedMessagePayload extends UserDefinedMessageResource{
-}
+interface UserDefinedMessagePayload extends UserDefinedMessageResource {}
 
 interface UserDefinedMessageResource {
   account_sid?: string | null;
@@ -128,13 +146,16 @@ interface UserDefinedMessageResource {
 }
 
 export class UserDefinedMessageInstance {
-
-  constructor(protected _version: V2010, payload: UserDefinedMessagePayload, accountSid: string, callSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: UserDefinedMessagePayload,
+    accountSid: string,
+    callSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-
   }
 
   /**
@@ -161,16 +182,14 @@ export class UserDefinedMessageInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      callSid: this.callSid, 
-      sid: this.sid, 
-      dateCreated: this.dateCreated
-    }
+      accountSid: this.accountSid,
+      callSid: this.callSid,
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

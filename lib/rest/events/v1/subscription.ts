@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,9 +20,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { SubscribedEventListInstance } from "./subscription/subscribedEvent";
 
-
-
-
 /**
  * Options to pass to update a SubscriptionInstance
  *
@@ -31,8 +27,8 @@ import { SubscribedEventListInstance } from "./subscription/subscribedEvent";
  * @property { string } [sinkSid] The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
  */
 export interface SubscriptionContextUpdateOptions {
-  "description"?: string;
-  "sinkSid"?: string;
+  description?: string;
+  sinkSid?: string;
 }
 
 /**
@@ -43,9 +39,9 @@ export interface SubscriptionContextUpdateOptions {
  * @property { Array<any> } types An array of objects containing the subscribed Event Types
  */
 export interface SubscriptionListInstanceCreateOptions {
-  "description": string;
-  "sinkSid": string;
-  "types": Array<any>;
+  description: string;
+  sinkSid: string;
+  types: Array<any>;
 }
 /**
  * Options to pass to each
@@ -62,8 +58,8 @@ export interface SubscriptionListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SubscriptionListInstanceEachOptions {
-  "sinkSid"?: string;
-  "pageSize"?: number;
+  sinkSid?: string;
+  pageSize?: number;
   callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -80,8 +76,8 @@ export interface SubscriptionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SubscriptionListInstanceOptions {
-  "sinkSid"?: string;
-  "pageSize"?: number;
+  sinkSid?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -94,16 +90,13 @@ export interface SubscriptionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SubscriptionListInstancePageOptions {
-  "sinkSid"?: string;
-  "pageSize"?: number;
+  sinkSid?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SubscriptionContext {
-
   subscribedEvents: SubscribedEventListInstance;
 
   /**
@@ -113,8 +106,9 @@ export interface SubscriptionContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a SubscriptionInstance
@@ -123,8 +117,9 @@ export interface SubscriptionContext {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
 
   /**
    * Update a SubscriptionInstance
@@ -133,7 +128,9 @@ export interface SubscriptionContext {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  update(callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
+  update(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
   /**
    * Update a SubscriptionInstance
    *
@@ -142,9 +139,11 @@ export interface SubscriptionContext {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  update(params: SubscriptionContextUpdateOptions, callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
-  update(params?: any, callback?: any): Promise<SubscriptionInstance>
-
+  update(
+    params: SubscriptionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+  update(params?: any, callback?: any): Promise<SubscriptionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -154,7 +153,7 @@ export interface SubscriptionContext {
 }
 
 export interface SubscriptionContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class SubscriptionContextImpl implements SubscriptionContext {
@@ -169,38 +168,47 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   }
 
   get subscribedEvents(): SubscribedEventListInstance {
-    this._subscribedEvents = this._subscribedEvents || SubscribedEventListInstance(this._version, this._solution.sid);
+    this._subscribedEvents =
+      this._subscribedEvents ||
+      SubscribedEventListInstance(this._version, this._solution.sid);
     return this._subscribedEvents;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SubscriptionInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SubscriptionInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SubscriptionInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SubscriptionInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -209,26 +217,31 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
     let data: any = {};
 
-    
-        if (params["description"] !== undefined)
-    data["Description"] = params["description"];
-    if (params["sinkSid"] !== undefined)
-    data["SinkSid"] = params["sinkSid"];
-
+    if (params["description"] !== undefined)
+      data["Description"] = params["description"];
+    if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SubscriptionInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SubscriptionInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -245,8 +258,9 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   }
 }
 
-interface SubscriptionPayload extends SubscriptionResource, Page.TwilioResponsePayload {
-}
+interface SubscriptionPayload
+  extends SubscriptionResource,
+    Page.TwilioResponsePayload {}
 
 interface SubscriptionResource {
   account_sid?: string | null;
@@ -263,7 +277,11 @@ export class SubscriptionInstance {
   protected _solution: SubscriptionContextSolution;
   protected _context?: SubscriptionContext;
 
-  constructor(protected _version: V1, payload: SubscriptionPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SubscriptionPayload,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -310,7 +328,9 @@ export class SubscriptionInstance {
   links?: object | null;
 
   private get _proxy(): SubscriptionContext {
-    this._context = this._context || new SubscriptionContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new SubscriptionContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -321,8 +341,9 @@ export class SubscriptionInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -333,8 +354,9 @@ export class SubscriptionInstance {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -345,7 +367,9 @@ export class SubscriptionInstance {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  update(callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
+  update(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
   /**
    * Update a SubscriptionInstance
    *
@@ -354,9 +378,11 @@ export class SubscriptionInstance {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  update(params: SubscriptionContextUpdateOptions, callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
-  update(params?: any, callback?: any): Promise<SubscriptionInstance>
-     {
+  update(
+    params: SubscriptionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+  update(params?: any, callback?: any): Promise<SubscriptionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -374,15 +400,15 @@ export class SubscriptionInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      sid: this.sid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      description: this.description, 
-      sinkSid: this.sinkSid, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      description: this.description,
+      sinkSid: this.sinkSid,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -390,11 +416,9 @@ export class SubscriptionInstance {
   }
 }
 
-
 export interface SubscriptionListInstance {
   (sid: string): SubscriptionContext;
   get(sid: string): SubscriptionContext;
-
 
   /**
    * Create a SubscriptionInstance
@@ -404,10 +428,11 @@ export interface SubscriptionListInstance {
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
-  create(params: SubscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
-  create(params: any, callback?: any): Promise<SubscriptionInstance>
-
-
+  create(
+    params: SubscriptionListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+  create(params: any, callback?: any): Promise<SubscriptionInstance>;
 
   /**
    * Streams SubscriptionInstance records from the API.
@@ -423,7 +448,9 @@ export interface SubscriptionListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SubscriptionInstance records from the API.
    *
@@ -439,7 +466,10 @@ export interface SubscriptionListInstance {
    * @param { SubscriptionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SubscriptionListInstanceEachOptions, callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SubscriptionListInstanceEachOptions,
+    callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SubscriptionInstance records from the API.
@@ -451,7 +481,9 @@ export interface SubscriptionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SubscriptionPage) => any): Promise<SubscriptionPage>;
+  getPage(
+    callback?: (error: Error | null, items: SubscriptionPage) => any
+  ): Promise<SubscriptionPage>;
   /**
    * Retrieve a single target page of SubscriptionInstance records from the API.
    *
@@ -463,7 +495,10 @@ export interface SubscriptionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SubscriptionPage) => any): Promise<SubscriptionPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SubscriptionPage) => any
+  ): Promise<SubscriptionPage>;
   getPage(params?: any, callback?: any): Promise<SubscriptionPage>;
   /**
    * Lists SubscriptionInstance records from the API as a list.
@@ -473,7 +508,9 @@ export interface SubscriptionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SubscriptionInstance[]) => any): Promise<SubscriptionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SubscriptionInstance[]) => any
+  ): Promise<SubscriptionInstance[]>;
   /**
    * Lists SubscriptionInstance records from the API as a list.
    *
@@ -483,7 +520,10 @@ export interface SubscriptionListInstance {
    * @param { SubscriptionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SubscriptionListInstanceOptions, callback?: (error: Error | null, items: SubscriptionInstance[]) => any): Promise<SubscriptionInstance[]>;
+  list(
+    params?: SubscriptionListInstanceOptions,
+    callback?: (error: Error | null, items: SubscriptionInstance[]) => any
+  ): Promise<SubscriptionInstance[]>;
   list(params?: any, callback?: any): Promise<SubscriptionInstance[]>;
   /**
    * Retrieve a single page of SubscriptionInstance records from the API.
@@ -495,7 +535,9 @@ export interface SubscriptionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SubscriptionPage) => any): Promise<SubscriptionPage>;
+  page(
+    callback?: (error: Error | null, items: SubscriptionPage) => any
+  ): Promise<SubscriptionPage>;
   /**
    * Retrieve a single page of SubscriptionInstance records from the API.
    *
@@ -507,7 +549,10 @@ export interface SubscriptionListInstance {
    * @param { SubscriptionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SubscriptionListInstancePageOptions, callback?: (error: Error | null, items: SubscriptionPage) => any): Promise<SubscriptionPage>;
+  page(
+    params: SubscriptionListInstancePageOptions,
+    callback?: (error: Error | null, items: SubscriptionPage) => any
+  ): Promise<SubscriptionPage>;
   page(params?: any, callback?: any): Promise<SubscriptionPage>;
 
   /**
@@ -517,72 +562,82 @@ export interface SubscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SubscriptionSolution {
-}
+export interface SubscriptionSolution {}
 
 interface SubscriptionListInstanceImpl extends SubscriptionListInstance {}
 class SubscriptionListInstanceImpl implements SubscriptionListInstance {
   _version?: V1;
   _solution?: SubscriptionSolution;
   _uri?: string;
-
 }
 
-export function SubscriptionListInstance(version: V1): SubscriptionListInstance {
+export function SubscriptionListInstance(
+  version: V1
+): SubscriptionListInstance {
   const instance = ((sid) => instance.get(sid)) as SubscriptionListInstanceImpl;
 
   instance.get = function get(sid): SubscriptionContext {
     return new SubscriptionContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Subscriptions`;
 
-  instance.create = function create(params: any, callback?: any): Promise<SubscriptionInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<SubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["description"] === null || params["description"] === undefined) {
-      throw new Error('Required parameter "params[\'description\']" missing.');
+      throw new Error("Required parameter \"params['description']\" missing.");
     }
 
     if (params["sinkSid"] === null || params["sinkSid"] === undefined) {
-      throw new Error('Required parameter "params[\'sinkSid\']" missing.');
+      throw new Error("Required parameter \"params['sinkSid']\" missing.");
     }
 
     if (params["types"] === null || params["types"] === undefined) {
-      throw new Error('Required parameter "params[\'types\']" missing.');
+      throw new Error("Required parameter \"params['types']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Description"] = params["description"];
-    
-    data["SinkSid"] = params["sinkSid"];
-    
-    data["Types"] = serialize.map(params["types"], (e => serialize.object(e)));
 
+    data["SinkSid"] = params["sinkSid"];
+
+    data["Types"] = serialize.map(params["types"], (e) => serialize.object(e));
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SubscriptionInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SubscriptionInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SubscriptionPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SubscriptionPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -592,76 +647,100 @@ export function SubscriptionListInstance(version: V1): SubscriptionListInstance 
 
     let data: any = {};
 
-        if (params["sinkSid"] !== undefined)
-    data["SinkSid"] = params["sinkSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SubscriptionPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SubscriptionPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SubscriptionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SubscriptionPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SubscriptionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SubscriptionPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SubscriptionPage extends Page<V1, SubscriptionPayload, SubscriptionResource, SubscriptionInstance> {
-/**
-* Initialize the SubscriptionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SubscriptionSolution) {
+export class SubscriptionPage extends Page<
+  V1,
+  SubscriptionPayload,
+  SubscriptionResource,
+  SubscriptionInstance
+> {
+  /**
+   * Initialize the SubscriptionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: SubscriptionSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SubscriptionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SubscriptionPayload): SubscriptionInstance {
-    return new SubscriptionInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of SubscriptionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SubscriptionPayload): SubscriptionInstance {
+    return new SubscriptionInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

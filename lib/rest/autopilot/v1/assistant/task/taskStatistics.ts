@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-
 export interface TaskStatisticsContext {
-
-
   /**
    * Fetch a TaskStatisticsInstance
    *
@@ -31,8 +25,9 @@ export interface TaskStatisticsContext {
    *
    * @returns { Promise } Resolves to processed TaskStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
+  ): Promise<TaskStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -42,14 +37,13 @@ export interface TaskStatisticsContext {
 }
 
 export interface TaskStatisticsContextSolution {
-  "assistantSid"?: string;
-  "taskSid"?: string;
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 export class TaskStatisticsContextImpl implements TaskStatisticsContext {
   protected _solution: TaskStatisticsContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, assistantSid: string, taskSid: string) {
     this._solution = { assistantSid, taskSid };
@@ -57,17 +51,27 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
   }
 
   fetch(callback?: any): Promise<TaskStatisticsInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TaskStatisticsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskStatisticsInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.taskSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -84,8 +88,7 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
   }
 }
 
-interface TaskStatisticsPayload extends TaskStatisticsResource{
-}
+interface TaskStatisticsPayload extends TaskStatisticsResource {}
 
 interface TaskStatisticsResource {
   account_sid?: string | null;
@@ -100,7 +103,12 @@ export class TaskStatisticsInstance {
   protected _solution: TaskStatisticsContextSolution;
   protected _context?: TaskStatisticsContext;
 
-  constructor(protected _version: V1, payload: TaskStatisticsPayload, assistantSid: string, taskSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: TaskStatisticsPayload,
+    assistantSid: string,
+    taskSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.taskSid = payload.task_sid;
@@ -137,7 +145,13 @@ export class TaskStatisticsInstance {
   url?: string | null;
 
   private get _proxy(): TaskStatisticsContext {
-    this._context = this._context || new TaskStatisticsContextImpl(this._version, this._solution.assistantSid, this._solution.taskSid);
+    this._context =
+      this._context ||
+      new TaskStatisticsContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.taskSid
+      );
     return this._context;
   }
 
@@ -148,8 +162,9 @@ export class TaskStatisticsInstance {
    *
    * @returns { Promise } Resolves to processed TaskStatisticsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
+  ): Promise<TaskStatisticsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -160,13 +175,13 @@ export class TaskStatisticsInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      assistantSid: this.assistantSid, 
-      taskSid: this.taskSid, 
-      samplesCount: this.samplesCount, 
-      fieldsCount: this.fieldsCount, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      assistantSid: this.assistantSid,
+      taskSid: this.taskSid,
+      samplesCount: this.samplesCount,
+      fieldsCount: this.fieldsCount,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -174,11 +189,9 @@ export class TaskStatisticsInstance {
   }
 }
 
-
 export interface TaskStatisticsListInstance {
   (): TaskStatisticsContext;
   get(): TaskStatisticsContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -197,15 +210,18 @@ class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
   _version?: V1;
   _solution?: TaskStatisticsSolution;
   _uri?: string;
-
 }
 
-export function TaskStatisticsListInstance(version: V1, assistantSid: string, taskSid: string): TaskStatisticsListInstance {
+export function TaskStatisticsListInstance(
+  version: V1,
+  assistantSid: string,
+  taskSid: string
+): TaskStatisticsListInstance {
   const instance = (() => instance.get()) as TaskStatisticsListInstanceImpl;
 
   instance.get = function get(): TaskStatisticsContext {
     return new TaskStatisticsContextImpl(version, assistantSid, taskSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid, taskSid };
@@ -213,14 +229,14 @@ export function TaskStatisticsListInstance(version: V1, assistantSid: string, ta
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

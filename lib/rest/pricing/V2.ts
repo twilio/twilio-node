@@ -50,5 +50,4 @@ export default class V2 extends Version {
     this._voice = this._voice || VoiceListInstance(this);
     return this._voice;
   }
-
 }

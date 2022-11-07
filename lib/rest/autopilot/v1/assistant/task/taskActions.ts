@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a TaskActionsInstance
@@ -27,12 +23,10 @@ const serialize = require("../../../../../base/serialize");
  * @property { any } [actions] The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
  */
 export interface TaskActionsContextUpdateOptions {
-  "actions"?: any;
+  actions?: any;
 }
 
 export interface TaskActionsContext {
-
-
   /**
    * Fetch a TaskActionsInstance
    *
@@ -40,8 +34,9 @@ export interface TaskActionsContext {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
 
   /**
    * Update a TaskActionsInstance
@@ -50,7 +45,9 @@ export interface TaskActionsContext {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  update(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
   /**
    * Update a TaskActionsInstance
    *
@@ -59,9 +56,11 @@ export interface TaskActionsContext {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  update(params: TaskActionsContextUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance>
-
+  update(
+    params: TaskActionsContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
+  update(params?: any, callback?: any): Promise<TaskActionsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,14 +70,13 @@ export interface TaskActionsContext {
 }
 
 export interface TaskActionsContextSolution {
-  "assistantSid"?: string;
-  "taskSid"?: string;
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 export class TaskActionsContextImpl implements TaskActionsContext {
   protected _solution: TaskActionsContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, assistantSid: string, taskSid: string) {
     this._solution = { assistantSid, taskSid };
@@ -86,21 +84,31 @@ export class TaskActionsContextImpl implements TaskActionsContext {
   }
 
   fetch(callback?: any): Promise<TaskActionsInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskActionsInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.taskSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<TaskActionsInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -109,24 +117,35 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 
     let data: any = {};
 
-    
-        if (params["actions"] !== undefined)
-    data["Actions"] = serialize.object(params["actions"]);
-
+    if (params["actions"] !== undefined)
+      data["Actions"] = serialize.object(params["actions"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskActionsInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.taskSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -143,8 +162,7 @@ export class TaskActionsContextImpl implements TaskActionsContext {
   }
 }
 
-interface TaskActionsPayload extends TaskActionsResource{
-}
+interface TaskActionsPayload extends TaskActionsResource {}
 
 interface TaskActionsResource {
   account_sid?: string | null;
@@ -158,7 +176,12 @@ export class TaskActionsInstance {
   protected _solution: TaskActionsContextSolution;
   protected _context?: TaskActionsContext;
 
-  constructor(protected _version: V1, payload: TaskActionsPayload, assistantSid: string, taskSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: TaskActionsPayload,
+    assistantSid: string,
+    taskSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.taskSid = payload.task_sid;
@@ -190,7 +213,13 @@ export class TaskActionsInstance {
   data?: any | null;
 
   private get _proxy(): TaskActionsContext {
-    this._context = this._context || new TaskActionsContextImpl(this._version, this._solution.assistantSid, this._solution.taskSid);
+    this._context =
+      this._context ||
+      new TaskActionsContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.taskSid
+      );
     return this._context;
   }
 
@@ -201,8 +230,9 @@ export class TaskActionsInstance {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -213,7 +243,9 @@ export class TaskActionsInstance {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  update(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
   /**
    * Update a TaskActionsInstance
    *
@@ -222,9 +254,11 @@ export class TaskActionsInstance {
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  update(params: TaskActionsContextUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance>
-     {
+  update(
+    params: TaskActionsContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
+  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -235,12 +269,12 @@ export class TaskActionsInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      assistantSid: this.assistantSid, 
-      taskSid: this.taskSid, 
-      url: this.url, 
-      data: this.data
-    }
+      accountSid: this.accountSid,
+      assistantSid: this.assistantSid,
+      taskSid: this.taskSid,
+      url: this.url,
+      data: this.data,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -248,11 +282,9 @@ export class TaskActionsInstance {
   }
 }
 
-
 export interface TaskActionsListInstance {
   (): TaskActionsContext;
   get(): TaskActionsContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -271,15 +303,18 @@ class TaskActionsListInstanceImpl implements TaskActionsListInstance {
   _version?: V1;
   _solution?: TaskActionsSolution;
   _uri?: string;
-
 }
 
-export function TaskActionsListInstance(version: V1, assistantSid: string, taskSid: string): TaskActionsListInstance {
+export function TaskActionsListInstance(
+  version: V1,
+  assistantSid: string,
+  taskSid: string
+): TaskActionsListInstance {
   const instance = (() => instance.get()) as TaskActionsListInstanceImpl;
 
   instance.get = function get(): TaskActionsContext {
     return new TaskActionsContextImpl(version, assistantSid, taskSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid, taskSid };
@@ -287,14 +322,14 @@ export function TaskActionsListInstance(version: V1, assistantSid: string, taskS
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

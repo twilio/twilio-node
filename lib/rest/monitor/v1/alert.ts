@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -39,10 +36,10 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface AlertListInstanceEachOptions {
-  "logLevel"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  logLevel?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -61,10 +58,10 @@ export interface AlertListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AlertListInstanceOptions {
-  "logLevel"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  logLevel?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -79,19 +76,15 @@ export interface AlertListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AlertListInstancePageOptions {
-  "logLevel"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  logLevel?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AlertContext {
-
-
   /**
    * Fetch a AlertInstance
    *
@@ -99,8 +92,9 @@ export interface AlertContext {
    *
    * @returns { Promise } Resolves to processed AlertInstance
    */
-  fetch(callback?: (error: Error | null, item?: AlertInstance) => any): Promise<AlertInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AlertInstance) => any
+  ): Promise<AlertInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -110,13 +104,12 @@ export interface AlertContext {
 }
 
 export interface AlertContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class AlertContextImpl implements AlertContext {
   protected _solution: AlertContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -124,17 +117,22 @@ export class AlertContextImpl implements AlertContext {
   }
 
   fetch(callback?: any): Promise<AlertInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AlertInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AlertInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -150,10 +148,15 @@ export class AlertContextImpl implements AlertContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type AlertRequestMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type AlertRequestMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface AlertPayload extends AlertResource, Page.TwilioResponsePayload {
-}
+interface AlertPayload extends AlertResource, Page.TwilioResponsePayload {}
 
 interface AlertResource {
   account_sid?: string | null;
@@ -283,7 +286,8 @@ export class AlertInstance {
   serviceSid?: string | null;
 
   private get _proxy(): AlertContext {
-    this._context = this._context || new AlertContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new AlertContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -294,8 +298,9 @@ export class AlertInstance {
    *
    * @returns { Promise } Resolves to processed AlertInstance
    */
-  fetch(callback?: (error: Error | null, item?: AlertInstance) => any): Promise<AlertInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AlertInstance) => any
+  ): Promise<AlertInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -306,26 +311,26 @@ export class AlertInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      alertText: this.alertText, 
-      apiVersion: this.apiVersion, 
-      dateCreated: this.dateCreated, 
-      dateGenerated: this.dateGenerated, 
-      dateUpdated: this.dateUpdated, 
-      errorCode: this.errorCode, 
-      logLevel: this.logLevel, 
-      moreInfo: this.moreInfo, 
-      requestMethod: this.requestMethod, 
-      requestUrl: this.requestUrl, 
-      requestVariables: this.requestVariables, 
-      resourceSid: this.resourceSid, 
-      responseBody: this.responseBody, 
-      responseHeaders: this.responseHeaders, 
-      sid: this.sid, 
-      url: this.url, 
-      requestHeaders: this.requestHeaders, 
-      serviceSid: this.serviceSid
-    }
+      accountSid: this.accountSid,
+      alertText: this.alertText,
+      apiVersion: this.apiVersion,
+      dateCreated: this.dateCreated,
+      dateGenerated: this.dateGenerated,
+      dateUpdated: this.dateUpdated,
+      errorCode: this.errorCode,
+      logLevel: this.logLevel,
+      moreInfo: this.moreInfo,
+      requestMethod: this.requestMethod,
+      requestUrl: this.requestUrl,
+      requestVariables: this.requestVariables,
+      resourceSid: this.resourceSid,
+      responseBody: this.responseBody,
+      responseHeaders: this.responseHeaders,
+      sid: this.sid,
+      url: this.url,
+      requestHeaders: this.requestHeaders,
+      serviceSid: this.serviceSid,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -333,12 +338,9 @@ export class AlertInstance {
   }
 }
 
-
 export interface AlertListInstance {
   (sid: string): AlertContext;
   get(sid: string): AlertContext;
-
-
 
   /**
    * Streams AlertInstance records from the API.
@@ -354,7 +356,9 @@ export interface AlertListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AlertInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams AlertInstance records from the API.
    *
@@ -370,7 +374,10 @@ export interface AlertListInstance {
    * @param { AlertListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AlertListInstanceEachOptions, callback?: (item: AlertInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AlertListInstanceEachOptions,
+    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AlertInstance records from the API.
@@ -382,7 +389,9 @@ export interface AlertListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
+  getPage(
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
   /**
    * Retrieve a single target page of AlertInstance records from the API.
    *
@@ -394,7 +403,10 @@ export interface AlertListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
   getPage(params?: any, callback?: any): Promise<AlertPage>;
   /**
    * Lists AlertInstance records from the API as a list.
@@ -404,7 +416,9 @@ export interface AlertListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AlertInstance[]) => any): Promise<AlertInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AlertInstance[]) => any
+  ): Promise<AlertInstance[]>;
   /**
    * Lists AlertInstance records from the API as a list.
    *
@@ -414,7 +428,10 @@ export interface AlertListInstance {
    * @param { AlertListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AlertListInstanceOptions, callback?: (error: Error | null, items: AlertInstance[]) => any): Promise<AlertInstance[]>;
+  list(
+    params?: AlertListInstanceOptions,
+    callback?: (error: Error | null, items: AlertInstance[]) => any
+  ): Promise<AlertInstance[]>;
   list(params?: any, callback?: any): Promise<AlertInstance[]>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
@@ -426,7 +443,9 @@ export interface AlertListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
+  page(
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
    *
@@ -438,7 +457,10 @@ export interface AlertListInstance {
    * @param { AlertListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AlertListInstancePageOptions, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
+  page(
+    params: AlertListInstancePageOptions,
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
   page(params?: any, callback?: any): Promise<AlertPage>;
 
   /**
@@ -448,15 +470,13 @@ export interface AlertListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AlertSolution {
-}
+export interface AlertSolution {}
 
 interface AlertListInstanceImpl extends AlertListInstance {}
 class AlertListInstanceImpl implements AlertListInstance {
   _version?: V1;
   _solution?: AlertSolution;
   _uri?: string;
-
 }
 
 export function AlertListInstance(version: V1): AlertListInstance {
@@ -464,13 +484,16 @@ export function AlertListInstance(version: V1): AlertListInstance {
 
   instance.get = function get(sid): AlertContext {
     return new AlertContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Alerts`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<AlertPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AlertPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -480,80 +503,103 @@ export function AlertListInstance(version: V1): AlertListInstance {
 
     let data: any = {};
 
-        if (params["logLevel"] !== undefined)
-    data["LogLevel"] = params["logLevel"];
+    if (params["logLevel"] !== undefined) data["LogLevel"] = params["logLevel"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AlertPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AlertPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AlertPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AlertPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AlertPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AlertPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
-/**
-* Initialize the AlertPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: AlertSolution) {
+export class AlertPage extends Page<
+  V1,
+  AlertPayload,
+  AlertResource,
+  AlertInstance
+> {
+  /**
+   * Initialize the AlertPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AlertSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AlertInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AlertPayload): AlertInstance {
-    return new AlertInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of AlertInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AlertPayload): AlertInstance {
+    return new AlertInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

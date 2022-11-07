@@ -1,9 +1,9 @@
-'use strict';
-var util = require('util');
-var Request = require('../../lib/http/request');
-var RequestClient = require('../../lib/base/RequestClient');
-var moduleInfo = require('../../package.json');
-var os = require('os');
+"use strict";
+var util = require("util");
+var Request = require("../../lib/http/request");
+var RequestClient = require("../../lib/base/RequestClient");
+var moduleInfo = require("../../package.json");
+var os = require("os");
 
 class Hologram {
   constructor(request, response) {
@@ -25,18 +25,18 @@ class Holodeck {
 
   addStandardHeaders(request) {
     var standardHeaders = {
-      'Accept': 'application/json',
-      'Accept-Charset': 'utf-8',
-      'User-Agent': util.format(
-        'twilio-node/%s (%s %s) node/%s',
+      Accept: "application/json",
+      "Accept-Charset": "utf-8",
+      "User-Agent": util.format(
+        "twilio-node/%s (%s %s) node/%s",
         moduleInfo.version,
         os.platform(),
         os.arch(),
         process.version
-      )
+      ),
     };
-    if (request.method === 'POST') {
-      standardHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+    if (request.method === "POST") {
+      standardHeaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
     request.headers = Object.assign(request.headers, standardHeaders);
     return request;
@@ -64,13 +64,15 @@ class Holodeck {
       auth: {
         username: opts.username,
         password: opts.password,
-      }
+      },
     };
 
     var request = new Request(Object.assign(opts, Auth));
     this.requests.push(request);
 
-    const matchedHologramIndex = this.holograms.findIndex(hologram => hologram.request.isEqual(request));
+    const matchedHologramIndex = this.holograms.findIndex((hologram) =>
+      hologram.request.isEqual(request)
+    );
 
     if (matchedHologramIndex >= 0) {
       const matchedHologram = this.holograms[matchedHologramIndex];
@@ -82,7 +84,7 @@ class Holodeck {
         body: response.body,
       };
     } else {
-      throw new Error('Failure: holodeck does not contain response');
+      throw new Error("Failure: holodeck does not contain response");
     }
   }
 }

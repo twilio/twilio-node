@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
@@ -20,10 +19,7 @@ const serialize = require("../../../../../../../base/serialize");
 import { AuthCallsCredentialListMappingListInstance } from "./authTypeCalls/authCallsCredentialListMapping";
 import { AuthCallsIpAccessControlListMappingListInstance } from "./authTypeCalls/authCallsIpAccessControlListMapping";
 
-
-
 export interface AuthTypeCallsListInstance {
-
   credentialListMappings: AuthCallsCredentialListMappingListInstance;
   ipAccessControlListMappings: AuthCallsIpAccessControlListMappingListInstance;
 
@@ -49,7 +45,11 @@ class AuthTypeCallsListInstanceImpl implements AuthTypeCallsListInstance {
   _ipAccessControlListMappings?: AuthCallsIpAccessControlListMappingListInstance;
 }
 
-export function AuthTypeCallsListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypeCallsListInstance {
+export function AuthTypeCallsListInstance(
+  version: V2010,
+  accountSid: string,
+  domainSid: string
+): AuthTypeCallsListInstance {
   const instance = {} as AuthTypeCallsListInstanceImpl;
 
   instance._version = version;
@@ -59,30 +59,41 @@ export function AuthTypeCallsListInstance(version: V2010, accountSid: string, do
   Object.defineProperty(instance, "credentialListMappings", {
     get: function credentialListMappings() {
       if (!this._credentialListMappings) {
-        this._credentialListMappings = AuthCallsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+        this._credentialListMappings =
+          AuthCallsCredentialListMappingListInstance(
+            this._version,
+            this._solution.accountSid,
+            this._solution.domainSid
+          );
       }
       return this._credentialListMappings;
-    }
+    },
   });
 
   Object.defineProperty(instance, "ipAccessControlListMappings", {
     get: function ipAccessControlListMappings() {
       if (!this._ipAccessControlListMappings) {
-        this._ipAccessControlListMappings = AuthCallsIpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+        this._ipAccessControlListMappings =
+          AuthCallsIpAccessControlListMappingListInstance(
+            this._version,
+            this._solution.accountSid,
+            this._solution.domainSid
+          );
       }
       return this._ipAccessControlListMappings;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

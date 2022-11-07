@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,38 +19,35 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type MessageOrderType = 'asc'|'desc';
-
+type MessageOrderType = "asc" | "desc";
 
 /**
  * Options to pass to update a MessageInstance
  *
- * @property { string } [body] 
- * @property { string } [attributes] 
+ * @property { string } [body]
+ * @property { string } [attributes]
  */
 export interface MessageContextUpdateOptions {
-  "body"?: string;
-  "attributes"?: string;
+  body?: string;
+  attributes?: string;
 }
 
 /**
  * Options to pass to create a MessageInstance
  *
- * @property { string } body 
- * @property { string } [from] 
- * @property { string } [attributes] 
+ * @property { string } body
+ * @property { string } [from]
+ * @property { string } [attributes]
  */
 export interface MessageListInstanceCreateOptions {
-  "body": string;
-  "from"?: string;
-  "attributes"?: string;
+  body: string;
+  from?: string;
+  attributes?: string;
 }
 /**
  * Options to pass to each
  *
- * @property { MessageOrderType } [order] 
+ * @property { MessageOrderType } [order]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -63,8 +59,8 @@ export interface MessageListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
-  "order"?: MessageOrderType;
-  "pageSize"?: number;
+  order?: MessageOrderType;
+  pageSize?: number;
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -73,7 +69,7 @@ export interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MessageOrderType } [order] 
+ * @property { MessageOrderType } [order]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -81,31 +77,27 @@ export interface MessageListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
-  "order"?: MessageOrderType;
-  "pageSize"?: number;
+  order?: MessageOrderType;
+  pageSize?: number;
   limit?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property { MessageOrderType } [order] 
+ * @property { MessageOrderType } [order]
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
-  "order"?: MessageOrderType;
-  "pageSize"?: number;
+  order?: MessageOrderType;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface MessageContext {
-
-
   /**
    * Remove a MessageInstance
    *
@@ -113,8 +105,9 @@ export interface MessageContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a MessageInstance
@@ -123,8 +116,9 @@ export interface MessageContext {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  fetch(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
 
   /**
    * Update a MessageInstance
@@ -133,7 +127,9 @@ export interface MessageContext {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  update(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  update(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
    *
@@ -142,9 +138,11 @@ export interface MessageContext {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  update(params: MessageContextUpdateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance>
-
+  update(
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  update(params?: any, callback?: any): Promise<MessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -154,49 +152,66 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  "serviceSid"?: string;
-  "channelSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  channelSid?: string;
+  sid?: string;
 }
 
 export class MessageContextImpl implements MessageContext {
   protected _solution: MessageContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, serviceSid: string, channelSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    channelSid: string,
+    sid: string
+  ) {
     this._solution = { serviceSid, channelSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<MessageInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessageInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<MessageInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -205,26 +220,37 @@ export class MessageContextImpl implements MessageContext {
 
     let data: any = {};
 
-    
-        if (params["body"] !== undefined)
-    data["Body"] = params["body"];
+    if (params["body"] !== undefined) data["Body"] = params["body"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-
+      data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessageInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -241,8 +267,7 @@ export class MessageContextImpl implements MessageContext {
   }
 }
 
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {}
 
 interface MessageResource {
   sid?: string | null;
@@ -264,7 +289,13 @@ export class MessageInstance {
   protected _solution: MessageContextSolution;
   protected _context?: MessageContext;
 
-  constructor(protected _version: V1, payload: MessagePayload, serviceSid: string, channelSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: MessagePayload,
+    serviceSid: string,
+    channelSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.attributes = payload.attributes;
@@ -297,7 +328,14 @@ export class MessageInstance {
   url?: string | null;
 
   private get _proxy(): MessageContext {
-    this._context = this._context || new MessageContextImpl(this._version, this._solution.serviceSid, this._solution.channelSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new MessageContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.channelSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -308,8 +346,9 @@ export class MessageInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -320,8 +359,9 @@ export class MessageInstance {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  fetch(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -332,7 +372,9 @@ export class MessageInstance {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  update(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  update(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
    *
@@ -341,9 +383,11 @@ export class MessageInstance {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  update(params: MessageContextUpdateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance>
-     {
+  update(
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  update(params?: any, callback?: any): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -354,20 +398,20 @@ export class MessageInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      attributes: this.attributes, 
-      serviceSid: this.serviceSid, 
-      to: this.to, 
-      channelSid: this.channelSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      wasEdited: this.wasEdited, 
-      from: this.from, 
-      body: this.body, 
-      index: this.index, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      attributes: this.attributes,
+      serviceSid: this.serviceSid,
+      to: this.to,
+      channelSid: this.channelSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      wasEdited: this.wasEdited,
+      from: this.from,
+      body: this.body,
+      index: this.index,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -375,11 +419,9 @@ export class MessageInstance {
   }
 }
 
-
 export interface MessageListInstance {
   (sid: string): MessageContext;
   get(sid: string): MessageContext;
-
 
   /**
    * Create a MessageInstance
@@ -389,10 +431,11 @@ export interface MessageListInstance {
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
-  create(params: MessageListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  create(params: any, callback?: any): Promise<MessageInstance>
-
-
+  create(
+    params: MessageListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  create(params: any, callback?: any): Promise<MessageInstance>;
 
   /**
    * Streams MessageInstance records from the API.
@@ -408,7 +451,9 @@ export interface MessageListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams MessageInstance records from the API.
    *
@@ -424,7 +469,10 @@ export interface MessageListInstance {
    * @param { MessageListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: MessageListInstanceEachOptions,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
@@ -436,7 +484,9 @@ export interface MessageListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  getPage(
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    *
@@ -448,7 +498,10 @@ export interface MessageListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
   getPage(params?: any, callback?: any): Promise<MessagePage>;
   /**
    * Lists MessageInstance records from the API as a list.
@@ -458,7 +511,9 @@ export interface MessageListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  list(
+    callback?: (error: Error | null, items: MessageInstance[]) => any
+  ): Promise<MessageInstance[]>;
   /**
    * Lists MessageInstance records from the API as a list.
    *
@@ -468,7 +523,10 @@ export interface MessageListInstance {
    * @param { MessageListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  list(
+    params?: MessageListInstanceOptions,
+    callback?: (error: Error | null, items: MessageInstance[]) => any
+  ): Promise<MessageInstance[]>;
   list(params?: any, callback?: any): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
@@ -480,7 +538,9 @@ export interface MessageListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  page(
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    *
@@ -492,7 +552,10 @@ export interface MessageListInstance {
    * @param { MessageListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  page(
+    params: MessageListInstancePageOptions,
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
   page(params?: any, callback?: any): Promise<MessagePage>;
 
   /**
@@ -512,56 +575,74 @@ class MessageListInstanceImpl implements MessageListInstance {
   _version?: V1;
   _solution?: MessageSolution;
   _uri?: string;
-
 }
 
-export function MessageListInstance(version: V1, serviceSid: string, channelSid: string): MessageListInstance {
+export function MessageListInstance(
+  version: V1,
+  serviceSid: string,
+  channelSid: string
+): MessageListInstance {
   const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
 
   instance.get = function get(sid): MessageContext {
     return new MessageContextImpl(version, serviceSid, channelSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, channelSid };
   instance._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages`;
 
-  instance.create = function create(params: any, callback?: any): Promise<MessageInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["body"] === null || params["body"] === undefined) {
-      throw new Error('Required parameter "params[\'body\']" missing.');
+      throw new Error("Required parameter \"params['body']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Body"] = params["body"];
-    if (params["from"] !== undefined)
-    data["From"] = params["from"];
+    if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-
+      data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MessageInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<MessagePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -571,78 +652,104 @@ export function MessageListInstance(version: V1, serviceSid: string, channelSid:
 
     let data: any = {};
 
-        if (params["order"] !== undefined)
-    data["Order"] = params["order"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MessagePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<MessagePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MessagePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
-/**
-* Initialize the MessagePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: MessageSolution) {
+export class MessagePage extends Page<
+  V1,
+  MessagePayload,
+  MessageResource,
+  MessageInstance
+> {
+  /**
+   * Initialize the MessagePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: MessageSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of MessageInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: MessagePayload): MessageInstance {
+  /**
+   * Build an instance of MessageInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MessagePayload): MessageInstance {
     return new MessageInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.channelSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.channelSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

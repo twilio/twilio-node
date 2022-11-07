@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,9 +20,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { FieldValueListInstance } from "./fieldType/fieldValue";
 
-
-
-
 /**
  * Options to pass to update a FieldTypeInstance
  *
@@ -31,8 +27,8 @@ import { FieldValueListInstance } from "./fieldType/fieldValue";
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. The first 64 characters must be unique.
  */
 export interface FieldTypeContextUpdateOptions {
-  "friendlyName"?: string;
-  "uniqueName"?: string;
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 /**
@@ -42,8 +38,8 @@ export interface FieldTypeContextUpdateOptions {
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
  */
 export interface FieldTypeListInstanceCreateOptions {
-  "uniqueName": string;
-  "friendlyName"?: string;
+  uniqueName: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -59,7 +55,7 @@ export interface FieldTypeListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FieldTypeListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -75,7 +71,7 @@ export interface FieldTypeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FieldTypeListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -87,15 +83,12 @@ export interface FieldTypeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FieldTypeListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FieldTypeContext {
-
   fieldValues: FieldValueListInstance;
 
   /**
@@ -105,8 +98,9 @@ export interface FieldTypeContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FieldTypeInstance
@@ -115,8 +109,9 @@ export interface FieldTypeContext {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
 
   /**
    * Update a FieldTypeInstance
@@ -125,7 +120,9 @@ export interface FieldTypeContext {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  update(callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  update(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
   /**
    * Update a FieldTypeInstance
    *
@@ -134,9 +131,11 @@ export interface FieldTypeContext {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  update(params: FieldTypeContextUpdateOptions, callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
-  update(params?: any, callback?: any): Promise<FieldTypeInstance>
-
+  update(
+    params: FieldTypeContextUpdateOptions,
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+  update(params?: any, callback?: any): Promise<FieldTypeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -146,8 +145,8 @@ export interface FieldTypeContext {
 }
 
 export interface FieldTypeContextSolution {
-  "assistantSid"?: string;
-  "sid"?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class FieldTypeContextImpl implements FieldTypeContext {
@@ -162,38 +161,56 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   }
 
   get fieldValues(): FieldValueListInstance {
-    this._fieldValues = this._fieldValues || FieldValueListInstance(this._version, this._solution.assistantSid, this._solution.sid);
+    this._fieldValues =
+      this._fieldValues ||
+      FieldValueListInstance(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.sid
+      );
     return this._fieldValues;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FieldTypeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypeInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldTypeInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<FieldTypeInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -202,26 +219,37 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-
+      data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypeInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldTypeInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -238,8 +266,9 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   }
 }
 
-interface FieldTypePayload extends FieldTypeResource, Page.TwilioResponsePayload {
-}
+interface FieldTypePayload
+  extends FieldTypeResource,
+    Page.TwilioResponsePayload {}
 
 interface FieldTypeResource {
   account_sid?: string | null;
@@ -257,7 +286,12 @@ export class FieldTypeInstance {
   protected _solution: FieldTypeContextSolution;
   protected _context?: FieldTypeContext;
 
-  constructor(protected _version: V1, payload: FieldTypePayload, assistantSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FieldTypePayload,
+    assistantSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -309,7 +343,13 @@ export class FieldTypeInstance {
   url?: string | null;
 
   private get _proxy(): FieldTypeContext {
-    this._context = this._context || new FieldTypeContextImpl(this._version, this._solution.assistantSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new FieldTypeContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -320,8 +360,9 @@ export class FieldTypeInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -332,8 +373,9 @@ export class FieldTypeInstance {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -344,7 +386,9 @@ export class FieldTypeInstance {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  update(callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  update(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
   /**
    * Update a FieldTypeInstance
    *
@@ -353,9 +397,11 @@ export class FieldTypeInstance {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  update(params: FieldTypeContextUpdateOptions, callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
-  update(params?: any, callback?: any): Promise<FieldTypeInstance>
-     {
+  update(
+    params: FieldTypeContextUpdateOptions,
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+  update(params?: any, callback?: any): Promise<FieldTypeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -373,16 +419,16 @@ export class FieldTypeInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      links: this.links, 
-      assistantSid: this.assistantSid, 
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      links: this.links,
+      assistantSid: this.assistantSid,
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -390,11 +436,9 @@ export class FieldTypeInstance {
   }
 }
 
-
 export interface FieldTypeListInstance {
   (sid: string): FieldTypeContext;
   get(sid: string): FieldTypeContext;
-
 
   /**
    * Create a FieldTypeInstance
@@ -404,10 +448,11 @@ export interface FieldTypeListInstance {
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
-  create(params: FieldTypeListInstanceCreateOptions, callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
-  create(params: any, callback?: any): Promise<FieldTypeInstance>
-
-
+  create(
+    params: FieldTypeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+  create(params: any, callback?: any): Promise<FieldTypeInstance>;
 
   /**
    * Streams FieldTypeInstance records from the API.
@@ -423,7 +468,9 @@ export interface FieldTypeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FieldTypeInstance records from the API.
    *
@@ -439,7 +486,10 @@ export interface FieldTypeListInstance {
    * @param { FieldTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FieldTypeListInstanceEachOptions, callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FieldTypeListInstanceEachOptions,
+    callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FieldTypeInstance records from the API.
@@ -451,7 +501,9 @@ export interface FieldTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  getPage(
+    callback?: (error: Error | null, items: FieldTypePage) => any
+  ): Promise<FieldTypePage>;
   /**
    * Retrieve a single target page of FieldTypeInstance records from the API.
    *
@@ -463,7 +515,10 @@ export interface FieldTypeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FieldTypePage) => any
+  ): Promise<FieldTypePage>;
   getPage(params?: any, callback?: any): Promise<FieldTypePage>;
   /**
    * Lists FieldTypeInstance records from the API as a list.
@@ -473,7 +528,9 @@ export interface FieldTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FieldTypeInstance[]) => any
+  ): Promise<FieldTypeInstance[]>;
   /**
    * Lists FieldTypeInstance records from the API as a list.
    *
@@ -483,7 +540,10 @@ export interface FieldTypeListInstance {
    * @param { FieldTypeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FieldTypeListInstanceOptions, callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
+  list(
+    params?: FieldTypeListInstanceOptions,
+    callback?: (error: Error | null, items: FieldTypeInstance[]) => any
+  ): Promise<FieldTypeInstance[]>;
   list(params?: any, callback?: any): Promise<FieldTypeInstance[]>;
   /**
    * Retrieve a single page of FieldTypeInstance records from the API.
@@ -495,7 +555,9 @@ export interface FieldTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  page(
+    callback?: (error: Error | null, items: FieldTypePage) => any
+  ): Promise<FieldTypePage>;
   /**
    * Retrieve a single page of FieldTypeInstance records from the API.
    *
@@ -507,7 +569,10 @@ export interface FieldTypeListInstance {
    * @param { FieldTypeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FieldTypeListInstancePageOptions, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  page(
+    params: FieldTypeListInstancePageOptions,
+    callback?: (error: Error | null, items: FieldTypePage) => any
+  ): Promise<FieldTypePage>;
   page(params?: any, callback?: any): Promise<FieldTypePage>;
 
   /**
@@ -526,54 +591,71 @@ class FieldTypeListInstanceImpl implements FieldTypeListInstance {
   _version?: V1;
   _solution?: FieldTypeSolution;
   _uri?: string;
-
 }
 
-export function FieldTypeListInstance(version: V1, assistantSid: string): FieldTypeListInstance {
+export function FieldTypeListInstance(
+  version: V1,
+  assistantSid: string
+): FieldTypeListInstance {
   const instance = ((sid) => instance.get(sid)) as FieldTypeListInstanceImpl;
 
   instance.get = function get(sid): FieldTypeContext {
     return new FieldTypeContextImpl(version, assistantSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid };
   instance._uri = `/Assistants/${assistantSid}/FieldTypes`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FieldTypeInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FieldTypeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
-      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
+      throw new Error("Required parameter \"params['uniqueName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["UniqueName"] = params["uniqueName"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypeInstance(operationVersion, payload, this._solution.assistantSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldTypeInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FieldTypePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FieldTypePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -583,75 +665,102 @@ export function FieldTypeListInstance(version: V1, assistantSid: string): FieldT
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldTypePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldTypePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FieldTypePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FieldTypePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldTypePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FieldTypePage extends Page<V1, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
-/**
-* Initialize the FieldTypePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: FieldTypeSolution) {
+export class FieldTypePage extends Page<
+  V1,
+  FieldTypePayload,
+  FieldTypeResource,
+  FieldTypeInstance
+> {
+  /**
+   * Initialize the FieldTypePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: FieldTypeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FieldTypeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FieldTypePayload): FieldTypeInstance {
+  /**
+   * Build an instance of FieldTypeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FieldTypePayload): FieldTypeInstance {
     return new FieldTypeInstance(
-    this._version,
-    payload,
-        this._solution.assistantSid,
+      this._version,
+      payload,
+      this._solution.assistantSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -42,13 +39,13 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
-  "actorSid"?: string;
-  "eventType"?: string;
-  "resourceSid"?: string;
-  "sourceIpAddress"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  actorSid?: string;
+  eventType?: string;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -70,13 +67,13 @@ export interface EventListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EventListInstanceOptions {
-  "actorSid"?: string;
-  "eventType"?: string;
-  "resourceSid"?: string;
-  "sourceIpAddress"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  actorSid?: string;
+  eventType?: string;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -94,22 +91,18 @@ export interface EventListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
-  "actorSid"?: string;
-  "eventType"?: string;
-  "resourceSid"?: string;
-  "sourceIpAddress"?: string;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "pageSize"?: number;
+  actorSid?: string;
+  eventType?: string;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+  endDate?: Date;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EventContext {
-
-
   /**
    * Fetch a EventInstance
    *
@@ -117,8 +110,9 @@ export interface EventContext {
    *
    * @returns { Promise } Resolves to processed EventInstance
    */
-  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any
+  ): Promise<EventInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -128,13 +122,12 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class EventContextImpl implements EventContext {
   protected _solution: EventContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -142,17 +135,22 @@ export class EventContextImpl implements EventContext {
   }
 
   fetch(callback?: any): Promise<EventInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EventInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EventInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -169,8 +167,7 @@ export class EventContextImpl implements EventContext {
   }
 }
 
-interface EventPayload extends EventResource, Page.TwilioResponsePayload {
-}
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {}
 
 interface EventResource {
   account_sid?: string | null;
@@ -270,7 +267,8 @@ export class EventInstance {
   links?: object | null;
 
   private get _proxy(): EventContext {
-    this._context = this._context || new EventContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new EventContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -281,8 +279,9 @@ export class EventInstance {
    *
    * @returns { Promise } Resolves to processed EventInstance
    */
-  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any
+  ): Promise<EventInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -293,21 +292,21 @@ export class EventInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      actorSid: this.actorSid, 
-      actorType: this.actorType, 
-      description: this.description, 
-      eventData: this.eventData, 
-      eventDate: this.eventDate, 
-      eventType: this.eventType, 
-      resourceSid: this.resourceSid, 
-      resourceType: this.resourceType, 
-      sid: this.sid, 
-      source: this.source, 
-      sourceIpAddress: this.sourceIpAddress, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      actorSid: this.actorSid,
+      actorType: this.actorType,
+      description: this.description,
+      eventData: this.eventData,
+      eventDate: this.eventDate,
+      eventType: this.eventType,
+      resourceSid: this.resourceSid,
+      resourceType: this.resourceType,
+      sid: this.sid,
+      source: this.source,
+      sourceIpAddress: this.sourceIpAddress,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -315,12 +314,9 @@ export class EventInstance {
   }
 }
 
-
 export interface EventListInstance {
   (sid: string): EventContext;
   get(sid: string): EventContext;
-
-
 
   /**
    * Streams EventInstance records from the API.
@@ -336,7 +332,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EventInstance records from the API.
    *
@@ -352,7 +350,10 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
@@ -364,7 +365,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  getPage(
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
@@ -376,7 +379,10 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   getPage(params?: any, callback?: any): Promise<EventPage>;
   /**
    * Lists EventInstance records from the API as a list.
@@ -386,7 +392,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -396,7 +404,10 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(
+    params?: EventListInstanceOptions,
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
   list(params?: any, callback?: any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
@@ -408,7 +419,9 @@ export interface EventListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -420,7 +433,10 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(
+    params: EventListInstancePageOptions,
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
   page(params?: any, callback?: any): Promise<EventPage>;
 
   /**
@@ -430,15 +446,13 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EventSolution {
-}
+export interface EventSolution {}
 
 interface EventListInstanceImpl extends EventListInstance {}
 class EventListInstanceImpl implements EventListInstance {
   _version?: V1;
   _solution?: EventSolution;
   _uri?: string;
-
 }
 
 export function EventListInstance(version: V1): EventListInstance {
@@ -446,13 +460,16 @@ export function EventListInstance(version: V1): EventListInstance {
 
   instance.get = function get(sid): EventContext {
     return new EventContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Events`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<EventPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EventPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -462,86 +479,109 @@ export function EventListInstance(version: V1): EventListInstance {
 
     let data: any = {};
 
-        if (params["actorSid"] !== undefined)
-    data["ActorSid"] = params["actorSid"];
+    if (params["actorSid"] !== undefined) data["ActorSid"] = params["actorSid"];
     if (params["eventType"] !== undefined)
-    data["EventType"] = params["eventType"];
+      data["EventType"] = params["eventType"];
     if (params["resourceSid"] !== undefined)
-    data["ResourceSid"] = params["resourceSid"];
+      data["ResourceSid"] = params["resourceSid"];
     if (params["sourceIpAddress"] !== undefined)
-    data["SourceIpAddress"] = params["sourceIpAddress"];
+      data["SourceIpAddress"] = params["sourceIpAddress"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EventPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EventPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EventPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EventPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
-/**
-* Initialize the EventPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: EventSolution) {
+export class EventPage extends Page<
+  V1,
+  EventPayload,
+  EventResource,
+  EventInstance
+> {
+  /**
+   * Initialize the EventPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: EventSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EventInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EventPayload): EventInstance {
-    return new EventInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of EventInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EventPayload): EventInstance {
+    return new EventInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

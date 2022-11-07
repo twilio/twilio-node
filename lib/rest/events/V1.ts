@@ -58,5 +58,4 @@ export default class V1 extends Version {
     this._subscriptions = this._subscriptions || SubscriptionListInstance(this);
     return this._subscriptions;
   }
-
 }

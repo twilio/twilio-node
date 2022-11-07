@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,8 +19,6 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPrefix";
-
-
 
 /**
  * Options to pass to each
@@ -43,13 +40,13 @@ import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPref
  *                         Default is no limit
  */
 export interface CountryListInstanceEachOptions {
-  "isoCode"?: string;
-  "continent"?: string;
-  "countryCode"?: string;
-  "lowRiskNumbersEnabled"?: boolean;
-  "highRiskSpecialNumbersEnabled"?: boolean;
-  "highRiskTollfraudNumbersEnabled"?: boolean;
-  "pageSize"?: number;
+  isoCode?: string;
+  continent?: string;
+  countryCode?: string;
+  lowRiskNumbersEnabled?: boolean;
+  highRiskSpecialNumbersEnabled?: boolean;
+  highRiskTollfraudNumbersEnabled?: boolean;
+  pageSize?: number;
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,13 +68,13 @@ export interface CountryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CountryListInstanceOptions {
-  "isoCode"?: string;
-  "continent"?: string;
-  "countryCode"?: string;
-  "lowRiskNumbersEnabled"?: boolean;
-  "highRiskSpecialNumbersEnabled"?: boolean;
-  "highRiskTollfraudNumbersEnabled"?: boolean;
-  "pageSize"?: number;
+  isoCode?: string;
+  continent?: string;
+  countryCode?: string;
+  lowRiskNumbersEnabled?: boolean;
+  highRiskSpecialNumbersEnabled?: boolean;
+  highRiskTollfraudNumbersEnabled?: boolean;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -95,21 +92,18 @@ export interface CountryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CountryListInstancePageOptions {
-  "isoCode"?: string;
-  "continent"?: string;
-  "countryCode"?: string;
-  "lowRiskNumbersEnabled"?: boolean;
-  "highRiskSpecialNumbersEnabled"?: boolean;
-  "highRiskTollfraudNumbersEnabled"?: boolean;
-  "pageSize"?: number;
+  isoCode?: string;
+  continent?: string;
+  countryCode?: string;
+  lowRiskNumbersEnabled?: boolean;
+  highRiskSpecialNumbersEnabled?: boolean;
+  highRiskTollfraudNumbersEnabled?: boolean;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CountryContext {
-
   highriskSpecialPrefixes: HighriskSpecialPrefixListInstance;
 
   /**
@@ -119,8 +113,9 @@ export interface CountryContext {
    *
    * @returns { Promise } Resolves to processed CountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CountryInstance) => any
+  ): Promise<CountryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -130,7 +125,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  "isoCode"?: string;
+  isoCode?: string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -145,22 +140,29 @@ export class CountryContextImpl implements CountryContext {
   }
 
   get highriskSpecialPrefixes(): HighriskSpecialPrefixListInstance {
-    this._highriskSpecialPrefixes = this._highriskSpecialPrefixes || HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
+    this._highriskSpecialPrefixes =
+      this._highriskSpecialPrefixes ||
+      HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
     return this._highriskSpecialPrefixes;
   }
 
   fetch(callback?: any): Promise<CountryInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CountryInstance(operationVersion, payload, this._solution.isoCode));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CountryInstance(operationVersion, payload, this._solution.isoCode)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -177,8 +179,7 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
-interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
-}
+interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {}
 
 interface CountryResource {
   iso_code?: string | null;
@@ -196,14 +197,20 @@ export class CountryInstance {
   protected _solution: CountryContextSolution;
   protected _context?: CountryContext;
 
-  constructor(protected _version: V1, payload: CountryPayload, isoCode?: string) {
+  constructor(
+    protected _version: V1,
+    payload: CountryPayload,
+    isoCode?: string
+  ) {
     this.isoCode = payload.iso_code;
     this.name = payload.name;
     this.continent = payload.continent;
     this.countryCodes = payload.country_codes;
     this.lowRiskNumbersEnabled = payload.low_risk_numbers_enabled;
-    this.highRiskSpecialNumbersEnabled = payload.high_risk_special_numbers_enabled;
-    this.highRiskTollfraudNumbersEnabled = payload.high_risk_tollfraud_numbers_enabled;
+    this.highRiskSpecialNumbersEnabled =
+      payload.high_risk_special_numbers_enabled;
+    this.highRiskTollfraudNumbersEnabled =
+      payload.high_risk_tollfraud_numbers_enabled;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -248,7 +255,9 @@ export class CountryInstance {
   links?: object | null;
 
   private get _proxy(): CountryContext {
-    this._context = this._context || new CountryContextImpl(this._version, this._solution.isoCode);
+    this._context =
+      this._context ||
+      new CountryContextImpl(this._version, this._solution.isoCode);
     return this._context;
   }
 
@@ -259,8 +268,9 @@ export class CountryInstance {
    *
    * @returns { Promise } Resolves to processed CountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CountryInstance) => any
+  ): Promise<CountryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -278,16 +288,16 @@ export class CountryInstance {
    */
   toJSON() {
     return {
-      isoCode: this.isoCode, 
-      name: this.name, 
-      continent: this.continent, 
-      countryCodes: this.countryCodes, 
-      lowRiskNumbersEnabled: this.lowRiskNumbersEnabled, 
-      highRiskSpecialNumbersEnabled: this.highRiskSpecialNumbersEnabled, 
-      highRiskTollfraudNumbersEnabled: this.highRiskTollfraudNumbersEnabled, 
-      url: this.url, 
-      links: this.links
-    }
+      isoCode: this.isoCode,
+      name: this.name,
+      continent: this.continent,
+      countryCodes: this.countryCodes,
+      lowRiskNumbersEnabled: this.lowRiskNumbersEnabled,
+      highRiskSpecialNumbersEnabled: this.highRiskSpecialNumbersEnabled,
+      highRiskTollfraudNumbersEnabled: this.highRiskTollfraudNumbersEnabled,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -295,12 +305,9 @@ export class CountryInstance {
   }
 }
 
-
 export interface CountryListInstance {
   (isoCode: string): CountryContext;
   get(isoCode: string): CountryContext;
-
-
 
   /**
    * Streams CountryInstance records from the API.
@@ -316,7 +323,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams CountryInstance records from the API.
    *
@@ -332,7 +341,10 @@ export interface CountryListInstance {
    * @param { CountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CountryListInstanceEachOptions,
+    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
@@ -344,7 +356,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  getPage(
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
    *
@@ -356,7 +370,10 @@ export interface CountryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   getPage(params?: any, callback?: any): Promise<CountryPage>;
   /**
    * Lists CountryInstance records from the API as a list.
@@ -366,7 +383,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CountryInstance[]) => any
+  ): Promise<CountryInstance[]>;
   /**
    * Lists CountryInstance records from the API as a list.
    *
@@ -376,7 +395,10 @@ export interface CountryListInstance {
    * @param { CountryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
+  list(
+    params?: CountryListInstanceOptions,
+    callback?: (error: Error | null, items: CountryInstance[]) => any
+  ): Promise<CountryInstance[]>;
   list(params?: any, callback?: any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
@@ -388,7 +410,9 @@ export interface CountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  page(
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    *
@@ -400,7 +424,10 @@ export interface CountryListInstance {
    * @param { CountryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CountryListInstancePageOptions, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  page(
+    params: CountryListInstancePageOptions,
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
   page(params?: any, callback?: any): Promise<CountryPage>;
 
   /**
@@ -410,29 +437,31 @@ export interface CountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CountrySolution {
-}
+export interface CountrySolution {}
 
 interface CountryListInstanceImpl extends CountryListInstance {}
 class CountryListInstanceImpl implements CountryListInstance {
   _version?: V1;
   _solution?: CountrySolution;
   _uri?: string;
-
 }
 
 export function CountryListInstance(version: V1): CountryListInstance {
-  const instance = ((isoCode) => instance.get(isoCode)) as CountryListInstanceImpl;
+  const instance = ((isoCode) =>
+    instance.get(isoCode)) as CountryListInstanceImpl;
 
   instance.get = function get(isoCode): CountryContext {
     return new CountryContextImpl(version, isoCode);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/DialingPermissions/Countries`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<CountryPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CountryPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -442,86 +471,115 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     let data: any = {};
 
-        if (params["isoCode"] !== undefined)
-    data["IsoCode"] = params["isoCode"];
+    if (params["isoCode"] !== undefined) data["IsoCode"] = params["isoCode"];
     if (params["continent"] !== undefined)
-    data["Continent"] = params["continent"];
+      data["Continent"] = params["continent"];
     if (params["countryCode"] !== undefined)
-    data["CountryCode"] = params["countryCode"];
+      data["CountryCode"] = params["countryCode"];
     if (params["lowRiskNumbersEnabled"] !== undefined)
-    data["LowRiskNumbersEnabled"] = serialize.bool(params["lowRiskNumbersEnabled"]);
+      data["LowRiskNumbersEnabled"] = serialize.bool(
+        params["lowRiskNumbersEnabled"]
+      );
     if (params["highRiskSpecialNumbersEnabled"] !== undefined)
-    data["HighRiskSpecialNumbersEnabled"] = serialize.bool(params["highRiskSpecialNumbersEnabled"]);
+      data["HighRiskSpecialNumbersEnabled"] = serialize.bool(
+        params["highRiskSpecialNumbersEnabled"]
+      );
     if (params["highRiskTollfraudNumbersEnabled"] !== undefined)
-    data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(params["highRiskTollfraudNumbersEnabled"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(
+        params["highRiskTollfraudNumbersEnabled"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CountryPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CountryPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CountryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CountryPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CountryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CountryPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
-/**
-* Initialize the CountryPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CountrySolution) {
+export class CountryPage extends Page<
+  V1,
+  CountryPayload,
+  CountryResource,
+  CountryInstance
+> {
+  /**
+   * Initialize the CountryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CountrySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CountryInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CountryPayload): CountryInstance {
-    return new CountryInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of CountryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CountryPayload): CountryInstance {
+    return new CountryInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

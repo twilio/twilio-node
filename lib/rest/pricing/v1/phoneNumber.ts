@@ -12,17 +12,13 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { CountryListInstance } from "./phoneNumber/country";
 
-
-
 export interface PhoneNumberListInstance {
-
   countries: CountryListInstance;
 
   /**
@@ -32,8 +28,7 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {
-}
+export interface PhoneNumberSolution {}
 
 interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
 class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
@@ -48,7 +43,7 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
   const instance = {} as PhoneNumberListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/PhoneNumbers`;
 
   Object.defineProperty(instance, "countries", {
@@ -57,18 +52,19 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
