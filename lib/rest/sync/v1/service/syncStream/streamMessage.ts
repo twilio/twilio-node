@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a StreamMessageInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../../base/serialize");
  * @property { any } data A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
  */
 export interface StreamMessageListInstanceCreateOptions {
-  "data": any;
+  data: any;
 }
 
 export interface StreamMessageListInstance {
-
-
   /**
    * Create a StreamMessageInstance
    *
@@ -40,9 +35,11 @@ export interface StreamMessageListInstance {
    *
    * @returns { Promise } Resolves to processed StreamMessageInstance
    */
-  create(params: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, item?: StreamMessageInstance) => any): Promise<StreamMessageInstance>;
-  create(params: any, callback?: any): Promise<StreamMessageInstance>
-
+  create(
+    params: StreamMessageListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: StreamMessageInstance) => any
+  ): Promise<StreamMessageInstance>;
+  create(params: any, callback?: any): Promise<StreamMessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -61,60 +58,78 @@ class StreamMessageListInstanceImpl implements StreamMessageListInstance {
   _version?: V1;
   _solution?: StreamMessageSolution;
   _uri?: string;
-
 }
 
-export function StreamMessageListInstance(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance {
+export function StreamMessageListInstance(
+  version: V1,
+  serviceSid: string,
+  streamSid: string
+): StreamMessageListInstance {
   const instance = {} as StreamMessageListInstanceImpl;
 
   instance._version = version;
   instance._solution = { serviceSid, streamSid };
   instance._uri = `/Services/${serviceSid}/Streams/${streamSid}/Messages`;
 
-  instance.create = function create(params: any, callback?: any): Promise<StreamMessageInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<StreamMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["data"] === null || params["data"] === undefined) {
-      throw new Error('Required parameter "params[\'data\']" missing.');
+      throw new Error("Required parameter \"params['data']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Data"] = serialize.object(params["data"]);
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new StreamMessageInstance(operationVersion, payload, this._solution.serviceSid, this._solution.streamSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new StreamMessageInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.streamSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface StreamMessagePayload extends StreamMessageResource{
-}
+interface StreamMessagePayload extends StreamMessageResource {}
 
 interface StreamMessageResource {
   sid?: string | null;
@@ -122,11 +137,14 @@ interface StreamMessageResource {
 }
 
 export class StreamMessageInstance {
-
-  constructor(protected _version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: StreamMessagePayload,
+    serviceSid: string,
+    streamSid?: string
+  ) {
     this.sid = payload.sid;
     this.data = payload.data;
-
   }
 
   /**
@@ -145,14 +163,12 @@ export class StreamMessageInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      data: this.data
-    }
+      sid: this.sid,
+      data: this.data,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

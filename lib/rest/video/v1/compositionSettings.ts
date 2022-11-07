@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to create a CompositionSettingsInstance
@@ -32,17 +28,15 @@ const serialize = require("../../../base/serialize");
  * @property { boolean } [encryptionEnabled] Whether all compositions should be stored in an encrypted form. The default is &#x60;false&#x60;.
  */
 export interface CompositionSettingsContextCreateOptions {
-  "friendlyName": string;
-  "awsCredentialsSid"?: string;
-  "encryptionKeySid"?: string;
-  "awsS3Url"?: string;
-  "awsStorageEnabled"?: boolean;
-  "encryptionEnabled"?: boolean;
+  friendlyName: string;
+  awsCredentialsSid?: string;
+  encryptionKeySid?: string;
+  awsS3Url?: string;
+  awsStorageEnabled?: boolean;
+  encryptionEnabled?: boolean;
 }
 
 export interface CompositionSettingsContext {
-
-
   /**
    * Create a CompositionSettingsInstance
    *
@@ -51,9 +45,11 @@ export interface CompositionSettingsContext {
    *
    * @returns { Promise } Resolves to processed CompositionSettingsInstance
    */
-  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance>
-
+  create(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance>;
+  create(params: any, callback?: any): Promise<CompositionSettingsInstance>;
 
   /**
    * Fetch a CompositionSettingsInstance
@@ -62,8 +58,9 @@ export interface CompositionSettingsContext {
    *
    * @returns { Promise } Resolves to processed CompositionSettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -72,72 +69,82 @@ export interface CompositionSettingsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsContextSolution {
-}
+export interface CompositionSettingsContextSolution {}
 
-export class CompositionSettingsContextImpl implements CompositionSettingsContext {
+export class CompositionSettingsContextImpl
+  implements CompositionSettingsContext
+{
   protected _solution: CompositionSettingsContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/CompositionSettings/Default`;
   }
 
   create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
     if (params["awsCredentialsSid"] !== undefined)
-    data["AwsCredentialsSid"] = params["awsCredentialsSid"];
+      data["AwsCredentialsSid"] = params["awsCredentialsSid"];
     if (params["encryptionKeySid"] !== undefined)
-    data["EncryptionKeySid"] = params["encryptionKeySid"];
-    if (params["awsS3Url"] !== undefined)
-    data["AwsS3Url"] = params["awsS3Url"];
+      data["EncryptionKeySid"] = params["encryptionKeySid"];
+    if (params["awsS3Url"] !== undefined) data["AwsS3Url"] = params["awsS3Url"];
     if (params["awsStorageEnabled"] !== undefined)
-    data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
+      data["AwsStorageEnabled"] = serialize.bool(params["awsStorageEnabled"]);
     if (params["encryptionEnabled"] !== undefined)
-    data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
-
+      data["EncryptionEnabled"] = serialize.bool(params["encryptionEnabled"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CompositionSettingsInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CompositionSettingsInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CompositionSettingsInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -154,8 +161,7 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
   }
 }
 
-interface CompositionSettingsPayload extends CompositionSettingsResource{
-}
+interface CompositionSettingsPayload extends CompositionSettingsResource {}
 
 interface CompositionSettingsResource {
   account_sid?: string | null;
@@ -182,7 +188,7 @@ export class CompositionSettingsInstance {
     this.encryptionEnabled = payload.encryption_enabled;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -219,7 +225,8 @@ export class CompositionSettingsInstance {
   url?: string | null;
 
   private get _proxy(): CompositionSettingsContext {
-    this._context = this._context || new CompositionSettingsContextImpl(this._version);
+    this._context =
+      this._context || new CompositionSettingsContextImpl(this._version);
     return this._context;
   }
 
@@ -231,9 +238,11 @@ export class CompositionSettingsInstance {
    *
    * @returns { Promise } Resolves to processed CompositionSettingsInstance
    */
-  create(params: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance>
-     {
+  create(
+    params: CompositionSettingsContextCreateOptions,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance>;
+  create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -244,8 +253,9 @@ export class CompositionSettingsInstance {
    *
    * @returns { Promise } Resolves to processed CompositionSettingsInstance
    */
-  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -256,15 +266,15 @@ export class CompositionSettingsInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      awsCredentialsSid: this.awsCredentialsSid, 
-      awsS3Url: this.awsS3Url, 
-      awsStorageEnabled: this.awsStorageEnabled, 
-      encryptionKeySid: this.encryptionKeySid, 
-      encryptionEnabled: this.encryptionEnabled, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      awsCredentialsSid: this.awsCredentialsSid,
+      awsS3Url: this.awsS3Url,
+      awsStorageEnabled: this.awsStorageEnabled,
+      encryptionKeySid: this.encryptionKeySid,
+      encryptionEnabled: this.encryptionEnabled,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -272,11 +282,9 @@ export class CompositionSettingsInstance {
   }
 }
 
-
 export interface CompositionSettingsListInstance {
   (): CompositionSettingsContext;
   get(): CompositionSettingsContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -285,38 +293,42 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsSolution {
-}
+export interface CompositionSettingsSolution {}
 
-interface CompositionSettingsListInstanceImpl extends CompositionSettingsListInstance {}
-class CompositionSettingsListInstanceImpl implements CompositionSettingsListInstance {
+interface CompositionSettingsListInstanceImpl
+  extends CompositionSettingsListInstance {}
+class CompositionSettingsListInstanceImpl
+  implements CompositionSettingsListInstance
+{
   _version?: V1;
   _solution?: CompositionSettingsSolution;
   _uri?: string;
-
 }
 
-export function CompositionSettingsListInstance(version: V1): CompositionSettingsListInstance {
-  const instance = (() => instance.get()) as CompositionSettingsListInstanceImpl;
+export function CompositionSettingsListInstance(
+  version: V1
+): CompositionSettingsListInstance {
+  const instance = (() =>
+    instance.get()) as CompositionSettingsListInstanceImpl;
 
   instance.get = function get(): CompositionSettingsContext {
     return new CompositionSettingsContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

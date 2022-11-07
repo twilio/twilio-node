@@ -9,25 +9,25 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V1 from './serverless/V1';
+import Domain from "../base/Domain";
+import V1 from "./serverless/V1";
 
 class ServerlessBase extends Domain {
-    _v1?: V1;
+  _v1?: V1;
 
-    /**
-     * Initialize serverless domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://serverless.twilio.com');
-    }
+  /**
+   * Initialize serverless domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://serverless.twilio.com");
+  }
 
-    get v1(): V1 {
-        this._v1 = this._v1 || new V1(this);
-        return this._v1;
-    }
+  get v1(): V1 {
+    this._v1 = this._v1 || new V1(this);
+    return this._v1;
+  }
 }
 
 export = ServerlessBase;

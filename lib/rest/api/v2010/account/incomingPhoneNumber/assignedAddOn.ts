@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -21,16 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddOnExtension";
 
-
-
-
 /**
  * Options to pass to create a AssignedAddOnInstance
  *
  * @property { string } installedAddOnSid The SID that identifies the Add-on installation.
  */
 export interface AssignedAddOnListInstanceCreateOptions {
-  "installedAddOnSid": string;
+  installedAddOnSid: string;
 }
 /**
  * Options to pass to each
@@ -46,7 +42,7 @@ export interface AssignedAddOnListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssignedAddOnListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -62,7 +58,7 @@ export interface AssignedAddOnListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssignedAddOnListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -74,15 +70,12 @@ export interface AssignedAddOnListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssignedAddOnListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AssignedAddOnContext {
-
   extensions: AssignedAddOnExtensionListInstance;
 
   /**
@@ -92,8 +85,9 @@ export interface AssignedAddOnContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a AssignedAddOnInstance
@@ -102,8 +96,9 @@ export interface AssignedAddOnContext {
    *
    * @returns { Promise } Resolves to processed AssignedAddOnInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
+  ): Promise<AssignedAddOnInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -113,9 +108,9 @@ export interface AssignedAddOnContext {
 }
 
 export interface AssignedAddOnContextSolution {
-  "accountSid"?: string;
-  "resourceSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  resourceSid?: string;
+  sid?: string;
 }
 
 export class AssignedAddOnContextImpl implements AssignedAddOnContext {
@@ -124,40 +119,65 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
 
   protected _extensions?: AssignedAddOnExtensionListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, resourceSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    resourceSid: string,
+    sid: string
+  ) {
     this._solution = { accountSid, resourceSid, sid };
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${sid}.json`;
   }
 
   get extensions(): AssignedAddOnExtensionListInstance {
-    this._extensions = this._extensions || AssignedAddOnExtensionListInstance(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.sid);
+    this._extensions =
+      this._extensions ||
+      AssignedAddOnExtensionListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.resourceSid,
+        this._solution.sid
+      );
     return this._extensions;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<AssignedAddOnInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AssignedAddOnInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssignedAddOnInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.resourceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -174,8 +194,9 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 }
 
-interface AssignedAddOnPayload extends AssignedAddOnResource, Page.TwilioResponsePayload {
-}
+interface AssignedAddOnPayload
+  extends AssignedAddOnResource,
+    Page.TwilioResponsePayload {}
 
 interface AssignedAddOnResource {
   sid?: string | null;
@@ -195,7 +216,13 @@ export class AssignedAddOnInstance {
   protected _solution: AssignedAddOnContextSolution;
   protected _context?: AssignedAddOnContext;
 
-  constructor(protected _version: V2010, payload: AssignedAddOnPayload, accountSid: string, resourceSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: AssignedAddOnPayload,
+    accountSid: string,
+    resourceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.resourceSid = payload.resource_sid;
@@ -257,7 +284,14 @@ export class AssignedAddOnInstance {
   subresourceUris?: object | null;
 
   private get _proxy(): AssignedAddOnContext {
-    this._context = this._context || new AssignedAddOnContextImpl(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new AssignedAddOnContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.resourceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -268,8 +302,9 @@ export class AssignedAddOnInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -280,8 +315,9 @@ export class AssignedAddOnInstance {
    *
    * @returns { Promise } Resolves to processed AssignedAddOnInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
+  ): Promise<AssignedAddOnInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -299,18 +335,18 @@ export class AssignedAddOnInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      resourceSid: this.resourceSid, 
-      friendlyName: this.friendlyName, 
-      description: this.description, 
-      configuration: this.configuration, 
-      uniqueName: this.uniqueName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      uri: this.uri, 
-      subresourceUris: this.subresourceUris
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      resourceSid: this.resourceSid,
+      friendlyName: this.friendlyName,
+      description: this.description,
+      configuration: this.configuration,
+      uniqueName: this.uniqueName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      uri: this.uri,
+      subresourceUris: this.subresourceUris,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -318,11 +354,9 @@ export class AssignedAddOnInstance {
   }
 }
 
-
 export interface AssignedAddOnListInstance {
   (sid: string): AssignedAddOnContext;
   get(sid: string): AssignedAddOnContext;
-
 
   /**
    * Create a AssignedAddOnInstance
@@ -332,10 +366,11 @@ export interface AssignedAddOnListInstance {
    *
    * @returns { Promise } Resolves to processed AssignedAddOnInstance
    */
-  create(params: AssignedAddOnListInstanceCreateOptions, callback?: (error: Error | null, item?: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>;
-  create(params: any, callback?: any): Promise<AssignedAddOnInstance>
-
-
+  create(
+    params: AssignedAddOnListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
+  ): Promise<AssignedAddOnInstance>;
+  create(params: any, callback?: any): Promise<AssignedAddOnInstance>;
 
   /**
    * Streams AssignedAddOnInstance records from the API.
@@ -351,7 +386,12 @@ export interface AssignedAddOnListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AssignedAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams AssignedAddOnInstance records from the API.
    *
@@ -367,7 +407,13 @@ export interface AssignedAddOnListInstance {
    * @param { AssignedAddOnListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AssignedAddOnListInstanceEachOptions, callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AssignedAddOnListInstanceEachOptions,
+    callback?: (
+      item: AssignedAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
@@ -379,7 +425,9 @@ export interface AssignedAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
+  getPage(
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
+  ): Promise<AssignedAddOnPage>;
   /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
    *
@@ -391,7 +439,10 @@ export interface AssignedAddOnListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
+  ): Promise<AssignedAddOnPage>;
   getPage(params?: any, callback?: any): Promise<AssignedAddOnPage>;
   /**
    * Lists AssignedAddOnInstance records from the API as a list.
@@ -401,7 +452,9 @@ export interface AssignedAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any): Promise<AssignedAddOnInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
+  ): Promise<AssignedAddOnInstance[]>;
   /**
    * Lists AssignedAddOnInstance records from the API as a list.
    *
@@ -411,7 +464,10 @@ export interface AssignedAddOnListInstance {
    * @param { AssignedAddOnListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AssignedAddOnListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any): Promise<AssignedAddOnInstance[]>;
+  list(
+    params?: AssignedAddOnListInstanceOptions,
+    callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
+  ): Promise<AssignedAddOnInstance[]>;
   list(params?: any, callback?: any): Promise<AssignedAddOnInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
@@ -423,7 +479,9 @@ export interface AssignedAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
+  page(
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
+  ): Promise<AssignedAddOnPage>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
    *
@@ -435,7 +493,10 @@ export interface AssignedAddOnListInstance {
    * @param { AssignedAddOnListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AssignedAddOnListInstancePageOptions, callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
+  page(
+    params: AssignedAddOnListInstancePageOptions,
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
+  ): Promise<AssignedAddOnPage>;
   page(params?: any, callback?: any): Promise<AssignedAddOnPage>;
 
   /**
@@ -455,52 +516,77 @@ class AssignedAddOnListInstanceImpl implements AssignedAddOnListInstance {
   _version?: V2010;
   _solution?: AssignedAddOnSolution;
   _uri?: string;
-
 }
 
-export function AssignedAddOnListInstance(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance {
-  const instance = ((sid) => instance.get(sid)) as AssignedAddOnListInstanceImpl;
+export function AssignedAddOnListInstance(
+  version: V2010,
+  accountSid: string,
+  resourceSid: string
+): AssignedAddOnListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as AssignedAddOnListInstanceImpl;
 
   instance.get = function get(sid): AssignedAddOnContext {
     return new AssignedAddOnContextImpl(version, accountSid, resourceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid, resourceSid };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<AssignedAddOnInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<AssignedAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["installedAddOnSid"] === null || params["installedAddOnSid"] === undefined) {
-      throw new Error('Required parameter "params[\'installedAddOnSid\']" missing.');
+    if (
+      params["installedAddOnSid"] === null ||
+      params["installedAddOnSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['installedAddOnSid']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["InstalledAddOnSid"] = params["installedAddOnSid"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssignedAddOnInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssignedAddOnInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.resourceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<AssignedAddOnPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AssignedAddOnPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -510,76 +596,104 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssignedAddOnPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssignedAddOnPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssignedAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AssignedAddOnPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AssignedAddOnPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssignedAddOnPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnInstance> {
-/**
-* Initialize the AssignedAddOnPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: AssignedAddOnSolution) {
+export class AssignedAddOnPage extends Page<
+  V2010,
+  AssignedAddOnPayload,
+  AssignedAddOnResource,
+  AssignedAddOnInstance
+> {
+  /**
+   * Initialize the AssignedAddOnPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: AssignedAddOnSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AssignedAddOnInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance {
+  /**
+   * Build an instance of AssignedAddOnInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance {
     return new AssignedAddOnInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.resourceSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.resourceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

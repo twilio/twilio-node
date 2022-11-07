@@ -1,14 +1,17 @@
-import Version = require('./Version');
-import Response = require('../http/response');
+import Version = require("./Version");
+import Response = require("../http/response");
 
-interface Solution {
-
-}
+interface Solution {}
 
 /**
  * Base page object to maintain request state.
  */
-declare class Page<TVersion extends Version, TPayload extends Page.TwilioResponsePayload, TResource, TInstance> {
+declare class Page<
+  TVersion extends Version,
+  TPayload extends Page.TwilioResponsePayload,
+  TResource,
+  TInstance
+> {
   _version: any;
   _solution: any;
   /**
@@ -18,7 +21,11 @@ declare class Page<TVersion extends Version, TPayload extends Page.TwilioRespons
    * @param response - The http response
    * @param solution - path solution
    */
-  constructor(version: TVersion, response: Response<string | object>, solution: Solution);
+  constructor(
+    version: TVersion,
+    response: Response<string | object>,
+    solution: Solution
+  );
 
   /**
    * Get the url of the previous page of records
@@ -73,17 +80,17 @@ declare class Page<TVersion extends Version, TPayload extends Page.TwilioRespons
    * @description meta keys returned in a list request
    */
   static META_KEYS: [
-    'end',
-    'first_page_uri',
-    'last_page_uri',
-    'next_page_uri',
-    'num_pages',
-    'page',
-    'page_size',
-    'previous_page_uri',
-    'start',
-    'total',
-    'uri'
+    "end",
+    "first_page_uri",
+    "last_page_uri",
+    "next_page_uri",
+    "num_pages",
+    "page",
+    "page_size",
+    "previous_page_uri",
+    "start",
+    "total",
+    "uri"
   ];
 }
 
@@ -102,7 +109,7 @@ declare namespace Page {
     uri: string;
     meta?: {
       key?: string;
-    }
+    };
   }
 }
 

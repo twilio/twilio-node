@@ -40,12 +40,14 @@ export default class TrustedComms extends Version {
   protected _currentCalls?: CurrentCallListInstance;
 
   get brandedChannels(): BrandedChannelListInstance {
-    this._brandedChannels = this._brandedChannels || BrandedChannelListInstance(this);
+    this._brandedChannels =
+      this._brandedChannels || BrandedChannelListInstance(this);
     return this._brandedChannels;
   }
 
   get brandsInformation(): BrandsInformationListInstance {
-    this._brandsInformation = this._brandsInformation || BrandsInformationListInstance(this);
+    this._brandsInformation =
+      this._brandsInformation || BrandsInformationListInstance(this);
     return this._brandsInformation;
   }
 
@@ -58,5 +60,4 @@ export default class TrustedComms extends Version {
     this._currentCalls = this._currentCalls || CurrentCallListInstance(this);
     return this._currentCalls;
   }
-
 }

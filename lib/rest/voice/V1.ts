@@ -56,12 +56,14 @@ export default class V1 extends Version {
   }
 
   get connectionPolicies(): ConnectionPolicyListInstance {
-    this._connectionPolicies = this._connectionPolicies || ConnectionPolicyListInstance(this);
+    this._connectionPolicies =
+      this._connectionPolicies || ConnectionPolicyListInstance(this);
     return this._connectionPolicies;
   }
 
   get dialingPermissions(): DialingPermissionsListInstance {
-    this._dialingPermissions = this._dialingPermissions || DialingPermissionsListInstance(this);
+    this._dialingPermissions =
+      this._dialingPermissions || DialingPermissionsListInstance(this);
     return this._dialingPermissions;
   }
 
@@ -71,8 +73,8 @@ export default class V1 extends Version {
   }
 
   get sourceIpMappings(): SourceIpMappingListInstance {
-    this._sourceIpMappings = this._sourceIpMappings || SourceIpMappingListInstance(this);
+    this._sourceIpMappings =
+      this._sourceIpMappings || SourceIpMappingListInstance(this);
     return this._sourceIpMappings;
   }
-
 }

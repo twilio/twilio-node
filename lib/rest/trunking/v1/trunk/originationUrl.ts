@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a OriginationUrlInstance
@@ -33,11 +29,11 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [sipUrl] The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
  */
 export interface OriginationUrlContextUpdateOptions {
-  "weight"?: number;
-  "priority"?: number;
-  "enabled"?: boolean;
-  "friendlyName"?: string;
-  "sipUrl"?: string;
+  weight?: number;
+  priority?: number;
+  enabled?: boolean;
+  friendlyName?: string;
+  sipUrl?: string;
 }
 
 /**
@@ -50,11 +46,11 @@ export interface OriginationUrlContextUpdateOptions {
  * @property { string } sipUrl The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
  */
 export interface OriginationUrlListInstanceCreateOptions {
-  "weight": number;
-  "priority": number;
-  "enabled": boolean;
-  "friendlyName": string;
-  "sipUrl": string;
+  weight: number;
+  priority: number;
+  enabled: boolean;
+  friendlyName: string;
+  sipUrl: string;
 }
 /**
  * Options to pass to each
@@ -70,8 +66,11 @@ export interface OriginationUrlListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface OriginationUrlListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: OriginationUrlInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -86,7 +85,7 @@ export interface OriginationUrlListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface OriginationUrlListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -98,16 +97,12 @@ export interface OriginationUrlListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface OriginationUrlListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface OriginationUrlContext {
-
-
   /**
    * Remove a OriginationUrlInstance
    *
@@ -115,8 +110,9 @@ export interface OriginationUrlContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a OriginationUrlInstance
@@ -125,8 +121,9 @@ export interface OriginationUrlContext {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  fetch(callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
 
   /**
    * Update a OriginationUrlInstance
@@ -135,7 +132,9 @@ export interface OriginationUrlContext {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  update(callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
+  update(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
   /**
    * Update a OriginationUrlInstance
    *
@@ -144,9 +143,11 @@ export interface OriginationUrlContext {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  update(params: OriginationUrlContextUpdateOptions, callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
-  update(params?: any, callback?: any): Promise<OriginationUrlInstance>
-
+  update(
+    params: OriginationUrlContextUpdateOptions,
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
+  update(params?: any, callback?: any): Promise<OriginationUrlInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -156,14 +157,13 @@ export interface OriginationUrlContext {
 }
 
 export interface OriginationUrlContextSolution {
-  "trunkSid"?: string;
-  "sid"?: string;
+  trunkSid?: string;
+  sid?: string;
 }
 
 export class OriginationUrlContextImpl implements OriginationUrlContext {
   protected _solution: OriginationUrlContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, trunkSid: string, sid: string) {
     this._solution = { trunkSid, sid };
@@ -171,33 +171,45 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<OriginationUrlInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OriginationUrlInstance(
+          operationVersion,
+          payload,
+          this._solution.trunkSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<OriginationUrlInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -206,32 +218,40 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     let data: any = {};
 
-    
-        if (params["weight"] !== undefined)
-    data["Weight"] = params["weight"];
-    if (params["priority"] !== undefined)
-    data["Priority"] = params["priority"];
+    if (params["weight"] !== undefined) data["Weight"] = params["weight"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
     if (params["enabled"] !== undefined)
-    data["Enabled"] = serialize.bool(params["enabled"]);
+      data["Enabled"] = serialize.bool(params["enabled"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["sipUrl"] !== undefined)
-    data["SipUrl"] = params["sipUrl"];
-
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["sipUrl"] !== undefined) data["SipUrl"] = params["sipUrl"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OriginationUrlInstance(
+          operationVersion,
+          payload,
+          this._solution.trunkSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -248,8 +268,9 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   }
 }
 
-interface OriginationUrlPayload extends OriginationUrlResource, Page.TwilioResponsePayload {
-}
+interface OriginationUrlPayload
+  extends OriginationUrlResource,
+    Page.TwilioResponsePayload {}
 
 interface OriginationUrlResource {
   account_sid?: string | null;
@@ -269,7 +290,12 @@ export class OriginationUrlInstance {
   protected _solution: OriginationUrlContextSolution;
   protected _context?: OriginationUrlContext;
 
-  constructor(protected _version: V1, payload: OriginationUrlPayload, trunkSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: OriginationUrlPayload,
+    trunkSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.trunkSid = payload.trunk_sid;
@@ -331,7 +357,13 @@ export class OriginationUrlInstance {
   url?: string | null;
 
   private get _proxy(): OriginationUrlContext {
-    this._context = this._context || new OriginationUrlContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new OriginationUrlContextImpl(
+        this._version,
+        this._solution.trunkSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -342,8 +374,9 @@ export class OriginationUrlInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -354,8 +387,9 @@ export class OriginationUrlInstance {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  fetch(callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -366,7 +400,9 @@ export class OriginationUrlInstance {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  update(callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
+  update(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
   /**
    * Update a OriginationUrlInstance
    *
@@ -375,9 +411,11 @@ export class OriginationUrlInstance {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  update(params: OriginationUrlContextUpdateOptions, callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
-  update(params?: any, callback?: any): Promise<OriginationUrlInstance>
-     {
+  update(
+    params: OriginationUrlContextUpdateOptions,
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
+  update(params?: any, callback?: any): Promise<OriginationUrlInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -388,18 +426,18 @@ export class OriginationUrlInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      sid: this.sid, 
-      trunkSid: this.trunkSid, 
-      weight: this.weight, 
-      enabled: this.enabled, 
-      sipUrl: this.sipUrl, 
-      friendlyName: this.friendlyName, 
-      priority: this.priority, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      sid: this.sid,
+      trunkSid: this.trunkSid,
+      weight: this.weight,
+      enabled: this.enabled,
+      sipUrl: this.sipUrl,
+      friendlyName: this.friendlyName,
+      priority: this.priority,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -407,11 +445,9 @@ export class OriginationUrlInstance {
   }
 }
 
-
 export interface OriginationUrlListInstance {
   (sid: string): OriginationUrlContext;
   get(sid: string): OriginationUrlContext;
-
 
   /**
    * Create a OriginationUrlInstance
@@ -421,10 +457,11 @@ export interface OriginationUrlListInstance {
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
-  create(params: OriginationUrlListInstanceCreateOptions, callback?: (error: Error | null, item?: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
-  create(params: any, callback?: any): Promise<OriginationUrlInstance>
-
-
+  create(
+    params: OriginationUrlListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
+  create(params: any, callback?: any): Promise<OriginationUrlInstance>;
 
   /**
    * Streams OriginationUrlInstance records from the API.
@@ -440,7 +477,12 @@ export interface OriginationUrlListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: OriginationUrlInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams OriginationUrlInstance records from the API.
    *
@@ -456,7 +498,13 @@ export interface OriginationUrlListInstance {
    * @param { OriginationUrlListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: OriginationUrlListInstanceEachOptions, callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: OriginationUrlListInstanceEachOptions,
+    callback?: (
+      item: OriginationUrlInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
@@ -468,7 +516,9 @@ export interface OriginationUrlListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  getPage(
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
+  ): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
    *
@@ -480,7 +530,10 @@ export interface OriginationUrlListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
+  ): Promise<OriginationUrlPage>;
   getPage(params?: any, callback?: any): Promise<OriginationUrlPage>;
   /**
    * Lists OriginationUrlInstance records from the API as a list.
@@ -490,7 +543,9 @@ export interface OriginationUrlListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: OriginationUrlInstance[]) => any): Promise<OriginationUrlInstance[]>;
+  list(
+    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
+  ): Promise<OriginationUrlInstance[]>;
   /**
    * Lists OriginationUrlInstance records from the API as a list.
    *
@@ -500,7 +555,10 @@ export interface OriginationUrlListInstance {
    * @param { OriginationUrlListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: OriginationUrlListInstanceOptions, callback?: (error: Error | null, items: OriginationUrlInstance[]) => any): Promise<OriginationUrlInstance[]>;
+  list(
+    params?: OriginationUrlListInstanceOptions,
+    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
+  ): Promise<OriginationUrlInstance[]>;
   list(params?: any, callback?: any): Promise<OriginationUrlInstance[]>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
@@ -512,7 +570,9 @@ export interface OriginationUrlListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  page(
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
+  ): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    *
@@ -524,7 +584,10 @@ export interface OriginationUrlListInstance {
    * @param { OriginationUrlListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: OriginationUrlListInstancePageOptions, callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  page(
+    params: OriginationUrlListInstancePageOptions,
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
+  ): Promise<OriginationUrlPage>;
   page(params?: any, callback?: any): Promise<OriginationUrlPage>;
 
   /**
@@ -543,76 +606,97 @@ class OriginationUrlListInstanceImpl implements OriginationUrlListInstance {
   _version?: V1;
   _solution?: OriginationUrlSolution;
   _uri?: string;
-
 }
 
-export function OriginationUrlListInstance(version: V1, trunkSid: string): OriginationUrlListInstance {
-  const instance = ((sid) => instance.get(sid)) as OriginationUrlListInstanceImpl;
+export function OriginationUrlListInstance(
+  version: V1,
+  trunkSid: string
+): OriginationUrlListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as OriginationUrlListInstanceImpl;
 
   instance.get = function get(sid): OriginationUrlContext {
     return new OriginationUrlContextImpl(version, trunkSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { trunkSid };
   instance._uri = `/Trunks/${trunkSid}/OriginationUrls`;
 
-  instance.create = function create(params: any, callback?: any): Promise<OriginationUrlInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<OriginationUrlInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["weight"] === null || params["weight"] === undefined) {
-      throw new Error('Required parameter "params[\'weight\']" missing.');
+      throw new Error("Required parameter \"params['weight']\" missing.");
     }
 
     if (params["priority"] === null || params["priority"] === undefined) {
-      throw new Error('Required parameter "params[\'priority\']" missing.');
+      throw new Error("Required parameter \"params['priority']\" missing.");
     }
 
     if (params["enabled"] === null || params["enabled"] === undefined) {
-      throw new Error('Required parameter "params[\'enabled\']" missing.');
+      throw new Error("Required parameter \"params['enabled']\" missing.");
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["sipUrl"] === null || params["sipUrl"] === undefined) {
-      throw new Error('Required parameter "params[\'sipUrl\']" missing.');
+      throw new Error("Required parameter \"params['sipUrl']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Weight"] = params["weight"];
-    
+
     data["Priority"] = params["priority"];
-    
+
     data["Enabled"] = serialize.bool(params["enabled"]);
-    
+
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["SipUrl"] = params["sipUrl"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OriginationUrlInstance(
+          operationVersion,
+          payload,
+          this._solution.trunkSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<OriginationUrlPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<OriginationUrlPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -622,75 +706,104 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new OriginationUrlPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OriginationUrlPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<OriginationUrlPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<OriginationUrlPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new OriginationUrlPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OriginationUrlPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
-/**
-* Initialize the OriginationUrlPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution) {
+export class OriginationUrlPage extends Page<
+  V1,
+  OriginationUrlPayload,
+  OriginationUrlResource,
+  OriginationUrlInstance
+> {
+  /**
+   * Initialize the OriginationUrlPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: OriginationUrlSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of OriginationUrlInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: OriginationUrlPayload): OriginationUrlInstance {
+  /**
+   * Build an instance of OriginationUrlInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance {
     return new OriginationUrlInstance(
-    this._version,
-    payload,
-        this._solution.trunkSid,
+      this._version,
+      payload,
+      this._solution.trunkSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

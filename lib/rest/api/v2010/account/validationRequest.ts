@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a ValidationRequestInstance
@@ -31,17 +28,15 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
  */
 export interface ValidationRequestListInstanceCreateOptions {
-  "phoneNumber": string;
-  "friendlyName"?: string;
-  "callDelay"?: number;
-  "extension"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
+  phoneNumber: string;
+  friendlyName?: string;
+  callDelay?: number;
+  extension?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
 }
 
 export interface ValidationRequestListInstance {
-
-
   /**
    * Create a ValidationRequestInstance
    *
@@ -50,9 +45,11 @@ export interface ValidationRequestListInstance {
    *
    * @returns { Promise } Resolves to processed ValidationRequestInstance
    */
-  create(params: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, item?: ValidationRequestInstance) => any): Promise<ValidationRequestInstance>;
-  create(params: any, callback?: any): Promise<ValidationRequestInstance>
-
+  create(
+    params: ValidationRequestListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ValidationRequestInstance) => any
+  ): Promise<ValidationRequestInstance>;
+  create(params: any, callback?: any): Promise<ValidationRequestInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -65,75 +62,94 @@ export interface ValidationRequestSolution {
   accountSid?: string;
 }
 
-interface ValidationRequestListInstanceImpl extends ValidationRequestListInstance {}
-class ValidationRequestListInstanceImpl implements ValidationRequestListInstance {
+interface ValidationRequestListInstanceImpl
+  extends ValidationRequestListInstance {}
+class ValidationRequestListInstanceImpl
+  implements ValidationRequestListInstance
+{
   _version?: V2010;
   _solution?: ValidationRequestSolution;
   _uri?: string;
-
 }
 
-export function ValidationRequestListInstance(version: V2010, accountSid: string): ValidationRequestListInstance {
+export function ValidationRequestListInstance(
+  version: V2010,
+  accountSid: string
+): ValidationRequestListInstance {
   const instance = {} as ValidationRequestListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/OutgoingCallerIds.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<ValidationRequestInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<ValidationRequestInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["PhoneNumber"] = params["phoneNumber"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["callDelay"] !== undefined)
-    data["CallDelay"] = params["callDelay"];
+      data["CallDelay"] = params["callDelay"];
     if (params["extension"] !== undefined)
-    data["Extension"] = params["extension"];
+      data["Extension"] = params["extension"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ValidationRequestInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ValidationRequestInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface ValidationRequestPayload extends ValidationRequestResource{
-}
+interface ValidationRequestPayload extends ValidationRequestResource {}
 
 interface ValidationRequestResource {
   account_sid?: string | null;
@@ -144,14 +160,16 @@ interface ValidationRequestResource {
 }
 
 export class ValidationRequestInstance {
-
-  constructor(protected _version: V2010, payload: ValidationRequestPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: ValidationRequestPayload,
+    accountSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
     this.validationCode = payload.validation_code;
-
   }
 
   /**
@@ -182,17 +200,15 @@ export class ValidationRequestInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      callSid: this.callSid, 
-      friendlyName: this.friendlyName, 
-      phoneNumber: this.phoneNumber, 
-      validationCode: this.validationCode
-    }
+      accountSid: this.accountSid,
+      callSid: this.callSid,
+      friendlyName: this.friendlyName,
+      phoneNumber: this.phoneNumber,
+      validationCode: this.validationCode,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

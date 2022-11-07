@@ -9,61 +9,62 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import DeployedDevices from './preview/DeployedDevices';
-import HostedNumbers from './preview/HostedNumbers';
-import Sync from './preview/Sync';
-import TrustedComms from './preview/TrustedComms';
-import Marketplace from './preview/Marketplace';
-import Understand from './preview/Understand';
-import Wireless from './preview/Wireless';
+import Domain from "../base/Domain";
+import DeployedDevices from "./preview/DeployedDevices";
+import HostedNumbers from "./preview/HostedNumbers";
+import Sync from "./preview/Sync";
+import TrustedComms from "./preview/TrustedComms";
+import Marketplace from "./preview/Marketplace";
+import Understand from "./preview/Understand";
+import Wireless from "./preview/Wireless";
 
 class PreviewBase extends Domain {
-    _deployed_devices?: DeployedDevices;
-    _hosted_numbers?: HostedNumbers;
-    _sync?: Sync;
-    _trusted_comms?: TrustedComms;
-    _marketplace?: Marketplace;
-    _understand?: Understand;
-    _wireless?: Wireless;
+  _deployed_devices?: DeployedDevices;
+  _hosted_numbers?: HostedNumbers;
+  _sync?: Sync;
+  _trusted_comms?: TrustedComms;
+  _marketplace?: Marketplace;
+  _understand?: Understand;
+  _wireless?: Wireless;
 
-    /**
-     * Initialize preview domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://preview.twilio.com');
-    }
+  /**
+   * Initialize preview domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://preview.twilio.com");
+  }
 
-    get deployed_devices(): DeployedDevices {
-        this._deployed_devices = this._deployed_devices || new DeployedDevices(this);
-        return this._deployed_devices;
-    }
-    get hosted_numbers(): HostedNumbers {
-        this._hosted_numbers = this._hosted_numbers || new HostedNumbers(this);
-        return this._hosted_numbers;
-    }
-    get sync(): Sync {
-        this._sync = this._sync || new Sync(this);
-        return this._sync;
-    }
-    get trusted_comms(): TrustedComms {
-        this._trusted_comms = this._trusted_comms || new TrustedComms(this);
-        return this._trusted_comms;
-    }
-    get marketplace(): Marketplace {
-        this._marketplace = this._marketplace || new Marketplace(this);
-        return this._marketplace;
-    }
-    get understand(): Understand {
-        this._understand = this._understand || new Understand(this);
-        return this._understand;
-    }
-    get wireless(): Wireless {
-        this._wireless = this._wireless || new Wireless(this);
-        return this._wireless;
-    }
+  get deployed_devices(): DeployedDevices {
+    this._deployed_devices =
+      this._deployed_devices || new DeployedDevices(this);
+    return this._deployed_devices;
+  }
+  get hosted_numbers(): HostedNumbers {
+    this._hosted_numbers = this._hosted_numbers || new HostedNumbers(this);
+    return this._hosted_numbers;
+  }
+  get sync(): Sync {
+    this._sync = this._sync || new Sync(this);
+    return this._sync;
+  }
+  get trusted_comms(): TrustedComms {
+    this._trusted_comms = this._trusted_comms || new TrustedComms(this);
+    return this._trusted_comms;
+  }
+  get marketplace(): Marketplace {
+    this._marketplace = this._marketplace || new Marketplace(this);
+    return this._marketplace;
+  }
+  get understand(): Understand {
+    this._understand = this._understand || new Understand(this);
+    return this._understand;
+  }
+  get wireless(): Wireless {
+    this._wireless = this._wireless || new Wireless(this);
+    return this._wireless;
+  }
 }
 
 export = PreviewBase;

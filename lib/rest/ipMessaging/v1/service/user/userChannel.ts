@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 
 export class IpMessagingV1ServiceUserUserChannel {
   "accountSid"?: string | null;
@@ -32,7 +30,6 @@ export class IpMessagingV1ServiceUserUserChannel {
   "links"?: object | null;
 }
 
-
 export class ListChannelResponseMeta {
   "firstPageUrl"?: string;
   "nextPageUrl"?: string;
@@ -42,7 +39,6 @@ export class ListChannelResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 /**
  * Options to pass to each
@@ -58,7 +54,7 @@ export class ListChannelResponseMeta {
  *                         Default is no limit
  */
 export interface UserChannelListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -74,7 +70,7 @@ export interface UserChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserChannelListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -86,17 +82,12 @@ export interface UserChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserChannelListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface UserChannelListInstance {
-
-
-
   /**
    * Streams UserChannelInstance records from the API.
    *
@@ -111,7 +102,9 @@ export interface UserChannelListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams UserChannelInstance records from the API.
    *
@@ -127,7 +120,10 @@ export interface UserChannelListInstance {
    * @param { UserChannelListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: UserChannelListInstanceEachOptions,
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
@@ -139,7 +135,9 @@ export interface UserChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  getPage(
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
    *
@@ -151,7 +149,10 @@ export interface UserChannelListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
   getPage(params?: any, callback?: any): Promise<UserChannelPage>;
   /**
    * Lists UserChannelInstance records from the API as a list.
@@ -161,7 +162,9 @@ export interface UserChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
+  list(
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+  ): Promise<UserChannelInstance[]>;
   /**
    * Lists UserChannelInstance records from the API as a list.
    *
@@ -171,7 +174,10 @@ export interface UserChannelListInstance {
    * @param { UserChannelListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: UserChannelListInstanceOptions, callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
+  list(
+    params?: UserChannelListInstanceOptions,
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+  ): Promise<UserChannelInstance[]>;
   list(params?: any, callback?: any): Promise<UserChannelInstance[]>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
@@ -183,7 +189,9 @@ export interface UserChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  page(
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
    *
@@ -195,7 +203,10 @@ export interface UserChannelListInstance {
    * @param { UserChannelListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: UserChannelListInstancePageOptions, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  page(
+    params: UserChannelListInstancePageOptions,
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
   page(params?: any, callback?: any): Promise<UserChannelPage>;
 
   /**
@@ -215,17 +226,23 @@ class UserChannelListInstanceImpl implements UserChannelListInstance {
   _version?: V1;
   _solution?: UserChannelSolution;
   _uri?: string;
-
 }
 
-export function UserChannelListInstance(version: V1, serviceSid: string, userSid: string): UserChannelListInstance {
+export function UserChannelListInstance(
+  version: V1,
+  serviceSid: string,
+  userSid: string
+): UserChannelListInstance {
   const instance = {} as UserChannelListInstanceImpl;
 
   instance._version = version;
   instance._solution = { serviceSid, userSid };
   instance._uri = `/Services/${serviceSid}/Users/${userSid}/Channels`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<UserChannelPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<UserChannelPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -235,49 +252,71 @@ export function UserChannelListInstance(version: V1, serviceSid: string, userSid
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserChannelPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserChannelPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<UserChannelPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new UserChannelPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new UserChannelPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
-}
+interface UserChannelPayload
+  extends UserChannelResource,
+    Page.TwilioResponsePayload {}
 
 interface UserChannelResource {
   channels?: Array<IpMessagingV1ServiceUserUserChannel>;
@@ -285,11 +324,14 @@ interface UserChannelResource {
 }
 
 export class UserChannelInstance {
-
-  constructor(protected _version: V1, payload: UserChannelPayload, serviceSid: string, userSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: UserChannelPayload,
+    serviceSid: string,
+    userSid?: string
+  ) {
     this.channels = payload.channels;
     this.meta = payload.meta;
-
   }
 
   channels?: Array<IpMessagingV1ServiceUserUserChannel>;
@@ -302,9 +344,9 @@ export class UserChannelInstance {
    */
   toJSON() {
     return {
-      channels: this.channels, 
-      meta: this.meta
-    }
+      channels: this.channels,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -312,34 +354,42 @@ export class UserChannelInstance {
   }
 }
 
-export class UserChannelPage extends Page<V1, UserChannelPayload, UserChannelResource, UserChannelInstance> {
-/**
-* Initialize the UserChannelPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: UserChannelSolution) {
+export class UserChannelPage extends Page<
+  V1,
+  UserChannelPayload,
+  UserChannelResource,
+  UserChannelInstance
+> {
+  /**
+   * Initialize the UserChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: UserChannelSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of UserChannelInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: UserChannelPayload): UserChannelInstance {
+  /**
+   * Build an instance of UserChannelInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UserChannelPayload): UserChannelInstance {
     return new UserChannelInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.userSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.userSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

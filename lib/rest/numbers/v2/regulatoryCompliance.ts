@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -24,10 +23,7 @@ import { RegulationListInstance } from "./regulatoryCompliance/regulation";
 import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
-
-
 export interface RegulatoryComplianceListInstance {
-
   bundles: BundleListInstance;
   endUsers: EndUserListInstance;
   endUserTypes: EndUserTypeListInstance;
@@ -42,11 +38,13 @@ export interface RegulatoryComplianceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RegulatoryComplianceSolution {
-}
+export interface RegulatoryComplianceSolution {}
 
-interface RegulatoryComplianceListInstanceImpl extends RegulatoryComplianceListInstance {}
-class RegulatoryComplianceListInstanceImpl implements RegulatoryComplianceListInstance {
+interface RegulatoryComplianceListInstanceImpl
+  extends RegulatoryComplianceListInstance {}
+class RegulatoryComplianceListInstanceImpl
+  implements RegulatoryComplianceListInstance
+{
   _version?: V2;
   _solution?: RegulatoryComplianceSolution;
   _uri?: string;
@@ -59,11 +57,13 @@ class RegulatoryComplianceListInstanceImpl implements RegulatoryComplianceListIn
   _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
 }
 
-export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplianceListInstance {
+export function RegulatoryComplianceListInstance(
+  version: V2
+): RegulatoryComplianceListInstance {
   const instance = {} as RegulatoryComplianceListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RegulatoryCompliance`;
 
   Object.defineProperty(instance, "bundles", {
@@ -72,7 +72,7 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
         this._bundles = BundleListInstance(this._version);
       }
       return this._bundles;
-    }
+    },
   });
 
   Object.defineProperty(instance, "endUsers", {
@@ -81,7 +81,7 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
         this._endUsers = EndUserListInstance(this._version);
       }
       return this._endUsers;
-    }
+    },
   });
 
   Object.defineProperty(instance, "endUserTypes", {
@@ -90,7 +90,7 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
         this._endUserTypes = EndUserTypeListInstance(this._version);
       }
       return this._endUserTypes;
-    }
+    },
   });
 
   Object.defineProperty(instance, "regulations", {
@@ -99,36 +99,41 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
         this._regulations = RegulationListInstance(this._version);
       }
       return this._regulations;
-    }
+    },
   });
 
   Object.defineProperty(instance, "supportingDocuments", {
     get: function supportingDocuments() {
       if (!this._supportingDocuments) {
-        this._supportingDocuments = SupportingDocumentListInstance(this._version);
+        this._supportingDocuments = SupportingDocumentListInstance(
+          this._version
+        );
       }
       return this._supportingDocuments;
-    }
+    },
   });
 
   Object.defineProperty(instance, "supportingDocumentTypes", {
     get: function supportingDocumentTypes() {
       if (!this._supportingDocumentTypes) {
-        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(this._version);
+        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(
+          this._version
+        );
       }
       return this._supportingDocumentTypes;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

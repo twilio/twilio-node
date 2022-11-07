@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,31 +19,28 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-type RoleRoleType = 'channel'|'deployment';
-
+type RoleRoleType = "channel" | "deployment";
 
 /**
  * Options to pass to update a RoleInstance
  *
- * @property { Array<string> } permission 
+ * @property { Array<string> } permission
  */
 export interface RoleContextUpdateOptions {
-  "permission": Array<string>;
+  permission: Array<string>;
 }
 
 /**
  * Options to pass to create a RoleInstance
  *
- * @property { string } friendlyName 
- * @property { RoleRoleType } type 
- * @property { Array<string> } permission 
+ * @property { string } friendlyName
+ * @property { RoleRoleType } type
+ * @property { Array<string> } permission
  */
 export interface RoleListInstanceCreateOptions {
-  "friendlyName": string;
-  "type": RoleRoleType;
-  "permission": Array<string>;
+  friendlyName: string;
+  type: RoleRoleType;
+  permission: Array<string>;
 }
 /**
  * Options to pass to each
@@ -60,7 +56,7 @@ export interface RoleListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RoleListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,7 +72,7 @@ export interface RoleListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoleListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -88,16 +84,12 @@ export interface RoleListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoleListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface RoleContext {
-
-
   /**
    * Remove a RoleInstance
    *
@@ -105,8 +97,9 @@ export interface RoleContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a RoleInstance
@@ -115,8 +108,9 @@ export interface RoleContext {
    *
    * @returns { Promise } Resolves to processed RoleInstance
    */
-  fetch(callback?: (error: Error | null, item?: RoleInstance) => any): Promise<RoleInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance>;
 
   /**
    * Update a RoleInstance
@@ -126,9 +120,11 @@ export interface RoleContext {
    *
    * @returns { Promise } Resolves to processed RoleInstance
    */
-  update(params: RoleContextUpdateOptions, callback?: (error: Error | null, item?: RoleInstance) => any): Promise<RoleInstance>;
-  update(params: any, callback?: any): Promise<RoleInstance>
-
+  update(
+    params: RoleContextUpdateOptions,
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance>;
+  update(params: any, callback?: any): Promise<RoleInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -138,14 +134,13 @@ export interface RoleContext {
 }
 
 export interface RoleContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class RoleContextImpl implements RoleContext {
   protected _solution: RoleContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
@@ -153,60 +148,82 @@ export class RoleContextImpl implements RoleContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<RoleInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoleInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<RoleInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["permission"] === null || params["permission"] === undefined) {
-      throw new Error('Required parameter "params[\'permission\']" missing.');
+      throw new Error("Required parameter \"params['permission']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
-    data["Permission"] = serialize.map(params["permission"], (e => (e)));
-
+    data["Permission"] = serialize.map(params["permission"], (e) => e);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoleInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -223,8 +240,7 @@ export class RoleContextImpl implements RoleContext {
   }
 }
 
-interface RolePayload extends RoleResource, Page.TwilioResponsePayload {
-}
+interface RolePayload extends RoleResource, Page.TwilioResponsePayload {}
 
 interface RoleResource {
   sid?: string | null;
@@ -242,7 +258,12 @@ export class RoleInstance {
   protected _solution: RoleContextSolution;
   protected _context?: RoleContext;
 
-  constructor(protected _version: V2, payload: RolePayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: RolePayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -267,7 +288,13 @@ export class RoleInstance {
   url?: string | null;
 
   private get _proxy(): RoleContext {
-    this._context = this._context || new RoleContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new RoleContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -278,8 +305,9 @@ export class RoleInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -290,8 +318,9 @@ export class RoleInstance {
    *
    * @returns { Promise } Resolves to processed RoleInstance
    */
-  fetch(callback?: (error: Error | null, item?: RoleInstance) => any): Promise<RoleInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -303,9 +332,11 @@ export class RoleInstance {
    *
    * @returns { Promise } Resolves to processed RoleInstance
    */
-  update(params: RoleContextUpdateOptions, callback?: (error: Error | null, item?: RoleInstance) => any): Promise<RoleInstance>;
-  update(params: any, callback?: any): Promise<RoleInstance>
-     {
+  update(
+    params: RoleContextUpdateOptions,
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance>;
+  update(params: any, callback?: any): Promise<RoleInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -316,16 +347,16 @@ export class RoleInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      friendlyName: this.friendlyName, 
-      type: this.type, 
-      permissions: this.permissions, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      friendlyName: this.friendlyName,
+      type: this.type,
+      permissions: this.permissions,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -333,11 +364,9 @@ export class RoleInstance {
   }
 }
 
-
 export interface RoleListInstance {
   (sid: string): RoleContext;
   get(sid: string): RoleContext;
-
 
   /**
    * Create a RoleInstance
@@ -347,10 +376,11 @@ export interface RoleListInstance {
    *
    * @returns { Promise } Resolves to processed RoleInstance
    */
-  create(params: RoleListInstanceCreateOptions, callback?: (error: Error | null, item?: RoleInstance) => any): Promise<RoleInstance>;
-  create(params: any, callback?: any): Promise<RoleInstance>
-
-
+  create(
+    params: RoleListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance>;
+  create(params: any, callback?: any): Promise<RoleInstance>;
 
   /**
    * Streams RoleInstance records from the API.
@@ -366,7 +396,9 @@ export interface RoleListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: RoleInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: RoleInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams RoleInstance records from the API.
    *
@@ -382,7 +414,10 @@ export interface RoleListInstance {
    * @param { RoleListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: RoleListInstanceEachOptions, callback?: (item: RoleInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: RoleListInstanceEachOptions,
+    callback?: (item: RoleInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RoleInstance records from the API.
@@ -394,7 +429,9 @@ export interface RoleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
+  getPage(
+    callback?: (error: Error | null, items: RolePage) => any
+  ): Promise<RolePage>;
   /**
    * Retrieve a single target page of RoleInstance records from the API.
    *
@@ -406,7 +443,10 @@ export interface RoleListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: RolePage) => any
+  ): Promise<RolePage>;
   getPage(params?: any, callback?: any): Promise<RolePage>;
   /**
    * Lists RoleInstance records from the API as a list.
@@ -416,7 +456,9 @@ export interface RoleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: RoleInstance[]) => any): Promise<RoleInstance[]>;
+  list(
+    callback?: (error: Error | null, items: RoleInstance[]) => any
+  ): Promise<RoleInstance[]>;
   /**
    * Lists RoleInstance records from the API as a list.
    *
@@ -426,7 +468,10 @@ export interface RoleListInstance {
    * @param { RoleListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: RoleListInstanceOptions, callback?: (error: Error | null, items: RoleInstance[]) => any): Promise<RoleInstance[]>;
+  list(
+    params?: RoleListInstanceOptions,
+    callback?: (error: Error | null, items: RoleInstance[]) => any
+  ): Promise<RoleInstance[]>;
   list(params?: any, callback?: any): Promise<RoleInstance[]>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
@@ -438,7 +483,9 @@ export interface RoleListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
+  page(
+    callback?: (error: Error | null, items: RolePage) => any
+  ): Promise<RolePage>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
    *
@@ -450,7 +497,10 @@ export interface RoleListInstance {
    * @param { RoleListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: RoleListInstancePageOptions, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
+  page(
+    params: RoleListInstancePageOptions,
+    callback?: (error: Error | null, items: RolePage) => any
+  ): Promise<RolePage>;
   page(params?: any, callback?: any): Promise<RolePage>;
 
   /**
@@ -469,64 +519,80 @@ class RoleListInstanceImpl implements RoleListInstance {
   _version?: V2;
   _solution?: RoleSolution;
   _uri?: string;
-
 }
 
-export function RoleListInstance(version: V2, serviceSid: string): RoleListInstance {
+export function RoleListInstance(
+  version: V2,
+  serviceSid: string
+): RoleListInstance {
   const instance = ((sid) => instance.get(sid)) as RoleListInstanceImpl;
 
   instance.get = function get(sid): RoleContext {
     return new RoleContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Roles`;
 
-  instance.create = function create(params: any, callback?: any): Promise<RoleInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<RoleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error('Required parameter "params[\'type\']" missing.');
+      throw new Error("Required parameter \"params['type']\" missing.");
     }
 
     if (params["permission"] === null || params["permission"] === undefined) {
-      throw new Error('Required parameter "params[\'permission\']" missing.');
+      throw new Error("Required parameter \"params['permission']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
-    data["Type"] = params["type"];
-    
-    data["Permission"] = serialize.map(params["permission"], (e => (e)));
 
+    data["Type"] = params["type"];
+
+    data["Permission"] = serialize.map(params["permission"], (e) => e);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoleInstance(operationVersion, payload, this._solution.serviceSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<RolePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<RolePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -536,75 +602,94 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RolePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RolePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RolePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<RolePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new RolePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RolePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class RolePage extends Page<V2, RolePayload, RoleResource, RoleInstance> {
-/**
-* Initialize the RolePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: RoleSolution) {
+export class RolePage extends Page<
+  V2,
+  RolePayload,
+  RoleResource,
+  RoleInstance
+> {
+  /**
+   * Initialize the RolePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2, response: Response<string>, solution: RoleSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of RoleInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: RolePayload): RoleInstance {
-    return new RoleInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-    );
-    }
+  /**
+   * Build an instance of RoleInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RolePayload): RoleInstance {
+    return new RoleInstance(this._version, payload, this._solution.serviceSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

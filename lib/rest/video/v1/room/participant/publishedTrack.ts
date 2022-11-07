@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,9 +19,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type RoomParticipantPublishedTrackKind = 'audio'|'video'|'data';
+type RoomParticipantPublishedTrackKind = "audio" | "video" | "data";
 
 /**
  * Options to pass to each
@@ -38,8 +35,11 @@ type RoomParticipantPublishedTrackKind = 'audio'|'video'|'data';
  *                         Default is no limit
  */
 export interface PublishedTrackListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: PublishedTrackInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -54,7 +54,7 @@ export interface PublishedTrackListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PublishedTrackListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -66,16 +66,12 @@ export interface PublishedTrackListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PublishedTrackListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface PublishedTrackContext {
-
-
   /**
    * Fetch a PublishedTrackInstance
    *
@@ -83,8 +79,9 @@ export interface PublishedTrackContext {
    *
    * @returns { Promise } Resolves to processed PublishedTrackInstance
    */
-  fetch(callback?: (error: Error | null, item?: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: PublishedTrackInstance) => any
+  ): Promise<PublishedTrackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,33 +91,48 @@ export interface PublishedTrackContext {
 }
 
 export interface PublishedTrackContextSolution {
-  "roomSid"?: string;
-  "participantSid"?: string;
-  "sid"?: string;
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
 }
 
 export class PublishedTrackContextImpl implements PublishedTrackContext {
   protected _solution: PublishedTrackContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, roomSid: string, participantSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string,
+    participantSid: string,
+    sid: string
+  ) {
     this._solution = { roomSid, participantSid, sid };
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/PublishedTracks/${sid}`;
   }
 
   fetch(callback?: any): Promise<PublishedTrackInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new PublishedTrackInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PublishedTrackInstance(
+          operationVersion,
+          payload,
+          this._solution.roomSid,
+          this._solution.participantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -137,8 +149,9 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
   }
 }
 
-interface PublishedTrackPayload extends PublishedTrackResource, Page.TwilioResponsePayload {
-}
+interface PublishedTrackPayload
+  extends PublishedTrackResource,
+    Page.TwilioResponsePayload {}
 
 interface PublishedTrackResource {
   sid?: string | null;
@@ -156,7 +169,13 @@ export class PublishedTrackInstance {
   protected _solution: PublishedTrackContextSolution;
   protected _context?: PublishedTrackContext;
 
-  constructor(protected _version: V1, payload: PublishedTrackPayload, roomSid: string, participantSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: PublishedTrackPayload,
+    roomSid: string,
+    participantSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;
@@ -205,7 +224,14 @@ export class PublishedTrackInstance {
   url?: string | null;
 
   private get _proxy(): PublishedTrackContext {
-    this._context = this._context || new PublishedTrackContextImpl(this._version, this._solution.roomSid, this._solution.participantSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new PublishedTrackContextImpl(
+        this._version,
+        this._solution.roomSid,
+        this._solution.participantSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -216,8 +242,9 @@ export class PublishedTrackInstance {
    *
    * @returns { Promise } Resolves to processed PublishedTrackInstance
    */
-  fetch(callback?: (error: Error | null, item?: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: PublishedTrackInstance) => any
+  ): Promise<PublishedTrackInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -228,16 +255,16 @@ export class PublishedTrackInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      participantSid: this.participantSid, 
-      roomSid: this.roomSid, 
-      name: this.name, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      enabled: this.enabled, 
-      kind: this.kind, 
-      url: this.url
-    }
+      sid: this.sid,
+      participantSid: this.participantSid,
+      roomSid: this.roomSid,
+      name: this.name,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      enabled: this.enabled,
+      kind: this.kind,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -245,12 +272,9 @@ export class PublishedTrackInstance {
   }
 }
 
-
 export interface PublishedTrackListInstance {
   (sid: string): PublishedTrackContext;
   get(sid: string): PublishedTrackContext;
-
-
 
   /**
    * Streams PublishedTrackInstance records from the API.
@@ -266,7 +290,12 @@ export interface PublishedTrackListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: PublishedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams PublishedTrackInstance records from the API.
    *
@@ -282,7 +311,13 @@ export interface PublishedTrackListInstance {
    * @param { PublishedTrackListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: PublishedTrackListInstanceEachOptions, callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: PublishedTrackListInstanceEachOptions,
+    callback?: (
+      item: PublishedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of PublishedTrackInstance records from the API.
@@ -294,7 +329,9 @@ export interface PublishedTrackListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
+  getPage(
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
+  ): Promise<PublishedTrackPage>;
   /**
    * Retrieve a single target page of PublishedTrackInstance records from the API.
    *
@@ -306,7 +343,10 @@ export interface PublishedTrackListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
+  ): Promise<PublishedTrackPage>;
   getPage(params?: any, callback?: any): Promise<PublishedTrackPage>;
   /**
    * Lists PublishedTrackInstance records from the API as a list.
@@ -316,7 +356,9 @@ export interface PublishedTrackListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PublishedTrackInstance[]) => any): Promise<PublishedTrackInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PublishedTrackInstance[]) => any
+  ): Promise<PublishedTrackInstance[]>;
   /**
    * Lists PublishedTrackInstance records from the API as a list.
    *
@@ -326,7 +368,10 @@ export interface PublishedTrackListInstance {
    * @param { PublishedTrackListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: PublishedTrackListInstanceOptions, callback?: (error: Error | null, items: PublishedTrackInstance[]) => any): Promise<PublishedTrackInstance[]>;
+  list(
+    params?: PublishedTrackListInstanceOptions,
+    callback?: (error: Error | null, items: PublishedTrackInstance[]) => any
+  ): Promise<PublishedTrackInstance[]>;
   list(params?: any, callback?: any): Promise<PublishedTrackInstance[]>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
@@ -338,7 +383,9 @@ export interface PublishedTrackListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
+  page(
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
+  ): Promise<PublishedTrackPage>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
    *
@@ -350,7 +397,10 @@ export interface PublishedTrackListInstance {
    * @param { PublishedTrackListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: PublishedTrackListInstancePageOptions, callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
+  page(
+    params: PublishedTrackListInstancePageOptions,
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
+  ): Promise<PublishedTrackPage>;
   page(params?: any, callback?: any): Promise<PublishedTrackPage>;
 
   /**
@@ -370,21 +420,28 @@ class PublishedTrackListInstanceImpl implements PublishedTrackListInstance {
   _version?: V1;
   _solution?: PublishedTrackSolution;
   _uri?: string;
-
 }
 
-export function PublishedTrackListInstance(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance {
-  const instance = ((sid) => instance.get(sid)) as PublishedTrackListInstanceImpl;
+export function PublishedTrackListInstance(
+  version: V1,
+  roomSid: string,
+  participantSid: string
+): PublishedTrackListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as PublishedTrackListInstanceImpl;
 
   instance.get = function get(sid): PublishedTrackContext {
     return new PublishedTrackContextImpl(version, roomSid, participantSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { roomSid, participantSid };
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/PublishedTracks`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<PublishedTrackPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<PublishedTrackPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -394,76 +451,105 @@ export function PublishedTrackListInstance(version: V1, roomSid: string, partici
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new PublishedTrackPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PublishedTrackPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PublishedTrackPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<PublishedTrackPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new PublishedTrackPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PublishedTrackPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
-/**
-* Initialize the PublishedTrackPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution) {
+export class PublishedTrackPage extends Page<
+  V1,
+  PublishedTrackPayload,
+  PublishedTrackResource,
+  PublishedTrackInstance
+> {
+  /**
+   * Initialize the PublishedTrackPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: PublishedTrackSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PublishedTrackInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PublishedTrackPayload): PublishedTrackInstance {
+  /**
+   * Build an instance of PublishedTrackInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance {
     return new PublishedTrackInstance(
-    this._version,
-    payload,
-        this._solution.roomSid,
-        this._solution.participantSid,
+      this._version,
+      payload,
+      this._solution.roomSid,
+      this._solution.participantSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

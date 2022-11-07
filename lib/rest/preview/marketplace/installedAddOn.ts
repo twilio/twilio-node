@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,9 +20,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedAddOnExtension";
 
-
-
-
 /**
  * Options to pass to update a InstalledAddOnInstance
  *
@@ -31,8 +27,8 @@ import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedA
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
  */
 export interface InstalledAddOnContextUpdateOptions {
-  "configuration"?: any;
-  "uniqueName"?: string;
+  configuration?: any;
+  uniqueName?: string;
 }
 
 /**
@@ -44,10 +40,10 @@ export interface InstalledAddOnContextUpdateOptions {
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
  */
 export interface InstalledAddOnListInstanceCreateOptions {
-  "availableAddOnSid": string;
-  "acceptTermsOfService": boolean;
-  "configuration"?: any;
-  "uniqueName"?: string;
+  availableAddOnSid: string;
+  acceptTermsOfService: boolean;
+  configuration?: any;
+  uniqueName?: string;
 }
 /**
  * Options to pass to each
@@ -63,8 +59,11 @@ export interface InstalledAddOnListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface InstalledAddOnListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: InstalledAddOnInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -79,7 +78,7 @@ export interface InstalledAddOnListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface InstalledAddOnListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -91,15 +90,12 @@ export interface InstalledAddOnListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InstalledAddOnListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface InstalledAddOnContext {
-
   extensions: InstalledAddOnExtensionListInstance;
 
   /**
@@ -109,8 +105,9 @@ export interface InstalledAddOnContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a InstalledAddOnInstance
@@ -119,8 +116,9 @@ export interface InstalledAddOnContext {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  fetch(callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
 
   /**
    * Update a InstalledAddOnInstance
@@ -129,7 +127,9 @@ export interface InstalledAddOnContext {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  update(callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
+  update(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
   /**
    * Update a InstalledAddOnInstance
    *
@@ -138,9 +138,11 @@ export interface InstalledAddOnContext {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  update(params: InstalledAddOnContextUpdateOptions, callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
-  update(params?: any, callback?: any): Promise<InstalledAddOnInstance>
-
+  update(
+    params: InstalledAddOnContextUpdateOptions,
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+  update(params?: any, callback?: any): Promise<InstalledAddOnInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -150,7 +152,7 @@ export interface InstalledAddOnContext {
 }
 
 export interface InstalledAddOnContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class InstalledAddOnContextImpl implements InstalledAddOnContext {
@@ -165,38 +167,51 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   }
 
   get extensions(): InstalledAddOnExtensionListInstance {
-    this._extensions = this._extensions || InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
+    this._extensions =
+      this._extensions ||
+      InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
     return this._extensions;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<InstalledAddOnInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InstalledAddOnInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<InstalledAddOnInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -205,26 +220,36 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
 
     let data: any = {};
 
-    
-        if (params["configuration"] !== undefined)
-    data["Configuration"] = serialize.object(params["configuration"]);
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
     if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-
+      data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InstalledAddOnInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -241,8 +266,9 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   }
 }
 
-interface InstalledAddOnPayload extends InstalledAddOnResource, Page.TwilioResponsePayload {
-}
+interface InstalledAddOnPayload
+  extends InstalledAddOnResource,
+    Page.TwilioResponsePayload {}
 
 interface InstalledAddOnResource {
   sid?: string | null;
@@ -261,7 +287,11 @@ export class InstalledAddOnInstance {
   protected _solution: InstalledAddOnContextSolution;
   protected _context?: InstalledAddOnContext;
 
-  constructor(protected _version: Marketplace, payload: InstalledAddOnPayload, sid?: string) {
+  constructor(
+    protected _version: Marketplace,
+    payload: InstalledAddOnPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -318,7 +348,9 @@ export class InstalledAddOnInstance {
   links?: object | null;
 
   private get _proxy(): InstalledAddOnContext {
-    this._context = this._context || new InstalledAddOnContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new InstalledAddOnContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -329,8 +361,9 @@ export class InstalledAddOnInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -341,8 +374,9 @@ export class InstalledAddOnInstance {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  fetch(callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -353,7 +387,9 @@ export class InstalledAddOnInstance {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  update(callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
+  update(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
   /**
    * Update a InstalledAddOnInstance
    *
@@ -362,9 +398,11 @@ export class InstalledAddOnInstance {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  update(params: InstalledAddOnContextUpdateOptions, callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
-  update(params?: any, callback?: any): Promise<InstalledAddOnInstance>
-     {
+  update(
+    params: InstalledAddOnContextUpdateOptions,
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+  update(params?: any, callback?: any): Promise<InstalledAddOnInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -382,17 +420,17 @@ export class InstalledAddOnInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      description: this.description, 
-      configuration: this.configuration, 
-      uniqueName: this.uniqueName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      description: this.description,
+      configuration: this.configuration,
+      uniqueName: this.uniqueName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -400,11 +438,9 @@ export class InstalledAddOnInstance {
   }
 }
 
-
 export interface InstalledAddOnListInstance {
   (sid: string): InstalledAddOnContext;
   get(sid: string): InstalledAddOnContext;
-
 
   /**
    * Create a InstalledAddOnInstance
@@ -414,10 +450,11 @@ export interface InstalledAddOnListInstance {
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
-  create(params: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
-  create(params: any, callback?: any): Promise<InstalledAddOnInstance>
-
-
+  create(
+    params: InstalledAddOnListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+  create(params: any, callback?: any): Promise<InstalledAddOnInstance>;
 
   /**
    * Streams InstalledAddOnInstance records from the API.
@@ -433,7 +470,12 @@ export interface InstalledAddOnListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: InstalledAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams InstalledAddOnInstance records from the API.
    *
@@ -449,7 +491,13 @@ export interface InstalledAddOnListInstance {
    * @param { InstalledAddOnListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: InstalledAddOnListInstanceEachOptions,
+    callback?: (
+      item: InstalledAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of InstalledAddOnInstance records from the API.
@@ -461,7 +509,9 @@ export interface InstalledAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  getPage(
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
+  ): Promise<InstalledAddOnPage>;
   /**
    * Retrieve a single target page of InstalledAddOnInstance records from the API.
    *
@@ -473,7 +523,10 @@ export interface InstalledAddOnListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
+  ): Promise<InstalledAddOnPage>;
   getPage(params?: any, callback?: any): Promise<InstalledAddOnPage>;
   /**
    * Lists InstalledAddOnInstance records from the API as a list.
@@ -483,7 +536,9 @@ export interface InstalledAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
+  list(
+    callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
+  ): Promise<InstalledAddOnInstance[]>;
   /**
    * Lists InstalledAddOnInstance records from the API as a list.
    *
@@ -493,7 +548,10 @@ export interface InstalledAddOnListInstance {
    * @param { InstalledAddOnListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: InstalledAddOnListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
+  list(
+    params?: InstalledAddOnListInstanceOptions,
+    callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
+  ): Promise<InstalledAddOnInstance[]>;
   list(params?: any, callback?: any): Promise<InstalledAddOnInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnInstance records from the API.
@@ -505,7 +563,9 @@ export interface InstalledAddOnListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  page(
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
+  ): Promise<InstalledAddOnPage>;
   /**
    * Retrieve a single page of InstalledAddOnInstance records from the API.
    *
@@ -517,7 +577,10 @@ export interface InstalledAddOnListInstance {
    * @param { InstalledAddOnListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  page(
+    params: InstalledAddOnListInstancePageOptions,
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
+  ): Promise<InstalledAddOnPage>;
   page(params?: any, callback?: any): Promise<InstalledAddOnPage>;
 
   /**
@@ -527,70 +590,93 @@ export interface InstalledAddOnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InstalledAddOnSolution {
-}
+export interface InstalledAddOnSolution {}
 
 interface InstalledAddOnListInstanceImpl extends InstalledAddOnListInstance {}
 class InstalledAddOnListInstanceImpl implements InstalledAddOnListInstance {
   _version?: Marketplace;
   _solution?: InstalledAddOnSolution;
   _uri?: string;
-
 }
 
-export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOnListInstance {
-  const instance = ((sid) => instance.get(sid)) as InstalledAddOnListInstanceImpl;
+export function InstalledAddOnListInstance(
+  version: Marketplace
+): InstalledAddOnListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as InstalledAddOnListInstanceImpl;
 
   instance.get = function get(sid): InstalledAddOnContext {
     return new InstalledAddOnContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/InstalledAddOns`;
 
-  instance.create = function create(params: any, callback?: any): Promise<InstalledAddOnInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<InstalledAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["availableAddOnSid"] === null || params["availableAddOnSid"] === undefined) {
-      throw new Error('Required parameter "params[\'availableAddOnSid\']" missing.');
+    if (
+      params["availableAddOnSid"] === null ||
+      params["availableAddOnSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['availableAddOnSid']\" missing."
+      );
     }
 
-    if (params["acceptTermsOfService"] === null || params["acceptTermsOfService"] === undefined) {
-      throw new Error('Required parameter "params[\'acceptTermsOfService\']" missing.');
+    if (
+      params["acceptTermsOfService"] === null ||
+      params["acceptTermsOfService"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['acceptTermsOfService']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["AvailableAddOnSid"] = params["availableAddOnSid"];
-    
-    data["AcceptTermsOfService"] = serialize.bool(params["acceptTermsOfService"]);
-    if (params["configuration"] !== undefined)
-    data["Configuration"] = serialize.object(params["configuration"]);
-    if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
 
+    data["AcceptTermsOfService"] = serialize.bool(
+      params["acceptTermsOfService"]
+    );
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = serialize.object(params["configuration"]);
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new InstalledAddOnInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<InstalledAddOnPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<InstalledAddOnPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -600,74 +686,100 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InstalledAddOnPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InstalledAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<InstalledAddOnPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InstalledAddOnPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnInstance> {
-/**
-* Initialize the InstalledAddOnPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: Marketplace, response: Response<string>, solution: InstalledAddOnSolution) {
+export class InstalledAddOnPage extends Page<
+  Marketplace,
+  InstalledAddOnPayload,
+  InstalledAddOnResource,
+  InstalledAddOnInstance
+> {
+  /**
+   * Initialize the InstalledAddOnPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Marketplace,
+    response: Response<string>,
+    solution: InstalledAddOnSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of InstalledAddOnInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: InstalledAddOnPayload): InstalledAddOnInstance {
-    return new InstalledAddOnInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of InstalledAddOnInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: InstalledAddOnPayload): InstalledAddOnInstance {
+    return new InstalledAddOnInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

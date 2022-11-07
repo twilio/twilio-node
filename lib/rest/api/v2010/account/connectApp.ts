@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,10 +19,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-type ConnectAppPermission = 'get-all'|'post-all';
-
+type ConnectAppPermission = "get-all" | "post-all";
 
 /**
  * Options to pass to update a ConnectAppInstance
@@ -38,14 +34,14 @@ type ConnectAppPermission = 'get-all'|'post-all';
  * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
  */
 export interface ConnectAppContextUpdateOptions {
-  "authorizeRedirectUrl"?: string;
-  "companyName"?: string;
-  "deauthorizeCallbackMethod"?: string;
-  "deauthorizeCallbackUrl"?: string;
-  "description"?: string;
-  "friendlyName"?: string;
-  "homepageUrl"?: string;
-  "permissions"?: Array<ConnectAppPermission>;
+  authorizeRedirectUrl?: string;
+  companyName?: string;
+  deauthorizeCallbackMethod?: string;
+  deauthorizeCallbackUrl?: string;
+  description?: string;
+  friendlyName?: string;
+  homepageUrl?: string;
+  permissions?: Array<ConnectAppPermission>;
 }
 /**
  * Options to pass to each
@@ -61,7 +57,7 @@ export interface ConnectAppContextUpdateOptions {
  *                         Default is no limit
  */
 export interface ConnectAppListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,7 +73,7 @@ export interface ConnectAppListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConnectAppListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -89,16 +85,12 @@ export interface ConnectAppListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConnectAppListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ConnectAppContext {
-
-
   /**
    * Remove a ConnectAppInstance
    *
@@ -106,8 +98,9 @@ export interface ConnectAppContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a ConnectAppInstance
@@ -116,8 +109,9 @@ export interface ConnectAppContext {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
 
   /**
    * Update a ConnectAppInstance
@@ -126,7 +120,9 @@ export interface ConnectAppContext {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  update(callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
   /**
    * Update a ConnectAppInstance
    *
@@ -135,9 +131,11 @@ export interface ConnectAppContext {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  update(params: ConnectAppContextUpdateOptions, callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
-  update(params?: any, callback?: any): Promise<ConnectAppInstance>
-
+  update(
+    params: ConnectAppContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
+  update(params?: any, callback?: any): Promise<ConnectAppInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -147,14 +145,13 @@ export interface ConnectAppContext {
 }
 
 export interface ConnectAppContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class ConnectAppContextImpl implements ConnectAppContext {
   protected _solution: ConnectAppContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -162,33 +159,45 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<ConnectAppInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConnectAppInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ConnectAppInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -197,38 +206,49 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     let data: any = {};
 
-    
-        if (params["authorizeRedirectUrl"] !== undefined)
-    data["AuthorizeRedirectUrl"] = params["authorizeRedirectUrl"];
+    if (params["authorizeRedirectUrl"] !== undefined)
+      data["AuthorizeRedirectUrl"] = params["authorizeRedirectUrl"];
     if (params["companyName"] !== undefined)
-    data["CompanyName"] = params["companyName"];
+      data["CompanyName"] = params["companyName"];
     if (params["deauthorizeCallbackMethod"] !== undefined)
-    data["DeauthorizeCallbackMethod"] = params["deauthorizeCallbackMethod"];
+      data["DeauthorizeCallbackMethod"] = params["deauthorizeCallbackMethod"];
     if (params["deauthorizeCallbackUrl"] !== undefined)
-    data["DeauthorizeCallbackUrl"] = params["deauthorizeCallbackUrl"];
+      data["DeauthorizeCallbackUrl"] = params["deauthorizeCallbackUrl"];
     if (params["description"] !== undefined)
-    data["Description"] = params["description"];
+      data["Description"] = params["description"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["homepageUrl"] !== undefined)
-    data["HomepageUrl"] = params["homepageUrl"];
+      data["HomepageUrl"] = params["homepageUrl"];
     if (params["permissions"] !== undefined)
-    data["Permissions"] = serialize.map(params["permissions"], (e => (e)));
-
+      data["Permissions"] = serialize.map(params["permissions"], (e) => e);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConnectAppInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -244,10 +264,17 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type ConnectAppDeauthorizeCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type ConnectAppDeauthorizeCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface ConnectAppPayload extends ConnectAppResource, Page.TwilioResponsePayload {
-}
+interface ConnectAppPayload
+  extends ConnectAppResource,
+    Page.TwilioResponsePayload {}
 
 interface ConnectAppResource {
   account_sid?: string | null;
@@ -267,7 +294,12 @@ export class ConnectAppInstance {
   protected _solution: ConnectAppContextSolution;
   protected _context?: ConnectAppContext;
 
-  constructor(protected _version: V2010, payload: ConnectAppPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: ConnectAppPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.authorizeRedirectUrl = payload.authorize_redirect_url;
     this.companyName = payload.company_name;
@@ -329,7 +361,13 @@ export class ConnectAppInstance {
   uri?: string | null;
 
   private get _proxy(): ConnectAppContext {
-    this._context = this._context || new ConnectAppContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ConnectAppContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -340,8 +378,9 @@ export class ConnectAppInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -352,8 +391,9 @@ export class ConnectAppInstance {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -364,7 +404,9 @@ export class ConnectAppInstance {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  update(callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
   /**
    * Update a ConnectAppInstance
    *
@@ -373,9 +415,11 @@ export class ConnectAppInstance {
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
-  update(params: ConnectAppContextUpdateOptions, callback?: (error: Error | null, item?: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
-  update(params?: any, callback?: any): Promise<ConnectAppInstance>
-     {
+  update(
+    params: ConnectAppContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
+  update(params?: any, callback?: any): Promise<ConnectAppInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -386,18 +430,18 @@ export class ConnectAppInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      authorizeRedirectUrl: this.authorizeRedirectUrl, 
-      companyName: this.companyName, 
-      deauthorizeCallbackMethod: this.deauthorizeCallbackMethod, 
-      deauthorizeCallbackUrl: this.deauthorizeCallbackUrl, 
-      description: this.description, 
-      friendlyName: this.friendlyName, 
-      homepageUrl: this.homepageUrl, 
-      permissions: this.permissions, 
-      sid: this.sid, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      authorizeRedirectUrl: this.authorizeRedirectUrl,
+      companyName: this.companyName,
+      deauthorizeCallbackMethod: this.deauthorizeCallbackMethod,
+      deauthorizeCallbackUrl: this.deauthorizeCallbackUrl,
+      description: this.description,
+      friendlyName: this.friendlyName,
+      homepageUrl: this.homepageUrl,
+      permissions: this.permissions,
+      sid: this.sid,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -405,12 +449,9 @@ export class ConnectAppInstance {
   }
 }
 
-
 export interface ConnectAppListInstance {
   (sid: string): ConnectAppContext;
   get(sid: string): ConnectAppContext;
-
-
 
   /**
    * Streams ConnectAppInstance records from the API.
@@ -426,7 +467,9 @@ export interface ConnectAppListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ConnectAppInstance records from the API.
    *
@@ -442,7 +485,10 @@ export interface ConnectAppListInstance {
    * @param { ConnectAppListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ConnectAppListInstanceEachOptions,
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API.
@@ -454,7 +500,9 @@ export interface ConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  getPage(
+    callback?: (error: Error | null, items: ConnectAppPage) => any
+  ): Promise<ConnectAppPage>;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API.
    *
@@ -466,7 +514,10 @@ export interface ConnectAppListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
+  ): Promise<ConnectAppPage>;
   getPage(params?: any, callback?: any): Promise<ConnectAppPage>;
   /**
    * Lists ConnectAppInstance records from the API as a list.
@@ -476,7 +527,9 @@ export interface ConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ConnectAppInstance[]) => any
+  ): Promise<ConnectAppInstance[]>;
   /**
    * Lists ConnectAppInstance records from the API as a list.
    *
@@ -486,7 +539,10 @@ export interface ConnectAppListInstance {
    * @param { ConnectAppListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ConnectAppListInstanceOptions, callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
+  list(
+    params?: ConnectAppListInstanceOptions,
+    callback?: (error: Error | null, items: ConnectAppInstance[]) => any
+  ): Promise<ConnectAppInstance[]>;
   list(params?: any, callback?: any): Promise<ConnectAppInstance[]>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
@@ -498,7 +554,9 @@ export interface ConnectAppListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  page(
+    callback?: (error: Error | null, items: ConnectAppPage) => any
+  ): Promise<ConnectAppPage>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
    *
@@ -510,7 +568,10 @@ export interface ConnectAppListInstance {
    * @param { ConnectAppListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ConnectAppListInstancePageOptions, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  page(
+    params: ConnectAppListInstancePageOptions,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
+  ): Promise<ConnectAppPage>;
   page(params?: any, callback?: any): Promise<ConnectAppPage>;
 
   /**
@@ -529,21 +590,26 @@ class ConnectAppListInstanceImpl implements ConnectAppListInstance {
   _version?: V2010;
   _solution?: ConnectAppSolution;
   _uri?: string;
-
 }
 
-export function ConnectAppListInstance(version: V2010, accountSid: string): ConnectAppListInstance {
+export function ConnectAppListInstance(
+  version: V2010,
+  accountSid: string
+): ConnectAppListInstance {
   const instance = ((sid) => instance.get(sid)) as ConnectAppListInstanceImpl;
 
   instance.get = function get(sid): ConnectAppContext {
     return new ConnectAppContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/ConnectApps.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ConnectAppPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ConnectAppPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -553,75 +619,102 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConnectAppPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConnectAppPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ConnectAppPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ConnectAppPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConnectAppPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
-/**
-* Initialize the ConnectAppPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution) {
+export class ConnectAppPage extends Page<
+  V2010,
+  ConnectAppPayload,
+  ConnectAppResource,
+  ConnectAppInstance
+> {
+  /**
+   * Initialize the ConnectAppPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: ConnectAppSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConnectAppInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConnectAppPayload): ConnectAppInstance {
+  /**
+   * Build an instance of ConnectAppInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ConnectAppPayload): ConnectAppInstance {
     return new ConnectAppInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

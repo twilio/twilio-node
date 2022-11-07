@@ -34,5 +34,4 @@ export default class Understand extends Version {
     this._assistants = this._assistants || AssistantListInstance(this);
     return this._assistants;
   }
-
 }

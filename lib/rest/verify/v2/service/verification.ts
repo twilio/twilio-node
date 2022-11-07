@@ -12,26 +12,22 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
-
-type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
-
-type VerificationStatus = 'canceled'|'approved';
-
+type VerificationStatus = "canceled" | "approved";
 
 /**
  * Options to pass to update a VerificationInstance
  *
- * @property { VerificationStatus } status 
+ * @property { VerificationStatus } status
  */
 export interface VerificationContextUpdateOptions {
-  "status": VerificationStatus;
+  status: VerificationStatus;
 }
 
 /**
@@ -53,25 +49,23 @@ export interface VerificationContextUpdateOptions {
  * @property { string } [templateCustomSubstitutions] A stringified JSON object in which the keys are the template\\\&#39;s special variables and the values are the variables substitutions.
  */
 export interface VerificationListInstanceCreateOptions {
-  "to": string;
-  "channel": string;
-  "customFriendlyName"?: string;
-  "customMessage"?: string;
-  "sendDigits"?: string;
-  "locale"?: string;
-  "customCode"?: string;
-  "amount"?: string;
-  "payee"?: string;
-  "rateLimits"?: any;
-  "channelConfiguration"?: any;
-  "appHash"?: string;
-  "templateSid"?: string;
-  "templateCustomSubstitutions"?: string;
+  to: string;
+  channel: string;
+  customFriendlyName?: string;
+  customMessage?: string;
+  sendDigits?: string;
+  locale?: string;
+  customCode?: string;
+  amount?: string;
+  payee?: string;
+  rateLimits?: any;
+  channelConfiguration?: any;
+  appHash?: string;
+  templateSid?: string;
+  templateCustomSubstitutions?: string;
 }
 
 export interface VerificationContext {
-
-
   /**
    * Fetch a VerificationInstance
    *
@@ -79,8 +73,9 @@ export interface VerificationContext {
    *
    * @returns { Promise } Resolves to processed VerificationInstance
    */
-  fetch(callback?: (error: Error | null, item?: VerificationInstance) => any): Promise<VerificationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance>;
 
   /**
    * Update a VerificationInstance
@@ -90,9 +85,11 @@ export interface VerificationContext {
    *
    * @returns { Promise } Resolves to processed VerificationInstance
    */
-  update(params: VerificationContextUpdateOptions, callback?: (error: Error | null, item?: VerificationInstance) => any): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance>
-
+  update(
+    params: VerificationContextUpdateOptions,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance>;
+  update(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -102,14 +99,13 @@ export interface VerificationContext {
 }
 
 export interface VerificationContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class VerificationContextImpl implements VerificationContext {
   protected _solution: VerificationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
@@ -117,48 +113,68 @@ export class VerificationContextImpl implements VerificationContext {
   }
 
   fetch(callback?: any): Promise<VerificationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<VerificationInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+      throw new Error("Required parameter \"params['status']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Status"] = params["status"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -175,8 +191,7 @@ export class VerificationContextImpl implements VerificationContext {
   }
 }
 
-interface VerificationPayload extends VerificationResource{
-}
+interface VerificationPayload extends VerificationResource {}
 
 interface VerificationResource {
   sid?: string | null;
@@ -200,7 +215,12 @@ export class VerificationInstance {
   protected _solution: VerificationContextSolution;
   protected _context?: VerificationContext;
 
-  constructor(protected _version: V2, payload: VerificationPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: VerificationPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
@@ -279,7 +299,13 @@ export class VerificationInstance {
   url?: string | null;
 
   private get _proxy(): VerificationContext {
-    this._context = this._context || new VerificationContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new VerificationContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -290,8 +316,9 @@ export class VerificationInstance {
    *
    * @returns { Promise } Resolves to processed VerificationInstance
    */
-  fetch(callback?: (error: Error | null, item?: VerificationInstance) => any): Promise<VerificationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -303,9 +330,11 @@ export class VerificationInstance {
    *
    * @returns { Promise } Resolves to processed VerificationInstance
    */
-  update(params: VerificationContextUpdateOptions, callback?: (error: Error | null, item?: VerificationInstance) => any): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance>
-     {
+  update(
+    params: VerificationContextUpdateOptions,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance>;
+  update(params: any, callback?: any): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -316,22 +345,22 @@ export class VerificationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      serviceSid: this.serviceSid, 
-      accountSid: this.accountSid, 
-      to: this.to, 
-      channel: this.channel, 
-      status: this.status, 
-      valid: this.valid, 
-      lookup: this.lookup, 
-      amount: this.amount, 
-      payee: this.payee, 
-      sendCodeAttempts: this.sendCodeAttempts, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      sna: this.sna, 
-      url: this.url
-    }
+      sid: this.sid,
+      serviceSid: this.serviceSid,
+      accountSid: this.accountSid,
+      to: this.to,
+      channel: this.channel,
+      status: this.status,
+      valid: this.valid,
+      lookup: this.lookup,
+      amount: this.amount,
+      payee: this.payee,
+      sendCodeAttempts: this.sendCodeAttempts,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      sna: this.sna,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -339,11 +368,9 @@ export class VerificationInstance {
   }
 }
 
-
 export interface VerificationListInstance {
   (sid: string): VerificationContext;
   get(sid: string): VerificationContext;
-
 
   /**
    * Create a VerificationInstance
@@ -353,9 +380,11 @@ export interface VerificationListInstance {
    *
    * @returns { Promise } Resolves to processed VerificationInstance
    */
-  create(params: VerificationListInstanceCreateOptions, callback?: (error: Error | null, item?: VerificationInstance) => any): Promise<VerificationInstance>;
-  create(params: any, callback?: any): Promise<VerificationInstance>
-
+  create(
+    params: VerificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance>;
+  create(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -373,91 +402,104 @@ class VerificationListInstanceImpl implements VerificationListInstance {
   _version?: V2;
   _solution?: VerificationSolution;
   _uri?: string;
-
 }
 
-export function VerificationListInstance(version: V2, serviceSid: string): VerificationListInstance {
+export function VerificationListInstance(
+  version: V2,
+  serviceSid: string
+): VerificationListInstance {
   const instance = ((sid) => instance.get(sid)) as VerificationListInstanceImpl;
 
   instance.get = function get(sid): VerificationContext {
     return new VerificationContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Verifications`;
 
-  instance.create = function create(params: any, callback?: any): Promise<VerificationInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["to"] === null || params["to"] === undefined) {
-      throw new Error('Required parameter "params[\'to\']" missing.');
+      throw new Error("Required parameter \"params['to']\" missing.");
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error('Required parameter "params[\'channel\']" missing.');
+      throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["To"] = params["to"];
-    
+
     data["Channel"] = params["channel"];
     if (params["customFriendlyName"] !== undefined)
-    data["CustomFriendlyName"] = params["customFriendlyName"];
+      data["CustomFriendlyName"] = params["customFriendlyName"];
     if (params["customMessage"] !== undefined)
-    data["CustomMessage"] = params["customMessage"];
+      data["CustomMessage"] = params["customMessage"];
     if (params["sendDigits"] !== undefined)
-    data["SendDigits"] = params["sendDigits"];
-    if (params["locale"] !== undefined)
-    data["Locale"] = params["locale"];
+      data["SendDigits"] = params["sendDigits"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
     if (params["customCode"] !== undefined)
-    data["CustomCode"] = params["customCode"];
-    if (params["amount"] !== undefined)
-    data["Amount"] = params["amount"];
-    if (params["payee"] !== undefined)
-    data["Payee"] = params["payee"];
+      data["CustomCode"] = params["customCode"];
+    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
     if (params["rateLimits"] !== undefined)
-    data["RateLimits"] = serialize.object(params["rateLimits"]);
+      data["RateLimits"] = serialize.object(params["rateLimits"]);
     if (params["channelConfiguration"] !== undefined)
-    data["ChannelConfiguration"] = serialize.object(params["channelConfiguration"]);
-    if (params["appHash"] !== undefined)
-    data["AppHash"] = params["appHash"];
+      data["ChannelConfiguration"] = serialize.object(
+        params["channelConfiguration"]
+      );
+    if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
     if (params["templateSid"] !== undefined)
-    data["TemplateSid"] = params["templateSid"];
+      data["TemplateSid"] = params["templateSid"];
     if (params["templateCustomSubstitutions"] !== undefined)
-    data["TemplateCustomSubstitutions"] = params["templateCustomSubstitutions"];
-
+      data["TemplateCustomSubstitutions"] =
+        params["templateCustomSubstitutions"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new VerificationInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

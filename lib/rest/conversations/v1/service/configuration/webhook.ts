@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-type ServiceWebhookConfigurationMethod = 'GET'|'POST';
-
+type ServiceWebhookConfigurationMethod = "GET" | "POST";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -32,15 +28,13 @@ type ServiceWebhookConfigurationMethod = 'GET'|'POST';
  * @property { string } [method] The HTTP method to be used when sending a webhook request. One of &#x60;GET&#x60; or &#x60;POST&#x60;.
  */
 export interface WebhookContextUpdateOptions {
-  "preWebhookUrl"?: string;
-  "postWebhookUrl"?: string;
-  "filters"?: Array<string>;
-  "method"?: string;
+  preWebhookUrl?: string;
+  postWebhookUrl?: string;
+  filters?: Array<string>;
+  method?: string;
 }
 
 export interface WebhookContext {
-
-
   /**
    * Fetch a WebhookInstance
    *
@@ -48,8 +42,9 @@ export interface WebhookContext {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  fetch(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
 
   /**
    * Update a WebhookInstance
@@ -58,7 +53,9 @@ export interface WebhookContext {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  update(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  update(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
   /**
    * Update a WebhookInstance
    *
@@ -67,9 +64,11 @@ export interface WebhookContext {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  update(params: WebhookContextUpdateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>
-
+  update(
+    params: WebhookContextUpdateOptions,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+  update(params?: any, callback?: any): Promise<WebhookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,13 +78,12 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  "chatServiceSid"?: string;
+  chatServiceSid?: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
   protected _solution: WebhookContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, chatServiceSid: string) {
     this._solution = { chatServiceSid };
@@ -93,21 +91,30 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   fetch(callback?: any): Promise<WebhookInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.chatServiceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WebhookInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<WebhookInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,30 +123,39 @@ export class WebhookContextImpl implements WebhookContext {
 
     let data: any = {};
 
-    
-        if (params["preWebhookUrl"] !== undefined)
-    data["PreWebhookUrl"] = params["preWebhookUrl"];
+    if (params["preWebhookUrl"] !== undefined)
+      data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)
-    data["PostWebhookUrl"] = params["postWebhookUrl"];
+      data["PostWebhookUrl"] = params["postWebhookUrl"];
     if (params["filters"] !== undefined)
-    data["Filters"] = serialize.map(params["filters"], (e => (e)));
-    if (params["method"] !== undefined)
-    data["Method"] = params["method"];
-
+      data["Filters"] = serialize.map(params["filters"], (e) => e);
+    if (params["method"] !== undefined) data["Method"] = params["method"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.chatServiceSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WebhookInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -156,8 +172,7 @@ export class WebhookContextImpl implements WebhookContext {
   }
 }
 
-interface WebhookPayload extends WebhookResource{
-}
+interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
   account_sid?: string | null;
@@ -173,7 +188,11 @@ export class WebhookInstance {
   protected _solution: WebhookContextSolution;
   protected _context?: WebhookContext;
 
-  constructor(protected _version: V1, payload: WebhookPayload, chatServiceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: WebhookPayload,
+    chatServiceSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
     this.preWebhookUrl = payload.pre_webhook_url;
@@ -212,7 +231,9 @@ export class WebhookInstance {
   url?: string | null;
 
   private get _proxy(): WebhookContext {
-    this._context = this._context || new WebhookContextImpl(this._version, this._solution.chatServiceSid);
+    this._context =
+      this._context ||
+      new WebhookContextImpl(this._version, this._solution.chatServiceSid);
     return this._context;
   }
 
@@ -223,8 +244,9 @@ export class WebhookInstance {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  fetch(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -235,7 +257,9 @@ export class WebhookInstance {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  update(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  update(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
   /**
    * Update a WebhookInstance
    *
@@ -244,9 +268,11 @@ export class WebhookInstance {
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  update(params: WebhookContextUpdateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>
-     {
+  update(
+    params: WebhookContextUpdateOptions,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+  update(params?: any, callback?: any): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -257,14 +283,14 @@ export class WebhookInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      chatServiceSid: this.chatServiceSid, 
-      preWebhookUrl: this.preWebhookUrl, 
-      postWebhookUrl: this.postWebhookUrl, 
-      filters: this.filters, 
-      method: this.method, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      chatServiceSid: this.chatServiceSid,
+      preWebhookUrl: this.preWebhookUrl,
+      postWebhookUrl: this.postWebhookUrl,
+      filters: this.filters,
+      method: this.method,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -272,11 +298,9 @@ export class WebhookInstance {
   }
 }
 
-
 export interface WebhookListInstance {
   (): WebhookContext;
   get(): WebhookContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -294,15 +318,17 @@ class WebhookListInstanceImpl implements WebhookListInstance {
   _version?: V1;
   _solution?: WebhookSolution;
   _uri?: string;
-
 }
 
-export function WebhookListInstance(version: V1, chatServiceSid: string): WebhookListInstance {
+export function WebhookListInstance(
+  version: V1,
+  chatServiceSid: string
+): WebhookListInstance {
   const instance = (() => instance.get()) as WebhookListInstanceImpl;
 
   instance.get = function get(): WebhookContext {
     return new WebhookContextImpl(version, chatServiceSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { chatServiceSid };
@@ -310,14 +336,14 @@ export function WebhookListInstance(version: V1, chatServiceSid: string): Webhoo
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

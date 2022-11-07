@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,11 +19,9 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
 
-
-type VerificationAttemptChannels = 'sms'|'call'|'email'|'whatsapp';
-
-type VerificationAttemptConversionStatus = 'converted'|'unconverted';
+type VerificationAttemptConversionStatus = "converted" | "unconverted";
 
 /**
  * Options to pass to each
@@ -48,16 +45,19 @@ type VerificationAttemptConversionStatus = 'converted'|'unconverted';
  *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceEachOptions {
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
   "channelData.to"?: string;
-  "country"?: string;
-  "channel"?: VerificationAttemptChannels;
-  "verifyServiceSid"?: string;
-  "verificationSid"?: string;
-  "status"?: VerificationAttemptConversionStatus;
-  "pageSize"?: number;
-  callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void;
+  country?: string;
+  channel?: VerificationAttemptChannels;
+  verifyServiceSid?: string;
+  verificationSid?: string;
+  status?: VerificationAttemptConversionStatus;
+  pageSize?: number;
+  callback?: (
+    item: VerificationAttemptInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -80,15 +80,15 @@ export interface VerificationAttemptListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceOptions {
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
   "channelData.to"?: string;
-  "country"?: string;
-  "channel"?: VerificationAttemptChannels;
-  "verifyServiceSid"?: string;
-  "verificationSid"?: string;
-  "status"?: VerificationAttemptConversionStatus;
-  "pageSize"?: number;
+  country?: string;
+  channel?: VerificationAttemptChannels;
+  verifyServiceSid?: string;
+  verificationSid?: string;
+  status?: VerificationAttemptConversionStatus;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -108,24 +108,20 @@ export interface VerificationAttemptListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VerificationAttemptListInstancePageOptions {
-  "dateCreatedAfter"?: Date;
-  "dateCreatedBefore"?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
   "channelData.to"?: string;
-  "country"?: string;
-  "channel"?: VerificationAttemptChannels;
-  "verifyServiceSid"?: string;
-  "verificationSid"?: string;
-  "status"?: VerificationAttemptConversionStatus;
-  "pageSize"?: number;
+  country?: string;
+  channel?: VerificationAttemptChannels;
+  verifyServiceSid?: string;
+  verificationSid?: string;
+  status?: VerificationAttemptConversionStatus;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface VerificationAttemptContext {
-
-
   /**
    * Fetch a VerificationAttemptInstance
    *
@@ -133,8 +129,9 @@ export interface VerificationAttemptContext {
    *
    * @returns { Promise } Resolves to processed VerificationAttemptInstance
    */
-  fetch(callback?: (error: Error | null, item?: VerificationAttemptInstance) => any): Promise<VerificationAttemptInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+  ): Promise<VerificationAttemptInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -144,13 +141,14 @@ export interface VerificationAttemptContext {
 }
 
 export interface VerificationAttemptContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
-export class VerificationAttemptContextImpl implements VerificationAttemptContext {
+export class VerificationAttemptContextImpl
+  implements VerificationAttemptContext
+{
   protected _solution: VerificationAttemptContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -158,17 +156,26 @@ export class VerificationAttemptContextImpl implements VerificationAttemptContex
   }
 
   fetch(callback?: any): Promise<VerificationAttemptInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new VerificationAttemptInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationAttemptInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -185,8 +192,9 @@ export class VerificationAttemptContextImpl implements VerificationAttemptContex
   }
 }
 
-interface VerificationAttemptPayload extends VerificationAttemptResource, Page.TwilioResponsePayload {
-}
+interface VerificationAttemptPayload
+  extends VerificationAttemptResource,
+    Page.TwilioResponsePayload {}
 
 interface VerificationAttemptResource {
   sid?: string | null;
@@ -206,7 +214,11 @@ export class VerificationAttemptInstance {
   protected _solution: VerificationAttemptContextSolution;
   protected _context?: VerificationAttemptContext;
 
-  constructor(protected _version: V2, payload: VerificationAttemptPayload, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: VerificationAttemptPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -259,7 +271,9 @@ export class VerificationAttemptInstance {
   url?: string | null;
 
   private get _proxy(): VerificationAttemptContext {
-    this._context = this._context || new VerificationAttemptContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new VerificationAttemptContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -270,8 +284,9 @@ export class VerificationAttemptInstance {
    *
    * @returns { Promise } Resolves to processed VerificationAttemptInstance
    */
-  fetch(callback?: (error: Error | null, item?: VerificationAttemptInstance) => any): Promise<VerificationAttemptInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+  ): Promise<VerificationAttemptInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -282,18 +297,18 @@ export class VerificationAttemptInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      verificationSid: this.verificationSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      conversionStatus: this.conversionStatus, 
-      channel: this.channel, 
-      price: this.price, 
-      channelData: this.channelData, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      verificationSid: this.verificationSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      conversionStatus: this.conversionStatus,
+      channel: this.channel,
+      price: this.price,
+      channelData: this.channelData,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -301,12 +316,9 @@ export class VerificationAttemptInstance {
   }
 }
 
-
 export interface VerificationAttemptListInstance {
   (sid: string): VerificationAttemptContext;
   get(sid: string): VerificationAttemptContext;
-
-
 
   /**
    * Streams VerificationAttemptInstance records from the API.
@@ -322,7 +334,12 @@ export interface VerificationAttemptListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: VerificationAttemptInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams VerificationAttemptInstance records from the API.
    *
@@ -338,7 +355,13 @@ export interface VerificationAttemptListInstance {
    * @param { VerificationAttemptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: VerificationAttemptListInstanceEachOptions, callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: VerificationAttemptListInstanceEachOptions,
+    callback?: (
+      item: VerificationAttemptInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of VerificationAttemptInstance records from the API.
@@ -350,7 +373,9 @@ export interface VerificationAttemptListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: VerificationAttemptPage) => any): Promise<VerificationAttemptPage>;
+  getPage(
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
   /**
    * Retrieve a single target page of VerificationAttemptInstance records from the API.
    *
@@ -362,7 +387,10 @@ export interface VerificationAttemptListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: VerificationAttemptPage) => any): Promise<VerificationAttemptPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
   getPage(params?: any, callback?: any): Promise<VerificationAttemptPage>;
   /**
    * Lists VerificationAttemptInstance records from the API as a list.
@@ -372,7 +400,12 @@ export interface VerificationAttemptListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: VerificationAttemptInstance[]) => any): Promise<VerificationAttemptInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: VerificationAttemptInstance[]
+    ) => any
+  ): Promise<VerificationAttemptInstance[]>;
   /**
    * Lists VerificationAttemptInstance records from the API as a list.
    *
@@ -382,7 +415,13 @@ export interface VerificationAttemptListInstance {
    * @param { VerificationAttemptListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: VerificationAttemptListInstanceOptions, callback?: (error: Error | null, items: VerificationAttemptInstance[]) => any): Promise<VerificationAttemptInstance[]>;
+  list(
+    params?: VerificationAttemptListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: VerificationAttemptInstance[]
+    ) => any
+  ): Promise<VerificationAttemptInstance[]>;
   list(params?: any, callback?: any): Promise<VerificationAttemptInstance[]>;
   /**
    * Retrieve a single page of VerificationAttemptInstance records from the API.
@@ -394,7 +433,9 @@ export interface VerificationAttemptListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: VerificationAttemptPage) => any): Promise<VerificationAttemptPage>;
+  page(
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
   /**
    * Retrieve a single page of VerificationAttemptInstance records from the API.
    *
@@ -406,7 +447,10 @@ export interface VerificationAttemptListInstance {
    * @param { VerificationAttemptListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: VerificationAttemptListInstancePageOptions, callback?: (error: Error | null, items: VerificationAttemptPage) => any): Promise<VerificationAttemptPage>;
+  page(
+    params: VerificationAttemptListInstancePageOptions,
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
   page(params?: any, callback?: any): Promise<VerificationAttemptPage>;
 
   /**
@@ -416,29 +460,36 @@ export interface VerificationAttemptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationAttemptSolution {
-}
+export interface VerificationAttemptSolution {}
 
-interface VerificationAttemptListInstanceImpl extends VerificationAttemptListInstance {}
-class VerificationAttemptListInstanceImpl implements VerificationAttemptListInstance {
+interface VerificationAttemptListInstanceImpl
+  extends VerificationAttemptListInstance {}
+class VerificationAttemptListInstanceImpl
+  implements VerificationAttemptListInstance
+{
   _version?: V2;
   _solution?: VerificationAttemptSolution;
   _uri?: string;
-
 }
 
-export function VerificationAttemptListInstance(version: V2): VerificationAttemptListInstance {
-  const instance = ((sid) => instance.get(sid)) as VerificationAttemptListInstanceImpl;
+export function VerificationAttemptListInstance(
+  version: V2
+): VerificationAttemptListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as VerificationAttemptListInstanceImpl;
 
   instance.get = function get(sid): VerificationAttemptContext {
     return new VerificationAttemptContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Attempts`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<VerificationAttemptPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<VerificationAttemptPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -448,90 +499,119 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
 
     let data: any = {};
 
-        if (params["dateCreatedAfter"] !== undefined)
-    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["dateCreatedAfter"] !== undefined)
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"]
+      );
     if (params["dateCreatedBefore"] !== undefined)
-    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"]
+      );
     if (params["channelData.to"] !== undefined)
-    data["ChannelData.To"] = params["channelData.to"];
-    if (params["country"] !== undefined)
-    data["Country"] = params["country"];
-    if (params["channel"] !== undefined)
-    data["Channel"] = params["channel"];
+      data["ChannelData.To"] = params["channelData.to"];
+    if (params["country"] !== undefined) data["Country"] = params["country"];
+    if (params["channel"] !== undefined) data["Channel"] = params["channel"];
     if (params["verifyServiceSid"] !== undefined)
-    data["VerifyServiceSid"] = params["verifyServiceSid"];
+      data["VerifyServiceSid"] = params["verifyServiceSid"];
     if (params["verificationSid"] !== undefined)
-    data["VerificationSid"] = params["verificationSid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["VerificationSid"] = params["verificationSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new VerificationAttemptPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationAttemptPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<VerificationAttemptPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<VerificationAttemptPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new VerificationAttemptPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationAttemptPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class VerificationAttemptPage extends Page<V2, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptInstance> {
-/**
-* Initialize the VerificationAttemptPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: VerificationAttemptSolution) {
+export class VerificationAttemptPage extends Page<
+  V2,
+  VerificationAttemptPayload,
+  VerificationAttemptResource,
+  VerificationAttemptInstance
+> {
+  /**
+   * Initialize the VerificationAttemptPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: VerificationAttemptSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of VerificationAttemptInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: VerificationAttemptPayload): VerificationAttemptInstance {
-    return new VerificationAttemptInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of VerificationAttemptInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: VerificationAttemptPayload
+  ): VerificationAttemptInstance {
+    return new VerificationAttemptInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -26,7 +25,6 @@ import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 
-
 /**
  * Indicate if a phone can receive calls or messages
  */
@@ -37,15 +35,23 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
   "fax"?: boolean;
 }
 
+type IncomingPhoneNumberAddressRequirement =
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
 
-type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+type IncomingPhoneNumberEmergencyAddressStatus =
+  | "registered"
+  | "unregistered"
+  | "pending-registration"
+  | "registration-failure"
+  | "pending-unregistration"
+  | "unregistration-failure";
 
-type IncomingPhoneNumberEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+type IncomingPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
-
-type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
-
+type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to update a IncomingPhoneNumberInstance
@@ -66,38 +72,38 @@ type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
  * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
  * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
- * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus]
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from this phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode]
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface IncomingPhoneNumberContextUpdateOptions {
-  "accountSid"?: string;
-  "apiVersion"?: string;
-  "friendlyName"?: string;
-  "smsApplicationSid"?: string;
-  "smsFallbackMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsMethod"?: string;
-  "smsUrl"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "voiceApplicationSid"?: string;
-  "voiceCallerIdLookup"?: boolean;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceUrl"?: string;
-  "emergencyStatus"?: IncomingPhoneNumberEmergencyStatus;
-  "emergencyAddressSid"?: string;
-  "trunkSid"?: string;
-  "voiceReceiveMode"?: IncomingPhoneNumberVoiceReceiveMode;
-  "identitySid"?: string;
-  "addressSid"?: string;
-  "bundleSid"?: string;
+  accountSid?: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  identitySid?: string;
+  addressSid?: string;
+  bundleSid?: string;
 }
 
 /**
@@ -118,41 +124,41 @@ export interface IncomingPhoneNumberContextUpdateOptions {
  * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
  * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
- * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus]
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode]
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  * @property { string } [phoneNumber] The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
  * @property { string } [areaCode] The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an &#x60;area_code&#x60; or a &#x60;phone_number&#x60;.** (US and Canada only).
  */
 export interface IncomingPhoneNumberListInstanceCreateOptions {
-  "apiVersion"?: string;
-  "friendlyName"?: string;
-  "smsApplicationSid"?: string;
-  "smsFallbackMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsMethod"?: string;
-  "smsUrl"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "voiceApplicationSid"?: string;
-  "voiceCallerIdLookup"?: boolean;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceUrl"?: string;
-  "emergencyStatus"?: IncomingPhoneNumberEmergencyStatus;
-  "emergencyAddressSid"?: string;
-  "trunkSid"?: string;
-  "identitySid"?: string;
-  "addressSid"?: string;
-  "voiceReceiveMode"?: IncomingPhoneNumberVoiceReceiveMode;
-  "bundleSid"?: string;
-  "phoneNumber"?: string;
-  "areaCode"?: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  identitySid?: string;
+  addressSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  bundleSid?: string;
+  phoneNumber?: string;
+  areaCode?: string;
 }
 /**
  * Options to pass to each
@@ -172,12 +178,15 @@ export interface IncomingPhoneNumberListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface IncomingPhoneNumberListInstanceEachOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
-  callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
+  callback?: (
+    item: IncomingPhoneNumberInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -196,11 +205,11 @@ export interface IncomingPhoneNumberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface IncomingPhoneNumberListInstanceOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -216,19 +225,16 @@ export interface IncomingPhoneNumberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IncomingPhoneNumberListInstancePageOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface IncomingPhoneNumberContext {
-
   assignedAddOns: AssignedAddOnListInstance;
 
   /**
@@ -238,8 +244,9 @@ export interface IncomingPhoneNumberContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a IncomingPhoneNumberInstance
@@ -248,8 +255,9 @@ export interface IncomingPhoneNumberContext {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
 
   /**
    * Update a IncomingPhoneNumberInstance
@@ -258,7 +266,9 @@ export interface IncomingPhoneNumberContext {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  update(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  update(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
   /**
    * Update a IncomingPhoneNumberInstance
    *
@@ -267,9 +277,11 @@ export interface IncomingPhoneNumberContext {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  update(params: IncomingPhoneNumberContextUpdateOptions, callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>
-
+  update(
+    params: IncomingPhoneNumberContextUpdateOptions,
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -279,11 +291,13 @@ export interface IncomingPhoneNumberContext {
 }
 
 export interface IncomingPhoneNumberContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
-export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContext {
+export class IncomingPhoneNumberContextImpl
+  implements IncomingPhoneNumberContext
+{
   protected _solution: IncomingPhoneNumberContextSolution;
   protected _uri: string;
 
@@ -295,38 +309,56 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
   }
 
   get assignedAddOns(): AssignedAddOnListInstance {
-    this._assignedAddOns = this._assignedAddOns || AssignedAddOnListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._assignedAddOns =
+      this._assignedAddOns ||
+      AssignedAddOnListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._assignedAddOns;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<IncomingPhoneNumberInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IncomingPhoneNumberInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -335,68 +367,78 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
 
     let data: any = {};
 
-    
-        if (params["accountSid"] !== undefined)
-    data["AccountSid"] = params["accountSid"];
+    if (params["accountSid"] !== undefined)
+      data["AccountSid"] = params["accountSid"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
+      data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-    data["SmsApplicationSid"] = params["smsApplicationSid"];
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"]
+      );
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["emergencyStatus"] !== undefined)
-    data["EmergencyStatus"] = params["emergencyStatus"];
+      data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined)
-    data["TrunkSid"] = params["trunkSid"];
+      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
     if (params["voiceReceiveMode"] !== undefined)
-    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["identitySid"] !== undefined)
-    data["IdentitySid"] = params["identitySid"];
+      data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-    data["AddressSid"] = params["addressSid"];
+      data["AddressSid"] = params["addressSid"];
     if (params["bundleSid"] !== undefined)
-    data["BundleSid"] = params["bundleSid"];
-
+      data["BundleSid"] = params["bundleSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IncomingPhoneNumberInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -412,14 +454,45 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
     return inspect(this.toJSON(), options);
   }
 }
-export type IncomingPhoneNumberSmsFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type IncomingPhoneNumberSmsMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type IncomingPhoneNumberStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type IncomingPhoneNumberVoiceFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type IncomingPhoneNumberVoiceMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type IncomingPhoneNumberSmsFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type IncomingPhoneNumberSmsMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type IncomingPhoneNumberStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type IncomingPhoneNumberVoiceFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type IncomingPhoneNumberVoiceMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.TwilioResponsePayload {
-}
+interface IncomingPhoneNumberPayload
+  extends IncomingPhoneNumberResource,
+    Page.TwilioResponsePayload {}
 
 interface IncomingPhoneNumberResource {
   account_sid?: string | null;
@@ -462,7 +535,12 @@ export class IncomingPhoneNumberInstance {
   protected _solution: IncomingPhoneNumberContextSolution;
   protected _context?: IncomingPhoneNumberContext;
 
-  constructor(protected _version: V2010, payload: IncomingPhoneNumberPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: IncomingPhoneNumberPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;
     this.addressRequirements = payload.address_requirements;
@@ -621,7 +699,13 @@ export class IncomingPhoneNumberInstance {
   status?: string | null;
 
   private get _proxy(): IncomingPhoneNumberContext {
-    this._context = this._context || new IncomingPhoneNumberContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new IncomingPhoneNumberContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -632,8 +716,9 @@ export class IncomingPhoneNumberInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -644,8 +729,9 @@ export class IncomingPhoneNumberInstance {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  fetch(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -656,7 +742,9 @@ export class IncomingPhoneNumberInstance {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  update(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  update(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
   /**
    * Update a IncomingPhoneNumberInstance
    *
@@ -665,9 +753,11 @@ export class IncomingPhoneNumberInstance {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  update(params: IncomingPhoneNumberContextUpdateOptions, callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>
-     {
+  update(
+    params: IncomingPhoneNumberContextUpdateOptions,
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -685,48 +775,47 @@ export class IncomingPhoneNumberInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      addressSid: this.addressSid, 
-      addressRequirements: this.addressRequirements, 
-      apiVersion: this.apiVersion, 
-      beta: this.beta, 
-      capabilities: this.capabilities, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      identitySid: this.identitySid, 
-      phoneNumber: this.phoneNumber, 
-      origin: this.origin, 
-      sid: this.sid, 
-      smsApplicationSid: this.smsApplicationSid, 
-      smsFallbackMethod: this.smsFallbackMethod, 
-      smsFallbackUrl: this.smsFallbackUrl, 
-      smsMethod: this.smsMethod, 
-      smsUrl: this.smsUrl, 
-      statusCallback: this.statusCallback, 
-      statusCallbackMethod: this.statusCallbackMethod, 
-      trunkSid: this.trunkSid, 
-      uri: this.uri, 
-      voiceReceiveMode: this.voiceReceiveMode, 
-      voiceApplicationSid: this.voiceApplicationSid, 
-      voiceCallerIdLookup: this.voiceCallerIdLookup, 
-      voiceFallbackMethod: this.voiceFallbackMethod, 
-      voiceFallbackUrl: this.voiceFallbackUrl, 
-      voiceMethod: this.voiceMethod, 
-      voiceUrl: this.voiceUrl, 
-      emergencyStatus: this.emergencyStatus, 
-      emergencyAddressSid: this.emergencyAddressSid, 
-      emergencyAddressStatus: this.emergencyAddressStatus, 
-      bundleSid: this.bundleSid, 
-      status: this.status
-    }
+      accountSid: this.accountSid,
+      addressSid: this.addressSid,
+      addressRequirements: this.addressRequirements,
+      apiVersion: this.apiVersion,
+      beta: this.beta,
+      capabilities: this.capabilities,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      identitySid: this.identitySid,
+      phoneNumber: this.phoneNumber,
+      origin: this.origin,
+      sid: this.sid,
+      smsApplicationSid: this.smsApplicationSid,
+      smsFallbackMethod: this.smsFallbackMethod,
+      smsFallbackUrl: this.smsFallbackUrl,
+      smsMethod: this.smsMethod,
+      smsUrl: this.smsUrl,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      trunkSid: this.trunkSid,
+      uri: this.uri,
+      voiceReceiveMode: this.voiceReceiveMode,
+      voiceApplicationSid: this.voiceApplicationSid,
+      voiceCallerIdLookup: this.voiceCallerIdLookup,
+      voiceFallbackMethod: this.voiceFallbackMethod,
+      voiceFallbackUrl: this.voiceFallbackUrl,
+      voiceMethod: this.voiceMethod,
+      voiceUrl: this.voiceUrl,
+      emergencyStatus: this.emergencyStatus,
+      emergencyAddressSid: this.emergencyAddressSid,
+      emergencyAddressStatus: this.emergencyAddressStatus,
+      bundleSid: this.bundleSid,
+      status: this.status,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
 
 export interface IncomingPhoneNumberListInstance {
   (sid: string): IncomingPhoneNumberContext;
@@ -743,7 +832,9 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  create(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  create(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
   /**
    * Create a IncomingPhoneNumberInstance
    *
@@ -752,10 +843,11 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
-  create(params: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>
-
-
+  create(
+    params: IncomingPhoneNumberListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>;
 
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
@@ -771,7 +863,12 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: IncomingPhoneNumberInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *
@@ -787,7 +884,13 @@ export interface IncomingPhoneNumberListInstance {
    * @param { IncomingPhoneNumberListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: IncomingPhoneNumberListInstanceEachOptions,
+    callback?: (
+      item: IncomingPhoneNumberInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
@@ -799,7 +902,9 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  getPage(
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
+  ): Promise<IncomingPhoneNumberPage>;
   /**
    * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
    *
@@ -811,7 +916,10 @@ export interface IncomingPhoneNumberListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
+  ): Promise<IncomingPhoneNumberPage>;
   getPage(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
   /**
    * Lists IncomingPhoneNumberInstance records from the API as a list.
@@ -821,7 +929,12 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: IncomingPhoneNumberInstance[]
+    ) => any
+  ): Promise<IncomingPhoneNumberInstance[]>;
   /**
    * Lists IncomingPhoneNumberInstance records from the API as a list.
    *
@@ -831,7 +944,13 @@ export interface IncomingPhoneNumberListInstance {
    * @param { IncomingPhoneNumberListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: IncomingPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
+  list(
+    params?: IncomingPhoneNumberListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: IncomingPhoneNumberInstance[]
+    ) => any
+  ): Promise<IncomingPhoneNumberInstance[]>;
   list(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance[]>;
   /**
    * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
@@ -843,7 +962,9 @@ export interface IncomingPhoneNumberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  page(
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
+  ): Promise<IncomingPhoneNumberPage>;
   /**
    * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
    *
@@ -855,7 +976,10 @@ export interface IncomingPhoneNumberListInstance {
    * @param { IncomingPhoneNumberListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: IncomingPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  page(
+    params: IncomingPhoneNumberListInstancePageOptions,
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
+  ): Promise<IncomingPhoneNumberPage>;
   page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
 
   /**
@@ -869,8 +993,11 @@ export interface IncomingPhoneNumberSolution {
   accountSid?: string;
 }
 
-interface IncomingPhoneNumberListInstanceImpl extends IncomingPhoneNumberListInstance {}
-class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInstance {
+interface IncomingPhoneNumberListInstanceImpl
+  extends IncomingPhoneNumberListInstance {}
+class IncomingPhoneNumberListInstanceImpl
+  implements IncomingPhoneNumberListInstance
+{
   _version?: V2010;
   _solution?: IncomingPhoneNumberSolution;
   _uri?: string;
@@ -880,12 +1007,16 @@ class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInst
   _tollFree?: TollFreeListInstance;
 }
 
-export function IncomingPhoneNumberListInstance(version: V2010, accountSid: string): IncomingPhoneNumberListInstance {
-  const instance = ((sid) => instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
+export function IncomingPhoneNumberListInstance(
+  version: V2010,
+  accountSid: string
+): IncomingPhoneNumberListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
 
   instance.get = function get(sid): IncomingPhoneNumberContext {
     return new IncomingPhoneNumberContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -894,31 +1025,43 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
   Object.defineProperty(instance, "local", {
     get: function local() {
       if (!this._local) {
-        this._local = LocalListInstance(this._version, this._solution.accountSid);
+        this._local = LocalListInstance(
+          this._version,
+          this._solution.accountSid
+        );
       }
       return this._local;
-    }
+    },
   });
 
   Object.defineProperty(instance, "mobile", {
     get: function mobile() {
       if (!this._mobile) {
-        this._mobile = MobileListInstance(this._version, this._solution.accountSid);
+        this._mobile = MobileListInstance(
+          this._version,
+          this._solution.accountSid
+        );
       }
       return this._mobile;
-    }
+    },
   });
 
   Object.defineProperty(instance, "tollFree", {
     get: function tollFree() {
       if (!this._tollFree) {
-        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
+        this._tollFree = TollFreeListInstance(
+          this._version,
+          this._solution.accountSid
+        );
       }
       return this._tollFree;
-    }
+    },
   });
 
-  instance.create = function create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -928,73 +1071,84 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
 
     let data: any = {};
 
-    
-        if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
+    if (params["apiVersion"] !== undefined)
+      data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-    data["SmsApplicationSid"] = params["smsApplicationSid"];
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"]
+      );
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["emergencyStatus"] !== undefined)
-    data["EmergencyStatus"] = params["emergencyStatus"];
+      data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined)
-    data["TrunkSid"] = params["trunkSid"];
+      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
     if (params["identitySid"] !== undefined)
-    data["IdentitySid"] = params["identitySid"];
+      data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-    data["AddressSid"] = params["addressSid"];
+      data["AddressSid"] = params["addressSid"];
     if (params["voiceReceiveMode"] !== undefined)
-    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["bundleSid"] !== undefined)
-    data["BundleSid"] = params["bundleSid"];
+      data["BundleSid"] = params["bundleSid"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
-    if (params["areaCode"] !== undefined)
-    data["AreaCode"] = params["areaCode"];
-
+      data["PhoneNumber"] = params["phoneNumber"];
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IncomingPhoneNumberInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<IncomingPhoneNumberPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -1004,83 +1158,113 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
 
     let data: any = {};
 
-        if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+    if (params["beta"] !== undefined)
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined)
-    data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IncomingPhoneNumberPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<IncomingPhoneNumberPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IncomingPhoneNumberPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
-/**
-* Initialize the IncomingPhoneNumberPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution) {
+export class IncomingPhoneNumberPage extends Page<
+  V2010,
+  IncomingPhoneNumberPayload,
+  IncomingPhoneNumberResource,
+  IncomingPhoneNumberInstance
+> {
+  /**
+   * Initialize the IncomingPhoneNumberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: IncomingPhoneNumberSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of IncomingPhoneNumberInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance {
+  /**
+   * Build an instance of IncomingPhoneNumberInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: IncomingPhoneNumberPayload
+  ): IncomingPhoneNumberInstance {
     return new IncomingPhoneNumberInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,16 +20,13 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { AssetVersionListInstance } from "./asset/assetVersion";
 
-
-
-
 /**
  * Options to pass to update a AssetInstance
  *
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetContextUpdateOptions {
-  "friendlyName": string;
+  friendlyName: string;
 }
 
 /**
@@ -39,7 +35,7 @@ export interface AssetContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetListInstanceCreateOptions {
-  "friendlyName": string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -55,7 +51,7 @@ export interface AssetListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface AssetListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: AssetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -71,7 +67,7 @@ export interface AssetListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AssetListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -83,15 +79,12 @@ export interface AssetListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssetListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AssetContext {
-
   assetVersions: AssetVersionListInstance;
 
   /**
@@ -101,8 +94,9 @@ export interface AssetContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a AssetInstance
@@ -111,8 +105,9 @@ export interface AssetContext {
    *
    * @returns { Promise } Resolves to processed AssetInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance>;
 
   /**
    * Update a AssetInstance
@@ -122,9 +117,11 @@ export interface AssetContext {
    *
    * @returns { Promise } Resolves to processed AssetInstance
    */
-  update(params: AssetContextUpdateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
-  update(params: any, callback?: any): Promise<AssetInstance>
-
+  update(
+    params: AssetContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance>;
+  update(params: any, callback?: any): Promise<AssetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -134,8 +131,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -150,65 +147,96 @@ export class AssetContextImpl implements AssetContext {
   }
 
   get assetVersions(): AssetVersionListInstance {
-    this._assetVersions = this._assetVersions || AssetVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._assetVersions =
+      this._assetVersions ||
+      AssetVersionListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._assetVersions;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<AssetInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssetInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<AssetInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssetInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -225,8 +253,7 @@ export class AssetContextImpl implements AssetContext {
   }
 }
 
-interface AssetPayload extends AssetResource, Page.TwilioResponsePayload {
-}
+interface AssetPayload extends AssetResource, Page.TwilioResponsePayload {}
 
 interface AssetResource {
   sid?: string | null;
@@ -243,7 +270,12 @@ export class AssetInstance {
   protected _solution: AssetContextSolution;
   protected _context?: AssetContext;
 
-  constructor(protected _version: V1, payload: AssetPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AssetPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -290,7 +322,13 @@ export class AssetInstance {
   links?: object | null;
 
   private get _proxy(): AssetContext {
-    this._context = this._context || new AssetContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new AssetContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -301,8 +339,9 @@ export class AssetInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -313,8 +352,9 @@ export class AssetInstance {
    *
    * @returns { Promise } Resolves to processed AssetInstance
    */
-  fetch(callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -326,9 +366,11 @@ export class AssetInstance {
    *
    * @returns { Promise } Resolves to processed AssetInstance
    */
-  update(params: AssetContextUpdateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
-  update(params: any, callback?: any): Promise<AssetInstance>
-     {
+  update(
+    params: AssetContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance>;
+  update(params: any, callback?: any): Promise<AssetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -346,15 +388,15 @@ export class AssetInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      friendlyName: this.friendlyName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -362,11 +404,9 @@ export class AssetInstance {
   }
 }
 
-
 export interface AssetListInstance {
   (sid: string): AssetContext;
   get(sid: string): AssetContext;
-
 
   /**
    * Create a AssetInstance
@@ -376,10 +416,11 @@ export interface AssetListInstance {
    *
    * @returns { Promise } Resolves to processed AssetInstance
    */
-  create(params: AssetListInstanceCreateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
-  create(params: any, callback?: any): Promise<AssetInstance>
-
-
+  create(
+    params: AssetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance>;
+  create(params: any, callback?: any): Promise<AssetInstance>;
 
   /**
    * Streams AssetInstance records from the API.
@@ -395,7 +436,9 @@ export interface AssetListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams AssetInstance records from the API.
    *
@@ -411,7 +454,10 @@ export interface AssetListInstance {
    * @param { AssetListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AssetListInstanceEachOptions, callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AssetListInstanceEachOptions,
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssetInstance records from the API.
@@ -423,7 +469,9 @@ export interface AssetListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  getPage(
+    callback?: (error: Error | null, items: AssetPage) => any
+  ): Promise<AssetPage>;
   /**
    * Retrieve a single target page of AssetInstance records from the API.
    *
@@ -435,7 +483,10 @@ export interface AssetListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: AssetPage) => any
+  ): Promise<AssetPage>;
   getPage(params?: any, callback?: any): Promise<AssetPage>;
   /**
    * Lists AssetInstance records from the API as a list.
@@ -445,7 +496,9 @@ export interface AssetListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
+  list(
+    callback?: (error: Error | null, items: AssetInstance[]) => any
+  ): Promise<AssetInstance[]>;
   /**
    * Lists AssetInstance records from the API as a list.
    *
@@ -455,7 +508,10 @@ export interface AssetListInstance {
    * @param { AssetListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AssetListInstanceOptions, callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
+  list(
+    params?: AssetListInstanceOptions,
+    callback?: (error: Error | null, items: AssetInstance[]) => any
+  ): Promise<AssetInstance[]>;
   list(params?: any, callback?: any): Promise<AssetInstance[]>;
   /**
    * Retrieve a single page of AssetInstance records from the API.
@@ -467,7 +523,9 @@ export interface AssetListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  page(
+    callback?: (error: Error | null, items: AssetPage) => any
+  ): Promise<AssetPage>;
   /**
    * Retrieve a single page of AssetInstance records from the API.
    *
@@ -479,7 +537,10 @@ export interface AssetListInstance {
    * @param { AssetListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AssetListInstancePageOptions, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  page(
+    params: AssetListInstancePageOptions,
+    callback?: (error: Error | null, items: AssetPage) => any
+  ): Promise<AssetPage>;
   page(params?: any, callback?: any): Promise<AssetPage>;
 
   /**
@@ -498,52 +559,68 @@ class AssetListInstanceImpl implements AssetListInstance {
   _version?: V1;
   _solution?: AssetSolution;
   _uri?: string;
-
 }
 
-export function AssetListInstance(version: V1, serviceSid: string): AssetListInstance {
+export function AssetListInstance(
+  version: V1,
+  serviceSid: string
+): AssetListInstance {
   const instance = ((sid) => instance.get(sid)) as AssetListInstanceImpl;
 
   instance.get = function get(sid): AssetContext {
     return new AssetContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Assets`;
 
-  instance.create = function create(params: any, callback?: any): Promise<AssetInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssetInstance(operationVersion, payload, this._solution.serviceSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<AssetPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AssetPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -553,75 +630,98 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssetPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssetPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AssetPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AssetPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AssetPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInstance> {
-/**
-* Initialize the AssetPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: AssetSolution) {
+export class AssetPage extends Page<
+  V1,
+  AssetPayload,
+  AssetResource,
+  AssetInstance
+> {
+  /**
+   * Initialize the AssetPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AssetSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AssetInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AssetPayload): AssetInstance {
-    return new AssetInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-    );
-    }
+  /**
+   * Build an instance of AssetInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AssetPayload): AssetInstance {
+    return new AssetInstance(this._version, payload, this._solution.serviceSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

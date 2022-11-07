@@ -1,6 +1,6 @@
 declare class AccessToken implements AccessToken.AccessTokenOptions {
-  static DEFAULT_ALGORITHM: 'HS256';
-  static ALGORITHMS: ['HS256', 'HS384', 'HS512'];
+  static DEFAULT_ALGORITHM: "HS256";
+  static ALGORITHMS: ["HS256", "HS384", "HS512"];
 
   ttl: number;
   identity?: string;
@@ -32,7 +32,7 @@ declare class AccessToken implements AccessToken.AccessTokenOptions {
    * Turns the access token instance into a JWT that can be used in the front-end
    * @param algorithm The algorithm to sign the JWT
    */
-  toJwt(algorithm?: 'HS256' | 'HS384' | 'HS512'): string;
+  toJwt(algorithm?: "HS256" | "HS384" | "HS512"): string;
 }
 
 declare namespace AccessToken {
@@ -54,11 +54,10 @@ declare namespace AccessToken {
     role?: string;
   }
 
-  export class TaskRouterGrant extends Grant<
-    TaskRouterGrantOptions,
-    TaskRouterGrantPayload,
-    'task_router'
-  > implements TaskRouterGrantOptions {
+  export class TaskRouterGrant
+    extends Grant<TaskRouterGrantOptions, TaskRouterGrantPayload, "task_router">
+    implements TaskRouterGrantOptions
+  {
     workspaceSid?: string;
     workerSid?: string;
     role?: string;
@@ -78,11 +77,10 @@ declare namespace AccessToken {
     push_credential_sid?: string;
   }
 
-  export class ChatGrant extends Grant<
-    ChatGrantOptions,
-    ChatGrantPayload,
-    'chat'
-  > implements ChatGrantOptions {
+  export class ChatGrant
+    extends Grant<ChatGrantOptions, ChatGrantPayload, "chat">
+    implements ChatGrantOptions
+  {
     serviceSid?: string;
     endpointId?: string;
     deploymentRoleSid?: string;
@@ -97,12 +95,11 @@ declare namespace AccessToken {
     room?: string;
   }
 
-  export class VideoGrant extends Grant<
-    VideoGrantOptions,
-    VideoGrantPayload,
-    'video'
-  > implements VideoGrantOptions {
-    room?: string
+  export class VideoGrant
+    extends Grant<VideoGrantOptions, VideoGrantPayload, "video">
+    implements VideoGrantOptions
+  {
+    room?: string;
   }
 
   export interface SyncGrantOptions {
@@ -115,11 +112,10 @@ declare namespace AccessToken {
     endpoint_id?: string;
   }
 
-  export class SyncGrant extends Grant<
-    SyncGrantOptions,
-    SyncGrantPayload,
-    'data_sync'
-  > implements SyncGrantOptions {
+  export class SyncGrant
+    extends Grant<SyncGrantOptions, SyncGrantPayload, "data_sync">
+    implements SyncGrantOptions
+  {
     serviceSid?: string;
     endpointId?: string;
   }
@@ -138,11 +134,10 @@ declare namespace AccessToken {
     endpoint_id?: string;
   }
 
-  export class VoiceGrant extends Grant<
-    VoiceGrantOptions,
-    VoiceGrantPayload,
-    'voice'
-  > implements VoiceGrantOptions {
+  export class VoiceGrant
+    extends Grant<VoiceGrantOptions, VoiceGrantPayload, "voice">
+    implements VoiceGrantOptions
+  {
     incomingAllow?: boolean;
     outgoingApplicationSid?: string;
     outgoingApplicationParams?: object;
@@ -158,12 +153,11 @@ declare namespace AccessToken {
     grant?: object;
   }
 
-  export class PlaybackGrant extends Grant<
-    PlaybackGrantOptions,
-    PlaybackGrantPayload,
-    'player'
-  > implements PlaybackGrantOptions {
-    grant?: object
+  export class PlaybackGrant
+    extends Grant<PlaybackGrantOptions, PlaybackGrantPayload, "player">
+    implements PlaybackGrantOptions
+  {
+    grant?: object;
   }
 
   export interface AccessTokenOptions {

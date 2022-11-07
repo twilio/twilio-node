@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -36,7 +33,7 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface PoliciesListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -52,7 +49,7 @@ export interface PoliciesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PoliciesListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -64,16 +61,12 @@ export interface PoliciesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PoliciesListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface PoliciesContext {
-
-
   /**
    * Fetch a PoliciesInstance
    *
@@ -81,8 +74,9 @@ export interface PoliciesContext {
    *
    * @returns { Promise } Resolves to processed PoliciesInstance
    */
-  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
+  ): Promise<PoliciesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -92,13 +86,12 @@ export interface PoliciesContext {
 }
 
 export interface PoliciesContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class PoliciesContextImpl implements PoliciesContext {
   protected _solution: PoliciesContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -106,17 +99,22 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 
   fetch(callback?: any): Promise<PoliciesInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new PoliciesInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PoliciesInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -133,8 +131,9 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 }
 
-interface PoliciesPayload extends PoliciesResource, Page.TwilioResponsePayload {
-}
+interface PoliciesPayload
+  extends PoliciesResource,
+    Page.TwilioResponsePayload {}
 
 interface PoliciesResource {
   sid?: string | null;
@@ -174,7 +173,9 @@ export class PoliciesInstance {
   url?: string | null;
 
   private get _proxy(): PoliciesContext {
-    this._context = this._context || new PoliciesContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new PoliciesContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -185,8 +186,9 @@ export class PoliciesInstance {
    *
    * @returns { Promise } Resolves to processed PoliciesInstance
    */
-  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
+  ): Promise<PoliciesInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -197,11 +199,11 @@ export class PoliciesInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      requirements: this.requirements, 
-      url: this.url
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      requirements: this.requirements,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -209,12 +211,9 @@ export class PoliciesInstance {
   }
 }
 
-
 export interface PoliciesListInstance {
   (sid: string): PoliciesContext;
   get(sid: string): PoliciesContext;
-
-
 
   /**
    * Streams PoliciesInstance records from the API.
@@ -230,7 +229,9 @@ export interface PoliciesListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams PoliciesInstance records from the API.
    *
@@ -246,7 +247,10 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: PoliciesListInstanceEachOptions, callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: PoliciesListInstanceEachOptions,
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API.
@@ -258,7 +262,9 @@ export interface PoliciesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
+  getPage(
+    callback?: (error: Error | null, items: PoliciesPage) => any
+  ): Promise<PoliciesPage>;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API.
    *
@@ -270,7 +276,10 @@ export interface PoliciesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: PoliciesPage) => any
+  ): Promise<PoliciesPage>;
   getPage(params?: any, callback?: any): Promise<PoliciesPage>;
   /**
    * Lists PoliciesInstance records from the API as a list.
@@ -280,7 +289,9 @@ export interface PoliciesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
+  list(
+    callback?: (error: Error | null, items: PoliciesInstance[]) => any
+  ): Promise<PoliciesInstance[]>;
   /**
    * Lists PoliciesInstance records from the API as a list.
    *
@@ -290,7 +301,10 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: PoliciesListInstanceOptions, callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
+  list(
+    params?: PoliciesListInstanceOptions,
+    callback?: (error: Error | null, items: PoliciesInstance[]) => any
+  ): Promise<PoliciesInstance[]>;
   list(params?: any, callback?: any): Promise<PoliciesInstance[]>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API.
@@ -302,7 +316,9 @@ export interface PoliciesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
+  page(
+    callback?: (error: Error | null, items: PoliciesPage) => any
+  ): Promise<PoliciesPage>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API.
    *
@@ -314,7 +330,10 @@ export interface PoliciesListInstance {
    * @param { PoliciesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: PoliciesListInstancePageOptions, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
+  page(
+    params: PoliciesListInstancePageOptions,
+    callback?: (error: Error | null, items: PoliciesPage) => any
+  ): Promise<PoliciesPage>;
   page(params?: any, callback?: any): Promise<PoliciesPage>;
 
   /**
@@ -324,15 +343,13 @@ export interface PoliciesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PoliciesSolution {
-}
+export interface PoliciesSolution {}
 
 interface PoliciesListInstanceImpl extends PoliciesListInstance {}
 class PoliciesListInstanceImpl implements PoliciesListInstance {
   _version?: V1;
   _solution?: PoliciesSolution;
   _uri?: string;
-
 }
 
 export function PoliciesListInstance(version: V1): PoliciesListInstance {
@@ -340,13 +357,16 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
   instance.get = function get(sid): PoliciesContext {
     return new PoliciesContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Policies`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<PoliciesPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<PoliciesPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -356,74 +376,98 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new PoliciesPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new PoliciesPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PoliciesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<PoliciesPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new PoliciesPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new PoliciesPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {
-/**
-* Initialize the PoliciesPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: PoliciesSolution) {
+export class PoliciesPage extends Page<
+  V1,
+  PoliciesPayload,
+  PoliciesResource,
+  PoliciesInstance
+> {
+  /**
+   * Initialize the PoliciesPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: PoliciesSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of PoliciesInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: PoliciesPayload): PoliciesInstance {
-    return new PoliciesInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of PoliciesInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PoliciesPayload): PoliciesInstance {
+    return new PoliciesInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

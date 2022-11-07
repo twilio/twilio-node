@@ -9,31 +9,31 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V1 from './lookups/V1';
-import V2 from './lookups/V2';
+import Domain from "../base/Domain";
+import V1 from "./lookups/V1";
+import V2 from "./lookups/V2";
 
 class LookupsBase extends Domain {
-    _v1?: V1;
-    _v2?: V2;
+  _v1?: V1;
+  _v2?: V2;
 
-    /**
-     * Initialize lookups domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://lookups.twilio.com');
-    }
+  /**
+   * Initialize lookups domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://lookups.twilio.com");
+  }
 
-    get v1(): V1 {
-        this._v1 = this._v1 || new V1(this);
-        return this._v1;
-    }
-    get v2(): V2 {
-        this._v2 = this._v2 || new V2(this);
-        return this._v2;
-    }
+  get v1(): V1 {
+    this._v1 = this._v1 || new V1(this);
+    return this._v1;
+  }
+  get v2(): V2 {
+    this._v2 = this._v2 || new V2(this);
+    return this._v2;
+  }
 }
 
 export = LookupsBase;

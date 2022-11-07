@@ -34,13 +34,14 @@ export default class HostedNumbers extends Version {
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
 
   get authorizationDocuments(): AuthorizationDocumentListInstance {
-    this._authorizationDocuments = this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    this._authorizationDocuments =
+      this._authorizationDocuments || AuthorizationDocumentListInstance(this);
     return this._authorizationDocuments;
   }
 
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders =
+      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
-
 }

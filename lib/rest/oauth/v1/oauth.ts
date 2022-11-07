@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-
 export interface OauthContext {
-
-
   /**
    * Fetch a OauthInstance
    *
@@ -31,8 +25,9 @@ export interface OauthContext {
    *
    * @returns { Promise } Resolves to processed OauthInstance
    */
-  fetch(callback?: (error: Error | null, item?: OauthInstance) => any): Promise<OauthInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: OauthInstance) => any
+  ): Promise<OauthInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -41,31 +36,33 @@ export interface OauthContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OauthContextSolution {
-}
+export interface OauthContextSolution {}
 
 export class OauthContextImpl implements OauthContext {
   protected _solution: OauthContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/certs`;
   }
 
   fetch(callback?: any): Promise<OauthInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new OauthInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new OauthInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -82,8 +79,7 @@ export class OauthContextImpl implements OauthContext {
   }
 }
 
-interface OauthPayload extends OauthResource{
-}
+interface OauthPayload extends OauthResource {}
 
 interface OauthResource {
   keys?: any | null;
@@ -98,7 +94,7 @@ export class OauthInstance {
     this.keys = payload.keys;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -119,8 +115,9 @@ export class OauthInstance {
    *
    * @returns { Promise } Resolves to processed OauthInstance
    */
-  fetch(callback?: (error: Error | null, item?: OauthInstance) => any): Promise<OauthInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: OauthInstance) => any
+  ): Promise<OauthInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -131,9 +128,9 @@ export class OauthInstance {
    */
   toJSON() {
     return {
-      keys: this.keys, 
-      url: this.url
-    }
+      keys: this.keys,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -141,11 +138,9 @@ export class OauthInstance {
   }
 }
 
-
 export interface OauthListInstance {
   (): OauthContext;
   get(): OauthContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -154,15 +149,13 @@ export interface OauthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OauthSolution {
-}
+export interface OauthSolution {}
 
 interface OauthListInstanceImpl extends OauthListInstance {}
 class OauthListInstanceImpl implements OauthListInstance {
   _version?: V1;
   _solution?: OauthSolution;
   _uri?: string;
-
 }
 
 export function OauthListInstance(version: V1): OauthListInstance {
@@ -170,22 +163,22 @@ export function OauthListInstance(version: V1): OauthListInstance {
 
   instance.get = function get(): OauthContext {
     return new OauthContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a TokenInstance
@@ -33,19 +30,17 @@ const serialize = require("../../../base/serialize");
  * @property { string } [deviceId] The Id of the device associated with the token (refresh token).
  */
 export interface TokenListInstanceCreateOptions {
-  "grantType": string;
-  "clientSid": string;
-  "clientSecret"?: string;
-  "code"?: string;
-  "codeVerifier"?: string;
-  "deviceCode"?: string;
-  "refreshToken"?: string;
-  "deviceId"?: string;
+  grantType: string;
+  clientSid: string;
+  clientSecret?: string;
+  code?: string;
+  codeVerifier?: string;
+  deviceCode?: string;
+  refreshToken?: string;
+  deviceId?: string;
 }
 
 export interface TokenListInstance {
-
-
   /**
    * Create a TokenInstance
    *
@@ -54,9 +49,11 @@ export interface TokenListInstance {
    *
    * @returns { Promise } Resolves to processed TokenInstance
    */
-  create(params: TokenListInstanceCreateOptions, callback?: (error: Error | null, item?: TokenInstance) => any): Promise<TokenInstance>;
-  create(params: any, callback?: any): Promise<TokenInstance>
-
+  create(
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TokenInstance) => any
+  ): Promise<TokenInstance>;
+  create(params: any, callback?: any): Promise<TokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -65,86 +62,91 @@ export interface TokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TokenSolution {
-}
+export interface TokenSolution {}
 
 interface TokenListInstanceImpl extends TokenListInstance {}
 class TokenListInstanceImpl implements TokenListInstance {
   _version?: V1;
   _solution?: TokenSolution;
   _uri?: string;
-
 }
 
 export function TokenListInstance(version: V1): TokenListInstance {
   const instance = {} as TokenListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/token`;
 
-  instance.create = function create(params: any, callback?: any): Promise<TokenInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<TokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["grantType"] === null || params["grantType"] === undefined) {
-      throw new Error('Required parameter "params[\'grantType\']" missing.');
+      throw new Error("Required parameter \"params['grantType']\" missing.");
     }
 
     if (params["clientSid"] === null || params["clientSid"] === undefined) {
-      throw new Error('Required parameter "params[\'clientSid\']" missing.');
+      throw new Error("Required parameter \"params['clientSid']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["GrantType"] = params["grantType"];
-    
+
     data["ClientSid"] = params["clientSid"];
     if (params["clientSecret"] !== undefined)
-    data["ClientSecret"] = params["clientSecret"];
-    if (params["code"] !== undefined)
-    data["Code"] = params["code"];
+      data["ClientSecret"] = params["clientSecret"];
+    if (params["code"] !== undefined) data["Code"] = params["code"];
     if (params["codeVerifier"] !== undefined)
-    data["CodeVerifier"] = params["codeVerifier"];
+      data["CodeVerifier"] = params["codeVerifier"];
     if (params["deviceCode"] !== undefined)
-    data["DeviceCode"] = params["deviceCode"];
+      data["DeviceCode"] = params["deviceCode"];
     if (params["refreshToken"] !== undefined)
-    data["RefreshToken"] = params["refreshToken"];
-    if (params["deviceId"] !== undefined)
-    data["DeviceId"] = params["deviceId"];
-
+      data["RefreshToken"] = params["refreshToken"];
+    if (params["deviceId"] !== undefined) data["DeviceId"] = params["deviceId"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TokenInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TokenInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface TokenPayload extends TokenResource{
-}
+interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
   access_token?: string | null;
@@ -155,14 +157,16 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-
   constructor(protected _version: V1, payload: TokenPayload) {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;
-    this.refreshTokenExpiresAt = deserialize.iso8601DateTime(payload.refresh_token_expires_at);
-    this.accessTokenExpiresAt = deserialize.iso8601DateTime(payload.access_token_expires_at);
-
+    this.refreshTokenExpiresAt = deserialize.iso8601DateTime(
+      payload.refresh_token_expires_at
+    );
+    this.accessTokenExpiresAt = deserialize.iso8601DateTime(
+      payload.access_token_expires_at
+    );
   }
 
   /**
@@ -190,17 +194,15 @@ export class TokenInstance {
    */
   toJSON() {
     return {
-      accessToken: this.accessToken, 
-      refreshToken: this.refreshToken, 
-      idToken: this.idToken, 
-      refreshTokenExpiresAt: this.refreshTokenExpiresAt, 
-      accessTokenExpiresAt: this.accessTokenExpiresAt
-    }
+      accessToken: this.accessToken,
+      refreshToken: this.refreshToken,
+      idToken: this.idToken,
+      refreshTokenExpiresAt: this.refreshTokenExpiresAt,
+      accessTokenExpiresAt: this.accessTokenExpiresAt,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

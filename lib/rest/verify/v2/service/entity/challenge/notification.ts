@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a NotificationInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../../../base/serialize");
  * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
  */
 export interface NotificationListInstanceCreateOptions {
-  "ttl"?: number;
+  ttl?: number;
 }
 
 export interface NotificationListInstance {
-
-
   /**
    * Create a NotificationInstance
    *
@@ -39,7 +34,9 @@ export interface NotificationListInstance {
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  create(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  create(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
   /**
    * Create a NotificationInstance
    *
@@ -48,9 +45,11 @@ export interface NotificationListInstance {
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  create(params: NotificationListInstanceCreateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
-  create(params?: any, callback?: any): Promise<NotificationInstance>
-
+  create(
+    params: NotificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+  create(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -70,17 +69,24 @@ class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V2;
   _solution?: NotificationSolution;
   _uri?: string;
-
 }
 
-export function NotificationListInstance(version: V2, serviceSid: string, identity: string, challengeSid: string): NotificationListInstance {
+export function NotificationListInstance(
+  version: V2,
+  serviceSid: string,
+  identity: string,
+  challengeSid: string
+): NotificationListInstance {
   const instance = {} as NotificationListInstanceImpl;
 
   instance._version = version;
   instance._solution = { serviceSid, identity, challengeSid };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges/${challengeSid}/Notifications`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<NotificationInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<NotificationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -90,39 +96,52 @@ export function NotificationListInstance(version: V2, serviceSid: string, identi
 
     let data: any = {};
 
-    
-        if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
-
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity, this._solution.challengeSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NotificationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.identity,
+          this._solution.challengeSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface NotificationPayload extends NotificationResource{
-}
+interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
   sid?: string | null;
@@ -137,8 +156,13 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-
-  constructor(protected _version: V2, payload: NotificationPayload, serviceSid: string, identity: string, challengeSid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: NotificationPayload,
+    serviceSid: string,
+    identity: string,
+    challengeSid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -148,7 +172,6 @@ export class NotificationInstance {
     this.priority = payload.priority;
     this.ttl = deserialize.integer(payload.ttl);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-
   }
 
   /**
@@ -195,21 +218,19 @@ export class NotificationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      entitySid: this.entitySid, 
-      identity: this.identity, 
-      challengeSid: this.challengeSid, 
-      priority: this.priority, 
-      ttl: this.ttl, 
-      dateCreated: this.dateCreated
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      entitySid: this.entitySid,
+      identity: this.identity,
+      challengeSid: this.challengeSid,
+      priority: this.priority,
+      ttl: this.ttl,
+      dateCreated: this.dateCreated,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

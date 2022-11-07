@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a RatePlanInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It does not have to be unique.
  */
 export interface RatePlanContextUpdateOptions {
-  "uniqueName"?: string;
-  "friendlyName"?: string;
+  uniqueName?: string;
+  friendlyName?: string;
 }
 
 /**
@@ -50,17 +46,17 @@ export interface RatePlanContextUpdateOptions {
  * @property { number } [internationalRoamingDataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
  */
 export interface RatePlanListInstanceCreateOptions {
-  "uniqueName"?: string;
-  "friendlyName"?: string;
-  "dataEnabled"?: boolean;
-  "dataLimit"?: number;
-  "dataMetering"?: string;
-  "messagingEnabled"?: boolean;
-  "voiceEnabled"?: boolean;
-  "nationalRoamingEnabled"?: boolean;
-  "internationalRoaming"?: Array<string>;
-  "nationalRoamingDataLimit"?: number;
-  "internationalRoamingDataLimit"?: number;
+  uniqueName?: string;
+  friendlyName?: string;
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
+  messagingEnabled?: boolean;
+  voiceEnabled?: boolean;
+  nationalRoamingEnabled?: boolean;
+  internationalRoaming?: Array<string>;
+  nationalRoamingDataLimit?: number;
+  internationalRoamingDataLimit?: number;
 }
 /**
  * Options to pass to each
@@ -76,7 +72,7 @@ export interface RatePlanListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RatePlanListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -92,7 +88,7 @@ export interface RatePlanListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RatePlanListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -104,16 +100,12 @@ export interface RatePlanListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RatePlanListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface RatePlanContext {
-
-
   /**
    * Remove a RatePlanInstance
    *
@@ -121,8 +113,9 @@ export interface RatePlanContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a RatePlanInstance
@@ -131,8 +124,9 @@ export interface RatePlanContext {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  fetch(callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
 
   /**
    * Update a RatePlanInstance
@@ -141,7 +135,9 @@ export interface RatePlanContext {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  update(callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  update(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
   /**
    * Update a RatePlanInstance
    *
@@ -150,9 +146,11 @@ export interface RatePlanContext {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  update(params: RatePlanContextUpdateOptions, callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
-  update(params?: any, callback?: any): Promise<RatePlanInstance>
-
+  update(
+    params: RatePlanContextUpdateOptions,
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  update(params?: any, callback?: any): Promise<RatePlanInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -162,13 +160,12 @@ export interface RatePlanContext {
 }
 
 export interface RatePlanContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class RatePlanContextImpl implements RatePlanContext {
   protected _solution: RatePlanContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -176,33 +173,40 @@ export class RatePlanContextImpl implements RatePlanContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<RatePlanInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<RatePlanInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -211,26 +215,32 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -247,8 +257,9 @@ export class RatePlanContextImpl implements RatePlanContext {
   }
 }
 
-interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
-}
+interface RatePlanPayload
+  extends RatePlanResource,
+    Page.TwilioResponsePayload {}
 
 interface RatePlanResource {
   sid?: string | null;
@@ -284,9 +295,13 @@ export class RatePlanInstance {
     this.messagingEnabled = payload.messaging_enabled;
     this.voiceEnabled = payload.voice_enabled;
     this.nationalRoamingEnabled = payload.national_roaming_enabled;
-    this.nationalRoamingDataLimit = deserialize.integer(payload.national_roaming_data_limit);
+    this.nationalRoamingDataLimit = deserialize.integer(
+      payload.national_roaming_data_limit
+    );
     this.internationalRoaming = payload.international_roaming;
-    this.internationalRoamingDataLimit = deserialize.integer(payload.international_roaming_data_limit);
+    this.internationalRoamingDataLimit = deserialize.integer(
+      payload.international_roaming_data_limit
+    );
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -360,7 +375,9 @@ export class RatePlanInstance {
   url?: string | null;
 
   private get _proxy(): RatePlanContext {
-    this._context = this._context || new RatePlanContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new RatePlanContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -371,8 +388,9 @@ export class RatePlanInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -383,8 +401,9 @@ export class RatePlanInstance {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  fetch(callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -395,7 +414,9 @@ export class RatePlanInstance {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  update(callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  update(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
   /**
    * Update a RatePlanInstance
    *
@@ -404,9 +425,11 @@ export class RatePlanInstance {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  update(params: RatePlanContextUpdateOptions, callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
-  update(params?: any, callback?: any): Promise<RatePlanInstance>
-     {
+  update(
+    params: RatePlanContextUpdateOptions,
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  update(params?: any, callback?: any): Promise<RatePlanInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -417,23 +440,23 @@ export class RatePlanInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      dataEnabled: this.dataEnabled, 
-      dataMetering: this.dataMetering, 
-      dataLimit: this.dataLimit, 
-      messagingEnabled: this.messagingEnabled, 
-      voiceEnabled: this.voiceEnabled, 
-      nationalRoamingEnabled: this.nationalRoamingEnabled, 
-      nationalRoamingDataLimit: this.nationalRoamingDataLimit, 
-      internationalRoaming: this.internationalRoaming, 
-      internationalRoamingDataLimit: this.internationalRoamingDataLimit, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      dataEnabled: this.dataEnabled,
+      dataMetering: this.dataMetering,
+      dataLimit: this.dataLimit,
+      messagingEnabled: this.messagingEnabled,
+      voiceEnabled: this.voiceEnabled,
+      nationalRoamingEnabled: this.nationalRoamingEnabled,
+      nationalRoamingDataLimit: this.nationalRoamingDataLimit,
+      internationalRoaming: this.internationalRoaming,
+      internationalRoamingDataLimit: this.internationalRoamingDataLimit,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -441,11 +464,9 @@ export class RatePlanInstance {
   }
 }
 
-
 export interface RatePlanListInstance {
   (sid: string): RatePlanContext;
   get(sid: string): RatePlanContext;
-
 
   /**
    * Create a RatePlanInstance
@@ -454,7 +475,9 @@ export interface RatePlanListInstance {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  create(callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  create(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
   /**
    * Create a RatePlanInstance
    *
@@ -463,10 +486,11 @@ export interface RatePlanListInstance {
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
-  create(params: RatePlanListInstanceCreateOptions, callback?: (error: Error | null, item?: RatePlanInstance) => any): Promise<RatePlanInstance>;
-  create(params?: any, callback?: any): Promise<RatePlanInstance>
-
-
+  create(
+    params: RatePlanListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  create(params?: any, callback?: any): Promise<RatePlanInstance>;
 
   /**
    * Streams RatePlanInstance records from the API.
@@ -482,7 +506,9 @@ export interface RatePlanListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -498,7 +524,10 @@ export interface RatePlanListInstance {
    * @param { RatePlanListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: RatePlanListInstanceEachOptions, callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: RatePlanListInstanceEachOptions,
+    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
@@ -510,7 +539,9 @@ export interface RatePlanListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  getPage(
+    callback?: (error: Error | null, items: RatePlanPage) => any
+  ): Promise<RatePlanPage>;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
    *
@@ -522,7 +553,10 @@ export interface RatePlanListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: RatePlanPage) => any
+  ): Promise<RatePlanPage>;
   getPage(params?: any, callback?: any): Promise<RatePlanPage>;
   /**
    * Lists RatePlanInstance records from the API as a list.
@@ -532,7 +566,9 @@ export interface RatePlanListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
+  list(
+    callback?: (error: Error | null, items: RatePlanInstance[]) => any
+  ): Promise<RatePlanInstance[]>;
   /**
    * Lists RatePlanInstance records from the API as a list.
    *
@@ -542,7 +578,10 @@ export interface RatePlanListInstance {
    * @param { RatePlanListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: RatePlanListInstanceOptions, callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
+  list(
+    params?: RatePlanListInstanceOptions,
+    callback?: (error: Error | null, items: RatePlanInstance[]) => any
+  ): Promise<RatePlanInstance[]>;
   list(params?: any, callback?: any): Promise<RatePlanInstance[]>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
@@ -554,7 +593,9 @@ export interface RatePlanListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  page(
+    callback?: (error: Error | null, items: RatePlanPage) => any
+  ): Promise<RatePlanPage>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    *
@@ -566,7 +607,10 @@ export interface RatePlanListInstance {
    * @param { RatePlanListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: RatePlanListInstancePageOptions, callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  page(
+    params: RatePlanListInstancePageOptions,
+    callback?: (error: Error | null, items: RatePlanPage) => any
+  ): Promise<RatePlanPage>;
   page(params?: any, callback?: any): Promise<RatePlanPage>;
 
   /**
@@ -576,15 +620,13 @@ export interface RatePlanListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RatePlanSolution {
-}
+export interface RatePlanSolution {}
 
 interface RatePlanListInstanceImpl extends RatePlanListInstance {}
 class RatePlanListInstanceImpl implements RatePlanListInstance {
   _version?: V1;
   _solution?: RatePlanSolution;
   _uri?: string;
-
 }
 
 export function RatePlanListInstance(version: V1): RatePlanListInstance {
@@ -592,13 +634,16 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
   instance.get = function get(sid): RatePlanContext {
     return new RatePlanContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/RatePlans`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<RatePlanInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -608,47 +653,61 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["dataEnabled"] !== undefined)
-    data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
+      data["DataEnabled"] = serialize.bool(params["dataEnabled"]);
     if (params["dataLimit"] !== undefined)
-    data["DataLimit"] = params["dataLimit"];
+      data["DataLimit"] = params["dataLimit"];
     if (params["dataMetering"] !== undefined)
-    data["DataMetering"] = params["dataMetering"];
+      data["DataMetering"] = params["dataMetering"];
     if (params["messagingEnabled"] !== undefined)
-    data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
+      data["MessagingEnabled"] = serialize.bool(params["messagingEnabled"]);
     if (params["voiceEnabled"] !== undefined)
-    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["nationalRoamingEnabled"] !== undefined)
-    data["NationalRoamingEnabled"] = serialize.bool(params["nationalRoamingEnabled"]);
+      data["NationalRoamingEnabled"] = serialize.bool(
+        params["nationalRoamingEnabled"]
+      );
     if (params["internationalRoaming"] !== undefined)
-    data["InternationalRoaming"] = serialize.map(params["internationalRoaming"], (e => (e)));
+      data["InternationalRoaming"] = serialize.map(
+        params["internationalRoaming"],
+        (e) => e
+      );
     if (params["nationalRoamingDataLimit"] !== undefined)
-    data["NationalRoamingDataLimit"] = params["nationalRoamingDataLimit"];
+      data["NationalRoamingDataLimit"] = params["nationalRoamingDataLimit"];
     if (params["internationalRoamingDataLimit"] !== undefined)
-    data["InternationalRoamingDataLimit"] = params["internationalRoamingDataLimit"];
-
+      data["InternationalRoamingDataLimit"] =
+        params["internationalRoamingDataLimit"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RatePlanInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RatePlanInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<RatePlanPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<RatePlanPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -658,74 +717,98 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RatePlanPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RatePlanPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RatePlanPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<RatePlanPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new RatePlanPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RatePlanPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, RatePlanInstance> {
-/**
-* Initialize the RatePlanPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: RatePlanSolution) {
+export class RatePlanPage extends Page<
+  V1,
+  RatePlanPayload,
+  RatePlanResource,
+  RatePlanInstance
+> {
+  /**
+   * Initialize the RatePlanPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: RatePlanSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of RatePlanInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: RatePlanPayload): RatePlanInstance {
-    return new RatePlanInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of RatePlanInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RatePlanPayload): RatePlanInstance {
+    return new RatePlanInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

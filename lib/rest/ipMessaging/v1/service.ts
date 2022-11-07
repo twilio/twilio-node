@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -23,76 +22,73 @@ import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
 
-
-
-
 /**
  * Options to pass to update a ServiceInstance
  *
- * @property { string } [friendlyName] 
- * @property { string } [defaultServiceRoleSid] 
- * @property { string } [defaultChannelRoleSid] 
- * @property { string } [defaultChannelCreatorRoleSid] 
- * @property { boolean } [readStatusEnabled] 
- * @property { boolean } [reachabilityEnabled] 
- * @property { number } [typingIndicatorTimeout] 
- * @property { number } [consumptionReportInterval] 
- * @property { boolean } [notifications.newMessage.enabled] 
- * @property { string } [notifications.newMessage.template] 
- * @property { boolean } [notifications.addedToChannel.enabled] 
- * @property { string } [notifications.addedToChannel.template] 
- * @property { boolean } [notifications.removedFromChannel.enabled] 
- * @property { string } [notifications.removedFromChannel.template] 
- * @property { boolean } [notifications.invitedToChannel.enabled] 
- * @property { string } [notifications.invitedToChannel.template] 
- * @property { string } [preWebhookUrl] 
- * @property { string } [postWebhookUrl] 
- * @property { string } [webhookMethod] 
- * @property { Array<string> } [webhookFilters] 
- * @property { string } [webhooks.onMessageSend.url] 
- * @property { string } [webhooks.onMessageSend.method] 
- * @property { string } [webhooks.onMessageUpdate.url] 
- * @property { string } [webhooks.onMessageUpdate.method] 
- * @property { string } [webhooks.onMessageRemove.url] 
- * @property { string } [webhooks.onMessageRemove.method] 
- * @property { string } [webhooks.onChannelAdd.url] 
- * @property { string } [webhooks.onChannelAdd.method] 
- * @property { string } [webhooks.onChannelDestroy.url] 
- * @property { string } [webhooks.onChannelDestroy.method] 
- * @property { string } [webhooks.onChannelUpdate.url] 
- * @property { string } [webhooks.onChannelUpdate.method] 
- * @property { string } [webhooks.onMemberAdd.url] 
- * @property { string } [webhooks.onMemberAdd.method] 
- * @property { string } [webhooks.onMemberRemove.url] 
- * @property { string } [webhooks.onMemberRemove.method] 
- * @property { string } [webhooks.onMessageSent.url] 
- * @property { string } [webhooks.onMessageSent.method] 
- * @property { string } [webhooks.onMessageUpdated.url] 
- * @property { string } [webhooks.onMessageUpdated.method] 
- * @property { string } [webhooks.onMessageRemoved.url] 
- * @property { string } [webhooks.onMessageRemoved.method] 
- * @property { string } [webhooks.onChannelAdded.url] 
- * @property { string } [webhooks.onChannelAdded.method] 
- * @property { string } [webhooks.onChannelDestroyed.url] 
- * @property { string } [webhooks.onChannelDestroyed.method] 
- * @property { string } [webhooks.onChannelUpdated.url] 
- * @property { string } [webhooks.onChannelUpdated.method] 
- * @property { string } [webhooks.onMemberAdded.url] 
- * @property { string } [webhooks.onMemberAdded.method] 
- * @property { string } [webhooks.onMemberRemoved.url] 
- * @property { string } [webhooks.onMemberRemoved.method] 
- * @property { number } [limits.channelMembers] 
- * @property { number } [limits.userChannels] 
+ * @property { string } [friendlyName]
+ * @property { string } [defaultServiceRoleSid]
+ * @property { string } [defaultChannelRoleSid]
+ * @property { string } [defaultChannelCreatorRoleSid]
+ * @property { boolean } [readStatusEnabled]
+ * @property { boolean } [reachabilityEnabled]
+ * @property { number } [typingIndicatorTimeout]
+ * @property { number } [consumptionReportInterval]
+ * @property { boolean } [notifications.newMessage.enabled]
+ * @property { string } [notifications.newMessage.template]
+ * @property { boolean } [notifications.addedToChannel.enabled]
+ * @property { string } [notifications.addedToChannel.template]
+ * @property { boolean } [notifications.removedFromChannel.enabled]
+ * @property { string } [notifications.removedFromChannel.template]
+ * @property { boolean } [notifications.invitedToChannel.enabled]
+ * @property { string } [notifications.invitedToChannel.template]
+ * @property { string } [preWebhookUrl]
+ * @property { string } [postWebhookUrl]
+ * @property { string } [webhookMethod]
+ * @property { Array<string> } [webhookFilters]
+ * @property { string } [webhooks.onMessageSend.url]
+ * @property { string } [webhooks.onMessageSend.method]
+ * @property { string } [webhooks.onMessageUpdate.url]
+ * @property { string } [webhooks.onMessageUpdate.method]
+ * @property { string } [webhooks.onMessageRemove.url]
+ * @property { string } [webhooks.onMessageRemove.method]
+ * @property { string } [webhooks.onChannelAdd.url]
+ * @property { string } [webhooks.onChannelAdd.method]
+ * @property { string } [webhooks.onChannelDestroy.url]
+ * @property { string } [webhooks.onChannelDestroy.method]
+ * @property { string } [webhooks.onChannelUpdate.url]
+ * @property { string } [webhooks.onChannelUpdate.method]
+ * @property { string } [webhooks.onMemberAdd.url]
+ * @property { string } [webhooks.onMemberAdd.method]
+ * @property { string } [webhooks.onMemberRemove.url]
+ * @property { string } [webhooks.onMemberRemove.method]
+ * @property { string } [webhooks.onMessageSent.url]
+ * @property { string } [webhooks.onMessageSent.method]
+ * @property { string } [webhooks.onMessageUpdated.url]
+ * @property { string } [webhooks.onMessageUpdated.method]
+ * @property { string } [webhooks.onMessageRemoved.url]
+ * @property { string } [webhooks.onMessageRemoved.method]
+ * @property { string } [webhooks.onChannelAdded.url]
+ * @property { string } [webhooks.onChannelAdded.method]
+ * @property { string } [webhooks.onChannelDestroyed.url]
+ * @property { string } [webhooks.onChannelDestroyed.method]
+ * @property { string } [webhooks.onChannelUpdated.url]
+ * @property { string } [webhooks.onChannelUpdated.method]
+ * @property { string } [webhooks.onMemberAdded.url]
+ * @property { string } [webhooks.onMemberAdded.method]
+ * @property { string } [webhooks.onMemberRemoved.url]
+ * @property { string } [webhooks.onMemberRemoved.method]
+ * @property { number } [limits.channelMembers]
+ * @property { number } [limits.userChannels]
  */
 export interface ServiceContextUpdateOptions {
-  "friendlyName"?: string;
-  "defaultServiceRoleSid"?: string;
-  "defaultChannelRoleSid"?: string;
-  "defaultChannelCreatorRoleSid"?: string;
-  "readStatusEnabled"?: boolean;
-  "reachabilityEnabled"?: boolean;
-  "typingIndicatorTimeout"?: number;
-  "consumptionReportInterval"?: number;
+  friendlyName?: string;
+  defaultServiceRoleSid?: string;
+  defaultChannelRoleSid?: string;
+  defaultChannelCreatorRoleSid?: string;
+  readStatusEnabled?: boolean;
+  reachabilityEnabled?: boolean;
+  typingIndicatorTimeout?: number;
+  consumptionReportInterval?: number;
   "notifications.newMessage.enabled"?: boolean;
   "notifications.newMessage.template"?: string;
   "notifications.addedToChannel.enabled"?: boolean;
@@ -101,10 +97,10 @@ export interface ServiceContextUpdateOptions {
   "notifications.removedFromChannel.template"?: string;
   "notifications.invitedToChannel.enabled"?: boolean;
   "notifications.invitedToChannel.template"?: string;
-  "preWebhookUrl"?: string;
-  "postWebhookUrl"?: string;
-  "webhookMethod"?: string;
-  "webhookFilters"?: Array<string>;
+  preWebhookUrl?: string;
+  postWebhookUrl?: string;
+  webhookMethod?: string;
+  webhookFilters?: Array<string>;
   "webhooks.onMessageSend.url"?: string;
   "webhooks.onMessageSend.method"?: string;
   "webhooks.onMessageUpdate.url"?: string;
@@ -144,10 +140,10 @@ export interface ServiceContextUpdateOptions {
 /**
  * Options to pass to create a ServiceInstance
  *
- * @property { string } friendlyName 
+ * @property { string } friendlyName
  */
 export interface ServiceListInstanceCreateOptions {
-  "friendlyName": string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -163,7 +159,7 @@ export interface ServiceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -179,7 +175,7 @@ export interface ServiceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -191,15 +187,12 @@ export interface ServiceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ServiceContext {
-
   channels: ChannelListInstance;
   roles: RoleListInstance;
   users: UserListInstance;
@@ -211,8 +204,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a ServiceInstance
@@ -221,8 +215,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
 
   /**
    * Update a ServiceInstance
@@ -231,7 +226,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -240,9 +237,11 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>
-
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  update(params?: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -252,7 +251,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -269,48 +268,58 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   get channels(): ChannelListInstance {
-    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
+    this._channels =
+      this._channels || ChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
   get roles(): RoleListInstance {
-    this._roles = this._roles || RoleListInstance(this._version, this._solution.sid);
+    this._roles =
+      this._roles || RoleListInstance(this._version, this._solution.sid);
     return this._roles;
   }
 
   get users(): UserListInstance {
-    this._users = this._users || UserListInstance(this._version, this._solution.sid);
+    this._users =
+      this._users || UserListInstance(this._version, this._solution.sid);
     return this._users;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ServiceInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -319,130 +328,181 @@ export class ServiceContextImpl implements ServiceContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["defaultServiceRoleSid"] !== undefined)
-    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+      data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
     if (params["defaultChannelRoleSid"] !== undefined)
-    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+      data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
     if (params["defaultChannelCreatorRoleSid"] !== undefined)
-    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
+      data["DefaultChannelCreatorRoleSid"] =
+        params["defaultChannelCreatorRoleSid"];
     if (params["readStatusEnabled"] !== undefined)
-    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+      data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
     if (params["reachabilityEnabled"] !== undefined)
-    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+      data["ReachabilityEnabled"] = serialize.bool(
+        params["reachabilityEnabled"]
+      );
     if (params["typingIndicatorTimeout"] !== undefined)
-    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+      data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
     if (params["consumptionReportInterval"] !== undefined)
-    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+      data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
     if (params["notifications.newMessage.enabled"] !== undefined)
-    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
+      data["Notifications.NewMessage.Enabled"] = serialize.bool(
+        params["notifications.newMessage.enabled"]
+      );
     if (params["notifications.newMessage.template"] !== undefined)
-    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
+      data["Notifications.NewMessage.Template"] =
+        params["notifications.newMessage.template"];
     if (params["notifications.addedToChannel.enabled"] !== undefined)
-    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
+      data["Notifications.AddedToChannel.Enabled"] = serialize.bool(
+        params["notifications.addedToChannel.enabled"]
+      );
     if (params["notifications.addedToChannel.template"] !== undefined)
-    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
+      data["Notifications.AddedToChannel.Template"] =
+        params["notifications.addedToChannel.template"];
     if (params["notifications.removedFromChannel.enabled"] !== undefined)
-    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
+      data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(
+        params["notifications.removedFromChannel.enabled"]
+      );
     if (params["notifications.removedFromChannel.template"] !== undefined)
-    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
+      data["Notifications.RemovedFromChannel.Template"] =
+        params["notifications.removedFromChannel.template"];
     if (params["notifications.invitedToChannel.enabled"] !== undefined)
-    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
+      data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(
+        params["notifications.invitedToChannel.enabled"]
+      );
     if (params["notifications.invitedToChannel.template"] !== undefined)
-    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
+      data["Notifications.InvitedToChannel.Template"] =
+        params["notifications.invitedToChannel.template"];
     if (params["preWebhookUrl"] !== undefined)
-    data["PreWebhookUrl"] = params["preWebhookUrl"];
+      data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)
-    data["PostWebhookUrl"] = params["postWebhookUrl"];
+      data["PostWebhookUrl"] = params["postWebhookUrl"];
     if (params["webhookMethod"] !== undefined)
-    data["WebhookMethod"] = params["webhookMethod"];
+      data["WebhookMethod"] = params["webhookMethod"];
     if (params["webhookFilters"] !== undefined)
-    data["WebhookFilters"] = serialize.map(params["webhookFilters"], (e => (e)));
+      data["WebhookFilters"] = serialize.map(
+        params["webhookFilters"],
+        (e) => e
+      );
     if (params["webhooks.onMessageSend.url"] !== undefined)
-    data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
+      data["Webhooks.OnMessageSend.Url"] = params["webhooks.onMessageSend.url"];
     if (params["webhooks.onMessageSend.method"] !== undefined)
-    data["Webhooks.OnMessageSend.Method"] = params["webhooks.onMessageSend.method"];
+      data["Webhooks.OnMessageSend.Method"] =
+        params["webhooks.onMessageSend.method"];
     if (params["webhooks.onMessageUpdate.url"] !== undefined)
-    data["Webhooks.OnMessageUpdate.Url"] = params["webhooks.onMessageUpdate.url"];
+      data["Webhooks.OnMessageUpdate.Url"] =
+        params["webhooks.onMessageUpdate.url"];
     if (params["webhooks.onMessageUpdate.method"] !== undefined)
-    data["Webhooks.OnMessageUpdate.Method"] = params["webhooks.onMessageUpdate.method"];
+      data["Webhooks.OnMessageUpdate.Method"] =
+        params["webhooks.onMessageUpdate.method"];
     if (params["webhooks.onMessageRemove.url"] !== undefined)
-    data["Webhooks.OnMessageRemove.Url"] = params["webhooks.onMessageRemove.url"];
+      data["Webhooks.OnMessageRemove.Url"] =
+        params["webhooks.onMessageRemove.url"];
     if (params["webhooks.onMessageRemove.method"] !== undefined)
-    data["Webhooks.OnMessageRemove.Method"] = params["webhooks.onMessageRemove.method"];
+      data["Webhooks.OnMessageRemove.Method"] =
+        params["webhooks.onMessageRemove.method"];
     if (params["webhooks.onChannelAdd.url"] !== undefined)
-    data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
+      data["Webhooks.OnChannelAdd.Url"] = params["webhooks.onChannelAdd.url"];
     if (params["webhooks.onChannelAdd.method"] !== undefined)
-    data["Webhooks.OnChannelAdd.Method"] = params["webhooks.onChannelAdd.method"];
+      data["Webhooks.OnChannelAdd.Method"] =
+        params["webhooks.onChannelAdd.method"];
     if (params["webhooks.onChannelDestroy.url"] !== undefined)
-    data["Webhooks.OnChannelDestroy.Url"] = params["webhooks.onChannelDestroy.url"];
+      data["Webhooks.OnChannelDestroy.Url"] =
+        params["webhooks.onChannelDestroy.url"];
     if (params["webhooks.onChannelDestroy.method"] !== undefined)
-    data["Webhooks.OnChannelDestroy.Method"] = params["webhooks.onChannelDestroy.method"];
+      data["Webhooks.OnChannelDestroy.Method"] =
+        params["webhooks.onChannelDestroy.method"];
     if (params["webhooks.onChannelUpdate.url"] !== undefined)
-    data["Webhooks.OnChannelUpdate.Url"] = params["webhooks.onChannelUpdate.url"];
+      data["Webhooks.OnChannelUpdate.Url"] =
+        params["webhooks.onChannelUpdate.url"];
     if (params["webhooks.onChannelUpdate.method"] !== undefined)
-    data["Webhooks.OnChannelUpdate.Method"] = params["webhooks.onChannelUpdate.method"];
+      data["Webhooks.OnChannelUpdate.Method"] =
+        params["webhooks.onChannelUpdate.method"];
     if (params["webhooks.onMemberAdd.url"] !== undefined)
-    data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
+      data["Webhooks.OnMemberAdd.Url"] = params["webhooks.onMemberAdd.url"];
     if (params["webhooks.onMemberAdd.method"] !== undefined)
-    data["Webhooks.OnMemberAdd.Method"] = params["webhooks.onMemberAdd.method"];
+      data["Webhooks.OnMemberAdd.Method"] =
+        params["webhooks.onMemberAdd.method"];
     if (params["webhooks.onMemberRemove.url"] !== undefined)
-    data["Webhooks.OnMemberRemove.Url"] = params["webhooks.onMemberRemove.url"];
+      data["Webhooks.OnMemberRemove.Url"] =
+        params["webhooks.onMemberRemove.url"];
     if (params["webhooks.onMemberRemove.method"] !== undefined)
-    data["Webhooks.OnMemberRemove.Method"] = params["webhooks.onMemberRemove.method"];
+      data["Webhooks.OnMemberRemove.Method"] =
+        params["webhooks.onMemberRemove.method"];
     if (params["webhooks.onMessageSent.url"] !== undefined)
-    data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
+      data["Webhooks.OnMessageSent.Url"] = params["webhooks.onMessageSent.url"];
     if (params["webhooks.onMessageSent.method"] !== undefined)
-    data["Webhooks.OnMessageSent.Method"] = params["webhooks.onMessageSent.method"];
+      data["Webhooks.OnMessageSent.Method"] =
+        params["webhooks.onMessageSent.method"];
     if (params["webhooks.onMessageUpdated.url"] !== undefined)
-    data["Webhooks.OnMessageUpdated.Url"] = params["webhooks.onMessageUpdated.url"];
+      data["Webhooks.OnMessageUpdated.Url"] =
+        params["webhooks.onMessageUpdated.url"];
     if (params["webhooks.onMessageUpdated.method"] !== undefined)
-    data["Webhooks.OnMessageUpdated.Method"] = params["webhooks.onMessageUpdated.method"];
+      data["Webhooks.OnMessageUpdated.Method"] =
+        params["webhooks.onMessageUpdated.method"];
     if (params["webhooks.onMessageRemoved.url"] !== undefined)
-    data["Webhooks.OnMessageRemoved.Url"] = params["webhooks.onMessageRemoved.url"];
+      data["Webhooks.OnMessageRemoved.Url"] =
+        params["webhooks.onMessageRemoved.url"];
     if (params["webhooks.onMessageRemoved.method"] !== undefined)
-    data["Webhooks.OnMessageRemoved.Method"] = params["webhooks.onMessageRemoved.method"];
+      data["Webhooks.OnMessageRemoved.Method"] =
+        params["webhooks.onMessageRemoved.method"];
     if (params["webhooks.onChannelAdded.url"] !== undefined)
-    data["Webhooks.OnChannelAdded.Url"] = params["webhooks.onChannelAdded.url"];
+      data["Webhooks.OnChannelAdded.Url"] =
+        params["webhooks.onChannelAdded.url"];
     if (params["webhooks.onChannelAdded.method"] !== undefined)
-    data["Webhooks.OnChannelAdded.Method"] = params["webhooks.onChannelAdded.method"];
+      data["Webhooks.OnChannelAdded.Method"] =
+        params["webhooks.onChannelAdded.method"];
     if (params["webhooks.onChannelDestroyed.url"] !== undefined)
-    data["Webhooks.OnChannelDestroyed.Url"] = params["webhooks.onChannelDestroyed.url"];
+      data["Webhooks.OnChannelDestroyed.Url"] =
+        params["webhooks.onChannelDestroyed.url"];
     if (params["webhooks.onChannelDestroyed.method"] !== undefined)
-    data["Webhooks.OnChannelDestroyed.Method"] = params["webhooks.onChannelDestroyed.method"];
+      data["Webhooks.OnChannelDestroyed.Method"] =
+        params["webhooks.onChannelDestroyed.method"];
     if (params["webhooks.onChannelUpdated.url"] !== undefined)
-    data["Webhooks.OnChannelUpdated.Url"] = params["webhooks.onChannelUpdated.url"];
+      data["Webhooks.OnChannelUpdated.Url"] =
+        params["webhooks.onChannelUpdated.url"];
     if (params["webhooks.onChannelUpdated.method"] !== undefined)
-    data["Webhooks.OnChannelUpdated.Method"] = params["webhooks.onChannelUpdated.method"];
+      data["Webhooks.OnChannelUpdated.Method"] =
+        params["webhooks.onChannelUpdated.method"];
     if (params["webhooks.onMemberAdded.url"] !== undefined)
-    data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
+      data["Webhooks.OnMemberAdded.Url"] = params["webhooks.onMemberAdded.url"];
     if (params["webhooks.onMemberAdded.method"] !== undefined)
-    data["Webhooks.OnMemberAdded.Method"] = params["webhooks.onMemberAdded.method"];
+      data["Webhooks.OnMemberAdded.Method"] =
+        params["webhooks.onMemberAdded.method"];
     if (params["webhooks.onMemberRemoved.url"] !== undefined)
-    data["Webhooks.OnMemberRemoved.Url"] = params["webhooks.onMemberRemoved.url"];
+      data["Webhooks.OnMemberRemoved.Url"] =
+        params["webhooks.onMemberRemoved.url"];
     if (params["webhooks.onMemberRemoved.method"] !== undefined)
-    data["Webhooks.OnMemberRemoved.Method"] = params["webhooks.onMemberRemoved.method"];
+      data["Webhooks.OnMemberRemoved.Method"] =
+        params["webhooks.onMemberRemoved.method"];
     if (params["limits.channelMembers"] !== undefined)
-    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+      data["Limits.ChannelMembers"] = params["limits.channelMembers"];
     if (params["limits.userChannels"] !== undefined)
-    data["Limits.UserChannels"] = params["limits.userChannels"];
-
+      data["Limits.UserChannels"] = params["limits.userChannels"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -459,8 +519,7 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {}
 
 interface ServiceResource {
   sid?: string | null;
@@ -498,11 +557,16 @@ export class ServiceInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.defaultServiceRoleSid = payload.default_service_role_sid;
     this.defaultChannelRoleSid = payload.default_channel_role_sid;
-    this.defaultChannelCreatorRoleSid = payload.default_channel_creator_role_sid;
+    this.defaultChannelCreatorRoleSid =
+      payload.default_channel_creator_role_sid;
     this.readStatusEnabled = payload.read_status_enabled;
     this.reachabilityEnabled = payload.reachability_enabled;
-    this.typingIndicatorTimeout = deserialize.integer(payload.typing_indicator_timeout);
-    this.consumptionReportInterval = deserialize.integer(payload.consumption_report_interval);
+    this.typingIndicatorTimeout = deserialize.integer(
+      payload.typing_indicator_timeout
+    );
+    this.consumptionReportInterval = deserialize.integer(
+      payload.consumption_report_interval
+    );
     this.limits = payload.limits;
     this.webhooks = payload.webhooks;
     this.preWebhookUrl = payload.pre_webhook_url;
@@ -539,7 +603,9 @@ export class ServiceInstance {
   links?: object | null;
 
   private get _proxy(): ServiceContext {
-    this._context = this._context || new ServiceContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new ServiceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -550,8 +616,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -562,8 +629,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -574,7 +642,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -583,9 +653,11 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>
-     {
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  update(params?: any, callback?: any): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -617,28 +689,28 @@ export class ServiceInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      defaultServiceRoleSid: this.defaultServiceRoleSid, 
-      defaultChannelRoleSid: this.defaultChannelRoleSid, 
-      defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid, 
-      readStatusEnabled: this.readStatusEnabled, 
-      reachabilityEnabled: this.reachabilityEnabled, 
-      typingIndicatorTimeout: this.typingIndicatorTimeout, 
-      consumptionReportInterval: this.consumptionReportInterval, 
-      limits: this.limits, 
-      webhooks: this.webhooks, 
-      preWebhookUrl: this.preWebhookUrl, 
-      postWebhookUrl: this.postWebhookUrl, 
-      webhookMethod: this.webhookMethod, 
-      webhookFilters: this.webhookFilters, 
-      notifications: this.notifications, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      defaultServiceRoleSid: this.defaultServiceRoleSid,
+      defaultChannelRoleSid: this.defaultChannelRoleSid,
+      defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid,
+      readStatusEnabled: this.readStatusEnabled,
+      reachabilityEnabled: this.reachabilityEnabled,
+      typingIndicatorTimeout: this.typingIndicatorTimeout,
+      consumptionReportInterval: this.consumptionReportInterval,
+      limits: this.limits,
+      webhooks: this.webhooks,
+      preWebhookUrl: this.preWebhookUrl,
+      postWebhookUrl: this.postWebhookUrl,
+      webhookMethod: this.webhookMethod,
+      webhookFilters: this.webhookFilters,
+      notifications: this.notifications,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -646,11 +718,9 @@ export class ServiceInstance {
   }
 }
 
-
 export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
-
 
   /**
    * Create a ServiceInstance
@@ -660,10 +730,11 @@ export interface ServiceListInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>
-
-
+  create(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  create(params: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Streams ServiceInstance records from the API.
@@ -679,7 +750,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -695,7 +768,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ServiceListInstanceEachOptions,
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
@@ -707,7 +783,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
@@ -719,7 +797,10 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   getPage(params?: any, callback?: any): Promise<ServicePage>;
   /**
    * Lists ServiceInstance records from the API as a list.
@@ -729,7 +810,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -739,7 +822,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(
+    params?: ServiceListInstanceOptions,
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
   list(params?: any, callback?: any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
@@ -751,7 +837,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -763,7 +851,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(
+    params: ServiceListInstancePageOptions,
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   page(params?: any, callback?: any): Promise<ServicePage>;
 
   /**
@@ -773,15 +864,13 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {
-}
+export interface ServiceSolution {}
 
 interface ServiceListInstanceImpl extends ServiceListInstance {}
 class ServiceListInstanceImpl implements ServiceListInstance {
   _version?: V1;
   _solution?: ServiceSolution;
   _uri?: string;
-
 }
 
 export function ServiceListInstance(version: V1): ServiceListInstance {
@@ -789,44 +878,57 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Services`;
 
-  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServiceInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ServicePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -836,74 +938,98 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServicePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ServicePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServicePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-/**
-* Initialize the ServicePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ServiceSolution) {
+export class ServicePage extends Page<
+  V1,
+  ServicePayload,
+  ServiceResource,
+  ServiceInstance
+> {
+  /**
+   * Initialize the ServicePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ServiceSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ServiceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ServicePayload): ServiceInstance {
-    return new ServiceInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of ServiceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ServicePayload): ServiceInstance {
+    return new ServiceInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,23 +20,40 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ParticipantListInstance } from "./room/participant";
 
+type VideoRoomSummaryCodec = "VP8" | "H264" | "VP9";
 
+type VideoRoomSummaryCreatedMethod = "sdk" | "ad_hoc" | "api";
 
-type VideoRoomSummaryCodec = 'VP8'|'H264'|'VP9';
+type VideoRoomSummaryEdgeLocation =
+  | "ashburn"
+  | "dublin"
+  | "frankfurt"
+  | "singapore"
+  | "sydney"
+  | "sao_paulo"
+  | "roaming"
+  | "umatilla"
+  | "tokyo";
 
-type VideoRoomSummaryCreatedMethod = 'sdk'|'ad_hoc'|'api';
+type VideoRoomSummaryEndReason = "room_ended_via_api" | "timeout";
 
-type VideoRoomSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
+type VideoRoomSummaryProcessingState = "complete" | "in_progress";
 
-type VideoRoomSummaryEndReason = 'room_ended_via_api'|'timeout';
+type VideoRoomSummaryRoomStatus = "in_progress" | "completed";
 
-type VideoRoomSummaryProcessingState = 'complete'|'in_progress';
+type VideoRoomSummaryRoomType = "go" | "peer_to_peer" | "group" | "group_small";
 
-type VideoRoomSummaryRoomStatus = 'in_progress'|'completed';
-
-type VideoRoomSummaryRoomType = 'go'|'peer_to_peer'|'group'|'group_small';
-
-type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+type VideoRoomSummaryTwilioRealm =
+  | "us1"
+  | "us2"
+  | "au1"
+  | "br1"
+  | "ie1"
+  | "jp1"
+  | "sg1"
+  | "in1"
+  | "de1"
+  | "gll";
 
 /**
  * Options to pass to each
@@ -58,12 +74,12 @@ type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in
  *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
-  "roomType"?: Array<VideoRoomSummaryRoomType>;
-  "codec"?: Array<VideoRoomSummaryCodec>;
-  "roomName"?: string;
-  "createdAfter"?: Date;
-  "createdBefore"?: Date;
-  "pageSize"?: number;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
+  roomName?: string;
+  createdAfter?: Date;
+  createdBefore?: Date;
+  pageSize?: number;
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -84,12 +100,12 @@ export interface RoomListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
-  "roomType"?: Array<VideoRoomSummaryRoomType>;
-  "codec"?: Array<VideoRoomSummaryCodec>;
-  "roomName"?: string;
-  "createdAfter"?: Date;
-  "createdBefore"?: Date;
-  "pageSize"?: number;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
+  roomName?: string;
+  createdAfter?: Date;
+  createdBefore?: Date;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -106,20 +122,17 @@ export interface RoomListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
-  "roomType"?: Array<VideoRoomSummaryRoomType>;
-  "codec"?: Array<VideoRoomSummaryCodec>;
-  "roomName"?: string;
-  "createdAfter"?: Date;
-  "createdBefore"?: Date;
-  "pageSize"?: number;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
+  roomName?: string;
+  createdAfter?: Date;
+  createdBefore?: Date;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface RoomContext {
-
   participants: ParticipantListInstance;
 
   /**
@@ -129,8 +142,9 @@ export interface RoomContext {
    *
    * @returns { Promise } Resolves to processed RoomInstance
    */
-  fetch(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -140,7 +154,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  "roomSid"?: string;
+  roomSid?: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -155,22 +169,29 @@ export class RoomContextImpl implements RoomContext {
   }
 
   get participants(): ParticipantListInstance {
-    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.roomSid);
+    this._participants =
+      this._participants ||
+      ParticipantListInstance(this._version, this._solution.roomSid);
     return this._participants;
   }
 
   fetch(callback?: any): Promise<RoomInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new RoomInstance(operationVersion, payload, this._solution.roomSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RoomInstance(operationVersion, payload, this._solution.roomSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -186,10 +207,15 @@ export class RoomContextImpl implements RoomContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type RoomStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type RoomStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface RoomPayload extends RoomResource, Page.TwilioResponsePayload {
-}
+interface RoomPayload extends RoomResource, Page.TwilioResponsePayload {}
 
 interface RoomResource {
   account_sid?: string | null;
@@ -238,9 +264,15 @@ export class RoomInstance {
     this.endReason = payload.end_reason;
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
-    this.uniqueParticipantIdentities = deserialize.integer(payload.unique_participant_identities);
-    this.concurrentParticipants = deserialize.integer(payload.concurrent_participants);
-    this.maxConcurrentParticipants = deserialize.integer(payload.max_concurrent_participants);
+    this.uniqueParticipantIdentities = deserialize.integer(
+      payload.unique_participant_identities
+    );
+    this.concurrentParticipants = deserialize.integer(
+      payload.concurrent_participants
+    );
+    this.maxConcurrentParticipants = deserialize.integer(
+      payload.max_concurrent_participants
+    );
     this.codecs = payload.codecs;
     this.mediaRegion = payload.media_region;
     this.durationSec = payload.duration_sec;
@@ -340,7 +372,9 @@ export class RoomInstance {
   links?: object | null;
 
   private get _proxy(): RoomContext {
-    this._context = this._context || new RoomContextImpl(this._version, this._solution.roomSid);
+    this._context =
+      this._context ||
+      new RoomContextImpl(this._version, this._solution.roomSid);
     return this._context;
   }
 
@@ -351,8 +385,9 @@ export class RoomInstance {
    *
    * @returns { Promise } Resolves to processed RoomInstance
    */
-  fetch(callback?: (error: Error | null, item?: RoomInstance) => any): Promise<RoomInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -370,33 +405,33 @@ export class RoomInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      roomSid: this.roomSid, 
-      roomName: this.roomName, 
-      createTime: this.createTime, 
-      endTime: this.endTime, 
-      roomType: this.roomType, 
-      roomStatus: this.roomStatus, 
-      statusCallback: this.statusCallback, 
-      statusCallbackMethod: this.statusCallbackMethod, 
-      createdMethod: this.createdMethod, 
-      endReason: this.endReason, 
-      maxParticipants: this.maxParticipants, 
-      uniqueParticipants: this.uniqueParticipants, 
-      uniqueParticipantIdentities: this.uniqueParticipantIdentities, 
-      concurrentParticipants: this.concurrentParticipants, 
-      maxConcurrentParticipants: this.maxConcurrentParticipants, 
-      codecs: this.codecs, 
-      mediaRegion: this.mediaRegion, 
-      durationSec: this.durationSec, 
-      totalParticipantDurationSec: this.totalParticipantDurationSec, 
-      totalRecordingDurationSec: this.totalRecordingDurationSec, 
-      processingState: this.processingState, 
-      recordingEnabled: this.recordingEnabled, 
-      edgeLocation: this.edgeLocation, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      roomSid: this.roomSid,
+      roomName: this.roomName,
+      createTime: this.createTime,
+      endTime: this.endTime,
+      roomType: this.roomType,
+      roomStatus: this.roomStatus,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      createdMethod: this.createdMethod,
+      endReason: this.endReason,
+      maxParticipants: this.maxParticipants,
+      uniqueParticipants: this.uniqueParticipants,
+      uniqueParticipantIdentities: this.uniqueParticipantIdentities,
+      concurrentParticipants: this.concurrentParticipants,
+      maxConcurrentParticipants: this.maxConcurrentParticipants,
+      codecs: this.codecs,
+      mediaRegion: this.mediaRegion,
+      durationSec: this.durationSec,
+      totalParticipantDurationSec: this.totalParticipantDurationSec,
+      totalRecordingDurationSec: this.totalRecordingDurationSec,
+      processingState: this.processingState,
+      recordingEnabled: this.recordingEnabled,
+      edgeLocation: this.edgeLocation,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -404,12 +439,9 @@ export class RoomInstance {
   }
 }
 
-
 export interface RoomListInstance {
   (roomSid: string): RoomContext;
   get(roomSid: string): RoomContext;
-
-
 
   /**
    * Streams RoomInstance records from the API.
@@ -425,7 +457,9 @@ export interface RoomListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams RoomInstance records from the API.
    *
@@ -441,7 +475,10 @@ export interface RoomListInstance {
    * @param { RoomListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: RoomListInstanceEachOptions, callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: RoomListInstanceEachOptions,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
@@ -453,7 +490,9 @@ export interface RoomListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  getPage(
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
    *
@@ -465,7 +504,10 @@ export interface RoomListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
   getPage(params?: any, callback?: any): Promise<RoomPage>;
   /**
    * Lists RoomInstance records from the API as a list.
@@ -475,7 +517,9 @@ export interface RoomListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
+  list(
+    callback?: (error: Error | null, items: RoomInstance[]) => any
+  ): Promise<RoomInstance[]>;
   /**
    * Lists RoomInstance records from the API as a list.
    *
@@ -485,7 +529,10 @@ export interface RoomListInstance {
    * @param { RoomListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: RoomListInstanceOptions, callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
+  list(
+    params?: RoomListInstanceOptions,
+    callback?: (error: Error | null, items: RoomInstance[]) => any
+  ): Promise<RoomInstance[]>;
   list(params?: any, callback?: any): Promise<RoomInstance[]>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
@@ -497,7 +544,9 @@ export interface RoomListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  page(
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    *
@@ -509,7 +558,10 @@ export interface RoomListInstance {
    * @param { RoomListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: RoomListInstancePageOptions, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  page(
+    params: RoomListInstancePageOptions,
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
   page(params?: any, callback?: any): Promise<RoomPage>;
 
   /**
@@ -519,15 +571,13 @@ export interface RoomListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoomSolution {
-}
+export interface RoomSolution {}
 
 interface RoomListInstanceImpl extends RoomListInstance {}
 class RoomListInstanceImpl implements RoomListInstance {
   _version?: V1;
   _solution?: RoomSolution;
   _uri?: string;
-
 }
 
 export function RoomListInstance(version: V1): RoomListInstance {
@@ -535,13 +585,16 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
   instance.get = function get(roomSid): RoomContext {
     return new RoomContextImpl(version, roomSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Video/Rooms`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<RoomPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<RoomPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -551,84 +604,105 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let data: any = {};
 
-        if (params["roomType"] !== undefined)
-    data["RoomType"] = serialize.map(params["roomType"], (e => (e)));
+    if (params["roomType"] !== undefined)
+      data["RoomType"] = serialize.map(params["roomType"], (e) => e);
     if (params["codec"] !== undefined)
-    data["Codec"] = serialize.map(params["codec"], (e => (e)));
-    if (params["roomName"] !== undefined)
-    data["RoomName"] = params["roomName"];
+      data["Codec"] = serialize.map(params["codec"], (e) => e);
+    if (params["roomName"] !== undefined) data["RoomName"] = params["roomName"];
     if (params["createdAfter"] !== undefined)
-    data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+      data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
-    data["CreatedBefore"] = serialize.iso8601DateTime(params["createdBefore"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["CreatedBefore"] = serialize.iso8601DateTime(
+        params["createdBefore"]
+      );
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RoomPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RoomPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RoomPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<RoomPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new RoomPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RoomPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
-/**
-* Initialize the RoomPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: RoomSolution) {
+export class RoomPage extends Page<
+  V1,
+  RoomPayload,
+  RoomResource,
+  RoomInstance
+> {
+  /**
+   * Initialize the RoomPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: RoomSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of RoomInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: RoomPayload): RoomInstance {
-    return new RoomInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of RoomInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RoomPayload): RoomInstance {
+    return new RoomInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

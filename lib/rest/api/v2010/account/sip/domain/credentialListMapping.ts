@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
@@ -20,16 +19,13 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to create a CredentialListMappingInstance
  *
  * @property { string } credentialListSid A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
  */
 export interface CredentialListMappingListInstanceCreateOptions {
-  "credentialListSid": string;
+  credentialListSid: string;
 }
 /**
  * Options to pass to each
@@ -45,8 +41,11 @@ export interface CredentialListMappingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CredentialListMappingListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: CredentialListMappingInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -61,7 +60,7 @@ export interface CredentialListMappingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CredentialListMappingListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -73,16 +72,12 @@ export interface CredentialListMappingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CredentialListMappingListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CredentialListMappingContext {
-
-
   /**
    * Remove a CredentialListMappingInstance
    *
@@ -90,8 +85,9 @@ export interface CredentialListMappingContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a CredentialListMappingInstance
@@ -100,8 +96,12 @@ export interface CredentialListMappingContext {
    *
    * @returns { Promise } Resolves to processed CredentialListMappingInstance
    */
-  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
-
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
+  ): Promise<CredentialListMappingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -111,45 +111,64 @@ export interface CredentialListMappingContext {
 }
 
 export interface CredentialListMappingContextSolution {
-  "accountSid"?: string;
-  "domainSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
 }
 
-export class CredentialListMappingContextImpl implements CredentialListMappingContext {
+export class CredentialListMappingContextImpl
+  implements CredentialListMappingContext
+{
   protected _solution: CredentialListMappingContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    domainSid: string,
+    sid: string
+  ) {
     this._solution = { accountSid, domainSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CredentialListMappingInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CredentialListMappingInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.domainSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -166,8 +185,9 @@ export class CredentialListMappingContextImpl implements CredentialListMappingCo
   }
 }
 
-interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
-}
+interface CredentialListMappingPayload
+  extends CredentialListMappingResource,
+    Page.TwilioResponsePayload {}
 
 interface CredentialListMappingResource {
   account_sid?: string | null;
@@ -183,7 +203,13 @@ export class CredentialListMappingInstance {
   protected _solution: CredentialListMappingContextSolution;
   protected _context?: CredentialListMappingContext;
 
-  constructor(protected _version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: CredentialListMappingPayload,
+    accountSid: string,
+    domainSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -225,7 +251,14 @@ export class CredentialListMappingInstance {
   uri?: string | null;
 
   private get _proxy(): CredentialListMappingContext {
-    this._context = this._context || new CredentialListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new CredentialListMappingContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.domainSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -236,8 +269,9 @@ export class CredentialListMappingInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -248,8 +282,12 @@ export class CredentialListMappingInstance {
    *
    * @returns { Promise } Resolves to processed CredentialListMappingInstance
    */
-  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
-     {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
+  ): Promise<CredentialListMappingInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -260,14 +298,14 @@ export class CredentialListMappingInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      domainSid: this.domainSid, 
-      friendlyName: this.friendlyName, 
-      sid: this.sid, 
-      uri: this.uri
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      domainSid: this.domainSid,
+      friendlyName: this.friendlyName,
+      sid: this.sid,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -275,11 +313,9 @@ export class CredentialListMappingInstance {
   }
 }
 
-
 export interface CredentialListMappingListInstance {
   (sid: string): CredentialListMappingContext;
   get(sid: string): CredentialListMappingContext;
-
 
   /**
    * Create a CredentialListMappingInstance
@@ -289,10 +325,14 @@ export interface CredentialListMappingListInstance {
    *
    * @returns { Promise } Resolves to processed CredentialListMappingInstance
    */
-  create(params: CredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
-  create(params: any, callback?: any): Promise<CredentialListMappingInstance>
-
-
+  create(
+    params: CredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
+  ): Promise<CredentialListMappingInstance>;
+  create(params: any, callback?: any): Promise<CredentialListMappingInstance>;
 
   /**
    * Streams CredentialListMappingInstance records from the API.
@@ -308,7 +348,12 @@ export interface CredentialListMappingListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams CredentialListMappingInstance records from the API.
    *
@@ -324,7 +369,13 @@ export interface CredentialListMappingListInstance {
    * @param { CredentialListMappingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CredentialListMappingListInstanceEachOptions, callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CredentialListMappingListInstanceEachOptions,
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CredentialListMappingInstance records from the API.
@@ -336,7 +387,9 @@ export interface CredentialListMappingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CredentialListMappingPage) => any): Promise<CredentialListMappingPage>;
+  getPage(
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
   /**
    * Retrieve a single target page of CredentialListMappingInstance records from the API.
    *
@@ -348,7 +401,10 @@ export interface CredentialListMappingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CredentialListMappingPage) => any): Promise<CredentialListMappingPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
   getPage(params?: any, callback?: any): Promise<CredentialListMappingPage>;
   /**
    * Lists CredentialListMappingInstance records from the API as a list.
@@ -358,7 +414,12 @@ export interface CredentialListMappingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CredentialListMappingInstance[]) => any): Promise<CredentialListMappingInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: CredentialListMappingInstance[]
+    ) => any
+  ): Promise<CredentialListMappingInstance[]>;
   /**
    * Lists CredentialListMappingInstance records from the API as a list.
    *
@@ -368,7 +429,13 @@ export interface CredentialListMappingListInstance {
    * @param { CredentialListMappingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CredentialListMappingListInstanceOptions, callback?: (error: Error | null, items: CredentialListMappingInstance[]) => any): Promise<CredentialListMappingInstance[]>;
+  list(
+    params?: CredentialListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: CredentialListMappingInstance[]
+    ) => any
+  ): Promise<CredentialListMappingInstance[]>;
   list(params?: any, callback?: any): Promise<CredentialListMappingInstance[]>;
   /**
    * Retrieve a single page of CredentialListMappingInstance records from the API.
@@ -380,7 +447,9 @@ export interface CredentialListMappingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CredentialListMappingPage) => any): Promise<CredentialListMappingPage>;
+  page(
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
   /**
    * Retrieve a single page of CredentialListMappingInstance records from the API.
    *
@@ -392,7 +461,10 @@ export interface CredentialListMappingListInstance {
    * @param { CredentialListMappingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: CredentialListMappingPage) => any): Promise<CredentialListMappingPage>;
+  page(
+    params: CredentialListMappingListInstancePageOptions,
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
   page(params?: any, callback?: any): Promise<CredentialListMappingPage>;
 
   /**
@@ -407,57 +479,90 @@ export interface CredentialListMappingSolution {
   domainSid?: string;
 }
 
-interface CredentialListMappingListInstanceImpl extends CredentialListMappingListInstance {}
-class CredentialListMappingListInstanceImpl implements CredentialListMappingListInstance {
+interface CredentialListMappingListInstanceImpl
+  extends CredentialListMappingListInstance {}
+class CredentialListMappingListInstanceImpl
+  implements CredentialListMappingListInstance
+{
   _version?: V2010;
   _solution?: CredentialListMappingSolution;
   _uri?: string;
-
 }
 
-export function CredentialListMappingListInstance(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance {
-  const instance = ((sid) => instance.get(sid)) as CredentialListMappingListInstanceImpl;
+export function CredentialListMappingListInstance(
+  version: V2010,
+  accountSid: string,
+  domainSid: string
+): CredentialListMappingListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as CredentialListMappingListInstanceImpl;
 
   instance.get = function get(sid): CredentialListMappingContext {
-    return new CredentialListMappingContextImpl(version, accountSid, domainSid, sid);
-  }
+    return new CredentialListMappingContextImpl(
+      version,
+      accountSid,
+      domainSid,
+      sid
+    );
+  };
 
   instance._version = version;
   instance._solution = { accountSid, domainSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<CredentialListMappingInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<CredentialListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["credentialListSid"] === null || params["credentialListSid"] === undefined) {
-      throw new Error('Required parameter "params[\'credentialListSid\']" missing.');
+    if (
+      params["credentialListSid"] === null ||
+      params["credentialListSid"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['credentialListSid']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["CredentialListSid"] = params["credentialListSid"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CredentialListMappingInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.domainSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CredentialListMappingPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CredentialListMappingPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -467,76 +572,107 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CredentialListMappingPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CredentialListMappingPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CredentialListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CredentialListMappingPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CredentialListMappingPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CredentialListMappingPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
-/**
-* Initialize the CredentialListMappingPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution) {
+export class CredentialListMappingPage extends Page<
+  V2010,
+  CredentialListMappingPayload,
+  CredentialListMappingResource,
+  CredentialListMappingInstance
+> {
+  /**
+   * Initialize the CredentialListMappingPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: CredentialListMappingSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CredentialListMappingInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance {
+  /**
+   * Build an instance of CredentialListMappingInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: CredentialListMappingPayload
+  ): CredentialListMappingInstance {
     return new CredentialListMappingInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.domainSid,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.domainSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

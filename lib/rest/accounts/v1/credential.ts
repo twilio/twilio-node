@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,10 +19,7 @@ const serialize = require("../../../base/serialize");
 import { AwsListInstance } from "./credential/aws";
 import { PublicKeyListInstance } from "./credential/publicKey";
 
-
-
 export interface CredentialListInstance {
-
   aws: AwsListInstance;
   publicKey: PublicKeyListInstance;
 
@@ -34,8 +30,7 @@ export interface CredentialListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CredentialSolution {
-}
+export interface CredentialSolution {}
 
 interface CredentialListInstanceImpl extends CredentialListInstance {}
 class CredentialListInstanceImpl implements CredentialListInstance {
@@ -51,7 +46,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   const instance = {} as CredentialListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Credentials`;
 
   Object.defineProperty(instance, "aws", {
@@ -60,7 +55,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
         this._aws = AwsListInstance(this._version);
       }
       return this._aws;
-    }
+    },
   });
 
   Object.defineProperty(instance, "publicKey", {
@@ -69,18 +64,19 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
         this._publicKey = PublicKeyListInstance(this._version);
       }
       return this._publicKey;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

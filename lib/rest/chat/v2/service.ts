@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -23,9 +22,6 @@ import { BindingListInstance } from "./service/binding";
 import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
-
-
-
 
 /**
  * Options to pass to update a ServiceInstance
@@ -63,14 +59,14 @@ import { UserListInstance } from "./service/user";
  * @property { boolean } [notifications.logEnabled] Whether to log notifications. The default is &#x60;false&#x60;.
  */
 export interface ServiceContextUpdateOptions {
-  "friendlyName"?: string;
-  "defaultServiceRoleSid"?: string;
-  "defaultChannelRoleSid"?: string;
-  "defaultChannelCreatorRoleSid"?: string;
-  "readStatusEnabled"?: boolean;
-  "reachabilityEnabled"?: boolean;
-  "typingIndicatorTimeout"?: number;
-  "consumptionReportInterval"?: number;
+  friendlyName?: string;
+  defaultServiceRoleSid?: string;
+  defaultChannelRoleSid?: string;
+  defaultChannelCreatorRoleSid?: string;
+  readStatusEnabled?: boolean;
+  reachabilityEnabled?: boolean;
+  typingIndicatorTimeout?: number;
+  consumptionReportInterval?: number;
   "notifications.newMessage.enabled"?: boolean;
   "notifications.newMessage.template"?: string;
   "notifications.newMessage.sound"?: string;
@@ -84,15 +80,15 @@ export interface ServiceContextUpdateOptions {
   "notifications.invitedToChannel.enabled"?: boolean;
   "notifications.invitedToChannel.template"?: string;
   "notifications.invitedToChannel.sound"?: string;
-  "preWebhookUrl"?: string;
-  "postWebhookUrl"?: string;
-  "webhookMethod"?: string;
-  "webhookFilters"?: Array<string>;
+  preWebhookUrl?: string;
+  postWebhookUrl?: string;
+  webhookMethod?: string;
+  webhookFilters?: Array<string>;
   "limits.channelMembers"?: number;
   "limits.userChannels"?: number;
   "media.compatibilityMessage"?: string;
-  "preWebhookRetryCount"?: number;
-  "postWebhookRetryCount"?: number;
+  preWebhookRetryCount?: number;
+  postWebhookRetryCount?: number;
   "notifications.logEnabled"?: boolean;
 }
 
@@ -102,7 +98,7 @@ export interface ServiceContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the new resource.
  */
 export interface ServiceListInstanceCreateOptions {
-  "friendlyName": string;
+  friendlyName: string;
 }
 /**
  * Options to pass to each
@@ -118,7 +114,7 @@ export interface ServiceListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -134,7 +130,7 @@ export interface ServiceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -146,15 +142,12 @@ export interface ServiceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ServiceContext {
-
   bindings: BindingListInstance;
   channels: ChannelListInstance;
   roles: RoleListInstance;
@@ -167,8 +160,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a ServiceInstance
@@ -177,8 +171,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
 
   /**
    * Update a ServiceInstance
@@ -187,7 +182,9 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -196,9 +193,11 @@ export interface ServiceContext {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>
-
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  update(params?: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -208,7 +207,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -226,53 +225,64 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   get bindings(): BindingListInstance {
-    this._bindings = this._bindings || BindingListInstance(this._version, this._solution.sid);
+    this._bindings =
+      this._bindings || BindingListInstance(this._version, this._solution.sid);
     return this._bindings;
   }
 
   get channels(): ChannelListInstance {
-    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
+    this._channels =
+      this._channels || ChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
   get roles(): RoleListInstance {
-    this._roles = this._roles || RoleListInstance(this._version, this._solution.sid);
+    this._roles =
+      this._roles || RoleListInstance(this._version, this._solution.sid);
     return this._roles;
   }
 
   get users(): UserListInstance {
-    this._users = this._users || UserListInstance(this._version, this._solution.sid);
+    this._users =
+      this._users || UserListInstance(this._version, this._solution.sid);
     return this._users;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ServiceInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -281,84 +291,116 @@ export class ServiceContextImpl implements ServiceContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["defaultServiceRoleSid"] !== undefined)
-    data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
+      data["DefaultServiceRoleSid"] = params["defaultServiceRoleSid"];
     if (params["defaultChannelRoleSid"] !== undefined)
-    data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
+      data["DefaultChannelRoleSid"] = params["defaultChannelRoleSid"];
     if (params["defaultChannelCreatorRoleSid"] !== undefined)
-    data["DefaultChannelCreatorRoleSid"] = params["defaultChannelCreatorRoleSid"];
+      data["DefaultChannelCreatorRoleSid"] =
+        params["defaultChannelCreatorRoleSid"];
     if (params["readStatusEnabled"] !== undefined)
-    data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
+      data["ReadStatusEnabled"] = serialize.bool(params["readStatusEnabled"]);
     if (params["reachabilityEnabled"] !== undefined)
-    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
+      data["ReachabilityEnabled"] = serialize.bool(
+        params["reachabilityEnabled"]
+      );
     if (params["typingIndicatorTimeout"] !== undefined)
-    data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
+      data["TypingIndicatorTimeout"] = params["typingIndicatorTimeout"];
     if (params["consumptionReportInterval"] !== undefined)
-    data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
+      data["ConsumptionReportInterval"] = params["consumptionReportInterval"];
     if (params["notifications.newMessage.enabled"] !== undefined)
-    data["Notifications.NewMessage.Enabled"] = serialize.bool(params["notifications.newMessage.enabled"]);
+      data["Notifications.NewMessage.Enabled"] = serialize.bool(
+        params["notifications.newMessage.enabled"]
+      );
     if (params["notifications.newMessage.template"] !== undefined)
-    data["Notifications.NewMessage.Template"] = params["notifications.newMessage.template"];
+      data["Notifications.NewMessage.Template"] =
+        params["notifications.newMessage.template"];
     if (params["notifications.newMessage.sound"] !== undefined)
-    data["Notifications.NewMessage.Sound"] = params["notifications.newMessage.sound"];
+      data["Notifications.NewMessage.Sound"] =
+        params["notifications.newMessage.sound"];
     if (params["notifications.newMessage.badgeCountEnabled"] !== undefined)
-    data["Notifications.NewMessage.BadgeCountEnabled"] = serialize.bool(params["notifications.newMessage.badgeCountEnabled"]);
+      data["Notifications.NewMessage.BadgeCountEnabled"] = serialize.bool(
+        params["notifications.newMessage.badgeCountEnabled"]
+      );
     if (params["notifications.addedToChannel.enabled"] !== undefined)
-    data["Notifications.AddedToChannel.Enabled"] = serialize.bool(params["notifications.addedToChannel.enabled"]);
+      data["Notifications.AddedToChannel.Enabled"] = serialize.bool(
+        params["notifications.addedToChannel.enabled"]
+      );
     if (params["notifications.addedToChannel.template"] !== undefined)
-    data["Notifications.AddedToChannel.Template"] = params["notifications.addedToChannel.template"];
+      data["Notifications.AddedToChannel.Template"] =
+        params["notifications.addedToChannel.template"];
     if (params["notifications.addedToChannel.sound"] !== undefined)
-    data["Notifications.AddedToChannel.Sound"] = params["notifications.addedToChannel.sound"];
+      data["Notifications.AddedToChannel.Sound"] =
+        params["notifications.addedToChannel.sound"];
     if (params["notifications.removedFromChannel.enabled"] !== undefined)
-    data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(params["notifications.removedFromChannel.enabled"]);
+      data["Notifications.RemovedFromChannel.Enabled"] = serialize.bool(
+        params["notifications.removedFromChannel.enabled"]
+      );
     if (params["notifications.removedFromChannel.template"] !== undefined)
-    data["Notifications.RemovedFromChannel.Template"] = params["notifications.removedFromChannel.template"];
+      data["Notifications.RemovedFromChannel.Template"] =
+        params["notifications.removedFromChannel.template"];
     if (params["notifications.removedFromChannel.sound"] !== undefined)
-    data["Notifications.RemovedFromChannel.Sound"] = params["notifications.removedFromChannel.sound"];
+      data["Notifications.RemovedFromChannel.Sound"] =
+        params["notifications.removedFromChannel.sound"];
     if (params["notifications.invitedToChannel.enabled"] !== undefined)
-    data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(params["notifications.invitedToChannel.enabled"]);
+      data["Notifications.InvitedToChannel.Enabled"] = serialize.bool(
+        params["notifications.invitedToChannel.enabled"]
+      );
     if (params["notifications.invitedToChannel.template"] !== undefined)
-    data["Notifications.InvitedToChannel.Template"] = params["notifications.invitedToChannel.template"];
+      data["Notifications.InvitedToChannel.Template"] =
+        params["notifications.invitedToChannel.template"];
     if (params["notifications.invitedToChannel.sound"] !== undefined)
-    data["Notifications.InvitedToChannel.Sound"] = params["notifications.invitedToChannel.sound"];
+      data["Notifications.InvitedToChannel.Sound"] =
+        params["notifications.invitedToChannel.sound"];
     if (params["preWebhookUrl"] !== undefined)
-    data["PreWebhookUrl"] = params["preWebhookUrl"];
+      data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)
-    data["PostWebhookUrl"] = params["postWebhookUrl"];
+      data["PostWebhookUrl"] = params["postWebhookUrl"];
     if (params["webhookMethod"] !== undefined)
-    data["WebhookMethod"] = params["webhookMethod"];
+      data["WebhookMethod"] = params["webhookMethod"];
     if (params["webhookFilters"] !== undefined)
-    data["WebhookFilters"] = serialize.map(params["webhookFilters"], (e => (e)));
+      data["WebhookFilters"] = serialize.map(
+        params["webhookFilters"],
+        (e) => e
+      );
     if (params["limits.channelMembers"] !== undefined)
-    data["Limits.ChannelMembers"] = params["limits.channelMembers"];
+      data["Limits.ChannelMembers"] = params["limits.channelMembers"];
     if (params["limits.userChannels"] !== undefined)
-    data["Limits.UserChannels"] = params["limits.userChannels"];
+      data["Limits.UserChannels"] = params["limits.userChannels"];
     if (params["media.compatibilityMessage"] !== undefined)
-    data["Media.CompatibilityMessage"] = params["media.compatibilityMessage"];
+      data["Media.CompatibilityMessage"] = params["media.compatibilityMessage"];
     if (params["preWebhookRetryCount"] !== undefined)
-    data["PreWebhookRetryCount"] = params["preWebhookRetryCount"];
+      data["PreWebhookRetryCount"] = params["preWebhookRetryCount"];
     if (params["postWebhookRetryCount"] !== undefined)
-    data["PostWebhookRetryCount"] = params["postWebhookRetryCount"];
+      data["PostWebhookRetryCount"] = params["postWebhookRetryCount"];
     if (params["notifications.logEnabled"] !== undefined)
-    data["Notifications.LogEnabled"] = serialize.bool(params["notifications.logEnabled"]);
-
+      data["Notifications.LogEnabled"] = serialize.bool(
+        params["notifications.logEnabled"]
+      );
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ServiceInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -375,8 +417,7 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {}
 
 interface ServiceResource {
   sid?: string | null;
@@ -416,18 +457,27 @@ export class ServiceInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.defaultServiceRoleSid = payload.default_service_role_sid;
     this.defaultChannelRoleSid = payload.default_channel_role_sid;
-    this.defaultChannelCreatorRoleSid = payload.default_channel_creator_role_sid;
+    this.defaultChannelCreatorRoleSid =
+      payload.default_channel_creator_role_sid;
     this.readStatusEnabled = payload.read_status_enabled;
     this.reachabilityEnabled = payload.reachability_enabled;
-    this.typingIndicatorTimeout = deserialize.integer(payload.typing_indicator_timeout);
-    this.consumptionReportInterval = deserialize.integer(payload.consumption_report_interval);
+    this.typingIndicatorTimeout = deserialize.integer(
+      payload.typing_indicator_timeout
+    );
+    this.consumptionReportInterval = deserialize.integer(
+      payload.consumption_report_interval
+    );
     this.limits = payload.limits;
     this.preWebhookUrl = payload.pre_webhook_url;
     this.postWebhookUrl = payload.post_webhook_url;
     this.webhookMethod = payload.webhook_method;
     this.webhookFilters = payload.webhook_filters;
-    this.preWebhookRetryCount = deserialize.integer(payload.pre_webhook_retry_count);
-    this.postWebhookRetryCount = deserialize.integer(payload.post_webhook_retry_count);
+    this.preWebhookRetryCount = deserialize.integer(
+      payload.pre_webhook_retry_count
+    );
+    this.postWebhookRetryCount = deserialize.integer(
+      payload.post_webhook_retry_count
+    );
     this.notifications = payload.notifications;
     this.media = payload.media;
     this.url = payload.url;
@@ -530,7 +580,9 @@ export class ServiceInstance {
   links?: object | null;
 
   private get _proxy(): ServiceContext {
-    this._context = this._context || new ServiceContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new ServiceContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -541,8 +593,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -553,8 +606,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -565,7 +619,9 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *
@@ -574,9 +630,11 @@ export class ServiceInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  update(params: ServiceContextUpdateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>
-     {
+  update(
+    params: ServiceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  update(params?: any, callback?: any): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -615,30 +673,30 @@ export class ServiceInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      defaultServiceRoleSid: this.defaultServiceRoleSid, 
-      defaultChannelRoleSid: this.defaultChannelRoleSid, 
-      defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid, 
-      readStatusEnabled: this.readStatusEnabled, 
-      reachabilityEnabled: this.reachabilityEnabled, 
-      typingIndicatorTimeout: this.typingIndicatorTimeout, 
-      consumptionReportInterval: this.consumptionReportInterval, 
-      limits: this.limits, 
-      preWebhookUrl: this.preWebhookUrl, 
-      postWebhookUrl: this.postWebhookUrl, 
-      webhookMethod: this.webhookMethod, 
-      webhookFilters: this.webhookFilters, 
-      preWebhookRetryCount: this.preWebhookRetryCount, 
-      postWebhookRetryCount: this.postWebhookRetryCount, 
-      notifications: this.notifications, 
-      media: this.media, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      defaultServiceRoleSid: this.defaultServiceRoleSid,
+      defaultChannelRoleSid: this.defaultChannelRoleSid,
+      defaultChannelCreatorRoleSid: this.defaultChannelCreatorRoleSid,
+      readStatusEnabled: this.readStatusEnabled,
+      reachabilityEnabled: this.reachabilityEnabled,
+      typingIndicatorTimeout: this.typingIndicatorTimeout,
+      consumptionReportInterval: this.consumptionReportInterval,
+      limits: this.limits,
+      preWebhookUrl: this.preWebhookUrl,
+      postWebhookUrl: this.postWebhookUrl,
+      webhookMethod: this.webhookMethod,
+      webhookFilters: this.webhookFilters,
+      preWebhookRetryCount: this.preWebhookRetryCount,
+      postWebhookRetryCount: this.postWebhookRetryCount,
+      notifications: this.notifications,
+      media: this.media,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -646,11 +704,9 @@ export class ServiceInstance {
   }
 }
 
-
 export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
-
 
   /**
    * Create a ServiceInstance
@@ -660,10 +716,11 @@ export interface ServiceListInstance {
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
-  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>
-
-
+  create(
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  create(params: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Streams ServiceInstance records from the API.
@@ -679,7 +736,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -695,7 +754,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ServiceListInstanceEachOptions,
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
@@ -707,7 +769,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
@@ -719,7 +783,10 @@ export interface ServiceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   getPage(params?: any, callback?: any): Promise<ServicePage>;
   /**
    * Lists ServiceInstance records from the API as a list.
@@ -729,7 +796,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -739,7 +808,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(
+    params?: ServiceListInstanceOptions,
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
   list(params?: any, callback?: any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
@@ -751,7 +823,9 @@ export interface ServiceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -763,7 +837,10 @@ export interface ServiceListInstance {
    * @param { ServiceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(
+    params: ServiceListInstancePageOptions,
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
   page(params?: any, callback?: any): Promise<ServicePage>;
 
   /**
@@ -773,15 +850,13 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {
-}
+export interface ServiceSolution {}
 
 interface ServiceListInstanceImpl extends ServiceListInstance {}
 class ServiceListInstanceImpl implements ServiceListInstance {
   _version?: V2;
   _solution?: ServiceSolution;
   _uri?: string;
-
 }
 
 export function ServiceListInstance(version: V2): ServiceListInstance {
@@ -789,44 +864,57 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Services`;
 
-  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServiceInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ServicePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -836,74 +924,98 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServicePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ServicePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ServicePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
-/**
-* Initialize the ServicePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: ServiceSolution) {
+export class ServicePage extends Page<
+  V2,
+  ServicePayload,
+  ServiceResource,
+  ServiceInstance
+> {
+  /**
+   * Initialize the ServicePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2,
+    response: Response<string>,
+    solution: ServiceSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ServiceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ServicePayload): ServiceInstance {
-    return new ServiceInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of ServiceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ServicePayload): ServiceInstance {
+    return new ServiceInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

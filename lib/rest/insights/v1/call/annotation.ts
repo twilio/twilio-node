@@ -12,24 +12,26 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
 
-
-type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
-
-type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity_issue'|'invalid_number'|'caller_id'|'dropped_call'|'number_reachability';
-
+type AnnotationConnectivityIssue =
+  | "unknown_connectivity_issue"
+  | "no_connectivity_issue"
+  | "invalid_number"
+  | "caller_id"
+  | "dropped_call"
+  | "number_reachability";
 
 /**
  * Options to pass to update a AnnotationInstance
  *
- * @property { AnnotationAnsweredBy } [answeredBy] 
- * @property { AnnotationConnectivityIssue } [connectivityIssue] 
+ * @property { AnnotationAnsweredBy } [answeredBy]
+ * @property { AnnotationConnectivityIssue } [connectivityIssue]
  * @property { string } [qualityIssues] Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
  * @property { boolean } [spam] Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
  * @property { number } [callScore] Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
@@ -37,18 +39,16 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
 export interface AnnotationContextUpdateOptions {
-  "answeredBy"?: AnnotationAnsweredBy;
-  "connectivityIssue"?: AnnotationConnectivityIssue;
-  "qualityIssues"?: string;
-  "spam"?: boolean;
-  "callScore"?: number;
-  "comment"?: string;
-  "incident"?: string;
+  answeredBy?: AnnotationAnsweredBy;
+  connectivityIssue?: AnnotationConnectivityIssue;
+  qualityIssues?: string;
+  spam?: boolean;
+  callScore?: number;
+  comment?: string;
+  incident?: string;
 }
 
 export interface AnnotationContext {
-
-
   /**
    * Fetch a AnnotationInstance
    *
@@ -56,8 +56,9 @@ export interface AnnotationContext {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
 
   /**
    * Update a AnnotationInstance
@@ -66,7 +67,9 @@ export interface AnnotationContext {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
    *
@@ -75,9 +78,11 @@ export interface AnnotationContext {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance>
-
+  update(
+    params: AnnotationContextUpdateOptions,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
+  update(params?: any, callback?: any): Promise<AnnotationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -87,13 +92,12 @@ export interface AnnotationContext {
 }
 
 export interface AnnotationContextSolution {
-  "callSid"?: string;
+  callSid?: string;
 }
 
 export class AnnotationContextImpl implements AnnotationContext {
   protected _solution: AnnotationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, callSid: string) {
     this._solution = { callSid };
@@ -101,21 +105,30 @@ export class AnnotationContextImpl implements AnnotationContext {
   }
 
   fetch(callback?: any): Promise<AnnotationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AnnotationInstance(
+          operationVersion,
+          payload,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<AnnotationInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -124,36 +137,44 @@ export class AnnotationContextImpl implements AnnotationContext {
 
     let data: any = {};
 
-    
-        if (params["answeredBy"] !== undefined)
-    data["AnsweredBy"] = params["answeredBy"];
+    if (params["answeredBy"] !== undefined)
+      data["AnsweredBy"] = params["answeredBy"];
     if (params["connectivityIssue"] !== undefined)
-    data["ConnectivityIssue"] = params["connectivityIssue"];
+      data["ConnectivityIssue"] = params["connectivityIssue"];
     if (params["qualityIssues"] !== undefined)
-    data["QualityIssues"] = params["qualityIssues"];
+      data["QualityIssues"] = params["qualityIssues"];
     if (params["spam"] !== undefined)
-    data["Spam"] = serialize.bool(params["spam"]);
+      data["Spam"] = serialize.bool(params["spam"]);
     if (params["callScore"] !== undefined)
-    data["CallScore"] = params["callScore"];
-    if (params["comment"] !== undefined)
-    data["Comment"] = params["comment"];
-    if (params["incident"] !== undefined)
-    data["Incident"] = params["incident"];
-
+      data["CallScore"] = params["callScore"];
+    if (params["comment"] !== undefined) data["Comment"] = params["comment"];
+    if (params["incident"] !== undefined) data["Incident"] = params["incident"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AnnotationInstance(
+          operationVersion,
+          payload,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -170,8 +191,7 @@ export class AnnotationContextImpl implements AnnotationContext {
   }
 }
 
-interface AnnotationPayload extends AnnotationResource{
-}
+interface AnnotationPayload extends AnnotationResource {}
 
 interface AnnotationResource {
   call_sid?: string | null;
@@ -190,7 +210,11 @@ export class AnnotationInstance {
   protected _solution: AnnotationContextSolution;
   protected _context?: AnnotationContext;
 
-  constructor(protected _version: V1, payload: AnnotationPayload, callSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AnnotationPayload,
+    callSid?: string
+  ) {
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
     this.answeredBy = payload.answered_by;
@@ -241,7 +265,9 @@ export class AnnotationInstance {
   url?: string | null;
 
   private get _proxy(): AnnotationContext {
-    this._context = this._context || new AnnotationContextImpl(this._version, this._solution.callSid);
+    this._context =
+      this._context ||
+      new AnnotationContextImpl(this._version, this._solution.callSid);
     return this._context;
   }
 
@@ -252,8 +278,9 @@ export class AnnotationInstance {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -264,7 +291,9 @@ export class AnnotationInstance {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
    *
@@ -273,9 +302,11 @@ export class AnnotationInstance {
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  update(params: AnnotationContextUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance>
-     {
+  update(
+    params: AnnotationContextUpdateOptions,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
+  update(params?: any, callback?: any): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -286,17 +317,17 @@ export class AnnotationInstance {
    */
   toJSON() {
     return {
-      callSid: this.callSid, 
-      accountSid: this.accountSid, 
-      answeredBy: this.answeredBy, 
-      connectivityIssue: this.connectivityIssue, 
-      qualityIssues: this.qualityIssues, 
-      spam: this.spam, 
-      callScore: this.callScore, 
-      comment: this.comment, 
-      incident: this.incident, 
-      url: this.url
-    }
+      callSid: this.callSid,
+      accountSid: this.accountSid,
+      answeredBy: this.answeredBy,
+      connectivityIssue: this.connectivityIssue,
+      qualityIssues: this.qualityIssues,
+      spam: this.spam,
+      callScore: this.callScore,
+      comment: this.comment,
+      incident: this.incident,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -304,11 +335,9 @@ export class AnnotationInstance {
   }
 }
 
-
 export interface AnnotationListInstance {
   (): AnnotationContext;
   get(): AnnotationContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -326,15 +355,17 @@ class AnnotationListInstanceImpl implements AnnotationListInstance {
   _version?: V1;
   _solution?: AnnotationSolution;
   _uri?: string;
-
 }
 
-export function AnnotationListInstance(version: V1, callSid: string): AnnotationListInstance {
+export function AnnotationListInstance(
+  version: V1,
+  callSid: string
+): AnnotationListInstance {
   const instance = (() => instance.get()) as AnnotationListInstanceImpl;
 
   instance.get = function get(): AnnotationContext {
     return new AnnotationContextImpl(version, callSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { callSid };
@@ -342,14 +373,14 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -22,16 +21,13 @@ const serialize = require("../../../../base/serialize");
 import { SyncListItemListInstance } from "./syncList/syncListItem";
 import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
 
-
-
-
 /**
  * Options to pass to create a SyncListInstance
  *
- * @property { string } [uniqueName] 
+ * @property { string } [uniqueName]
  */
 export interface SyncListListInstanceCreateOptions {
-  "uniqueName"?: string;
+  uniqueName?: string;
 }
 /**
  * Options to pass to each
@@ -47,7 +43,7 @@ export interface SyncListListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncListListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: SyncListInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +59,7 @@ export interface SyncListListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncListListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -75,15 +71,12 @@ export interface SyncListListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SyncListContext {
-
   syncListItems: SyncListItemListInstance;
   syncListPermissions: SyncListPermissionListInstance;
 
@@ -94,8 +87,9 @@ export interface SyncListContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a SyncListInstance
@@ -104,8 +98,9 @@ export interface SyncListContext {
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
-  fetch(callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<SyncListInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -115,8 +110,8 @@ export interface SyncListContext {
 }
 
 export interface SyncListContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class SyncListContextImpl implements SyncListContext {
@@ -132,39 +127,63 @@ export class SyncListContextImpl implements SyncListContext {
   }
 
   get syncListItems(): SyncListItemListInstance {
-    this._syncListItems = this._syncListItems || SyncListItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._syncListItems =
+      this._syncListItems ||
+      SyncListItemListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._syncListItems;
   }
 
   get syncListPermissions(): SyncListPermissionListInstance {
-    this._syncListPermissions = this._syncListPermissions || SyncListPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._syncListPermissions =
+      this._syncListPermissions ||
+      SyncListPermissionListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._syncListPermissions;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SyncListInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SyncListInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncListInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -181,8 +200,9 @@ export class SyncListContextImpl implements SyncListContext {
   }
 }
 
-interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
-}
+interface SyncListPayload
+  extends SyncListResource,
+    Page.TwilioResponsePayload {}
 
 interface SyncListResource {
   sid?: string | null;
@@ -201,7 +221,12 @@ export class SyncListInstance {
   protected _solution: SyncListContextSolution;
   protected _context?: SyncListContext;
 
-  constructor(protected _version: Sync, payload: SyncListPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: Sync,
+    payload: SyncListPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -228,7 +253,13 @@ export class SyncListInstance {
   createdBy?: string | null;
 
   private get _proxy(): SyncListContext {
-    this._context = this._context || new SyncListContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new SyncListContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -239,8 +270,9 @@ export class SyncListInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -251,8 +283,9 @@ export class SyncListInstance {
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
-  fetch(callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<SyncListInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -277,17 +310,17 @@ export class SyncListInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      url: this.url, 
-      links: this.links, 
-      revision: this.revision, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      createdBy: this.createdBy
-    }
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      url: this.url,
+      links: this.links,
+      revision: this.revision,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      createdBy: this.createdBy,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -295,11 +328,9 @@ export class SyncListInstance {
   }
 }
 
-
 export interface SyncListListInstance {
   (sid: string): SyncListContext;
   get(sid: string): SyncListContext;
-
 
   /**
    * Create a SyncListInstance
@@ -308,7 +339,9 @@ export interface SyncListListInstance {
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
-  create(callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<SyncListInstance>;
+  create(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
   /**
    * Create a SyncListInstance
    *
@@ -317,10 +350,11 @@ export interface SyncListListInstance {
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
-  create(params: SyncListListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<SyncListInstance>;
-  create(params?: any, callback?: any): Promise<SyncListInstance>
-
-
+  create(
+    params: SyncListListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
+  create(params?: any, callback?: any): Promise<SyncListInstance>;
 
   /**
    * Streams SyncListInstance records from the API.
@@ -336,7 +370,9 @@ export interface SyncListListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SyncListInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SyncListInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SyncListInstance records from the API.
    *
@@ -352,7 +388,10 @@ export interface SyncListListInstance {
    * @param { SyncListListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SyncListListInstanceEachOptions, callback?: (item: SyncListInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SyncListListInstanceEachOptions,
+    callback?: (item: SyncListInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SyncListInstance records from the API.
@@ -364,7 +403,9 @@ export interface SyncListListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
+  getPage(
+    callback?: (error: Error | null, items: SyncListPage) => any
+  ): Promise<SyncListPage>;
   /**
    * Retrieve a single target page of SyncListInstance records from the API.
    *
@@ -376,7 +417,10 @@ export interface SyncListListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SyncListPage) => any
+  ): Promise<SyncListPage>;
   getPage(params?: any, callback?: any): Promise<SyncListPage>;
   /**
    * Lists SyncListInstance records from the API as a list.
@@ -386,7 +430,9 @@ export interface SyncListListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SyncListInstance[]) => any): Promise<SyncListInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SyncListInstance[]) => any
+  ): Promise<SyncListInstance[]>;
   /**
    * Lists SyncListInstance records from the API as a list.
    *
@@ -396,7 +442,10 @@ export interface SyncListListInstance {
    * @param { SyncListListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SyncListListInstanceOptions, callback?: (error: Error | null, items: SyncListInstance[]) => any): Promise<SyncListInstance[]>;
+  list(
+    params?: SyncListListInstanceOptions,
+    callback?: (error: Error | null, items: SyncListInstance[]) => any
+  ): Promise<SyncListInstance[]>;
   list(params?: any, callback?: any): Promise<SyncListInstance[]>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
@@ -408,7 +457,9 @@ export interface SyncListListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
+  page(
+    callback?: (error: Error | null, items: SyncListPage) => any
+  ): Promise<SyncListPage>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
    *
@@ -420,7 +471,10 @@ export interface SyncListListInstance {
    * @param { SyncListListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SyncListListInstancePageOptions, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
+  page(
+    params: SyncListListInstancePageOptions,
+    callback?: (error: Error | null, items: SyncListPage) => any
+  ): Promise<SyncListPage>;
   page(params?: any, callback?: any): Promise<SyncListPage>;
 
   /**
@@ -439,21 +493,26 @@ class SyncListListInstanceImpl implements SyncListListInstance {
   _version?: Sync;
   _solution?: SyncListSolution;
   _uri?: string;
-
 }
 
-export function SyncListListInstance(version: Sync, serviceSid: string): SyncListListInstance {
+export function SyncListListInstance(
+  version: Sync,
+  serviceSid: string
+): SyncListListInstance {
   const instance = ((sid) => instance.get(sid)) as SyncListListInstanceImpl;
 
   instance.get = function get(sid): SyncListContext {
     return new SyncListContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Lists`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<SyncListInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<SyncListInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -463,27 +522,40 @@ export function SyncListListInstance(version: Sync, serviceSid: string): SyncLis
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
-
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncListInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SyncListInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SyncListPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SyncListPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -493,75 +565,102 @@ export function SyncListListInstance(version: Sync, serviceSid: string): SyncLis
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncListPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SyncListPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncListPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SyncListPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SyncListPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SyncListPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource, SyncListInstance> {
-/**
-* Initialize the SyncListPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: Sync, response: Response<string>, solution: SyncListSolution) {
+export class SyncListPage extends Page<
+  Sync,
+  SyncListPayload,
+  SyncListResource,
+  SyncListInstance
+> {
+  /**
+   * Initialize the SyncListPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Sync,
+    response: Response<string>,
+    solution: SyncListSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SyncListInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SyncListPayload): SyncListInstance {
+  /**
+   * Build an instance of SyncListInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SyncListPayload): SyncListInstance {
     return new SyncListInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
+      this._version,
+      payload,
+      this._solution.serviceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

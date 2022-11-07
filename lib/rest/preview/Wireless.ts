@@ -50,5 +50,4 @@ export default class Wireless extends Version {
     this._sims = this._sims || SimListInstance(this);
     return this._sims;
   }
-
 }

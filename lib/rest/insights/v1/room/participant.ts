@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,15 +19,32 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type VideoParticipantSummaryCodec = "VP8" | "H264" | "VP9";
 
+type VideoParticipantSummaryEdgeLocation =
+  | "ashburn"
+  | "dublin"
+  | "frankfurt"
+  | "singapore"
+  | "sydney"
+  | "sao_paulo"
+  | "roaming"
+  | "umatilla"
+  | "tokyo";
 
-type VideoParticipantSummaryCodec = 'VP8'|'H264'|'VP9';
+type VideoParticipantSummaryRoomStatus = "in_progress" | "completed";
 
-type VideoParticipantSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
-
-type VideoParticipantSummaryRoomStatus = 'in_progress'|'completed';
-
-type VideoParticipantSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+type VideoParticipantSummaryTwilioRealm =
+  | "us1"
+  | "us2"
+  | "au1"
+  | "br1"
+  | "ie1"
+  | "jp1"
+  | "sg1"
+  | "in1"
+  | "de1"
+  | "gll";
 
 /**
  * Options to pass to each
@@ -44,7 +60,7 @@ type VideoParticipantSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'s
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -60,7 +76,7 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -72,16 +88,12 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ParticipantContext {
-
-
   /**
    * Fetch a ParticipantInstance
    *
@@ -89,8 +101,9 @@ export interface ParticipantContext {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -100,14 +113,13 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  "roomSid"?: string;
-  "participantSid"?: string;
+  roomSid?: string;
+  participantSid?: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, roomSid: string, participantSid: string) {
     this._solution = { roomSid, participantSid };
@@ -115,17 +127,27 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantInstance(
+          operationVersion,
+          payload,
+          this._solution.roomSid,
+          this._solution.participantSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -142,8 +164,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
+interface ParticipantPayload
+  extends ParticipantResource,
+    Page.TwilioResponsePayload {}
 
 interface ParticipantResource {
   participant_sid?: string | null;
@@ -169,7 +192,12 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(protected _version: V1, payload: ParticipantPayload, roomSid: string, participantSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ParticipantPayload,
+    roomSid: string,
+    participantSid?: string
+  ) {
     this.participantSid = payload.participant_sid;
     this.participantIdentity = payload.participant_identity;
     this.joinTime = deserialize.iso8601DateTime(payload.join_time);
@@ -188,7 +216,10 @@ export class ParticipantInstance {
     this.publisherInfo = payload.publisher_info;
     this.url = payload.url;
 
-    this._solution = { roomSid, participantSid: participantSid || this.participantSid };
+    this._solution = {
+      roomSid,
+      participantSid: participantSid || this.participantSid,
+    };
   }
 
   /**
@@ -252,7 +283,13 @@ export class ParticipantInstance {
   url?: string | null;
 
   private get _proxy(): ParticipantContext {
-    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.roomSid, this._solution.participantSid);
+    this._context =
+      this._context ||
+      new ParticipantContextImpl(
+        this._version,
+        this._solution.roomSid,
+        this._solution.participantSid
+      );
     return this._context;
   }
 
@@ -263,8 +300,9 @@ export class ParticipantInstance {
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
-  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -275,24 +313,24 @@ export class ParticipantInstance {
    */
   toJSON() {
     return {
-      participantSid: this.participantSid, 
-      participantIdentity: this.participantIdentity, 
-      joinTime: this.joinTime, 
-      leaveTime: this.leaveTime, 
-      durationSec: this.durationSec, 
-      accountSid: this.accountSid, 
-      roomSid: this.roomSid, 
-      status: this.status, 
-      codecs: this.codecs, 
-      endReason: this.endReason, 
-      errorCode: this.errorCode, 
-      errorCodeUrl: this.errorCodeUrl, 
-      mediaRegion: this.mediaRegion, 
-      properties: this.properties, 
-      edgeLocation: this.edgeLocation, 
-      publisherInfo: this.publisherInfo, 
-      url: this.url
-    }
+      participantSid: this.participantSid,
+      participantIdentity: this.participantIdentity,
+      joinTime: this.joinTime,
+      leaveTime: this.leaveTime,
+      durationSec: this.durationSec,
+      accountSid: this.accountSid,
+      roomSid: this.roomSid,
+      status: this.status,
+      codecs: this.codecs,
+      endReason: this.endReason,
+      errorCode: this.errorCode,
+      errorCodeUrl: this.errorCodeUrl,
+      mediaRegion: this.mediaRegion,
+      properties: this.properties,
+      edgeLocation: this.edgeLocation,
+      publisherInfo: this.publisherInfo,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -300,12 +338,9 @@ export class ParticipantInstance {
   }
 }
 
-
 export interface ParticipantListInstance {
   (participantSid: string): ParticipantContext;
   get(participantSid: string): ParticipantContext;
-
-
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -321,7 +356,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ParticipantInstance records from the API.
    *
@@ -337,7 +374,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
@@ -349,7 +389,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -361,7 +403,10 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   getPage(params?: any, callback?: any): Promise<ParticipantPage>;
   /**
    * Lists ParticipantInstance records from the API as a list.
@@ -371,7 +416,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -381,7 +428,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(
+    params?: ParticipantListInstanceOptions,
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
@@ -393,7 +443,9 @@ export interface ParticipantListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -405,7 +457,10 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(
+    params: ParticipantListInstancePageOptions,
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
   page(params?: any, callback?: any): Promise<ParticipantPage>;
 
   /**
@@ -424,21 +479,27 @@ class ParticipantListInstanceImpl implements ParticipantListInstance {
   _version?: V1;
   _solution?: ParticipantSolution;
   _uri?: string;
-
 }
 
-export function ParticipantListInstance(version: V1, roomSid: string): ParticipantListInstance {
-  const instance = ((participantSid) => instance.get(participantSid)) as ParticipantListInstanceImpl;
+export function ParticipantListInstance(
+  version: V1,
+  roomSid: string
+): ParticipantListInstance {
+  const instance = ((participantSid) =>
+    instance.get(participantSid)) as ParticipantListInstanceImpl;
 
   instance.get = function get(participantSid): ParticipantContext {
     return new ParticipantContextImpl(version, roomSid, participantSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { roomSid };
   instance._uri = `/Video/Rooms/${roomSid}/Participants`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -448,75 +509,103 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-/**
-* Initialize the ParticipantPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
+export class ParticipantPage extends Page<
+  V1,
+  ParticipantPayload,
+  ParticipantResource,
+  ParticipantInstance
+> {
+  /**
+   * Initialize the ParticipantPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: ParticipantSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ParticipantInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ParticipantPayload): ParticipantInstance {
+  /**
+   * Build an instance of ParticipantInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-    this._version,
-    payload,
-        this._solution.roomSid,
+      this._version,
+      payload,
+      this._solution.roomSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

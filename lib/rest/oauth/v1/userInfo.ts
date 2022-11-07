@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-
 export interface UserInfoContext {
-
-
   /**
    * Fetch a UserInfoInstance
    *
@@ -31,8 +25,9 @@ export interface UserInfoContext {
    *
    * @returns { Promise } Resolves to processed UserInfoInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInfoInstance) => any): Promise<UserInfoInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: UserInfoInstance) => any
+  ): Promise<UserInfoInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -41,31 +36,33 @@ export interface UserInfoContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserInfoContextSolution {
-}
+export interface UserInfoContextSolution {}
 
 export class UserInfoContextImpl implements UserInfoContext {
   protected _solution: UserInfoContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/userinfo`;
   }
 
   fetch(callback?: any): Promise<UserInfoInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new UserInfoInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new UserInfoInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -82,8 +79,7 @@ export class UserInfoContextImpl implements UserInfoContext {
   }
 }
 
-interface UserInfoPayload extends UserInfoResource{
-}
+interface UserInfoPayload extends UserInfoResource {}
 
 interface UserInfoResource {
   user_sid?: string | null;
@@ -106,7 +102,7 @@ export class UserInfoInstance {
     this.email = payload.email;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -143,8 +139,9 @@ export class UserInfoInstance {
    *
    * @returns { Promise } Resolves to processed UserInfoInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInfoInstance) => any): Promise<UserInfoInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: UserInfoInstance) => any
+  ): Promise<UserInfoInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -155,13 +152,13 @@ export class UserInfoInstance {
    */
   toJSON() {
     return {
-      userSid: this.userSid, 
-      firstName: this.firstName, 
-      lastName: this.lastName, 
-      friendlyName: this.friendlyName, 
-      email: this.email, 
-      url: this.url
-    }
+      userSid: this.userSid,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      friendlyName: this.friendlyName,
+      email: this.email,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -169,11 +166,9 @@ export class UserInfoInstance {
   }
 }
 
-
 export interface UserInfoListInstance {
   (): UserInfoContext;
   get(): UserInfoContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -182,15 +177,13 @@ export interface UserInfoListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserInfoSolution {
-}
+export interface UserInfoSolution {}
 
 interface UserInfoListInstanceImpl extends UserInfoListInstance {}
 class UserInfoListInstanceImpl implements UserInfoListInstance {
   _version?: V1;
   _solution?: UserInfoSolution;
   _uri?: string;
-
 }
 
 export function UserInfoListInstance(version: V1): UserInfoListInstance {
@@ -198,22 +191,22 @@ export function UserInfoListInstance(version: V1): UserInfoListInstance {
 
   instance.get = function get(): UserInfoContext {
     return new UserInfoContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

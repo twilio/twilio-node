@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,10 +19,13 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|'failed';
-
+type EsimProfileStatus =
+  | "new"
+  | "reserving"
+  | "available"
+  | "downloaded"
+  | "installed"
+  | "failed";
 
 /**
  * Options to pass to create a EsimProfileInstance
@@ -33,9 +35,9 @@ type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|
  * @property { string } [eid] Identifier of the eUICC that will claim the eSIM Profile.
  */
 export interface EsimProfileListInstanceCreateOptions {
-  "callbackUrl"?: string;
-  "callbackMethod"?: string;
-  "eid"?: string;
+  callbackUrl?: string;
+  callbackMethod?: string;
+  eid?: string;
 }
 /**
  * Options to pass to each
@@ -54,10 +56,10 @@ export interface EsimProfileListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface EsimProfileListInstanceEachOptions {
-  "eid"?: string;
-  "simSid"?: string;
-  "status"?: EsimProfileStatus;
-  "pageSize"?: number;
+  eid?: string;
+  simSid?: string;
+  status?: EsimProfileStatus;
+  pageSize?: number;
   callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -76,10 +78,10 @@ export interface EsimProfileListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EsimProfileListInstanceOptions {
-  "eid"?: string;
-  "simSid"?: string;
-  "status"?: EsimProfileStatus;
-  "pageSize"?: number;
+  eid?: string;
+  simSid?: string;
+  status?: EsimProfileStatus;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -94,19 +96,15 @@ export interface EsimProfileListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EsimProfileListInstancePageOptions {
-  "eid"?: string;
-  "simSid"?: string;
-  "status"?: EsimProfileStatus;
-  "pageSize"?: number;
+  eid?: string;
+  simSid?: string;
+  status?: EsimProfileStatus;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface EsimProfileContext {
-
-
   /**
    * Fetch a EsimProfileInstance
    *
@@ -114,8 +112,9 @@ export interface EsimProfileContext {
    *
    * @returns { Promise } Resolves to processed EsimProfileInstance
    */
-  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -125,13 +124,12 @@ export interface EsimProfileContext {
 }
 
 export interface EsimProfileContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class EsimProfileContextImpl implements EsimProfileContext {
   protected _solution: EsimProfileContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -139,17 +137,22 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   }
 
   fetch(callback?: any): Promise<EsimProfileInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EsimProfileInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -166,8 +169,9 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   }
 }
 
-interface EsimProfilePayload extends EsimProfileResource, Page.TwilioResponsePayload {
-}
+interface EsimProfilePayload
+  extends EsimProfileResource,
+    Page.TwilioResponsePayload {}
 
 interface EsimProfileResource {
   sid?: string | null;
@@ -188,7 +192,11 @@ export class EsimProfileInstance {
   protected _solution: EsimProfileContextSolution;
   protected _context?: EsimProfileContext;
 
-  constructor(protected _version: V1, payload: EsimProfilePayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: EsimProfilePayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.iccid = payload.iccid;
@@ -252,7 +260,9 @@ export class EsimProfileInstance {
   url?: string | null;
 
   private get _proxy(): EsimProfileContext {
-    this._context = this._context || new EsimProfileContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new EsimProfileContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -263,8 +273,9 @@ export class EsimProfileInstance {
    *
    * @returns { Promise } Resolves to processed EsimProfileInstance
    */
-  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -275,19 +286,19 @@ export class EsimProfileInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      iccid: this.iccid, 
-      simSid: this.simSid, 
-      status: this.status, 
-      eid: this.eid, 
-      smdpPlusAddress: this.smdpPlusAddress, 
-      errorCode: this.errorCode, 
-      errorMessage: this.errorMessage, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      iccid: this.iccid,
+      simSid: this.simSid,
+      status: this.status,
+      eid: this.eid,
+      smdpPlusAddress: this.smdpPlusAddress,
+      errorCode: this.errorCode,
+      errorMessage: this.errorMessage,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -295,11 +306,9 @@ export class EsimProfileInstance {
   }
 }
 
-
 export interface EsimProfileListInstance {
   (sid: string): EsimProfileContext;
   get(sid: string): EsimProfileContext;
-
 
   /**
    * Create a EsimProfileInstance
@@ -308,7 +317,9 @@ export interface EsimProfileListInstance {
    *
    * @returns { Promise } Resolves to processed EsimProfileInstance
    */
-  create(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>;
+  create(
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance>;
   /**
    * Create a EsimProfileInstance
    *
@@ -317,10 +328,11 @@ export interface EsimProfileListInstance {
    *
    * @returns { Promise } Resolves to processed EsimProfileInstance
    */
-  create(params: EsimProfileListInstanceCreateOptions, callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>;
-  create(params?: any, callback?: any): Promise<EsimProfileInstance>
-
-
+  create(
+    params: EsimProfileListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance>;
+  create(params?: any, callback?: any): Promise<EsimProfileInstance>;
 
   /**
    * Streams EsimProfileInstance records from the API.
@@ -336,7 +348,9 @@ export interface EsimProfileListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams EsimProfileInstance records from the API.
    *
@@ -352,7 +366,10 @@ export interface EsimProfileListInstance {
    * @param { EsimProfileListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: EsimProfileListInstanceEachOptions, callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: EsimProfileListInstanceEachOptions,
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EsimProfileInstance records from the API.
@@ -364,7 +381,9 @@ export interface EsimProfileListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EsimProfilePage) => any): Promise<EsimProfilePage>;
+  getPage(
+    callback?: (error: Error | null, items: EsimProfilePage) => any
+  ): Promise<EsimProfilePage>;
   /**
    * Retrieve a single target page of EsimProfileInstance records from the API.
    *
@@ -376,7 +395,10 @@ export interface EsimProfileListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EsimProfilePage) => any): Promise<EsimProfilePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: EsimProfilePage) => any
+  ): Promise<EsimProfilePage>;
   getPage(params?: any, callback?: any): Promise<EsimProfilePage>;
   /**
    * Lists EsimProfileInstance records from the API as a list.
@@ -386,7 +408,9 @@ export interface EsimProfileListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EsimProfileInstance[]) => any): Promise<EsimProfileInstance[]>;
+  list(
+    callback?: (error: Error | null, items: EsimProfileInstance[]) => any
+  ): Promise<EsimProfileInstance[]>;
   /**
    * Lists EsimProfileInstance records from the API as a list.
    *
@@ -396,7 +420,10 @@ export interface EsimProfileListInstance {
    * @param { EsimProfileListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: EsimProfileListInstanceOptions, callback?: (error: Error | null, items: EsimProfileInstance[]) => any): Promise<EsimProfileInstance[]>;
+  list(
+    params?: EsimProfileListInstanceOptions,
+    callback?: (error: Error | null, items: EsimProfileInstance[]) => any
+  ): Promise<EsimProfileInstance[]>;
   list(params?: any, callback?: any): Promise<EsimProfileInstance[]>;
   /**
    * Retrieve a single page of EsimProfileInstance records from the API.
@@ -408,7 +435,9 @@ export interface EsimProfileListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EsimProfilePage) => any): Promise<EsimProfilePage>;
+  page(
+    callback?: (error: Error | null, items: EsimProfilePage) => any
+  ): Promise<EsimProfilePage>;
   /**
    * Retrieve a single page of EsimProfileInstance records from the API.
    *
@@ -420,7 +449,10 @@ export interface EsimProfileListInstance {
    * @param { EsimProfileListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: EsimProfileListInstancePageOptions, callback?: (error: Error | null, items: EsimProfilePage) => any): Promise<EsimProfilePage>;
+  page(
+    params: EsimProfileListInstancePageOptions,
+    callback?: (error: Error | null, items: EsimProfilePage) => any
+  ): Promise<EsimProfilePage>;
   page(params?: any, callback?: any): Promise<EsimProfilePage>;
 
   /**
@@ -430,15 +462,13 @@ export interface EsimProfileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EsimProfileSolution {
-}
+export interface EsimProfileSolution {}
 
 interface EsimProfileListInstanceImpl extends EsimProfileListInstance {}
 class EsimProfileListInstanceImpl implements EsimProfileListInstance {
   _version?: V1;
   _solution?: EsimProfileSolution;
   _uri?: string;
-
 }
 
 export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
@@ -446,13 +476,16 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
   instance.get = function get(sid): EsimProfileContext {
     return new EsimProfileContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/ESimProfiles`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<EsimProfileInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<EsimProfileInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -462,31 +495,38 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     let data: any = {};
 
-    
-        if (params["callbackUrl"] !== undefined)
-    data["CallbackUrl"] = params["callbackUrl"];
+    if (params["callbackUrl"] !== undefined)
+      data["CallbackUrl"] = params["callbackUrl"];
     if (params["callbackMethod"] !== undefined)
-    data["CallbackMethod"] = params["callbackMethod"];
-    if (params["eid"] !== undefined)
-    data["Eid"] = params["eid"];
-
+      data["CallbackMethod"] = params["callbackMethod"];
+    if (params["eid"] !== undefined) data["Eid"] = params["eid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EsimProfileInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<EsimProfilePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<EsimProfilePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -496,80 +536,102 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     let data: any = {};
 
-        if (params["eid"] !== undefined)
-    data["Eid"] = params["eid"];
-    if (params["simSid"] !== undefined)
-    data["SimSid"] = params["simSid"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["eid"] !== undefined) data["Eid"] = params["eid"];
+    if (params["simSid"] !== undefined) data["SimSid"] = params["simSid"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EsimProfilePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EsimProfilePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EsimProfilePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<EsimProfilePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new EsimProfilePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new EsimProfilePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class EsimProfilePage extends Page<V1, EsimProfilePayload, EsimProfileResource, EsimProfileInstance> {
-/**
-* Initialize the EsimProfilePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: EsimProfileSolution) {
+export class EsimProfilePage extends Page<
+  V1,
+  EsimProfilePayload,
+  EsimProfileResource,
+  EsimProfileInstance
+> {
+  /**
+   * Initialize the EsimProfilePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: EsimProfileSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of EsimProfileInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: EsimProfilePayload): EsimProfileInstance {
-    return new EsimProfileInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of EsimProfileInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: EsimProfilePayload): EsimProfileInstance {
+    return new EsimProfileInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

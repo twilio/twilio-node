@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,10 +20,13 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { ReservationListInstance } from "./task/reservation";
 
-
-
-type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrapping';
-
+type TaskStatus =
+  | "pending"
+  | "reserved"
+  | "assigned"
+  | "canceled"
+  | "completed"
+  | "wrapping";
 
 /**
  * Options to pass to remove a TaskInstance
@@ -32,7 +34,7 @@ type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrappi
  * @property { string } [ifMatch] If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface TaskContextRemoveOptions {
-  "ifMatch"?: string;
+  ifMatch?: string;
 }
 
 /**
@@ -40,18 +42,18 @@ export interface TaskContextRemoveOptions {
  *
  * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  * @property { string } [attributes] The JSON string that describes the custom attributes of the task.
- * @property { TaskStatus } [assignmentStatus] 
+ * @property { TaskStatus } [assignmentStatus]
  * @property { string } [reason] The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
  * @property { number } [priority] The Task\\\&#39;s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
  * @property { string } [taskChannel] When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  */
 export interface TaskContextUpdateOptions {
-  "ifMatch"?: string;
-  "attributes"?: string;
-  "assignmentStatus"?: TaskStatus;
-  "reason"?: string;
-  "priority"?: number;
-  "taskChannel"?: string;
+  ifMatch?: string;
+  attributes?: string;
+  assignmentStatus?: TaskStatus;
+  reason?: string;
+  priority?: number;
+  taskChannel?: string;
 }
 
 /**
@@ -64,11 +66,11 @@ export interface TaskContextUpdateOptions {
  * @property { string } [attributes] A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\&#39;s &#x60;assignment_callback_url&#x60; when the Task is assigned to a Worker. For example: &#x60;{ \\\&quot;task_type\\\&quot;: \\\&quot;call\\\&quot;, \\\&quot;twilio_call_sid\\\&quot;: \\\&quot;CAxxx\\\&quot;, \\\&quot;customer_ticket_number\\\&quot;: \\\&quot;12345\\\&quot; }&#x60;.
  */
 export interface TaskListInstanceCreateOptions {
-  "timeout"?: number;
-  "priority"?: number;
-  "taskChannel"?: string;
-  "workflowSid"?: string;
-  "attributes"?: string;
+  timeout?: number;
+  priority?: number;
+  taskChannel?: string;
+  workflowSid?: string;
+  attributes?: string;
 }
 /**
  * Options to pass to each
@@ -93,16 +95,16 @@ export interface TaskListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TaskListInstanceEachOptions {
-  "priority"?: number;
-  "assignmentStatus"?: Array<string>;
-  "workflowSid"?: string;
-  "workflowName"?: string;
-  "taskQueueSid"?: string;
-  "taskQueueName"?: string;
-  "evaluateTaskAttributes"?: string;
-  "ordering"?: string;
-  "hasAddons"?: boolean;
-  "pageSize"?: number;
+  priority?: number;
+  assignmentStatus?: Array<string>;
+  workflowSid?: string;
+  workflowName?: string;
+  taskQueueSid?: string;
+  taskQueueName?: string;
+  evaluateTaskAttributes?: string;
+  ordering?: string;
+  hasAddons?: boolean;
+  pageSize?: number;
   callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -127,16 +129,16 @@ export interface TaskListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TaskListInstanceOptions {
-  "priority"?: number;
-  "assignmentStatus"?: Array<string>;
-  "workflowSid"?: string;
-  "workflowName"?: string;
-  "taskQueueSid"?: string;
-  "taskQueueName"?: string;
-  "evaluateTaskAttributes"?: string;
-  "ordering"?: string;
-  "hasAddons"?: boolean;
-  "pageSize"?: number;
+  priority?: number;
+  assignmentStatus?: Array<string>;
+  workflowSid?: string;
+  workflowName?: string;
+  taskQueueSid?: string;
+  taskQueueName?: string;
+  evaluateTaskAttributes?: string;
+  ordering?: string;
+  hasAddons?: boolean;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -157,24 +159,21 @@ export interface TaskListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskListInstancePageOptions {
-  "priority"?: number;
-  "assignmentStatus"?: Array<string>;
-  "workflowSid"?: string;
-  "workflowName"?: string;
-  "taskQueueSid"?: string;
-  "taskQueueName"?: string;
-  "evaluateTaskAttributes"?: string;
-  "ordering"?: string;
-  "hasAddons"?: boolean;
-  "pageSize"?: number;
+  priority?: number;
+  assignmentStatus?: Array<string>;
+  workflowSid?: string;
+  workflowName?: string;
+  taskQueueSid?: string;
+  taskQueueName?: string;
+  evaluateTaskAttributes?: string;
+  ordering?: string;
+  hasAddons?: boolean;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface TaskContext {
-
   reservations: ReservationListInstance;
 
   /**
@@ -184,7 +183,9 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a TaskInstance
    *
@@ -193,9 +194,11 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  remove(params: TaskContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-
+  remove(
+    params: TaskContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a TaskInstance
@@ -204,8 +207,9 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
 
   /**
    * Update a TaskInstance
@@ -214,7 +218,9 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  update(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
   /**
    * Update a TaskInstance
    *
@@ -223,9 +229,11 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  update(params: TaskContextUpdateOptions, callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
-  update(params?: any, callback?: any): Promise<TaskInstance>
-
+  update(
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  update(params?: any, callback?: any): Promise<TaskInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -235,8 +243,8 @@ export interface TaskContext {
 }
 
 export interface TaskContextSolution {
-  "workspaceSid"?: string;
-  "sid"?: string;
+  workspaceSid?: string;
+  sid?: string;
 }
 
 export class TaskContextImpl implements TaskContext {
@@ -251,12 +259,18 @@ export class TaskContextImpl implements TaskContext {
   }
 
   get reservations(): ReservationListInstance {
-    this._reservations = this._reservations || ReservationListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._reservations =
+      this._reservations ||
+      ReservationListInstance(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._reservations;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -265,38 +279,51 @@ export class TaskContextImpl implements TaskContext {
 
     let data: any = {};
 
-    
-    
-
     const headers: any = {};
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete", params: data, headers });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<TaskInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TaskInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<TaskInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -305,33 +332,43 @@ export class TaskContextImpl implements TaskContext {
 
     let data: any = {};
 
-    
-        if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
+    if (params["attributes"] !== undefined)
+      data["Attributes"] = params["attributes"];
     if (params["assignmentStatus"] !== undefined)
-    data["AssignmentStatus"] = params["assignmentStatus"];
-    if (params["reason"] !== undefined)
-    data["Reason"] = params["reason"];
-    if (params["priority"] !== undefined)
-    data["Priority"] = params["priority"];
+      data["AssignmentStatus"] = params["assignmentStatus"];
+    if (params["reason"] !== undefined) data["Reason"] = params["reason"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
     if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
-
+      data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["ifMatch"] !== undefined)
+      headers["If-Match"] = params["ifMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -348,8 +385,7 @@ export class TaskContextImpl implements TaskContext {
   }
 }
 
-interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {
-}
+interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {}
 
 interface TaskResource {
   account_sid?: string | null;
@@ -379,7 +415,12 @@ export class TaskInstance {
   protected _solution: TaskContextSolution;
   protected _context?: TaskContext;
 
-  constructor(protected _version: V1, payload: TaskPayload, workspaceSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: TaskPayload,
+    workspaceSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.age = deserialize.integer(payload.age);
     this.assignmentStatus = payload.assignment_status;
@@ -387,7 +428,9 @@ export class TaskInstance {
     this.addons = payload.addons;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.taskQueueEnteredDate = deserialize.iso8601DateTime(payload.task_queue_entered_date);
+    this.taskQueueEnteredDate = deserialize.iso8601DateTime(
+      payload.task_queue_entered_date
+    );
     this.priority = deserialize.integer(payload.priority);
     this.reason = payload.reason;
     this.sid = payload.sid;
@@ -488,7 +531,13 @@ export class TaskInstance {
   links?: object | null;
 
   private get _proxy(): TaskContext {
-    this._context = this._context || new TaskContextImpl(this._version, this._solution.workspaceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new TaskContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -499,7 +548,9 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
   /**
    * Remove a TaskInstance
    *
@@ -508,9 +559,11 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  remove(params: TaskContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>
-     {
+  remove(
+    params: TaskContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  remove(params?: any, callback?: any): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -521,8 +574,9 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  fetch(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -533,7 +587,9 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  update(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
+  update(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
   /**
    * Update a TaskInstance
    *
@@ -542,9 +598,11 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  update(params: TaskContextUpdateOptions, callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
-  update(params?: any, callback?: any): Promise<TaskInstance>
-     {
+  update(
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  update(params?: any, callback?: any): Promise<TaskInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -562,28 +620,28 @@ export class TaskInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      age: this.age, 
-      assignmentStatus: this.assignmentStatus, 
-      attributes: this.attributes, 
-      addons: this.addons, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      taskQueueEnteredDate: this.taskQueueEnteredDate, 
-      priority: this.priority, 
-      reason: this.reason, 
-      sid: this.sid, 
-      taskQueueSid: this.taskQueueSid, 
-      taskQueueFriendlyName: this.taskQueueFriendlyName, 
-      taskChannelSid: this.taskChannelSid, 
-      taskChannelUniqueName: this.taskChannelUniqueName, 
-      timeout: this.timeout, 
-      workflowSid: this.workflowSid, 
-      workflowFriendlyName: this.workflowFriendlyName, 
-      workspaceSid: this.workspaceSid, 
-      url: this.url, 
-      links: this.links
-    }
+      accountSid: this.accountSid,
+      age: this.age,
+      assignmentStatus: this.assignmentStatus,
+      attributes: this.attributes,
+      addons: this.addons,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      taskQueueEnteredDate: this.taskQueueEnteredDate,
+      priority: this.priority,
+      reason: this.reason,
+      sid: this.sid,
+      taskQueueSid: this.taskQueueSid,
+      taskQueueFriendlyName: this.taskQueueFriendlyName,
+      taskChannelSid: this.taskChannelSid,
+      taskChannelUniqueName: this.taskChannelUniqueName,
+      timeout: this.timeout,
+      workflowSid: this.workflowSid,
+      workflowFriendlyName: this.workflowFriendlyName,
+      workspaceSid: this.workspaceSid,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -591,11 +649,9 @@ export class TaskInstance {
   }
 }
 
-
 export interface TaskListInstance {
   (sid: string): TaskContext;
   get(sid: string): TaskContext;
-
 
   /**
    * Create a TaskInstance
@@ -604,7 +660,9 @@ export interface TaskListInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  create(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
+  create(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
   /**
    * Create a TaskInstance
    *
@@ -613,10 +671,11 @@ export interface TaskListInstance {
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
-  create(params: TaskListInstanceCreateOptions, callback?: (error: Error | null, item?: TaskInstance) => any): Promise<TaskInstance>;
-  create(params?: any, callback?: any): Promise<TaskInstance>
-
-
+  create(
+    params: TaskListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  create(params?: any, callback?: any): Promise<TaskInstance>;
 
   /**
    * Streams TaskInstance records from the API.
@@ -632,7 +691,9 @@ export interface TaskListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TaskInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams TaskInstance records from the API.
    *
@@ -648,7 +709,10 @@ export interface TaskListInstance {
    * @param { TaskListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: TaskListInstanceEachOptions, callback?: (item: TaskInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: TaskListInstanceEachOptions,
+    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TaskInstance records from the API.
@@ -660,7 +724,9 @@ export interface TaskListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
+  getPage(
+    callback?: (error: Error | null, items: TaskPage) => any
+  ): Promise<TaskPage>;
   /**
    * Retrieve a single target page of TaskInstance records from the API.
    *
@@ -672,7 +738,10 @@ export interface TaskListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: TaskPage) => any
+  ): Promise<TaskPage>;
   getPage(params?: any, callback?: any): Promise<TaskPage>;
   /**
    * Lists TaskInstance records from the API as a list.
@@ -682,7 +751,9 @@ export interface TaskListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TaskInstance[]) => any): Promise<TaskInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TaskInstance[]) => any
+  ): Promise<TaskInstance[]>;
   /**
    * Lists TaskInstance records from the API as a list.
    *
@@ -692,7 +763,10 @@ export interface TaskListInstance {
    * @param { TaskListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: TaskListInstanceOptions, callback?: (error: Error | null, items: TaskInstance[]) => any): Promise<TaskInstance[]>;
+  list(
+    params?: TaskListInstanceOptions,
+    callback?: (error: Error | null, items: TaskInstance[]) => any
+  ): Promise<TaskInstance[]>;
   list(params?: any, callback?: any): Promise<TaskInstance[]>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
@@ -704,7 +778,9 @@ export interface TaskListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
+  page(
+    callback?: (error: Error | null, items: TaskPage) => any
+  ): Promise<TaskPage>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
    *
@@ -716,7 +792,10 @@ export interface TaskListInstance {
    * @param { TaskListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: TaskListInstancePageOptions, callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
+  page(
+    params: TaskListInstancePageOptions,
+    callback?: (error: Error | null, items: TaskPage) => any
+  ): Promise<TaskPage>;
   page(params?: any, callback?: any): Promise<TaskPage>;
 
   /**
@@ -735,21 +814,26 @@ class TaskListInstanceImpl implements TaskListInstance {
   _version?: V1;
   _solution?: TaskSolution;
   _uri?: string;
-
 }
 
-export function TaskListInstance(version: V1, workspaceSid: string): TaskListInstance {
+export function TaskListInstance(
+  version: V1,
+  workspaceSid: string
+): TaskListInstance {
   const instance = ((sid) => instance.get(sid)) as TaskListInstanceImpl;
 
   instance.get = function get(sid): TaskContext {
     return new TaskContextImpl(version, workspaceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Tasks`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<TaskInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<TaskInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -759,35 +843,42 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
 
     let data: any = {};
 
-    
-        if (params["timeout"] !== undefined)
-    data["Timeout"] = params["timeout"];
-    if (params["priority"] !== undefined)
-    data["Priority"] = params["priority"];
+    if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
     if (params["taskChannel"] !== undefined)
-    data["TaskChannel"] = params["taskChannel"];
+      data["TaskChannel"] = params["taskChannel"];
     if (params["workflowSid"] !== undefined)
-    data["WorkflowSid"] = params["workflowSid"];
+      data["WorkflowSid"] = params["workflowSid"];
     if (params["attributes"] !== undefined)
-    data["Attributes"] = params["attributes"];
-
+      data["Attributes"] = params["attributes"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskInstance(operationVersion, payload, this._solution.workspaceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TaskInstance(operationVersion, payload, this._solution.workspaceSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<TaskPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<TaskPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -797,93 +888,117 @@ export function TaskListInstance(version: V1, workspaceSid: string): TaskListIns
 
     let data: any = {};
 
-        if (params["priority"] !== undefined)
-    data["Priority"] = params["priority"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
     if (params["assignmentStatus"] !== undefined)
-    data["AssignmentStatus"] = serialize.map(params["assignmentStatus"], (e => (e)));
+      data["AssignmentStatus"] = serialize.map(
+        params["assignmentStatus"],
+        (e) => e
+      );
     if (params["workflowSid"] !== undefined)
-    data["WorkflowSid"] = params["workflowSid"];
+      data["WorkflowSid"] = params["workflowSid"];
     if (params["workflowName"] !== undefined)
-    data["WorkflowName"] = params["workflowName"];
+      data["WorkflowName"] = params["workflowName"];
     if (params["taskQueueSid"] !== undefined)
-    data["TaskQueueSid"] = params["taskQueueSid"];
+      data["TaskQueueSid"] = params["taskQueueSid"];
     if (params["taskQueueName"] !== undefined)
-    data["TaskQueueName"] = params["taskQueueName"];
+      data["TaskQueueName"] = params["taskQueueName"];
     if (params["evaluateTaskAttributes"] !== undefined)
-    data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
-    if (params["ordering"] !== undefined)
-    data["Ordering"] = params["ordering"];
+      data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
+    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["hasAddons"] !== undefined)
-    data["HasAddons"] = serialize.bool(params["hasAddons"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["HasAddons"] = serialize.bool(params["hasAddons"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TaskPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TaskPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<TaskPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new TaskPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TaskPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
-/**
-* Initialize the TaskPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: TaskSolution) {
+export class TaskPage extends Page<
+  V1,
+  TaskPayload,
+  TaskResource,
+  TaskInstance
+> {
+  /**
+   * Initialize the TaskPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: TaskSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TaskInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TaskPayload): TaskInstance {
+  /**
+   * Build an instance of TaskInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TaskPayload): TaskInstance {
     return new TaskInstance(
-    this._version,
-    payload,
-        this._solution.workspaceSid,
+      this._version,
+      payload,
+      this._solution.workspaceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

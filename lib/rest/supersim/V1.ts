@@ -75,12 +75,14 @@ export default class V1 extends Version {
   }
 
   get networkAccessProfiles(): NetworkAccessProfileListInstance {
-    this._networkAccessProfiles = this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
+    this._networkAccessProfiles =
+      this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
     return this._networkAccessProfiles;
   }
 
   get settingsUpdates(): SettingsUpdateListInstance {
-    this._settingsUpdates = this._settingsUpdates || SettingsUpdateListInstance(this);
+    this._settingsUpdates =
+      this._settingsUpdates || SettingsUpdateListInstance(this);
     return this._settingsUpdates;
   }
 
@@ -98,5 +100,4 @@ export default class V1 extends Version {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;
   }
-
 }

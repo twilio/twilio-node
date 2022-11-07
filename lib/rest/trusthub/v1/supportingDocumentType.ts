@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to each
@@ -36,8 +33,11 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface SupportingDocumentTypeListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: SupportingDocumentTypeInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: SupportingDocumentTypeInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -52,7 +52,7 @@ export interface SupportingDocumentTypeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SupportingDocumentTypeListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -64,16 +64,12 @@ export interface SupportingDocumentTypeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SupportingDocumentTypeListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SupportingDocumentTypeContext {
-
-
   /**
    * Fetch a SupportingDocumentTypeInstance
    *
@@ -81,8 +77,12 @@ export interface SupportingDocumentTypeContext {
    *
    * @returns { Promise } Resolves to processed SupportingDocumentTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: SupportingDocumentTypeInstance) => any): Promise<SupportingDocumentTypeInstance>
-
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: SupportingDocumentTypeInstance
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -92,13 +92,14 @@ export interface SupportingDocumentTypeContext {
 }
 
 export interface SupportingDocumentTypeContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
-export class SupportingDocumentTypeContextImpl implements SupportingDocumentTypeContext {
+export class SupportingDocumentTypeContextImpl
+  implements SupportingDocumentTypeContext
+{
   protected _solution: SupportingDocumentTypeContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -106,17 +107,26 @@ export class SupportingDocumentTypeContextImpl implements SupportingDocumentType
   }
 
   fetch(callback?: any): Promise<SupportingDocumentTypeInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SupportingDocumentTypeInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SupportingDocumentTypeInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -133,8 +143,9 @@ export class SupportingDocumentTypeContextImpl implements SupportingDocumentType
   }
 }
 
-interface SupportingDocumentTypePayload extends SupportingDocumentTypeResource, Page.TwilioResponsePayload {
-}
+interface SupportingDocumentTypePayload
+  extends SupportingDocumentTypeResource,
+    Page.TwilioResponsePayload {}
 
 interface SupportingDocumentTypeResource {
   sid?: string | null;
@@ -148,7 +159,11 @@ export class SupportingDocumentTypeInstance {
   protected _solution: SupportingDocumentTypeContextSolution;
   protected _context?: SupportingDocumentTypeContext;
 
-  constructor(protected _version: V1, payload: SupportingDocumentTypePayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SupportingDocumentTypePayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.machineName = payload.machine_name;
@@ -180,7 +195,9 @@ export class SupportingDocumentTypeInstance {
   url?: string | null;
 
   private get _proxy(): SupportingDocumentTypeContext {
-    this._context = this._context || new SupportingDocumentTypeContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new SupportingDocumentTypeContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -191,8 +208,12 @@ export class SupportingDocumentTypeInstance {
    *
    * @returns { Promise } Resolves to processed SupportingDocumentTypeInstance
    */
-  fetch(callback?: (error: Error | null, item?: SupportingDocumentTypeInstance) => any): Promise<SupportingDocumentTypeInstance>
-     {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: SupportingDocumentTypeInstance
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -203,12 +224,12 @@ export class SupportingDocumentTypeInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      machineName: this.machineName, 
-      fields: this.fields, 
-      url: this.url
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      machineName: this.machineName,
+      fields: this.fields,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -216,12 +237,9 @@ export class SupportingDocumentTypeInstance {
   }
 }
 
-
 export interface SupportingDocumentTypeListInstance {
   (sid: string): SupportingDocumentTypeContext;
   get(sid: string): SupportingDocumentTypeContext;
-
-
 
   /**
    * Streams SupportingDocumentTypeInstance records from the API.
@@ -237,7 +255,12 @@ export interface SupportingDocumentTypeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SupportingDocumentTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: SupportingDocumentTypeInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams SupportingDocumentTypeInstance records from the API.
    *
@@ -253,7 +276,13 @@ export interface SupportingDocumentTypeListInstance {
    * @param { SupportingDocumentTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SupportingDocumentTypeListInstanceEachOptions, callback?: (item: SupportingDocumentTypeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SupportingDocumentTypeListInstanceEachOptions,
+    callback?: (
+      item: SupportingDocumentTypeInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SupportingDocumentTypeInstance records from the API.
@@ -265,7 +294,9 @@ export interface SupportingDocumentTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SupportingDocumentTypePage) => any): Promise<SupportingDocumentTypePage>;
+  getPage(
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+  ): Promise<SupportingDocumentTypePage>;
   /**
    * Retrieve a single target page of SupportingDocumentTypeInstance records from the API.
    *
@@ -277,7 +308,10 @@ export interface SupportingDocumentTypeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SupportingDocumentTypePage) => any): Promise<SupportingDocumentTypePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+  ): Promise<SupportingDocumentTypePage>;
   getPage(params?: any, callback?: any): Promise<SupportingDocumentTypePage>;
   /**
    * Lists SupportingDocumentTypeInstance records from the API as a list.
@@ -287,7 +321,12 @@ export interface SupportingDocumentTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SupportingDocumentTypeInstance[]) => any): Promise<SupportingDocumentTypeInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: SupportingDocumentTypeInstance[]
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance[]>;
   /**
    * Lists SupportingDocumentTypeInstance records from the API as a list.
    *
@@ -297,7 +336,13 @@ export interface SupportingDocumentTypeListInstance {
    * @param { SupportingDocumentTypeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SupportingDocumentTypeListInstanceOptions, callback?: (error: Error | null, items: SupportingDocumentTypeInstance[]) => any): Promise<SupportingDocumentTypeInstance[]>;
+  list(
+    params?: SupportingDocumentTypeListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: SupportingDocumentTypeInstance[]
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance[]>;
   list(params?: any, callback?: any): Promise<SupportingDocumentTypeInstance[]>;
   /**
    * Retrieve a single page of SupportingDocumentTypeInstance records from the API.
@@ -309,7 +354,9 @@ export interface SupportingDocumentTypeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SupportingDocumentTypePage) => any): Promise<SupportingDocumentTypePage>;
+  page(
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+  ): Promise<SupportingDocumentTypePage>;
   /**
    * Retrieve a single page of SupportingDocumentTypeInstance records from the API.
    *
@@ -321,7 +368,10 @@ export interface SupportingDocumentTypeListInstance {
    * @param { SupportingDocumentTypeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SupportingDocumentTypeListInstancePageOptions, callback?: (error: Error | null, items: SupportingDocumentTypePage) => any): Promise<SupportingDocumentTypePage>;
+  page(
+    params: SupportingDocumentTypeListInstancePageOptions,
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+  ): Promise<SupportingDocumentTypePage>;
   page(params?: any, callback?: any): Promise<SupportingDocumentTypePage>;
 
   /**
@@ -331,29 +381,36 @@ export interface SupportingDocumentTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SupportingDocumentTypeSolution {
-}
+export interface SupportingDocumentTypeSolution {}
 
-interface SupportingDocumentTypeListInstanceImpl extends SupportingDocumentTypeListInstance {}
-class SupportingDocumentTypeListInstanceImpl implements SupportingDocumentTypeListInstance {
+interface SupportingDocumentTypeListInstanceImpl
+  extends SupportingDocumentTypeListInstance {}
+class SupportingDocumentTypeListInstanceImpl
+  implements SupportingDocumentTypeListInstance
+{
   _version?: V1;
   _solution?: SupportingDocumentTypeSolution;
   _uri?: string;
-
 }
 
-export function SupportingDocumentTypeListInstance(version: V1): SupportingDocumentTypeListInstance {
-  const instance = ((sid) => instance.get(sid)) as SupportingDocumentTypeListInstanceImpl;
+export function SupportingDocumentTypeListInstance(
+  version: V1
+): SupportingDocumentTypeListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as SupportingDocumentTypeListInstanceImpl;
 
   instance.get = function get(sid): SupportingDocumentTypeContext {
     return new SupportingDocumentTypeContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/SupportingDocumentTypes`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<SupportingDocumentTypePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SupportingDocumentTypePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -363,74 +420,106 @@ export function SupportingDocumentTypeListInstance(version: V1): SupportingDocum
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SupportingDocumentTypePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SupportingDocumentTypePage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SupportingDocumentTypePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SupportingDocumentTypePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SupportingDocumentTypePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SupportingDocumentTypePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SupportingDocumentTypePage extends Page<V1, SupportingDocumentTypePayload, SupportingDocumentTypeResource, SupportingDocumentTypeInstance> {
-/**
-* Initialize the SupportingDocumentTypePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SupportingDocumentTypeSolution) {
+export class SupportingDocumentTypePage extends Page<
+  V1,
+  SupportingDocumentTypePayload,
+  SupportingDocumentTypeResource,
+  SupportingDocumentTypeInstance
+> {
+  /**
+   * Initialize the SupportingDocumentTypePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: SupportingDocumentTypeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SupportingDocumentTypeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SupportingDocumentTypePayload): SupportingDocumentTypeInstance {
-    return new SupportingDocumentTypeInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of SupportingDocumentTypeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: SupportingDocumentTypePayload
+  ): SupportingDocumentTypeInstance {
+    return new SupportingDocumentTypeInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

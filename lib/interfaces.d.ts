@@ -1,4 +1,4 @@
-export type HttpMethod = 'get'|'post'|'put'|'patch'|'delete';
+export type HttpMethod = "get" | "post" | "put" | "patch" | "delete";
 
 export type Url = string;
 
@@ -9,7 +9,7 @@ export type PhoneNumberCapabilities = {
   sms: boolean;
   voice: boolean;
   fax: boolean;
-}
+};
 
 export type Sid = string;
 

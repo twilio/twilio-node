@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -20,8 +19,6 @@ const serialize = require("../../../../base/serialize");
 
 import { NotificationListInstance } from "./configuration/notification";
 import { WebhookListInstance } from "./configuration/webhook";
-
-
 
 /**
  * Options to pass to update a ConfigurationInstance
@@ -32,15 +29,13 @@ import { WebhookListInstance } from "./configuration/webhook";
  * @property { boolean } [reachabilityEnabled] Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;.
  */
 export interface ConfigurationContextUpdateOptions {
-  "defaultConversationCreatorRoleSid"?: string;
-  "defaultConversationRoleSid"?: string;
-  "defaultChatServiceRoleSid"?: string;
-  "reachabilityEnabled"?: boolean;
+  defaultConversationCreatorRoleSid?: string;
+  defaultConversationRoleSid?: string;
+  defaultChatServiceRoleSid?: string;
+  reachabilityEnabled?: boolean;
 }
 
 export interface ConfigurationContext {
-
-
   /**
    * Fetch a ConfigurationInstance
    *
@@ -48,8 +43,9 @@ export interface ConfigurationContext {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
 
   /**
    * Update a ConfigurationInstance
@@ -58,7 +54,9 @@ export interface ConfigurationContext {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -67,9 +65,11 @@ export interface ConfigurationContext {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance>
-
+  update(
+    params: ConfigurationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,13 +79,12 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  "chatServiceSid"?: string;
+  chatServiceSid?: string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, chatServiceSid: string) {
     this._solution = { chatServiceSid };
@@ -93,21 +92,30 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 
   fetch(callback?: any): Promise<ConfigurationInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConfigurationInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ConfigurationInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,30 +124,43 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     let data: any = {};
 
-    
-        if (params["defaultConversationCreatorRoleSid"] !== undefined)
-    data["DefaultConversationCreatorRoleSid"] = params["defaultConversationCreatorRoleSid"];
+    if (params["defaultConversationCreatorRoleSid"] !== undefined)
+      data["DefaultConversationCreatorRoleSid"] =
+        params["defaultConversationCreatorRoleSid"];
     if (params["defaultConversationRoleSid"] !== undefined)
-    data["DefaultConversationRoleSid"] = params["defaultConversationRoleSid"];
+      data["DefaultConversationRoleSid"] = params["defaultConversationRoleSid"];
     if (params["defaultChatServiceRoleSid"] !== undefined)
-    data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
+      data["DefaultChatServiceRoleSid"] = params["defaultChatServiceRoleSid"];
     if (params["reachabilityEnabled"] !== undefined)
-    data["ReachabilityEnabled"] = serialize.bool(params["reachabilityEnabled"]);
-
+      data["ReachabilityEnabled"] = serialize.bool(
+        params["reachabilityEnabled"]
+      );
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConfigurationInstance(
+          operationVersion,
+          payload,
+          this._solution.chatServiceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -156,8 +177,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 }
 
-interface ConfigurationPayload extends ConfigurationResource{
-}
+interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
   chat_service_sid?: string | null;
@@ -173,9 +193,14 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V1, payload: ConfigurationPayload, chatServiceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ConfigurationPayload,
+    chatServiceSid?: string
+  ) {
     this.chatServiceSid = payload.chat_service_sid;
-    this.defaultConversationCreatorRoleSid = payload.default_conversation_creator_role_sid;
+    this.defaultConversationCreatorRoleSid =
+      payload.default_conversation_creator_role_sid;
     this.defaultConversationRoleSid = payload.default_conversation_role_sid;
     this.defaultChatServiceRoleSid = payload.default_chat_service_role_sid;
     this.url = payload.url;
@@ -215,7 +240,12 @@ export class ConfigurationInstance {
   reachabilityEnabled?: boolean | null;
 
   private get _proxy(): ConfigurationContext {
-    this._context = this._context || new ConfigurationContextImpl(this._version, this._solution.chatServiceSid);
+    this._context =
+      this._context ||
+      new ConfigurationContextImpl(
+        this._version,
+        this._solution.chatServiceSid
+      );
     return this._context;
   }
 
@@ -226,8 +256,9 @@ export class ConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -238,7 +269,9 @@ export class ConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -247,9 +280,11 @@ export class ConfigurationInstance {
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  update(params: ConfigurationContextUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance>
-     {
+  update(
+    params: ConfigurationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -260,21 +295,20 @@ export class ConfigurationInstance {
    */
   toJSON() {
     return {
-      chatServiceSid: this.chatServiceSid, 
-      defaultConversationCreatorRoleSid: this.defaultConversationCreatorRoleSid, 
-      defaultConversationRoleSid: this.defaultConversationRoleSid, 
-      defaultChatServiceRoleSid: this.defaultChatServiceRoleSid, 
-      url: this.url, 
-      links: this.links, 
-      reachabilityEnabled: this.reachabilityEnabled
-    }
+      chatServiceSid: this.chatServiceSid,
+      defaultConversationCreatorRoleSid: this.defaultConversationCreatorRoleSid,
+      defaultConversationRoleSid: this.defaultConversationRoleSid,
+      defaultChatServiceRoleSid: this.defaultChatServiceRoleSid,
+      url: this.url,
+      links: this.links,
+      reachabilityEnabled: this.reachabilityEnabled,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
 
 export interface ConfigurationListInstance {
   (): ConfigurationContext;
@@ -304,12 +338,15 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _webhooks?: WebhookListInstance;
 }
 
-export function ConfigurationListInstance(version: V1, chatServiceSid: string): ConfigurationListInstance {
+export function ConfigurationListInstance(
+  version: V1,
+  chatServiceSid: string
+): ConfigurationListInstance {
   const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version, chatServiceSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { chatServiceSid };
@@ -318,31 +355,37 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
   Object.defineProperty(instance, "notifications", {
     get: function notifications() {
       if (!this._notifications) {
-        this._notifications = NotificationListInstance(this._version, this._solution.chatServiceSid);
+        this._notifications = NotificationListInstance(
+          this._version,
+          this._solution.chatServiceSid
+        );
       }
       return this._notifications;
-    }
+    },
   });
 
   Object.defineProperty(instance, "webhooks", {
     get: function webhooks() {
       if (!this._webhooks) {
-        this._webhooks = WebhookListInstance(this._version, this._solution.chatServiceSid);
+        this._webhooks = WebhookListInstance(
+          this._version,
+          this._solution.chatServiceSid
+        );
       }
       return this._webhooks;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

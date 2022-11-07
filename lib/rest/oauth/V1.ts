@@ -45,7 +45,8 @@ export default class V1 extends Version {
   }
 
   get openidDiscovery(): OpenidDiscoveryListInstance {
-    this._openidDiscovery = this._openidDiscovery || OpenidDiscoveryListInstance(this);
+    this._openidDiscovery =
+      this._openidDiscovery || OpenidDiscoveryListInstance(this);
     return this._openidDiscovery;
   }
 
@@ -58,5 +59,4 @@ export default class V1 extends Version {
     this._userInfo = this._userInfo || UserInfoListInstance(this);
     return this._userInfo;
   }
-
 }

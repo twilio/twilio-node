@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-
-
-
 export interface EngagementContextContext {
-
-
   /**
    * Fetch a EngagementContextInstance
    *
@@ -31,8 +25,9 @@ export interface EngagementContextContext {
    *
    * @returns { Promise } Resolves to processed EngagementContextInstance
    */
-  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+  ): Promise<EngagementContextInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -42,14 +37,13 @@ export interface EngagementContextContext {
 }
 
 export interface EngagementContextContextSolution {
-  "flowSid"?: string;
-  "engagementSid"?: string;
+  flowSid?: string;
+  engagementSid?: string;
 }
 
 export class EngagementContextContextImpl implements EngagementContextContext {
   protected _solution: EngagementContextContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, flowSid: string, engagementSid: string) {
     this._solution = { flowSid, engagementSid };
@@ -57,17 +51,27 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   }
 
   fetch(callback?: any): Promise<EngagementContextInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new EngagementContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new EngagementContextInstance(
+          operationVersion,
+          payload,
+          this._solution.flowSid,
+          this._solution.engagementSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -84,8 +88,7 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   }
 }
 
-interface EngagementContextPayload extends EngagementContextResource{
-}
+interface EngagementContextPayload extends EngagementContextResource {}
 
 interface EngagementContextResource {
   account_sid?: string | null;
@@ -99,14 +102,22 @@ export class EngagementContextInstance {
   protected _solution: EngagementContextContextSolution;
   protected _context?: EngagementContextContext;
 
-  constructor(protected _version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: EngagementContextPayload,
+    flowSid: string,
+    engagementSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
     this.engagementSid = payload.engagement_sid;
     this.flowSid = payload.flow_sid;
     this.url = payload.url;
 
-    this._solution = { flowSid, engagementSid: engagementSid || this.engagementSid };
+    this._solution = {
+      flowSid,
+      engagementSid: engagementSid || this.engagementSid,
+    };
   }
 
   /**
@@ -131,7 +142,13 @@ export class EngagementContextInstance {
   url?: string | null;
 
   private get _proxy(): EngagementContextContext {
-    this._context = this._context || new EngagementContextContextImpl(this._version, this._solution.flowSid, this._solution.engagementSid);
+    this._context =
+      this._context ||
+      new EngagementContextContextImpl(
+        this._version,
+        this._solution.flowSid,
+        this._solution.engagementSid
+      );
     return this._context;
   }
 
@@ -142,8 +159,9 @@ export class EngagementContextInstance {
    *
    * @returns { Promise } Resolves to processed EngagementContextInstance
    */
-  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+  ): Promise<EngagementContextInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -154,12 +172,12 @@ export class EngagementContextInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      context: this.context, 
-      engagementSid: this.engagementSid, 
-      flowSid: this.flowSid, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      context: this.context,
+      engagementSid: this.engagementSid,
+      flowSid: this.flowSid,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -167,11 +185,9 @@ export class EngagementContextInstance {
   }
 }
 
-
 export interface EngagementContextListInstance {
   (): EngagementContextContext;
   get(): EngagementContextContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -185,20 +201,26 @@ export interface EngagementContextSolution {
   engagementSid?: string;
 }
 
-interface EngagementContextListInstanceImpl extends EngagementContextListInstance {}
-class EngagementContextListInstanceImpl implements EngagementContextListInstance {
+interface EngagementContextListInstanceImpl
+  extends EngagementContextListInstance {}
+class EngagementContextListInstanceImpl
+  implements EngagementContextListInstance
+{
   _version?: V1;
   _solution?: EngagementContextSolution;
   _uri?: string;
-
 }
 
-export function EngagementContextListInstance(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance {
+export function EngagementContextListInstance(
+  version: V1,
+  flowSid: string,
+  engagementSid: string
+): EngagementContextListInstance {
   const instance = (() => instance.get()) as EngagementContextListInstanceImpl;
 
   instance.get = function get(): EngagementContextContext {
     return new EngagementContextContextImpl(version, flowSid, engagementSid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { flowSid, engagementSid };
@@ -206,14 +228,14 @@ export function EngagementContextListInstance(version: V1, flowSid: string, enga
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

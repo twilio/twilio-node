@@ -12,35 +12,29 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-type UserStateType = 'active'|'deactivated';
-
+type UserStateType = "active" | "deactivated";
 
 /**
  * Options to pass to update a UserInstance
  *
  * @property { string } [friendlyName] The string that you assigned to describe the User.
  * @property { string } [avatar] The avatar URL which will be shown in Frontline application.
- * @property { UserStateType } [state] 
+ * @property { UserStateType } [state]
  * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserContextUpdateOptions {
-  "friendlyName"?: string;
-  "avatar"?: string;
-  "state"?: UserStateType;
-  "isAvailable"?: boolean;
+  friendlyName?: string;
+  avatar?: string;
+  state?: UserStateType;
+  isAvailable?: boolean;
 }
 
 export interface UserContext {
-
-
   /**
    * Fetch a UserInstance
    *
@@ -48,8 +42,9 @@ export interface UserContext {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
 
   /**
    * Update a UserInstance
@@ -58,7 +53,9 @@ export interface UserContext {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  update(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *
@@ -67,9 +64,11 @@ export interface UserContext {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>
-
+  update(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  update(params?: any, callback?: any): Promise<UserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,13 +78,12 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class UserContextImpl implements UserContext {
   protected _solution: UserContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -93,21 +91,26 @@ export class UserContextImpl implements UserContext {
   }
 
   fetch(callback?: any): Promise<UserInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<UserInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,30 +119,34 @@ export class UserContextImpl implements UserContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["avatar"] !== undefined)
-    data["Avatar"] = params["avatar"];
-    if (params["state"] !== undefined)
-    data["State"] = params["state"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["avatar"] !== undefined) data["Avatar"] = params["avatar"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["isAvailable"] !== undefined)
-    data["IsAvailable"] = serialize.bool(params["isAvailable"]);
-
+      data["IsAvailable"] = serialize.bool(params["isAvailable"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -156,8 +163,7 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-interface UserPayload extends UserResource{
-}
+interface UserPayload extends UserResource {}
 
 interface UserResource {
   sid?: string | null;
@@ -212,7 +218,8 @@ export class UserInstance {
   url?: string | null;
 
   private get _proxy(): UserContext {
-    this._context = this._context || new UserContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new UserContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -223,8 +230,9 @@ export class UserInstance {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  fetch(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -235,7 +243,9 @@ export class UserInstance {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  update(callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *
@@ -244,9 +254,11 @@ export class UserInstance {
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
-  update(params: UserContextUpdateOptions, callback?: (error: Error | null, item?: UserInstance) => any): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>
-     {
+  update(
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  update(params?: any, callback?: any): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -257,14 +269,14 @@ export class UserInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      identity: this.identity, 
-      friendlyName: this.friendlyName, 
-      avatar: this.avatar, 
-      state: this.state, 
-      isAvailable: this.isAvailable, 
-      url: this.url
-    }
+      sid: this.sid,
+      identity: this.identity,
+      friendlyName: this.friendlyName,
+      avatar: this.avatar,
+      state: this.state,
+      isAvailable: this.isAvailable,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -272,11 +284,9 @@ export class UserInstance {
   }
 }
 
-
 export interface UserListInstance {
   (sid: string): UserContext;
   get(sid: string): UserContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -285,15 +295,13 @@ export interface UserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserSolution {
-}
+export interface UserSolution {}
 
 interface UserListInstanceImpl extends UserListInstance {}
 class UserListInstanceImpl implements UserListInstance {
   _version?: V1;
   _solution?: UserSolution;
   _uri?: string;
-
 }
 
 export function UserListInstance(version: V1): UserListInstance {
@@ -301,22 +309,22 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance.get = function get(sid): UserContext {
     return new UserContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,16 +19,13 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to create a TrustProductsEntityAssignmentsInstance
  *
  * @property { string } objectSid The SID of an object bag that holds information of the different items.
  */
 export interface TrustProductsEntityAssignmentsListInstanceCreateOptions {
-  "objectSid": string;
+  objectSid: string;
 }
 /**
  * Options to pass to each
@@ -45,8 +41,11 @@ export interface TrustProductsEntityAssignmentsListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TrustProductsEntityAssignmentsListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: TrustProductsEntityAssignmentsInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: TrustProductsEntityAssignmentsInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -61,7 +60,7 @@ export interface TrustProductsEntityAssignmentsListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TrustProductsEntityAssignmentsListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -73,16 +72,12 @@ export interface TrustProductsEntityAssignmentsListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsEntityAssignmentsListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface TrustProductsEntityAssignmentsContext {
-
-
   /**
    * Remove a TrustProductsEntityAssignmentsInstance
    *
@@ -90,8 +85,9 @@ export interface TrustProductsEntityAssignmentsContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a TrustProductsEntityAssignmentsInstance
@@ -100,8 +96,12 @@ export interface TrustProductsEntityAssignmentsContext {
    *
    * @returns { Promise } Resolves to processed TrustProductsEntityAssignmentsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrustProductsEntityAssignmentsInstance) => any): Promise<TrustProductsEntityAssignmentsInstance>
-
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsInstance
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -111,14 +111,15 @@ export interface TrustProductsEntityAssignmentsContext {
 }
 
 export interface TrustProductsEntityAssignmentsContextSolution {
-  "trustProductSid"?: string;
-  "sid"?: string;
+  trustProductSid?: string;
+  sid?: string;
 }
 
-export class TrustProductsEntityAssignmentsContextImpl implements TrustProductsEntityAssignmentsContext {
+export class TrustProductsEntityAssignmentsContextImpl
+  implements TrustProductsEntityAssignmentsContext
+{
   protected _solution: TrustProductsEntityAssignmentsContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, trustProductSid: string, sid: string) {
     this._solution = { trustProductSid, sid };
@@ -126,29 +127,41 @@ export class TrustProductsEntityAssignmentsContextImpl implements TrustProductsE
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<TrustProductsEntityAssignmentsInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new TrustProductsEntityAssignmentsInstance(operationVersion, payload, this._solution.trustProductSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsEntityAssignmentsInstance(
+          operationVersion,
+          payload,
+          this._solution.trustProductSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -165,8 +178,9 @@ export class TrustProductsEntityAssignmentsContextImpl implements TrustProductsE
   }
 }
 
-interface TrustProductsEntityAssignmentsPayload extends TrustProductsEntityAssignmentsResource, Page.TwilioResponsePayload {
-}
+interface TrustProductsEntityAssignmentsPayload
+  extends TrustProductsEntityAssignmentsResource,
+    Page.TwilioResponsePayload {}
 
 interface TrustProductsEntityAssignmentsResource {
   sid?: string | null;
@@ -181,7 +195,12 @@ export class TrustProductsEntityAssignmentsInstance {
   protected _solution: TrustProductsEntityAssignmentsContextSolution;
   protected _context?: TrustProductsEntityAssignmentsContext;
 
-  constructor(protected _version: V1, payload: TrustProductsEntityAssignmentsPayload, trustProductSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: TrustProductsEntityAssignmentsPayload,
+    trustProductSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.trustProductSid = payload.trust_product_sid;
     this.accountSid = payload.account_sid;
@@ -218,7 +237,13 @@ export class TrustProductsEntityAssignmentsInstance {
   url?: string | null;
 
   private get _proxy(): TrustProductsEntityAssignmentsContext {
-    this._context = this._context || new TrustProductsEntityAssignmentsContextImpl(this._version, this._solution.trustProductSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new TrustProductsEntityAssignmentsContextImpl(
+        this._version,
+        this._solution.trustProductSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -229,8 +254,9 @@ export class TrustProductsEntityAssignmentsInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -241,8 +267,12 @@ export class TrustProductsEntityAssignmentsInstance {
    *
    * @returns { Promise } Resolves to processed TrustProductsEntityAssignmentsInstance
    */
-  fetch(callback?: (error: Error | null, item?: TrustProductsEntityAssignmentsInstance) => any): Promise<TrustProductsEntityAssignmentsInstance>
-     {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsInstance
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -253,13 +283,13 @@ export class TrustProductsEntityAssignmentsInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      trustProductSid: this.trustProductSid, 
-      accountSid: this.accountSid, 
-      objectSid: this.objectSid, 
-      dateCreated: this.dateCreated, 
-      url: this.url
-    }
+      sid: this.sid,
+      trustProductSid: this.trustProductSid,
+      accountSid: this.accountSid,
+      objectSid: this.objectSid,
+      dateCreated: this.dateCreated,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -267,11 +297,9 @@ export class TrustProductsEntityAssignmentsInstance {
   }
 }
 
-
 export interface TrustProductsEntityAssignmentsListInstance {
   (sid: string): TrustProductsEntityAssignmentsContext;
   get(sid: string): TrustProductsEntityAssignmentsContext;
-
 
   /**
    * Create a TrustProductsEntityAssignmentsInstance
@@ -281,10 +309,17 @@ export interface TrustProductsEntityAssignmentsListInstance {
    *
    * @returns { Promise } Resolves to processed TrustProductsEntityAssignmentsInstance
    */
-  create(params: TrustProductsEntityAssignmentsListInstanceCreateOptions, callback?: (error: Error | null, item?: TrustProductsEntityAssignmentsInstance) => any): Promise<TrustProductsEntityAssignmentsInstance>;
-  create(params: any, callback?: any): Promise<TrustProductsEntityAssignmentsInstance>
-
-
+  create(
+    params: TrustProductsEntityAssignmentsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsInstance
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance>;
+  create(
+    params: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsInstance>;
 
   /**
    * Streams TrustProductsEntityAssignmentsInstance records from the API.
@@ -300,7 +335,12 @@ export interface TrustProductsEntityAssignmentsListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TrustProductsEntityAssignmentsInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: TrustProductsEntityAssignmentsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -316,7 +356,13 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { TrustProductsEntityAssignmentsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: TrustProductsEntityAssignmentsListInstanceEachOptions, callback?: (item: TrustProductsEntityAssignmentsInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: TrustProductsEntityAssignmentsListInstanceEachOptions,
+    callback?: (
+      item: TrustProductsEntityAssignmentsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TrustProductsEntityAssignmentsInstance records from the API.
@@ -328,7 +374,12 @@ export interface TrustProductsEntityAssignmentsListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: TrustProductsEntityAssignmentsPage) => any): Promise<TrustProductsEntityAssignmentsPage>;
+  getPage(
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
   /**
    * Retrieve a single target page of TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -340,8 +391,17 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TrustProductsEntityAssignmentsPage) => any): Promise<TrustProductsEntityAssignmentsPage>;
-  getPage(params?: any, callback?: any): Promise<TrustProductsEntityAssignmentsPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
+  getPage(
+    params?: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
   /**
    * Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
    *
@@ -350,7 +410,12 @@ export interface TrustProductsEntityAssignmentsListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TrustProductsEntityAssignmentsInstance[]) => any): Promise<TrustProductsEntityAssignmentsInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsInstance[]
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
   /**
    * Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
    *
@@ -360,8 +425,17 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { TrustProductsEntityAssignmentsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: TrustProductsEntityAssignmentsListInstanceOptions, callback?: (error: Error | null, items: TrustProductsEntityAssignmentsInstance[]) => any): Promise<TrustProductsEntityAssignmentsInstance[]>;
-  list(params?: any, callback?: any): Promise<TrustProductsEntityAssignmentsInstance[]>;
+  list(
+    params?: TrustProductsEntityAssignmentsListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsInstance[]
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
+  list(
+    params?: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
   /**
    * Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -372,7 +446,12 @@ export interface TrustProductsEntityAssignmentsListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TrustProductsEntityAssignmentsPage) => any): Promise<TrustProductsEntityAssignmentsPage>;
+  page(
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
   /**
    * Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -384,8 +463,17 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { TrustProductsEntityAssignmentsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: TrustProductsEntityAssignmentsListInstancePageOptions, callback?: (error: Error | null, items: TrustProductsEntityAssignmentsPage) => any): Promise<TrustProductsEntityAssignmentsPage>;
-  page(params?: any, callback?: any): Promise<TrustProductsEntityAssignmentsPage>;
+  page(
+    params: TrustProductsEntityAssignmentsListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
+  page(
+    params?: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -398,57 +486,82 @@ export interface TrustProductsEntityAssignmentsSolution {
   trustProductSid?: string;
 }
 
-interface TrustProductsEntityAssignmentsListInstanceImpl extends TrustProductsEntityAssignmentsListInstance {}
-class TrustProductsEntityAssignmentsListInstanceImpl implements TrustProductsEntityAssignmentsListInstance {
+interface TrustProductsEntityAssignmentsListInstanceImpl
+  extends TrustProductsEntityAssignmentsListInstance {}
+class TrustProductsEntityAssignmentsListInstanceImpl
+  implements TrustProductsEntityAssignmentsListInstance
+{
   _version?: V1;
   _solution?: TrustProductsEntityAssignmentsSolution;
   _uri?: string;
-
 }
 
-export function TrustProductsEntityAssignmentsListInstance(version: V1, trustProductSid: string): TrustProductsEntityAssignmentsListInstance {
-  const instance = ((sid) => instance.get(sid)) as TrustProductsEntityAssignmentsListInstanceImpl;
+export function TrustProductsEntityAssignmentsListInstance(
+  version: V1,
+  trustProductSid: string
+): TrustProductsEntityAssignmentsListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as TrustProductsEntityAssignmentsListInstanceImpl;
 
   instance.get = function get(sid): TrustProductsEntityAssignmentsContext {
-    return new TrustProductsEntityAssignmentsContextImpl(version, trustProductSid, sid);
-  }
+    return new TrustProductsEntityAssignmentsContextImpl(
+      version,
+      trustProductSid,
+      sid
+    );
+  };
 
   instance._version = version;
   instance._solution = { trustProductSid };
   instance._uri = `/TrustProducts/${trustProductSid}/EntityAssignments`;
 
-  instance.create = function create(params: any, callback?: any): Promise<TrustProductsEntityAssignmentsInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["objectSid"] === null || params["objectSid"] === undefined) {
-      throw new Error('Required parameter "params[\'objectSid\']" missing.');
+      throw new Error("Required parameter \"params['objectSid']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["ObjectSid"] = params["objectSid"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TrustProductsEntityAssignmentsInstance(operationVersion, payload, this._solution.trustProductSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsEntityAssignmentsInstance(
+          operationVersion,
+          payload,
+          this._solution.trustProductSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<TrustProductsEntityAssignmentsPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -458,75 +571,114 @@ export function TrustProductsEntityAssignmentsListInstance(version: V1, trustPro
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TrustProductsEntityAssignmentsPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsEntityAssignmentsPage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TrustProductsEntityAssignmentsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<TrustProductsEntityAssignmentsPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new TrustProductsEntityAssignmentsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsEntityAssignmentsPage(
+          this._version,
+          payload,
+          this._solution
+        )
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class TrustProductsEntityAssignmentsPage extends Page<V1, TrustProductsEntityAssignmentsPayload, TrustProductsEntityAssignmentsResource, TrustProductsEntityAssignmentsInstance> {
-/**
-* Initialize the TrustProductsEntityAssignmentsPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: TrustProductsEntityAssignmentsSolution) {
+export class TrustProductsEntityAssignmentsPage extends Page<
+  V1,
+  TrustProductsEntityAssignmentsPayload,
+  TrustProductsEntityAssignmentsResource,
+  TrustProductsEntityAssignmentsInstance
+> {
+  /**
+   * Initialize the TrustProductsEntityAssignmentsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: TrustProductsEntityAssignmentsSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TrustProductsEntityAssignmentsInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TrustProductsEntityAssignmentsPayload): TrustProductsEntityAssignmentsInstance {
+  /**
+   * Build an instance of TrustProductsEntityAssignmentsInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: TrustProductsEntityAssignmentsPayload
+  ): TrustProductsEntityAssignmentsInstance {
     return new TrustProductsEntityAssignmentsInstance(
-    this._version,
-    payload,
-        this._solution.trustProductSid,
+      this._version,
+      payload,
+      this._solution.trustProductSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

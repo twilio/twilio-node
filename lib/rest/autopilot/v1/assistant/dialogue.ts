@@ -12,18 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-
 export interface DialogueContext {
-
-
   /**
    * Fetch a DialogueInstance
    *
@@ -31,8 +25,9 @@ export interface DialogueContext {
    *
    * @returns { Promise } Resolves to processed DialogueInstance
    */
-  fetch(callback?: (error: Error | null, item?: DialogueInstance) => any): Promise<DialogueInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: DialogueInstance) => any
+  ): Promise<DialogueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -42,14 +37,13 @@ export interface DialogueContext {
 }
 
 export interface DialogueContextSolution {
-  "assistantSid"?: string;
-  "sid"?: string;
+  assistantSid?: string;
+  sid?: string;
 }
 
 export class DialogueContextImpl implements DialogueContext {
   protected _solution: DialogueContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, assistantSid: string, sid: string) {
     this._solution = { assistantSid, sid };
@@ -57,17 +51,27 @@ export class DialogueContextImpl implements DialogueContext {
   }
 
   fetch(callback?: any): Promise<DialogueInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new DialogueInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DialogueInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -84,8 +88,7 @@ export class DialogueContextImpl implements DialogueContext {
   }
 }
 
-interface DialoguePayload extends DialogueResource{
-}
+interface DialoguePayload extends DialogueResource {}
 
 interface DialogueResource {
   account_sid?: string | null;
@@ -99,7 +102,12 @@ export class DialogueInstance {
   protected _solution: DialogueContextSolution;
   protected _context?: DialogueContext;
 
-  constructor(protected _version: V1, payload: DialoguePayload, assistantSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: DialoguePayload,
+    assistantSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.sid = payload.sid;
@@ -131,7 +139,13 @@ export class DialogueInstance {
   url?: string | null;
 
   private get _proxy(): DialogueContext {
-    this._context = this._context || new DialogueContextImpl(this._version, this._solution.assistantSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new DialogueContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -142,8 +156,9 @@ export class DialogueInstance {
    *
    * @returns { Promise } Resolves to processed DialogueInstance
    */
-  fetch(callback?: (error: Error | null, item?: DialogueInstance) => any): Promise<DialogueInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: DialogueInstance) => any
+  ): Promise<DialogueInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -154,12 +169,12 @@ export class DialogueInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      assistantSid: this.assistantSid, 
-      sid: this.sid, 
-      data: this.data, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      assistantSid: this.assistantSid,
+      sid: this.sid,
+      data: this.data,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -167,11 +182,9 @@ export class DialogueInstance {
   }
 }
 
-
 export interface DialogueListInstance {
   (sid: string): DialogueContext;
   get(sid: string): DialogueContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -189,15 +202,17 @@ class DialogueListInstanceImpl implements DialogueListInstance {
   _version?: V1;
   _solution?: DialogueSolution;
   _uri?: string;
-
 }
 
-export function DialogueListInstance(version: V1, assistantSid: string): DialogueListInstance {
+export function DialogueListInstance(
+  version: V1,
+  assistantSid: string
+): DialogueListInstance {
   const instance = ((sid) => instance.get(sid)) as DialogueListInstanceImpl;
 
   instance.get = function get(sid): DialogueContext {
     return new DialogueContextImpl(version, assistantSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid };
@@ -205,14 +220,14 @@ export function DialogueListInstance(version: V1, assistantSid: string): Dialogu
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

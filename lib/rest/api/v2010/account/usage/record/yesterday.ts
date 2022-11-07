@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
-
 
 export class ApiV2010AccountUsageUsageRecordUsageRecordYesterday {
   /**
@@ -81,8 +79,252 @@ export class ApiV2010AccountUsageUsageRecordUsageRecordYesterday {
   "usageUnit"?: string | null;
 }
 
-
-type UsageRecordYesterdayCategory = 'a2p-registration-fees'|'agent-conference'|'amazon-polly'|'answering-machine-detection'|'authy-authentications'|'authy-calls-outbound'|'authy-monthly-fees'|'authy-phone-intelligence'|'authy-phone-verifications'|'authy-sms-outbound'|'call-progess-events'|'calleridlookups'|'calls'|'calls-client'|'calls-globalconference'|'calls-inbound'|'calls-inbound-local'|'calls-inbound-mobile'|'calls-inbound-tollfree'|'calls-outbound'|'calls-pay-verb-transactions'|'calls-recordings'|'calls-sip'|'calls-sip-inbound'|'calls-sip-outbound'|'calls-transfers'|'carrier-lookups'|'conversations'|'conversations-api-requests'|'conversations-conversation-events'|'conversations-endpoint-connectivity'|'conversations-events'|'conversations-participant-events'|'conversations-participants'|'cps'|'flex-usage'|'fraud-lookups'|'group-rooms'|'group-rooms-data-track'|'group-rooms-encrypted-media-recorded'|'group-rooms-media-downloaded'|'group-rooms-media-recorded'|'group-rooms-media-routed'|'group-rooms-media-stored'|'group-rooms-participant-minutes'|'group-rooms-recorded-minutes'|'imp-v1-usage'|'lookups'|'marketplace'|'marketplace-algorithmia-named-entity-recognition'|'marketplace-cadence-transcription'|'marketplace-cadence-translation'|'marketplace-capio-speech-to-text'|'marketplace-convriza-ababa'|'marketplace-deepgram-phrase-detector'|'marketplace-digital-segment-business-info'|'marketplace-facebook-offline-conversions'|'marketplace-google-speech-to-text'|'marketplace-ibm-watson-message-insights'|'marketplace-ibm-watson-message-sentiment'|'marketplace-ibm-watson-recording-analysis'|'marketplace-ibm-watson-tone-analyzer'|'marketplace-icehook-systems-scout'|'marketplace-infogroup-dataaxle-bizinfo'|'marketplace-keen-io-contact-center-analytics'|'marketplace-marchex-cleancall'|'marketplace-marchex-sentiment-analysis-for-sms'|'marketplace-marketplace-nextcaller-social-id'|'marketplace-mobile-commons-opt-out-classifier'|'marketplace-nexiwave-voicemail-to-text'|'marketplace-nextcaller-advanced-caller-identification'|'marketplace-nomorobo-spam-score'|'marketplace-payfone-tcpa-compliance'|'marketplace-remeeting-automatic-speech-recognition'|'marketplace-tcpa-defense-solutions-blacklist-feed'|'marketplace-telo-opencnam'|'marketplace-truecnam-true-spam'|'marketplace-twilio-caller-name-lookup-us'|'marketplace-twilio-carrier-information-lookup'|'marketplace-voicebase-pci'|'marketplace-voicebase-transcription'|'marketplace-voicebase-transcription-custom-vocabulary'|'marketplace-whitepages-pro-caller-identification'|'marketplace-whitepages-pro-phone-intelligence'|'marketplace-whitepages-pro-phone-reputation'|'marketplace-wolfarm-spoken-results'|'marketplace-wolfram-short-answer'|'marketplace-ytica-contact-center-reporting-analytics'|'mediastorage'|'mms'|'mms-inbound'|'mms-inbound-longcode'|'mms-inbound-shortcode'|'mms-messages-carrierfees'|'mms-outbound'|'mms-outbound-longcode'|'mms-outbound-shortcode'|'monitor-reads'|'monitor-storage'|'monitor-writes'|'notify'|'notify-actions-attempts'|'notify-channels'|'number-format-lookups'|'pchat'|'pchat-users'|'peer-to-peer-rooms-participant-minutes'|'pfax'|'pfax-minutes'|'pfax-minutes-inbound'|'pfax-minutes-outbound'|'pfax-pages'|'phonenumbers'|'phonenumbers-cps'|'phonenumbers-emergency'|'phonenumbers-local'|'phonenumbers-mobile'|'phonenumbers-setups'|'phonenumbers-tollfree'|'premiumsupport'|'proxy'|'proxy-active-sessions'|'pstnconnectivity'|'pv'|'pv-composition-media-downloaded'|'pv-composition-media-encrypted'|'pv-composition-media-stored'|'pv-composition-minutes'|'pv-recording-compositions'|'pv-room-participants'|'pv-room-participants-au1'|'pv-room-participants-br1'|'pv-room-participants-ie1'|'pv-room-participants-jp1'|'pv-room-participants-sg1'|'pv-room-participants-us1'|'pv-room-participants-us2'|'pv-rooms'|'pv-sip-endpoint-registrations'|'recordings'|'recordingstorage'|'rooms-group-bandwidth'|'rooms-group-minutes'|'rooms-peer-to-peer-minutes'|'shortcodes'|'shortcodes-customerowned'|'shortcodes-mms-enablement'|'shortcodes-mps'|'shortcodes-random'|'shortcodes-uk'|'shortcodes-vanity'|'small-group-rooms'|'small-group-rooms-data-track'|'small-group-rooms-participant-minutes'|'sms'|'sms-inbound'|'sms-inbound-longcode'|'sms-inbound-shortcode'|'sms-messages-carrierfees'|'sms-messages-features'|'sms-messages-features-senderid'|'sms-outbound'|'sms-outbound-content-inspection'|'sms-outbound-longcode'|'sms-outbound-shortcode'|'speech-recognition'|'studio-engagements'|'sync'|'sync-actions'|'sync-endpoint-hours'|'sync-endpoint-hours-above-daily-cap'|'taskrouter-tasks'|'totalprice'|'transcriptions'|'trunking-cps'|'trunking-emergency-calls'|'trunking-origination'|'trunking-origination-local'|'trunking-origination-mobile'|'trunking-origination-tollfree'|'trunking-recordings'|'trunking-secure'|'trunking-termination'|'turnmegabytes'|'turnmegabytes-australia'|'turnmegabytes-brasil'|'turnmegabytes-germany'|'turnmegabytes-india'|'turnmegabytes-ireland'|'turnmegabytes-japan'|'turnmegabytes-singapore'|'turnmegabytes-useast'|'turnmegabytes-uswest'|'twilio-interconnect'|'verify-push'|'verify-totp'|'verify-whatsapp-conversations-business-initiated'|'video-recordings'|'virtual-agent'|'voice-insights'|'voice-insights-client-insights-on-demand-minute'|'voice-insights-ptsn-insights-on-demand-minute'|'voice-insights-sip-interface-insights-on-demand-minute'|'voice-insights-sip-trunking-insights-on-demand-minute'|'wireless'|'wireless-orders'|'wireless-orders-artwork'|'wireless-orders-bulk'|'wireless-orders-esim'|'wireless-orders-starter'|'wireless-usage'|'wireless-usage-commands'|'wireless-usage-commands-africa'|'wireless-usage-commands-asia'|'wireless-usage-commands-centralandsouthamerica'|'wireless-usage-commands-europe'|'wireless-usage-commands-home'|'wireless-usage-commands-northamerica'|'wireless-usage-commands-oceania'|'wireless-usage-commands-roaming'|'wireless-usage-data'|'wireless-usage-data-africa'|'wireless-usage-data-asia'|'wireless-usage-data-centralandsouthamerica'|'wireless-usage-data-custom-additionalmb'|'wireless-usage-data-custom-first5mb'|'wireless-usage-data-domestic-roaming'|'wireless-usage-data-europe'|'wireless-usage-data-individual-additionalgb'|'wireless-usage-data-individual-firstgb'|'wireless-usage-data-international-roaming-canada'|'wireless-usage-data-international-roaming-india'|'wireless-usage-data-international-roaming-mexico'|'wireless-usage-data-northamerica'|'wireless-usage-data-oceania'|'wireless-usage-data-pooled'|'wireless-usage-data-pooled-downlink'|'wireless-usage-data-pooled-uplink'|'wireless-usage-mrc'|'wireless-usage-mrc-custom'|'wireless-usage-mrc-individual'|'wireless-usage-mrc-pooled'|'wireless-usage-mrc-suspended'|'wireless-usage-sms'|'wireless-usage-voice';
+type UsageRecordYesterdayCategory =
+  | "a2p-registration-fees"
+  | "agent-conference"
+  | "amazon-polly"
+  | "answering-machine-detection"
+  | "authy-authentications"
+  | "authy-calls-outbound"
+  | "authy-monthly-fees"
+  | "authy-phone-intelligence"
+  | "authy-phone-verifications"
+  | "authy-sms-outbound"
+  | "call-progess-events"
+  | "calleridlookups"
+  | "calls"
+  | "calls-client"
+  | "calls-globalconference"
+  | "calls-inbound"
+  | "calls-inbound-local"
+  | "calls-inbound-mobile"
+  | "calls-inbound-tollfree"
+  | "calls-outbound"
+  | "calls-pay-verb-transactions"
+  | "calls-recordings"
+  | "calls-sip"
+  | "calls-sip-inbound"
+  | "calls-sip-outbound"
+  | "calls-transfers"
+  | "carrier-lookups"
+  | "conversations"
+  | "conversations-api-requests"
+  | "conversations-conversation-events"
+  | "conversations-endpoint-connectivity"
+  | "conversations-events"
+  | "conversations-participant-events"
+  | "conversations-participants"
+  | "cps"
+  | "flex-usage"
+  | "fraud-lookups"
+  | "group-rooms"
+  | "group-rooms-data-track"
+  | "group-rooms-encrypted-media-recorded"
+  | "group-rooms-media-downloaded"
+  | "group-rooms-media-recorded"
+  | "group-rooms-media-routed"
+  | "group-rooms-media-stored"
+  | "group-rooms-participant-minutes"
+  | "group-rooms-recorded-minutes"
+  | "imp-v1-usage"
+  | "lookups"
+  | "marketplace"
+  | "marketplace-algorithmia-named-entity-recognition"
+  | "marketplace-cadence-transcription"
+  | "marketplace-cadence-translation"
+  | "marketplace-capio-speech-to-text"
+  | "marketplace-convriza-ababa"
+  | "marketplace-deepgram-phrase-detector"
+  | "marketplace-digital-segment-business-info"
+  | "marketplace-facebook-offline-conversions"
+  | "marketplace-google-speech-to-text"
+  | "marketplace-ibm-watson-message-insights"
+  | "marketplace-ibm-watson-message-sentiment"
+  | "marketplace-ibm-watson-recording-analysis"
+  | "marketplace-ibm-watson-tone-analyzer"
+  | "marketplace-icehook-systems-scout"
+  | "marketplace-infogroup-dataaxle-bizinfo"
+  | "marketplace-keen-io-contact-center-analytics"
+  | "marketplace-marchex-cleancall"
+  | "marketplace-marchex-sentiment-analysis-for-sms"
+  | "marketplace-marketplace-nextcaller-social-id"
+  | "marketplace-mobile-commons-opt-out-classifier"
+  | "marketplace-nexiwave-voicemail-to-text"
+  | "marketplace-nextcaller-advanced-caller-identification"
+  | "marketplace-nomorobo-spam-score"
+  | "marketplace-payfone-tcpa-compliance"
+  | "marketplace-remeeting-automatic-speech-recognition"
+  | "marketplace-tcpa-defense-solutions-blacklist-feed"
+  | "marketplace-telo-opencnam"
+  | "marketplace-truecnam-true-spam"
+  | "marketplace-twilio-caller-name-lookup-us"
+  | "marketplace-twilio-carrier-information-lookup"
+  | "marketplace-voicebase-pci"
+  | "marketplace-voicebase-transcription"
+  | "marketplace-voicebase-transcription-custom-vocabulary"
+  | "marketplace-whitepages-pro-caller-identification"
+  | "marketplace-whitepages-pro-phone-intelligence"
+  | "marketplace-whitepages-pro-phone-reputation"
+  | "marketplace-wolfarm-spoken-results"
+  | "marketplace-wolfram-short-answer"
+  | "marketplace-ytica-contact-center-reporting-analytics"
+  | "mediastorage"
+  | "mms"
+  | "mms-inbound"
+  | "mms-inbound-longcode"
+  | "mms-inbound-shortcode"
+  | "mms-messages-carrierfees"
+  | "mms-outbound"
+  | "mms-outbound-longcode"
+  | "mms-outbound-shortcode"
+  | "monitor-reads"
+  | "monitor-storage"
+  | "monitor-writes"
+  | "notify"
+  | "notify-actions-attempts"
+  | "notify-channels"
+  | "number-format-lookups"
+  | "pchat"
+  | "pchat-users"
+  | "peer-to-peer-rooms-participant-minutes"
+  | "pfax"
+  | "pfax-minutes"
+  | "pfax-minutes-inbound"
+  | "pfax-minutes-outbound"
+  | "pfax-pages"
+  | "phonenumbers"
+  | "phonenumbers-cps"
+  | "phonenumbers-emergency"
+  | "phonenumbers-local"
+  | "phonenumbers-mobile"
+  | "phonenumbers-setups"
+  | "phonenumbers-tollfree"
+  | "premiumsupport"
+  | "proxy"
+  | "proxy-active-sessions"
+  | "pstnconnectivity"
+  | "pv"
+  | "pv-composition-media-downloaded"
+  | "pv-composition-media-encrypted"
+  | "pv-composition-media-stored"
+  | "pv-composition-minutes"
+  | "pv-recording-compositions"
+  | "pv-room-participants"
+  | "pv-room-participants-au1"
+  | "pv-room-participants-br1"
+  | "pv-room-participants-ie1"
+  | "pv-room-participants-jp1"
+  | "pv-room-participants-sg1"
+  | "pv-room-participants-us1"
+  | "pv-room-participants-us2"
+  | "pv-rooms"
+  | "pv-sip-endpoint-registrations"
+  | "recordings"
+  | "recordingstorage"
+  | "rooms-group-bandwidth"
+  | "rooms-group-minutes"
+  | "rooms-peer-to-peer-minutes"
+  | "shortcodes"
+  | "shortcodes-customerowned"
+  | "shortcodes-mms-enablement"
+  | "shortcodes-mps"
+  | "shortcodes-random"
+  | "shortcodes-uk"
+  | "shortcodes-vanity"
+  | "small-group-rooms"
+  | "small-group-rooms-data-track"
+  | "small-group-rooms-participant-minutes"
+  | "sms"
+  | "sms-inbound"
+  | "sms-inbound-longcode"
+  | "sms-inbound-shortcode"
+  | "sms-messages-carrierfees"
+  | "sms-messages-features"
+  | "sms-messages-features-senderid"
+  | "sms-outbound"
+  | "sms-outbound-content-inspection"
+  | "sms-outbound-longcode"
+  | "sms-outbound-shortcode"
+  | "speech-recognition"
+  | "studio-engagements"
+  | "sync"
+  | "sync-actions"
+  | "sync-endpoint-hours"
+  | "sync-endpoint-hours-above-daily-cap"
+  | "taskrouter-tasks"
+  | "totalprice"
+  | "transcriptions"
+  | "trunking-cps"
+  | "trunking-emergency-calls"
+  | "trunking-origination"
+  | "trunking-origination-local"
+  | "trunking-origination-mobile"
+  | "trunking-origination-tollfree"
+  | "trunking-recordings"
+  | "trunking-secure"
+  | "trunking-termination"
+  | "turnmegabytes"
+  | "turnmegabytes-australia"
+  | "turnmegabytes-brasil"
+  | "turnmegabytes-germany"
+  | "turnmegabytes-india"
+  | "turnmegabytes-ireland"
+  | "turnmegabytes-japan"
+  | "turnmegabytes-singapore"
+  | "turnmegabytes-useast"
+  | "turnmegabytes-uswest"
+  | "twilio-interconnect"
+  | "verify-push"
+  | "verify-totp"
+  | "verify-whatsapp-conversations-business-initiated"
+  | "video-recordings"
+  | "virtual-agent"
+  | "voice-insights"
+  | "voice-insights-client-insights-on-demand-minute"
+  | "voice-insights-ptsn-insights-on-demand-minute"
+  | "voice-insights-sip-interface-insights-on-demand-minute"
+  | "voice-insights-sip-trunking-insights-on-demand-minute"
+  | "wireless"
+  | "wireless-orders"
+  | "wireless-orders-artwork"
+  | "wireless-orders-bulk"
+  | "wireless-orders-esim"
+  | "wireless-orders-starter"
+  | "wireless-usage"
+  | "wireless-usage-commands"
+  | "wireless-usage-commands-africa"
+  | "wireless-usage-commands-asia"
+  | "wireless-usage-commands-centralandsouthamerica"
+  | "wireless-usage-commands-europe"
+  | "wireless-usage-commands-home"
+  | "wireless-usage-commands-northamerica"
+  | "wireless-usage-commands-oceania"
+  | "wireless-usage-commands-roaming"
+  | "wireless-usage-data"
+  | "wireless-usage-data-africa"
+  | "wireless-usage-data-asia"
+  | "wireless-usage-data-centralandsouthamerica"
+  | "wireless-usage-data-custom-additionalmb"
+  | "wireless-usage-data-custom-first5mb"
+  | "wireless-usage-data-domestic-roaming"
+  | "wireless-usage-data-europe"
+  | "wireless-usage-data-individual-additionalgb"
+  | "wireless-usage-data-individual-firstgb"
+  | "wireless-usage-data-international-roaming-canada"
+  | "wireless-usage-data-international-roaming-india"
+  | "wireless-usage-data-international-roaming-mexico"
+  | "wireless-usage-data-northamerica"
+  | "wireless-usage-data-oceania"
+  | "wireless-usage-data-pooled"
+  | "wireless-usage-data-pooled-downlink"
+  | "wireless-usage-data-pooled-uplink"
+  | "wireless-usage-mrc"
+  | "wireless-usage-mrc-custom"
+  | "wireless-usage-mrc-individual"
+  | "wireless-usage-mrc-pooled"
+  | "wireless-usage-mrc-suspended"
+  | "wireless-usage-sms"
+  | "wireless-usage-voice";
 
 /**
  * Options to pass to each
@@ -102,11 +344,11 @@ type UsageRecordYesterdayCategory = 'a2p-registration-fees'|'agent-conference'|'
  *                         Default is no limit
  */
 export interface YesterdayListInstanceEachOptions {
-  "category"?: UsageRecordYesterdayCategory;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "includeSubaccounts"?: boolean;
-  "pageSize"?: number;
+  category?: UsageRecordYesterdayCategory;
+  startDate?: Date;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  pageSize?: number;
   callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -126,11 +368,11 @@ export interface YesterdayListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface YesterdayListInstanceOptions {
-  "category"?: UsageRecordYesterdayCategory;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "includeSubaccounts"?: boolean;
-  "pageSize"?: number;
+  category?: UsageRecordYesterdayCategory;
+  startDate?: Date;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -146,21 +388,16 @@ export interface YesterdayListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface YesterdayListInstancePageOptions {
-  "category"?: UsageRecordYesterdayCategory;
-  "startDate"?: Date;
-  "endDate"?: Date;
-  "includeSubaccounts"?: boolean;
-  "pageSize"?: number;
+  category?: UsageRecordYesterdayCategory;
+  startDate?: Date;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface YesterdayListInstance {
-
-
-
   /**
    * Streams YesterdayInstance records from the API.
    *
@@ -175,7 +412,9 @@ export interface YesterdayListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams YesterdayInstance records from the API.
    *
@@ -191,7 +430,10 @@ export interface YesterdayListInstance {
    * @param { YesterdayListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: YesterdayListInstanceEachOptions, callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: YesterdayListInstanceEachOptions,
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of YesterdayInstance records from the API.
@@ -203,7 +445,9 @@ export interface YesterdayListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: YesterdayPage) => any): Promise<YesterdayPage>;
+  getPage(
+    callback?: (error: Error | null, items: YesterdayPage) => any
+  ): Promise<YesterdayPage>;
   /**
    * Retrieve a single target page of YesterdayInstance records from the API.
    *
@@ -215,7 +459,10 @@ export interface YesterdayListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: YesterdayPage) => any): Promise<YesterdayPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: YesterdayPage) => any
+  ): Promise<YesterdayPage>;
   getPage(params?: any, callback?: any): Promise<YesterdayPage>;
   /**
    * Lists YesterdayInstance records from the API as a list.
@@ -225,7 +472,9 @@ export interface YesterdayListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: YesterdayInstance[]) => any): Promise<YesterdayInstance[]>;
+  list(
+    callback?: (error: Error | null, items: YesterdayInstance[]) => any
+  ): Promise<YesterdayInstance[]>;
   /**
    * Lists YesterdayInstance records from the API as a list.
    *
@@ -235,7 +484,10 @@ export interface YesterdayListInstance {
    * @param { YesterdayListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: YesterdayListInstanceOptions, callback?: (error: Error | null, items: YesterdayInstance[]) => any): Promise<YesterdayInstance[]>;
+  list(
+    params?: YesterdayListInstanceOptions,
+    callback?: (error: Error | null, items: YesterdayInstance[]) => any
+  ): Promise<YesterdayInstance[]>;
   list(params?: any, callback?: any): Promise<YesterdayInstance[]>;
   /**
    * Retrieve a single page of YesterdayInstance records from the API.
@@ -247,7 +499,9 @@ export interface YesterdayListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: YesterdayPage) => any): Promise<YesterdayPage>;
+  page(
+    callback?: (error: Error | null, items: YesterdayPage) => any
+  ): Promise<YesterdayPage>;
   /**
    * Retrieve a single page of YesterdayInstance records from the API.
    *
@@ -259,7 +513,10 @@ export interface YesterdayListInstance {
    * @param { YesterdayListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: YesterdayListInstancePageOptions, callback?: (error: Error | null, items: YesterdayPage) => any): Promise<YesterdayPage>;
+  page(
+    params: YesterdayListInstancePageOptions,
+    callback?: (error: Error | null, items: YesterdayPage) => any
+  ): Promise<YesterdayPage>;
   page(params?: any, callback?: any): Promise<YesterdayPage>;
 
   /**
@@ -278,17 +535,22 @@ class YesterdayListInstanceImpl implements YesterdayListInstance {
   _version?: V2010;
   _solution?: YesterdaySolution;
   _uri?: string;
-
 }
 
-export function YesterdayListInstance(version: V2010, accountSid: string): YesterdayListInstance {
+export function YesterdayListInstance(
+  version: V2010,
+  accountSid: string
+): YesterdayListInstance {
   const instance = {} as YesterdayListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Usage/Records/Yesterday.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<YesterdayPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<YesterdayPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -298,57 +560,77 @@ export function YesterdayListInstance(version: V2010, accountSid: string): Yeste
 
     let data: any = {};
 
-        if (params["category"] !== undefined)
-    data["Category"] = params["category"];
+    if (params["category"] !== undefined) data["Category"] = params["category"];
     if (params["startDate"] !== undefined)
-    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+      data["StartDate"] = serialize.iso8601Date(params["startDate"]);
     if (params["endDate"] !== undefined)
-    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+      data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new YesterdayPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new YesterdayPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<YesterdayPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<YesterdayPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new YesterdayPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new YesterdayPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface YesterdayPayload extends YesterdayResource, Page.TwilioResponsePayload {
-}
+interface YesterdayPayload
+  extends YesterdayResource,
+    Page.TwilioResponsePayload {}
 
 interface YesterdayResource {
   usage_records?: Array<ApiV2010AccountUsageUsageRecordUsageRecordYesterday>;
@@ -363,8 +645,11 @@ interface YesterdayResource {
 }
 
 export class YesterdayInstance {
-
-  constructor(protected _version: V2010, payload: YesterdayPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: YesterdayPayload,
+    accountSid?: string
+  ) {
     this.usageRecords = payload.usage_records;
     this.end = deserialize.integer(payload.end);
     this.firstPageUri = payload.first_page_uri;
@@ -374,7 +659,6 @@ export class YesterdayInstance {
     this.previousPageUri = payload.previous_page_uri;
     this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-
   }
 
   usageRecords?: Array<ApiV2010AccountUsageUsageRecordUsageRecordYesterday>;
@@ -394,16 +678,16 @@ export class YesterdayInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords, 
-      end: this.end, 
-      firstPageUri: this.firstPageUri, 
-      nextPageUri: this.nextPageUri, 
-      page: this.page, 
-      pageSize: this.pageSize, 
-      previousPageUri: this.previousPageUri, 
-      start: this.start, 
-      uri: this.uri
-    }
+      usageRecords: this.usageRecords,
+      end: this.end,
+      firstPageUri: this.firstPageUri,
+      nextPageUri: this.nextPageUri,
+      page: this.page,
+      pageSize: this.pageSize,
+      previousPageUri: this.previousPageUri,
+      start: this.start,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -411,33 +695,41 @@ export class YesterdayInstance {
   }
 }
 
-export class YesterdayPage extends Page<V2010, YesterdayPayload, YesterdayResource, YesterdayInstance> {
-/**
-* Initialize the YesterdayPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: YesterdaySolution) {
+export class YesterdayPage extends Page<
+  V2010,
+  YesterdayPayload,
+  YesterdayResource,
+  YesterdayInstance
+> {
+  /**
+   * Initialize the YesterdayPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: YesterdaySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of YesterdayInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: YesterdayPayload): YesterdayInstance {
+  /**
+   * Build an instance of YesterdayInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: YesterdayPayload): YesterdayInstance {
     return new YesterdayInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

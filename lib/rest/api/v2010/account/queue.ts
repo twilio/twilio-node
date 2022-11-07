@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,9 +20,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { MemberListInstance } from "./queue/member";
 
-
-
-
 /**
  * Options to pass to update a QueueInstance
  *
@@ -31,8 +27,8 @@ import { MemberListInstance } from "./queue/member";
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueContextUpdateOptions {
-  "friendlyName"?: string;
-  "maxSize"?: number;
+  friendlyName?: string;
+  maxSize?: number;
 }
 
 /**
@@ -42,8 +38,8 @@ export interface QueueContextUpdateOptions {
  * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueListInstanceCreateOptions {
-  "friendlyName": string;
-  "maxSize"?: number;
+  friendlyName: string;
+  maxSize?: number;
 }
 /**
  * Options to pass to each
@@ -59,7 +55,7 @@ export interface QueueListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface QueueListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: QueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -75,7 +71,7 @@ export interface QueueListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface QueueListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -87,15 +83,12 @@ export interface QueueListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueueListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface QueueContext {
-
   members: MemberListInstance;
 
   /**
@@ -105,8 +98,9 @@ export interface QueueContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a QueueInstance
@@ -115,8 +109,9 @@ export interface QueueContext {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  fetch(callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
 
   /**
    * Update a QueueInstance
@@ -125,7 +120,9 @@ export interface QueueContext {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  update(callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
+  update(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
   /**
    * Update a QueueInstance
    *
@@ -134,9 +131,11 @@ export interface QueueContext {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  update(params: QueueContextUpdateOptions, callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
-  update(params?: any, callback?: any): Promise<QueueInstance>
-
+  update(
+    params: QueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+  update(params?: any, callback?: any): Promise<QueueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -146,8 +145,8 @@ export interface QueueContext {
 }
 
 export interface QueueContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class QueueContextImpl implements QueueContext {
@@ -162,38 +161,56 @@ export class QueueContextImpl implements QueueContext {
   }
 
   get members(): MemberListInstance {
-    this._members = this._members || MemberListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._members =
+      this._members ||
+      MemberListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._members;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<QueueInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueueInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<QueueInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -202,26 +219,36 @@ export class QueueContextImpl implements QueueContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["maxSize"] !== undefined)
-    data["MaxSize"] = params["maxSize"];
-
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["maxSize"] !== undefined) data["MaxSize"] = params["maxSize"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueueInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -238,8 +265,7 @@ export class QueueContextImpl implements QueueContext {
   }
 }
 
-interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {
-}
+interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {}
 
 interface QueueResource {
   date_updated?: string | null;
@@ -257,7 +283,12 @@ export class QueueInstance {
   protected _solution: QueueContextSolution;
   protected _context?: QueueContext;
 
-  constructor(protected _version: V2010, payload: QueuePayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: QueuePayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.currentSize = deserialize.integer(payload.current_size);
     this.friendlyName = payload.friendly_name;
@@ -309,7 +340,13 @@ export class QueueInstance {
   maxSize?: number | null;
 
   private get _proxy(): QueueContext {
-    this._context = this._context || new QueueContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new QueueContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -320,8 +357,9 @@ export class QueueInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -332,8 +370,9 @@ export class QueueInstance {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  fetch(callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -344,7 +383,9 @@ export class QueueInstance {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  update(callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
+  update(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
   /**
    * Update a QueueInstance
    *
@@ -353,9 +394,11 @@ export class QueueInstance {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  update(params: QueueContextUpdateOptions, callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
-  update(params?: any, callback?: any): Promise<QueueInstance>
-     {
+  update(
+    params: QueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+  update(params?: any, callback?: any): Promise<QueueInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -373,16 +416,16 @@ export class QueueInstance {
    */
   toJSON() {
     return {
-      dateUpdated: this.dateUpdated, 
-      currentSize: this.currentSize, 
-      friendlyName: this.friendlyName, 
-      uri: this.uri, 
-      accountSid: this.accountSid, 
-      averageWaitTime: this.averageWaitTime, 
-      sid: this.sid, 
-      dateCreated: this.dateCreated, 
-      maxSize: this.maxSize
-    }
+      dateUpdated: this.dateUpdated,
+      currentSize: this.currentSize,
+      friendlyName: this.friendlyName,
+      uri: this.uri,
+      accountSid: this.accountSid,
+      averageWaitTime: this.averageWaitTime,
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      maxSize: this.maxSize,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -390,11 +433,9 @@ export class QueueInstance {
   }
 }
 
-
 export interface QueueListInstance {
   (sid: string): QueueContext;
   get(sid: string): QueueContext;
-
 
   /**
    * Create a QueueInstance
@@ -404,10 +445,11 @@ export interface QueueListInstance {
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
-  create(params: QueueListInstanceCreateOptions, callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
-  create(params: any, callback?: any): Promise<QueueInstance>
-
-
+  create(
+    params: QueueListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+  create(params: any, callback?: any): Promise<QueueInstance>;
 
   /**
    * Streams QueueInstance records from the API.
@@ -423,7 +465,9 @@ export interface QueueListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams QueueInstance records from the API.
    *
@@ -439,7 +483,10 @@ export interface QueueListInstance {
    * @param { QueueListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: QueueListInstanceEachOptions,
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
@@ -451,7 +498,9 @@ export interface QueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  getPage(
+    callback?: (error: Error | null, items: QueuePage) => any
+  ): Promise<QueuePage>;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
    *
@@ -463,7 +512,10 @@ export interface QueueListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: QueuePage) => any
+  ): Promise<QueuePage>;
   getPage(params?: any, callback?: any): Promise<QueuePage>;
   /**
    * Lists QueueInstance records from the API as a list.
@@ -473,7 +525,9 @@ export interface QueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
+  list(
+    callback?: (error: Error | null, items: QueueInstance[]) => any
+  ): Promise<QueueInstance[]>;
   /**
    * Lists QueueInstance records from the API as a list.
    *
@@ -483,7 +537,10 @@ export interface QueueListInstance {
    * @param { QueueListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: QueueListInstanceOptions, callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
+  list(
+    params?: QueueListInstanceOptions,
+    callback?: (error: Error | null, items: QueueInstance[]) => any
+  ): Promise<QueueInstance[]>;
   list(params?: any, callback?: any): Promise<QueueInstance[]>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
@@ -495,7 +552,9 @@ export interface QueueListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  page(
+    callback?: (error: Error | null, items: QueuePage) => any
+  ): Promise<QueuePage>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
    *
@@ -507,7 +566,10 @@ export interface QueueListInstance {
    * @param { QueueListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: QueueListInstancePageOptions, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  page(
+    params: QueueListInstancePageOptions,
+    callback?: (error: Error | null, items: QueuePage) => any
+  ): Promise<QueuePage>;
   page(params?: any, callback?: any): Promise<QueuePage>;
 
   /**
@@ -526,54 +588,69 @@ class QueueListInstanceImpl implements QueueListInstance {
   _version?: V2010;
   _solution?: QueueSolution;
   _uri?: string;
-
 }
 
-export function QueueListInstance(version: V2010, accountSid: string): QueueListInstance {
+export function QueueListInstance(
+  version: V2010,
+  accountSid: string
+): QueueListInstance {
   const instance = ((sid) => instance.get(sid)) as QueueListInstanceImpl;
 
   instance.get = function get(sid): QueueContext {
     return new QueueContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Queues.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<QueueInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<QueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    if (params["maxSize"] !== undefined)
-    data["MaxSize"] = params["maxSize"];
-
+    if (params["maxSize"] !== undefined) data["MaxSize"] = params["maxSize"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new QueueInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<QueuePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<QueuePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -583,75 +660,98 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueuePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new QueuePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<QueuePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new QueuePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new QueuePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
-/**
-* Initialize the QueuePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: QueueSolution) {
+export class QueuePage extends Page<
+  V2010,
+  QueuePayload,
+  QueueResource,
+  QueueInstance
+> {
+  /**
+   * Initialize the QueuePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: QueueSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of QueueInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: QueuePayload): QueueInstance {
-    return new QueueInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-    );
-    }
+  /**
+   * Build an instance of QueueInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: QueuePayload): QueueInstance {
+    return new QueueInstance(this._version, payload, this._solution.accountSid);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

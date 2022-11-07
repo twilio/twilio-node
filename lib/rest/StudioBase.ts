@@ -9,31 +9,31 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V1 from './studio/V1';
-import V2 from './studio/V2';
+import Domain from "../base/Domain";
+import V1 from "./studio/V1";
+import V2 from "./studio/V2";
 
 class StudioBase extends Domain {
-    _v1?: V1;
-    _v2?: V2;
+  _v1?: V1;
+  _v2?: V2;
 
-    /**
-     * Initialize studio domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://studio.twilio.com');
-    }
+  /**
+   * Initialize studio domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://studio.twilio.com");
+  }
 
-    get v1(): V1 {
-        this._v1 = this._v1 || new V1(this);
-        return this._v1;
-    }
-    get v2(): V2 {
-        this._v2 = this._v2 || new V2(this);
-        return this._v2;
-    }
+  get v1(): V1 {
+    this._v1 = this._v1 || new V1(this);
+    return this._v1;
+  }
+  get v2(): V2 {
+    this._v2 = this._v2 || new V2(this);
+    return this._v2;
+  }
 }
 
 export = StudioBase;

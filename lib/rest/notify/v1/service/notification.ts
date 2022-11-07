@@ -12,21 +12,18 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-type NotificationPriority = 'high'|'low';
-
+type NotificationPriority = "high" | "low";
 
 /**
  * Options to pass to create a NotificationInstance
  *
  * @property { string } [body] The notification text. For FCM and GCM, translates to &#x60;data.twi_body&#x60;. For APNS, translates to &#x60;aps.alert.body&#x60;. For SMS, translates to &#x60;body&#x60;. SMS requires either this &#x60;body&#x60; value, or &#x60;media_urls&#x60; attribute defined in the &#x60;sms&#x60; parameter of the notification.
- * @property { NotificationPriority } [priority] 
+ * @property { NotificationPriority } [priority]
  * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
  * @property { string } [title] The notification title. For FCM and GCM, this translates to the &#x60;data.twi_title&#x60; value. For APNS, this translates to the &#x60;aps.alert.title&#x60; value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
  * @property { string } [sound] The name of the sound to be played for the notification. For FCM and GCM, this Translates to &#x60;data.twi_sound&#x60;.  For APNS, this translates to &#x60;aps.sound&#x60;.  SMS does not support this property.
@@ -45,29 +42,27 @@ type NotificationPriority = 'high'|'low';
  * @property { Array<string> } [tag] A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag &#x60;all&#x60; is available to notify all Bindings in a Service instance. Similarly, the implicit tags &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; are available to notify all Bindings in a specific channel.
  */
 export interface NotificationListInstanceCreateOptions {
-  "body"?: string;
-  "priority"?: NotificationPriority;
-  "ttl"?: number;
-  "title"?: string;
-  "sound"?: string;
-  "action"?: string;
-  "data"?: any;
-  "apn"?: any;
-  "gcm"?: any;
-  "sms"?: any;
-  "facebookMessenger"?: any;
-  "fcm"?: any;
-  "segment"?: Array<string>;
-  "alexa"?: any;
-  "toBinding"?: Array<string>;
-  "deliveryCallbackUrl"?: string;
-  "identity"?: Array<string>;
-  "tag"?: Array<string>;
+  body?: string;
+  priority?: NotificationPriority;
+  ttl?: number;
+  title?: string;
+  sound?: string;
+  action?: string;
+  data?: any;
+  apn?: any;
+  gcm?: any;
+  sms?: any;
+  facebookMessenger?: any;
+  fcm?: any;
+  segment?: Array<string>;
+  alexa?: any;
+  toBinding?: Array<string>;
+  deliveryCallbackUrl?: string;
+  identity?: Array<string>;
+  tag?: Array<string>;
 }
 
 export interface NotificationListInstance {
-
-
   /**
    * Create a NotificationInstance
    *
@@ -75,7 +70,9 @@ export interface NotificationListInstance {
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  create(callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
+  create(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
   /**
    * Create a NotificationInstance
    *
@@ -84,9 +81,11 @@ export interface NotificationListInstance {
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
-  create(params: NotificationListInstanceCreateOptions, callback?: (error: Error | null, item?: NotificationInstance) => any): Promise<NotificationInstance>;
-  create(params?: any, callback?: any): Promise<NotificationInstance>
-
+  create(
+    params: NotificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+  create(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -104,17 +103,22 @@ class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V1;
   _solution?: NotificationSolution;
   _uri?: string;
-
 }
 
-export function NotificationListInstance(version: V1, serviceSid: string): NotificationListInstance {
+export function NotificationListInstance(
+  version: V1,
+  serviceSid: string
+): NotificationListInstance {
   const instance = {} as NotificationListInstanceImpl;
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Notifications`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<NotificationInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<NotificationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -124,73 +128,79 @@ export function NotificationListInstance(version: V1, serviceSid: string): Notif
 
     let data: any = {};
 
-    
-        if (params["body"] !== undefined)
-    data["Body"] = params["body"];
-    if (params["priority"] !== undefined)
-    data["Priority"] = params["priority"];
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
-    if (params["title"] !== undefined)
-    data["Title"] = params["title"];
-    if (params["sound"] !== undefined)
-    data["Sound"] = params["sound"];
-    if (params["action"] !== undefined)
-    data["Action"] = params["action"];
+    if (params["body"] !== undefined) data["Body"] = params["body"];
+    if (params["priority"] !== undefined) data["Priority"] = params["priority"];
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["title"] !== undefined) data["Title"] = params["title"];
+    if (params["sound"] !== undefined) data["Sound"] = params["sound"];
+    if (params["action"] !== undefined) data["Action"] = params["action"];
     if (params["data"] !== undefined)
-    data["Data"] = serialize.object(params["data"]);
+      data["Data"] = serialize.object(params["data"]);
     if (params["apn"] !== undefined)
-    data["Apn"] = serialize.object(params["apn"]);
+      data["Apn"] = serialize.object(params["apn"]);
     if (params["gcm"] !== undefined)
-    data["Gcm"] = serialize.object(params["gcm"]);
+      data["Gcm"] = serialize.object(params["gcm"]);
     if (params["sms"] !== undefined)
-    data["Sms"] = serialize.object(params["sms"]);
+      data["Sms"] = serialize.object(params["sms"]);
     if (params["facebookMessenger"] !== undefined)
-    data["FacebookMessenger"] = serialize.object(params["facebookMessenger"]);
+      data["FacebookMessenger"] = serialize.object(params["facebookMessenger"]);
     if (params["fcm"] !== undefined)
-    data["Fcm"] = serialize.object(params["fcm"]);
+      data["Fcm"] = serialize.object(params["fcm"]);
     if (params["segment"] !== undefined)
-    data["Segment"] = serialize.map(params["segment"], (e => (e)));
+      data["Segment"] = serialize.map(params["segment"], (e) => e);
     if (params["alexa"] !== undefined)
-    data["Alexa"] = serialize.object(params["alexa"]);
+      data["Alexa"] = serialize.object(params["alexa"]);
     if (params["toBinding"] !== undefined)
-    data["ToBinding"] = serialize.map(params["toBinding"], (e => (e)));
+      data["ToBinding"] = serialize.map(params["toBinding"], (e) => e);
     if (params["deliveryCallbackUrl"] !== undefined)
-    data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
+      data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], (e => (e)));
+      data["Identity"] = serialize.map(params["identity"], (e) => e);
     if (params["tag"] !== undefined)
-    data["Tag"] = serialize.map(params["tag"], (e => (e)));
-
+      data["Tag"] = serialize.map(params["tag"], (e) => e);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NotificationInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NotificationInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface NotificationPayload extends NotificationResource{
-}
+interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
   sid?: string | null;
@@ -216,8 +226,11 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-
-  constructor(protected _version: V1, payload: NotificationPayload, serviceSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: NotificationPayload,
+    serviceSid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -238,7 +251,6 @@ export class NotificationInstance {
     this.sms = payload.sms;
     this.facebookMessenger = payload.facebook_messenger;
     this.alexa = payload.alexa;
-
   }
 
   /**
@@ -326,32 +338,30 @@ export class NotificationInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      dateCreated: this.dateCreated, 
-      identities: this.identities, 
-      tags: this.tags, 
-      segments: this.segments, 
-      priority: this.priority, 
-      ttl: this.ttl, 
-      title: this.title, 
-      body: this.body, 
-      sound: this.sound, 
-      action: this.action, 
-      data: this.data, 
-      apn: this.apn, 
-      gcm: this.gcm, 
-      fcm: this.fcm, 
-      sms: this.sms, 
-      facebookMessenger: this.facebookMessenger, 
-      alexa: this.alexa
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      dateCreated: this.dateCreated,
+      identities: this.identities,
+      tags: this.tags,
+      segments: this.segments,
+      priority: this.priority,
+      ttl: this.ttl,
+      title: this.title,
+      body: this.body,
+      sound: this.sound,
+      action: this.action,
+      data: this.data,
+      apn: this.apn,
+      gcm: this.gcm,
+      fcm: this.fcm,
+      sms: this.sms,
+      facebookMessenger: this.facebookMessenger,
+      alexa: this.alexa,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

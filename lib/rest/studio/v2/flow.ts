@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -23,39 +22,36 @@ import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
-
-
-type FlowStatus = 'draft'|'published';
-
+type FlowStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowInstance
  *
- * @property { FlowStatus } status 
+ * @property { FlowStatus } status
  * @property { string } [friendlyName] The string that you assigned to describe the Flow.
  * @property { any } [definition] JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowContextUpdateOptions {
-  "status": FlowStatus;
-  "friendlyName"?: string;
-  "definition"?: any;
-  "commitMessage"?: string;
+  status: FlowStatus;
+  friendlyName?: string;
+  definition?: any;
+  commitMessage?: string;
 }
 
 /**
  * Options to pass to create a FlowInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowStatus } status 
+ * @property { FlowStatus } status
  * @property { any } definition JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowListInstanceCreateOptions {
-  "friendlyName": string;
-  "status": FlowStatus;
-  "definition": any;
-  "commitMessage"?: string;
+  friendlyName: string;
+  status: FlowStatus;
+  definition: any;
+  commitMessage?: string;
 }
 /**
  * Options to pass to each
@@ -71,7 +67,7 @@ export interface FlowListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FlowListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: FlowInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -87,7 +83,7 @@ export interface FlowListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FlowListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -99,15 +95,12 @@ export interface FlowListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FlowListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FlowContext {
-
   executions: ExecutionListInstance;
   revisions: FlowRevisionListInstance;
   testUsers: FlowTestUserListInstance;
@@ -119,8 +112,9 @@ export interface FlowContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FlowInstance
@@ -129,8 +123,9 @@ export interface FlowContext {
    *
    * @returns { Promise } Resolves to processed FlowInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance>;
 
   /**
    * Update a FlowInstance
@@ -140,9 +135,11 @@ export interface FlowContext {
    *
    * @returns { Promise } Resolves to processed FlowInstance
    */
-  update(params: FlowContextUpdateOptions, callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>;
-  update(params: any, callback?: any): Promise<FlowInstance>
-
+  update(
+    params: FlowContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance>;
+  update(params: any, callback?: any): Promise<FlowInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -152,7 +149,7 @@ export interface FlowContext {
 }
 
 export interface FlowContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class FlowContextImpl implements FlowContext {
@@ -169,81 +166,99 @@ export class FlowContextImpl implements FlowContext {
   }
 
   get executions(): ExecutionListInstance {
-    this._executions = this._executions || ExecutionListInstance(this._version, this._solution.sid);
+    this._executions =
+      this._executions ||
+      ExecutionListInstance(this._version, this._solution.sid);
     return this._executions;
   }
 
   get revisions(): FlowRevisionListInstance {
-    this._revisions = this._revisions || FlowRevisionListInstance(this._version, this._solution.sid);
+    this._revisions =
+      this._revisions ||
+      FlowRevisionListInstance(this._version, this._solution.sid);
     return this._revisions;
   }
 
   get testUsers(): FlowTestUserListInstance {
-    this._testUsers = this._testUsers || FlowTestUserListInstance(this._version, this._solution.sid);
+    this._testUsers =
+      this._testUsers ||
+      FlowTestUserListInstance(this._version, this._solution.sid);
     return this._testUsers;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FlowInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlowInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<FlowInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+      throw new Error("Required parameter \"params['status']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["definition"] !== undefined)
-    data["Definition"] = serialize.object(params["definition"]);
+      data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined)
-    data["CommitMessage"] = params["commitMessage"];
-
+      data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlowInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -260,8 +275,7 @@ export class FlowContextImpl implements FlowContext {
   }
 }
 
-interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {
-}
+interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {}
 
 interface FlowResource {
   sid?: string | null;
@@ -361,7 +375,8 @@ export class FlowInstance {
   links?: object | null;
 
   private get _proxy(): FlowContext {
-    this._context = this._context || new FlowContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new FlowContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -372,8 +387,9 @@ export class FlowInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -384,8 +400,9 @@ export class FlowInstance {
    *
    * @returns { Promise } Resolves to processed FlowInstance
    */
-  fetch(callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -397,9 +414,11 @@ export class FlowInstance {
    *
    * @returns { Promise } Resolves to processed FlowInstance
    */
-  update(params: FlowContextUpdateOptions, callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>;
-  update(params: any, callback?: any): Promise<FlowInstance>
-     {
+  update(
+    params: FlowContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance>;
+  update(params: any, callback?: any): Promise<FlowInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -431,22 +450,22 @@ export class FlowInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      friendlyName: this.friendlyName, 
-      definition: this.definition, 
-      status: this.status, 
-      revision: this.revision, 
-      commitMessage: this.commitMessage, 
-      valid: this.valid, 
-      errors: this.errors, 
-      warnings: this.warnings, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      webhookUrl: this.webhookUrl, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      definition: this.definition,
+      status: this.status,
+      revision: this.revision,
+      commitMessage: this.commitMessage,
+      valid: this.valid,
+      errors: this.errors,
+      warnings: this.warnings,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      webhookUrl: this.webhookUrl,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -454,11 +473,9 @@ export class FlowInstance {
   }
 }
 
-
 export interface FlowListInstance {
   (sid: string): FlowContext;
   get(sid: string): FlowContext;
-
 
   /**
    * Create a FlowInstance
@@ -468,10 +485,11 @@ export interface FlowListInstance {
    *
    * @returns { Promise } Resolves to processed FlowInstance
    */
-  create(params: FlowListInstanceCreateOptions, callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>;
-  create(params: any, callback?: any): Promise<FlowInstance>
-
-
+  create(
+    params: FlowListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance>;
+  create(params: any, callback?: any): Promise<FlowInstance>;
 
   /**
    * Streams FlowInstance records from the API.
@@ -487,7 +505,9 @@ export interface FlowListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FlowInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FlowInstance records from the API.
    *
@@ -503,7 +523,10 @@ export interface FlowListInstance {
    * @param { FlowListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FlowListInstanceEachOptions, callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FlowListInstanceEachOptions,
+    callback?: (item: FlowInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FlowInstance records from the API.
@@ -515,7 +538,9 @@ export interface FlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  getPage(
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
   /**
    * Retrieve a single target page of FlowInstance records from the API.
    *
@@ -527,7 +552,10 @@ export interface FlowListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
   getPage(params?: any, callback?: any): Promise<FlowPage>;
   /**
    * Lists FlowInstance records from the API as a list.
@@ -537,7 +565,9 @@ export interface FlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FlowInstance[]) => any
+  ): Promise<FlowInstance[]>;
   /**
    * Lists FlowInstance records from the API as a list.
    *
@@ -547,7 +577,10 @@ export interface FlowListInstance {
    * @param { FlowListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FlowListInstanceOptions, callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
+  list(
+    params?: FlowListInstanceOptions,
+    callback?: (error: Error | null, items: FlowInstance[]) => any
+  ): Promise<FlowInstance[]>;
   list(params?: any, callback?: any): Promise<FlowInstance[]>;
   /**
    * Retrieve a single page of FlowInstance records from the API.
@@ -559,7 +592,9 @@ export interface FlowListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  page(
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
   /**
    * Retrieve a single page of FlowInstance records from the API.
    *
@@ -571,7 +606,10 @@ export interface FlowListInstance {
    * @param { FlowListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FlowListInstancePageOptions, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  page(
+    params: FlowListInstancePageOptions,
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
   page(params?: any, callback?: any): Promise<FlowPage>;
 
   /**
@@ -581,15 +619,13 @@ export interface FlowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlowSolution {
-}
+export interface FlowSolution {}
 
 interface FlowListInstanceImpl extends FlowListInstance {}
 class FlowListInstanceImpl implements FlowListInstance {
   _version?: V2;
   _solution?: FlowSolution;
   _uri?: string;
-
 }
 
 export function FlowListInstance(version: V2): FlowListInstance {
@@ -597,58 +633,71 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
   instance.get = function get(sid): FlowContext {
     return new FlowContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Flows`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FlowInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+      throw new Error("Required parameter \"params['status']\" missing.");
     }
 
     if (params["definition"] === null || params["definition"] === undefined) {
-      throw new Error('Required parameter "params[\'definition\']" missing.');
+      throw new Error("Required parameter \"params['definition']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["Status"] = params["status"];
-    
+
     data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined)
-    data["CommitMessage"] = params["commitMessage"];
-
+      data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlowInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FlowPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FlowPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -658,74 +707,94 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlowPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlowPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FlowPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FlowPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlowPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FlowPage extends Page<V2, FlowPayload, FlowResource, FlowInstance> {
-/**
-* Initialize the FlowPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2, response: Response<string>, solution: FlowSolution) {
+export class FlowPage extends Page<
+  V2,
+  FlowPayload,
+  FlowResource,
+  FlowInstance
+> {
+  /**
+   * Initialize the FlowPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2, response: Response<string>, solution: FlowSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FlowInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FlowPayload): FlowInstance {
-    return new FlowInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of FlowInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FlowPayload): FlowInstance {
+    return new FlowInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

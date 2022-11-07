@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,16 +19,13 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to update a OutgoingCallerIdInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface OutgoingCallerIdContextUpdateOptions {
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 /**
  * Options to pass to each
@@ -47,10 +43,13 @@ export interface OutgoingCallerIdContextUpdateOptions {
  *                         Default is no limit
  */
 export interface OutgoingCallerIdListInstanceEachOptions {
-  "phoneNumber"?: string;
-  "friendlyName"?: string;
-  "pageSize"?: number;
-  callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void;
+  phoneNumber?: string;
+  friendlyName?: string;
+  pageSize?: number;
+  callback?: (
+    item: OutgoingCallerIdInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -67,9 +66,9 @@ export interface OutgoingCallerIdListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface OutgoingCallerIdListInstanceOptions {
-  "phoneNumber"?: string;
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  phoneNumber?: string;
+  friendlyName?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -83,18 +82,14 @@ export interface OutgoingCallerIdListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface OutgoingCallerIdListInstancePageOptions {
-  "phoneNumber"?: string;
-  "friendlyName"?: string;
-  "pageSize"?: number;
+  phoneNumber?: string;
+  friendlyName?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface OutgoingCallerIdContext {
-
-
   /**
    * Remove a OutgoingCallerIdInstance
    *
@@ -102,8 +97,9 @@ export interface OutgoingCallerIdContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a OutgoingCallerIdInstance
@@ -112,8 +108,9 @@ export interface OutgoingCallerIdContext {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  fetch(callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
 
   /**
    * Update a OutgoingCallerIdInstance
@@ -122,7 +119,9 @@ export interface OutgoingCallerIdContext {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  update(callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
+  update(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
   /**
    * Update a OutgoingCallerIdInstance
    *
@@ -131,9 +130,11 @@ export interface OutgoingCallerIdContext {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  update(params: OutgoingCallerIdContextUpdateOptions, callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
-  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance>
-
+  update(
+    params: OutgoingCallerIdContextUpdateOptions,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
+  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -143,14 +144,13 @@ export interface OutgoingCallerIdContext {
 }
 
 export interface OutgoingCallerIdContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   protected _solution: OutgoingCallerIdContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -158,33 +158,45 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<OutgoingCallerIdInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new OutgoingCallerIdInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutgoingCallerIdInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -193,24 +205,35 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new OutgoingCallerIdInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutgoingCallerIdInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -227,8 +250,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 }
 
-interface OutgoingCallerIdPayload extends OutgoingCallerIdResource, Page.TwilioResponsePayload {
-}
+interface OutgoingCallerIdPayload
+  extends OutgoingCallerIdResource,
+    Page.TwilioResponsePayload {}
 
 interface OutgoingCallerIdResource {
   sid?: string | null;
@@ -244,7 +268,12 @@ export class OutgoingCallerIdInstance {
   protected _solution: OutgoingCallerIdContextSolution;
   protected _context?: OutgoingCallerIdContext;
 
-  constructor(protected _version: V2010, payload: OutgoingCallerIdPayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: OutgoingCallerIdPayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -286,7 +315,13 @@ export class OutgoingCallerIdInstance {
   uri?: string | null;
 
   private get _proxy(): OutgoingCallerIdContext {
-    this._context = this._context || new OutgoingCallerIdContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new OutgoingCallerIdContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -297,8 +332,9 @@ export class OutgoingCallerIdInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -309,8 +345,9 @@ export class OutgoingCallerIdInstance {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  fetch(callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -321,7 +358,9 @@ export class OutgoingCallerIdInstance {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  update(callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
+  update(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
   /**
    * Update a OutgoingCallerIdInstance
    *
@@ -330,9 +369,11 @@ export class OutgoingCallerIdInstance {
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
-  update(params: OutgoingCallerIdContextUpdateOptions, callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
-  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance>
-     {
+  update(
+    params: OutgoingCallerIdContextUpdateOptions,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
+  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -343,14 +384,14 @@ export class OutgoingCallerIdInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      accountSid: this.accountSid, 
-      phoneNumber: this.phoneNumber, 
-      uri: this.uri
-    }
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      accountSid: this.accountSid,
+      phoneNumber: this.phoneNumber,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -358,12 +399,9 @@ export class OutgoingCallerIdInstance {
   }
 }
 
-
 export interface OutgoingCallerIdListInstance {
   (sid: string): OutgoingCallerIdContext;
   get(sid: string): OutgoingCallerIdContext;
-
-
 
   /**
    * Streams OutgoingCallerIdInstance records from the API.
@@ -379,7 +417,12 @@ export interface OutgoingCallerIdListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: OutgoingCallerIdInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams OutgoingCallerIdInstance records from the API.
    *
@@ -395,7 +438,13 @@ export interface OutgoingCallerIdListInstance {
    * @param { OutgoingCallerIdListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: OutgoingCallerIdListInstanceEachOptions, callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: OutgoingCallerIdListInstanceEachOptions,
+    callback?: (
+      item: OutgoingCallerIdInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
@@ -407,7 +456,9 @@ export interface OutgoingCallerIdListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
+  getPage(
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
+  ): Promise<OutgoingCallerIdPage>;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
    *
@@ -419,7 +470,10 @@ export interface OutgoingCallerIdListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
+  ): Promise<OutgoingCallerIdPage>;
   getPage(params?: any, callback?: any): Promise<OutgoingCallerIdPage>;
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list.
@@ -429,7 +483,9 @@ export interface OutgoingCallerIdListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any): Promise<OutgoingCallerIdInstance[]>;
+  list(
+    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
+  ): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list.
    *
@@ -439,7 +495,10 @@ export interface OutgoingCallerIdListInstance {
    * @param { OutgoingCallerIdListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: OutgoingCallerIdListInstanceOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any): Promise<OutgoingCallerIdInstance[]>;
+  list(
+    params?: OutgoingCallerIdListInstanceOptions,
+    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
+  ): Promise<OutgoingCallerIdInstance[]>;
   list(params?: any, callback?: any): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
@@ -451,7 +510,9 @@ export interface OutgoingCallerIdListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
+  page(
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
+  ): Promise<OutgoingCallerIdPage>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
    *
@@ -463,7 +524,10 @@ export interface OutgoingCallerIdListInstance {
    * @param { OutgoingCallerIdListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: OutgoingCallerIdListInstancePageOptions, callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
+  page(
+    params: OutgoingCallerIdListInstancePageOptions,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
+  ): Promise<OutgoingCallerIdPage>;
   page(params?: any, callback?: any): Promise<OutgoingCallerIdPage>;
 
   /**
@@ -477,26 +541,33 @@ export interface OutgoingCallerIdSolution {
   accountSid?: string;
 }
 
-interface OutgoingCallerIdListInstanceImpl extends OutgoingCallerIdListInstance {}
+interface OutgoingCallerIdListInstanceImpl
+  extends OutgoingCallerIdListInstance {}
 class OutgoingCallerIdListInstanceImpl implements OutgoingCallerIdListInstance {
   _version?: V2010;
   _solution?: OutgoingCallerIdSolution;
   _uri?: string;
-
 }
 
-export function OutgoingCallerIdListInstance(version: V2010, accountSid: string): OutgoingCallerIdListInstance {
-  const instance = ((sid) => instance.get(sid)) as OutgoingCallerIdListInstanceImpl;
+export function OutgoingCallerIdListInstance(
+  version: V2010,
+  accountSid: string
+): OutgoingCallerIdListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as OutgoingCallerIdListInstanceImpl;
 
   instance.get = function get(sid): OutgoingCallerIdContext {
     return new OutgoingCallerIdContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/OutgoingCallerIds.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<OutgoingCallerIdPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<OutgoingCallerIdPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -506,79 +577,108 @@ export function OutgoingCallerIdListInstance(version: V2010, accountSid: string)
 
     let data: any = {};
 
-        if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["phoneNumber"] !== undefined)
+      data["PhoneNumber"] = params["phoneNumber"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new OutgoingCallerIdPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutgoingCallerIdPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<OutgoingCallerIdPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<OutgoingCallerIdPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new OutgoingCallerIdPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new OutgoingCallerIdPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {
-/**
-* Initialize the OutgoingCallerIdPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution) {
+export class OutgoingCallerIdPage extends Page<
+  V2010,
+  OutgoingCallerIdPayload,
+  OutgoingCallerIdResource,
+  OutgoingCallerIdInstance
+> {
+  /**
+   * Initialize the OutgoingCallerIdPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: OutgoingCallerIdSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of OutgoingCallerIdInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
+  /**
+   * Build an instance of OutgoingCallerIdInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
     return new OutgoingCallerIdInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

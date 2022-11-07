@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,13 +19,11 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type MediaRecordingFormat = "mp4" | "webm";
 
+type MediaRecordingOrder = "asc" | "desc";
 
-type MediaRecordingFormat = 'mp4'|'webm';
-
-type MediaRecordingOrder = 'asc'|'desc';
-
-type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+type MediaRecordingStatus = "processing" | "completed" | "deleted" | "failed";
 
 /**
  * Options to pass to each
@@ -46,12 +43,15 @@ type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
  *                         Default is no limit
  */
 export interface MediaRecordingListInstanceEachOptions {
-  "order"?: MediaRecordingOrder;
-  "status"?: MediaRecordingStatus;
-  "processorSid"?: string;
-  "sourceSid"?: string;
-  "pageSize"?: number;
-  callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
+  processorSid?: string;
+  sourceSid?: string;
+  pageSize?: number;
+  callback?: (
+    item: MediaRecordingInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -70,11 +70,11 @@ export interface MediaRecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MediaRecordingListInstanceOptions {
-  "order"?: MediaRecordingOrder;
-  "status"?: MediaRecordingStatus;
-  "processorSid"?: string;
-  "sourceSid"?: string;
-  "pageSize"?: number;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
+  processorSid?: string;
+  sourceSid?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -90,20 +90,16 @@ export interface MediaRecordingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaRecordingListInstancePageOptions {
-  "order"?: MediaRecordingOrder;
-  "status"?: MediaRecordingStatus;
-  "processorSid"?: string;
-  "sourceSid"?: string;
-  "pageSize"?: number;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
+  processorSid?: string;
+  sourceSid?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface MediaRecordingContext {
-
-
   /**
    * Remove a MediaRecordingInstance
    *
@@ -111,8 +107,9 @@ export interface MediaRecordingContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a MediaRecordingInstance
@@ -121,8 +118,9 @@ export interface MediaRecordingContext {
    *
    * @returns { Promise } Resolves to processed MediaRecordingInstance
    */
-  fetch(callback?: (error: Error | null, item?: MediaRecordingInstance) => any): Promise<MediaRecordingInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: MediaRecordingInstance) => any
+  ): Promise<MediaRecordingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -132,13 +130,12 @@ export interface MediaRecordingContext {
 }
 
 export interface MediaRecordingContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class MediaRecordingContextImpl implements MediaRecordingContext {
   protected _solution: MediaRecordingContextSolution;
   protected _uri: string;
-
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -146,29 +143,40 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<MediaRecordingInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new MediaRecordingInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MediaRecordingInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -184,10 +192,17 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type MediaRecordingStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type MediaRecordingStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface MediaRecordingPayload extends MediaRecordingResource, Page.TwilioResponsePayload {
-}
+interface MediaRecordingPayload
+  extends MediaRecordingResource,
+    Page.TwilioResponsePayload {}
 
 interface MediaRecordingResource {
   account_sid?: string | null;
@@ -211,7 +226,11 @@ export class MediaRecordingInstance {
   protected _solution: MediaRecordingContextSolution;
   protected _context?: MediaRecordingContext;
 
-  constructor(protected _version: V1, payload: MediaRecordingPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: MediaRecordingPayload,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -287,7 +306,9 @@ export class MediaRecordingInstance {
   url?: string | null;
 
   private get _proxy(): MediaRecordingContext {
-    this._context = this._context || new MediaRecordingContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new MediaRecordingContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -298,8 +319,9 @@ export class MediaRecordingInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -310,8 +332,9 @@ export class MediaRecordingInstance {
    *
    * @returns { Promise } Resolves to processed MediaRecordingInstance
    */
-  fetch(callback?: (error: Error | null, item?: MediaRecordingInstance) => any): Promise<MediaRecordingInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: MediaRecordingInstance) => any
+  ): Promise<MediaRecordingInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -322,22 +345,22 @@ export class MediaRecordingInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      duration: this.duration, 
-      format: this.format, 
-      links: this.links, 
-      processorSid: this.processorSid, 
-      resolution: this.resolution, 
-      sourceSid: this.sourceSid, 
-      sid: this.sid, 
-      mediaSize: this.mediaSize, 
-      status: this.status, 
-      statusCallback: this.statusCallback, 
-      statusCallbackMethod: this.statusCallbackMethod, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      duration: this.duration,
+      format: this.format,
+      links: this.links,
+      processorSid: this.processorSid,
+      resolution: this.resolution,
+      sourceSid: this.sourceSid,
+      sid: this.sid,
+      mediaSize: this.mediaSize,
+      status: this.status,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -345,12 +368,9 @@ export class MediaRecordingInstance {
   }
 }
 
-
 export interface MediaRecordingListInstance {
   (sid: string): MediaRecordingContext;
   get(sid: string): MediaRecordingContext;
-
-
 
   /**
    * Streams MediaRecordingInstance records from the API.
@@ -366,7 +386,12 @@ export interface MediaRecordingListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: MediaRecordingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams MediaRecordingInstance records from the API.
    *
@@ -382,7 +407,13 @@ export interface MediaRecordingListInstance {
    * @param { MediaRecordingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: MediaRecordingListInstanceEachOptions, callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: MediaRecordingListInstanceEachOptions,
+    callback?: (
+      item: MediaRecordingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MediaRecordingInstance records from the API.
@@ -394,7 +425,9 @@ export interface MediaRecordingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  getPage(
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
+  ): Promise<MediaRecordingPage>;
   /**
    * Retrieve a single target page of MediaRecordingInstance records from the API.
    *
@@ -406,7 +439,10 @@ export interface MediaRecordingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
+  ): Promise<MediaRecordingPage>;
   getPage(params?: any, callback?: any): Promise<MediaRecordingPage>;
   /**
    * Lists MediaRecordingInstance records from the API as a list.
@@ -416,7 +452,9 @@ export interface MediaRecordingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
+  list(
+    callback?: (error: Error | null, items: MediaRecordingInstance[]) => any
+  ): Promise<MediaRecordingInstance[]>;
   /**
    * Lists MediaRecordingInstance records from the API as a list.
    *
@@ -426,7 +464,10 @@ export interface MediaRecordingListInstance {
    * @param { MediaRecordingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: MediaRecordingListInstanceOptions, callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
+  list(
+    params?: MediaRecordingListInstanceOptions,
+    callback?: (error: Error | null, items: MediaRecordingInstance[]) => any
+  ): Promise<MediaRecordingInstance[]>;
   list(params?: any, callback?: any): Promise<MediaRecordingInstance[]>;
   /**
    * Retrieve a single page of MediaRecordingInstance records from the API.
@@ -438,7 +479,9 @@ export interface MediaRecordingListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  page(
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
+  ): Promise<MediaRecordingPage>;
   /**
    * Retrieve a single page of MediaRecordingInstance records from the API.
    *
@@ -450,7 +493,10 @@ export interface MediaRecordingListInstance {
    * @param { MediaRecordingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: MediaRecordingListInstancePageOptions, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  page(
+    params: MediaRecordingListInstancePageOptions,
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
+  ): Promise<MediaRecordingPage>;
   page(params?: any, callback?: any): Promise<MediaRecordingPage>;
 
   /**
@@ -460,29 +506,33 @@ export interface MediaRecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaRecordingSolution {
-}
+export interface MediaRecordingSolution {}
 
 interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
 class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
   _version?: V1;
   _solution?: MediaRecordingSolution;
   _uri?: string;
-
 }
 
-export function MediaRecordingListInstance(version: V1): MediaRecordingListInstance {
-  const instance = ((sid) => instance.get(sid)) as MediaRecordingListInstanceImpl;
+export function MediaRecordingListInstance(
+  version: V1
+): MediaRecordingListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as MediaRecordingListInstanceImpl;
 
   instance.get = function get(sid): MediaRecordingContext {
     return new MediaRecordingContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/MediaRecordings`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<MediaRecordingPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<MediaRecordingPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -492,82 +542,106 @@ export function MediaRecordingListInstance(version: V1): MediaRecordingListInsta
 
     let data: any = {};
 
-        if (params["order"] !== undefined)
-    data["Order"] = params["order"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["order"] !== undefined) data["Order"] = params["order"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["processorSid"] !== undefined)
-    data["ProcessorSid"] = params["processorSid"];
+      data["ProcessorSid"] = params["processorSid"];
     if (params["sourceSid"] !== undefined)
-    data["SourceSid"] = params["sourceSid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["SourceSid"] = params["sourceSid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MediaRecordingPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MediaRecordingPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MediaRecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<MediaRecordingPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new MediaRecordingPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MediaRecordingPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class MediaRecordingPage extends Page<V1, MediaRecordingPayload, MediaRecordingResource, MediaRecordingInstance> {
-/**
-* Initialize the MediaRecordingPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: MediaRecordingSolution) {
+export class MediaRecordingPage extends Page<
+  V1,
+  MediaRecordingPayload,
+  MediaRecordingResource,
+  MediaRecordingInstance
+> {
+  /**
+   * Initialize the MediaRecordingPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: MediaRecordingSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of MediaRecordingInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: MediaRecordingPayload): MediaRecordingInstance {
-    return new MediaRecordingInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of MediaRecordingInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MediaRecordingPayload): MediaRecordingInstance {
+    return new MediaRecordingInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

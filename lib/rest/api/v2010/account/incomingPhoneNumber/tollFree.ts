@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 
 /**
  * Indicate if a phone can receive calls or messages
@@ -30,7 +28,6 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
   "voice"?: boolean;
   "fax"?: boolean;
 }
-
 
 export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree {
   /**
@@ -153,15 +150,23 @@ export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree {
   "status"?: string | null;
 }
 
+type IncomingPhoneNumberTollFreeAddressRequirement =
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
 
-type IncomingPhoneNumberTollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
+type IncomingPhoneNumberTollFreeEmergencyAddressStatus =
+  | "registered"
+  | "unregistered"
+  | "pending-registration"
+  | "registration-failure"
+  | "pending-unregistration"
+  | "unregistration-failure";
 
-type IncomingPhoneNumberTollFreeEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+type IncomingPhoneNumberTollFreeEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberTollFreeEmergencyStatus = 'Active'|'Inactive';
-
-type IncomingPhoneNumberTollFreeVoiceReceiveMode = 'voice'|'fax';
-
+type IncomingPhoneNumberTollFreeVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a TollFreeInstance
@@ -184,36 +189,36 @@ type IncomingPhoneNumberTollFreeVoiceReceiveMode = 'voice'|'fax';
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberTollFreeEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberTollFreeEmergencyStatus } [emergencyStatus]
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberTollFreeVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberTollFreeVoiceReceiveMode } [voiceReceiveMode]
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface TollFreeListInstanceCreateOptions {
-  "phoneNumber": string;
-  "apiVersion"?: string;
-  "friendlyName"?: string;
-  "smsApplicationSid"?: string;
-  "smsFallbackMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsMethod"?: string;
-  "smsUrl"?: string;
-  "statusCallback"?: string;
-  "statusCallbackMethod"?: string;
-  "voiceApplicationSid"?: string;
-  "voiceCallerIdLookup"?: boolean;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceUrl"?: string;
-  "identitySid"?: string;
-  "addressSid"?: string;
-  "emergencyStatus"?: IncomingPhoneNumberTollFreeEmergencyStatus;
-  "emergencyAddressSid"?: string;
-  "trunkSid"?: string;
-  "voiceReceiveMode"?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
-  "bundleSid"?: string;
+  phoneNumber: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  identitySid?: string;
+  addressSid?: string;
+  emergencyStatus?: IncomingPhoneNumberTollFreeEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
+  bundleSid?: string;
 }
 /**
  * Options to pass to each
@@ -233,11 +238,11 @@ export interface TollFreeListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TollFreeListInstanceEachOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -257,11 +262,11 @@ export interface TollFreeListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TollFreeListInstanceOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -277,20 +282,16 @@ export interface TollFreeListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TollFreeListInstancePageOptions {
-  "beta"?: boolean;
-  "friendlyName"?: string;
-  "phoneNumber"?: string;
-  "origin"?: string;
-  "pageSize"?: number;
+  beta?: boolean;
+  friendlyName?: string;
+  phoneNumber?: string;
+  origin?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface TollFreeListInstance {
-
-
   /**
    * Create a TollFreeInstance
    *
@@ -299,10 +300,11 @@ export interface TollFreeListInstance {
    *
    * @returns { Promise } Resolves to processed TollFreeInstance
    */
-  create(params: TollFreeListInstanceCreateOptions, callback?: (error: Error | null, item?: TollFreeInstance) => any): Promise<TollFreeInstance>;
-  create(params: any, callback?: any): Promise<TollFreeInstance>
-
-
+  create(
+    params: TollFreeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TollFreeInstance) => any
+  ): Promise<TollFreeInstance>;
+  create(params: any, callback?: any): Promise<TollFreeInstance>;
 
   /**
    * Streams TollFreeInstance records from the API.
@@ -318,7 +320,9 @@ export interface TollFreeListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams TollFreeInstance records from the API.
    *
@@ -334,7 +338,10 @@ export interface TollFreeListInstance {
    * @param { TollFreeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: TollFreeListInstanceEachOptions, callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: TollFreeListInstanceEachOptions,
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
@@ -346,7 +353,9 @@ export interface TollFreeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: TollFreePage) => any): Promise<TollFreePage>;
+  getPage(
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
    *
@@ -358,7 +367,10 @@ export interface TollFreeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TollFreePage) => any): Promise<TollFreePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   getPage(params?: any, callback?: any): Promise<TollFreePage>;
   /**
    * Lists TollFreeInstance records from the API as a list.
@@ -368,7 +380,9 @@ export interface TollFreeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TollFreeInstance[]) => any): Promise<TollFreeInstance[]>;
+  list(
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+  ): Promise<TollFreeInstance[]>;
   /**
    * Lists TollFreeInstance records from the API as a list.
    *
@@ -378,7 +392,10 @@ export interface TollFreeListInstance {
    * @param { TollFreeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: TollFreeListInstanceOptions, callback?: (error: Error | null, items: TollFreeInstance[]) => any): Promise<TollFreeInstance[]>;
+  list(
+    params?: TollFreeListInstanceOptions,
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+  ): Promise<TollFreeInstance[]>;
   list(params?: any, callback?: any): Promise<TollFreeInstance[]>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API.
@@ -390,7 +407,9 @@ export interface TollFreeListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TollFreePage) => any): Promise<TollFreePage>;
+  page(
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API.
    *
@@ -402,7 +421,10 @@ export interface TollFreeListInstance {
    * @param { TollFreeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: TollFreeListInstancePageOptions, callback?: (error: Error | null, items: TollFreePage) => any): Promise<TollFreePage>;
+  page(
+    params: TollFreeListInstancePageOptions,
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   page(params?: any, callback?: any): Promise<TollFreePage>;
 
   /**
@@ -421,92 +443,108 @@ class TollFreeListInstanceImpl implements TollFreeListInstance {
   _version?: V2010;
   _solution?: TollFreeSolution;
   _uri?: string;
-
 }
 
-export function TollFreeListInstance(version: V2010, accountSid: string): TollFreeListInstance {
+export function TollFreeListInstance(
+  version: V2010,
+  accountSid: string
+): TollFreeListInstance {
   const instance = {} as TollFreeListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/TollFree.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<TollFreeInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<TollFreeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
+      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["PhoneNumber"] = params["phoneNumber"];
     if (params["apiVersion"] !== undefined)
-    data["ApiVersion"] = params["apiVersion"];
+      data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-    data["SmsApplicationSid"] = params["smsApplicationSid"];
+      data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
+      data["VoiceCallerIdLookup"] = serialize.bool(
+        params["voiceCallerIdLookup"]
+      );
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["identitySid"] !== undefined)
-    data["IdentitySid"] = params["identitySid"];
+      data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-    data["AddressSid"] = params["addressSid"];
+      data["AddressSid"] = params["addressSid"];
     if (params["emergencyStatus"] !== undefined)
-    data["EmergencyStatus"] = params["emergencyStatus"];
+      data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined)
-    data["TrunkSid"] = params["trunkSid"];
+      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
     if (params["voiceReceiveMode"] !== undefined)
-    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["bundleSid"] !== undefined)
-    data["BundleSid"] = params["bundleSid"];
-
+      data["BundleSid"] = params["bundleSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TollFreeInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TollFreeInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<TollFreePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<TollFreePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -516,57 +554,77 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
 
     let data: any = {};
 
-        if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+    if (params["beta"] !== undefined)
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["phoneNumber"] !== undefined)
-    data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined)
-    data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TollFreePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TollFreePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TollFreePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<TollFreePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new TollFreePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new TollFreePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface TollFreePayload extends TollFreeResource, Page.TwilioResponsePayload {
-}
+interface TollFreePayload
+  extends TollFreeResource,
+    Page.TwilioResponsePayload {}
 
 interface TollFreeResource {
   incoming_phone_numbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree>;
@@ -581,8 +639,11 @@ interface TollFreeResource {
 }
 
 export class TollFreeInstance {
-
-  constructor(protected _version: V2010, payload: TollFreePayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: TollFreePayload,
+    accountSid?: string
+  ) {
     this.incomingPhoneNumbers = payload.incoming_phone_numbers;
     this.end = deserialize.integer(payload.end);
     this.firstPageUri = payload.first_page_uri;
@@ -592,7 +653,6 @@ export class TollFreeInstance {
     this.previousPageUri = payload.previous_page_uri;
     this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-
   }
 
   incomingPhoneNumbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree>;
@@ -612,16 +672,16 @@ export class TollFreeInstance {
    */
   toJSON() {
     return {
-      incomingPhoneNumbers: this.incomingPhoneNumbers, 
-      end: this.end, 
-      firstPageUri: this.firstPageUri, 
-      nextPageUri: this.nextPageUri, 
-      page: this.page, 
-      pageSize: this.pageSize, 
-      previousPageUri: this.previousPageUri, 
-      start: this.start, 
-      uri: this.uri
-    }
+      incomingPhoneNumbers: this.incomingPhoneNumbers,
+      end: this.end,
+      firstPageUri: this.firstPageUri,
+      nextPageUri: this.nextPageUri,
+      page: this.page,
+      pageSize: this.pageSize,
+      previousPageUri: this.previousPageUri,
+      start: this.start,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -629,33 +689,41 @@ export class TollFreeInstance {
   }
 }
 
-export class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource, TollFreeInstance> {
-/**
-* Initialize the TollFreePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: TollFreeSolution) {
+export class TollFreePage extends Page<
+  V2010,
+  TollFreePayload,
+  TollFreeResource,
+  TollFreeInstance
+> {
+  /**
+   * Initialize the TollFreePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: TollFreeSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of TollFreeInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: TollFreePayload): TollFreeInstance {
+  /**
+   * Build an instance of TollFreeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TollFreePayload): TollFreeInstance {
     return new TollFreeInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

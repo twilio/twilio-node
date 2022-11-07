@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 
 export class ListAccountUsageRecordResponseMeta {
   "firstPageUrl"?: string;
@@ -30,7 +28,6 @@ export class ListAccountUsageRecordResponseMeta {
   "url"?: string;
   "key"?: string;
 }
-
 
 export class WirelessV1SimDataSession {
   /**
@@ -99,7 +96,6 @@ export class WirelessV1SimDataSession {
   "imei"?: string | null;
 }
 
-
 /**
  * Options to pass to each
  *
@@ -114,7 +110,7 @@ export class WirelessV1SimDataSession {
  *                         Default is no limit
  */
 export interface DataSessionListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -130,7 +126,7 @@ export interface DataSessionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DataSessionListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -142,17 +138,12 @@ export interface DataSessionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DataSessionListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface DataSessionListInstance {
-
-
-
   /**
    * Streams DataSessionInstance records from the API.
    *
@@ -167,7 +158,9 @@ export interface DataSessionListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams DataSessionInstance records from the API.
    *
@@ -183,7 +176,10 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: DataSessionListInstanceEachOptions,
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
@@ -195,7 +191,9 @@ export interface DataSessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  getPage(
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    *
@@ -207,7 +205,10 @@ export interface DataSessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
   getPage(params?: any, callback?: any): Promise<DataSessionPage>;
   /**
    * Lists DataSessionInstance records from the API as a list.
@@ -217,7 +218,9 @@ export interface DataSessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+  ): Promise<DataSessionInstance[]>;
   /**
    * Lists DataSessionInstance records from the API as a list.
    *
@@ -227,7 +230,10 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: DataSessionListInstanceOptions, callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
+  list(
+    params?: DataSessionListInstanceOptions,
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+  ): Promise<DataSessionInstance[]>;
   list(params?: any, callback?: any): Promise<DataSessionInstance[]>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
@@ -239,7 +245,9 @@ export interface DataSessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  page(
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    *
@@ -251,7 +259,10 @@ export interface DataSessionListInstance {
    * @param { DataSessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  page(
+    params: DataSessionListInstancePageOptions,
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
   page(params?: any, callback?: any): Promise<DataSessionPage>;
 
   /**
@@ -270,17 +281,22 @@ class DataSessionListInstanceImpl implements DataSessionListInstance {
   _version?: V1;
   _solution?: DataSessionSolution;
   _uri?: string;
-
 }
 
-export function DataSessionListInstance(version: V1, simSid: string): DataSessionListInstance {
+export function DataSessionListInstance(
+  version: V1,
+  simSid: string
+): DataSessionListInstance {
   const instance = {} as DataSessionListInstanceImpl;
 
   instance._version = version;
   instance._solution = { simSid };
   instance._uri = `/Sims/${simSid}/DataSessions`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<DataSessionPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<DataSessionPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -290,49 +306,71 @@ export function DataSessionListInstance(version: V1, simSid: string): DataSessio
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DataSessionPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DataSessionPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DataSessionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<DataSessionPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new DataSessionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new DataSessionPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePayload {
-}
+interface DataSessionPayload
+  extends DataSessionResource,
+    Page.TwilioResponsePayload {}
 
 interface DataSessionResource {
   data_sessions?: Array<WirelessV1SimDataSession>;
@@ -340,11 +378,13 @@ interface DataSessionResource {
 }
 
 export class DataSessionInstance {
-
-  constructor(protected _version: V1, payload: DataSessionPayload, simSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: DataSessionPayload,
+    simSid?: string
+  ) {
     this.dataSessions = payload.data_sessions;
     this.meta = payload.meta;
-
   }
 
   dataSessions?: Array<WirelessV1SimDataSession>;
@@ -357,9 +397,9 @@ export class DataSessionInstance {
    */
   toJSON() {
     return {
-      dataSessions: this.dataSessions, 
-      meta: this.meta
-    }
+      dataSessions: this.dataSessions,
+      meta: this.meta,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -367,33 +407,41 @@ export class DataSessionInstance {
   }
 }
 
-export class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
-/**
-* Initialize the DataSessionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: DataSessionSolution) {
+export class DataSessionPage extends Page<
+  V1,
+  DataSessionPayload,
+  DataSessionResource,
+  DataSessionInstance
+> {
+  /**
+   * Initialize the DataSessionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: DataSessionSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of DataSessionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: DataSessionPayload): DataSessionInstance {
+  /**
+   * Build an instance of DataSessionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DataSessionPayload): DataSessionInstance {
     return new DataSessionInstance(
-    this._version,
-    payload,
-        this._solution.simSid,
+      this._version,
+      payload,
+      this._solution.simSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

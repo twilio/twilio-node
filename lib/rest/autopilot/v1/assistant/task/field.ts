@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to create a FieldInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } uniqueName An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
  */
 export interface FieldListInstanceCreateOptions {
-  "fieldType": string;
-  "uniqueName": string;
+  fieldType: string;
+  uniqueName: string;
 }
 /**
  * Options to pass to each
@@ -47,7 +43,7 @@ export interface FieldListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface FieldListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: FieldInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +59,7 @@ export interface FieldListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface FieldListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -75,16 +71,12 @@ export interface FieldListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FieldListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface FieldContext {
-
-
   /**
    * Remove a FieldInstance
    *
@@ -92,8 +84,9 @@ export interface FieldContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a FieldInstance
@@ -102,8 +95,9 @@ export interface FieldContext {
    *
    * @returns { Promise } Resolves to processed FieldInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldInstance) => any): Promise<FieldInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: FieldInstance) => any
+  ): Promise<FieldInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -113,45 +107,62 @@ export interface FieldContext {
 }
 
 export interface FieldContextSolution {
-  "assistantSid"?: string;
-  "taskSid"?: string;
-  "sid"?: string;
+  assistantSid?: string;
+  taskSid?: string;
+  sid?: string;
 }
 
 export class FieldContextImpl implements FieldContext {
   protected _solution: FieldContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, assistantSid: string, taskSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    assistantSid: string,
+    taskSid: string,
+    sid: string
+  ) {
     this._solution = { assistantSid, taskSid, sid };
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<FieldInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new FieldInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.taskSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -168,8 +179,7 @@ export class FieldContextImpl implements FieldContext {
   }
 }
 
-interface FieldPayload extends FieldResource, Page.TwilioResponsePayload {
-}
+interface FieldPayload extends FieldResource, Page.TwilioResponsePayload {}
 
 interface FieldResource {
   account_sid?: string | null;
@@ -187,7 +197,13 @@ export class FieldInstance {
   protected _solution: FieldContextSolution;
   protected _context?: FieldContext;
 
-  constructor(protected _version: V1, payload: FieldPayload, assistantSid: string, taskSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FieldPayload,
+    assistantSid: string,
+    taskSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -239,7 +255,14 @@ export class FieldInstance {
   url?: string | null;
 
   private get _proxy(): FieldContext {
-    this._context = this._context || new FieldContextImpl(this._version, this._solution.assistantSid, this._solution.taskSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new FieldContextImpl(
+        this._version,
+        this._solution.assistantSid,
+        this._solution.taskSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -250,8 +273,9 @@ export class FieldInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -262,8 +286,9 @@ export class FieldInstance {
    *
    * @returns { Promise } Resolves to processed FieldInstance
    */
-  fetch(callback?: (error: Error | null, item?: FieldInstance) => any): Promise<FieldInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: FieldInstance) => any
+  ): Promise<FieldInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -274,16 +299,16 @@ export class FieldInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      fieldType: this.fieldType, 
-      taskSid: this.taskSid, 
-      assistantSid: this.assistantSid, 
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      fieldType: this.fieldType,
+      taskSid: this.taskSid,
+      assistantSid: this.assistantSid,
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -291,11 +316,9 @@ export class FieldInstance {
   }
 }
 
-
 export interface FieldListInstance {
   (sid: string): FieldContext;
   get(sid: string): FieldContext;
-
 
   /**
    * Create a FieldInstance
@@ -305,10 +328,11 @@ export interface FieldListInstance {
    *
    * @returns { Promise } Resolves to processed FieldInstance
    */
-  create(params: FieldListInstanceCreateOptions, callback?: (error: Error | null, item?: FieldInstance) => any): Promise<FieldInstance>;
-  create(params: any, callback?: any): Promise<FieldInstance>
-
-
+  create(
+    params: FieldListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FieldInstance) => any
+  ): Promise<FieldInstance>;
+  create(params: any, callback?: any): Promise<FieldInstance>;
 
   /**
    * Streams FieldInstance records from the API.
@@ -324,7 +348,9 @@ export interface FieldListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: FieldInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: FieldInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams FieldInstance records from the API.
    *
@@ -340,7 +366,10 @@ export interface FieldListInstance {
    * @param { FieldListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: FieldListInstanceEachOptions, callback?: (item: FieldInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: FieldListInstanceEachOptions,
+    callback?: (item: FieldInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FieldInstance records from the API.
@@ -352,7 +381,9 @@ export interface FieldListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
+  getPage(
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
   /**
    * Retrieve a single target page of FieldInstance records from the API.
    *
@@ -364,7 +395,10 @@ export interface FieldListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
   getPage(params?: any, callback?: any): Promise<FieldPage>;
   /**
    * Lists FieldInstance records from the API as a list.
@@ -374,7 +408,9 @@ export interface FieldListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FieldInstance[]) => any): Promise<FieldInstance[]>;
+  list(
+    callback?: (error: Error | null, items: FieldInstance[]) => any
+  ): Promise<FieldInstance[]>;
   /**
    * Lists FieldInstance records from the API as a list.
    *
@@ -384,7 +420,10 @@ export interface FieldListInstance {
    * @param { FieldListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: FieldListInstanceOptions, callback?: (error: Error | null, items: FieldInstance[]) => any): Promise<FieldInstance[]>;
+  list(
+    params?: FieldListInstanceOptions,
+    callback?: (error: Error | null, items: FieldInstance[]) => any
+  ): Promise<FieldInstance[]>;
   list(params?: any, callback?: any): Promise<FieldInstance[]>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
@@ -396,7 +435,9 @@ export interface FieldListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
+  page(
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
    *
@@ -408,7 +449,10 @@ export interface FieldListInstance {
    * @param { FieldListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: FieldListInstancePageOptions, callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
+  page(
+    params: FieldListInstancePageOptions,
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
   page(params?: any, callback?: any): Promise<FieldPage>;
 
   /**
@@ -428,58 +472,77 @@ class FieldListInstanceImpl implements FieldListInstance {
   _version?: V1;
   _solution?: FieldSolution;
   _uri?: string;
-
 }
 
-export function FieldListInstance(version: V1, assistantSid: string, taskSid: string): FieldListInstance {
+export function FieldListInstance(
+  version: V1,
+  assistantSid: string,
+  taskSid: string
+): FieldListInstance {
   const instance = ((sid) => instance.get(sid)) as FieldListInstanceImpl;
 
   instance.get = function get(sid): FieldContext {
     return new FieldContextImpl(version, assistantSid, taskSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { assistantSid, taskSid };
   instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FieldInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<FieldInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["fieldType"] === null || params["fieldType"] === undefined) {
-      throw new Error('Required parameter "params[\'fieldType\']" missing.');
+      throw new Error("Required parameter \"params['fieldType']\" missing.");
     }
 
     if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
-      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
+      throw new Error("Required parameter \"params['uniqueName']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FieldType"] = params["fieldType"];
-    
+
     data["UniqueName"] = params["uniqueName"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FieldInstance(
+          operationVersion,
+          payload,
+          this._solution.assistantSid,
+          this._solution.taskSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FieldPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<FieldPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -489,76 +552,103 @@ export function FieldListInstance(version: V1, assistantSid: string, taskSid: st
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<FieldPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new FieldPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FieldPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class FieldPage extends Page<V1, FieldPayload, FieldResource, FieldInstance> {
-/**
-* Initialize the FieldPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: FieldSolution) {
+export class FieldPage extends Page<
+  V1,
+  FieldPayload,
+  FieldResource,
+  FieldInstance
+> {
+  /**
+   * Initialize the FieldPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: FieldSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of FieldInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: FieldPayload): FieldInstance {
+  /**
+   * Build an instance of FieldInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FieldPayload): FieldInstance {
     return new FieldInstance(
-    this._version,
-    payload,
-        this._solution.assistantSid,
-        this._solution.taskSid,
+      this._version,
+      payload,
+      this._solution.assistantSid,
+      this._solution.taskSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

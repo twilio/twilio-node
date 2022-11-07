@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -26,8 +25,6 @@ import { NationalListInstance } from "./availablePhoneNumberCountry/national";
 import { SharedCostListInstance } from "./availablePhoneNumberCountry/sharedCost";
 import { TollFreeListInstance } from "./availablePhoneNumberCountry/tollFree";
 import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
-
-
 
 /**
  * Options to pass to each
@@ -43,8 +40,11 @@ import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
  *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: AvailablePhoneNumberCountryInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -59,7 +59,7 @@ export interface AvailablePhoneNumberCountryListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -71,15 +71,12 @@ export interface AvailablePhoneNumberCountryListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AvailablePhoneNumberCountryListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface AvailablePhoneNumberCountryContext {
-
   local: LocalListInstance;
   machineToMachine: MachineToMachineListInstance;
   mobile: MobileListInstance;
@@ -95,8 +92,12 @@ export interface AvailablePhoneNumberCountryContext {
    *
    * @returns { Promise } Resolves to processed AvailablePhoneNumberCountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>
-
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AvailablePhoneNumberCountryInstance
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -106,11 +107,13 @@ export interface AvailablePhoneNumberCountryContext {
 }
 
 export interface AvailablePhoneNumberCountryContextSolution {
-  "accountSid"?: string;
-  "countryCode"?: string;
+  accountSid?: string;
+  countryCode?: string;
 }
 
-export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNumberCountryContext {
+export class AvailablePhoneNumberCountryContextImpl
+  implements AvailablePhoneNumberCountryContext
+{
   protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _uri: string;
 
@@ -122,58 +125,114 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
   protected _tollFree?: TollFreeListInstance;
   protected _voip?: VoipListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, countryCode: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    countryCode: string
+  ) {
     this._solution = { accountSid, countryCode };
     this._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}.json`;
   }
 
   get local(): LocalListInstance {
-    this._local = this._local || LocalListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._local =
+      this._local ||
+      LocalListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._local;
   }
 
   get machineToMachine(): MachineToMachineListInstance {
-    this._machineToMachine = this._machineToMachine || MachineToMachineListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._machineToMachine =
+      this._machineToMachine ||
+      MachineToMachineListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._machineToMachine;
   }
 
   get mobile(): MobileListInstance {
-    this._mobile = this._mobile || MobileListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._mobile =
+      this._mobile ||
+      MobileListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._mobile;
   }
 
   get national(): NationalListInstance {
-    this._national = this._national || NationalListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._national =
+      this._national ||
+      NationalListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._national;
   }
 
   get sharedCost(): SharedCostListInstance {
-    this._sharedCost = this._sharedCost || SharedCostListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._sharedCost =
+      this._sharedCost ||
+      SharedCostListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._sharedCost;
   }
 
   get tollFree(): TollFreeListInstance {
-    this._tollFree = this._tollFree || TollFreeListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._tollFree =
+      this._tollFree ||
+      TollFreeListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._tollFree;
   }
 
   get voip(): VoipListInstance {
-    this._voip = this._voip || VoipListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._voip =
+      this._voip ||
+      VoipListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._voip;
   }
 
   fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryInstance(operationVersion, payload, this._solution.accountSid, this._solution.countryCode));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AvailablePhoneNumberCountryInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.countryCode
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -190,8 +249,9 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
   }
 }
 
-interface AvailablePhoneNumberCountryPayload extends AvailablePhoneNumberCountryResource, Page.TwilioResponsePayload {
-}
+interface AvailablePhoneNumberCountryPayload
+  extends AvailablePhoneNumberCountryResource,
+    Page.TwilioResponsePayload {}
 
 interface AvailablePhoneNumberCountryResource {
   country_code?: string | null;
@@ -205,14 +265,22 @@ export class AvailablePhoneNumberCountryInstance {
   protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _context?: AvailablePhoneNumberCountryContext;
 
-  constructor(protected _version: V2010, payload: AvailablePhoneNumberCountryPayload, accountSid: string, countryCode?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: AvailablePhoneNumberCountryPayload,
+    accountSid: string,
+    countryCode?: string
+  ) {
     this.countryCode = payload.country_code;
     this.country = payload.country;
     this.uri = payload.uri;
     this.beta = payload.beta;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, countryCode: countryCode || this.countryCode };
+    this._solution = {
+      accountSid,
+      countryCode: countryCode || this.countryCode,
+    };
   }
 
   /**
@@ -237,7 +305,13 @@ export class AvailablePhoneNumberCountryInstance {
   subresourceUris?: object | null;
 
   private get _proxy(): AvailablePhoneNumberCountryContext {
-    this._context = this._context || new AvailablePhoneNumberCountryContextImpl(this._version, this._solution.accountSid, this._solution.countryCode);
+    this._context =
+      this._context ||
+      new AvailablePhoneNumberCountryContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.countryCode
+      );
     return this._context;
   }
 
@@ -248,8 +322,12 @@ export class AvailablePhoneNumberCountryInstance {
    *
    * @returns { Promise } Resolves to processed AvailablePhoneNumberCountryInstance
    */
-  fetch(callback?: (error: Error | null, item?: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>
-     {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AvailablePhoneNumberCountryInstance
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -309,12 +387,12 @@ export class AvailablePhoneNumberCountryInstance {
    */
   toJSON() {
     return {
-      countryCode: this.countryCode, 
-      country: this.country, 
-      uri: this.uri, 
-      beta: this.beta, 
-      subresourceUris: this.subresourceUris
-    }
+      countryCode: this.countryCode,
+      country: this.country,
+      uri: this.uri,
+      beta: this.beta,
+      subresourceUris: this.subresourceUris,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -322,12 +400,9 @@ export class AvailablePhoneNumberCountryInstance {
   }
 }
 
-
 export interface AvailablePhoneNumberCountryListInstance {
   (countryCode: string): AvailablePhoneNumberCountryContext;
   get(countryCode: string): AvailablePhoneNumberCountryContext;
-
-
 
   /**
    * Streams AvailablePhoneNumberCountryInstance records from the API.
@@ -343,7 +418,12 @@ export interface AvailablePhoneNumberCountryListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: AvailablePhoneNumberCountryInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams AvailablePhoneNumberCountryInstance records from the API.
    *
@@ -359,7 +439,13 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { AvailablePhoneNumberCountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: AvailablePhoneNumberCountryListInstanceEachOptions,
+    callback?: (
+      item: AvailablePhoneNumberCountryInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
@@ -371,7 +457,12 @@ export interface AvailablePhoneNumberCountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): Promise<AvailablePhoneNumberCountryPage>;
+  getPage(
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryPage>;
   /**
    * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
    *
@@ -383,8 +474,17 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): Promise<AvailablePhoneNumberCountryPage>;
-  getPage(params?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryPage>;
+  getPage(
+    params?: any,
+    callback?: any
+  ): Promise<AvailablePhoneNumberCountryPage>;
   /**
    * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
    *
@@ -393,7 +493,12 @@ export interface AvailablePhoneNumberCountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance[]) => any): Promise<AvailablePhoneNumberCountryInstance[]>;
+  list(
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryInstance[]
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance[]>;
   /**
    * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
    *
@@ -403,8 +508,17 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { AvailablePhoneNumberCountryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: AvailablePhoneNumberCountryListInstanceOptions, callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance[]) => any): Promise<AvailablePhoneNumberCountryInstance[]>;
-  list(params?: any, callback?: any): Promise<AvailablePhoneNumberCountryInstance[]>;
+  list(
+    params?: AvailablePhoneNumberCountryListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryInstance[]
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance[]>;
+  list(
+    params?: any,
+    callback?: any
+  ): Promise<AvailablePhoneNumberCountryInstance[]>;
   /**
    * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
    *
@@ -415,7 +529,12 @@ export interface AvailablePhoneNumberCountryListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): Promise<AvailablePhoneNumberCountryPage>;
+  page(
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryPage>;
   /**
    * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
    *
@@ -427,7 +546,13 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { AvailablePhoneNumberCountryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: AvailablePhoneNumberCountryListInstancePageOptions, callback?: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): Promise<AvailablePhoneNumberCountryPage>;
+  page(
+    params: AvailablePhoneNumberCountryListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryPage>;
   page(params?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage>;
 
   /**
@@ -441,26 +566,39 @@ export interface AvailablePhoneNumberCountrySolution {
   accountSid?: string;
 }
 
-interface AvailablePhoneNumberCountryListInstanceImpl extends AvailablePhoneNumberCountryListInstance {}
-class AvailablePhoneNumberCountryListInstanceImpl implements AvailablePhoneNumberCountryListInstance {
+interface AvailablePhoneNumberCountryListInstanceImpl
+  extends AvailablePhoneNumberCountryListInstance {}
+class AvailablePhoneNumberCountryListInstanceImpl
+  implements AvailablePhoneNumberCountryListInstance
+{
   _version?: V2010;
   _solution?: AvailablePhoneNumberCountrySolution;
   _uri?: string;
-
 }
 
-export function AvailablePhoneNumberCountryListInstance(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance {
-  const instance = ((countryCode) => instance.get(countryCode)) as AvailablePhoneNumberCountryListInstanceImpl;
+export function AvailablePhoneNumberCountryListInstance(
+  version: V2010,
+  accountSid: string
+): AvailablePhoneNumberCountryListInstance {
+  const instance = ((countryCode) =>
+    instance.get(countryCode)) as AvailablePhoneNumberCountryListInstanceImpl;
 
   instance.get = function get(countryCode): AvailablePhoneNumberCountryContext {
-    return new AvailablePhoneNumberCountryContextImpl(version, accountSid, countryCode);
-  }
+    return new AvailablePhoneNumberCountryContextImpl(
+      version,
+      accountSid,
+      countryCode
+    );
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<AvailablePhoneNumberCountryPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -470,75 +608,114 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AvailablePhoneNumberCountryPage(
+          operationVersion,
+          payload,
+          this._solution
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<AvailablePhoneNumberCountryPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new AvailablePhoneNumberCountryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AvailablePhoneNumberCountryPage(
+          this._version,
+          payload,
+          this._solution
+        )
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
-/**
-* Initialize the AvailablePhoneNumberCountryPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution) {
+export class AvailablePhoneNumberCountryPage extends Page<
+  V2010,
+  AvailablePhoneNumberCountryPayload,
+  AvailablePhoneNumberCountryResource,
+  AvailablePhoneNumberCountryInstance
+> {
+  /**
+   * Initialize the AvailablePhoneNumberCountryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: AvailablePhoneNumberCountrySolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of AvailablePhoneNumberCountryInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance {
+  /**
+   * Build an instance of AvailablePhoneNumberCountryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: AvailablePhoneNumberCountryPayload
+  ): AvailablePhoneNumberCountryInstance {
     return new AvailablePhoneNumberCountryInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -9,25 +9,25 @@
  * Do not edit the class manually.
  */
 
-import Domain from '../base/Domain';
-import V1 from './proxy/V1';
+import Domain from "../base/Domain";
+import V1 from "./proxy/V1";
 
 class ProxyBase extends Domain {
-    _v1?: V1;
+  _v1?: V1;
 
-    /**
-     * Initialize proxy domain
-     *
-     * @param twilio - The twilio client
-     */
-    constructor(twilio: any) {
-        super(twilio, 'https://proxy.twilio.com');
-    }
+  /**
+   * Initialize proxy domain
+   *
+   * @param twilio - The twilio client
+   */
+  constructor(twilio: any) {
+    super(twilio, "https://proxy.twilio.com");
+  }
 
-    get v1(): V1 {
-        this._v1 = this._v1 || new V1(this);
-        return this._v1;
-    }
+  get v1(): V1 {
+    this._v1 = this._v1 || new V1(this);
+    return this._v1;
+  }
 }
 
 export = ProxyBase;

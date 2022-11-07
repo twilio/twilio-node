@@ -1,4 +1,4 @@
-import {IncomingHttpHeaders} from "http2";
+import { IncomingHttpHeaders } from "http2";
 
 interface Request {
   protocol: string;
@@ -65,7 +65,6 @@ export function validateRequest(
   url: string,
   params: Record<string, any>
 ): boolean;
-
 
 /**
  * Utility function to get the expected signature for a given request

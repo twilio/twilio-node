@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a SinkValidateInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } testId A 34 character string that uniquely identifies the test event for a Sink being validated.
  */
 export interface SinkValidateListInstanceCreateOptions {
-  "testId": string;
+  testId: string;
 }
 
 export interface SinkValidateListInstance {
-
-
   /**
    * Create a SinkValidateInstance
    *
@@ -40,9 +35,11 @@ export interface SinkValidateListInstance {
    *
    * @returns { Promise } Resolves to processed SinkValidateInstance
    */
-  create(params: SinkValidateListInstanceCreateOptions, callback?: (error: Error | null, item?: SinkValidateInstance) => any): Promise<SinkValidateInstance>;
-  create(params: any, callback?: any): Promise<SinkValidateInstance>
-
+  create(
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SinkValidateInstance) => any
+  ): Promise<SinkValidateInstance>;
+  create(params: any, callback?: any): Promise<SinkValidateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -60,70 +57,84 @@ class SinkValidateListInstanceImpl implements SinkValidateListInstance {
   _version?: V1;
   _solution?: SinkValidateSolution;
   _uri?: string;
-
 }
 
-export function SinkValidateListInstance(version: V1, sid: string): SinkValidateListInstance {
+export function SinkValidateListInstance(
+  version: V1,
+  sid: string
+): SinkValidateListInstance {
   const instance = {} as SinkValidateListInstanceImpl;
 
   instance._version = version;
   instance._solution = { sid };
   instance._uri = `/Sinks/${sid}/Validate`;
 
-  instance.create = function create(params: any, callback?: any): Promise<SinkValidateInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<SinkValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["testId"] === null || params["testId"] === undefined) {
-      throw new Error('Required parameter "params[\'testId\']" missing.');
+      throw new Error("Required parameter \"params['testId']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["TestId"] = params["testId"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkValidateInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SinkValidateInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface SinkValidatePayload extends SinkValidateResource{
-}
+interface SinkValidatePayload extends SinkValidateResource {}
 
 interface SinkValidateResource {
   result?: string | null;
 }
 
 export class SinkValidateInstance {
-
-  constructor(protected _version: V1, payload: SinkValidatePayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SinkValidatePayload,
+    sid?: string
+  ) {
     this.result = payload.result;
-
   }
 
   /**
@@ -138,13 +149,11 @@ export class SinkValidateInstance {
    */
   toJSON() {
     return {
-      result: this.result
-    }
+      result: this.result,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

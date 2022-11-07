@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a WorkerChannelInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } [available] Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
  */
 export interface WorkerChannelContextUpdateOptions {
-  "capacity"?: number;
-  "available"?: boolean;
+  capacity?: number;
+  available?: boolean;
 }
 /**
  * Options to pass to each
@@ -47,7 +43,7 @@ export interface WorkerChannelContextUpdateOptions {
  *                         Default is no limit
  */
 export interface WorkerChannelListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -63,7 +59,7 @@ export interface WorkerChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface WorkerChannelListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -75,16 +71,12 @@ export interface WorkerChannelListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkerChannelListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface WorkerChannelContext {
-
-
   /**
    * Fetch a WorkerChannelInstance
    *
@@ -92,8 +84,9 @@ export interface WorkerChannelContext {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
 
   /**
    * Update a WorkerChannelInstance
@@ -102,7 +95,9 @@ export interface WorkerChannelContext {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  update(callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
+  update(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
   /**
    * Update a WorkerChannelInstance
    *
@@ -111,9 +106,11 @@ export interface WorkerChannelContext {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  update(params: WorkerChannelContextUpdateOptions, callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance>
-
+  update(
+    params: WorkerChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
+  update(params?: any, callback?: any): Promise<WorkerChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -123,37 +120,52 @@ export interface WorkerChannelContext {
 }
 
 export interface WorkerChannelContextSolution {
-  "workspaceSid"?: string;
-  "workerSid"?: string;
-  "sid"?: string;
+  workspaceSid?: string;
+  workerSid?: string;
+  sid?: string;
 }
 
 export class WorkerChannelContextImpl implements WorkerChannelContext {
   protected _solution: WorkerChannelContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, workspaceSid: string, workerSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+    workerSid: string,
+    sid: string
+  ) {
     this._solution = { workspaceSid, workerSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels/${sid}`;
   }
 
   fetch(callback?: any): Promise<WorkerChannelInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new WorkerChannelInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workerSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkerChannelInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.workerSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -162,26 +174,37 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
 
     let data: any = {};
 
-    
-        if (params["capacity"] !== undefined)
-    data["Capacity"] = params["capacity"];
+    if (params["capacity"] !== undefined) data["Capacity"] = params["capacity"];
     if (params["available"] !== undefined)
-    data["Available"] = serialize.bool(params["available"]);
-
+      data["Available"] = serialize.bool(params["available"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkerChannelInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workerSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkerChannelInstance(
+          operationVersion,
+          payload,
+          this._solution.workspaceSid,
+          this._solution.workerSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -198,8 +221,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   }
 }
 
-interface WorkerChannelPayload extends WorkerChannelResource, Page.TwilioResponsePayload {
-}
+interface WorkerChannelPayload
+  extends WorkerChannelResource,
+    Page.TwilioResponsePayload {}
 
 interface WorkerChannelResource {
   account_sid?: string | null;
@@ -221,11 +245,19 @@ export class WorkerChannelInstance {
   protected _solution: WorkerChannelContextSolution;
   protected _context?: WorkerChannelContext;
 
-  constructor(protected _version: V1, payload: WorkerChannelPayload, workspaceSid: string, workerSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: WorkerChannelPayload,
+    workspaceSid: string,
+    workerSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.assignedTasks = deserialize.integer(payload.assigned_tasks);
     this.available = payload.available;
-    this.availableCapacityPercentage = deserialize.integer(payload.available_capacity_percentage);
+    this.availableCapacityPercentage = deserialize.integer(
+      payload.available_capacity_percentage
+    );
     this.configuredCapacity = deserialize.integer(payload.configured_capacity);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -293,7 +325,14 @@ export class WorkerChannelInstance {
   url?: string | null;
 
   private get _proxy(): WorkerChannelContext {
-    this._context = this._context || new WorkerChannelContextImpl(this._version, this._solution.workspaceSid, this._solution.workerSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new WorkerChannelContextImpl(
+        this._version,
+        this._solution.workspaceSid,
+        this._solution.workerSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -304,8 +343,9 @@ export class WorkerChannelInstance {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  fetch(callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -316,7 +356,9 @@ export class WorkerChannelInstance {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  update(callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
+  update(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
   /**
    * Update a WorkerChannelInstance
    *
@@ -325,9 +367,11 @@ export class WorkerChannelInstance {
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
-  update(params: WorkerChannelContextUpdateOptions, callback?: (error: Error | null, item?: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance>
-     {
+  update(
+    params: WorkerChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
+  update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -338,20 +382,20 @@ export class WorkerChannelInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      assignedTasks: this.assignedTasks, 
-      available: this.available, 
-      availableCapacityPercentage: this.availableCapacityPercentage, 
-      configuredCapacity: this.configuredCapacity, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      sid: this.sid, 
-      taskChannelSid: this.taskChannelSid, 
-      taskChannelUniqueName: this.taskChannelUniqueName, 
-      workerSid: this.workerSid, 
-      workspaceSid: this.workspaceSid, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      assignedTasks: this.assignedTasks,
+      available: this.available,
+      availableCapacityPercentage: this.availableCapacityPercentage,
+      configuredCapacity: this.configuredCapacity,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      sid: this.sid,
+      taskChannelSid: this.taskChannelSid,
+      taskChannelUniqueName: this.taskChannelUniqueName,
+      workerSid: this.workerSid,
+      workspaceSid: this.workspaceSid,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -359,12 +403,9 @@ export class WorkerChannelInstance {
   }
 }
 
-
 export interface WorkerChannelListInstance {
   (sid: string): WorkerChannelContext;
   get(sid: string): WorkerChannelContext;
-
-
 
   /**
    * Streams WorkerChannelInstance records from the API.
@@ -380,7 +421,12 @@ export interface WorkerChannelListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: WorkerChannelInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams WorkerChannelInstance records from the API.
    *
@@ -396,7 +442,13 @@ export interface WorkerChannelListInstance {
    * @param { WorkerChannelListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: WorkerChannelListInstanceEachOptions, callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: WorkerChannelListInstanceEachOptions,
+    callback?: (
+      item: WorkerChannelInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
@@ -408,7 +460,9 @@ export interface WorkerChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: WorkerChannelPage) => any): Promise<WorkerChannelPage>;
+  getPage(
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
    *
@@ -420,7 +474,10 @@ export interface WorkerChannelListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkerChannelPage) => any): Promise<WorkerChannelPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
   getPage(params?: any, callback?: any): Promise<WorkerChannelPage>;
   /**
    * Lists WorkerChannelInstance records from the API as a list.
@@ -430,7 +487,9 @@ export interface WorkerChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: WorkerChannelInstance[]) => any): Promise<WorkerChannelInstance[]>;
+  list(
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
+  ): Promise<WorkerChannelInstance[]>;
   /**
    * Lists WorkerChannelInstance records from the API as a list.
    *
@@ -440,7 +499,10 @@ export interface WorkerChannelListInstance {
    * @param { WorkerChannelListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: WorkerChannelListInstanceOptions, callback?: (error: Error | null, items: WorkerChannelInstance[]) => any): Promise<WorkerChannelInstance[]>;
+  list(
+    params?: WorkerChannelListInstanceOptions,
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
+  ): Promise<WorkerChannelInstance[]>;
   list(params?: any, callback?: any): Promise<WorkerChannelInstance[]>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
@@ -452,7 +514,9 @@ export interface WorkerChannelListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: WorkerChannelPage) => any): Promise<WorkerChannelPage>;
+  page(
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
    *
@@ -464,7 +528,10 @@ export interface WorkerChannelListInstance {
    * @param { WorkerChannelListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: WorkerChannelListInstancePageOptions, callback?: (error: Error | null, items: WorkerChannelPage) => any): Promise<WorkerChannelPage>;
+  page(
+    params: WorkerChannelListInstancePageOptions,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
   page(params?: any, callback?: any): Promise<WorkerChannelPage>;
 
   /**
@@ -484,21 +551,28 @@ class WorkerChannelListInstanceImpl implements WorkerChannelListInstance {
   _version?: V1;
   _solution?: WorkerChannelSolution;
   _uri?: string;
-
 }
 
-export function WorkerChannelListInstance(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance {
-  const instance = ((sid) => instance.get(sid)) as WorkerChannelListInstanceImpl;
+export function WorkerChannelListInstance(
+  version: V1,
+  workspaceSid: string,
+  workerSid: string
+): WorkerChannelListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as WorkerChannelListInstanceImpl;
 
   instance.get = function get(sid): WorkerChannelContext {
     return new WorkerChannelContextImpl(version, workspaceSid, workerSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { workspaceSid, workerSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<WorkerChannelPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<WorkerChannelPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -508,76 +582,104 @@ export function WorkerChannelListInstance(version: V1, workspaceSid: string, wor
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkerChannelPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new WorkerChannelPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkerChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<WorkerChannelPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new WorkerChannelPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new WorkerChannelPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {
-/**
-* Initialize the WorkerChannelPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution) {
+export class WorkerChannelPage extends Page<
+  V1,
+  WorkerChannelPayload,
+  WorkerChannelResource,
+  WorkerChannelInstance
+> {
+  /**
+   * Initialize the WorkerChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: WorkerChannelSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of WorkerChannelInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: WorkerChannelPayload): WorkerChannelInstance {
+  /**
+   * Build an instance of WorkerChannelInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance {
     return new WorkerChannelInstance(
-    this._version,
-    payload,
-        this._solution.workspaceSid,
-        this._solution.workerSid,
+      this._version,
+      payload,
+      this._solution.workspaceSid,
+      this._solution.workerSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

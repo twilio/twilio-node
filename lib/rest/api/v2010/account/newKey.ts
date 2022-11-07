@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a NewKeyInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewKeyListInstanceCreateOptions {
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 export interface NewKeyListInstance {
-
-
   /**
    * Create a NewKeyInstance
    *
@@ -39,7 +34,9 @@ export interface NewKeyListInstance {
    *
    * @returns { Promise } Resolves to processed NewKeyInstance
    */
-  create(callback?: (error: Error | null, item?: NewKeyInstance) => any): Promise<NewKeyInstance>;
+  create(
+    callback?: (error: Error | null, item?: NewKeyInstance) => any
+  ): Promise<NewKeyInstance>;
   /**
    * Create a NewKeyInstance
    *
@@ -48,9 +45,11 @@ export interface NewKeyListInstance {
    *
    * @returns { Promise } Resolves to processed NewKeyInstance
    */
-  create(params: NewKeyListInstanceCreateOptions, callback?: (error: Error | null, item?: NewKeyInstance) => any): Promise<NewKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewKeyInstance>
-
+  create(
+    params: NewKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NewKeyInstance) => any
+  ): Promise<NewKeyInstance>;
+  create(params?: any, callback?: any): Promise<NewKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -68,17 +67,22 @@ class NewKeyListInstanceImpl implements NewKeyListInstance {
   _version?: V2010;
   _solution?: NewKeySolution;
   _uri?: string;
-
 }
 
-export function NewKeyListInstance(version: V2010, accountSid: string): NewKeyListInstance {
+export function NewKeyListInstance(
+  version: V2010,
+  accountSid: string
+): NewKeyListInstance {
   const instance = {} as NewKeyListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Keys.json`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<NewKeyInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<NewKeyInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -88,39 +92,47 @@ export function NewKeyListInstance(version: V2010, accountSid: string): NewKeyLi
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NewKeyInstance(operationVersion, payload, this._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new NewKeyInstance(operationVersion, payload, this._solution.accountSid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface NewKeyPayload extends NewKeyResource{
-}
+interface NewKeyPayload extends NewKeyResource {}
 
 interface NewKeyResource {
   sid?: string | null;
@@ -131,14 +143,16 @@ interface NewKeyResource {
 }
 
 export class NewKeyInstance {
-
-  constructor(protected _version: V2010, payload: NewKeyPayload, accountSid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: NewKeyPayload,
+    accountSid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.secret = payload.secret;
-
   }
 
   /**
@@ -169,17 +183,15 @@ export class NewKeyInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      secret: this.secret
-    }
+      sid: this.sid,
+      friendlyName: this.friendlyName,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      secret: this.secret,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

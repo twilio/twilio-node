@@ -12,17 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
 export interface UsecaseListInstance {
-
-
   /**
    * Fetch a UsecaseInstance
    *
@@ -30,8 +25,9 @@ export interface UsecaseListInstance {
    *
    * @returns { Promise } Resolves to processed UsecaseInstance
    */
-  fetch(callback?: (error: Error | null, item?: UsecaseInstance) => any): Promise<UsecaseInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: UsecaseInstance) => any
+  ): Promise<UsecaseInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -40,61 +36,63 @@ export interface UsecaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsecaseSolution {
-}
+export interface UsecaseSolution {}
 
 interface UsecaseListInstanceImpl extends UsecaseListInstance {}
 class UsecaseListInstanceImpl implements UsecaseListInstance {
   _version?: V1;
   _solution?: UsecaseSolution;
   _uri?: string;
-
 }
 
 export function UsecaseListInstance(version: V1): UsecaseListInstance {
   const instance = {} as UsecaseListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Services/Usecases`;
 
   instance.fetch = function fetch(callback?: any): Promise<UsecaseInstance> {
-
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new UsecaseInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new UsecaseInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface UsecasePayload extends UsecaseResource{
-}
+interface UsecasePayload extends UsecaseResource {}
 
 interface UsecaseResource {
   usecases?: Array<any> | null;
 }
 
 export class UsecaseInstance {
-
   constructor(protected _version: V1, payload: UsecasePayload) {
     this.usecases = payload.usecases;
-
   }
 
   /**
@@ -109,13 +107,11 @@ export class UsecaseInstance {
    */
   toJSON() {
     return {
-      usecases: this.usecases
-    }
+      usecases: this.usecases,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

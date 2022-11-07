@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -22,12 +21,17 @@ const serialize = require("../../../base/serialize");
 import { DataSessionListInstance } from "./sim/dataSession";
 import { UsageRecordListInstance } from "./sim/usageRecord";
 
+type SimResetStatus = "resetting";
 
-
-type SimResetStatus = 'resetting';
-
-type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
-
+type SimStatus =
+  | "new"
+  | "ready"
+  | "active"
+  | "suspended"
+  | "deactivated"
+  | "canceled"
+  | "scheduled"
+  | "updating";
 
 /**
  * Options to pass to update a SimInstance
@@ -37,7 +41,7 @@ type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'sc
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_url&#x60; when the SIM has finished updating. When the SIM transitions from &#x60;new&#x60; to &#x60;ready&#x60; or from any status to &#x60;deactivated&#x60;, we call this URL when the status changes to an intermediate status (&#x60;ready&#x60; or &#x60;deactivated&#x60;) and again when the status changes to its final status (&#x60;active&#x60; or &#x60;canceled&#x60;).
  * @property { string } [friendlyName] A descriptive string that you create to describe the Sim resource. It does not need to be unique.
  * @property { string } [ratePlan] The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
- * @property { SimStatus } [status] 
+ * @property { SimStatus } [status]
  * @property { string } [commandsCallbackMethod] The HTTP method we should use to call &#x60;commands_callback_url&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60;. The default is &#x60;POST&#x60;.
  * @property { string } [commandsCallbackUrl] The URL we should call using the &#x60;commands_callback_method&#x60; when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
  * @property { string } [smsFallbackMethod] The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. Default is &#x60;POST&#x60;.
@@ -48,28 +52,28 @@ type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'sc
  * @property { string } [voiceFallbackUrl] Deprecated.
  * @property { string } [voiceMethod] Deprecated.
  * @property { string } [voiceUrl] Deprecated.
- * @property { SimResetStatus } [resetStatus] 
+ * @property { SimResetStatus } [resetStatus]
  * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\&#39;s status is &#x60;new&#x60;. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
  */
 export interface SimContextUpdateOptions {
-  "uniqueName"?: string;
-  "callbackMethod"?: string;
-  "callbackUrl"?: string;
-  "friendlyName"?: string;
-  "ratePlan"?: string;
-  "status"?: SimStatus;
-  "commandsCallbackMethod"?: string;
-  "commandsCallbackUrl"?: string;
-  "smsFallbackMethod"?: string;
-  "smsFallbackUrl"?: string;
-  "smsMethod"?: string;
-  "smsUrl"?: string;
-  "voiceFallbackMethod"?: string;
-  "voiceFallbackUrl"?: string;
-  "voiceMethod"?: string;
-  "voiceUrl"?: string;
-  "resetStatus"?: SimResetStatus;
-  "accountSid"?: string;
+  uniqueName?: string;
+  callbackMethod?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
+  ratePlan?: string;
+  status?: SimStatus;
+  commandsCallbackMethod?: string;
+  commandsCallbackUrl?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  resetStatus?: SimResetStatus;
+  accountSid?: string;
 }
 /**
  * Options to pass to each
@@ -90,12 +94,12 @@ export interface SimContextUpdateOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
-  "status"?: SimStatus;
-  "iccid"?: string;
-  "ratePlan"?: string;
-  "eId"?: string;
-  "simRegistrationCode"?: string;
-  "pageSize"?: number;
+  status?: SimStatus;
+  iccid?: string;
+  ratePlan?: string;
+  eId?: string;
+  simRegistrationCode?: string;
+  pageSize?: number;
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -116,12 +120,12 @@ export interface SimListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceOptions {
-  "status"?: SimStatus;
-  "iccid"?: string;
-  "ratePlan"?: string;
-  "eId"?: string;
-  "simRegistrationCode"?: string;
-  "pageSize"?: number;
+  status?: SimStatus;
+  iccid?: string;
+  ratePlan?: string;
+  eId?: string;
+  simRegistrationCode?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -138,20 +142,17 @@ export interface SimListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
-  "status"?: SimStatus;
-  "iccid"?: string;
-  "ratePlan"?: string;
-  "eId"?: string;
-  "simRegistrationCode"?: string;
-  "pageSize"?: number;
+  status?: SimStatus;
+  iccid?: string;
+  ratePlan?: string;
+  eId?: string;
+  simRegistrationCode?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SimContext {
-
   dataSessions: DataSessionListInstance;
   usageRecords: UsageRecordListInstance;
 
@@ -162,8 +163,9 @@ export interface SimContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a SimInstance
@@ -172,8 +174,9 @@ export interface SimContext {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  fetch(callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
 
   /**
    * Update a SimInstance
@@ -182,7 +185,9 @@ export interface SimContext {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  update(callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>;
+  update(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
   /**
    * Update a SimInstance
    *
@@ -191,9 +196,11 @@ export interface SimContext {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  update(params: SimContextUpdateOptions, callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>;
-  update(params?: any, callback?: any): Promise<SimInstance>
-
+  update(
+    params: SimContextUpdateOptions,
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
+  update(params?: any, callback?: any): Promise<SimInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -203,7 +210,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -219,43 +226,54 @@ export class SimContextImpl implements SimContext {
   }
 
   get dataSessions(): DataSessionListInstance {
-    this._dataSessions = this._dataSessions || DataSessionListInstance(this._version, this._solution.sid);
+    this._dataSessions =
+      this._dataSessions ||
+      DataSessionListInstance(this._version, this._solution.sid);
     return this._dataSessions;
   }
 
   get usageRecords(): UsageRecordListInstance {
-    this._usageRecords = this._usageRecords || UsageRecordListInstance(this._version, this._solution.sid);
+    this._usageRecords =
+      this._usageRecords ||
+      UsageRecordListInstance(this._version, this._solution.sid);
     return this._usageRecords;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SimInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SimInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SimInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SimInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -264,58 +282,60 @@ export class SimContextImpl implements SimContext {
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["callbackMethod"] !== undefined)
-    data["CallbackMethod"] = params["callbackMethod"];
+      data["CallbackMethod"] = params["callbackMethod"];
     if (params["callbackUrl"] !== undefined)
-    data["CallbackUrl"] = params["callbackUrl"];
+      data["CallbackUrl"] = params["callbackUrl"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["ratePlan"] !== undefined)
-    data["RatePlan"] = params["ratePlan"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["commandsCallbackMethod"] !== undefined)
-    data["CommandsCallbackMethod"] = params["commandsCallbackMethod"];
+      data["CommandsCallbackMethod"] = params["commandsCallbackMethod"];
     if (params["commandsCallbackUrl"] !== undefined)
-    data["CommandsCallbackUrl"] = params["commandsCallbackUrl"];
+      data["CommandsCallbackUrl"] = params["commandsCallbackUrl"];
     if (params["smsFallbackMethod"] !== undefined)
-    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-    data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined)
-    data["SmsUrl"] = params["smsUrl"];
+      data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["voiceFallbackMethod"] !== undefined)
-    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-    data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined)
-    data["VoiceUrl"] = params["voiceUrl"];
+      data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
     if (params["resetStatus"] !== undefined)
-    data["ResetStatus"] = params["resetStatus"];
+      data["ResetStatus"] = params["resetStatus"];
     if (params["accountSid"] !== undefined)
-    data["AccountSid"] = params["accountSid"];
-
+      data["AccountSid"] = params["accountSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SimInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SimInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -331,14 +351,37 @@ export class SimContextImpl implements SimContext {
     return inspect(this.toJSON(), options);
   }
 }
-export type SimCommandsCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type SimSmsFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type SimSmsMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type SimVoiceFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type SimVoiceMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
+export type SimCommandsCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type SimSmsFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type SimSmsMethod = "HEAD" | "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+export type SimVoiceFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type SimVoiceMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
-interface SimPayload extends SimResource, Page.TwilioResponsePayload {
-}
+interface SimPayload extends SimResource, Page.TwilioResponsePayload {}
 
 interface SimResource {
   sid?: string | null;
@@ -492,7 +535,8 @@ export class SimInstance {
   ipAddress?: string | null;
 
   private get _proxy(): SimContext {
-    this._context = this._context || new SimContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context || new SimContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -503,8 +547,9 @@ export class SimInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -515,8 +560,9 @@ export class SimInstance {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  fetch(callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -527,7 +573,9 @@ export class SimInstance {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  update(callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>;
+  update(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
   /**
    * Update a SimInstance
    *
@@ -536,9 +584,11 @@ export class SimInstance {
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
-  update(params: SimContextUpdateOptions, callback?: (error: Error | null, item?: SimInstance) => any): Promise<SimInstance>;
-  update(params?: any, callback?: any): Promise<SimInstance>
-     {
+  update(
+    params: SimContextUpdateOptions,
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
+  update(params?: any, callback?: any): Promise<SimInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -563,31 +613,31 @@ export class SimInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      accountSid: this.accountSid, 
-      ratePlanSid: this.ratePlanSid, 
-      friendlyName: this.friendlyName, 
-      iccid: this.iccid, 
-      eId: this.eId, 
-      status: this.status, 
-      resetStatus: this.resetStatus, 
-      commandsCallbackUrl: this.commandsCallbackUrl, 
-      commandsCallbackMethod: this.commandsCallbackMethod, 
-      smsFallbackMethod: this.smsFallbackMethod, 
-      smsFallbackUrl: this.smsFallbackUrl, 
-      smsMethod: this.smsMethod, 
-      smsUrl: this.smsUrl, 
-      voiceFallbackMethod: this.voiceFallbackMethod, 
-      voiceFallbackUrl: this.voiceFallbackUrl, 
-      voiceMethod: this.voiceMethod, 
-      voiceUrl: this.voiceUrl, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links, 
-      ipAddress: this.ipAddress
-    }
+      sid: this.sid,
+      uniqueName: this.uniqueName,
+      accountSid: this.accountSid,
+      ratePlanSid: this.ratePlanSid,
+      friendlyName: this.friendlyName,
+      iccid: this.iccid,
+      eId: this.eId,
+      status: this.status,
+      resetStatus: this.resetStatus,
+      commandsCallbackUrl: this.commandsCallbackUrl,
+      commandsCallbackMethod: this.commandsCallbackMethod,
+      smsFallbackMethod: this.smsFallbackMethod,
+      smsFallbackUrl: this.smsFallbackUrl,
+      smsMethod: this.smsMethod,
+      smsUrl: this.smsUrl,
+      voiceFallbackMethod: this.voiceFallbackMethod,
+      voiceFallbackUrl: this.voiceFallbackUrl,
+      voiceMethod: this.voiceMethod,
+      voiceUrl: this.voiceUrl,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+      ipAddress: this.ipAddress,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -595,12 +645,9 @@ export class SimInstance {
   }
 }
 
-
 export interface SimListInstance {
   (sid: string): SimContext;
   get(sid: string): SimContext;
-
-
 
   /**
    * Streams SimInstance records from the API.
@@ -616,7 +663,9 @@ export interface SimListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SimInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SimInstance records from the API.
    *
@@ -632,7 +681,10 @@ export interface SimListInstance {
    * @param { SimListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SimListInstanceEachOptions, callback?: (item: SimInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SimListInstanceEachOptions,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SimInstance records from the API.
@@ -644,7 +696,9 @@ export interface SimListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  getPage(
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
   /**
    * Retrieve a single target page of SimInstance records from the API.
    *
@@ -656,7 +710,10 @@ export interface SimListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
   getPage(params?: any, callback?: any): Promise<SimPage>;
   /**
    * Lists SimInstance records from the API as a list.
@@ -666,7 +723,9 @@ export interface SimListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SimInstance[]) => any
+  ): Promise<SimInstance[]>;
   /**
    * Lists SimInstance records from the API as a list.
    *
@@ -676,7 +735,10 @@ export interface SimListInstance {
    * @param { SimListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
+  list(
+    params?: SimListInstanceOptions,
+    callback?: (error: Error | null, items: SimInstance[]) => any
+  ): Promise<SimInstance[]>;
   list(params?: any, callback?: any): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
@@ -688,7 +750,9 @@ export interface SimListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  page(
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
   /**
    * Retrieve a single page of SimInstance records from the API.
    *
@@ -700,7 +764,10 @@ export interface SimListInstance {
    * @param { SimListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  page(
+    params: SimListInstancePageOptions,
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
   page(params?: any, callback?: any): Promise<SimPage>;
 
   /**
@@ -710,15 +777,13 @@ export interface SimListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SimSolution {
-}
+export interface SimSolution {}
 
 interface SimListInstanceImpl extends SimListInstance {}
 class SimListInstanceImpl implements SimListInstance {
   _version?: V1;
   _solution?: SimSolution;
   _uri?: string;
-
 }
 
 export function SimListInstance(version: V1): SimListInstance {
@@ -726,13 +791,16 @@ export function SimListInstance(version: V1): SimListInstance {
 
   instance.get = function get(sid): SimContext {
     return new SimContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Sims`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<SimPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SimPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -742,84 +810,95 @@ export function SimListInstance(version: V1): SimListInstance {
 
     let data: any = {};
 
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["iccid"] !== undefined)
-    data["Iccid"] = params["iccid"];
-    if (params["ratePlan"] !== undefined)
-    data["RatePlan"] = params["ratePlan"];
-    if (params["eId"] !== undefined)
-    data["EId"] = params["eId"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["iccid"] !== undefined) data["Iccid"] = params["iccid"];
+    if (params["ratePlan"] !== undefined) data["RatePlan"] = params["ratePlan"];
+    if (params["eId"] !== undefined) data["EId"] = params["eId"];
     if (params["simRegistrationCode"] !== undefined)
-    data["SimRegistrationCode"] = params["simRegistrationCode"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["SimRegistrationCode"] = params["simRegistrationCode"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SimPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SimPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SimPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SimPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SimPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SimPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
 export class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
-/**
-* Initialize the SimPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SimSolution) {
+  /**
+   * Initialize the SimPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: SimSolution) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SimInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SimPayload): SimInstance {
-    return new SimInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of SimInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SimPayload): SimInstance {
+    return new SimInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

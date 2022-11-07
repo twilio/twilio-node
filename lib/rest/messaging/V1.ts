@@ -46,17 +46,20 @@ export default class V1 extends Version {
   protected _usecases?: UsecaseListInstance;
 
   get brandRegistrations(): BrandRegistrationListInstance {
-    this._brandRegistrations = this._brandRegistrations || BrandRegistrationListInstance(this);
+    this._brandRegistrations =
+      this._brandRegistrations || BrandRegistrationListInstance(this);
     return this._brandRegistrations;
   }
 
   get deactivations(): DeactivationsListInstance {
-    this._deactivations = this._deactivations || DeactivationsListInstance(this);
+    this._deactivations =
+      this._deactivations || DeactivationsListInstance(this);
     return this._deactivations;
   }
 
   get externalCampaign(): ExternalCampaignListInstance {
-    this._externalCampaign = this._externalCampaign || ExternalCampaignListInstance(this);
+    this._externalCampaign =
+      this._externalCampaign || ExternalCampaignListInstance(this);
     return this._externalCampaign;
   }
 
@@ -66,7 +69,8 @@ export default class V1 extends Version {
   }
 
   get tollfreeVerifications(): TollfreeVerificationListInstance {
-    this._tollfreeVerifications = this._tollfreeVerifications || TollfreeVerificationListInstance(this);
+    this._tollfreeVerifications =
+      this._tollfreeVerifications || TollfreeVerificationListInstance(this);
     return this._tollfreeVerifications;
   }
 
@@ -74,5 +78,4 @@ export default class V1 extends Version {
     this._usecases = this._usecases || UsecaseListInstance(this);
     return this._usecases;
   }
-
 }

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -22,26 +21,28 @@ const serialize = require("../../../../base/serialize");
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
+type ConferenceReasonConferenceEnded =
+  | "conference-ended-via-api"
+  | "participant-with-end-conference-on-exit-left"
+  | "participant-with-end-conference-on-exit-kicked"
+  | "last-participant-kicked"
+  | "last-participant-left";
 
+type ConferenceStatus = "init" | "in-progress" | "completed";
 
-type ConferenceReasonConferenceEnded = 'conference-ended-via-api'|'participant-with-end-conference-on-exit-left'|'participant-with-end-conference-on-exit-kicked'|'last-participant-kicked'|'last-participant-left';
-
-type ConferenceStatus = 'init'|'in-progress'|'completed';
-
-type ConferenceUpdateStatus = 'completed';
-
+type ConferenceUpdateStatus = "completed";
 
 /**
  * Options to pass to update a ConferenceInstance
  *
- * @property { ConferenceUpdateStatus } [status] 
+ * @property { ConferenceUpdateStatus } [status]
  * @property { string } [announceUrl] The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
  * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
  */
 export interface ConferenceContextUpdateOptions {
-  "status"?: ConferenceUpdateStatus;
-  "announceUrl"?: string;
-  "announceMethod"?: string;
+  status?: ConferenceUpdateStatus;
+  announceUrl?: string;
+  announceMethod?: string;
 }
 /**
  * Options to pass to each
@@ -65,15 +66,15 @@ export interface ConferenceContextUpdateOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
-  "dateCreated"?: Date;
-  "dateCreatedBefore"?: Date;
-  "dateCreatedAfter"?: Date;
-  "dateUpdated"?: Date;
-  "dateUpdatedBefore"?: Date;
-  "dateUpdatedAfter"?: Date;
-  "friendlyName"?: string;
-  "status"?: ConferenceStatus;
-  "pageSize"?: number;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
+  dateUpdated?: Date;
+  dateUpdatedBefore?: Date;
+  dateUpdatedAfter?: Date;
+  friendlyName?: string;
+  status?: ConferenceStatus;
+  pageSize?: number;
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -97,15 +98,15 @@ export interface ConferenceListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
-  "dateCreated"?: Date;
-  "dateCreatedBefore"?: Date;
-  "dateCreatedAfter"?: Date;
-  "dateUpdated"?: Date;
-  "dateUpdatedBefore"?: Date;
-  "dateUpdatedAfter"?: Date;
-  "friendlyName"?: string;
-  "status"?: ConferenceStatus;
-  "pageSize"?: number;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
+  dateUpdated?: Date;
+  dateUpdatedBefore?: Date;
+  dateUpdatedAfter?: Date;
+  friendlyName?: string;
+  status?: ConferenceStatus;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -125,23 +126,20 @@ export interface ConferenceListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
-  "dateCreated"?: Date;
-  "dateCreatedBefore"?: Date;
-  "dateCreatedAfter"?: Date;
-  "dateUpdated"?: Date;
-  "dateUpdatedBefore"?: Date;
-  "dateUpdatedAfter"?: Date;
-  "friendlyName"?: string;
-  "status"?: ConferenceStatus;
-  "pageSize"?: number;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
+  dateUpdated?: Date;
+  dateUpdatedBefore?: Date;
+  dateUpdatedAfter?: Date;
+  friendlyName?: string;
+  status?: ConferenceStatus;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface ConferenceContext {
-
   participants: ParticipantListInstance;
   recordings: RecordingListInstance;
 
@@ -152,8 +150,9 @@ export interface ConferenceContext {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
 
   /**
    * Update a ConferenceInstance
@@ -162,7 +161,9 @@ export interface ConferenceContext {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  update(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
   /**
    * Update a ConferenceInstance
    *
@@ -171,9 +172,11 @@ export interface ConferenceContext {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  update(params: ConferenceContextUpdateOptions, callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>;
-  update(params?: any, callback?: any): Promise<ConferenceInstance>
-
+  update(
+    params: ConferenceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
+  update(params?: any, callback?: any): Promise<ConferenceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -183,8 +186,8 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  "accountSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  sid?: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -200,31 +203,53 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 
   get participants(): ParticipantListInstance {
-    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._participants =
+      this._participants ||
+      ParticipantListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._participants;
   }
 
   get recordings(): RecordingListInstance {
-    this._recordings = this._recordings || RecordingListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    this._recordings =
+      this._recordings ||
+      RecordingListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._recordings;
   }
 
   fetch(callback?: any): Promise<ConferenceInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<ConferenceInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -233,28 +258,38 @@ export class ConferenceContextImpl implements ConferenceContext {
 
     let data: any = {};
 
-    
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["announceUrl"] !== undefined)
-    data["AnnounceUrl"] = params["announceUrl"];
+      data["AnnounceUrl"] = params["announceUrl"];
     if (params["announceMethod"] !== undefined)
-    data["AnnounceMethod"] = params["announceMethod"];
-
+      data["AnnounceMethod"] = params["announceMethod"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferenceInstance(operationVersion, payload, this._solution.accountSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConferenceInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -271,8 +306,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 }
 
-interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
-}
+interface ConferencePayload
+  extends ConferenceResource,
+    Page.TwilioResponsePayload {}
 
 interface ConferenceResource {
   account_sid?: string | null;
@@ -293,7 +329,12 @@ export class ConferenceInstance {
   protected _solution: ConferenceContextSolution;
   protected _context?: ConferenceContext;
 
-  constructor(protected _version: V2010, payload: ConferencePayload, accountSid: string, sid?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: ConferencePayload,
+    accountSid: string,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
@@ -354,7 +395,13 @@ export class ConferenceInstance {
   callSidEndingConference?: string | null;
 
   private get _proxy(): ConferenceContext {
-    this._context = this._context || new ConferenceContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ConferenceContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -365,8 +412,9 @@ export class ConferenceInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  fetch(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -377,7 +425,9 @@ export class ConferenceInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  update(callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>;
+  update(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
   /**
    * Update a ConferenceInstance
    *
@@ -386,9 +436,11 @@ export class ConferenceInstance {
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
-  update(params: ConferenceContextUpdateOptions, callback?: (error: Error | null, item?: ConferenceInstance) => any): Promise<ConferenceInstance>;
-  update(params?: any, callback?: any): Promise<ConferenceInstance>
-     {
+  update(
+    params: ConferenceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
+  update(params?: any, callback?: any): Promise<ConferenceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -413,19 +465,19 @@ export class ConferenceInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      apiVersion: this.apiVersion, 
-      friendlyName: this.friendlyName, 
-      region: this.region, 
-      sid: this.sid, 
-      status: this.status, 
-      uri: this.uri, 
-      subresourceUris: this.subresourceUris, 
-      reasonConferenceEnded: this.reasonConferenceEnded, 
-      callSidEndingConference: this.callSidEndingConference
-    }
+      accountSid: this.accountSid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      apiVersion: this.apiVersion,
+      friendlyName: this.friendlyName,
+      region: this.region,
+      sid: this.sid,
+      status: this.status,
+      uri: this.uri,
+      subresourceUris: this.subresourceUris,
+      reasonConferenceEnded: this.reasonConferenceEnded,
+      callSidEndingConference: this.callSidEndingConference,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -433,12 +485,9 @@ export class ConferenceInstance {
   }
 }
 
-
 export interface ConferenceListInstance {
   (sid: string): ConferenceContext;
   get(sid: string): ConferenceContext;
-
-
 
   /**
    * Streams ConferenceInstance records from the API.
@@ -454,7 +503,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ConferenceInstance records from the API.
    *
@@ -470,7 +521,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: ConferenceListInstanceEachOptions,
+    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
@@ -482,7 +536,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  getPage(
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
    *
@@ -494,7 +550,10 @@ export interface ConferenceListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   getPage(params?: any, callback?: any): Promise<ConferencePage>;
   /**
    * Lists ConferenceInstance records from the API as a list.
@@ -504,7 +563,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(
+    callback?: (error: Error | null, items: ConferenceInstance[]) => any
+  ): Promise<ConferenceInstance[]>;
   /**
    * Lists ConferenceInstance records from the API as a list.
    *
@@ -514,7 +575,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(
+    params?: ConferenceListInstanceOptions,
+    callback?: (error: Error | null, items: ConferenceInstance[]) => any
+  ): Promise<ConferenceInstance[]>;
   list(params?: any, callback?: any): Promise<ConferenceInstance[]>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
@@ -526,7 +590,9 @@ export interface ConferenceListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    *
@@ -538,7 +604,10 @@ export interface ConferenceListInstance {
    * @param { ConferenceListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(
+    params: ConferenceListInstancePageOptions,
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
   page(params?: any, callback?: any): Promise<ConferencePage>;
 
   /**
@@ -557,21 +626,26 @@ class ConferenceListInstanceImpl implements ConferenceListInstance {
   _version?: V2010;
   _solution?: ConferenceSolution;
   _uri?: string;
-
 }
 
-export function ConferenceListInstance(version: V2010, accountSid: string): ConferenceListInstance {
+export function ConferenceListInstance(
+  version: V2010,
+  accountSid: string
+): ConferenceListInstance {
   const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
 
   instance.get = function get(sid): ConferenceContext {
     return new ConferenceContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Conferences.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ConferencePage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<ConferencePage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -581,91 +655,117 @@ export function ConferenceListInstance(version: V2010, accountSid: string): Conf
 
     let data: any = {};
 
-        if (params["dateCreated"] !== undefined)
-    data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+    if (params["dateCreated"] !== undefined)
+      data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
     if (params["dateCreatedBefore"] !== undefined)
-    data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+      data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
     if (params["dateCreatedAfter"] !== undefined)
-    data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+      data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
     if (params["dateUpdated"] !== undefined)
-    data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
+      data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
     if (params["dateUpdatedBefore"] !== undefined)
-    data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
+      data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
     if (params["dateUpdatedAfter"] !== undefined)
-    data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
+      data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConferencePage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<ConferencePage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new ConferencePage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
-/**
-* Initialize the ConferencePage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: ConferenceSolution) {
+export class ConferencePage extends Page<
+  V2010,
+  ConferencePayload,
+  ConferenceResource,
+  ConferenceInstance
+> {
+  /**
+   * Initialize the ConferencePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: ConferenceSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ConferenceInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ConferencePayload): ConferenceInstance {
+  /**
+   * Build an instance of ConferenceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ConferencePayload): ConferenceInstance {
     return new ConferenceInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

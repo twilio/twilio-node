@@ -12,18 +12,13 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
 
-
-
-
 export interface SchemaContext {
-
   versions: SchemaVersionListInstance;
 
   /**
@@ -33,8 +28,9 @@ export interface SchemaContext {
    *
    * @returns { Promise } Resolves to processed SchemaInstance
    */
-  fetch(callback?: (error: Error | null, item?: SchemaInstance) => any): Promise<SchemaInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SchemaInstance) => any
+  ): Promise<SchemaInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -44,7 +40,7 @@ export interface SchemaContext {
 }
 
 export interface SchemaContextSolution {
-  "id"?: string;
+  id?: string;
 }
 
 export class SchemaContextImpl implements SchemaContext {
@@ -59,22 +55,29 @@ export class SchemaContextImpl implements SchemaContext {
   }
 
   get versions(): SchemaVersionListInstance {
-    this._versions = this._versions || SchemaVersionListInstance(this._version, this._solution.id);
+    this._versions =
+      this._versions ||
+      SchemaVersionListInstance(this._version, this._solution.id);
     return this._versions;
   }
 
   fetch(callback?: any): Promise<SchemaInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SchemaInstance(operationVersion, payload, this._solution.id));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SchemaInstance(operationVersion, payload, this._solution.id)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -91,8 +94,7 @@ export class SchemaContextImpl implements SchemaContext {
   }
 }
 
-interface SchemaPayload extends SchemaResource{
-}
+interface SchemaPayload extends SchemaResource {}
 
 interface SchemaResource {
   id?: string | null;
@@ -110,7 +112,9 @@ export class SchemaInstance {
     this.id = payload.id;
     this.url = payload.url;
     this.links = payload.links;
-    this.latestVersionDateCreated = deserialize.iso8601DateTime(payload.latest_version_date_created);
+    this.latestVersionDateCreated = deserialize.iso8601DateTime(
+      payload.latest_version_date_created
+    );
     this.latestVersion = deserialize.integer(payload.latest_version);
 
     this._solution = { id: id || this.id };
@@ -138,7 +142,8 @@ export class SchemaInstance {
   latestVersion?: number | null;
 
   private get _proxy(): SchemaContext {
-    this._context = this._context || new SchemaContextImpl(this._version, this._solution.id);
+    this._context =
+      this._context || new SchemaContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -149,8 +154,9 @@ export class SchemaInstance {
    *
    * @returns { Promise } Resolves to processed SchemaInstance
    */
-  fetch(callback?: (error: Error | null, item?: SchemaInstance) => any): Promise<SchemaInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SchemaInstance) => any
+  ): Promise<SchemaInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -168,12 +174,12 @@ export class SchemaInstance {
    */
   toJSON() {
     return {
-      id: this.id, 
-      url: this.url, 
-      links: this.links, 
-      latestVersionDateCreated: this.latestVersionDateCreated, 
-      latestVersion: this.latestVersion
-    }
+      id: this.id,
+      url: this.url,
+      links: this.links,
+      latestVersionDateCreated: this.latestVersionDateCreated,
+      latestVersion: this.latestVersion,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -181,11 +187,9 @@ export class SchemaInstance {
   }
 }
 
-
 export interface SchemaListInstance {
   (id: string): SchemaContext;
   get(id: string): SchemaContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -194,15 +198,13 @@ export interface SchemaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SchemaSolution {
-}
+export interface SchemaSolution {}
 
 interface SchemaListInstanceImpl extends SchemaListInstance {}
 class SchemaListInstanceImpl implements SchemaListInstance {
   _version?: V1;
   _solution?: SchemaSolution;
   _uri?: string;
-
 }
 
 export function SchemaListInstance(version: V1): SchemaListInstance {
@@ -210,22 +212,22 @@ export function SchemaListInstance(version: V1): SchemaListInstance {
 
   instance.get = function get(id): SchemaContext {
     return new SchemaContextImpl(version, id);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

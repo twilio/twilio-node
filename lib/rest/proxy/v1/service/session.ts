@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -22,24 +21,21 @@ const serialize = require("../../../../base/serialize");
 import { InteractionListInstance } from "./session/interaction";
 import { ParticipantListInstance } from "./session/participant";
 
+type SessionMode = "message-only" | "voice-only" | "voice-and-message";
 
-
-type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
-
-type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
-
+type SessionStatus = "open" | "in-progress" | "closed" | "failed" | "unknown";
 
 /**
  * Options to pass to update a SessionInstance
  *
  * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
  * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
- * @property { SessionStatus } [status] 
+ * @property { SessionStatus } [status]
  */
 export interface SessionContextUpdateOptions {
-  "dateExpiry"?: Date;
-  "ttl"?: number;
-  "status"?: SessionStatus;
+  dateExpiry?: Date;
+  ttl?: number;
+  status?: SessionStatus;
 }
 
 /**
@@ -48,17 +44,17 @@ export interface SessionContextUpdateOptions {
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
  * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
  * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
- * @property { SessionMode } [mode] 
- * @property { SessionStatus } [status] 
+ * @property { SessionMode } [mode]
+ * @property { SessionStatus } [status]
  * @property { Array<any> } [participants] The Participant objects to include in the new session.
  */
 export interface SessionListInstanceCreateOptions {
-  "uniqueName"?: string;
-  "dateExpiry"?: Date;
-  "ttl"?: number;
-  "mode"?: SessionMode;
-  "status"?: SessionStatus;
-  "participants"?: Array<any>;
+  uniqueName?: string;
+  dateExpiry?: Date;
+  ttl?: number;
+  mode?: SessionMode;
+  status?: SessionStatus;
+  participants?: Array<any>;
 }
 /**
  * Options to pass to each
@@ -74,7 +70,7 @@ export interface SessionListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SessionListInstanceEachOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -90,7 +86,7 @@ export interface SessionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SessionListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -102,15 +98,12 @@ export interface SessionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SessionListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface SessionContext {
-
   interactions: InteractionListInstance;
   participants: ParticipantListInstance;
 
@@ -121,8 +114,9 @@ export interface SessionContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a SessionInstance
@@ -131,8 +125,9 @@ export interface SessionContext {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
 
   /**
    * Update a SessionInstance
@@ -141,7 +136,9 @@ export interface SessionContext {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  update(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
+  update(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
   /**
    * Update a SessionInstance
    *
@@ -150,9 +147,11 @@ export interface SessionContext {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  update(params: SessionContextUpdateOptions, callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance>
-
+  update(
+    params: SessionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  update(params?: any, callback?: any): Promise<SessionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -162,8 +161,8 @@ export interface SessionContext {
 }
 
 export interface SessionContextSolution {
-  "serviceSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  sid?: string;
 }
 
 export class SessionContextImpl implements SessionContext {
@@ -179,43 +178,67 @@ export class SessionContextImpl implements SessionContext {
   }
 
   get interactions(): InteractionListInstance {
-    this._interactions = this._interactions || InteractionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._interactions =
+      this._interactions ||
+      InteractionListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._interactions;
   }
 
   get participants(): ParticipantListInstance {
-    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    this._participants =
+      this._participants ||
+      ParticipantListInstance(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._participants;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<SessionInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SessionInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SessionInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -224,28 +247,37 @@ export class SessionContextImpl implements SessionContext {
 
     let data: any = {};
 
-    
-        if (params["dateExpiry"] !== undefined)
-    data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
-
+    if (params["dateExpiry"] !== undefined)
+      data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SessionInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -262,8 +294,7 @@ export class SessionContextImpl implements SessionContext {
   }
 }
 
-interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
-}
+interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {}
 
 interface SessionResource {
   sid?: string | null;
@@ -288,13 +319,20 @@ export class SessionInstance {
   protected _solution: SessionContextSolution;
   protected _context?: SessionContext;
 
-  constructor(protected _version: V1, payload: SessionPayload, serviceSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SessionPayload,
+    serviceSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
     this.dateStarted = deserialize.iso8601DateTime(payload.date_started);
     this.dateEnded = deserialize.iso8601DateTime(payload.date_ended);
-    this.dateLastInteraction = deserialize.iso8601DateTime(payload.date_last_interaction);
+    this.dateLastInteraction = deserialize.iso8601DateTime(
+      payload.date_last_interaction
+    );
     this.dateExpiry = deserialize.iso8601DateTime(payload.date_expiry);
     this.uniqueName = payload.unique_name;
     this.status = payload.status;
@@ -369,7 +407,13 @@ export class SessionInstance {
   links?: object | null;
 
   private get _proxy(): SessionContext {
-    this._context = this._context || new SessionContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new SessionContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -380,8 +424,9 @@ export class SessionInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -392,8 +437,9 @@ export class SessionInstance {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  fetch(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -404,7 +450,9 @@ export class SessionInstance {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  update(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
+  update(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
   /**
    * Update a SessionInstance
    *
@@ -413,9 +461,11 @@ export class SessionInstance {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  update(params: SessionContextUpdateOptions, callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance>
-     {
+  update(
+    params: SessionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  update(params?: any, callback?: any): Promise<SessionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -440,23 +490,23 @@ export class SessionInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      serviceSid: this.serviceSid, 
-      accountSid: this.accountSid, 
-      dateStarted: this.dateStarted, 
-      dateEnded: this.dateEnded, 
-      dateLastInteraction: this.dateLastInteraction, 
-      dateExpiry: this.dateExpiry, 
-      uniqueName: this.uniqueName, 
-      status: this.status, 
-      closedReason: this.closedReason, 
-      ttl: this.ttl, 
-      mode: this.mode, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      serviceSid: this.serviceSid,
+      accountSid: this.accountSid,
+      dateStarted: this.dateStarted,
+      dateEnded: this.dateEnded,
+      dateLastInteraction: this.dateLastInteraction,
+      dateExpiry: this.dateExpiry,
+      uniqueName: this.uniqueName,
+      status: this.status,
+      closedReason: this.closedReason,
+      ttl: this.ttl,
+      mode: this.mode,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -464,11 +514,9 @@ export class SessionInstance {
   }
 }
 
-
 export interface SessionListInstance {
   (sid: string): SessionContext;
   get(sid: string): SessionContext;
-
 
   /**
    * Create a SessionInstance
@@ -477,7 +525,9 @@ export interface SessionListInstance {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  create(callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
+  create(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
   /**
    * Create a SessionInstance
    *
@@ -486,10 +536,11 @@ export interface SessionListInstance {
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
-  create(params: SessionListInstanceCreateOptions, callback?: (error: Error | null, item?: SessionInstance) => any): Promise<SessionInstance>;
-  create(params?: any, callback?: any): Promise<SessionInstance>
-
-
+  create(
+    params: SessionListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  create(params?: any, callback?: any): Promise<SessionInstance>;
 
   /**
    * Streams SessionInstance records from the API.
@@ -505,7 +556,9 @@ export interface SessionListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams SessionInstance records from the API.
    *
@@ -521,7 +574,10 @@ export interface SessionListInstance {
    * @param { SessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: SessionListInstanceEachOptions,
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
@@ -533,7 +589,9 @@ export interface SessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  getPage(
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
    *
@@ -545,7 +603,10 @@ export interface SessionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
   getPage(params?: any, callback?: any): Promise<SessionPage>;
   /**
    * Lists SessionInstance records from the API as a list.
@@ -555,7 +616,9 @@ export interface SessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: SessionInstance[]) => any
+  ): Promise<SessionInstance[]>;
   /**
    * Lists SessionInstance records from the API as a list.
    *
@@ -565,7 +628,10 @@ export interface SessionListInstance {
    * @param { SessionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  list(
+    params?: SessionListInstanceOptions,
+    callback?: (error: Error | null, items: SessionInstance[]) => any
+  ): Promise<SessionInstance[]>;
   list(params?: any, callback?: any): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
@@ -577,7 +643,9 @@ export interface SessionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  page(
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    *
@@ -589,7 +657,10 @@ export interface SessionListInstance {
    * @param { SessionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: SessionListInstancePageOptions, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  page(
+    params: SessionListInstancePageOptions,
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
   page(params?: any, callback?: any): Promise<SessionPage>;
 
   /**
@@ -608,21 +679,26 @@ class SessionListInstanceImpl implements SessionListInstance {
   _version?: V1;
   _solution?: SessionSolution;
   _uri?: string;
-
 }
 
-export function SessionListInstance(version: V1, serviceSid: string): SessionListInstance {
+export function SessionListInstance(
+  version: V1,
+  serviceSid: string
+): SessionListInstance {
   const instance = ((sid) => instance.get(sid)) as SessionListInstanceImpl;
 
   instance.get = function get(sid): SessionContext {
     return new SessionContextImpl(version, serviceSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/Sessions`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<SessionInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<SessionInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -632,37 +708,49 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
 
     let data: any = {};
 
-    
-        if (params["uniqueName"] !== undefined)
-    data["UniqueName"] = params["uniqueName"];
+    if (params["uniqueName"] !== undefined)
+      data["UniqueName"] = params["uniqueName"];
     if (params["dateExpiry"] !== undefined)
-    data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
-    if (params["ttl"] !== undefined)
-    data["Ttl"] = params["ttl"];
-    if (params["mode"] !== undefined)
-    data["Mode"] = params["mode"];
-    if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+      data["DateExpiry"] = serialize.iso8601DateTime(params["dateExpiry"]);
+    if (params["ttl"] !== undefined) data["Ttl"] = params["ttl"];
+    if (params["mode"] !== undefined) data["Mode"] = params["mode"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["participants"] !== undefined)
-    data["Participants"] = serialize.map(params["participants"], (e => serialize.object(e)));
-
+      data["Participants"] = serialize.map(params["participants"], (e) =>
+        serialize.object(e)
+      );
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SessionInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SessionPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<SessionPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -672,75 +760,102 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SessionPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SessionPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SessionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<SessionPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new SessionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SessionPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
-/**
-* Initialize the SessionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: SessionSolution) {
+export class SessionPage extends Page<
+  V1,
+  SessionPayload,
+  SessionResource,
+  SessionInstance
+> {
+  /**
+   * Initialize the SessionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: SessionSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of SessionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: SessionPayload): SessionInstance {
+  /**
+   * Build an instance of SessionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SessionPayload): SessionInstance {
     return new SessionInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
+      this._version,
+      payload,
+      this._solution.serviceSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

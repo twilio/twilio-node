@@ -39,8 +39,8 @@ export default class V2010 extends Version {
   }
 
   get account(): AccountContext {
-    this._account = this._account || AccountListInstance(this)(this.domain.twilio.accountSid);
+    this._account =
+      this._account || AccountListInstance(this)(this.domain.twilio.accountSid);
     return this._account;
   }
-
 }

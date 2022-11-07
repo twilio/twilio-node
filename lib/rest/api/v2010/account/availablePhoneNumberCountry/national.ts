@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 
 /**
  * Whether a phone number can receive calls or messages
@@ -30,7 +28,6 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal
   "voice"?: boolean;
   "fax"?: boolean;
 }
-
 
 export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational {
   /**
@@ -84,7 +81,6 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNatio
   "capabilities"?: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities | null;
 }
 
-
 /**
  * Options to pass to each
  *
@@ -117,25 +113,25 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNatio
  *                         Default is no limit
  */
 export interface NationalListInstanceEachOptions {
-  "areaCode"?: number;
-  "contains"?: string;
-  "smsEnabled"?: boolean;
-  "mmsEnabled"?: boolean;
-  "voiceEnabled"?: boolean;
-  "excludeAllAddressRequired"?: boolean;
-  "excludeLocalAddressRequired"?: boolean;
-  "excludeForeignAddressRequired"?: boolean;
-  "beta"?: boolean;
-  "nearNumber"?: string;
-  "nearLatLong"?: string;
-  "distance"?: number;
-  "inPostalCode"?: string;
-  "inRegion"?: string;
-  "inRateCenter"?: string;
-  "inLata"?: string;
-  "inLocality"?: string;
-  "faxEnabled"?: boolean;
-  "pageSize"?: number;
+  areaCode?: number;
+  contains?: string;
+  smsEnabled?: boolean;
+  mmsEnabled?: boolean;
+  voiceEnabled?: boolean;
+  excludeAllAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  beta?: boolean;
+  nearNumber?: string;
+  nearLatLong?: string;
+  distance?: number;
+  inPostalCode?: string;
+  inRegion?: string;
+  inRateCenter?: string;
+  inLata?: string;
+  inLocality?: string;
+  faxEnabled?: boolean;
+  pageSize?: number;
   callback?: (item: NationalInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -169,25 +165,25 @@ export interface NationalListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface NationalListInstanceOptions {
-  "areaCode"?: number;
-  "contains"?: string;
-  "smsEnabled"?: boolean;
-  "mmsEnabled"?: boolean;
-  "voiceEnabled"?: boolean;
-  "excludeAllAddressRequired"?: boolean;
-  "excludeLocalAddressRequired"?: boolean;
-  "excludeForeignAddressRequired"?: boolean;
-  "beta"?: boolean;
-  "nearNumber"?: string;
-  "nearLatLong"?: string;
-  "distance"?: number;
-  "inPostalCode"?: string;
-  "inRegion"?: string;
-  "inRateCenter"?: string;
-  "inLata"?: string;
-  "inLocality"?: string;
-  "faxEnabled"?: boolean;
-  "pageSize"?: number;
+  areaCode?: number;
+  contains?: string;
+  smsEnabled?: boolean;
+  mmsEnabled?: boolean;
+  voiceEnabled?: boolean;
+  excludeAllAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  beta?: boolean;
+  nearNumber?: string;
+  nearLatLong?: string;
+  distance?: number;
+  inPostalCode?: string;
+  inRegion?: string;
+  inRateCenter?: string;
+  inLata?: string;
+  inLocality?: string;
+  faxEnabled?: boolean;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -217,35 +213,30 @@ export interface NationalListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NationalListInstancePageOptions {
-  "areaCode"?: number;
-  "contains"?: string;
-  "smsEnabled"?: boolean;
-  "mmsEnabled"?: boolean;
-  "voiceEnabled"?: boolean;
-  "excludeAllAddressRequired"?: boolean;
-  "excludeLocalAddressRequired"?: boolean;
-  "excludeForeignAddressRequired"?: boolean;
-  "beta"?: boolean;
-  "nearNumber"?: string;
-  "nearLatLong"?: string;
-  "distance"?: number;
-  "inPostalCode"?: string;
-  "inRegion"?: string;
-  "inRateCenter"?: string;
-  "inLata"?: string;
-  "inLocality"?: string;
-  "faxEnabled"?: boolean;
-  "pageSize"?: number;
+  areaCode?: number;
+  contains?: string;
+  smsEnabled?: boolean;
+  mmsEnabled?: boolean;
+  voiceEnabled?: boolean;
+  excludeAllAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  beta?: boolean;
+  nearNumber?: string;
+  nearLatLong?: string;
+  distance?: number;
+  inPostalCode?: string;
+  inRegion?: string;
+  inRateCenter?: string;
+  inLata?: string;
+  inLocality?: string;
+  faxEnabled?: boolean;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface NationalListInstance {
-
-
-
   /**
    * Streams NationalInstance records from the API.
    *
@@ -260,7 +251,9 @@ export interface NationalListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: NationalInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams NationalInstance records from the API.
    *
@@ -276,7 +269,10 @@ export interface NationalListInstance {
    * @param { NationalListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: NationalListInstanceEachOptions, callback?: (item: NationalInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: NationalListInstanceEachOptions,
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of NationalInstance records from the API.
@@ -288,7 +284,9 @@ export interface NationalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
+  getPage(
+    callback?: (error: Error | null, items: NationalPage) => any
+  ): Promise<NationalPage>;
   /**
    * Retrieve a single target page of NationalInstance records from the API.
    *
@@ -300,7 +298,10 @@ export interface NationalListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: NationalPage) => any
+  ): Promise<NationalPage>;
   getPage(params?: any, callback?: any): Promise<NationalPage>;
   /**
    * Lists NationalInstance records from the API as a list.
@@ -310,7 +311,9 @@ export interface NationalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: NationalInstance[]) => any): Promise<NationalInstance[]>;
+  list(
+    callback?: (error: Error | null, items: NationalInstance[]) => any
+  ): Promise<NationalInstance[]>;
   /**
    * Lists NationalInstance records from the API as a list.
    *
@@ -320,7 +323,10 @@ export interface NationalListInstance {
    * @param { NationalListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: NationalListInstanceOptions, callback?: (error: Error | null, items: NationalInstance[]) => any): Promise<NationalInstance[]>;
+  list(
+    params?: NationalListInstanceOptions,
+    callback?: (error: Error | null, items: NationalInstance[]) => any
+  ): Promise<NationalInstance[]>;
   list(params?: any, callback?: any): Promise<NationalInstance[]>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
@@ -332,7 +338,9 @@ export interface NationalListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
+  page(
+    callback?: (error: Error | null, items: NationalPage) => any
+  ): Promise<NationalPage>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
    *
@@ -344,7 +352,10 @@ export interface NationalListInstance {
    * @param { NationalListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: NationalListInstancePageOptions, callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
+  page(
+    params: NationalListInstancePageOptions,
+    callback?: (error: Error | null, items: NationalPage) => any
+  ): Promise<NationalPage>;
   page(params?: any, callback?: any): Promise<NationalPage>;
 
   /**
@@ -364,17 +375,23 @@ class NationalListInstanceImpl implements NationalListInstance {
   _version?: V2010;
   _solution?: NationalSolution;
   _uri?: string;
-
 }
 
-export function NationalListInstance(version: V2010, accountSid: string, countryCode: string): NationalListInstance {
+export function NationalListInstance(
+  version: V2010,
+  accountSid: string,
+  countryCode: string
+): NationalListInstance {
   const instance = {} as NationalListInstanceImpl;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/National.json`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<NationalPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<NationalPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -384,85 +401,107 @@ export function NationalListInstance(version: V2010, accountSid: string, country
 
     let data: any = {};
 
-        if (params["areaCode"] !== undefined)
-    data["AreaCode"] = params["areaCode"];
-    if (params["contains"] !== undefined)
-    data["Contains"] = params["contains"];
+    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
     if (params["smsEnabled"] !== undefined)
-    data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+      data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
     if (params["mmsEnabled"] !== undefined)
-    data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+      data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
     if (params["voiceEnabled"] !== undefined)
-    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
-    data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
+      data["ExcludeAllAddressRequired"] = serialize.bool(
+        params["excludeAllAddressRequired"]
+      );
     if (params["excludeLocalAddressRequired"] !== undefined)
-    data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
+      data["ExcludeLocalAddressRequired"] = serialize.bool(
+        params["excludeLocalAddressRequired"]
+      );
     if (params["excludeForeignAddressRequired"] !== undefined)
-    data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
+      data["ExcludeForeignAddressRequired"] = serialize.bool(
+        params["excludeForeignAddressRequired"]
+      );
     if (params["beta"] !== undefined)
-    data["Beta"] = serialize.bool(params["beta"]);
+      data["Beta"] = serialize.bool(params["beta"]);
     if (params["nearNumber"] !== undefined)
-    data["NearNumber"] = params["nearNumber"];
+      data["NearNumber"] = params["nearNumber"];
     if (params["nearLatLong"] !== undefined)
-    data["NearLatLong"] = params["nearLatLong"];
-    if (params["distance"] !== undefined)
-    data["Distance"] = params["distance"];
+      data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
     if (params["inPostalCode"] !== undefined)
-    data["InPostalCode"] = params["inPostalCode"];
-    if (params["inRegion"] !== undefined)
-    data["InRegion"] = params["inRegion"];
+      data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
     if (params["inRateCenter"] !== undefined)
-    data["InRateCenter"] = params["inRateCenter"];
-    if (params["inLata"] !== undefined)
-    data["InLata"] = params["inLata"];
+      data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
     if (params["inLocality"] !== undefined)
-    data["InLocality"] = params["inLocality"];
+      data["InLocality"] = params["inLocality"];
     if (params["faxEnabled"] !== undefined)
-    data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new NationalPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new NationalPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<NationalPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<NationalPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new NationalPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new NationalPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface NationalPayload extends NationalResource, Page.TwilioResponsePayload {
-}
+interface NationalPayload
+  extends NationalResource,
+    Page.TwilioResponsePayload {}
 
 interface NationalResource {
   available_phone_numbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational>;
@@ -477,8 +516,12 @@ interface NationalResource {
 }
 
 export class NationalInstance {
-
-  constructor(protected _version: V2010, payload: NationalPayload, accountSid: string, countryCode?: string) {
+  constructor(
+    protected _version: V2010,
+    payload: NationalPayload,
+    accountSid: string,
+    countryCode?: string
+  ) {
     this.availablePhoneNumbers = payload.available_phone_numbers;
     this.end = deserialize.integer(payload.end);
     this.firstPageUri = payload.first_page_uri;
@@ -488,7 +531,6 @@ export class NationalInstance {
     this.previousPageUri = payload.previous_page_uri;
     this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-
   }
 
   availablePhoneNumbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational>;
@@ -508,16 +550,16 @@ export class NationalInstance {
    */
   toJSON() {
     return {
-      availablePhoneNumbers: this.availablePhoneNumbers, 
-      end: this.end, 
-      firstPageUri: this.firstPageUri, 
-      nextPageUri: this.nextPageUri, 
-      page: this.page, 
-      pageSize: this.pageSize, 
-      previousPageUri: this.previousPageUri, 
-      start: this.start, 
-      uri: this.uri
-    }
+      availablePhoneNumbers: this.availablePhoneNumbers,
+      end: this.end,
+      firstPageUri: this.firstPageUri,
+      nextPageUri: this.nextPageUri,
+      page: this.page,
+      pageSize: this.pageSize,
+      previousPageUri: this.previousPageUri,
+      start: this.start,
+      uri: this.uri,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -525,34 +567,42 @@ export class NationalInstance {
   }
 }
 
-export class NationalPage extends Page<V2010, NationalPayload, NationalResource, NationalInstance> {
-/**
-* Initialize the NationalPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V2010, response: Response<string>, solution: NationalSolution) {
+export class NationalPage extends Page<
+  V2010,
+  NationalPayload,
+  NationalResource,
+  NationalInstance
+> {
+  /**
+   * Initialize the NationalPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V2010,
+    response: Response<string>,
+    solution: NationalSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of NationalInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: NationalPayload): NationalInstance {
+  /**
+   * Build an instance of NationalInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NationalPayload): NationalInstance {
     return new NationalInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
-        this._solution.countryCode,
+      this._version,
+      payload,
+      this._solution.accountSid,
+      this._solution.countryCode
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

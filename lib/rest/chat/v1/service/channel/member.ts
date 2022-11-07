@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a MemberInstance
@@ -30,8 +26,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
  */
 export interface MemberContextUpdateOptions {
-  "roleSid"?: string;
-  "lastConsumedMessageIndex"?: number;
+  roleSid?: string;
+  lastConsumedMessageIndex?: number;
 }
 
 /**
@@ -41,8 +37,8 @@ export interface MemberContextUpdateOptions {
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
  */
 export interface MemberListInstanceCreateOptions {
-  "identity": string;
-  "roleSid"?: string;
+  identity: string;
+  roleSid?: string;
 }
 /**
  * Options to pass to each
@@ -59,8 +55,8 @@ export interface MemberListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceEachOptions {
-  "identity"?: Array<string>;
-  "pageSize"?: number;
+  identity?: Array<string>;
+  pageSize?: number;
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -77,8 +73,8 @@ export interface MemberListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MemberListInstanceOptions {
-  "identity"?: Array<string>;
-  "pageSize"?: number;
+  identity?: Array<string>;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -91,17 +87,13 @@ export interface MemberListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MemberListInstancePageOptions {
-  "identity"?: Array<string>;
-  "pageSize"?: number;
+  identity?: Array<string>;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface MemberContext {
-
-
   /**
    * Remove a MemberInstance
    *
@@ -109,8 +101,9 @@ export interface MemberContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a MemberInstance
@@ -119,8 +112,9 @@ export interface MemberContext {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  fetch(callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
 
   /**
    * Update a MemberInstance
@@ -129,7 +123,9 @@ export interface MemberContext {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  update(callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>;
+  update(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
    *
@@ -138,9 +134,11 @@ export interface MemberContext {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  update(params: MemberContextUpdateOptions, callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>;
-  update(params?: any, callback?: any): Promise<MemberInstance>
-
+  update(
+    params: MemberContextUpdateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  update(params?: any, callback?: any): Promise<MemberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -150,49 +148,66 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  "serviceSid"?: string;
-  "channelSid"?: string;
-  "sid"?: string;
+  serviceSid?: string;
+  channelSid?: string;
+  sid?: string;
 }
 
 export class MemberContextImpl implements MemberContext {
   protected _solution: MemberContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, serviceSid: string, channelSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    channelSid: string,
+    sid: string
+  ) {
     this._solution = { serviceSid, channelSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<MemberInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MemberInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<MemberInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -201,26 +216,37 @@ export class MemberContextImpl implements MemberContext {
 
     let data: any = {};
 
-    
-        if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
     if (params["lastConsumedMessageIndex"] !== undefined)
-    data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
-
+      data["LastConsumedMessageIndex"] = params["lastConsumedMessageIndex"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MemberInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -237,8 +263,7 @@ export class MemberContextImpl implements MemberContext {
   }
 }
 
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
+interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {}
 
 interface MemberResource {
   sid?: string | null;
@@ -258,7 +283,13 @@ export class MemberInstance {
   protected _solution: MemberContextSolution;
   protected _context?: MemberContext;
 
-  constructor(protected _version: V1, payload: MemberPayload, serviceSid: string, channelSid: string, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: MemberPayload,
+    serviceSid: string,
+    channelSid: string,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.channelSid = payload.channel_sid;
@@ -267,8 +298,12 @@ export class MemberInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.roleSid = payload.role_sid;
-    this.lastConsumedMessageIndex = deserialize.integer(payload.last_consumed_message_index);
-    this.lastConsumptionTimestamp = deserialize.iso8601DateTime(payload.last_consumption_timestamp);
+    this.lastConsumedMessageIndex = deserialize.integer(
+      payload.last_consumed_message_index
+    );
+    this.lastConsumptionTimestamp = deserialize.iso8601DateTime(
+      payload.last_consumption_timestamp
+    );
     this.url = payload.url;
 
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
@@ -320,7 +355,14 @@ export class MemberInstance {
   url?: string | null;
 
   private get _proxy(): MemberContext {
-    this._context = this._context || new MemberContextImpl(this._version, this._solution.serviceSid, this._solution.channelSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new MemberContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.channelSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -331,8 +373,9 @@ export class MemberInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -343,8 +386,9 @@ export class MemberInstance {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  fetch(callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -355,7 +399,9 @@ export class MemberInstance {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  update(callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>;
+  update(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
    *
@@ -364,9 +410,11 @@ export class MemberInstance {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  update(params: MemberContextUpdateOptions, callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>;
-  update(params?: any, callback?: any): Promise<MemberInstance>
-     {
+  update(
+    params: MemberContextUpdateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  update(params?: any, callback?: any): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -377,18 +425,18 @@ export class MemberInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      channelSid: this.channelSid, 
-      serviceSid: this.serviceSid, 
-      identity: this.identity, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      roleSid: this.roleSid, 
-      lastConsumedMessageIndex: this.lastConsumedMessageIndex, 
-      lastConsumptionTimestamp: this.lastConsumptionTimestamp, 
-      url: this.url
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      channelSid: this.channelSid,
+      serviceSid: this.serviceSid,
+      identity: this.identity,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      roleSid: this.roleSid,
+      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+      lastConsumptionTimestamp: this.lastConsumptionTimestamp,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -396,11 +444,9 @@ export class MemberInstance {
   }
 }
 
-
 export interface MemberListInstance {
   (sid: string): MemberContext;
   get(sid: string): MemberContext;
-
 
   /**
    * Create a MemberInstance
@@ -410,10 +456,11 @@ export interface MemberListInstance {
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
-  create(params: MemberListInstanceCreateOptions, callback?: (error: Error | null, item?: MemberInstance) => any): Promise<MemberInstance>;
-  create(params: any, callback?: any): Promise<MemberInstance>
-
-
+  create(
+    params: MemberListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  create(params: any, callback?: any): Promise<MemberInstance>;
 
   /**
    * Streams MemberInstance records from the API.
@@ -429,7 +476,9 @@ export interface MemberListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: MemberInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams MemberInstance records from the API.
    *
@@ -445,7 +494,10 @@ export interface MemberListInstance {
    * @param { MemberListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: MemberListInstanceEachOptions, callback?: (item: MemberInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: MemberListInstanceEachOptions,
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
@@ -457,7 +509,9 @@ export interface MemberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
+  getPage(
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
    *
@@ -469,7 +523,10 @@ export interface MemberListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
   getPage(params?: any, callback?: any): Promise<MemberPage>;
   /**
    * Lists MemberInstance records from the API as a list.
@@ -479,7 +536,9 @@ export interface MemberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: MemberInstance[]) => any): Promise<MemberInstance[]>;
+  list(
+    callback?: (error: Error | null, items: MemberInstance[]) => any
+  ): Promise<MemberInstance[]>;
   /**
    * Lists MemberInstance records from the API as a list.
    *
@@ -489,7 +548,10 @@ export interface MemberListInstance {
    * @param { MemberListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: MemberListInstanceOptions, callback?: (error: Error | null, items: MemberInstance[]) => any): Promise<MemberInstance[]>;
+  list(
+    params?: MemberListInstanceOptions,
+    callback?: (error: Error | null, items: MemberInstance[]) => any
+  ): Promise<MemberInstance[]>;
   list(params?: any, callback?: any): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
@@ -501,7 +563,9 @@ export interface MemberListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
+  page(
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
    *
@@ -513,7 +577,10 @@ export interface MemberListInstance {
    * @param { MemberListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: MemberListInstancePageOptions, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
+  page(
+    params: MemberListInstancePageOptions,
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
   page(params?: any, callback?: any): Promise<MemberPage>;
 
   /**
@@ -533,54 +600,72 @@ class MemberListInstanceImpl implements MemberListInstance {
   _version?: V1;
   _solution?: MemberSolution;
   _uri?: string;
-
 }
 
-export function MemberListInstance(version: V1, serviceSid: string, channelSid: string): MemberListInstance {
+export function MemberListInstance(
+  version: V1,
+  serviceSid: string,
+  channelSid: string
+): MemberListInstance {
   const instance = ((sid) => instance.get(sid)) as MemberListInstanceImpl;
 
   instance.get = function get(sid): MemberContext {
     return new MemberContextImpl(version, serviceSid, channelSid, sid);
-  }
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, channelSid };
   instance._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members`;
 
-  instance.create = function create(params: any, callback?: any): Promise<MemberInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["identity"] === null || params["identity"] === undefined) {
-      throw new Error('Required parameter "params[\'identity\']" missing.');
+      throw new Error("Required parameter \"params['identity']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Identity"] = params["identity"];
-    if (params["roleSid"] !== undefined)
-    data["RoleSid"] = params["roleSid"];
-
+    if (params["roleSid"] !== undefined) data["RoleSid"] = params["roleSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.channelSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new MemberInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.channelSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<MemberPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<MemberPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -590,78 +675,105 @@ export function MemberListInstance(version: V1, serviceSid: string, channelSid: 
 
     let data: any = {};
 
-        if (params["identity"] !== undefined)
-    data["Identity"] = serialize.map(params["identity"], (e => (e)));
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["identity"] !== undefined)
+      data["Identity"] = serialize.map(params["identity"], (e) => e);
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MemberPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MemberPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MemberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<MemberPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new MemberPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MemberPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class MemberPage extends Page<V1, MemberPayload, MemberResource, MemberInstance> {
-/**
-* Initialize the MemberPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: MemberSolution) {
+export class MemberPage extends Page<
+  V1,
+  MemberPayload,
+  MemberResource,
+  MemberInstance
+> {
+  /**
+   * Initialize the MemberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: MemberSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of MemberInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: MemberPayload): MemberInstance {
+  /**
+   * Build an instance of MemberInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MemberPayload): MemberInstance {
     return new MemberInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.channelSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.channelSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

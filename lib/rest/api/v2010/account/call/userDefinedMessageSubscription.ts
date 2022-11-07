@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
@@ -29,14 +25,12 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
-  "callback": string;
-  "method": string;
-  "idempotencyKey"?: string;
+  callback: string;
+  method: string;
+  idempotencyKey?: string;
 }
 
 export interface UserDefinedMessageSubscriptionContext {
-
-
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
@@ -44,8 +38,9 @@ export interface UserDefinedMessageSubscriptionContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Provide a user-friendly representation
@@ -55,31 +50,39 @@ export interface UserDefinedMessageSubscriptionContext {
 }
 
 export interface UserDefinedMessageSubscriptionContextSolution {
-  "accountSid"?: string;
-  "callSid"?: string;
-  "sid"?: string;
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
 }
 
-export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMessageSubscriptionContext {
+export class UserDefinedMessageSubscriptionContextImpl
+  implements UserDefinedMessageSubscriptionContext
+{
   protected _solution: UserDefinedMessageSubscriptionContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    callSid: string,
+    sid: string
+  ) {
     this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions/${sid}.json`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -96,11 +99,9 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
   }
 }
 
-
 export interface UserDefinedMessageSubscriptionListInstance {
   (sid: string): UserDefinedMessageSubscriptionContext;
   get(sid: string): UserDefinedMessageSubscriptionContext;
-
 
   /**
    * Create a UserDefinedMessageSubscriptionInstance
@@ -110,9 +111,17 @@ export interface UserDefinedMessageSubscriptionListInstance {
    *
    * @returns { Promise } Resolves to processed UserDefinedMessageSubscriptionInstance
    */
-  create(params: UserDefinedMessageSubscriptionListInstanceCreateOptions, callback?: (error: Error | null, item?: UserDefinedMessageSubscriptionInstance) => any): Promise<UserDefinedMessageSubscriptionInstance>;
-  create(params: any, callback?: any): Promise<UserDefinedMessageSubscriptionInstance>
-
+  create(
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: UserDefinedMessageSubscriptionInstance
+    ) => any
+  ): Promise<UserDefinedMessageSubscriptionInstance>;
+  create(
+    params: any,
+    callback?: any
+  ): Promise<UserDefinedMessageSubscriptionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -126,74 +135,99 @@ export interface UserDefinedMessageSubscriptionSolution {
   callSid?: string;
 }
 
-interface UserDefinedMessageSubscriptionListInstanceImpl extends UserDefinedMessageSubscriptionListInstance {}
-class UserDefinedMessageSubscriptionListInstanceImpl implements UserDefinedMessageSubscriptionListInstance {
+interface UserDefinedMessageSubscriptionListInstanceImpl
+  extends UserDefinedMessageSubscriptionListInstance {}
+class UserDefinedMessageSubscriptionListInstanceImpl
+  implements UserDefinedMessageSubscriptionListInstance
+{
   _version?: V2010;
   _solution?: UserDefinedMessageSubscriptionSolution;
   _uri?: string;
-
 }
 
-export function UserDefinedMessageSubscriptionListInstance(version: V2010, accountSid: string, callSid: string): UserDefinedMessageSubscriptionListInstance {
-  const instance = ((sid) => instance.get(sid)) as UserDefinedMessageSubscriptionListInstanceImpl;
+export function UserDefinedMessageSubscriptionListInstance(
+  version: V2010,
+  accountSid: string,
+  callSid: string
+): UserDefinedMessageSubscriptionListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as UserDefinedMessageSubscriptionListInstanceImpl;
 
   instance.get = function get(sid): UserDefinedMessageSubscriptionContext {
-    return new UserDefinedMessageSubscriptionContextImpl(version, accountSid, callSid, sid);
-  }
+    return new UserDefinedMessageSubscriptionContextImpl(
+      version,
+      accountSid,
+      callSid,
+      sid
+    );
+  };
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions.json`;
 
-  instance.create = function create(params: any, callback?: any): Promise<UserDefinedMessageSubscriptionInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<UserDefinedMessageSubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["callback"] === null || params["callback"] === undefined) {
-      throw new Error('Required parameter "params[\'callback\']" missing.');
+      throw new Error("Required parameter \"params['callback']\" missing.");
     }
 
     if (params["method"] === null || params["method"] === undefined) {
-      throw new Error('Required parameter "params[\'method\']" missing.');
+      throw new Error("Required parameter \"params['method']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Callback"] = params["callback"];
-    
+
     data["Method"] = params["method"];
     if (params["idempotencyKey"] !== undefined)
-    data["IdempotencyKey"] = params["idempotencyKey"];
-
+      data["IdempotencyKey"] = params["idempotencyKey"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserDefinedMessageSubscriptionInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserDefinedMessageSubscriptionInstance(
+          operationVersion,
+          payload,
+          this._solution.accountSid,
+          this._solution.callSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

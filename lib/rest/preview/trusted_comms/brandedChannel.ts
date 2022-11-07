@@ -12,18 +12,13 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ChannelListInstance } from "./brandedChannel/channel";
 
-
-
-
 export interface BrandedChannelContext {
-
   channels: ChannelListInstance;
 
   /**
@@ -33,8 +28,9 @@ export interface BrandedChannelContext {
    *
    * @returns { Promise } Resolves to processed BrandedChannelInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandedChannelInstance) => any): Promise<BrandedChannelInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: BrandedChannelInstance) => any
+  ): Promise<BrandedChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -44,7 +40,7 @@ export interface BrandedChannelContext {
 }
 
 export interface BrandedChannelContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class BrandedChannelContextImpl implements BrandedChannelContext {
@@ -59,22 +55,32 @@ export class BrandedChannelContextImpl implements BrandedChannelContext {
   }
 
   get channels(): ChannelListInstance {
-    this._channels = this._channels || ChannelListInstance(this._version, this._solution.sid);
+    this._channels =
+      this._channels || ChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
   fetch(callback?: any): Promise<BrandedChannelInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new BrandedChannelInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new BrandedChannelInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -91,8 +97,7 @@ export class BrandedChannelContextImpl implements BrandedChannelContext {
   }
 }
 
-interface BrandedChannelPayload extends BrandedChannelResource{
-}
+interface BrandedChannelPayload extends BrandedChannelResource {}
 
 interface BrandedChannelResource {
   account_sid?: string | null;
@@ -107,7 +112,11 @@ export class BrandedChannelInstance {
   protected _solution: BrandedChannelContextSolution;
   protected _context?: BrandedChannelContext;
 
-  constructor(protected _version: TrustedComms, payload: BrandedChannelPayload, sid?: string) {
+  constructor(
+    protected _version: TrustedComms,
+    payload: BrandedChannelPayload,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.businessSid = payload.business_sid;
     this.brandSid = payload.brand_sid;
@@ -144,7 +153,9 @@ export class BrandedChannelInstance {
   url?: string | null;
 
   private get _proxy(): BrandedChannelContext {
-    this._context = this._context || new BrandedChannelContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new BrandedChannelContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -155,8 +166,9 @@ export class BrandedChannelInstance {
    *
    * @returns { Promise } Resolves to processed BrandedChannelInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandedChannelInstance) => any): Promise<BrandedChannelInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: BrandedChannelInstance) => any
+  ): Promise<BrandedChannelInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -174,13 +186,13 @@ export class BrandedChannelInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      businessSid: this.businessSid, 
-      brandSid: this.brandSid, 
-      sid: this.sid, 
-      links: this.links, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      businessSid: this.businessSid,
+      brandSid: this.brandSid,
+      sid: this.sid,
+      links: this.links,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -188,11 +200,9 @@ export class BrandedChannelInstance {
   }
 }
 
-
 export interface BrandedChannelListInstance {
   (sid: string): BrandedChannelContext;
   get(sid: string): BrandedChannelContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -201,38 +211,39 @@ export interface BrandedChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandedChannelSolution {
-}
+export interface BrandedChannelSolution {}
 
 interface BrandedChannelListInstanceImpl extends BrandedChannelListInstance {}
 class BrandedChannelListInstanceImpl implements BrandedChannelListInstance {
   _version?: TrustedComms;
   _solution?: BrandedChannelSolution;
   _uri?: string;
-
 }
 
-export function BrandedChannelListInstance(version: TrustedComms): BrandedChannelListInstance {
-  const instance = ((sid) => instance.get(sid)) as BrandedChannelListInstanceImpl;
+export function BrandedChannelListInstance(
+  version: TrustedComms
+): BrandedChannelListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as BrandedChannelListInstanceImpl;
 
   instance.get = function get(sid): BrandedChannelContext {
     return new BrandedChannelContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

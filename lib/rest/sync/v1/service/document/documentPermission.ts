@@ -12,16 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to update a DocumentPermissionInstance
@@ -31,9 +27,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { boolean } manage Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
  */
 export interface DocumentPermissionContextUpdateOptions {
-  "read": boolean;
-  "write": boolean;
-  "manage": boolean;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
 }
 /**
  * Options to pass to each
@@ -49,8 +45,11 @@ export interface DocumentPermissionContextUpdateOptions {
  *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceEachOptions {
-  "pageSize"?: number;
-  callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void;
+  pageSize?: number;
+  callback?: (
+    item: DocumentPermissionInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -65,7 +64,7 @@ export interface DocumentPermissionListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -77,16 +76,12 @@ export interface DocumentPermissionListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentPermissionListInstancePageOptions {
-  "pageSize"?: number;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface DocumentPermissionContext {
-
-
   /**
    * Remove a DocumentPermissionInstance
    *
@@ -94,8 +89,9 @@ export interface DocumentPermissionContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a DocumentPermissionInstance
@@ -104,8 +100,9 @@ export interface DocumentPermissionContext {
    *
    * @returns { Promise } Resolves to processed DocumentPermissionInstance
    */
-  fetch(callback?: (error: Error | null, item?: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance>;
 
   /**
    * Update a DocumentPermissionInstance
@@ -115,9 +112,11 @@ export interface DocumentPermissionContext {
    *
    * @returns { Promise } Resolves to processed DocumentPermissionInstance
    */
-  update(params: DocumentPermissionContextUpdateOptions, callback?: (error: Error | null, item?: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
-  update(params: any, callback?: any): Promise<DocumentPermissionInstance>
-
+  update(
+    params: DocumentPermissionContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance>;
+  update(params: any, callback?: any): Promise<DocumentPermissionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -127,88 +126,118 @@ export interface DocumentPermissionContext {
 }
 
 export interface DocumentPermissionContextSolution {
-  "serviceSid"?: string;
-  "documentSid"?: string;
-  "identity"?: string;
+  serviceSid?: string;
+  documentSid?: string;
+  identity?: string;
 }
 
-export class DocumentPermissionContextImpl implements DocumentPermissionContext {
+export class DocumentPermissionContextImpl
+  implements DocumentPermissionContext
+{
   protected _solution: DocumentPermissionContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V1, serviceSid: string, documentSid: string, identity: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    documentSid: string,
+    identity: string
+  ) {
     this._solution = { serviceSid, documentSid, identity };
     this._uri = `/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<DocumentPermissionInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new DocumentPermissionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.documentSid, this._solution.identity));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentPermissionInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.documentSid,
+          this._solution.identity
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params: any, callback?: any): Promise<DocumentPermissionInstance> {
-      if (params === null || params === undefined) {
+    if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["read"] === null || params["read"] === undefined) {
-      throw new Error('Required parameter "params[\'read\']" missing.');
+      throw new Error("Required parameter \"params['read']\" missing.");
     }
 
     if (params["write"] === null || params["write"] === undefined) {
-      throw new Error('Required parameter "params[\'write\']" missing.');
+      throw new Error("Required parameter \"params['write']\" missing.");
     }
 
     if (params["manage"] === null || params["manage"] === undefined) {
-      throw new Error('Required parameter "params[\'manage\']" missing.');
+      throw new Error("Required parameter \"params['manage']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Read"] = serialize.bool(params["read"]);
-    
+
     data["Write"] = serialize.bool(params["write"]);
-    
+
     data["Manage"] = serialize.bool(params["manage"]);
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DocumentPermissionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.documentSid, this._solution.identity));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentPermissionInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid,
+          this._solution.documentSid,
+          this._solution.identity
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -225,8 +254,9 @@ export class DocumentPermissionContextImpl implements DocumentPermissionContext 
   }
 }
 
-interface DocumentPermissionPayload extends DocumentPermissionResource, Page.TwilioResponsePayload {
-}
+interface DocumentPermissionPayload
+  extends DocumentPermissionResource,
+    Page.TwilioResponsePayload {}
 
 interface DocumentPermissionResource {
   account_sid?: string | null;
@@ -243,7 +273,13 @@ export class DocumentPermissionInstance {
   protected _solution: DocumentPermissionContextSolution;
   protected _context?: DocumentPermissionContext;
 
-  constructor(protected _version: V1, payload: DocumentPermissionPayload, serviceSid: string, documentSid: string, identity?: string) {
+  constructor(
+    protected _version: V1,
+    payload: DocumentPermissionPayload,
+    serviceSid: string,
+    documentSid: string,
+    identity?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
     this.documentSid = payload.document_sid;
@@ -253,7 +289,11 @@ export class DocumentPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = { serviceSid, documentSid, identity: identity || this.identity };
+    this._solution = {
+      serviceSid,
+      documentSid,
+      identity: identity || this.identity,
+    };
   }
 
   /**
@@ -290,7 +330,14 @@ export class DocumentPermissionInstance {
   url?: string | null;
 
   private get _proxy(): DocumentPermissionContext {
-    this._context = this._context || new DocumentPermissionContextImpl(this._version, this._solution.serviceSid, this._solution.documentSid, this._solution.identity);
+    this._context =
+      this._context ||
+      new DocumentPermissionContextImpl(
+        this._version,
+        this._solution.serviceSid,
+        this._solution.documentSid,
+        this._solution.identity
+      );
     return this._context;
   }
 
@@ -301,8 +348,9 @@ export class DocumentPermissionInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -313,8 +361,9 @@ export class DocumentPermissionInstance {
    *
    * @returns { Promise } Resolves to processed DocumentPermissionInstance
    */
-  fetch(callback?: (error: Error | null, item?: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -326,9 +375,11 @@ export class DocumentPermissionInstance {
    *
    * @returns { Promise } Resolves to processed DocumentPermissionInstance
    */
-  update(params: DocumentPermissionContextUpdateOptions, callback?: (error: Error | null, item?: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
-  update(params: any, callback?: any): Promise<DocumentPermissionInstance>
-     {
+  update(
+    params: DocumentPermissionContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance>;
+  update(params: any, callback?: any): Promise<DocumentPermissionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -339,15 +390,15 @@ export class DocumentPermissionInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      documentSid: this.documentSid, 
-      identity: this.identity, 
-      read: this.read, 
-      write: this.write, 
-      manage: this.manage, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      documentSid: this.documentSid,
+      identity: this.identity,
+      read: this.read,
+      write: this.write,
+      manage: this.manage,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -355,12 +406,9 @@ export class DocumentPermissionInstance {
   }
 }
 
-
 export interface DocumentPermissionListInstance {
   (identity: string): DocumentPermissionContext;
   get(identity: string): DocumentPermissionContext;
-
-
 
   /**
    * Streams DocumentPermissionInstance records from the API.
@@ -376,7 +424,12 @@ export interface DocumentPermissionListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: DocumentPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams DocumentPermissionInstance records from the API.
    *
@@ -392,7 +445,13 @@ export interface DocumentPermissionListInstance {
    * @param { DocumentPermissionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: DocumentPermissionListInstanceEachOptions,
+    callback?: (
+      item: DocumentPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DocumentPermissionInstance records from the API.
@@ -404,7 +463,9 @@ export interface DocumentPermissionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  getPage(
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+  ): Promise<DocumentPermissionPage>;
   /**
    * Retrieve a single target page of DocumentPermissionInstance records from the API.
    *
@@ -416,7 +477,10 @@ export interface DocumentPermissionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+  ): Promise<DocumentPermissionPage>;
   getPage(params?: any, callback?: any): Promise<DocumentPermissionPage>;
   /**
    * Lists DocumentPermissionInstance records from the API as a list.
@@ -426,7 +490,9 @@ export interface DocumentPermissionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
+  list(
+    callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
+  ): Promise<DocumentPermissionInstance[]>;
   /**
    * Lists DocumentPermissionInstance records from the API as a list.
    *
@@ -436,7 +502,10 @@ export interface DocumentPermissionListInstance {
    * @param { DocumentPermissionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: DocumentPermissionListInstanceOptions, callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
+  list(
+    params?: DocumentPermissionListInstanceOptions,
+    callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
+  ): Promise<DocumentPermissionInstance[]>;
   list(params?: any, callback?: any): Promise<DocumentPermissionInstance[]>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
@@ -448,7 +517,9 @@ export interface DocumentPermissionListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  page(
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+  ): Promise<DocumentPermissionPage>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
    *
@@ -460,7 +531,10 @@ export interface DocumentPermissionListInstance {
    * @param { DocumentPermissionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: DocumentPermissionListInstancePageOptions, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  page(
+    params: DocumentPermissionListInstancePageOptions,
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+  ): Promise<DocumentPermissionPage>;
   page(params?: any, callback?: any): Promise<DocumentPermissionPage>;
 
   /**
@@ -475,26 +549,41 @@ export interface DocumentPermissionSolution {
   documentSid?: string;
 }
 
-interface DocumentPermissionListInstanceImpl extends DocumentPermissionListInstance {}
-class DocumentPermissionListInstanceImpl implements DocumentPermissionListInstance {
+interface DocumentPermissionListInstanceImpl
+  extends DocumentPermissionListInstance {}
+class DocumentPermissionListInstanceImpl
+  implements DocumentPermissionListInstance
+{
   _version?: V1;
   _solution?: DocumentPermissionSolution;
   _uri?: string;
-
 }
 
-export function DocumentPermissionListInstance(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance {
-  const instance = ((identity) => instance.get(identity)) as DocumentPermissionListInstanceImpl;
+export function DocumentPermissionListInstance(
+  version: V1,
+  serviceSid: string,
+  documentSid: string
+): DocumentPermissionListInstance {
+  const instance = ((identity) =>
+    instance.get(identity)) as DocumentPermissionListInstanceImpl;
 
   instance.get = function get(identity): DocumentPermissionContext {
-    return new DocumentPermissionContextImpl(version, serviceSid, documentSid, identity);
-  }
+    return new DocumentPermissionContextImpl(
+      version,
+      serviceSid,
+      documentSid,
+      identity
+    );
+  };
 
   instance._version = version;
   instance._solution = { serviceSid, documentSid };
   instance._uri = `/Services/${serviceSid}/Documents/${documentSid}/Permissions`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<DocumentPermissionPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<DocumentPermissionPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -504,76 +593,105 @@ export function DocumentPermissionListInstance(version: V1, serviceSid: string, 
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentPermissionPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<DocumentPermissionPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DocumentPermissionPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
-/**
-* Initialize the DocumentPermissionPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: DocumentPermissionSolution) {
+export class DocumentPermissionPage extends Page<
+  V1,
+  DocumentPermissionPayload,
+  DocumentPermissionResource,
+  DocumentPermissionInstance
+> {
+  /**
+   * Initialize the DocumentPermissionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: DocumentPermissionSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of DocumentPermissionInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance {
+  /**
+   * Build an instance of DocumentPermissionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance {
     return new DocumentPermissionInstance(
-    this._version,
-    payload,
-        this._solution.serviceSid,
-        this._solution.documentSid,
+      this._version,
+      payload,
+      this._solution.serviceSid,
+      this._solution.documentSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

@@ -12,15 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
-
+type VerificationCheckChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
 /**
  * Options to pass to create a VerificationCheckInstance
@@ -32,16 +29,14 @@ type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
  * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  */
 export interface VerificationCheckListInstanceCreateOptions {
-  "code"?: string;
-  "to"?: string;
-  "verificationSid"?: string;
-  "amount"?: string;
-  "payee"?: string;
+  code?: string;
+  to?: string;
+  verificationSid?: string;
+  amount?: string;
+  payee?: string;
 }
 
 export interface VerificationCheckListInstance {
-
-
   /**
    * Create a VerificationCheckInstance
    *
@@ -49,7 +44,9 @@ export interface VerificationCheckListInstance {
    *
    * @returns { Promise } Resolves to processed VerificationCheckInstance
    */
-  create(callback?: (error: Error | null, item?: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
+  create(
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+  ): Promise<VerificationCheckInstance>;
   /**
    * Create a VerificationCheckInstance
    *
@@ -58,9 +55,11 @@ export interface VerificationCheckListInstance {
    *
    * @returns { Promise } Resolves to processed VerificationCheckInstance
    */
-  create(params: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, item?: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
-  create(params?: any, callback?: any): Promise<VerificationCheckInstance>
-
+  create(
+    params: VerificationCheckListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+  ): Promise<VerificationCheckInstance>;
+  create(params?: any, callback?: any): Promise<VerificationCheckInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -73,22 +72,30 @@ export interface VerificationCheckSolution {
   serviceSid?: string;
 }
 
-interface VerificationCheckListInstanceImpl extends VerificationCheckListInstance {}
-class VerificationCheckListInstanceImpl implements VerificationCheckListInstance {
+interface VerificationCheckListInstanceImpl
+  extends VerificationCheckListInstance {}
+class VerificationCheckListInstanceImpl
+  implements VerificationCheckListInstance
+{
   _version?: V2;
   _solution?: VerificationCheckSolution;
   _uri?: string;
-
 }
 
-export function VerificationCheckListInstance(version: V2, serviceSid: string): VerificationCheckListInstance {
+export function VerificationCheckListInstance(
+  version: V2,
+  serviceSid: string
+): VerificationCheckListInstance {
   const instance = {} as VerificationCheckListInstanceImpl;
 
   instance._version = version;
   instance._solution = { serviceSid };
   instance._uri = `/Services/${serviceSid}/VerificationCheck`;
 
-  instance.create = function create(params?: any, callback?: any): Promise<VerificationCheckInstance> {
+  instance.create = function create(
+    params?: any,
+    callback?: any
+  ): Promise<VerificationCheckInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -98,47 +105,55 @@ export function VerificationCheckListInstance(version: V2, serviceSid: string): 
 
     let data: any = {};
 
-    
-        if (params["code"] !== undefined)
-    data["Code"] = params["code"];
-    if (params["to"] !== undefined)
-    data["To"] = params["to"];
+    if (params["code"] !== undefined) data["Code"] = params["code"];
+    if (params["to"] !== undefined) data["To"] = params["to"];
     if (params["verificationSid"] !== undefined)
-    data["VerificationSid"] = params["verificationSid"];
-    if (params["amount"] !== undefined)
-    data["Amount"] = params["amount"];
-    if (params["payee"] !== undefined)
-    data["Payee"] = params["payee"];
-
+      data["VerificationSid"] = params["verificationSid"];
+    if (params["amount"] !== undefined) data["Amount"] = params["amount"];
+    if (params["payee"] !== undefined) data["Payee"] = params["payee"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new VerificationCheckInstance(operationVersion, payload, this._solution.serviceSid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new VerificationCheckInstance(
+          operationVersion,
+          payload,
+          this._solution.serviceSid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface VerificationCheckPayload extends VerificationCheckResource{
-}
+interface VerificationCheckPayload extends VerificationCheckResource {}
 
 interface VerificationCheckResource {
   sid?: string | null;
@@ -156,8 +171,11 @@ interface VerificationCheckResource {
 }
 
 export class VerificationCheckInstance {
-
-  constructor(protected _version: V2, payload: VerificationCheckPayload, serviceSid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: VerificationCheckPayload,
+    serviceSid?: string
+  ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;
     this.accountSid = payload.account_sid;
@@ -170,7 +188,6 @@ export class VerificationCheckInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.snaAttemptsErrorCodes = payload.sna_attempts_error_codes;
-
   }
 
   /**
@@ -226,24 +243,22 @@ export class VerificationCheckInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      serviceSid: this.serviceSid, 
-      accountSid: this.accountSid, 
-      to: this.to, 
-      channel: this.channel, 
-      status: this.status, 
-      valid: this.valid, 
-      amount: this.amount, 
-      payee: this.payee, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      snaAttemptsErrorCodes: this.snaAttemptsErrorCodes
-    }
+      sid: this.sid,
+      serviceSid: this.serviceSid,
+      accountSid: this.accountSid,
+      to: this.to,
+      channel: this.channel,
+      status: this.status,
+      valid: this.valid,
+      amount: this.amount,
+      payee: this.payee,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      snaAttemptsErrorCodes: this.snaAttemptsErrorCodes,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

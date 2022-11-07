@@ -48,7 +48,8 @@ export default class V1 extends Version {
   }
 
   get configuration(): ConfigurationListInstance {
-    this._configuration = this._configuration || ConfigurationListInstance(this);
+    this._configuration =
+      this._configuration || ConfigurationListInstance(this);
     return this._configuration;
   }
 
@@ -66,5 +67,4 @@ export default class V1 extends Version {
     this._webChannel = this._webChannel || WebChannelListInstance(this);
     return this._webChannel;
   }
-
 }

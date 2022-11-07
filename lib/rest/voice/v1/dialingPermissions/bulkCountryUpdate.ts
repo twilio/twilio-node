@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
-
 
 /**
  * Options to pass to create a BulkCountryUpdateInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../../base/serialize");
  * @property { string } updateRequest URL encoded JSON array of update objects. example : &#x60;[ { \\\&quot;iso_code\\\&quot;: \\\&quot;GB\\\&quot;, \\\&quot;low_risk_numbers_enabled\\\&quot;: \\\&quot;true\\\&quot;, \\\&quot;high_risk_special_numbers_enabled\\\&quot;:\\\&quot;true\\\&quot;, \\\&quot;high_risk_tollfraud_numbers_enabled\\\&quot;: \\\&quot;false\\\&quot; } ]&#x60;
  */
 export interface BulkCountryUpdateListInstanceCreateOptions {
-  "updateRequest": string;
+  updateRequest: string;
 }
 
 export interface BulkCountryUpdateListInstance {
-
-
   /**
    * Create a BulkCountryUpdateInstance
    *
@@ -40,9 +35,11 @@ export interface BulkCountryUpdateListInstance {
    *
    * @returns { Promise } Resolves to processed BulkCountryUpdateInstance
    */
-  create(params: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any): Promise<BulkCountryUpdateInstance>;
-  create(params: any, callback?: any): Promise<BulkCountryUpdateInstance>
-
+  create(
+    params: BulkCountryUpdateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
+  ): Promise<BulkCountryUpdateInstance>;
+  create(params: any, callback?: any): Promise<BulkCountryUpdateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -51,68 +48,85 @@ export interface BulkCountryUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BulkCountryUpdateSolution {
-}
+export interface BulkCountryUpdateSolution {}
 
-interface BulkCountryUpdateListInstanceImpl extends BulkCountryUpdateListInstance {}
-class BulkCountryUpdateListInstanceImpl implements BulkCountryUpdateListInstance {
+interface BulkCountryUpdateListInstanceImpl
+  extends BulkCountryUpdateListInstance {}
+class BulkCountryUpdateListInstanceImpl
+  implements BulkCountryUpdateListInstance
+{
   _version?: V1;
   _solution?: BulkCountryUpdateSolution;
   _uri?: string;
-
 }
 
-export function BulkCountryUpdateListInstance(version: V1): BulkCountryUpdateListInstance {
+export function BulkCountryUpdateListInstance(
+  version: V1
+): BulkCountryUpdateListInstance {
   const instance = {} as BulkCountryUpdateListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/DialingPermissions/BulkCountryUpdates`;
 
-  instance.create = function create(params: any, callback?: any): Promise<BulkCountryUpdateInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<BulkCountryUpdateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["updateRequest"] === null || params["updateRequest"] === undefined) {
-      throw new Error('Required parameter "params[\'updateRequest\']" missing.');
+    if (
+      params["updateRequest"] === null ||
+      params["updateRequest"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['updateRequest']\" missing."
+      );
     }
 
     let data: any = {};
 
-    
-        
     data["UpdateRequest"] = params["updateRequest"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BulkCountryUpdateInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface BulkCountryUpdatePayload extends BulkCountryUpdateResource{
-}
+interface BulkCountryUpdatePayload extends BulkCountryUpdateResource {}
 
 interface BulkCountryUpdateResource {
   update_count?: number | null;
@@ -120,11 +134,9 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
-
   constructor(protected _version: V1, payload: BulkCountryUpdatePayload) {
     this.updateCount = deserialize.integer(payload.update_count);
     this.updateRequest = payload.update_request;
-
   }
 
   /**
@@ -143,14 +155,12 @@ export class BulkCountryUpdateInstance {
    */
   toJSON() {
     return {
-      updateCount: this.updateCount, 
-      updateRequest: this.updateRequest
-    }
+      updateCount: this.updateCount,
+      updateRequest: this.updateRequest,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page from "../../../base/Page";
 import Response from "../../../http/response";
@@ -23,24 +22,26 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
-
-
-type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
-
+type CustomerProfileStatus =
+  | "draft"
+  | "pending-review"
+  | "in-review"
+  | "twilio-rejected"
+  | "twilio-approved";
 
 /**
  * Options to pass to update a CustomerProfilesInstance
  *
- * @property { CustomerProfileStatus } [status] 
+ * @property { CustomerProfileStatus } [status]
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
-  "status"?: CustomerProfileStatus;
-  "statusCallback"?: string;
-  "friendlyName"?: string;
-  "email"?: string;
+  status?: CustomerProfileStatus;
+  statusCallback?: string;
+  friendlyName?: string;
+  email?: string;
 }
 
 /**
@@ -52,10 +53,10 @@ export interface CustomerProfilesContextUpdateOptions {
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface CustomerProfilesListInstanceCreateOptions {
-  "friendlyName": string;
-  "email": string;
-  "policySid": string;
-  "statusCallback"?: string;
+  friendlyName: string;
+  email: string;
+  policySid: string;
+  statusCallback?: string;
 }
 /**
  * Options to pass to each
@@ -74,11 +75,14 @@ export interface CustomerProfilesListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceEachOptions {
-  "status"?: CustomerProfileStatus;
-  "friendlyName"?: string;
-  "policySid"?: string;
-  "pageSize"?: number;
-  callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void;
+  status?: CustomerProfileStatus;
+  friendlyName?: string;
+  policySid?: string;
+  pageSize?: number;
+  callback?: (
+    item: CustomerProfilesInstance,
+    done: (err?: Error) => void
+  ) => void;
   done?: Function;
   limit?: number;
 }
@@ -96,10 +100,10 @@ export interface CustomerProfilesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceOptions {
-  "status"?: CustomerProfileStatus;
-  "friendlyName"?: string;
-  "policySid"?: string;
-  "pageSize"?: number;
+  status?: CustomerProfileStatus;
+  friendlyName?: string;
+  policySid?: string;
+  pageSize?: number;
   limit?: number;
 }
 
@@ -114,18 +118,15 @@ export interface CustomerProfilesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesListInstancePageOptions {
-  "status"?: CustomerProfileStatus;
-  "friendlyName"?: string;
-  "policySid"?: string;
-  "pageSize"?: number;
+  status?: CustomerProfileStatus;
+  friendlyName?: string;
+  policySid?: string;
+  pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
 
-
-
 export interface CustomerProfilesContext {
-
   customerProfilesChannelEndpointAssignment: CustomerProfilesChannelEndpointAssignmentListInstance;
   customerProfilesEntityAssignments: CustomerProfilesEntityAssignmentsListInstance;
   customerProfilesEvaluations: CustomerProfilesEvaluationsListInstance;
@@ -137,8 +138,9 @@ export interface CustomerProfilesContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a CustomerProfilesInstance
@@ -147,8 +149,9 @@ export interface CustomerProfilesContext {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>
-
+  fetch(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
 
   /**
    * Update a CustomerProfilesInstance
@@ -157,7 +160,9 @@ export interface CustomerProfilesContext {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  update(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
+  update(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
    *
@@ -166,9 +171,11 @@ export interface CustomerProfilesContext {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  update(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
-  update(params?: any, callback?: any): Promise<CustomerProfilesInstance>
-
+  update(
+    params: CustomerProfilesContextUpdateOptions,
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+  update(params?: any, callback?: any): Promise<CustomerProfilesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -178,7 +185,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  "sid"?: string;
+  sid?: string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -195,48 +202,74 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   }
 
   get customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    this._customerProfilesChannelEndpointAssignment = this._customerProfilesChannelEndpointAssignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
+    this._customerProfilesChannelEndpointAssignment =
+      this._customerProfilesChannelEndpointAssignment ||
+      CustomerProfilesChannelEndpointAssignmentListInstance(
+        this._version,
+        this._solution.sid
+      );
     return this._customerProfilesChannelEndpointAssignment;
   }
 
   get customerProfilesEntityAssignments(): CustomerProfilesEntityAssignmentsListInstance {
-    this._customerProfilesEntityAssignments = this._customerProfilesEntityAssignments || CustomerProfilesEntityAssignmentsListInstance(this._version, this._solution.sid);
+    this._customerProfilesEntityAssignments =
+      this._customerProfilesEntityAssignments ||
+      CustomerProfilesEntityAssignmentsListInstance(
+        this._version,
+        this._solution.sid
+      );
     return this._customerProfilesEntityAssignments;
   }
 
   get customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
-    this._customerProfilesEvaluations = this._customerProfilesEvaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
+    this._customerProfilesEvaluations =
+      this._customerProfilesEvaluations ||
+      CustomerProfilesEvaluationsListInstance(
+        this._version,
+        this._solution.sid
+      );
     return this._customerProfilesEvaluations;
   }
 
   remove(callback?: any): Promise<boolean> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: this._uri,
+        method: "delete",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   fetch(callback?: any): Promise<CustomerProfilesInstance> {
-  
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<CustomerProfilesInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -245,30 +278,38 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     let data: any = {};
 
-    
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
+      data["StatusCallback"] = params["statusCallback"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["email"] !== undefined)
-    data["Email"] = params["email"];
-
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesInstance(
+          operationVersion,
+          payload,
+          this._solution.sid
+        )
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -285,8 +326,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   }
 }
 
-interface CustomerProfilesPayload extends CustomerProfilesResource, Page.TwilioResponsePayload {
-}
+interface CustomerProfilesPayload
+  extends CustomerProfilesResource,
+    Page.TwilioResponsePayload {}
 
 interface CustomerProfilesResource {
   sid?: string | null;
@@ -307,7 +349,11 @@ export class CustomerProfilesInstance {
   protected _solution: CustomerProfilesContextSolution;
   protected _context?: CustomerProfilesContext;
 
-  constructor(protected _version: V1, payload: CustomerProfilesPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: CustomerProfilesPayload,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.policySid = payload.policy_sid;
@@ -371,7 +417,9 @@ export class CustomerProfilesInstance {
   links?: object | null;
 
   private get _proxy(): CustomerProfilesContext {
-    this._context = this._context || new CustomerProfilesContextImpl(this._version, this._solution.sid);
+    this._context =
+      this._context ||
+      new CustomerProfilesContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -382,8 +430,9 @@ export class CustomerProfilesInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -394,8 +443,9 @@ export class CustomerProfilesInstance {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>
-     {
+  fetch(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -406,7 +456,9 @@ export class CustomerProfilesInstance {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  update(callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
+  update(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
    *
@@ -415,9 +467,11 @@ export class CustomerProfilesInstance {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  update(params: CustomerProfilesContextUpdateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
-  update(params?: any, callback?: any): Promise<CustomerProfilesInstance>
-     {
+  update(
+    params: CustomerProfilesContextUpdateOptions,
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+  update(params?: any, callback?: any): Promise<CustomerProfilesInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -449,19 +503,19 @@ export class CustomerProfilesInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      policySid: this.policySid, 
-      friendlyName: this.friendlyName, 
-      status: this.status, 
-      validUntil: this.validUntil, 
-      email: this.email, 
-      statusCallback: this.statusCallback, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url, 
-      links: this.links
-    }
+      sid: this.sid,
+      accountSid: this.accountSid,
+      policySid: this.policySid,
+      friendlyName: this.friendlyName,
+      status: this.status,
+      validUntil: this.validUntil,
+      email: this.email,
+      statusCallback: this.statusCallback,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      url: this.url,
+      links: this.links,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -469,11 +523,9 @@ export class CustomerProfilesInstance {
   }
 }
 
-
 export interface CustomerProfilesListInstance {
   (sid: string): CustomerProfilesContext;
   get(sid: string): CustomerProfilesContext;
-
 
   /**
    * Create a CustomerProfilesInstance
@@ -483,10 +535,11 @@ export interface CustomerProfilesListInstance {
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
-  create(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
-  create(params: any, callback?: any): Promise<CustomerProfilesInstance>
-
-
+  create(
+    params: CustomerProfilesListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+  create(params: any, callback?: any): Promise<CustomerProfilesInstance>;
 
   /**
    * Streams CustomerProfilesInstance records from the API.
@@ -502,7 +555,12 @@ export interface CustomerProfilesListInstance {
    *
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (
+      item: CustomerProfilesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Streams CustomerProfilesInstance records from the API.
    *
@@ -518,7 +576,13 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(params?: CustomerProfilesListInstanceEachOptions, callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  each(
+    params?: CustomerProfilesListInstanceEachOptions,
+    callback?: (
+      item: CustomerProfilesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API.
@@ -530,7 +594,9 @@ export interface CustomerProfilesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  getPage(
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+  ): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API.
    *
@@ -542,7 +608,10 @@ export interface CustomerProfilesListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  getPage(
+    targetUrl?: string,
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+  ): Promise<CustomerProfilesPage>;
   getPage(params?: any, callback?: any): Promise<CustomerProfilesPage>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list.
@@ -552,7 +621,9 @@ export interface CustomerProfilesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
+  list(
+    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
+  ): Promise<CustomerProfilesInstance[]>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list.
    *
@@ -562,7 +633,10 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(params?: CustomerProfilesListInstanceOptions, callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
+  list(
+    params?: CustomerProfilesListInstanceOptions,
+    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
+  ): Promise<CustomerProfilesInstance[]>;
   list(params?: any, callback?: any): Promise<CustomerProfilesInstance[]>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API.
@@ -574,7 +648,9 @@ export interface CustomerProfilesListInstance {
    *
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  page(
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+  ): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API.
    *
@@ -586,7 +662,10 @@ export interface CustomerProfilesListInstance {
    * @param { CustomerProfilesListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(params: CustomerProfilesListInstancePageOptions, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  page(
+    params: CustomerProfilesListInstancePageOptions,
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+  ): Promise<CustomerProfilesPage>;
   page(params?: any, callback?: any): Promise<CustomerProfilesPage>;
 
   /**
@@ -596,74 +675,89 @@ export interface CustomerProfilesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesSolution {
-}
+export interface CustomerProfilesSolution {}
 
-interface CustomerProfilesListInstanceImpl extends CustomerProfilesListInstance {}
+interface CustomerProfilesListInstanceImpl
+  extends CustomerProfilesListInstance {}
 class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
   _version?: V1;
   _solution?: CustomerProfilesSolution;
   _uri?: string;
-
 }
 
-export function CustomerProfilesListInstance(version: V1): CustomerProfilesListInstance {
-  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstanceImpl;
+export function CustomerProfilesListInstance(
+  version: V1
+): CustomerProfilesListInstance {
+  const instance = ((sid) =>
+    instance.get(sid)) as CustomerProfilesListInstanceImpl;
 
   instance.get = function get(sid): CustomerProfilesContext {
     return new CustomerProfilesContextImpl(version, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/CustomerProfiles`;
 
-  instance.create = function create(params: any, callback?: any): Promise<CustomerProfilesInstance> {
+  instance.create = function create(
+    params: any,
+    callback?: any
+  ): Promise<CustomerProfilesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["email"] === null || params["email"] === undefined) {
-      throw new Error('Required parameter "params[\'email\']" missing.');
+      throw new Error("Required parameter \"params['email']\" missing.");
     }
 
     if (params["policySid"] === null || params["policySid"] === undefined) {
-      throw new Error('Required parameter "params[\'policySid\']" missing.');
+      throw new Error("Required parameter \"params['policySid']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["Email"] = params["email"];
-    
+
     data["PolicySid"] = params["policySid"];
     if (params["statusCallback"] !== undefined)
-    data["StatusCallback"] = params["statusCallback"];
-
+      data["StatusCallback"] = params["statusCallback"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new CustomerProfilesInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CustomerProfilesPage> {
+  instance.page = function page(
+    params?: any,
+    callback?: any
+  ): Promise<CustomerProfilesPage> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -673,80 +767,105 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
 
     let data: any = {};
 
-        if (params["status"] !== undefined)
-    data["Status"] = params["status"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+      data["FriendlyName"] = params["friendlyName"];
     if (params["policySid"] !== undefined)
-    data["PolicySid"] = params["policySid"];
-    if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+      data["PolicySid"] = params["policySid"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
     if (params.page !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(operationVersion, payload, this._solution));
+      operationPromise = operationVersion.page({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesPage(operationVersion, payload, this._solution)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CustomerProfilesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl?: any,
+    callback?: any
+  ): Promise<CustomerProfilesPage> {
+    let operationPromise = this._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomerProfilesPage(this._version, payload, this._solution)
+    );
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-
-export class CustomerProfilesPage extends Page<V1, CustomerProfilesPayload, CustomerProfilesResource, CustomerProfilesInstance> {
-/**
-* Initialize the CustomerProfilesPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: CustomerProfilesSolution) {
+export class CustomerProfilesPage extends Page<
+  V1,
+  CustomerProfilesPayload,
+  CustomerProfilesResource,
+  CustomerProfilesInstance
+> {
+  /**
+   * Initialize the CustomerProfilesPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: CustomerProfilesSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of CustomerProfilesInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: CustomerProfilesPayload): CustomerProfilesInstance {
-    return new CustomerProfilesInstance(
-    this._version,
-    payload,
-    );
-    }
+  /**
+   * Build an instance of CustomerProfilesInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CustomerProfilesPayload): CustomerProfilesInstance {
+    return new CustomerProfilesInstance(this._version, payload);
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

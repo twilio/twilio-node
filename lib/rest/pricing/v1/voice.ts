@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,10 +19,7 @@ const serialize = require("../../../base/serialize");
 import { CountryListInstance } from "./voice/country";
 import { NumberListInstance } from "./voice/number";
 
-
-
 export interface VoiceListInstance {
-
   countries: CountryListInstance;
   numbers: NumberListInstance;
 
@@ -34,8 +30,7 @@ export interface VoiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VoiceSolution {
-}
+export interface VoiceSolution {}
 
 interface VoiceListInstanceImpl extends VoiceListInstance {}
 class VoiceListInstanceImpl implements VoiceListInstance {
@@ -51,7 +46,7 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
   const instance = {} as VoiceListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Voice`;
 
   Object.defineProperty(instance, "countries", {
@@ -60,7 +55,7 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
-    }
+    },
   });
 
   Object.defineProperty(instance, "numbers", {
@@ -69,18 +64,19 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
         this._numbers = NumberListInstance(this._version);
       }
       return this._numbers;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

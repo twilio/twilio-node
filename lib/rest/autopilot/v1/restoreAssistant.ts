@@ -12,13 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
 
 /**
  * Options to pass to update a RestoreAssistantInstance
@@ -26,12 +23,10 @@ const serialize = require("../../../base/serialize");
  * @property { string } assistant The Twilio-provided string that uniquely identifies the Assistant resource to restore.
  */
 export interface RestoreAssistantListInstanceUpdateOptions {
-  "assistant": string;
+  assistant: string;
 }
 
 export interface RestoreAssistantListInstance {
-
-
   /**
    * Update a RestoreAssistantInstance
    *
@@ -40,9 +35,11 @@ export interface RestoreAssistantListInstance {
    *
    * @returns { Promise } Resolves to processed RestoreAssistantInstance
    */
-  update(params: RestoreAssistantListInstanceUpdateOptions, callback?: (error: Error | null, item?: RestoreAssistantInstance) => any): Promise<RestoreAssistantInstance>;
-  update(params: any, callback?: any): Promise<RestoreAssistantInstance>
-
+  update(
+    params: RestoreAssistantListInstanceUpdateOptions,
+    callback?: (error: Error | null, item?: RestoreAssistantInstance) => any
+  ): Promise<RestoreAssistantInstance>;
+  update(params: any, callback?: any): Promise<RestoreAssistantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -51,68 +48,78 @@ export interface RestoreAssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RestoreAssistantSolution {
-}
+export interface RestoreAssistantSolution {}
 
-interface RestoreAssistantListInstanceImpl extends RestoreAssistantListInstance {}
+interface RestoreAssistantListInstanceImpl
+  extends RestoreAssistantListInstance {}
 class RestoreAssistantListInstanceImpl implements RestoreAssistantListInstance {
   _version?: V1;
   _solution?: RestoreAssistantSolution;
   _uri?: string;
-
 }
 
-export function RestoreAssistantListInstance(version: V1): RestoreAssistantListInstance {
+export function RestoreAssistantListInstance(
+  version: V1
+): RestoreAssistantListInstance {
   const instance = {} as RestoreAssistantListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Assistants/Restore`;
 
-  instance.update = function update(params: any, callback?: any): Promise<RestoreAssistantInstance> {
+  instance.update = function update(
+    params: any,
+    callback?: any
+  ): Promise<RestoreAssistantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["assistant"] === null || params["assistant"] === undefined) {
-      throw new Error('Required parameter "params[\'assistant\']" missing.');
+      throw new Error("Required parameter \"params['assistant']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["Assistant"] = params["assistant"];
 
-
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new RestoreAssistantInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new RestoreAssistantInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface RestoreAssistantPayload extends RestoreAssistantResource{
-}
+interface RestoreAssistantPayload extends RestoreAssistantResource {}
 
 interface RestoreAssistantResource {
   account_sid?: string | null;
@@ -130,7 +137,6 @@ interface RestoreAssistantResource {
 }
 
 export class RestoreAssistantInstance {
-
   constructor(protected _version: V1, payload: RestoreAssistantPayload) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
@@ -144,7 +150,6 @@ export class RestoreAssistantInstance {
     this.developmentStage = payload.development_stage;
     this.callbackUrl = payload.callback_url;
     this.callbackEvents = payload.callback_events;
-
   }
 
   /**
@@ -203,24 +208,22 @@ export class RestoreAssistantInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      sid: this.sid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      uniqueName: this.uniqueName, 
-      friendlyName: this.friendlyName, 
-      needsModelBuild: this.needsModelBuild, 
-      latestModelBuildSid: this.latestModelBuildSid, 
-      logQueries: this.logQueries, 
-      developmentStage: this.developmentStage, 
-      callbackUrl: this.callbackUrl, 
-      callbackEvents: this.callbackEvents
-    }
+      accountSid: this.accountSid,
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      uniqueName: this.uniqueName,
+      friendlyName: this.friendlyName,
+      needsModelBuild: this.needsModelBuild,
+      latestModelBuildSid: this.latestModelBuildSid,
+      logQueries: this.logQueries,
+      developmentStage: this.developmentStage,
+      callbackUrl: this.callbackUrl,
+      callbackEvents: this.callbackEvents,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

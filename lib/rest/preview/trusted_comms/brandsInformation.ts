@@ -12,14 +12,10 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
-
-
 
 /**
  * Options to pass to fetch a BrandsInformationInstance
@@ -27,12 +23,10 @@ const serialize = require("../../../base/serialize");
  * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
  */
 export interface BrandsInformationContextFetchOptions {
-  "ifNoneMatch"?: string;
+  ifNoneMatch?: string;
 }
 
 export interface BrandsInformationContext {
-
-
   /**
    * Fetch a BrandsInformationInstance
    *
@@ -40,7 +34,9 @@ export interface BrandsInformationContext {
    *
    * @returns { Promise } Resolves to processed BrandsInformationInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: BrandsInformationInstance) => any
+  ): Promise<BrandsInformationInstance>;
   /**
    * Fetch a BrandsInformationInstance
    *
@@ -49,9 +45,11 @@ export interface BrandsInformationContext {
    *
    * @returns { Promise } Resolves to processed BrandsInformationInstance
    */
-  fetch(params: BrandsInformationContextFetchOptions, callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
-  fetch(params?: any, callback?: any): Promise<BrandsInformationInstance>
-
+  fetch(
+    params: BrandsInformationContextFetchOptions,
+    callback?: (error: Error | null, item?: BrandsInformationInstance) => any
+  ): Promise<BrandsInformationInstance>;
+  fetch(params?: any, callback?: any): Promise<BrandsInformationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -60,21 +58,19 @@ export interface BrandsInformationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandsInformationContextSolution {
-}
+export interface BrandsInformationContextSolution {}
 
 export class BrandsInformationContextImpl implements BrandsInformationContext {
   protected _solution: BrandsInformationContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: TrustedComms) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/BrandsInformation`;
   }
 
   fetch(params?: any, callback?: any): Promise<BrandsInformationInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -83,22 +79,27 @@ export class BrandsInformationContextImpl implements BrandsInformationContext {
 
     let data: any = {};
 
-    
-    
-
     const headers: any = {};
-    if (params["ifNoneMatch"] !== undefined) headers["If-None-Match"] = params["ifNoneMatch"];
+    if (params["ifNoneMatch"] !== undefined)
+      headers["If-None-Match"] = params["ifNoneMatch"];
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BrandsInformationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BrandsInformationInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -115,8 +116,7 @@ export class BrandsInformationContextImpl implements BrandsInformationContext {
   }
 }
 
-interface BrandsInformationPayload extends BrandsInformationResource{
-}
+interface BrandsInformationPayload extends BrandsInformationResource {}
 
 interface BrandsInformationResource {
   update_time?: Date | null;
@@ -129,13 +129,16 @@ export class BrandsInformationInstance {
   protected _solution: BrandsInformationContextSolution;
   protected _context?: BrandsInformationContext;
 
-  constructor(protected _version: TrustedComms, payload: BrandsInformationPayload) {
+  constructor(
+    protected _version: TrustedComms,
+    payload: BrandsInformationPayload
+  ) {
     this.updateTime = deserialize.iso8601DateTime(payload.update_time);
     this.fileLink = payload.file_link;
     this.fileLinkTtlInSeconds = payload.file_link_ttl_in_seconds;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -156,7 +159,8 @@ export class BrandsInformationInstance {
   url?: string | null;
 
   private get _proxy(): BrandsInformationContext {
-    this._context = this._context || new BrandsInformationContextImpl(this._version);
+    this._context =
+      this._context || new BrandsInformationContextImpl(this._version);
     return this._context;
   }
 
@@ -167,7 +171,9 @@ export class BrandsInformationInstance {
    *
    * @returns { Promise } Resolves to processed BrandsInformationInstance
    */
-  fetch(callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: BrandsInformationInstance) => any
+  ): Promise<BrandsInformationInstance>;
   /**
    * Fetch a BrandsInformationInstance
    *
@@ -176,9 +182,11 @@ export class BrandsInformationInstance {
    *
    * @returns { Promise } Resolves to processed BrandsInformationInstance
    */
-  fetch(params: BrandsInformationContextFetchOptions, callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
-  fetch(params?: any, callback?: any): Promise<BrandsInformationInstance>
-     {
+  fetch(
+    params: BrandsInformationContextFetchOptions,
+    callback?: (error: Error | null, item?: BrandsInformationInstance) => any
+  ): Promise<BrandsInformationInstance>;
+  fetch(params?: any, callback?: any): Promise<BrandsInformationInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -189,11 +197,11 @@ export class BrandsInformationInstance {
    */
   toJSON() {
     return {
-      updateTime: this.updateTime, 
-      fileLink: this.fileLink, 
-      fileLinkTtlInSeconds: this.fileLinkTtlInSeconds, 
-      url: this.url
-    }
+      updateTime: this.updateTime,
+      fileLink: this.fileLink,
+      fileLinkTtlInSeconds: this.fileLinkTtlInSeconds,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -201,11 +209,9 @@ export class BrandsInformationInstance {
   }
 }
 
-
 export interface BrandsInformationListInstance {
   (): BrandsInformationContext;
   get(): BrandsInformationContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -214,38 +220,41 @@ export interface BrandsInformationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandsInformationSolution {
-}
+export interface BrandsInformationSolution {}
 
-interface BrandsInformationListInstanceImpl extends BrandsInformationListInstance {}
-class BrandsInformationListInstanceImpl implements BrandsInformationListInstance {
+interface BrandsInformationListInstanceImpl
+  extends BrandsInformationListInstance {}
+class BrandsInformationListInstanceImpl
+  implements BrandsInformationListInstance
+{
   _version?: TrustedComms;
   _solution?: BrandsInformationSolution;
   _uri?: string;
-
 }
 
-export function BrandsInformationListInstance(version: TrustedComms): BrandsInformationListInstance {
+export function BrandsInformationListInstance(
+  version: TrustedComms
+): BrandsInformationListInstance {
   const instance = (() => instance.get()) as BrandsInformationListInstanceImpl;
 
   instance.get = function get(): BrandsInformationContext {
     return new BrandsInformationContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

@@ -12,17 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-
-
 export interface SinkTestListInstance {
-
-
   /**
    * Create a SinkTestInstance
    *
@@ -30,8 +25,9 @@ export interface SinkTestListInstance {
    *
    * @returns { Promise } Resolves to processed SinkTestInstance
    */
-  create(callback?: (error: Error | null, item?: SinkTestInstance) => any): Promise<SinkTestInstance>
-
+  create(
+    callback?: (error: Error | null, item?: SinkTestInstance) => any
+  ): Promise<SinkTestInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -49,10 +45,12 @@ class SinkTestListInstanceImpl implements SinkTestListInstance {
   _version?: V1;
   _solution?: SinkTestSolution;
   _uri?: string;
-
 }
 
-export function SinkTestListInstance(version: V1, sid: string): SinkTestListInstance {
+export function SinkTestListInstance(
+  version: V1,
+  sid: string
+): SinkTestListInstance {
   const instance = {} as SinkTestListInstanceImpl;
 
   instance._version = version;
@@ -60,42 +58,47 @@ export function SinkTestListInstance(version: V1, sid: string): SinkTestListInst
   instance._uri = `/Sinks/${sid}/Test`;
 
   instance.create = function create(callback?: any): Promise<SinkTestInstance> {
-
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: "post" });
-    
-    operationPromise = operationPromise.then(payload => new SinkTestInstance(operationVersion, payload, this._solution.sid));
-    
+      operationPromise = operationVersion.create({
+        uri: this._uri,
+        method: "post",
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new SinkTestInstance(operationVersion, payload, this._solution.sid)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface SinkTestPayload extends SinkTestResource{
-}
+interface SinkTestPayload extends SinkTestResource {}
 
 interface SinkTestResource {
   result?: string | null;
 }
 
 export class SinkTestInstance {
-
   constructor(protected _version: V1, payload: SinkTestPayload, sid?: string) {
     this.result = payload.result;
-
   }
 
   /**
@@ -110,13 +113,11 @@ export class SinkTestInstance {
    */
   toJSON() {
     return {
-      result: this.result
-    }
+      result: this.result,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

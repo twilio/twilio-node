@@ -12,34 +12,29 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-type FlowValidateStatus = 'draft'|'published';
-
+type FlowValidateStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowValidateInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowValidateStatus } status 
+ * @property { FlowValidateStatus } status
  * @property { any } definition JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowValidateListInstanceUpdateOptions {
-  "friendlyName": string;
-  "status": FlowValidateStatus;
-  "definition": any;
-  "commitMessage"?: string;
+  friendlyName: string;
+  status: FlowValidateStatus;
+  definition: any;
+  commitMessage?: string;
 }
 
 export interface FlowValidateListInstance {
-
-
   /**
    * Update a FlowValidateInstance
    *
@@ -48,9 +43,11 @@ export interface FlowValidateListInstance {
    *
    * @returns { Promise } Resolves to processed FlowValidateInstance
    */
-  update(params: FlowValidateListInstanceUpdateOptions, callback?: (error: Error | null, item?: FlowValidateInstance) => any): Promise<FlowValidateInstance>;
-  update(params: any, callback?: any): Promise<FlowValidateInstance>
-
+  update(
+    params: FlowValidateListInstanceUpdateOptions,
+    callback?: (error: Error | null, item?: FlowValidateInstance) => any
+  ): Promise<FlowValidateInstance>;
+  update(params: any, callback?: any): Promise<FlowValidateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -59,92 +56,102 @@ export interface FlowValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlowValidateSolution {
-}
+export interface FlowValidateSolution {}
 
 interface FlowValidateListInstanceImpl extends FlowValidateListInstance {}
 class FlowValidateListInstanceImpl implements FlowValidateListInstance {
   _version?: V2;
   _solution?: FlowValidateSolution;
   _uri?: string;
-
 }
 
-export function FlowValidateListInstance(version: V2): FlowValidateListInstance {
+export function FlowValidateListInstance(
+  version: V2
+): FlowValidateListInstance {
   const instance = {} as FlowValidateListInstanceImpl;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Flows/Validate`;
 
-  instance.update = function update(params: any, callback?: any): Promise<FlowValidateInstance> {
+  instance.update = function update(
+    params: any,
+    callback?: any
+  ): Promise<FlowValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
-      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
+    if (
+      params["friendlyName"] === null ||
+      params["friendlyName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['friendlyName']\" missing.");
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error('Required parameter "params[\'status\']" missing.');
+      throw new Error("Required parameter \"params['status']\" missing.");
     }
 
     if (params["definition"] === null || params["definition"] === undefined) {
-      throw new Error('Required parameter "params[\'definition\']" missing.');
+      throw new Error("Required parameter \"params['definition']\" missing.");
     }
 
     let data: any = {};
 
-    
-        
     data["FriendlyName"] = params["friendlyName"];
-    
+
     data["Status"] = params["status"];
-    
+
     data["Definition"] = serialize.object(params["definition"]);
     if (params["commitMessage"] !== undefined)
-    data["CommitMessage"] = params["commitMessage"];
-
+      data["CommitMessage"] = params["commitMessage"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowValidateInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new FlowValidateInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-interface FlowValidatePayload extends FlowValidateResource{
-}
+interface FlowValidatePayload extends FlowValidateResource {}
 
 interface FlowValidateResource {
   valid?: boolean | null;
 }
 
 export class FlowValidateInstance {
-
   constructor(protected _version: V2, payload: FlowValidatePayload) {
     this.valid = payload.valid;
-
   }
 
   /**
@@ -159,13 +166,11 @@ export class FlowValidateInstance {
    */
   toJSON() {
     return {
-      valid: this.valid
-    }
+      valid: this.valid,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -5,7 +5,6 @@
  *       /       /
  */
 
-
 declare class FaxResponse {
   /**
    * <Response> TwiML for Faxes
@@ -25,10 +24,9 @@ declare class FaxResponse {
 }
 
 declare namespace FaxResponse {
+  type ReceiveMediaType = "application/pdf" | "image/tiff";
 
-  type ReceiveMediaType = 'application/pdf'|'image/tiff';
-
-  type ReceivePageSize = 'letter'|'legal'|'a4';
+  type ReceivePageSize = "letter" | "legal" | "a4";
 
   /**
    * Options to pass to receive

@@ -51,12 +51,14 @@ export default class V1 extends Version {
   }
 
   get compositionHooks(): CompositionHookListInstance {
-    this._compositionHooks = this._compositionHooks || CompositionHookListInstance(this);
+    this._compositionHooks =
+      this._compositionHooks || CompositionHookListInstance(this);
     return this._compositionHooks;
   }
 
   get compositionSettings(): CompositionSettingsListInstance {
-    this._compositionSettings = this._compositionSettings || CompositionSettingsListInstance(this);
+    this._compositionSettings =
+      this._compositionSettings || CompositionSettingsListInstance(this);
     return this._compositionSettings;
   }
 
@@ -66,7 +68,8 @@ export default class V1 extends Version {
   }
 
   get recordingSettings(): RecordingSettingsListInstance {
-    this._recordingSettings = this._recordingSettings || RecordingSettingsListInstance(this);
+    this._recordingSettings =
+      this._recordingSettings || RecordingSettingsListInstance(this);
     return this._recordingSettings;
   }
 
@@ -74,5 +77,4 @@ export default class V1 extends Version {
     this._rooms = this._rooms || RoomListInstance(this);
     return this._rooms;
   }
-
 }

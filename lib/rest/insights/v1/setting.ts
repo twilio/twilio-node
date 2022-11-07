@@ -12,40 +12,34 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-
-
-
 /**
  * Options to pass to fetch a SettingInstance
  *
- * @property { string } [subaccountSid] 
+ * @property { string } [subaccountSid]
  */
 export interface SettingContextFetchOptions {
-  "subaccountSid"?: string;
+  subaccountSid?: string;
 }
 
 /**
  * Options to pass to update a SettingInstance
  *
- * @property { boolean } [advancedFeatures] 
- * @property { boolean } [voiceTrace] 
- * @property { string } [subaccountSid] 
+ * @property { boolean } [advancedFeatures]
+ * @property { boolean } [voiceTrace]
+ * @property { string } [subaccountSid]
  */
 export interface SettingContextUpdateOptions {
-  "advancedFeatures"?: boolean;
-  "voiceTrace"?: boolean;
-  "subaccountSid"?: string;
+  advancedFeatures?: boolean;
+  voiceTrace?: boolean;
+  subaccountSid?: string;
 }
 
 export interface SettingContext {
-
-
   /**
    * Fetch a SettingInstance
    *
@@ -53,7 +47,9 @@ export interface SettingContext {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Fetch a SettingInstance
    *
@@ -62,9 +58,11 @@ export interface SettingContext {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  fetch(params: SettingContextFetchOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
-  fetch(params?: any, callback?: any): Promise<SettingInstance>
-
+  fetch(
+    params: SettingContextFetchOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  fetch(params?: any, callback?: any): Promise<SettingInstance>;
 
   /**
    * Update a SettingInstance
@@ -73,7 +71,9 @@ export interface SettingContext {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  update(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
    *
@@ -82,9 +82,11 @@ export interface SettingContext {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  update(params: SettingContextUpdateOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
-  update(params?: any, callback?: any): Promise<SettingInstance>
-
+  update(
+    params: SettingContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  update(params?: any, callback?: any): Promise<SettingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -93,21 +95,19 @@ export interface SettingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingContextSolution {
-}
+export interface SettingContextSolution {}
 
 export class SettingContextImpl implements SettingContext {
   protected _solution: SettingContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/Voice/Settings`;
   }
 
   fetch(params?: any, callback?: any): Promise<SettingInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -116,27 +116,32 @@ export class SettingContextImpl implements SettingContext {
 
     let data: any = {};
 
-        if (params["subaccountSid"] !== undefined)
-    data["SubaccountSid"] = params["subaccountSid"];
-
-    
+    if (params["subaccountSid"] !== undefined)
+      data["SubaccountSid"] = params["subaccountSid"];
 
     const headers: any = {};
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: this._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   update(params?: any, callback?: any): Promise<SettingInstance> {
-      if (typeof params === "function") {
+    if (typeof params === "function") {
       callback = params;
       params = {};
     } else {
@@ -145,28 +150,33 @@ export class SettingContextImpl implements SettingContext {
 
     let data: any = {};
 
-    
-        if (params["advancedFeatures"] !== undefined)
-    data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
+    if (params["advancedFeatures"] !== undefined)
+      data["AdvancedFeatures"] = serialize.bool(params["advancedFeatures"]);
     if (params["voiceTrace"] !== undefined)
-    data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
+      data["VoiceTrace"] = serialize.bool(params["voiceTrace"]);
     if (params["subaccountSid"] !== undefined)
-    data["SubaccountSid"] = params["subaccountSid"];
-
+      data["SubaccountSid"] = params["subaccountSid"];
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: this._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new SettingInstance(operationVersion, payload)
+    );
+
+    operationPromise = this._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -183,8 +193,7 @@ export class SettingContextImpl implements SettingContext {
   }
 }
 
-interface SettingPayload extends SettingResource{
-}
+interface SettingPayload extends SettingResource {}
 
 interface SettingResource {
   account_sid?: string | null;
@@ -203,7 +212,7 @@ export class SettingInstance {
     this.voiceTrace = payload.voice_trace;
     this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   accountSid?: string | null;
@@ -223,7 +232,9 @@ export class SettingInstance {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  fetch(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  fetch(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Fetch a SettingInstance
    *
@@ -232,9 +243,11 @@ export class SettingInstance {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  fetch(params: SettingContextFetchOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
-  fetch(params?: any, callback?: any): Promise<SettingInstance>
-     {
+  fetch(
+    params: SettingContextFetchOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  fetch(params?: any, callback?: any): Promise<SettingInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -245,7 +258,9 @@ export class SettingInstance {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  update(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  update(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
    *
@@ -254,9 +269,11 @@ export class SettingInstance {
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  update(params: SettingContextUpdateOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
-  update(params?: any, callback?: any): Promise<SettingInstance>
-     {
+  update(
+    params: SettingContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  update(params?: any, callback?: any): Promise<SettingInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -267,11 +284,11 @@ export class SettingInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      advancedFeatures: this.advancedFeatures, 
-      voiceTrace: this.voiceTrace, 
-      url: this.url
-    }
+      accountSid: this.accountSid,
+      advancedFeatures: this.advancedFeatures,
+      voiceTrace: this.voiceTrace,
+      url: this.url,
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -279,11 +296,9 @@ export class SettingInstance {
   }
 }
 
-
 export interface SettingListInstance {
   (): SettingContext;
   get(): SettingContext;
-
 
   /**
    * Provide a user-friendly representation
@@ -292,15 +307,13 @@ export interface SettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingSolution {
-}
+export interface SettingSolution {}
 
 interface SettingListInstanceImpl extends SettingListInstance {}
 class SettingListInstanceImpl implements SettingListInstance {
   _version?: V1;
   _solution?: SettingSolution;
   _uri?: string;
-
 }
 
 export function SettingListInstance(version: V1): SettingListInstance {
@@ -308,22 +321,22 @@ export function SettingListInstance(version: V1): SettingListInstance {
 
   instance.get = function get(): SettingContext {
     return new SettingContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return this._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(this.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-
-

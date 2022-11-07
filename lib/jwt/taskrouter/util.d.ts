@@ -1,4 +1,4 @@
-import TaskRouterCapability = require('./TaskRouterCapability');
+import TaskRouterCapability = require("./TaskRouterCapability");
 
 /**
  * Build the default Policies for a worker
