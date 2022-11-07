@@ -61,8 +61,8 @@
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "jsdoc": "jsdoc -r lib -d docs",
     "nsp": "npm audit --production",
-    "prettier": "prettier --write lib spec",
-    "prettier-check": "prettier --check lib spec",
+    "prettier": "prettier --write .",
+    "prettier-check": "prettier --check .",
     "cluster": "jest ./cluster_test.spec.ts --coverage",
     "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage"
   },
