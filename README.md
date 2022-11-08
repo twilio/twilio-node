@@ -32,6 +32,12 @@ TypeScript is supported for TypeScript version 2.9 and above.
 
 `npm install twilio` or `yarn add twilio`
 
+### Installing Release Candidates
+
+Or, if you're wanting to install the latest release candidate use:
+
+`npm install twilio@rc` or `yarn add twilio@rc`
+
 ## Sample Usage
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
