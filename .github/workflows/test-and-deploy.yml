@@ -89,7 +89,7 @@ jobs:
       - name: Publish to NPM
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
-          npm publish --ignore-scripts
+          npm publish --ignore-scripts --tag rc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
