@@ -1,7 +1,7 @@
 twilio-node changelog
 =====================
 
-[2022-11-16] Version 4.0.0-rc.0
+[2022-11-30] Version 4.0.0-rc.0
 ---------------------------
 - Release Candidate prep
 
