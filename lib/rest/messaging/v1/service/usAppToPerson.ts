@@ -28,6 +28,13 @@ const serialize = require("../../../../base/serialize");
  * @property { string } usAppToPersonUsecase A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
  * @property { boolean } hasEmbeddedLinks Indicates that this SMS campaign will send messages that contain links.
  * @property { boolean } hasEmbeddedPhone Indicates that this SMS campaign will send messages that contain phone numbers.
+ * @property { string } [messageFlow] Description of how end users opt-in to the SMS campaign, therefore giving consent to receive messages.
+ * @property { string } [optInMessage] The message that will be sent to the user when they opt in to the SMS campaign.
+ * @property { string } [optOutMessage] The message that will be sent to the user when they opt out of the SMS campaign.
+ * @property { string } [helpMessage] The message that will be sent to the user when they request help for the SMS campaign.
+ * @property { Array<string> } [optInKeywords] The keywords that will be used to opt in to the SMS campaign.
+ * @property { Array<string> } [optOutKeywords] The keywords that will be used to opt out of the SMS campaign.
+ * @property { Array<string> } [helpKeywords] The keywords that will be used to request help for the SMS campaign.
  */
 export interface UsAppToPersonListInstanceCreateOptions {
   brandRegistrationSid: string;
@@ -36,6 +43,13 @@ export interface UsAppToPersonListInstanceCreateOptions {
   usAppToPersonUsecase: string;
   hasEmbeddedLinks: boolean;
   hasEmbeddedPhone: boolean;
+  messageFlow?: string;
+  optInMessage?: string;
+  optOutMessage?: string;
+  helpMessage?: string;
+  optInKeywords?: Array<string>;
+  optOutKeywords?: Array<string>;
+  helpKeywords?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -202,6 +216,13 @@ interface UsAppToPersonResource {
   campaign_id?: string | null;
   is_externally_registered?: boolean | null;
   rate_limits?: any | null;
+  message_flow?: string | null;
+  opt_in_message?: string | null;
+  opt_out_message?: string | null;
+  help_message?: string | null;
+  opt_in_keywords?: Array<string> | null;
+  opt_out_keywords?: Array<string> | null;
+  help_keywords?: Array<string> | null;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -231,6 +252,13 @@ export class UsAppToPersonInstance {
     this.campaignId = payload.campaign_id;
     this.isExternallyRegistered = payload.is_externally_registered;
     this.rateLimits = payload.rate_limits;
+    this.messageFlow = payload.message_flow;
+    this.optInMessage = payload.opt_in_message;
+    this.optOutMessage = payload.opt_out_message;
+    this.helpMessage = payload.help_message;
+    this.optInKeywords = payload.opt_in_keywords;
+    this.optOutKeywords = payload.opt_out_keywords;
+    this.helpKeywords = payload.help_keywords;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -291,6 +319,34 @@ export class UsAppToPersonInstance {
    * Rate limit and/or classification set by each carrier
    */
   rateLimits?: any | null;
+  /**
+   * Consumer opt-in flow
+   */
+  messageFlow?: string | null;
+  /**
+   * Opt In Message
+   */
+  optInMessage?: string | null;
+  /**
+   * Opt Out Message
+   */
+  optOutMessage?: string | null;
+  /**
+   * Help Message
+   */
+  helpMessage?: string | null;
+  /**
+   * Opt In Keywords
+   */
+  optInKeywords?: Array<string> | null;
+  /**
+   * Opt Out Keywords
+   */
+  optOutKeywords?: Array<string> | null;
+  /**
+   * Help Keywords
+   */
+  helpKeywords?: Array<string> | null;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
@@ -365,6 +421,13 @@ export class UsAppToPersonInstance {
       campaignId: this.campaignId,
       isExternallyRegistered: this.isExternallyRegistered,
       rateLimits: this.rateLimits,
+      messageFlow: this.messageFlow,
+      optInMessage: this.optInMessage,
+      optOutMessage: this.optOutMessage,
+      helpMessage: this.helpMessage,
+      optInKeywords: this.optInKeywords,
+      optOutKeywords: this.optOutKeywords,
+      helpKeywords: this.helpKeywords,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
@@ -625,6 +688,23 @@ export function UsAppToPersonListInstance(
     data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
 
     data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
+    if (params["messageFlow"] !== undefined)
+      data["MessageFlow"] = params["messageFlow"];
+    if (params["optInMessage"] !== undefined)
+      data["OptInMessage"] = params["optInMessage"];
+    if (params["optOutMessage"] !== undefined)
+      data["OptOutMessage"] = params["optOutMessage"];
+    if (params["helpMessage"] !== undefined)
+      data["HelpMessage"] = params["helpMessage"];
+    if (params["optInKeywords"] !== undefined)
+      data["OptInKeywords"] = serialize.map(params["optInKeywords"], (e) => e);
+    if (params["optOutKeywords"] !== undefined)
+      data["OptOutKeywords"] = serialize.map(
+        params["optOutKeywords"],
+        (e) => e
+      );
+    if (params["helpKeywords"] !== undefined)
+      data["HelpKeywords"] = serialize.map(params["helpKeywords"], (e) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

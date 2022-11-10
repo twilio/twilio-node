@@ -17,7 +17,9 @@ import Version from "../../base/Version";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
+import { GoodDatumListInstance } from "./v1/goodDatum";
 import { InteractionListInstance } from "./v1/interaction";
+import { UserRolesListInstance } from "./v1/userRoles";
 import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
@@ -27,7 +29,9 @@ export default class V1 extends Version {
    * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
    * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
+   * @property { Twilio.FlexApi.V1.GoodDatumListInstance } goodData - goodData resource
    * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
+   * @property { Twilio.FlexApi.V1.UserRolesListInstance } userRoles - userRoles resource
    * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
    *
    * @param { Twilio.FlexApi } domain - The Twilio domain
@@ -39,7 +43,9 @@ export default class V1 extends Version {
   protected _channel?: ChannelListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _flexFlow?: FlexFlowListInstance;
+  protected _goodData?: GoodDatumListInstance;
   protected _interaction?: InteractionListInstance;
+  protected _userRoles?: UserRolesListInstance;
   protected _webChannel?: WebChannelListInstance;
 
   get channel(): ChannelListInstance {
@@ -58,9 +64,19 @@ export default class V1 extends Version {
     return this._flexFlow;
   }
 
+  get goodData(): GoodDatumListInstance {
+    this._goodData = this._goodData || GoodDatumListInstance(this);
+    return this._goodData;
+  }
+
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
+  }
+
+  get userRoles(): UserRolesListInstance {
+    this._userRoles = this._userRoles || UserRolesListInstance(this);
+    return this._userRoles;
   }
 
   get webChannel(): WebChannelListInstance {

@@ -20,7 +20,7 @@ const serialize = require("../../../../../base/serialize");
 /**
  * Options to pass to create a UserDefinedMessageInstance
  *
- * @property { string } content A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+ * @property { string } content The User Defined Message in the form of URL-encoded JSON string.
  * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 export interface UserDefinedMessageListInstanceCreateOptions {
@@ -159,19 +159,19 @@ export class UserDefinedMessageInstance {
   }
 
   /**
-   * Account Sid.
+   * Account SID.
    */
   accountSid?: string | null;
   /**
-   * Call Sid.
+   * Call SID.
    */
   callSid?: string | null;
   /**
-   * A string that uniquely identifies this User Defined Message.
+   * User Defined Message SID.
    */
   sid?: string | null;
   /**
-   * The date this User Defined Message was created
+   * The date this User Defined Message was created.
    */
   dateCreated?: string | null;
 
