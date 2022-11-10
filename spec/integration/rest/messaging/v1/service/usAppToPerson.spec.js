@@ -97,6 +97,19 @@ describe('UsAppToPerson', function() {
                   'brand_tier': 'TOP'
               }
           },
+          'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+          'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+          'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+          'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+          'opt_in_keywords': [
+              'START'
+          ],
+          'opt_out_keywords': [
+              'STOP'
+          ],
+          'help_keywords': [
+              'HELP'
+          ],
           'date_created': '2021-02-18T14:48:52Z',
           'date_updated': '2021-02-18T14:48:52Z',
           'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
@@ -191,6 +204,19 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
+                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+                  'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'opt_in_keywords': [
+                      'START'
+                  ],
+                  'opt_out_keywords': [
+                      'STOP'
+                  ],
+                  'help_keywords': [
+                      'HELP'
+                  ],
                   'date_created': '2021-02-18T14:48:52Z',
                   'date_updated': '2021-02-18T14:48:52Z',
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
@@ -241,6 +267,19 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
+                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+                  'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'opt_in_keywords': [
+                      'START'
+                  ],
+                  'opt_out_keywords': [
+                      'STOP'
+                  ],
+                  'help_keywords': [
+                      'HELP'
+                  ],
                   'date_created': '2021-02-18T14:48:52Z',
                   'date_updated': '2021-02-18T14:48:52Z',
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
@@ -296,6 +335,19 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
+                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+                  'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'opt_in_keywords': [
+                      'START'
+                  ],
+                  'opt_out_keywords': [
+                      'STOP'
+                  ],
+                  'help_keywords': [
+                      'HELP'
+                  ],
                   'date_created': '2021-02-18T14:48:52Z',
                   'date_updated': '2021-02-18T14:48:52Z',
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
@@ -368,6 +420,19 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
+                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+                  'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'opt_in_keywords': [
+                      'START'
+                  ],
+                  'opt_out_keywords': [
+                      'STOP'
+                  ],
+                  'help_keywords': [
+                      'HELP'
+                  ],
                   'date_created': '2021-02-18T14:48:52Z',
                   'date_updated': '2021-02-18T14:48:52Z',
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
@@ -447,6 +512,19 @@ describe('UsAppToPerson', function() {
                   'brand_tier': 'TOP'
               }
           },
+          'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+          'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+          'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
+          'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+          'opt_in_keywords': [
+              'START'
+          ],
+          'opt_out_keywords': [
+              'STOP'
+          ],
+          'help_keywords': [
+              'HELP'
+          ],
           'date_created': '2021-02-18T14:48:52Z',
           'date_updated': '2021-02-18T14:48:52Z',
           'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',

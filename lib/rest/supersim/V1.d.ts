@@ -17,6 +17,8 @@ import { NetworkAccessProfileList } from './v1/networkAccessProfile';
 import { NetworkAccessProfileListInstance } from './v1/networkAccessProfile';
 import { NetworkList } from './v1/network';
 import { NetworkListInstance } from './v1/network';
+import { SettingsUpdateList } from './v1/settingsUpdate';
+import { SettingsUpdateListInstance } from './v1/settingsUpdate';
 import { SimList } from './v1/sim';
 import { SimListInstance } from './v1/sim';
 import { SmsCommandList } from './v1/smsCommand';
@@ -38,6 +40,7 @@ declare class V1 extends Version {
   readonly ipCommands: IpCommandListInstance;
   readonly networkAccessProfiles: NetworkAccessProfileListInstance;
   readonly networks: NetworkListInstance;
+  readonly settingsUpdates: SettingsUpdateListInstance;
   readonly sims: SimListInstance;
   readonly smsCommands: SmsCommandListInstance;
   readonly usageRecords: UsageRecordListInstance;

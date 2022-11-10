@@ -148,7 +148,14 @@ interface UsAppToPersonListInstance {
  * @property description - A short description of what this SMS campaign does
  * @property hasEmbeddedLinks - Indicates that this SMS campaign will send messages that contain links
  * @property hasEmbeddedPhone - Indicates that this SMS campaign will send messages that contain phone numbers
+ * @property helpKeywords - Help Keywords
+ * @property helpMessage - Help Message
+ * @property messageFlow - The message flow of the campaign
  * @property messageSamples - Message samples
+ * @property optInKeywords - Opt In Keywords
+ * @property optInMessage - Opt In Message
+ * @property optOutKeywords - Opt Out Keywords
+ * @property optOutMessage - Opt Out Message
  * @property usAppToPersonUsecase - A2P Campaign Use Case.
  */
 interface UsAppToPersonListInstanceCreateOptions {
@@ -156,7 +163,14 @@ interface UsAppToPersonListInstanceCreateOptions {
   description: string;
   hasEmbeddedLinks: boolean;
   hasEmbeddedPhone: boolean;
+  helpKeywords?: string | string[];
+  helpMessage?: string;
+  messageFlow?: string;
   messageSamples: string | string[];
+  optInKeywords?: string | string[];
+  optInMessage?: string;
+  optOutKeywords?: string | string[];
+  optOutMessage?: string;
   usAppToPersonUsecase: string;
 }
 
@@ -230,10 +244,17 @@ interface UsAppToPersonResource {
   description: string;
   has_embedded_links: boolean;
   has_embedded_phone: boolean;
+  help_keywords: string[];
+  help_message: string;
   is_externally_registered: boolean;
+  message_flow: string;
   message_samples: string[];
   messaging_service_sid: string;
   mock: boolean;
+  opt_in_keywords: string[];
+  opt_in_message: string;
+  opt_out_keywords: string[];
+  opt_out_message: string;
   rate_limits: object;
   sid: string;
   url: string;
@@ -307,10 +328,17 @@ declare class UsAppToPersonInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
   hasEmbeddedLinks: boolean;
   hasEmbeddedPhone: boolean;
+  helpKeywords: string[];
+  helpMessage: string;
   isExternallyRegistered: boolean;
+  messageFlow: string;
   messageSamples: string[];
   messagingServiceSid: string;
   mock: boolean;
+  optInKeywords: string[];
+  optInMessage: string;
+  optOutKeywords: string[];
+  optOutMessage: string;
   rateLimits: any;
   /**
    * remove a UsAppToPersonInstance

@@ -10,7 +10,7 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
-type InteractionChannelParticipantStatus = 'close'|'closed'|'wrapup';
+type InteractionChannelParticipantStatus = 'closed'|'wrapup';
 
 type InteractionChannelParticipantType = 'supervisor'|'customer'|'external'|'agent'|'unknown';
 

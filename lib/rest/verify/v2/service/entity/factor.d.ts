@@ -21,9 +21,6 @@ type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 /**
  * Initialize the FactorList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  * @param identity - Unique external identifier of the Entity
@@ -256,9 +253,6 @@ declare class FactorContext {
   /**
    * Initialize the FactorContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param identity - Unique external identifier of the Entity
@@ -301,9 +295,6 @@ declare class FactorContext {
 declare class FactorInstance extends SerializableClass {
   /**
    * Initialize the FactorContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -362,9 +353,6 @@ declare class FactorInstance extends SerializableClass {
 declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {
   /**
    * Initialize the FactorPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

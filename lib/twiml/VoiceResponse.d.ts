@@ -205,7 +205,7 @@ declare namespace VoiceResponse {
 
   type ConferenceTrim = 'trim-silence'|'do-not-trim';
 
-  type ConversationEvent = 'call-initiated'|'call-ringing'|'call-in-progress'|'call-completed';
+  type ConversationEvent = 'call-initiated'|'call-ringing'|'call-answered'|'call-completed';
 
   type ConversationRecord = 'do-not-record'|'record-from-answer'|'record-from-ringing'|'record-from-answer-dual'|'record-from-ringing-dual'|'true'|'false';
 
@@ -227,7 +227,7 @@ declare namespace VoiceResponse {
 
   type GatherLanguage = 'af-ZA'|'am-ET'|'ar-AE'|'ar-BH'|'ar-DZ'|'ar-EG'|'ar-IL'|'ar-IQ'|'ar-JO'|'ar-KW'|'ar-LB'|'ar-MA'|'ar-OM'|'ar-PS'|'ar-QA'|'ar-SA'|'ar-TN'|'az-AZ'|'bg-BG'|'bn-BD'|'bn-IN'|'ca-ES'|'cs-CZ'|'da-DK'|'de-DE'|'el-GR'|'en-AU'|'en-CA'|'en-GB'|'en-GH'|'en-IE'|'en-IN'|'en-KE'|'en-NG'|'en-NZ'|'en-PH'|'en-SG'|'en-TZ'|'en-US'|'en-ZA'|'es-AR'|'es-BO'|'es-CL'|'es-CO'|'es-CR'|'es-DO'|'es-EC'|'es-ES'|'es-GT'|'es-HN'|'es-MX'|'es-NI'|'es-PA'|'es-PE'|'es-PR'|'es-PY'|'es-SV'|'es-US'|'es-UY'|'es-VE'|'et-EE'|'eu-ES'|'fa-IR'|'fi-FI'|'fil-PH'|'fr-CA'|'fr-FR'|'gl-ES'|'gu-IN'|'he-IL'|'hi-IN'|'hr-HR'|'hu-HU'|'hy-AM'|'id-ID'|'is-IS'|'it-IT'|'ja-JP'|'jv-ID'|'ka-GE'|'km-KH'|'kn-IN'|'ko-KR'|'lo-LA'|'lt-LT'|'lv-LV'|'mk-MK'|'ml-IN'|'mn-MN'|'mr-IN'|'ms-MY'|'my-MM'|'nar-IQ'|'nb-NO'|'ne-NP'|'nl-BE'|'nl-NL'|'pa-guru-IN'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'si-LK'|'sk-SK'|'sl-SI'|'sq-AL'|'sr-RS'|'su-ID'|'sv-SE'|'sw-KE'|'sw-TZ'|'ta-IN'|'ta-LK'|'ta-MY'|'ta-SG'|'te-IN'|'th-TH'|'tr-TR'|'uk-UA'|'ur-IN'|'ur-PK'|'uz-UZ'|'vi-VN'|'yue-Hant-HK'|'zh'|'cmn-Hans-CN'|'zh-TW'|'cmn-Hant-TW'|'zu-ZA';
 
-  type GatherSpeechModel = 'default'|'numbers_and_commands'|'phone_call';
+  type GatherSpeechModel = 'default'|'numbers_and_commands'|'phone_call'|'experimental_conversations'|'experimental_utterances';
 
   type NumberEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -247,7 +247,7 @@ declare namespace VoiceResponse {
 
   type PromptCardType = 'visa'|'mastercard'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
 
-  type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error';
+  type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error'|'input-matching-failed';
 
   type PromptFor = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'payment-processing'|'bank-account-number'|'bank-routing-number';
 
@@ -259,7 +259,7 @@ declare namespace VoiceResponse {
 
   type SayLanguage = 'arb'|'ca-ES'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-CA'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-ZA'|'en-US'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'zh-CN'|'zh-HK'|'zh-TW';
 
-  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Emma-Neural'|'Polly.Brian-Neural'|'Polly.Salli-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Kendra-Neural'|'Polly.Kimberly-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Matthew-Neural'|'Polly.Camila-Neural'|'Polly.Lupe-Neural'|'Polly.Olivia-Neural'|'Polly.Kevin-Neural'|'Polly.Aria-Neural'|'Polly.Ayanda-Neural'|'Polly.Gabrielle-Neural'|'Polly.Lea-Neural'|'Polly.Vicki-Neural'|'Polly.Bianca-Neural'|'Polly.Takumi-Neural'|'Polly.Seoyeon-Neural'|'Polly.Lucia-Neural'|'Polly.Arlet-Neural'|'Polly.Hannah-Neural'|'Polly.Mia-Neural'|'Polly.Vitoria-Neural'|'Polly.Ines-Neural';
+  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Aria-Neural'|'Polly.Arlet-Neural'|'Polly.Arthur-Neural'|'Polly.Ayanda-Neural'|'Polly.Bianca-Neural'|'Polly.Brian-Neural'|'Polly.Camila-Neural'|'Polly.Daniel-Neural'|'Polly.Emma-Neural'|'Polly.Gabrielle-Neural'|'Polly.Hannah-Neural'|'Polly.Ines-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Kajal-Neural'|'Polly.Kendra-Neural'|'Polly.Kevin-Neural'|'Polly.Kimberly-Neural'|'Polly.Lea-Neural'|'Polly.Liam-Neural'|'Polly.Lucia-Neural'|'Polly.Lupe-Neural'|'Polly.Matthew-Neural'|'Polly.Mia-Neural'|'Polly.Olivia-Neural'|'Polly.Pedro-Neural'|'Polly.Salli-Neural'|'Polly.Seoyeon-Neural'|'Polly.Takumi-Neural'|'Polly.Vicki-Neural'|'Polly.Vitoria-Neural';
 
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -269,7 +269,7 @@ declare namespace VoiceResponse {
 
   type SsmlEmphasisLevel = 'strong'|'moderate'|'reduced';
 
-  type SsmlLangXmlLang = 'da-DK'|'nl-NL'|'en-AU'|'en-GB'|'en-IN'|'en-US'|'en-GB-WLS'|'fr-FR'|'fr-CA'|'de-DE'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'es-ES'|'es-US'|'sv-SE'|'tr-TR'|'cy-GB';
+  type SsmlLangXmlLang = 'arb'|'ca-ES'|'cmn-CN'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-US'|'en-ZA'|'es-ES'|'es-MX'|'es-US'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR';
 
   type SsmlPhonemeAlphabet = 'ipa'|'x-sampa';
 
@@ -372,6 +372,7 @@ declare namespace VoiceResponse {
    *
    * @property inboundAutocreation - Inbound autocreation
    * @property inboundTimeout - Inbound timeout
+   * @property method - TwiML URL method
    * @property record - Record
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
@@ -382,10 +383,12 @@ declare namespace VoiceResponse {
    * @property statusCallbackEvent - Events to call status callback URL
    * @property statusCallbackMethod - Status callback URL method
    * @property trim - Trim
+   * @property url - TwiML URL
    */
   export interface ConversationAttributes {
     inboundAutocreation?: boolean;
     inboundTimeout?: number;
+    method?: string;
     record?: ConversationRecord;
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: ConversationRecordingEvent[];
@@ -396,6 +399,7 @@ declare namespace VoiceResponse {
     statusCallbackEvent?: ConversationEvent[];
     statusCallbackMethod?: string;
     trim?: ConversationTrim;
+    url?: string;
   }
 
   /**
@@ -504,7 +508,14 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to number
    *
+   * @property amdStatusCallback - The URL we should call to send amd status information to your application
+   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
    * @property byoc - BYOC trunk SID (Beta)
+   * @property machineDetection - Enable machine detection or end of greeting detection
+   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
    * @property method - TwiML URL method
    * @property sendDigits - DTMF tones to play when the call is answered
    * @property statusCallback - Status callback URL
@@ -513,7 +524,14 @@ declare namespace VoiceResponse {
    * @property url - TwiML URL
    */
   export interface NumberAttributes {
+    amdStatusCallback?: string;
+    amdStatusCallbackMethod?: string;
     byoc?: string;
+    machineDetection?: string;
+    machineDetectionSilenceTimeout?: number;
+    machineDetectionSpeechEndThreshold?: number;
+    machineDetectionSpeechThreshold?: number;
+    machineDetectionTimeout?: number;
     method?: string;
     sendDigits?: string;
     statusCallback?: string;
@@ -603,12 +621,14 @@ declare namespace VoiceResponse {
    * @property cardType - Type of the credit card
    * @property errorType - Type of error
    * @property for_ - Name of the payment source data element
+   * @property requireMatchingInputs - Require customer to input requested information twice and verify matching.
    */
   export interface PromptAttributes {
     attempt?: number[];
     cardType?: PromptCardType[];
     errorType?: PromptErrorType[];
     for_?: PromptFor;
+    requireMatchingInputs?: boolean;
   }
 
   /**
@@ -711,6 +731,13 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to sip
    *
+   * @property amdStatusCallback - The URL we should call to send amd status information to your application
+   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
+   * @property machineDetection - Enable machine detection or end of greeting detection
+   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
    * @property method - Action URL method
    * @property password - SIP Password
    * @property statusCallback - Status callback URL
@@ -720,6 +747,13 @@ declare namespace VoiceResponse {
    * @property username - SIP Username
    */
   export interface SipAttributes {
+    amdStatusCallback?: string;
+    amdStatusCallbackMethod?: string;
+    machineDetection?: string;
+    machineDetectionSilenceTimeout?: number;
+    machineDetectionSpeechEndThreshold?: number;
+    machineDetectionSpeechThreshold?: number;
+    machineDetectionTimeout?: number;
     method?: string;
     password?: string;
     statusCallback?: string;

@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../../interfaces';
 /**
  * Initialize the NotificationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  * @param identity - Unique external identifier of the Entity
@@ -78,9 +75,6 @@ declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
@@ -108,9 +102,6 @@ declare class NotificationInstance extends SerializableClass {
 declare class NotificationPage extends Page<V2, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
    * Initialize the NotificationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

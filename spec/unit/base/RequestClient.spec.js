@@ -53,6 +53,12 @@ describe('RequestClient constructor', function() {
     });
     expect(requestClient.axios.defaults.httpsAgent).not.toBeInstanceOf(HttpsProxyAgent);
     expect(requestClient.axios.defaults.httpsAgent.options.timeout).toEqual(30000);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxTotalSockets).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toBe(undefined);
   });
 
   it('should initialize with a proxy', function() {
@@ -67,14 +73,36 @@ describe('RequestClient constructor', function() {
     expect(requestClient.axios.defaults.httpsAgent.proxy.host).toEqual('example.com');
   });
 
-  it('should initialize with a timeout', function() {
-    const requestClient = new RequestClientMock({ timeout: 5000 });
+  it('should initialize custom https settings (all settings customized)', function() {
+    const requestClient = new RequestClientMock({ timeout: 5000, keepAlive: true, keepAliveMsecs: 1500, maxSockets: 100, maxTotalSockets: 1000, maxFreeSockets: 10, scheduling: 'fifo'});
     expect(requestClient.defaultTimeout).toEqual(5000);
     expect(requestClient.axios.defaults.headers.post).toEqual({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
     expect(requestClient.axios.defaults.httpsAgent).not.toBeInstanceOf(HttpsProxyAgent);
     expect(requestClient.axios.defaults.httpsAgent.options.timeout).toEqual(5000);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(true);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toEqual(1500);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toEqual(100);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxTotalSockets).toEqual(1000);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toEqual(10);
+    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual('fifo');
+  });
+
+  it('should initialize custom https settings (some settings customized)', function() {
+    const requestClient = new RequestClientMock({ timeout: 5000, keepAlive: false, maxTotalSockets: 1500, scheduling: 'lifo'});
+    expect(requestClient.defaultTimeout).toEqual(5000);
+    expect(requestClient.axios.defaults.headers.post).toEqual({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+    expect(requestClient.axios.defaults.httpsAgent).not.toBeInstanceOf(HttpsProxyAgent);
+    expect(requestClient.axios.defaults.httpsAgent.options.timeout).toEqual(5000);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(false);
+    expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxTotalSockets).toEqual(1500);
+    expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(undefined);
+    expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual('lifo');
   });
 });
 

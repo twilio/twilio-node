@@ -459,7 +459,7 @@ describe('InteractionChannel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'status': 'close'};
+      var opts = {'status': 'closed'};
       var promise = client.flexApi.v1.interaction('KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .channels('UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -473,7 +473,7 @@ describe('InteractionChannel', function() {
       var sid = 'UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://flex-api.twilio.com/v1/Interactions/${interactionSid}/Channels/${sid}`;
 
-      var values = {'Status': 'close', };
+      var values = {'Status': 'closed', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -499,7 +499,7 @@ describe('InteractionChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {'status': 'close'};
+      var opts = {'status': 'closed'};
       var promise = client.flexApi.v1.interaction('KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .channels('UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
@@ -528,7 +528,7 @@ describe('InteractionChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {'status': 'close'};
+      var opts = {'status': 'closed'};
       var promise = client.flexApi.v1.interaction('KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .channels('UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {

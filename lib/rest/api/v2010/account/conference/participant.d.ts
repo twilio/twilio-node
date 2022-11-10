@@ -32,10 +32,10 @@ declare function ParticipantList(version: V2010, accountSid: string, conferenceS
  * @property endConferenceOnExit - Whether to end the conference when the participant leaves
  * @property hold - Whether the participant should be on hold
  * @property holdMethod - The HTTP method we should use to call hold_url
- * @property holdUrl - The URL we call using the `hold_method` for  music that plays when the participant is on hold
+ * @property holdUrl - The URL we call using the `hold_method` for music that plays when the participant is on hold
  * @property muted - Whether the participant should be muted
  * @property waitMethod - The HTTP method we should use to call `wait_url`
- * @property waitUrl - URL that hosts pre-conference hold music
+ * @property waitUrl - The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start
  */
 interface ParticipantInstanceUpdateOptions {
   announceMethod?: string;
@@ -175,6 +175,8 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
+ * @property amdStatusCallback - The URL we should call to send amd status information to your application
+ * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
  * @property beep - Whether to play a notification beep to the conference when the participant joins
  * @property byoc - BYOC trunk SID (Beta)
  * @property callReason - Reason for the call (Branded Calls Beta)
@@ -194,6 +196,11 @@ interface ParticipantListInstance {
  * @property from - The phone number, Client identifier, or username portion of SIP address that made this call.
  * @property jitterBufferSize - Jitter Buffer size for the connecting participant
  * @property label - The label of this participant
+ * @property machineDetection - Enable machine detection or end of greeting detection
+ * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+ * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+ * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+ * @property machineDetectionTimeout - Number of seconds to wait for machine detection
  * @property maxParticipants - The maximum number of agent conference participants
  * @property muted - Whether to mute the agent
  * @property record - Whether to record the participant and their conferences
@@ -216,6 +223,8 @@ interface ParticipantListInstance {
  * @property waitUrl - URL that hosts pre-conference hold music
  */
 interface ParticipantListInstanceCreateOptions {
+  amdStatusCallback?: string;
+  amdStatusCallbackMethod?: string;
   beep?: string;
   byoc?: string;
   callReason?: string;
@@ -235,6 +244,11 @@ interface ParticipantListInstanceCreateOptions {
   from: string;
   jitterBufferSize?: string;
   label?: string;
+  machineDetection?: string;
+  machineDetectionSilenceTimeout?: number;
+  machineDetectionSpeechEndThreshold?: number;
+  machineDetectionSpeechThreshold?: number;
+  machineDetectionTimeout?: number;
   maxParticipants?: number;
   muted?: boolean;
   record?: boolean;

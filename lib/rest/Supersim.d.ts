@@ -13,6 +13,7 @@ import { FleetListInstance } from './supersim/v1/fleet';
 import { IpCommandListInstance } from './supersim/v1/ipCommand';
 import { NetworkAccessProfileListInstance } from './supersim/v1/networkAccessProfile';
 import { NetworkListInstance } from './supersim/v1/network';
+import { SettingsUpdateListInstance } from './supersim/v1/settingsUpdate';
 import { SimListInstance } from './supersim/v1/sim';
 import { SmsCommandListInstance } from './supersim/v1/smsCommand';
 import { UsageRecordListInstance } from './supersim/v1/usageRecord';
@@ -31,6 +32,7 @@ declare class Supersim extends Domain {
   readonly ipCommands: IpCommandListInstance;
   readonly networkAccessProfiles: NetworkAccessProfileListInstance;
   readonly networks: NetworkListInstance;
+  readonly settingsUpdates: SettingsUpdateListInstance;
   readonly sims: SimListInstance;
   readonly smsCommands: SmsCommandListInstance;
   readonly usageRecords: UsageRecordListInstance;

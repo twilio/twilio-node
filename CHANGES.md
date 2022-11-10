@@ -1,6 +1,126 @@
 twilio-node changelog
 =====================
 
+[2022-11-10] Version 3.83.2
+---------------------------
+**Flex**
+- Adding two new authorization API 'user_roles' and 'gooddata' in version `v1`
+
+**Messaging**
+- Add new Campaign properties (MessageFlow, OptInMessage, OptInKeywords, OptOutMessage, OptOutKeywords, HelpMessage, HelpKeywords)
+
+**Twiml**
+- Add new speech models to `Gather`.
+
+
+[2022-10-31] Version 3.83.1
+---------------------------
+**Api**
+- Added `contentSid` and `contentVariables` to Message resource with public visibility as Beta
+- Add `UserDefinedMessageSubscription` and `UserDefinedMessage` resource
+
+**Proxy**
+- Remove FailOnParticipantConflict param from Proxy Session create and update and Proxy Participant create
+
+**Supersim**
+- Update SettingsUpdates resource to remove PackageSid
+
+**Taskrouter**
+- Add `Ordering` query parameter to Workers and TaskQueues for sorting by
+- Add `worker_sid` query param for list reservations endpoint
+
+**Twiml**
+- Add `url` and `method` attributes to `<Conversation>`
+
+
+[2022-10-19] Version 3.83.0
+---------------------------
+**Api**
+- Make link shortening parameters public **(breaking change)**
+
+**Oauth**
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+**Supersim**
+- Add SettingsUpdates resource
+
+**Verify**
+- Update Verify Push endpoints to `ga` maturity
+- Verify BYOT add Channels property to the Get Templates response
+
+**Twiml**
+- Add `requireMatchingInputs` attribute and `input-matching-failed` errorType to `<Prompt>`
+
+
+[2022-10-05] Version 3.82.2
+---------------------------
+**Api**
+- Added `virtual-agent` to `usage_record` API.
+- Add AMD attributes to participant create request
+
+**Twiml**
+- Add AMD attributes to `Number` and `Sip`
+
+
+[2022-09-21] Version 3.82.1
+---------------------------
+**Library - Fix**
+- [PR #782](https://github.com/twilio/twilio-node/pull/782): support duplicated query param values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
+[2022-09-07] Version 3.82.0
+---------------------------
+**Library - Fix**
+- [PR #723](https://github.com/twilio/twilio-node/pull/723): webhook validation with array parameter sorting Fixes #722. Thanks to [@robbie-terazo](https://github.com/robbie-terazo)!
+
+**Flex**
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+
+**Messaging**
+- Add create, list and get tollfree verification API
+
+**Verify**
+- Verify SafeList API endpoints added.
+
+**Video**
+- Add `Anonymize` API
+
+**Twiml**
+- Update `event` value `call-in-progress` to `call-answered`
+
+
+[2022-08-24] Version 3.81.0
+---------------------------
+**Library - Test**
+- [PR #779](https://github.com/twilio/twilio-node/pull/779): add test-docker rule. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Library - Feature**
+- [PR #778](https://github.com/twilio/twilio-node/pull/778): RequestClient updated to become more customizable. Thanks to [@mattcole19](https://github.com/mattcole19)!
+
+**Api**
+- Remove `beta feature` from scheduling params and remove optimize parameters. **(breaking change)**
+
+**Routes**
+- Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. **(breaking change)**
+
+**Twiml**
+- Add new Polly Neural voices
+- Add new languages to SSML `<lang>`.
+
+
+[2022-08-10] Version 3.80.1
+---------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-21] Version 3.80.0
 ---------------------------
 **Library - Docs**

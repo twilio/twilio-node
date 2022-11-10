@@ -15,9 +15,6 @@ type AccessTokenFactorTypes = 'push';
 /**
  * Initialize the AccessTokenList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Verify Service Sid.
  */
@@ -87,9 +84,6 @@ declare class AccessTokenContext {
   /**
    * Initialize the AccessTokenContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param sid - A string that uniquely identifies this Access Token.
@@ -112,9 +106,6 @@ declare class AccessTokenContext {
 declare class AccessTokenInstance extends SerializableClass {
   /**
    * Initialize the AccessTokenContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -150,9 +141,6 @@ declare class AccessTokenInstance extends SerializableClass {
 declare class AccessTokenPage extends Page<V2, AccessTokenPayload, AccessTokenResource, AccessTokenInstance> {
   /**
    * Initialize the AccessTokenPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

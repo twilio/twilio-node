@@ -23,9 +23,6 @@ type ChallengeListOrders = 'asc'|'desc';
 /**
  * Initialize the ChallengeList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  * @param identity - Unique external identifier of the Entity
@@ -293,9 +290,6 @@ declare class ChallengeContext {
   /**
    * Initialize the ChallengeContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param identity - Unique external identifier of the Entity
@@ -333,9 +327,6 @@ declare class ChallengeContext {
 declare class ChallengeInstance extends SerializableClass {
   /**
    * Initialize the ChallengeContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -397,9 +388,6 @@ declare class ChallengeInstance extends SerializableClass {
 declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource, ChallengeInstance> {
   /**
    * Initialize the ChallengePage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

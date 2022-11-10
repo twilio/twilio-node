@@ -175,6 +175,8 @@ interface MessageListInstance {
  * @property attempt - Total numer of attempts made , this inclusive to send out the message
  * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
  * @property contentRetention - Determines if the message content can be stored or redacted based on privacy settings
+ * @property contentSid - The SID of the preconfigured Content object you want to associate with the message.
+ * @property contentVariables - Key-value pairs of variable names to substitution values, used alongside a content_sid.
  * @property forceDelivery - Reserved
  * @property from - The phone number that initiated the message
  * @property maxPrice - The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
@@ -185,6 +187,7 @@ interface MessageListInstance {
  * @property scheduleType - Pass the value `fixed` to schedule a message at a fixed time.
  * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
  * @property sendAt - The time that Twilio will send the message. Must be in ISO 8601 format.
+ * @property shortenUrls - Sets whether to shorten and track links included in the body of this message.
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application
  * @property to - The destination phone number
@@ -196,6 +199,8 @@ interface MessageListInstanceCreateOptions {
   attempt?: number;
   body?: string;
   contentRetention?: MessageContentRetention;
+  contentSid?: string;
+  contentVariables?: string;
   forceDelivery?: boolean;
   from?: string;
   maxPrice?: number;
@@ -206,6 +211,7 @@ interface MessageListInstanceCreateOptions {
   scheduleType?: MessageScheduleType;
   sendAsMms?: boolean;
   sendAt?: Date;
+  shortenUrls?: boolean;
   smartEncoded?: boolean;
   statusCallback?: string;
   to: string;

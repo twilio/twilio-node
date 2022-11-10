@@ -188,6 +188,7 @@ interface TemplatePayload extends TemplateResource, Page.TwilioResponsePayload {
 
 interface TemplateResource {
   account_sid: string;
+  channels: string[];
   friendly_name: string;
   sid: string;
   translations: object;
@@ -207,6 +208,7 @@ declare class TemplateInstance extends SerializableClass {
   constructor(version: V2, payload: TemplatePayload);
 
   accountSid: string;
+  channels: string[];
   friendlyName: string;
   sid: string;
   /**

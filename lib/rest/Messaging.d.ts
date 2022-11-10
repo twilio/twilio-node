@@ -12,6 +12,7 @@ import { BrandRegistrationListInstance } from './messaging/v1/brandRegistration'
 import { DeactivationsListInstance } from './messaging/v1/deactivation';
 import { ExternalCampaignListInstance } from './messaging/v1/externalCampaign';
 import { ServiceListInstance } from './messaging/v1/service';
+import { TollfreeVerificationListInstance } from './messaging/v1/tollfreeVerification';
 import { UsecaseListInstance } from './messaging/v1/usecase';
 
 
@@ -27,6 +28,7 @@ declare class Messaging extends Domain {
   readonly deactivations: DeactivationsListInstance;
   readonly externalCampaign: ExternalCampaignListInstance;
   readonly services: ServiceListInstance;
+  readonly tollfreeVerifications: TollfreeVerificationListInstance;
   readonly usecases: UsecaseListInstance;
   readonly v1: V1;
 }

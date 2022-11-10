@@ -267,7 +267,13 @@ describe('Configuration', function() {
                       ]
                   }
               }
-          ]
+          ],
+          'debugger_integration': {
+              'enabled': false
+          },
+          'flex_ui_status_report': {
+              'enabled': false
+          }
       };
 
       holodeck.mock(new Response(200, body));
@@ -486,7 +492,13 @@ describe('Configuration', function() {
                       ]
                   }
               }
-          ]
+          ],
+          'debugger_integration': {
+              'enabled': false
+          },
+          'flex_ui_status_report': {
+              'enabled': false
+          }
       };
 
       holodeck.mock(new Response(201, body));
@@ -718,7 +730,13 @@ describe('Configuration', function() {
                       ]
                   }
               }
-          ]
+          ],
+          'debugger_integration': {
+              'enabled': false
+          },
+          'flex_ui_status_report': {
+              'enabled': false
+          }
       };
 
       holodeck.mock(new Response(200, body));

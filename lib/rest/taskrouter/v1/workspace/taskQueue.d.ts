@@ -199,6 +199,7 @@ interface TaskQueueListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property ordering - Sorting parameter for TaskQueues
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -213,6 +214,7 @@ interface TaskQueueListInstanceEachOptions {
   evaluateWorkerAttributes?: string;
   friendlyName?: string;
   limit?: number;
+  ordering?: string;
   pageSize?: number;
   workerSid?: string;
 }
@@ -226,6 +228,7 @@ interface TaskQueueListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property ordering - Sorting parameter for TaskQueues
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -238,6 +241,7 @@ interface TaskQueueListInstanceOptions {
   evaluateWorkerAttributes?: string;
   friendlyName?: string;
   limit?: number;
+  ordering?: string;
   pageSize?: number;
   workerSid?: string;
 }
@@ -247,6 +251,7 @@ interface TaskQueueListInstanceOptions {
  *
  * @property evaluateWorkerAttributes - The attributes of the Workers to read
  * @property friendlyName - The friendly_name of the TaskQueue resources to read
+ * @property ordering - Sorting parameter for TaskQueues
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -255,6 +260,7 @@ interface TaskQueueListInstanceOptions {
 interface TaskQueueListInstancePageOptions {
   evaluateWorkerAttributes?: string;
   friendlyName?: string;
+  ordering?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
