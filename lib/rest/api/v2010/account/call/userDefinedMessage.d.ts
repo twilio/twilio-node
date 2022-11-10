@@ -14,8 +14,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the UserDefinedMessageList
  *
  * @param version - Version of the resource
- * @param accountSid - Account Sid.
- * @param callSid - Call Sid.
+ * @param accountSid - Account SID.
+ * @param callSid - Call SID.
  */
 declare function UserDefinedMessageList(version: V2010, accountSid: string, callSid: string): UserDefinedMessageListInstance;
 
@@ -36,7 +36,7 @@ interface UserDefinedMessageListInstance {
 /**
  * Options to pass to create
  *
- * @property content - A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+ * @property content - The User Defined Message in the form of URL-encoded JSON string.
  * @property idempotencyKey - A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 interface UserDefinedMessageListInstanceCreateOptions {
@@ -66,8 +66,8 @@ declare class UserDefinedMessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - Account Sid.
-   * @param callSid - Call Sid.
+   * @param accountSid - Account SID.
+   * @param callSid - Call SID.
    */
   constructor(version: V2010, payload: UserDefinedMessagePayload, accountSid: string, callSid: string);
 
