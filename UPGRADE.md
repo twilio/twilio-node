@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-[2022-11-30] 3.x.x to 4.x.x
+[2022-11-30] 3.x.x to 4.0.0-rc.1
 -----------------------------
 
 * Supported Node.js versions updated
