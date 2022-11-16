@@ -97,10 +97,10 @@ describe('UsAppToPerson', function() {
                   'brand_tier': 'TOP'
               }
           },
-          'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+          'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
           'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
           'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-          'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+          'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
           'opt_in_keywords': [
               'START'
           ],
@@ -109,6 +109,78 @@ describe('UsAppToPerson', function() {
           ],
           'help_keywords': [
               'HELP'
+          ],
+          'date_created': '2021-02-18T14:48:52Z',
+          'date_updated': '2021-02-18T14:48:52Z',
+          'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b',
+          'mock': false
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'description': 'description',
+        'messageSamples': ['message_samples'],
+        'usAppToPersonUsecase': 'us_app_to_person_usecase',
+        'hasEmbeddedLinks': true,
+        'hasEmbeddedPhone': true
+      };
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .usAppToPerson.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_with_defaults response',
+    function(done) {
+      var body = {
+          'sid': 'QE2c6890da8086d771620e9b13fadeba0b',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'brand_registration_sid': 'BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'description': 'Send marketing messages about sales to opted in customers.',
+          'message_samples': [
+              'EXPRESS: Denim Days Event is ON',
+              'LAST CHANCE: Book your next flight for just 1 (ONE) EUR'
+          ],
+          'us_app_to_person_usecase': 'MARKETING',
+          'has_embedded_links': true,
+          'has_embedded_phone': false,
+          'campaign_status': 'PENDING',
+          'campaign_id': 'CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'is_externally_registered': false,
+          'rate_limits': {
+              'att': {
+                  'mps': 600,
+                  'msg_class': 'A'
+              },
+              'tmobile': {
+                  'brand_tier': 'TOP'
+              }
+          },
+          'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+          'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
+          'opt_out_message': 'You have successfully been unsubscribed. You will not receive any more messages from this number. Reply START to resubscribe.',
+          'help_message': 'Reply STOP to unsubscribe. Msg&Data Rates May Apply.',
+          'opt_in_keywords': [
+              'START'
+          ],
+          'opt_out_keywords': [
+              'STOP',
+              'STOPALL',
+              'UNSUBSCRIBE',
+              'CANCEL',
+              'END',
+              'QUIT'
+          ],
+          'help_keywords': [
+              'HELP',
+              'INFO'
           ],
           'date_created': '2021-02-18T14:48:52Z',
           'date_updated': '2021-02-18T14:48:52Z',
@@ -204,10 +276,10 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
-                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
                   'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
                   'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
                   'opt_in_keywords': [
                       'START'
                   ],
@@ -267,10 +339,10 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
-                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
                   'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
                   'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
                   'opt_in_keywords': [
                       'START'
                   ],
@@ -335,10 +407,10 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
-                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
                   'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
                   'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
                   'opt_in_keywords': [
                       'START'
                   ],
@@ -420,10 +492,10 @@ describe('UsAppToPerson', function() {
                           'brand_tier': 'TOP'
                       }
                   },
-                  'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+                  'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
                   'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
                   'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-                  'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+                  'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
                   'opt_in_keywords': [
                       'START'
                   ],
@@ -512,10 +584,10 @@ describe('UsAppToPerson', function() {
                   'brand_tier': 'TOP'
               }
           },
-          'message_flow': 'End users opt-in by visiting www.examplewebsite.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
+          'message_flow': 'End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.',
           'opt_in_message': 'Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP',
           'opt_out_message': 'You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.',
-          'help_message': 'Acme Corporation: Please visit www.acmecorporation.com to get support. To opt-out, reply STOP.',
+          'help_message': 'Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.',
           'opt_in_keywords': [
               'START'
           ],

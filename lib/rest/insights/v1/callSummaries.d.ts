@@ -10,6 +10,8 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
+type CallSummariesAnsweredBy = 'unknown'|'machine_start'|'machine_end_beep'|'machine_end_silence'|'machine_end_other'|'human'|'fax';
+
 type CallSummariesCallDirection = 'outbound_api'|'outbound_dial'|'inbound'|'trunking_originating'|'trunking_terminating';
 
 type CallSummariesCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
@@ -302,6 +304,7 @@ interface CallSummariesPayload extends CallSummariesResource, Page.TwilioRespons
 
 interface CallSummariesResource {
   account_sid: string;
+  answered_by: CallSummariesAnsweredBy;
   attributes: object;
   call_sid: string;
   call_state: CallSummariesCallState;
@@ -338,6 +341,7 @@ declare class CallSummariesInstance extends SerializableClass {
   constructor(version: V1, payload: CallSummariesPayload);
 
   accountSid: string;
+  answeredBy: CallSummariesAnsweredBy;
   attributes: any;
   callSid: string;
   callState: CallSummariesCallState;
@@ -387,4 +391,4 @@ declare class CallSummariesPage extends Page<V1, CallSummariesPayload, CallSumma
   toJSON(): any;
 }
 
-export { CallSummariesCallDirection, CallSummariesCallState, CallSummariesCallType, CallSummariesInstance, CallSummariesList, CallSummariesListInstance, CallSummariesListInstanceEachOptions, CallSummariesListInstanceOptions, CallSummariesListInstancePageOptions, CallSummariesPage, CallSummariesPayload, CallSummariesProcessingState, CallSummariesProcessingStateRequest, CallSummariesResource, CallSummariesSolution, CallSummariesSortBy }
+export { CallSummariesAnsweredBy, CallSummariesCallDirection, CallSummariesCallState, CallSummariesCallType, CallSummariesInstance, CallSummariesList, CallSummariesListInstance, CallSummariesListInstanceEachOptions, CallSummariesListInstanceOptions, CallSummariesListInstancePageOptions, CallSummariesPage, CallSummariesPayload, CallSummariesProcessingState, CallSummariesProcessingStateRequest, CallSummariesResource, CallSummariesSolution, CallSummariesSortBy }
