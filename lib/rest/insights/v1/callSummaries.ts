@@ -30,6 +30,7 @@ type CallSummariesSortBy = "start_time" | "end_time";
 export class InsightsV1CallSummaries {
   "accountSid"?: string | null;
   "callSid"?: string | null;
+  "answeredBy"?: CallSummariesEnumAnsweredBy;
   "callType"?: CallSummariesEnumCallType;
   "callState"?: CallSummariesEnumCallState;
   "processingState"?: CallSummariesEnumProcessingState;

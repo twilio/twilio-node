@@ -17,6 +17,15 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type SummaryAnsweredBy =
+  | "unknown"
+  | "machine_start"
+  | "machine_end_beep"
+  | "machine_end_silence"
+  | "machine_end_other"
+  | "human"
+  | "fax";
+
 type SummaryCallState =
   | "ringing"
   | "completed"
@@ -145,6 +154,7 @@ interface CallSummaryResource {
   call_sid?: string | null;
   call_type?: SummaryCallType;
   call_state?: SummaryCallState;
+  answered_by?: SummaryAnsweredBy;
   processing_state?: SummaryProcessingState;
   created_time?: Date | null;
   start_time?: Date | null;
@@ -178,6 +188,7 @@ export class CallSummaryInstance {
     this.callSid = payload.call_sid;
     this.callType = payload.call_type;
     this.callState = payload.call_state;
+    this.answeredBy = payload.answered_by;
     this.processingState = payload.processing_state;
     this.createdTime = deserialize.iso8601DateTime(payload.created_time);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
@@ -204,6 +215,7 @@ export class CallSummaryInstance {
   callSid?: string | null;
   callType?: SummaryCallType;
   callState?: SummaryCallState;
+  answeredBy?: SummaryAnsweredBy;
   processingState?: SummaryProcessingState;
   createdTime?: Date | null;
   startTime?: Date | null;
@@ -267,6 +279,7 @@ export class CallSummaryInstance {
       callSid: this.callSid,
       callType: this.callType,
       callState: this.callState,
+      answeredBy: this.answeredBy,
       processingState: this.processingState,
       createdTime: this.createdTime,
       startTime: this.startTime,

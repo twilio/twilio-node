@@ -21,6 +21,7 @@ import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
  * @property (Twilio.Autopilot) autopilot - autopilot domain
  * @property (Twilio.Bulkexports) bulkexports - bulkexports domain
  * @property (Twilio.Chat) chat - chat domain
+ * @property (Twilio.Content) content - content domain
  * @property (Twilio.Conversations) conversations - conversations domain
  * @property (Twilio.Events) events - events domain
  * @property (Twilio.FlexApi) flexApi - flexApi domain
@@ -91,6 +92,7 @@ class Twilio extends BaseTwilio {
   _autopilot: any;
   _bulkexports: any;
   _chat: any;
+  _content: any;
   _conversations: any;
   _events: any;
   _flexApi: any;
@@ -130,6 +132,7 @@ class Twilio extends BaseTwilio {
       this.autopilot;
       this.bulkexports;
       this.chat;
+      this.content;
       this.conversations;
       this.events;
       this.flexApi;
@@ -197,6 +200,13 @@ class Twilio extends BaseTwilio {
       this._chat = new Chat(this);
     }
     return this._chat;
+  }
+  get content() {
+    if (!this._content) {
+      const Content = require("./Content"); /* jshint ignore:line */
+      this._content = new Content(this);
+    }
+    return this._content;
   }
   get conversations() {
     if (!this._conversations) {

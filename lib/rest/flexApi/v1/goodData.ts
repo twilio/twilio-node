@@ -121,6 +121,7 @@ interface GoodDataResource {
   workspace_id?: string | null;
   session_expiry?: string | null;
   session_id?: string | null;
+  gd_base_url?: string | null;
   url?: string | null;
 }
 
@@ -132,6 +133,7 @@ export class GoodDataInstance {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;
+    this.gdBaseUrl = payload.gd_base_url;
     this.url = payload.url;
 
     this._solution = {};
@@ -149,6 +151,10 @@ export class GoodDataInstance {
    * Unique session ID
    */
   sessionId?: string | null;
+  /**
+   * GoodData login base URL
+   */
+  gdBaseUrl?: string | null;
   /**
    * The URL of this resource.
    */
@@ -195,6 +201,7 @@ export class GoodDataInstance {
       workspaceId: this.workspaceId,
       sessionExpiry: this.sessionExpiry,
       sessionId: this.sessionId,
+      gdBaseUrl: this.gdBaseUrl,
       url: this.url,
     };
   }
