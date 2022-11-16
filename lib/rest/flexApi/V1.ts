@@ -17,7 +17,7 @@ import Version from "../../base/Version";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
-import { GoodDatumListInstance } from "./v1/goodDatum";
+import { GoodDataListInstance } from "./v1/goodData";
 import { InteractionListInstance } from "./v1/interaction";
 import { UserRolesListInstance } from "./v1/userRoles";
 import { WebChannelListInstance } from "./v1/webChannel";
@@ -29,7 +29,7 @@ export default class V1 extends Version {
    * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
    * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
-   * @property { Twilio.FlexApi.V1.GoodDatumListInstance } goodData - goodData resource
+   * @property { Twilio.FlexApi.V1.GoodDataListInstance } goodData - goodData resource
    * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
    * @property { Twilio.FlexApi.V1.UserRolesListInstance } userRoles - userRoles resource
    * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
@@ -43,7 +43,7 @@ export default class V1 extends Version {
   protected _channel?: ChannelListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _flexFlow?: FlexFlowListInstance;
-  protected _goodData?: GoodDatumListInstance;
+  protected _goodData?: GoodDataListInstance;
   protected _interaction?: InteractionListInstance;
   protected _userRoles?: UserRolesListInstance;
   protected _webChannel?: WebChannelListInstance;
@@ -64,8 +64,8 @@ export default class V1 extends Version {
     return this._flexFlow;
   }
 
-  get goodData(): GoodDatumListInstance {
-    this._goodData = this._goodData || GoodDatumListInstance(this);
+  get goodData(): GoodDataListInstance {
+    this._goodData = this._goodData || GoodDataListInstance(this);
     return this._goodData;
   }
 

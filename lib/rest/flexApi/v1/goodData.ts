@@ -18,38 +18,38 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 /**
- * Options to pass to create a GoodDatumInstance
+ * Options to pass to create a GoodDataInstance
  *
  * @property { string } [token] The Token HTTP request header
  */
-export interface GoodDatumContextCreateOptions {
+export interface GoodDataContextCreateOptions {
   token?: string;
 }
 
-export interface GoodDatumContext {
+export interface GoodDataContext {
   /**
-   * Create a GoodDatumInstance
+   * Create a GoodDataInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDatumInstance
+   * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    callback?: (error: Error | null, item?: GoodDatumInstance) => any
-  ): Promise<GoodDatumInstance>;
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
   /**
-   * Create a GoodDatumInstance
+   * Create a GoodDataInstance
    *
-   * @param { GoodDatumContextCreateOptions } params - Parameter for request
+   * @param { GoodDataContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDatumInstance
+   * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    params: GoodDatumContextCreateOptions,
-    callback?: (error: Error | null, item?: GoodDatumInstance) => any
-  ): Promise<GoodDatumInstance>;
-  create(params?: any, callback?: any): Promise<GoodDatumInstance>;
+    params: GoodDataContextCreateOptions,
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
+  create(params?: any, callback?: any): Promise<GoodDataInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -58,10 +58,10 @@ export interface GoodDatumContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface GoodDatumContextSolution {}
+export interface GoodDataContextSolution {}
 
-export class GoodDatumContextImpl implements GoodDatumContext {
-  protected _solution: GoodDatumContextSolution;
+export class GoodDataContextImpl implements GoodDataContext {
+  protected _solution: GoodDataContextSolution;
   protected _uri: string;
 
   constructor(protected _version: V1) {
@@ -69,7 +69,7 @@ export class GoodDatumContextImpl implements GoodDatumContext {
     this._uri = `/Accounts/GoodData`;
   }
 
-  create(params?: any, callback?: any): Promise<GoodDatumInstance> {
+  create(params?: any, callback?: any): Promise<GoodDataInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -91,7 +91,7 @@ export class GoodDatumContextImpl implements GoodDatumContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new GoodDatumInstance(operationVersion, payload)
+      (payload) => new GoodDataInstance(operationVersion, payload)
     );
 
     operationPromise = this._version.setPromiseCallback(
@@ -115,20 +115,20 @@ export class GoodDatumContextImpl implements GoodDatumContext {
   }
 }
 
-interface GoodDatumPayload extends GoodDatumResource {}
+interface GoodDataPayload extends GoodDataResource {}
 
-interface GoodDatumResource {
+interface GoodDataResource {
   workspace_id?: string | null;
   session_expiry?: string | null;
   session_id?: string | null;
   url?: string | null;
 }
 
-export class GoodDatumInstance {
-  protected _solution: GoodDatumContextSolution;
-  protected _context?: GoodDatumContext;
+export class GoodDataInstance {
+  protected _solution: GoodDataContextSolution;
+  protected _context?: GoodDataContext;
 
-  constructor(protected _version: V1, payload: GoodDatumPayload) {
+  constructor(protected _version: V1, payload: GoodDataPayload) {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;
@@ -154,34 +154,34 @@ export class GoodDatumInstance {
    */
   url?: string | null;
 
-  private get _proxy(): GoodDatumContext {
-    this._context = this._context || new GoodDatumContextImpl(this._version);
+  private get _proxy(): GoodDataContext {
+    this._context = this._context || new GoodDataContextImpl(this._version);
     return this._context;
   }
 
   /**
-   * Create a GoodDatumInstance
+   * Create a GoodDataInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDatumInstance
+   * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    callback?: (error: Error | null, item?: GoodDatumInstance) => any
-  ): Promise<GoodDatumInstance>;
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
   /**
-   * Create a GoodDatumInstance
+   * Create a GoodDataInstance
    *
-   * @param { GoodDatumContextCreateOptions } params - Parameter for request
+   * @param { GoodDataContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDatumInstance
+   * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    params: GoodDatumContextCreateOptions,
-    callback?: (error: Error | null, item?: GoodDatumInstance) => any
-  ): Promise<GoodDatumInstance>;
-  create(params?: any, callback?: any): Promise<GoodDatumInstance> {
+    params: GoodDataContextCreateOptions,
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
+  create(params?: any, callback?: any): Promise<GoodDataInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -204,9 +204,9 @@ export class GoodDatumInstance {
   }
 }
 
-export interface GoodDatumListInstance {
-  (): GoodDatumContext;
-  get(): GoodDatumContext;
+export interface GoodDataListInstance {
+  (): GoodDataContext;
+  get(): GoodDataContext;
 
   /**
    * Provide a user-friendly representation
@@ -215,20 +215,20 @@ export interface GoodDatumListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface GoodDatumSolution {}
+export interface GoodDataSolution {}
 
-interface GoodDatumListInstanceImpl extends GoodDatumListInstance {}
-class GoodDatumListInstanceImpl implements GoodDatumListInstance {
+interface GoodDataListInstanceImpl extends GoodDataListInstance {}
+class GoodDataListInstanceImpl implements GoodDataListInstance {
   _version?: V1;
-  _solution?: GoodDatumSolution;
+  _solution?: GoodDataSolution;
   _uri?: string;
 }
 
-export function GoodDatumListInstance(version: V1): GoodDatumListInstance {
-  const instance = (() => instance.get()) as GoodDatumListInstanceImpl;
+export function GoodDataListInstance(version: V1): GoodDataListInstance {
+  const instance = (() => instance.get()) as GoodDataListInstanceImpl;
 
-  instance.get = function get(): GoodDatumContext {
-    return new GoodDatumContextImpl(version);
+  instance.get = function get(): GoodDataContext {
+    return new GoodDataContextImpl(version);
   };
 
   instance._version = version;
