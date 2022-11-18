@@ -24,9 +24,7 @@
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
-    "q": "2.0.x",
     "qs": "^6.9.4",
-    "rootpath": "^0.1.2",
     "scmp": "^2.1.0",
     "url-parse": "^1.5.9",
     "xmlbuilder": "^13.0.2"
