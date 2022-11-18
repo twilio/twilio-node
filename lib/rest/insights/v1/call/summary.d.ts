@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type CallSummaryAnsweredBy = 'unknown'|'machine_start'|'machine_end_beep'|'machine_end_silence'|'machine_end_other'|'human'|'fax';
+
 type CallSummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
 
 type CallSummaryCallType = 'carrier'|'sip'|'trunking'|'client';
@@ -54,6 +56,7 @@ interface CallSummaryPayload extends CallSummaryResource, Page.TwilioResponsePay
 interface CallSummaryResource {
   account_sid: string;
   annotation: object;
+  answered_by: CallSummaryAnsweredBy;
   attributes: object;
   call_sid: string;
   call_state: CallSummaryCallState;
@@ -123,6 +126,7 @@ declare class CallSummaryInstance extends SerializableClass {
   private _proxy: CallSummaryContext;
   accountSid: string;
   annotation: any;
+  answeredBy: CallSummaryAnsweredBy;
   attributes: any;
   callSid: string;
   callState: CallSummaryCallState;
@@ -185,4 +189,4 @@ declare class CallSummaryPage extends Page<V1, CallSummaryPayload, CallSummaryRe
   toJSON(): any;
 }
 
-export { CallSummaryCallState, CallSummaryCallType, CallSummaryContext, CallSummaryInstance, CallSummaryInstanceFetchOptions, CallSummaryList, CallSummaryListInstance, CallSummaryPage, CallSummaryPayload, CallSummaryProcessingState, CallSummaryResource, CallSummarySolution }
+export { CallSummaryAnsweredBy, CallSummaryCallState, CallSummaryCallType, CallSummaryContext, CallSummaryInstance, CallSummaryInstanceFetchOptions, CallSummaryList, CallSummaryListInstance, CallSummaryPage, CallSummaryPayload, CallSummaryProcessingState, CallSummaryResource, CallSummarySolution }

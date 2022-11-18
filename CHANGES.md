@@ -1,6 +1,34 @@
 twilio-node changelog
 =====================
 
+[2022-11-16] Version 3.83.3
+---------------------------
+**Library - Chore**
+- [PR #823](https://github.com/twilio/twilio-node/pull/823): upgrade GitHub Actions dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Set the Content resource to have public visibility as Preview
+
+**Flex**
+- Adding new parameter `base_url` to 'gooddata' response in version `v1`
+
+**Insights**
+- Added `answered_by` field in List Call Summary
+- Added `answered_by` field in call summary
+
+
+[2022-11-10] Version 3.83.2
+---------------------------
+**Flex**
+- Adding two new authorization API 'user_roles' and 'gooddata' in version `v1`
+
+**Messaging**
+- Add new Campaign properties (MessageFlow, OptInMessage, OptInKeywords, OptOutMessage, OptOutKeywords, HelpMessage, HelpKeywords)
+
+**Twiml**
+- Add new speech models to `Gather`.
+
+
 [2022-10-31] Version 3.83.1
 ---------------------------
 **Api**

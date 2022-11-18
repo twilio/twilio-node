@@ -14,8 +14,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the UserDefinedMessageSubscriptionList
  *
  * @param version - Version of the resource
- * @param accountSid - Account Sid.
- * @param callSid - Call Sid.
+ * @param accountSid - Account SID.
+ * @param callSid - Call SID.
  */
 declare function UserDefinedMessageSubscriptionList(version: V2010, accountSid: string, callSid: string): UserDefinedMessageSubscriptionListInstance;
 
@@ -34,7 +34,7 @@ interface UserDefinedMessageSubscriptionListInstance {
   /**
    * Constructs a user_defined_message_subscription
    *
-   * @param sid - User Defined Message Subscription Sid
+   * @param sid - User Defined Message Subscription SID.
    */
   get(sid: string): UserDefinedMessageSubscriptionContext;
   /**
@@ -78,9 +78,9 @@ declare class UserDefinedMessageSubscriptionContext {
    * Initialize the UserDefinedMessageSubscriptionContext
    *
    * @param version - Version of the resource
-   * @param accountSid - Account Sid.
-   * @param callSid - Call Sid.
-   * @param sid - User Defined Message Subscription Sid
+   * @param accountSid - Account SID.
+   * @param callSid - Call SID.
+   * @param sid - User Defined Message Subscription SID.
    */
   constructor(version: V2010, accountSid: string, callSid: string, sid: string);
 
@@ -103,9 +103,9 @@ declare class UserDefinedMessageSubscriptionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - Account Sid.
-   * @param callSid - Call Sid.
-   * @param sid - User Defined Message Subscription Sid
+   * @param accountSid - Account SID.
+   * @param callSid - Call SID.
+   * @param sid - User Defined Message Subscription SID.
    */
   constructor(version: V2010, payload: UserDefinedMessageSubscriptionPayload, accountSid: string, callSid: string, sid: string);
 

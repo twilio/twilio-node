@@ -227,7 +227,7 @@ declare namespace VoiceResponse {
 
   type GatherLanguage = 'af-ZA'|'am-ET'|'ar-AE'|'ar-BH'|'ar-DZ'|'ar-EG'|'ar-IL'|'ar-IQ'|'ar-JO'|'ar-KW'|'ar-LB'|'ar-MA'|'ar-OM'|'ar-PS'|'ar-QA'|'ar-SA'|'ar-TN'|'az-AZ'|'bg-BG'|'bn-BD'|'bn-IN'|'ca-ES'|'cs-CZ'|'da-DK'|'de-DE'|'el-GR'|'en-AU'|'en-CA'|'en-GB'|'en-GH'|'en-IE'|'en-IN'|'en-KE'|'en-NG'|'en-NZ'|'en-PH'|'en-SG'|'en-TZ'|'en-US'|'en-ZA'|'es-AR'|'es-BO'|'es-CL'|'es-CO'|'es-CR'|'es-DO'|'es-EC'|'es-ES'|'es-GT'|'es-HN'|'es-MX'|'es-NI'|'es-PA'|'es-PE'|'es-PR'|'es-PY'|'es-SV'|'es-US'|'es-UY'|'es-VE'|'et-EE'|'eu-ES'|'fa-IR'|'fi-FI'|'fil-PH'|'fr-CA'|'fr-FR'|'gl-ES'|'gu-IN'|'he-IL'|'hi-IN'|'hr-HR'|'hu-HU'|'hy-AM'|'id-ID'|'is-IS'|'it-IT'|'ja-JP'|'jv-ID'|'ka-GE'|'km-KH'|'kn-IN'|'ko-KR'|'lo-LA'|'lt-LT'|'lv-LV'|'mk-MK'|'ml-IN'|'mn-MN'|'mr-IN'|'ms-MY'|'my-MM'|'nar-IQ'|'nb-NO'|'ne-NP'|'nl-BE'|'nl-NL'|'pa-guru-IN'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'si-LK'|'sk-SK'|'sl-SI'|'sq-AL'|'sr-RS'|'su-ID'|'sv-SE'|'sw-KE'|'sw-TZ'|'ta-IN'|'ta-LK'|'ta-MY'|'ta-SG'|'te-IN'|'th-TH'|'tr-TR'|'uk-UA'|'ur-IN'|'ur-PK'|'uz-UZ'|'vi-VN'|'yue-Hant-HK'|'zh'|'cmn-Hans-CN'|'zh-TW'|'cmn-Hant-TW'|'zu-ZA';
 
-  type GatherSpeechModel = 'default'|'numbers_and_commands'|'phone_call';
+  type GatherSpeechModel = 'default'|'numbers_and_commands'|'phone_call'|'experimental_conversations'|'experimental_utterances';
 
   type NumberEvent = 'initiated'|'ringing'|'answered'|'completed';
 
