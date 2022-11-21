@@ -19,40 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class ListAccountUsageRecordResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
 type UsageRecordGranularity = "hourly" | "daily" | "all";
-
-export class WirelessV1SimUsageRecord {
-  /**
-   * The SID of the Sim resource that this Usage Record is for
-   */
-  "simSid"?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The time period for which the usage is reported
-   */
-  "period"?: any | null;
-  /**
-   * An object that describes the SIM\'s usage of Commands during the specified period
-   */
-  "commands"?: any | null;
-  /**
-   * An object that describes the SIM\'s data usage during the specified period
-   */
-  "data"?: any | null;
-}
 
 /**
  * Options to pass to each
@@ -355,8 +322,11 @@ interface UsageRecordPayload
     Page.TwilioResponsePayload {}
 
 interface UsageRecordResource {
-  usage_records?: Array<WirelessV1SimUsageRecord>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  sim_sid?: string | null;
+  account_sid?: string | null;
+  period?: any | null;
+  commands?: any | null;
+  data?: any | null;
 }
 
 export class UsageRecordInstance {
@@ -365,12 +335,33 @@ export class UsageRecordInstance {
     payload: UsageRecordPayload,
     simSid?: string
   ) {
-    this.usageRecords = payload.usage_records;
-    this.meta = payload.meta;
+    this.simSid = payload.sim_sid;
+    this.accountSid = payload.account_sid;
+    this.period = payload.period;
+    this.commands = payload.commands;
+    this.data = payload.data;
   }
 
-  usageRecords?: Array<WirelessV1SimUsageRecord>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  /**
+   * The SID of the Sim resource that this Usage Record is for
+   */
+  simSid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The time period for which the usage is reported
+   */
+  period?: any | null;
+  /**
+   * An object that describes the SIM\'s usage of Commands during the specified period
+   */
+  commands?: any | null;
+  /**
+   * An object that describes the SIM\'s data usage during the specified period
+   */
+  data?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -379,8 +370,11 @@ export class UsageRecordInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords,
-      meta: this.meta,
+      simSid: this.simSid,
+      accountSid: this.accountSid,
+      period: this.period,
+      commands: this.commands,
+      data: this.data,
     };
   }
 

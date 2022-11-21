@@ -19,47 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class SupersimV1SimBillingPeriod {
-  /**
-   * The SID of the Billing Period
-   */
-  "sid"?: string | null;
-  /**
-   * The SID of the Account the Super SIM belongs to
-   */
-  "accountSid"?: string | null;
-  /**
-   * The SID of the Super SIM the Billing Period belongs to
-   */
-  "simSid"?: string | null;
-  /**
-   * The start time of the Billing Period
-   */
-  "startTime"?: Date | null;
-  /**
-   * The end time of the Billing Period
-   */
-  "endTime"?: Date | null;
-  "periodType"?: BillingPeriodEnumBpType;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  "dateCreated"?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  "dateUpdated"?: Date | null;
-}
+type BillingPeriodBpType = "ready" | "active";
 
 /**
  * Options to pass to each
@@ -344,8 +304,14 @@ interface BillingPeriodPayload
     Page.TwilioResponsePayload {}
 
 interface BillingPeriodResource {
-  billing_periods?: Array<SupersimV1SimBillingPeriod>;
-  meta?: ListBillingPeriodResponseMeta;
+  sid?: string | null;
+  account_sid?: string | null;
+  sim_sid?: string | null;
+  start_time?: Date | null;
+  end_time?: Date | null;
+  period_type?: BillingPeriodBpType;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class BillingPeriodInstance {
@@ -354,12 +320,45 @@ export class BillingPeriodInstance {
     payload: BillingPeriodPayload,
     simSid?: string
   ) {
-    this.billingPeriods = payload.billing_periods;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.simSid = payload.sim_sid;
+    this.startTime = deserialize.iso8601DateTime(payload.start_time);
+    this.endTime = deserialize.iso8601DateTime(payload.end_time);
+    this.periodType = payload.period_type;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
 
-  billingPeriods?: Array<SupersimV1SimBillingPeriod>;
-  meta?: ListBillingPeriodResponseMeta;
+  /**
+   * The SID of the Billing Period
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account the Super SIM belongs to
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Super SIM the Billing Period belongs to
+   */
+  simSid?: string | null;
+  /**
+   * The start time of the Billing Period
+   */
+  startTime?: Date | null;
+  /**
+   * The end time of the Billing Period
+   */
+  endTime?: Date | null;
+  periodType?: BillingPeriodBpType;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
 
   /**
    * Provide a user-friendly representation
@@ -368,8 +367,14 @@ export class BillingPeriodInstance {
    */
   toJSON() {
     return {
-      billingPeriods: this.billingPeriods,
-      meta: this.meta,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      simSid: this.simSid,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      periodType: this.periodType,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
     };
   }
 

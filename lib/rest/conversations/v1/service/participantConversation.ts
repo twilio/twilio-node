@@ -19,79 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class ConversationsV1ServiceServiceParticipantConversation {
-  /**
-   * The unique ID of the Account responsible for this conversation.
-   */
-  "accountSid"?: string | null;
-  /**
-   * The unique ID of the Conversation Service this conversation belongs to.
-   */
-  "chatServiceSid"?: string | null;
-  /**
-   * The unique ID of the Participant.
-   */
-  "participantSid"?: string | null;
-  /**
-   * The unique ID for the conversation participant as Conversation User.
-   */
-  "participantUserSid"?: string | null;
-  /**
-   * A unique string identifier for the conversation participant as Conversation User.
-   */
-  "participantIdentity"?: string | null;
-  /**
-   * Information about how this participant exchanges messages with the conversation.
-   */
-  "participantMessagingBinding"?: any | null;
-  /**
-   * The unique ID of the Conversation this Participant belongs to.
-   */
-  "conversationSid"?: string | null;
-  /**
-   * An application-defined string that uniquely identifies the Conversation resource.
-   */
-  "conversationUniqueName"?: string | null;
-  /**
-   * The human-readable name of this conversation.
-   */
-  "conversationFriendlyName"?: string | null;
-  /**
-   * An optional string metadata field you can use to store any data you wish.
-   */
-  "conversationAttributes"?: string | null;
-  /**
-   * The date that this conversation was created.
-   */
-  "conversationDateCreated"?: Date | null;
-  /**
-   * The date that this conversation was last updated.
-   */
-  "conversationDateUpdated"?: Date | null;
-  /**
-   * Creator of this conversation.
-   */
-  "conversationCreatedBy"?: string | null;
-  "conversationState"?: ServiceParticipantConversationEnumState;
-  /**
-   * Timer date values for this conversation.
-   */
-  "conversationTimers"?: any | null;
-  /**
-   * Absolute URLs to access the participant and conversation of this Participant Conversation.
-   */
-  "links"?: object | null;
-}
-
-export class ListConfigurationAddressResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
+type ServiceParticipantConversationState = "inactive" | "active" | "closed";
 
 /**
  * Options to pass to each
@@ -410,8 +338,22 @@ interface ParticipantConversationPayload
     Page.TwilioResponsePayload {}
 
 interface ParticipantConversationResource {
-  conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
-  meta?: ListConfigurationAddressResponseMeta;
+  account_sid?: string | null;
+  chat_service_sid?: string | null;
+  participant_sid?: string | null;
+  participant_user_sid?: string | null;
+  participant_identity?: string | null;
+  participant_messaging_binding?: any | null;
+  conversation_sid?: string | null;
+  conversation_unique_name?: string | null;
+  conversation_friendly_name?: string | null;
+  conversation_attributes?: string | null;
+  conversation_date_created?: Date | null;
+  conversation_date_updated?: Date | null;
+  conversation_created_by?: string | null;
+  conversation_state?: ServiceParticipantConversationState;
+  conversation_timers?: any | null;
+  links?: object | null;
 }
 
 export class ParticipantConversationInstance {
@@ -420,12 +362,89 @@ export class ParticipantConversationInstance {
     payload: ParticipantConversationPayload,
     chatServiceSid?: string
   ) {
-    this.conversations = payload.conversations;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.chatServiceSid = payload.chat_service_sid;
+    this.participantSid = payload.participant_sid;
+    this.participantUserSid = payload.participant_user_sid;
+    this.participantIdentity = payload.participant_identity;
+    this.participantMessagingBinding = payload.participant_messaging_binding;
+    this.conversationSid = payload.conversation_sid;
+    this.conversationUniqueName = payload.conversation_unique_name;
+    this.conversationFriendlyName = payload.conversation_friendly_name;
+    this.conversationAttributes = payload.conversation_attributes;
+    this.conversationDateCreated = deserialize.iso8601DateTime(
+      payload.conversation_date_created
+    );
+    this.conversationDateUpdated = deserialize.iso8601DateTime(
+      payload.conversation_date_updated
+    );
+    this.conversationCreatedBy = payload.conversation_created_by;
+    this.conversationState = payload.conversation_state;
+    this.conversationTimers = payload.conversation_timers;
+    this.links = payload.links;
   }
 
-  conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
-  meta?: ListConfigurationAddressResponseMeta;
+  /**
+   * The unique ID of the Account responsible for this conversation.
+   */
+  accountSid?: string | null;
+  /**
+   * The unique ID of the Conversation Service this conversation belongs to.
+   */
+  chatServiceSid?: string | null;
+  /**
+   * The unique ID of the Participant.
+   */
+  participantSid?: string | null;
+  /**
+   * The unique ID for the conversation participant as Conversation User.
+   */
+  participantUserSid?: string | null;
+  /**
+   * A unique string identifier for the conversation participant as Conversation User.
+   */
+  participantIdentity?: string | null;
+  /**
+   * Information about how this participant exchanges messages with the conversation.
+   */
+  participantMessagingBinding?: any | null;
+  /**
+   * The unique ID of the Conversation this Participant belongs to.
+   */
+  conversationSid?: string | null;
+  /**
+   * An application-defined string that uniquely identifies the Conversation resource.
+   */
+  conversationUniqueName?: string | null;
+  /**
+   * The human-readable name of this conversation.
+   */
+  conversationFriendlyName?: string | null;
+  /**
+   * An optional string metadata field you can use to store any data you wish.
+   */
+  conversationAttributes?: string | null;
+  /**
+   * The date that this conversation was created.
+   */
+  conversationDateCreated?: Date | null;
+  /**
+   * The date that this conversation was last updated.
+   */
+  conversationDateUpdated?: Date | null;
+  /**
+   * Creator of this conversation.
+   */
+  conversationCreatedBy?: string | null;
+  conversationState?: ServiceParticipantConversationState;
+  /**
+   * Timer date values for this conversation.
+   */
+  conversationTimers?: any | null;
+  /**
+   * Absolute URLs to access the participant and conversation of this Participant Conversation.
+   */
+  links?: object | null;
 
   /**
    * Provide a user-friendly representation
@@ -434,8 +453,22 @@ export class ParticipantConversationInstance {
    */
   toJSON() {
     return {
-      conversations: this.conversations,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      chatServiceSid: this.chatServiceSid,
+      participantSid: this.participantSid,
+      participantUserSid: this.participantUserSid,
+      participantIdentity: this.participantIdentity,
+      participantMessagingBinding: this.participantMessagingBinding,
+      conversationSid: this.conversationSid,
+      conversationUniqueName: this.conversationUniqueName,
+      conversationFriendlyName: this.conversationFriendlyName,
+      conversationAttributes: this.conversationAttributes,
+      conversationDateCreated: this.conversationDateCreated,
+      conversationDateUpdated: this.conversationDateUpdated,
+      conversationCreatedBy: this.conversationCreatedBy,
+      conversationState: this.conversationState,
+      conversationTimers: this.conversationTimers,
+      links: this.links,
     };
   }
 

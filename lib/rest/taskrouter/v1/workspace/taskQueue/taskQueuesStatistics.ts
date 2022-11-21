@@ -19,39 +19,6 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class ListActivityResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics {
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * An object that contains the cumulative statistics for the TaskQueues
-   */
-  "cumulative"?: any | null;
-  /**
-   * An object that contains the real-time statistics for the TaskQueues
-   */
-  "realtime"?: any | null;
-  /**
-   * The SID of the TaskQueue from which these statistics were calculated
-   */
-  "taskQueueSid"?: string | null;
-  /**
-   * The SID of the Workspace that contains the TaskQueues
-   */
-  "workspaceSid"?: string | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -395,8 +362,11 @@ interface TaskQueuesStatisticsPayload
     Page.TwilioResponsePayload {}
 
 interface TaskQueuesStatisticsResource {
-  task_queues_statistics?: Array<TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics>;
-  meta?: ListActivityResponseMeta;
+  account_sid?: string | null;
+  cumulative?: any | null;
+  realtime?: any | null;
+  task_queue_sid?: string | null;
+  workspace_sid?: string | null;
 }
 
 export class TaskQueuesStatisticsInstance {
@@ -405,12 +375,33 @@ export class TaskQueuesStatisticsInstance {
     payload: TaskQueuesStatisticsPayload,
     workspaceSid?: string
   ) {
-    this.taskQueuesStatistics = payload.task_queues_statistics;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.cumulative = payload.cumulative;
+    this.realtime = payload.realtime;
+    this.taskQueueSid = payload.task_queue_sid;
+    this.workspaceSid = payload.workspace_sid;
   }
 
-  taskQueuesStatistics?: Array<TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics>;
-  meta?: ListActivityResponseMeta;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * An object that contains the cumulative statistics for the TaskQueues
+   */
+  cumulative?: any | null;
+  /**
+   * An object that contains the real-time statistics for the TaskQueues
+   */
+  realtime?: any | null;
+  /**
+   * The SID of the TaskQueue from which these statistics were calculated
+   */
+  taskQueueSid?: string | null;
+  /**
+   * The SID of the Workspace that contains the TaskQueues
+   */
+  workspaceSid?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -419,8 +410,11 @@ export class TaskQueuesStatisticsInstance {
    */
   toJSON() {
     return {
-      taskQueuesStatistics: this.taskQueuesStatistics,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      cumulative: this.cumulative,
+      realtime: this.realtime,
+      taskQueueSid: this.taskQueueSid,
+      workspaceSid: this.workspaceSid,
     };
   }
 

@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 /**
  * Whether a phone number can receive calls or messages
@@ -27,58 +28,6 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal
   "sms"?: boolean;
   "voice"?: boolean;
   "fax"?: boolean;
-}
-
-export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree {
-  /**
-   * A formatted version of the phone number
-   */
-  "friendlyName"?: string | null;
-  /**
-   * The phone number in E.164 format
-   */
-  "phoneNumber"?: string | null;
-  /**
-   * The LATA of this phone number
-   */
-  "lata"?: string | null;
-  /**
-   * The locality or city of this phone number\'s location
-   */
-  "locality"?: string | null;
-  /**
-   * The rate center of this phone number
-   */
-  "rateCenter"?: string | null;
-  /**
-   * The latitude of this phone number\'s location
-   */
-  "latitude"?: number | null;
-  /**
-   * The longitude of this phone number\'s location
-   */
-  "longitude"?: number | null;
-  /**
-   * The two-letter state or province abbreviation of this phone number\'s location
-   */
-  "region"?: string | null;
-  /**
-   * The postal or ZIP code of this phone number\'s location
-   */
-  "postalCode"?: string | null;
-  /**
-   * The ISO country code of this phone number
-   */
-  "isoCountry"?: string | null;
-  /**
-   * The type of Address resource the phone number requires
-   */
-  "addressRequirements"?: string | null;
-  /**
-   * Whether the phone number is new to the Twilio platform
-   */
-  "beta"?: boolean | null;
-  "capabilities"?: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities | null;
 }
 
 /**
@@ -504,15 +453,19 @@ interface TollFreePayload
     Page.TwilioResponsePayload {}
 
 interface TollFreeResource {
-  available_phone_numbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree>;
-  end?: number;
-  first_page_uri?: string;
-  next_page_uri?: string;
-  page?: number;
-  page_size?: number;
-  previous_page_uri?: string;
-  start?: number;
-  uri?: string;
+  friendly_name?: string | null;
+  phone_number?: string | null;
+  lata?: string | null;
+  locality?: string | null;
+  rate_center?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  region?: string | null;
+  postal_code?: string | null;
+  iso_country?: string | null;
+  address_requirements?: string | null;
+  beta?: boolean | null;
+  capabilities?: PhoneNumberCapabilities | null;
 }
 
 export class TollFreeInstance {
@@ -522,26 +475,70 @@ export class TollFreeInstance {
     accountSid: string,
     countryCode?: string
   ) {
-    this.availablePhoneNumbers = payload.available_phone_numbers;
-    this.end = deserialize.integer(payload.end);
-    this.firstPageUri = payload.first_page_uri;
-    this.nextPageUri = payload.next_page_uri;
-    this.page = deserialize.integer(payload.page);
-    this.pageSize = deserialize.integer(payload.page_size);
-    this.previousPageUri = payload.previous_page_uri;
-    this.start = deserialize.integer(payload.start);
-    this.uri = payload.uri;
+    this.friendlyName = payload.friendly_name;
+    this.phoneNumber = payload.phone_number;
+    this.lata = payload.lata;
+    this.locality = payload.locality;
+    this.rateCenter = payload.rate_center;
+    this.latitude = payload.latitude;
+    this.longitude = payload.longitude;
+    this.region = payload.region;
+    this.postalCode = payload.postal_code;
+    this.isoCountry = payload.iso_country;
+    this.addressRequirements = payload.address_requirements;
+    this.beta = payload.beta;
+    this.capabilities = payload.capabilities;
   }
 
-  availablePhoneNumbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree>;
-  end?: number;
-  firstPageUri?: string;
-  nextPageUri?: string;
-  page?: number;
-  pageSize?: number;
-  previousPageUri?: string;
-  start?: number;
-  uri?: string;
+  /**
+   * A formatted version of the phone number
+   */
+  friendlyName?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  phoneNumber?: string | null;
+  /**
+   * The LATA of this phone number
+   */
+  lata?: string | null;
+  /**
+   * The locality or city of this phone number\'s location
+   */
+  locality?: string | null;
+  /**
+   * The rate center of this phone number
+   */
+  rateCenter?: string | null;
+  /**
+   * The latitude of this phone number\'s location
+   */
+  latitude?: number | null;
+  /**
+   * The longitude of this phone number\'s location
+   */
+  longitude?: number | null;
+  /**
+   * The two-letter state or province abbreviation of this phone number\'s location
+   */
+  region?: string | null;
+  /**
+   * The postal or ZIP code of this phone number\'s location
+   */
+  postalCode?: string | null;
+  /**
+   * The ISO country code of this phone number
+   */
+  isoCountry?: string | null;
+  /**
+   * The type of Address resource the phone number requires
+   */
+  addressRequirements?: string | null;
+  /**
+   * Whether the phone number is new to the Twilio platform
+   */
+  beta?: boolean | null;
+  capabilities?: PhoneNumberCapabilities | null;
 
   /**
    * Provide a user-friendly representation
@@ -550,15 +547,19 @@ export class TollFreeInstance {
    */
   toJSON() {
     return {
-      availablePhoneNumbers: this.availablePhoneNumbers,
-      end: this.end,
-      firstPageUri: this.firstPageUri,
-      nextPageUri: this.nextPageUri,
-      page: this.page,
-      pageSize: this.pageSize,
-      previousPageUri: this.previousPageUri,
-      start: this.start,
-      uri: this.uri,
+      friendlyName: this.friendlyName,
+      phoneNumber: this.phoneNumber,
+      lata: this.lata,
+      locality: this.locality,
+      rateCenter: this.rateCenter,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      region: this.region,
+      postalCode: this.postalCode,
+      isoCountry: this.isoCountry,
+      addressRequirements: this.addressRequirements,
+      beta: this.beta,
+      capabilities: this.capabilities,
     };
   }
 

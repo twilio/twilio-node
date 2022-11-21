@@ -19,47 +19,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class ChatV1ServiceUserUserChannel {
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The SID of the Service that the resource is associated with
-   */
-  "serviceSid"?: string | null;
-  /**
-   * The SID of the Channel the resource belongs to
-   */
-  "channelSid"?: string | null;
-  /**
-   * The SID of the User as a Member in the Channel
-   */
-  "memberSid"?: string | null;
-  "status"?: UserChannelEnumChannelStatus;
-  /**
-   * The index of the last Message in the Channel the Member has read
-   */
-  "lastConsumedMessageIndex"?: number | null;
-  /**
-   * The number of unread Messages in the Channel for the User
-   */
-  "unreadMessagesCount"?: number | null;
-  /**
-   * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
-   */
-  "links"?: object | null;
-}
-
-export class ListChannelResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
+type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
 
 /**
  * Options to pass to each
@@ -340,8 +300,14 @@ interface UserChannelPayload
     Page.TwilioResponsePayload {}
 
 interface UserChannelResource {
-  channels?: Array<ChatV1ServiceUserUserChannel>;
-  meta?: ListChannelResponseMeta;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  channel_sid?: string | null;
+  member_sid?: string | null;
+  status?: UserChannelChannelStatus;
+  last_consumed_message_index?: number | null;
+  unread_messages_count?: number | null;
+  links?: object | null;
 }
 
 export class UserChannelInstance {
@@ -351,12 +317,49 @@ export class UserChannelInstance {
     serviceSid: string,
     userSid?: string
   ) {
-    this.channels = payload.channels;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.channelSid = payload.channel_sid;
+    this.memberSid = payload.member_sid;
+    this.status = payload.status;
+    this.lastConsumedMessageIndex = deserialize.integer(
+      payload.last_consumed_message_index
+    );
+    this.unreadMessagesCount = deserialize.integer(
+      payload.unread_messages_count
+    );
+    this.links = payload.links;
   }
 
-  channels?: Array<ChatV1ServiceUserUserChannel>;
-  meta?: ListChannelResponseMeta;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Service that the resource is associated with
+   */
+  serviceSid?: string | null;
+  /**
+   * The SID of the Channel the resource belongs to
+   */
+  channelSid?: string | null;
+  /**
+   * The SID of the User as a Member in the Channel
+   */
+  memberSid?: string | null;
+  status?: UserChannelChannelStatus;
+  /**
+   * The index of the last Message in the Channel the Member has read
+   */
+  lastConsumedMessageIndex?: number | null;
+  /**
+   * The number of unread Messages in the Channel for the User
+   */
+  unreadMessagesCount?: number | null;
+  /**
+   * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+   */
+  links?: object | null;
 
   /**
    * Provide a user-friendly representation
@@ -365,8 +368,14 @@ export class UserChannelInstance {
    */
   toJSON() {
     return {
-      channels: this.channels,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      channelSid: this.channelSid,
+      memberSid: this.memberSid,
+      status: this.status,
+      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+      unreadMessagesCount: this.unreadMessagesCount,
+      links: this.links,
     };
   }
 

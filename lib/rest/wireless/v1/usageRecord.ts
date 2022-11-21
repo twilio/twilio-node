@@ -21,35 +21,6 @@ const serialize = require("../../../base/serialize");
 
 type AccountUsageRecordGranularity = "hourly" | "daily" | "all";
 
-export class ListAccountUsageRecordResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class WirelessV1AccountUsageRecord {
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The time period for which usage is reported
-   */
-  "period"?: any | null;
-  /**
-   * An object that describes the aggregated Commands usage for all SIMs during the specified period
-   */
-  "commands"?: any | null;
-  /**
-   * An object that describes the aggregated Data usage for all SIMs over the period
-   */
-  "data"?: any | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -346,18 +317,36 @@ interface UsageRecordPayload
     Page.TwilioResponsePayload {}
 
 interface UsageRecordResource {
-  usage_records?: Array<WirelessV1AccountUsageRecord>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  account_sid?: string | null;
+  period?: any | null;
+  commands?: any | null;
+  data?: any | null;
 }
 
 export class UsageRecordInstance {
   constructor(protected _version: V1, payload: UsageRecordPayload) {
-    this.usageRecords = payload.usage_records;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.period = payload.period;
+    this.commands = payload.commands;
+    this.data = payload.data;
   }
 
-  usageRecords?: Array<WirelessV1AccountUsageRecord>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The time period for which usage is reported
+   */
+  period?: any | null;
+  /**
+   * An object that describes the aggregated Commands usage for all SIMs during the specified period
+   */
+  commands?: any | null;
+  /**
+   * An object that describes the aggregated Data usage for all SIMs over the period
+   */
+  data?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -366,8 +355,10 @@ export class UsageRecordInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      period: this.period,
+      commands: this.commands,
+      data: this.data,
     };
   }
 

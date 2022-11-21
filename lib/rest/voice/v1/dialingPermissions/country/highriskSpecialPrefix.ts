@@ -19,23 +19,6 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class ListByocTrunkResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes {
-  /**
-   * A prefix that includes the E.164 assigned country code
-   */
-  "prefix"?: string | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -332,8 +315,7 @@ interface HighriskSpecialPrefixPayload
     Page.TwilioResponsePayload {}
 
 interface HighriskSpecialPrefixResource {
-  content?: Array<VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes>;
-  meta?: ListByocTrunkResponseMeta;
+  prefix?: string | null;
 }
 
 export class HighriskSpecialPrefixInstance {
@@ -342,12 +324,13 @@ export class HighriskSpecialPrefixInstance {
     payload: HighriskSpecialPrefixPayload,
     isoCode?: string
   ) {
-    this.content = payload.content;
-    this.meta = payload.meta;
+    this.prefix = payload.prefix;
   }
 
-  content?: Array<VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes>;
-  meta?: ListByocTrunkResponseMeta;
+  /**
+   * A prefix that includes the E.164 assigned country code
+   */
+  prefix?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -356,8 +339,7 @@ export class HighriskSpecialPrefixInstance {
    */
   toJSON() {
     return {
-      content: this.content,
-      meta: this.meta,
+      prefix: this.prefix,
     };
   }
 

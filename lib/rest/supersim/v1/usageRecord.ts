@@ -19,63 +19,6 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class SupersimV1UsageRecord {
-  /**
-   * The SID of the Account that incurred the usage.
-   */
-  "accountSid"?: string | null;
-  /**
-   * SID of a Sim resource to which the UsageRecord belongs.
-   */
-  "simSid"?: string | null;
-  /**
-   * SID of the Network resource on which the usage occurred.
-   */
-  "networkSid"?: string | null;
-  /**
-   * SID of the Fleet resource on which the usage occurred.
-   */
-  "fleetSid"?: string | null;
-  /**
-   * Alpha-2 ISO Country Code of the country the usage occurred in.
-   */
-  "isoCountry"?: string | null;
-  /**
-   * The time period for which the usage is reported.
-   */
-  "period"?: any | null;
-  /**
-   * Total data uploaded in bytes, aggregated by the query parameters.
-   */
-  "dataUpload"?: number | null;
-  /**
-   * Total data downloaded in bytes, aggregated by the query parameters.
-   */
-  "dataDownload"?: number | null;
-  /**
-   * Total of data_upload and data_download.
-   */
-  "dataTotal"?: number | null;
-  /**
-   * Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
-   */
-  "dataTotalBilled"?: number | null;
-  /**
-   * The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
-   */
-  "billedUnit"?: string | null;
-}
-
 type UsageRecordGranularity = "hour" | "day" | "all";
 
 type UsageRecordGroup = "sim" | "fleet" | "network" | "isoCountry";
@@ -412,18 +355,78 @@ interface UsageRecordPayload
     Page.TwilioResponsePayload {}
 
 interface UsageRecordResource {
-  usage_records?: Array<SupersimV1UsageRecord>;
-  meta?: ListBillingPeriodResponseMeta;
+  account_sid?: string | null;
+  sim_sid?: string | null;
+  network_sid?: string | null;
+  fleet_sid?: string | null;
+  iso_country?: string | null;
+  period?: any | null;
+  data_upload?: number | null;
+  data_download?: number | null;
+  data_total?: number | null;
+  data_total_billed?: number | null;
+  billed_unit?: string | null;
 }
 
 export class UsageRecordInstance {
   constructor(protected _version: V1, payload: UsageRecordPayload) {
-    this.usageRecords = payload.usage_records;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.simSid = payload.sim_sid;
+    this.networkSid = payload.network_sid;
+    this.fleetSid = payload.fleet_sid;
+    this.isoCountry = payload.iso_country;
+    this.period = payload.period;
+    this.dataUpload = payload.data_upload;
+    this.dataDownload = payload.data_download;
+    this.dataTotal = payload.data_total;
+    this.dataTotalBilled = payload.data_total_billed;
+    this.billedUnit = payload.billed_unit;
   }
 
-  usageRecords?: Array<SupersimV1UsageRecord>;
-  meta?: ListBillingPeriodResponseMeta;
+  /**
+   * The SID of the Account that incurred the usage.
+   */
+  accountSid?: string | null;
+  /**
+   * SID of a Sim resource to which the UsageRecord belongs.
+   */
+  simSid?: string | null;
+  /**
+   * SID of the Network resource on which the usage occurred.
+   */
+  networkSid?: string | null;
+  /**
+   * SID of the Fleet resource on which the usage occurred.
+   */
+  fleetSid?: string | null;
+  /**
+   * Alpha-2 ISO Country Code of the country the usage occurred in.
+   */
+  isoCountry?: string | null;
+  /**
+   * The time period for which the usage is reported.
+   */
+  period?: any | null;
+  /**
+   * Total data uploaded in bytes, aggregated by the query parameters.
+   */
+  dataUpload?: number | null;
+  /**
+   * Total data downloaded in bytes, aggregated by the query parameters.
+   */
+  dataDownload?: number | null;
+  /**
+   * Total of data_upload and data_download.
+   */
+  dataTotal?: number | null;
+  /**
+   * Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
+   */
+  dataTotalBilled?: number | null;
+  /**
+   * The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
+   */
+  billedUnit?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -432,8 +435,17 @@ export class UsageRecordInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      simSid: this.simSid,
+      networkSid: this.networkSid,
+      fleetSid: this.fleetSid,
+      isoCountry: this.isoCountry,
+      period: this.period,
+      dataUpload: this.dataUpload,
+      dataDownload: this.dataDownload,
+      dataTotal: this.dataTotal,
+      dataTotalBilled: this.dataTotalBilled,
+      billedUnit: this.billedUnit,
     };
   }
 

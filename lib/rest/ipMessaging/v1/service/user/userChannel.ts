@@ -19,26 +19,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class IpMessagingV1ServiceUserUserChannel {
-  "accountSid"?: string | null;
-  "serviceSid"?: string | null;
-  "channelSid"?: string | null;
-  "memberSid"?: string | null;
-  "status"?: UserChannelEnumChannelStatus;
-  "lastConsumedMessageIndex"?: number | null;
-  "unreadMessagesCount"?: number | null;
-  "links"?: object | null;
-}
-
-export class ListChannelResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
+type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
 
 /**
  * Options to pass to each
@@ -319,8 +300,14 @@ interface UserChannelPayload
     Page.TwilioResponsePayload {}
 
 interface UserChannelResource {
-  channels?: Array<IpMessagingV1ServiceUserUserChannel>;
-  meta?: ListChannelResponseMeta;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  channel_sid?: string | null;
+  member_sid?: string | null;
+  status?: UserChannelChannelStatus;
+  last_consumed_message_index?: number | null;
+  unread_messages_count?: number | null;
+  links?: object | null;
 }
 
 export class UserChannelInstance {
@@ -330,12 +317,28 @@ export class UserChannelInstance {
     serviceSid: string,
     userSid?: string
   ) {
-    this.channels = payload.channels;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.channelSid = payload.channel_sid;
+    this.memberSid = payload.member_sid;
+    this.status = payload.status;
+    this.lastConsumedMessageIndex = deserialize.integer(
+      payload.last_consumed_message_index
+    );
+    this.unreadMessagesCount = deserialize.integer(
+      payload.unread_messages_count
+    );
+    this.links = payload.links;
   }
 
-  channels?: Array<IpMessagingV1ServiceUserUserChannel>;
-  meta?: ListChannelResponseMeta;
+  accountSid?: string | null;
+  serviceSid?: string | null;
+  channelSid?: string | null;
+  memberSid?: string | null;
+  status?: UserChannelChannelStatus;
+  lastConsumedMessageIndex?: number | null;
+  unreadMessagesCount?: number | null;
+  links?: object | null;
 
   /**
    * Provide a user-friendly representation
@@ -344,8 +347,14 @@ export class UserChannelInstance {
    */
   toJSON() {
     return {
-      channels: this.channels,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      serviceSid: this.serviceSid,
+      channelSid: this.channelSid,
+      memberSid: this.memberSid,
+      status: this.status,
+      lastConsumedMessageIndex: this.lastConsumedMessageIndex,
+      unreadMessagesCount: this.unreadMessagesCount,
+      links: this.links,
     };
   }
 

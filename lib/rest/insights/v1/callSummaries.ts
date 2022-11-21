@@ -19,6 +19,29 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CallSummariesAnsweredBy =
+  | "unknown"
+  | "machine_start"
+  | "machine_end_beep"
+  | "machine_end_silence"
+  | "machine_end_other"
+  | "human"
+  | "fax";
+
+type CallSummariesCallState =
+  | "ringing"
+  | "completed"
+  | "busy"
+  | "fail"
+  | "noanswer"
+  | "canceled"
+  | "answered"
+  | "undialed";
+
+type CallSummariesCallType = "carrier" | "sip" | "trunking" | "client";
+
+type CallSummariesProcessingState = "complete" | "partial";
+
 type CallSummariesProcessingStateRequest =
   | "completed"
   | "started"
@@ -26,41 +49,6 @@ type CallSummariesProcessingStateRequest =
   | "all";
 
 type CallSummariesSortBy = "start_time" | "end_time";
-
-export class InsightsV1CallSummaries {
-  "accountSid"?: string | null;
-  "callSid"?: string | null;
-  "answeredBy"?: CallSummariesEnumAnsweredBy;
-  "callType"?: CallSummariesEnumCallType;
-  "callState"?: CallSummariesEnumCallState;
-  "processingState"?: CallSummariesEnumProcessingState;
-  "createdTime"?: Date | null;
-  "startTime"?: Date | null;
-  "endTime"?: Date | null;
-  "duration"?: number | null;
-  "connectDuration"?: number | null;
-  "from"?: any | null;
-  "to"?: any | null;
-  "carrierEdge"?: any | null;
-  "clientEdge"?: any | null;
-  "sdkEdge"?: any | null;
-  "sipEdge"?: any | null;
-  "tags"?: Array<string> | null;
-  "url"?: string | null;
-  "attributes"?: any | null;
-  "properties"?: any | null;
-  "trust"?: any | null;
-}
-
-export class ListCallSummariesResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
 
 /**
  * Options to pass to each
@@ -481,18 +469,78 @@ interface CallSummariesPayload
     Page.TwilioResponsePayload {}
 
 interface CallSummariesResource {
-  call_summaries?: Array<InsightsV1CallSummaries>;
-  meta?: ListCallSummariesResponseMeta;
+  account_sid?: string | null;
+  call_sid?: string | null;
+  answered_by?: CallSummariesAnsweredBy;
+  call_type?: CallSummariesCallType;
+  call_state?: CallSummariesCallState;
+  processing_state?: CallSummariesProcessingState;
+  created_time?: Date | null;
+  start_time?: Date | null;
+  end_time?: Date | null;
+  duration?: number | null;
+  connect_duration?: number | null;
+  from?: any | null;
+  to?: any | null;
+  carrier_edge?: any | null;
+  client_edge?: any | null;
+  sdk_edge?: any | null;
+  sip_edge?: any | null;
+  tags?: Array<string> | null;
+  url?: string | null;
+  attributes?: any | null;
+  properties?: any | null;
+  trust?: any | null;
 }
 
 export class CallSummariesInstance {
   constructor(protected _version: V1, payload: CallSummariesPayload) {
-    this.callSummaries = payload.call_summaries;
-    this.meta = payload.meta;
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
+    this.answeredBy = payload.answered_by;
+    this.callType = payload.call_type;
+    this.callState = payload.call_state;
+    this.processingState = payload.processing_state;
+    this.createdTime = deserialize.iso8601DateTime(payload.created_time);
+    this.startTime = deserialize.iso8601DateTime(payload.start_time);
+    this.endTime = deserialize.iso8601DateTime(payload.end_time);
+    this.duration = deserialize.integer(payload.duration);
+    this.connectDuration = deserialize.integer(payload.connect_duration);
+    this.from = payload.from;
+    this.to = payload.to;
+    this.carrierEdge = payload.carrier_edge;
+    this.clientEdge = payload.client_edge;
+    this.sdkEdge = payload.sdk_edge;
+    this.sipEdge = payload.sip_edge;
+    this.tags = payload.tags;
+    this.url = payload.url;
+    this.attributes = payload.attributes;
+    this.properties = payload.properties;
+    this.trust = payload.trust;
   }
 
-  callSummaries?: Array<InsightsV1CallSummaries>;
-  meta?: ListCallSummariesResponseMeta;
+  accountSid?: string | null;
+  callSid?: string | null;
+  answeredBy?: CallSummariesAnsweredBy;
+  callType?: CallSummariesCallType;
+  callState?: CallSummariesCallState;
+  processingState?: CallSummariesProcessingState;
+  createdTime?: Date | null;
+  startTime?: Date | null;
+  endTime?: Date | null;
+  duration?: number | null;
+  connectDuration?: number | null;
+  from?: any | null;
+  to?: any | null;
+  carrierEdge?: any | null;
+  clientEdge?: any | null;
+  sdkEdge?: any | null;
+  sipEdge?: any | null;
+  tags?: Array<string> | null;
+  url?: string | null;
+  attributes?: any | null;
+  properties?: any | null;
+  trust?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -501,8 +549,28 @@ export class CallSummariesInstance {
    */
   toJSON() {
     return {
-      callSummaries: this.callSummaries,
-      meta: this.meta,
+      accountSid: this.accountSid,
+      callSid: this.callSid,
+      answeredBy: this.answeredBy,
+      callType: this.callType,
+      callState: this.callState,
+      processingState: this.processingState,
+      createdTime: this.createdTime,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      duration: this.duration,
+      connectDuration: this.connectDuration,
+      from: this.from,
+      to: this.to,
+      carrierEdge: this.carrierEdge,
+      clientEdge: this.clientEdge,
+      sdkEdge: this.sdkEdge,
+      sipEdge: this.sipEdge,
+      tags: this.tags,
+      url: this.url,
+      attributes: this.attributes,
+      properties: this.properties,
+      trust: this.trust,
     };
   }
 
