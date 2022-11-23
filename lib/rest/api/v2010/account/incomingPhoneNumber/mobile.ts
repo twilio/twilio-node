@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 /**
  * Indicate if a phone can receive calls or messages
@@ -27,127 +28,6 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
   "sms"?: boolean;
   "voice"?: boolean;
   "fax"?: boolean;
-}
-
-export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile {
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The SID of the Address resource associated with the phone number
-   */
-  "addressSid"?: string | null;
-  "addressRequirements"?: IncomingPhoneNumberMobileAddressRequirement;
-  /**
-   * The API version used to start a new TwiML session
-   */
-  "apiVersion"?: string | null;
-  /**
-   * Whether the phone number is new to the Twilio platform
-   */
-  "beta"?: boolean | null;
-  "capabilities"?: PhoneNumberCapabilities | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was created
-   */
-  "dateCreated"?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
-   */
-  "dateUpdated"?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  "friendlyName"?: string | null;
-  /**
-   * The SID of the Identity resource associated with number
-   */
-  "identitySid"?: string | null;
-  /**
-   * The phone number in E.164 format
-   */
-  "phoneNumber"?: string | null;
-  /**
-   * The phone number\'s origin. Can be twilio or hosted.
-   */
-  "origin"?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  "sid"?: string | null;
-  /**
-   * The SID of the application that handles SMS messages sent to the phone number
-   */
-  "smsApplicationSid"?: string | null;
-  /**
-   * The HTTP method used with sms_fallback_url
-   */
-  "smsFallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.SmsFallbackMethodEnum;
-  /**
-   * The URL that we call when an error occurs while retrieving or executing the TwiML
-   */
-  "smsFallbackUrl"?: string | null;
-  /**
-   * The HTTP method to use with sms_url
-   */
-  "smsMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.SmsMethodEnum;
-  /**
-   * The URL we call when the phone number receives an incoming SMS message
-   */
-  "smsUrl"?: string | null;
-  /**
-   * The URL to send status information to your application
-   */
-  "statusCallback"?: string | null;
-  /**
-   * The HTTP method we use to call status_callback
-   */
-  "statusCallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.StatusCallbackMethodEnum;
-  /**
-   * The SID of the Trunk that handles calls to the phone number
-   */
-  "trunkSid"?: string | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  "uri"?: string | null;
-  "voiceReceiveMode"?: IncomingPhoneNumberMobileVoiceReceiveMode;
-  /**
-   * The SID of the application that handles calls to the phone number
-   */
-  "voiceApplicationSid"?: string | null;
-  /**
-   * Whether to lookup the caller\'s name
-   */
-  "voiceCallerIdLookup"?: boolean | null;
-  /**
-   * The HTTP method used with voice_fallback_url
-   */
-  "voiceFallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.VoiceFallbackMethodEnum;
-  /**
-   * The URL we call when an error occurs in TwiML
-   */
-  "voiceFallbackUrl"?: string | null;
-  /**
-   * The HTTP method used with the voice_url
-   */
-  "voiceMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.VoiceMethodEnum;
-  /**
-   * The URL we call when the phone number receives a call
-   */
-  "voiceUrl"?: string | null;
-  "emergencyStatus"?: IncomingPhoneNumberMobileEmergencyStatus;
-  /**
-   * The emergency address configuration to use for emergency calling
-   */
-  "emergencyAddressSid"?: string | null;
-  "emergencyAddressStatus"?: IncomingPhoneNumberMobileEmergencyAddressStatus;
-  /**
-   * The SID of the Bundle resource associated with number
-   */
-  "bundleSid"?: string | null;
-  "status"?: string | null;
 }
 
 type IncomingPhoneNumberMobileAddressRequirement =
@@ -617,19 +497,79 @@ export function MobileListInstance(
 
   return instance;
 }
+export type MobileSmsFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type MobileSmsMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type MobileStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type MobileVoiceFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type MobileVoiceMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
 interface MobilePayload extends MobileResource, Page.TwilioResponsePayload {}
 
 interface MobileResource {
-  incoming_phone_numbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile>;
-  end?: number;
-  first_page_uri?: string;
-  next_page_uri?: string;
-  page?: number;
-  page_size?: number;
-  previous_page_uri?: string;
-  start?: number;
-  uri?: string;
+  account_sid?: string | null;
+  address_sid?: string | null;
+  address_requirements?: IncomingPhoneNumberMobileAddressRequirement;
+  api_version?: string | null;
+  beta?: boolean | null;
+  capabilities?: PhoneNumberCapabilities | null;
+  date_created?: string | null;
+  date_updated?: string | null;
+  friendly_name?: string | null;
+  identity_sid?: string | null;
+  phone_number?: string | null;
+  origin?: string | null;
+  sid?: string | null;
+  sms_application_sid?: string | null;
+  sms_fallback_method?: MobileSmsFallbackMethod;
+  sms_fallback_url?: string | null;
+  sms_method?: MobileSmsMethod;
+  sms_url?: string | null;
+  status_callback?: string | null;
+  status_callback_method?: MobileStatusCallbackMethod;
+  trunk_sid?: string | null;
+  uri?: string | null;
+  voice_receive_mode?: IncomingPhoneNumberMobileVoiceReceiveMode;
+  voice_application_sid?: string | null;
+  voice_caller_id_lookup?: boolean | null;
+  voice_fallback_method?: MobileVoiceFallbackMethod;
+  voice_fallback_url?: string | null;
+  voice_method?: MobileVoiceMethod;
+  voice_url?: string | null;
+  emergency_status?: IncomingPhoneNumberMobileEmergencyStatus;
+  emergency_address_sid?: string | null;
+  emergency_address_status?: IncomingPhoneNumberMobileEmergencyAddressStatus;
+  bundle_sid?: string | null;
+  status?: string | null;
 }
 
 export class MobileInstance {
@@ -638,26 +578,160 @@ export class MobileInstance {
     payload: MobilePayload,
     accountSid?: string
   ) {
-    this.incomingPhoneNumbers = payload.incoming_phone_numbers;
-    this.end = deserialize.integer(payload.end);
-    this.firstPageUri = payload.first_page_uri;
-    this.nextPageUri = payload.next_page_uri;
-    this.page = deserialize.integer(payload.page);
-    this.pageSize = deserialize.integer(payload.page_size);
-    this.previousPageUri = payload.previous_page_uri;
-    this.start = deserialize.integer(payload.start);
+    this.accountSid = payload.account_sid;
+    this.addressSid = payload.address_sid;
+    this.addressRequirements = payload.address_requirements;
+    this.apiVersion = payload.api_version;
+    this.beta = payload.beta;
+    this.capabilities = payload.capabilities;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.friendlyName = payload.friendly_name;
+    this.identitySid = payload.identity_sid;
+    this.phoneNumber = payload.phone_number;
+    this.origin = payload.origin;
+    this.sid = payload.sid;
+    this.smsApplicationSid = payload.sms_application_sid;
+    this.smsFallbackMethod = payload.sms_fallback_method;
+    this.smsFallbackUrl = payload.sms_fallback_url;
+    this.smsMethod = payload.sms_method;
+    this.smsUrl = payload.sms_url;
+    this.statusCallback = payload.status_callback;
+    this.statusCallbackMethod = payload.status_callback_method;
+    this.trunkSid = payload.trunk_sid;
     this.uri = payload.uri;
+    this.voiceReceiveMode = payload.voice_receive_mode;
+    this.voiceApplicationSid = payload.voice_application_sid;
+    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
+    this.voiceFallbackMethod = payload.voice_fallback_method;
+    this.voiceFallbackUrl = payload.voice_fallback_url;
+    this.voiceMethod = payload.voice_method;
+    this.voiceUrl = payload.voice_url;
+    this.emergencyStatus = payload.emergency_status;
+    this.emergencyAddressSid = payload.emergency_address_sid;
+    this.emergencyAddressStatus = payload.emergency_address_status;
+    this.bundleSid = payload.bundle_sid;
+    this.status = payload.status;
   }
 
-  incomingPhoneNumbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile>;
-  end?: number;
-  firstPageUri?: string;
-  nextPageUri?: string;
-  page?: number;
-  pageSize?: number;
-  previousPageUri?: string;
-  start?: number;
-  uri?: string;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Address resource associated with the phone number
+   */
+  addressSid?: string | null;
+  addressRequirements?: IncomingPhoneNumberMobileAddressRequirement;
+  /**
+   * The API version used to start a new TwiML session
+   */
+  apiVersion?: string | null;
+  /**
+   * Whether the phone number is new to the Twilio platform
+   */
+  beta?: boolean | null;
+  capabilities?: PhoneNumberCapabilities | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  dateCreated?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  dateUpdated?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The SID of the Identity resource associated with number
+   */
+  identitySid?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  phoneNumber?: string | null;
+  /**
+   * The phone number\'s origin. Can be twilio or hosted.
+   */
+  origin?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the application that handles SMS messages sent to the phone number
+   */
+  smsApplicationSid?: string | null;
+  /**
+   * The HTTP method used with sms_fallback_url
+   */
+  smsFallbackMethod?: MobileSmsFallbackMethod;
+  /**
+   * The URL that we call when an error occurs while retrieving or executing the TwiML
+   */
+  smsFallbackUrl?: string | null;
+  /**
+   * The HTTP method to use with sms_url
+   */
+  smsMethod?: MobileSmsMethod;
+  /**
+   * The URL we call when the phone number receives an incoming SMS message
+   */
+  smsUrl?: string | null;
+  /**
+   * The URL to send status information to your application
+   */
+  statusCallback?: string | null;
+  /**
+   * The HTTP method we use to call status_callback
+   */
+  statusCallbackMethod?: MobileStatusCallbackMethod;
+  /**
+   * The SID of the Trunk that handles calls to the phone number
+   */
+  trunkSid?: string | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  uri?: string | null;
+  voiceReceiveMode?: IncomingPhoneNumberMobileVoiceReceiveMode;
+  /**
+   * The SID of the application that handles calls to the phone number
+   */
+  voiceApplicationSid?: string | null;
+  /**
+   * Whether to lookup the caller\'s name
+   */
+  voiceCallerIdLookup?: boolean | null;
+  /**
+   * The HTTP method used with voice_fallback_url
+   */
+  voiceFallbackMethod?: MobileVoiceFallbackMethod;
+  /**
+   * The URL we call when an error occurs in TwiML
+   */
+  voiceFallbackUrl?: string | null;
+  /**
+   * The HTTP method used with the voice_url
+   */
+  voiceMethod?: MobileVoiceMethod;
+  /**
+   * The URL we call when the phone number receives a call
+   */
+  voiceUrl?: string | null;
+  emergencyStatus?: IncomingPhoneNumberMobileEmergencyStatus;
+  /**
+   * The emergency address configuration to use for emergency calling
+   */
+  emergencyAddressSid?: string | null;
+  emergencyAddressStatus?: IncomingPhoneNumberMobileEmergencyAddressStatus;
+  /**
+   * The SID of the Bundle resource associated with number
+   */
+  bundleSid?: string | null;
+  status?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -666,15 +740,40 @@ export class MobileInstance {
    */
   toJSON() {
     return {
-      incomingPhoneNumbers: this.incomingPhoneNumbers,
-      end: this.end,
-      firstPageUri: this.firstPageUri,
-      nextPageUri: this.nextPageUri,
-      page: this.page,
-      pageSize: this.pageSize,
-      previousPageUri: this.previousPageUri,
-      start: this.start,
+      accountSid: this.accountSid,
+      addressSid: this.addressSid,
+      addressRequirements: this.addressRequirements,
+      apiVersion: this.apiVersion,
+      beta: this.beta,
+      capabilities: this.capabilities,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      friendlyName: this.friendlyName,
+      identitySid: this.identitySid,
+      phoneNumber: this.phoneNumber,
+      origin: this.origin,
+      sid: this.sid,
+      smsApplicationSid: this.smsApplicationSid,
+      smsFallbackMethod: this.smsFallbackMethod,
+      smsFallbackUrl: this.smsFallbackUrl,
+      smsMethod: this.smsMethod,
+      smsUrl: this.smsUrl,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      trunkSid: this.trunkSid,
       uri: this.uri,
+      voiceReceiveMode: this.voiceReceiveMode,
+      voiceApplicationSid: this.voiceApplicationSid,
+      voiceCallerIdLookup: this.voiceCallerIdLookup,
+      voiceFallbackMethod: this.voiceFallbackMethod,
+      voiceFallbackUrl: this.voiceFallbackUrl,
+      voiceMethod: this.voiceMethod,
+      voiceUrl: this.voiceUrl,
+      emergencyStatus: this.emergencyStatus,
+      emergencyAddressSid: this.emergencyAddressSid,
+      emergencyAddressStatus: this.emergencyAddressStatus,
+      bundleSid: this.bundleSid,
+      status: this.status,
     };
   }
 

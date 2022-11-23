@@ -19,36 +19,14 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
+
 type EventTwilioEdge =
   | "unknown_edge"
   | "carrier_edge"
   | "sip_edge"
   | "sdk_edge"
   | "client_edge";
-
-export class InsightsV1CallEvent {
-  "timestamp"?: string | null;
-  "callSid"?: string | null;
-  "accountSid"?: string | null;
-  "edge"?: EventEnumTwilioEdge;
-  "group"?: string | null;
-  "level"?: EventEnumLevel;
-  "name"?: string | null;
-  "carrierEdge"?: any | null;
-  "sipEdge"?: any | null;
-  "sdkEdge"?: any | null;
-  "clientEdge"?: any | null;
-}
-
-export class ListCallSummariesResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
 
 /**
  * Options to pass to each
@@ -331,18 +309,45 @@ export function EventListInstance(
 interface EventPayload extends EventResource, Page.TwilioResponsePayload {}
 
 interface EventResource {
-  events?: Array<InsightsV1CallEvent>;
-  meta?: ListCallSummariesResponseMeta;
+  timestamp?: string | null;
+  call_sid?: string | null;
+  account_sid?: string | null;
+  edge?: EventTwilioEdge;
+  group?: string | null;
+  level?: EventLevel;
+  name?: string | null;
+  carrier_edge?: any | null;
+  sip_edge?: any | null;
+  sdk_edge?: any | null;
+  client_edge?: any | null;
 }
 
 export class EventInstance {
   constructor(protected _version: V1, payload: EventPayload, callSid?: string) {
-    this.events = payload.events;
-    this.meta = payload.meta;
+    this.timestamp = payload.timestamp;
+    this.callSid = payload.call_sid;
+    this.accountSid = payload.account_sid;
+    this.edge = payload.edge;
+    this.group = payload.group;
+    this.level = payload.level;
+    this.name = payload.name;
+    this.carrierEdge = payload.carrier_edge;
+    this.sipEdge = payload.sip_edge;
+    this.sdkEdge = payload.sdk_edge;
+    this.clientEdge = payload.client_edge;
   }
 
-  events?: Array<InsightsV1CallEvent>;
-  meta?: ListCallSummariesResponseMeta;
+  timestamp?: string | null;
+  callSid?: string | null;
+  accountSid?: string | null;
+  edge?: EventTwilioEdge;
+  group?: string | null;
+  level?: EventLevel;
+  name?: string | null;
+  carrierEdge?: any | null;
+  sipEdge?: any | null;
+  sdkEdge?: any | null;
+  clientEdge?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -351,8 +356,17 @@ export class EventInstance {
    */
   toJSON() {
     return {
-      events: this.events,
-      meta: this.meta,
+      timestamp: this.timestamp,
+      callSid: this.callSid,
+      accountSid: this.accountSid,
+      edge: this.edge,
+      group: this.group,
+      level: this.level,
+      name: this.name,
+      carrierEdge: this.carrierEdge,
+      sipEdge: this.sipEdge,
+      sdkEdge: this.sdkEdge,
+      clientEdge: this.clientEdge,
     };
   }
 

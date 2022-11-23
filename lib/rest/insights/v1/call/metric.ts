@@ -19,28 +19,6 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class InsightsV1CallMetric {
-  "timestamp"?: string | null;
-  "callSid"?: string | null;
-  "accountSid"?: string | null;
-  "edge"?: MetricEnumTwilioEdge;
-  "direction"?: MetricEnumStreamDirection;
-  "carrierEdge"?: any | null;
-  "sipEdge"?: any | null;
-  "sdkEdge"?: any | null;
-  "clientEdge"?: any | null;
-}
-
-export class ListCallSummariesResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
 type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
 type MetricTwilioEdge =
@@ -339,8 +317,15 @@ export function MetricListInstance(
 interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {}
 
 interface MetricResource {
-  metrics?: Array<InsightsV1CallMetric>;
-  meta?: ListCallSummariesResponseMeta;
+  timestamp?: string | null;
+  call_sid?: string | null;
+  account_sid?: string | null;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
+  carrier_edge?: any | null;
+  sip_edge?: any | null;
+  sdk_edge?: any | null;
+  client_edge?: any | null;
 }
 
 export class MetricInstance {
@@ -349,12 +334,26 @@ export class MetricInstance {
     payload: MetricPayload,
     callSid?: string
   ) {
-    this.metrics = payload.metrics;
-    this.meta = payload.meta;
+    this.timestamp = payload.timestamp;
+    this.callSid = payload.call_sid;
+    this.accountSid = payload.account_sid;
+    this.edge = payload.edge;
+    this.direction = payload.direction;
+    this.carrierEdge = payload.carrier_edge;
+    this.sipEdge = payload.sip_edge;
+    this.sdkEdge = payload.sdk_edge;
+    this.clientEdge = payload.client_edge;
   }
 
-  metrics?: Array<InsightsV1CallMetric>;
-  meta?: ListCallSummariesResponseMeta;
+  timestamp?: string | null;
+  callSid?: string | null;
+  accountSid?: string | null;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
+  carrierEdge?: any | null;
+  sipEdge?: any | null;
+  sdkEdge?: any | null;
+  clientEdge?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -363,8 +362,15 @@ export class MetricInstance {
    */
   toJSON() {
     return {
-      metrics: this.metrics,
-      meta: this.meta,
+      timestamp: this.timestamp,
+      callSid: this.callSid,
+      accountSid: this.accountSid,
+      edge: this.edge,
+      direction: this.direction,
+      carrierEdge: this.carrierEdge,
+      sipEdge: this.sipEdge,
+      sdkEdge: this.sdkEdge,
+      clientEdge: this.clientEdge,
     };
   }
 

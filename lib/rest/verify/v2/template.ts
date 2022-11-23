@@ -19,39 +19,6 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-export class ListBucketResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class VerifyV2VerificationTemplate {
-  /**
-   * A string that uniquely identifies this Template
-   */
-  "sid"?: string | null;
-  /**
-   * Account Sid
-   */
-  "accountSid"?: string | null;
-  /**
-   * A string to describe the verification template
-   */
-  "friendlyName"?: string | null;
-  /**
-   * A list of channels that support the Template
-   */
-  "channels"?: Array<string> | null;
-  /**
-   * Object with the template translations.
-   */
-  "translations"?: any | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -331,18 +298,42 @@ interface TemplatePayload
     Page.TwilioResponsePayload {}
 
 interface TemplateResource {
-  templates?: Array<VerifyV2VerificationTemplate>;
-  meta?: ListBucketResponseMeta;
+  sid?: string | null;
+  account_sid?: string | null;
+  friendly_name?: string | null;
+  channels?: Array<string> | null;
+  translations?: any | null;
 }
 
 export class TemplateInstance {
   constructor(protected _version: V2, payload: TemplatePayload) {
-    this.templates = payload.templates;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.channels = payload.channels;
+    this.translations = payload.translations;
   }
 
-  templates?: Array<VerifyV2VerificationTemplate>;
-  meta?: ListBucketResponseMeta;
+  /**
+   * A string that uniquely identifies this Template
+   */
+  sid?: string | null;
+  /**
+   * Account Sid
+   */
+  accountSid?: string | null;
+  /**
+   * A string to describe the verification template
+   */
+  friendlyName?: string | null;
+  /**
+   * A list of channels that support the Template
+   */
+  channels?: Array<string> | null;
+  /**
+   * Object with the template translations.
+   */
+  translations?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -351,8 +342,11 @@ export class TemplateInstance {
    */
   toJSON() {
     return {
-      templates: this.templates,
-      meta: this.meta,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      channels: this.channels,
+      translations: this.translations,
     };
   }
 

@@ -19,23 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class SupersimV1SimSimIpAddress {
-  /**
-   * IP address assigned to the given Super SIM
-   */
-  "ipAddress"?: string | null;
-  "ipAddressVersion"?: SimIpAddressEnumIpAddressVersion;
-}
+type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
 
 /**
  * Options to pass to each
@@ -314,8 +298,8 @@ interface SimIpAddressPayload
     Page.TwilioResponsePayload {}
 
 interface SimIpAddressResource {
-  ip_addresses?: Array<SupersimV1SimSimIpAddress>;
-  meta?: ListBillingPeriodResponseMeta;
+  ip_address?: string | null;
+  ip_address_version?: SimIpAddressIpAddressVersion;
 }
 
 export class SimIpAddressInstance {
@@ -324,12 +308,15 @@ export class SimIpAddressInstance {
     payload: SimIpAddressPayload,
     simSid?: string
   ) {
-    this.ipAddresses = payload.ip_addresses;
-    this.meta = payload.meta;
+    this.ipAddress = payload.ip_address;
+    this.ipAddressVersion = payload.ip_address_version;
   }
 
-  ipAddresses?: Array<SupersimV1SimSimIpAddress>;
-  meta?: ListBillingPeriodResponseMeta;
+  /**
+   * IP address assigned to the given Super SIM
+   */
+  ipAddress?: string | null;
+  ipAddressVersion?: SimIpAddressIpAddressVersion;
 
   /**
    * Provide a user-friendly representation
@@ -338,8 +325,8 @@ export class SimIpAddressInstance {
    */
   toJSON() {
     return {
-      ipAddresses: this.ipAddresses,
-      meta: this.meta,
+      ipAddress: this.ipAddress,
+      ipAddressVersion: this.ipAddressVersion,
     };
   }
 

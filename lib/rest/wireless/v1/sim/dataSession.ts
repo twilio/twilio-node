@@ -19,83 +19,6 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-export class ListAccountUsageRecordResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class WirelessV1SimDataSession {
-  /**
-   * The unique string that identifies the resource
-   */
-  "sid"?: string | null;
-  /**
-   * The SID of the Sim resource that the Data Session is for
-   */
-  "simSid"?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The generation of wireless technology that the device was using
-   */
-  "radioLink"?: string | null;
-  /**
-   * The \'mobile country code\' is the unique ID of the home country where the Data Session took place
-   */
-  "operatorMcc"?: string | null;
-  /**
-   * The \'mobile network code\' is the unique ID specific to the mobile operator network where the Data Session took place
-   */
-  "operatorMnc"?: string | null;
-  /**
-   * The three letter country code representing where the device\'s Data Session took place
-   */
-  "operatorCountry"?: string | null;
-  /**
-   * The friendly name of the mobile operator network that the SIM-connected device is attached to
-   */
-  "operatorName"?: string | null;
-  /**
-   * The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
-   */
-  "cellId"?: string | null;
-  /**
-   * An object with the estimated location where the device\'s Data Session took place
-   */
-  "cellLocationEstimate"?: any | null;
-  /**
-   * The number of packets uploaded by the device between the start time and when the Data Session was last updated
-   */
-  "packetsUploaded"?: number | null;
-  /**
-   * The number of packets downloaded by the device between the start time and when the Data Session was last updated
-   */
-  "packetsDownloaded"?: number | null;
-  /**
-   * The date that the resource was last updated, given as GMT in ISO 8601 format
-   */
-  "lastUpdated"?: Date | null;
-  /**
-   * The date that the Data Session started, given as GMT in ISO 8601 format
-   */
-  "start"?: Date | null;
-  /**
-   * The date that the record ended, given as GMT in ISO 8601 format
-   */
-  "end"?: Date | null;
-  /**
-   * The unique ID of the device using the SIM to connect
-   */
-  "imei"?: string | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -373,8 +296,22 @@ interface DataSessionPayload
     Page.TwilioResponsePayload {}
 
 interface DataSessionResource {
-  data_sessions?: Array<WirelessV1SimDataSession>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  sid?: string | null;
+  sim_sid?: string | null;
+  account_sid?: string | null;
+  radio_link?: string | null;
+  operator_mcc?: string | null;
+  operator_mnc?: string | null;
+  operator_country?: string | null;
+  operator_name?: string | null;
+  cell_id?: string | null;
+  cell_location_estimate?: any | null;
+  packets_uploaded?: number | null;
+  packets_downloaded?: number | null;
+  last_updated?: Date | null;
+  start?: Date | null;
+  end?: Date | null;
+  imei?: string | null;
 }
 
 export class DataSessionInstance {
@@ -383,12 +320,88 @@ export class DataSessionInstance {
     payload: DataSessionPayload,
     simSid?: string
   ) {
-    this.dataSessions = payload.data_sessions;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.simSid = payload.sim_sid;
+    this.accountSid = payload.account_sid;
+    this.radioLink = payload.radio_link;
+    this.operatorMcc = payload.operator_mcc;
+    this.operatorMnc = payload.operator_mnc;
+    this.operatorCountry = payload.operator_country;
+    this.operatorName = payload.operator_name;
+    this.cellId = payload.cell_id;
+    this.cellLocationEstimate = payload.cell_location_estimate;
+    this.packetsUploaded = deserialize.integer(payload.packets_uploaded);
+    this.packetsDownloaded = deserialize.integer(payload.packets_downloaded);
+    this.lastUpdated = deserialize.iso8601DateTime(payload.last_updated);
+    this.start = deserialize.iso8601DateTime(payload.start);
+    this.end = deserialize.iso8601DateTime(payload.end);
+    this.imei = payload.imei;
   }
 
-  dataSessions?: Array<WirelessV1SimDataSession>;
-  meta?: ListAccountUsageRecordResponseMeta;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Sim resource that the Data Session is for
+   */
+  simSid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The generation of wireless technology that the device was using
+   */
+  radioLink?: string | null;
+  /**
+   * The \'mobile country code\' is the unique ID of the home country where the Data Session took place
+   */
+  operatorMcc?: string | null;
+  /**
+   * The \'mobile network code\' is the unique ID specific to the mobile operator network where the Data Session took place
+   */
+  operatorMnc?: string | null;
+  /**
+   * The three letter country code representing where the device\'s Data Session took place
+   */
+  operatorCountry?: string | null;
+  /**
+   * The friendly name of the mobile operator network that the SIM-connected device is attached to
+   */
+  operatorName?: string | null;
+  /**
+   * The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
+   */
+  cellId?: string | null;
+  /**
+   * An object with the estimated location where the device\'s Data Session took place
+   */
+  cellLocationEstimate?: any | null;
+  /**
+   * The number of packets uploaded by the device between the start time and when the Data Session was last updated
+   */
+  packetsUploaded?: number | null;
+  /**
+   * The number of packets downloaded by the device between the start time and when the Data Session was last updated
+   */
+  packetsDownloaded?: number | null;
+  /**
+   * The date that the resource was last updated, given as GMT in ISO 8601 format
+   */
+  lastUpdated?: Date | null;
+  /**
+   * The date that the Data Session started, given as GMT in ISO 8601 format
+   */
+  start?: Date | null;
+  /**
+   * The date that the record ended, given as GMT in ISO 8601 format
+   */
+  end?: Date | null;
+  /**
+   * The unique ID of the device using the SIM to connect
+   */
+  imei?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -397,8 +410,22 @@ export class DataSessionInstance {
    */
   toJSON() {
     return {
-      dataSessions: this.dataSessions,
-      meta: this.meta,
+      sid: this.sid,
+      simSid: this.simSid,
+      accountSid: this.accountSid,
+      radioLink: this.radioLink,
+      operatorMcc: this.operatorMcc,
+      operatorMnc: this.operatorMnc,
+      operatorCountry: this.operatorCountry,
+      operatorName: this.operatorName,
+      cellId: this.cellId,
+      cellLocationEstimate: this.cellLocationEstimate,
+      packetsUploaded: this.packetsUploaded,
+      packetsDownloaded: this.packetsDownloaded,
+      lastUpdated: this.lastUpdated,
+      start: this.start,
+      end: this.end,
+      imei: this.imei,
     };
   }
 

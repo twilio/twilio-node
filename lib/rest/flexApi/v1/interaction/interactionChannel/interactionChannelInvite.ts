@@ -19,36 +19,6 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class FlexV1InteractionInteractionChannelInteractionChannelInvite {
-  /**
-   * The unique string that identifies the resource
-   */
-  "sid"?: string | null;
-  /**
-   * The Interaction SID for this Channel
-   */
-  "interactionSid"?: string | null;
-  /**
-   * The Channel SID for this Invite
-   */
-  "channelSid"?: string | null;
-  /**
-   * A JSON object representing the routing rules for the Interaction Channel
-   */
-  "routing"?: any | null;
-  "url"?: string | null;
-}
-
-export class ListChannelResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
 /**
  * Options to pass to create a InteractionChannelInviteInstance
  *
@@ -426,8 +396,11 @@ interface InteractionChannelInvitePayload
     Page.TwilioResponsePayload {}
 
 interface InteractionChannelInviteResource {
-  invites?: Array<FlexV1InteractionInteractionChannelInteractionChannelInvite>;
-  meta?: ListChannelResponseMeta;
+  sid?: string | null;
+  interaction_sid?: string | null;
+  channel_sid?: string | null;
+  routing?: any | null;
+  url?: string | null;
 }
 
 export class InteractionChannelInviteInstance {
@@ -437,12 +410,30 @@ export class InteractionChannelInviteInstance {
     interactionSid: string,
     channelSid?: string
   ) {
-    this.invites = payload.invites;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.interactionSid = payload.interaction_sid;
+    this.channelSid = payload.channel_sid;
+    this.routing = payload.routing;
+    this.url = payload.url;
   }
 
-  invites?: Array<FlexV1InteractionInteractionChannelInteractionChannelInvite>;
-  meta?: ListChannelResponseMeta;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The Interaction SID for this Channel
+   */
+  interactionSid?: string | null;
+  /**
+   * The Channel SID for this Invite
+   */
+  channelSid?: string | null;
+  /**
+   * A JSON object representing the routing rules for the Interaction Channel
+   */
+  routing?: any | null;
+  url?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -451,8 +442,11 @@ export class InteractionChannelInviteInstance {
    */
   toJSON() {
     return {
-      invites: this.invites,
-      meta: this.meta,
+      sid: this.sid,
+      interactionSid: this.interactionSid,
+      channelSid: this.channelSid,
+      routing: this.routing,
+      url: this.url,
     };
   }
 

@@ -19,106 +19,13 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class ApiV2010AccountAddressDependentPhoneNumber {
-  /**
-   * The unique string that identifies the resource
-   */
-  "sid"?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  "friendlyName"?: string | null;
-  /**
-   * The phone number in E.164 format
-   */
-  "phoneNumber"?: string | null;
-  /**
-   * The URL we call when the phone number receives a call
-   */
-  "voiceUrl"?: string | null;
-  /**
-   * The HTTP method used with the voice_url
-   */
-  "voiceMethod"?: ApiV2010AccountAddressDependentPhoneNumber.VoiceMethodEnum;
-  /**
-   * The HTTP method used with voice_fallback_url
-   */
-  "voiceFallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.VoiceFallbackMethodEnum;
-  /**
-   * The URL we call when an error occurs in TwiML
-   */
-  "voiceFallbackUrl"?: string | null;
-  /**
-   * Whether to lookup the caller\'s name
-   */
-  "voiceCallerIdLookup"?: boolean | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was created
-   */
-  "dateCreated"?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
-   */
-  "dateUpdated"?: string | null;
-  /**
-   * The HTTP method used with sms_fallback_url
-   */
-  "smsFallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.SmsFallbackMethodEnum;
-  /**
-   * The URL that we call when an error occurs while retrieving or executing the TwiML
-   */
-  "smsFallbackUrl"?: string | null;
-  /**
-   * The HTTP method to use with sms_url
-   */
-  "smsMethod"?: ApiV2010AccountAddressDependentPhoneNumber.SmsMethodEnum;
-  /**
-   * The URL we call when the phone number receives an incoming SMS message
-   */
-  "smsUrl"?: string | null;
-  "addressRequirements"?: DependentPhoneNumberEnumAddressRequirement;
-  /**
-   * Indicate if a phone can receive calls or messages
-   */
-  "capabilities"?: any | null;
-  /**
-   * The URL to send status information to your application
-   */
-  "statusCallback"?: string | null;
-  /**
-   * The HTTP method we use to call status_callback
-   */
-  "statusCallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.StatusCallbackMethodEnum;
-  /**
-   * The API version used to start a new TwiML session
-   */
-  "apiVersion"?: string | null;
-  /**
-   * The SID of the application that handles SMS messages sent to the phone number
-   */
-  "smsApplicationSid"?: string | null;
-  /**
-   * The SID of the application that handles calls to the phone number
-   */
-  "voiceApplicationSid"?: string | null;
-  /**
-   * The SID of the Trunk that handles calls to the phone number
-   */
-  "trunkSid"?: string | null;
-  "emergencyStatus"?: DependentPhoneNumberEnumEmergencyStatus;
-  /**
-   * The emergency address configuration to use for emergency calling
-   */
-  "emergencyAddressSid"?: string | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  "uri"?: string | null;
-}
+type DependentPhoneNumberAddressRequirement =
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
+
+type DependentPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 /**
  * Options to pass to each
@@ -412,21 +319,73 @@ export function DependentPhoneNumberListInstance(
 
   return instance;
 }
+export type DependentPhoneNumberVoiceMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DependentPhoneNumberVoiceFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DependentPhoneNumberSmsFallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DependentPhoneNumberSmsMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
+export type DependentPhoneNumberStatusCallbackMethod =
+  | "HEAD"
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE";
 
 interface DependentPhoneNumberPayload
   extends DependentPhoneNumberResource,
     Page.TwilioResponsePayload {}
 
 interface DependentPhoneNumberResource {
-  dependent_phone_numbers?: Array<ApiV2010AccountAddressDependentPhoneNumber>;
-  end?: number;
-  first_page_uri?: string;
-  next_page_uri?: string;
-  page?: number;
-  page_size?: number;
-  previous_page_uri?: string;
-  start?: number;
-  uri?: string;
+  sid?: string | null;
+  account_sid?: string | null;
+  friendly_name?: string | null;
+  phone_number?: string | null;
+  voice_url?: string | null;
+  voice_method?: DependentPhoneNumberVoiceMethod;
+  voice_fallback_method?: DependentPhoneNumberVoiceFallbackMethod;
+  voice_fallback_url?: string | null;
+  voice_caller_id_lookup?: boolean | null;
+  date_created?: string | null;
+  date_updated?: string | null;
+  sms_fallback_method?: DependentPhoneNumberSmsFallbackMethod;
+  sms_fallback_url?: string | null;
+  sms_method?: DependentPhoneNumberSmsMethod;
+  sms_url?: string | null;
+  address_requirements?: DependentPhoneNumberAddressRequirement;
+  capabilities?: any | null;
+  status_callback?: string | null;
+  status_callback_method?: DependentPhoneNumberStatusCallbackMethod;
+  api_version?: string | null;
+  sms_application_sid?: string | null;
+  voice_application_sid?: string | null;
+  trunk_sid?: string | null;
+  emergency_status?: DependentPhoneNumberEmergencyStatus;
+  emergency_address_sid?: string | null;
+  uri?: string | null;
 }
 
 export class DependentPhoneNumberInstance {
@@ -436,26 +395,132 @@ export class DependentPhoneNumberInstance {
     accountSid: string,
     addressSid?: string
   ) {
-    this.dependentPhoneNumbers = payload.dependent_phone_numbers;
-    this.end = deserialize.integer(payload.end);
-    this.firstPageUri = payload.first_page_uri;
-    this.nextPageUri = payload.next_page_uri;
-    this.page = deserialize.integer(payload.page);
-    this.pageSize = deserialize.integer(payload.page_size);
-    this.previousPageUri = payload.previous_page_uri;
-    this.start = deserialize.integer(payload.start);
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.friendlyName = payload.friendly_name;
+    this.phoneNumber = payload.phone_number;
+    this.voiceUrl = payload.voice_url;
+    this.voiceMethod = payload.voice_method;
+    this.voiceFallbackMethod = payload.voice_fallback_method;
+    this.voiceFallbackUrl = payload.voice_fallback_url;
+    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.smsFallbackMethod = payload.sms_fallback_method;
+    this.smsFallbackUrl = payload.sms_fallback_url;
+    this.smsMethod = payload.sms_method;
+    this.smsUrl = payload.sms_url;
+    this.addressRequirements = payload.address_requirements;
+    this.capabilities = payload.capabilities;
+    this.statusCallback = payload.status_callback;
+    this.statusCallbackMethod = payload.status_callback_method;
+    this.apiVersion = payload.api_version;
+    this.smsApplicationSid = payload.sms_application_sid;
+    this.voiceApplicationSid = payload.voice_application_sid;
+    this.trunkSid = payload.trunk_sid;
+    this.emergencyStatus = payload.emergency_status;
+    this.emergencyAddressSid = payload.emergency_address_sid;
     this.uri = payload.uri;
   }
 
-  dependentPhoneNumbers?: Array<ApiV2010AccountAddressDependentPhoneNumber>;
-  end?: number;
-  firstPageUri?: string;
-  nextPageUri?: string;
-  page?: number;
-  pageSize?: number;
-  previousPageUri?: string;
-  start?: number;
-  uri?: string;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  phoneNumber?: string | null;
+  /**
+   * The URL we call when the phone number receives a call
+   */
+  voiceUrl?: string | null;
+  /**
+   * The HTTP method used with the voice_url
+   */
+  voiceMethod?: DependentPhoneNumberVoiceMethod;
+  /**
+   * The HTTP method used with voice_fallback_url
+   */
+  voiceFallbackMethod?: DependentPhoneNumberVoiceFallbackMethod;
+  /**
+   * The URL we call when an error occurs in TwiML
+   */
+  voiceFallbackUrl?: string | null;
+  /**
+   * Whether to lookup the caller\'s name
+   */
+  voiceCallerIdLookup?: boolean | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  dateCreated?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  dateUpdated?: string | null;
+  /**
+   * The HTTP method used with sms_fallback_url
+   */
+  smsFallbackMethod?: DependentPhoneNumberSmsFallbackMethod;
+  /**
+   * The URL that we call when an error occurs while retrieving or executing the TwiML
+   */
+  smsFallbackUrl?: string | null;
+  /**
+   * The HTTP method to use with sms_url
+   */
+  smsMethod?: DependentPhoneNumberSmsMethod;
+  /**
+   * The URL we call when the phone number receives an incoming SMS message
+   */
+  smsUrl?: string | null;
+  addressRequirements?: DependentPhoneNumberAddressRequirement;
+  /**
+   * Indicate if a phone can receive calls or messages
+   */
+  capabilities?: any | null;
+  /**
+   * The URL to send status information to your application
+   */
+  statusCallback?: string | null;
+  /**
+   * The HTTP method we use to call status_callback
+   */
+  statusCallbackMethod?: DependentPhoneNumberStatusCallbackMethod;
+  /**
+   * The API version used to start a new TwiML session
+   */
+  apiVersion?: string | null;
+  /**
+   * The SID of the application that handles SMS messages sent to the phone number
+   */
+  smsApplicationSid?: string | null;
+  /**
+   * The SID of the application that handles calls to the phone number
+   */
+  voiceApplicationSid?: string | null;
+  /**
+   * The SID of the Trunk that handles calls to the phone number
+   */
+  trunkSid?: string | null;
+  emergencyStatus?: DependentPhoneNumberEmergencyStatus;
+  /**
+   * The emergency address configuration to use for emergency calling
+   */
+  emergencyAddressSid?: string | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  uri?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -464,14 +529,31 @@ export class DependentPhoneNumberInstance {
    */
   toJSON() {
     return {
-      dependentPhoneNumbers: this.dependentPhoneNumbers,
-      end: this.end,
-      firstPageUri: this.firstPageUri,
-      nextPageUri: this.nextPageUri,
-      page: this.page,
-      pageSize: this.pageSize,
-      previousPageUri: this.previousPageUri,
-      start: this.start,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      friendlyName: this.friendlyName,
+      phoneNumber: this.phoneNumber,
+      voiceUrl: this.voiceUrl,
+      voiceMethod: this.voiceMethod,
+      voiceFallbackMethod: this.voiceFallbackMethod,
+      voiceFallbackUrl: this.voiceFallbackUrl,
+      voiceCallerIdLookup: this.voiceCallerIdLookup,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      smsFallbackMethod: this.smsFallbackMethod,
+      smsFallbackUrl: this.smsFallbackUrl,
+      smsMethod: this.smsMethod,
+      smsUrl: this.smsUrl,
+      addressRequirements: this.addressRequirements,
+      capabilities: this.capabilities,
+      statusCallback: this.statusCallback,
+      statusCallbackMethod: this.statusCallbackMethod,
+      apiVersion: this.apiVersion,
+      smsApplicationSid: this.smsApplicationSid,
+      voiceApplicationSid: this.voiceApplicationSid,
+      trunkSid: this.trunkSid,
+      emergencyStatus: this.emergencyStatus,
+      emergencyAddressSid: this.emergencyAddressSid,
       uri: this.uri,
     };
   }

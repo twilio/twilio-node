@@ -27,56 +27,6 @@ type BundleCopyStatus =
   | "twilio-approved"
   | "provisionally-approved";
 
-export class ListBundleResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class NumbersV2RegulatoryComplianceBundleBundleCopy {
-  /**
-   * The unique string that identifies the resource
-   */
-  "sid"?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  "accountSid"?: string | null;
-  /**
-   * The unique string of a regulation
-   */
-  "regulationSid"?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  "friendlyName"?: string | null;
-  "status"?: BundleCopyStatus;
-  /**
-   * The ISO 8601 date and time in GMT when the resource will be valid until
-   */
-  "validUntil"?: Date | null;
-  /**
-   * The email address
-   */
-  "email"?: string | null;
-  /**
-   * The URL we call to inform your application of status changes
-   */
-  "statusCallback"?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  "dateCreated"?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  "dateUpdated"?: Date | null;
-}
-
 /**
  * Options to pass to create a BundleCopyInstance
  *
@@ -428,8 +378,16 @@ interface BundleCopyPayload
     Page.TwilioResponsePayload {}
 
 interface BundleCopyResource {
-  results?: Array<NumbersV2RegulatoryComplianceBundleBundleCopy>;
-  meta?: ListBundleResponseMeta;
+  sid?: string | null;
+  account_sid?: string | null;
+  regulation_sid?: string | null;
+  friendly_name?: string | null;
+  status?: BundleCopyStatus;
+  valid_until?: Date | null;
+  email?: string | null;
+  status_callback?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class BundleCopyInstance {
@@ -438,12 +396,55 @@ export class BundleCopyInstance {
     payload: BundleCopyPayload,
     bundleSid?: string
   ) {
-    this.results = payload.results;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.regulationSid = payload.regulation_sid;
+    this.friendlyName = payload.friendly_name;
+    this.status = payload.status;
+    this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
+    this.email = payload.email;
+    this.statusCallback = payload.status_callback;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
 
-  results?: Array<NumbersV2RegulatoryComplianceBundleBundleCopy>;
-  meta?: ListBundleResponseMeta;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The unique string of a regulation
+   */
+  regulationSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  status?: BundleCopyStatus;
+  /**
+   * The ISO 8601 date and time in GMT when the resource will be valid until
+   */
+  validUntil?: Date | null;
+  /**
+   * The email address
+   */
+  email?: string | null;
+  /**
+   * The URL we call to inform your application of status changes
+   */
+  statusCallback?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
 
   /**
    * Provide a user-friendly representation
@@ -452,8 +453,16 @@ export class BundleCopyInstance {
    */
   toJSON() {
     return {
-      results: this.results,
-      meta: this.meta,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      regulationSid: this.regulationSid,
+      friendlyName: this.friendlyName,
+      status: this.status,
+      validUntil: this.validUntil,
+      email: this.email,
+      statusCallback: this.statusCallback,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
     };
   }
 

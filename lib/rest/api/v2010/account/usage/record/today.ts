@@ -19,66 +19,6 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
-export class ApiV2010AccountUsageUsageRecordUsageRecordToday {
-  /**
-   * The SID of the Account accrued the usage
-   */
-  "accountSid"?: string | null;
-  /**
-   * The API version used to create the resource
-   */
-  "apiVersion"?: string | null;
-  /**
-   * Usage records up to date as of this timestamp
-   */
-  "asOf"?: string | null;
-  "category"?: UsageRecordTodayEnumCategory;
-  /**
-   * The number of usage events
-   */
-  "count"?: string | null;
-  /**
-   * The units in which count is measured
-   */
-  "countUnit"?: string | null;
-  /**
-   * A plain-language description of the usage category
-   */
-  "description"?: string | null;
-  /**
-   * The last date for which usage is included in the UsageRecord
-   */
-  "endDate"?: string | null;
-  /**
-   * The total price of the usage
-   */
-  "price"?: number | null;
-  /**
-   * The currency in which `price` is measured
-   */
-  "priceUnit"?: string | null;
-  /**
-   * The first date for which usage is included in this UsageRecord
-   */
-  "startDate"?: string | null;
-  /**
-   * A list of related resources identified by their relative URIs
-   */
-  "subresourceUris"?: object | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  "uri"?: string | null;
-  /**
-   * The amount of usage
-   */
-  "usage"?: string | null;
-  /**
-   * The units in which usage is measured
-   */
-  "usageUnit"?: string | null;
-}
-
 type UsageRecordTodayCategory =
   | "a2p-registration-fees"
   | "agent-conference"
@@ -631,15 +571,21 @@ export function TodayListInstance(
 interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {}
 
 interface TodayResource {
-  usage_records?: Array<ApiV2010AccountUsageUsageRecordUsageRecordToday>;
-  end?: number;
-  first_page_uri?: string;
-  next_page_uri?: string;
-  page?: number;
-  page_size?: number;
-  previous_page_uri?: string;
-  start?: number;
-  uri?: string;
+  account_sid?: string | null;
+  api_version?: string | null;
+  as_of?: string | null;
+  category?: UsageRecordTodayCategory;
+  count?: string | null;
+  count_unit?: string | null;
+  description?: string | null;
+  end_date?: Date | null;
+  price?: number | null;
+  price_unit?: string | null;
+  start_date?: Date | null;
+  subresource_uris?: object | null;
+  uri?: string | null;
+  usage?: string | null;
+  usage_unit?: string | null;
 }
 
 export class TodayInstance {
@@ -648,26 +594,80 @@ export class TodayInstance {
     payload: TodayPayload,
     accountSid?: string
   ) {
-    this.usageRecords = payload.usage_records;
-    this.end = deserialize.integer(payload.end);
-    this.firstPageUri = payload.first_page_uri;
-    this.nextPageUri = payload.next_page_uri;
-    this.page = deserialize.integer(payload.page);
-    this.pageSize = deserialize.integer(payload.page_size);
-    this.previousPageUri = payload.previous_page_uri;
-    this.start = deserialize.integer(payload.start);
+    this.accountSid = payload.account_sid;
+    this.apiVersion = payload.api_version;
+    this.asOf = payload.as_of;
+    this.category = payload.category;
+    this.count = payload.count;
+    this.countUnit = payload.count_unit;
+    this.description = payload.description;
+    this.endDate = deserialize.iso8601Date(payload.end_date);
+    this.price = payload.price;
+    this.priceUnit = payload.price_unit;
+    this.startDate = deserialize.iso8601Date(payload.start_date);
+    this.subresourceUris = payload.subresource_uris;
     this.uri = payload.uri;
+    this.usage = payload.usage;
+    this.usageUnit = payload.usage_unit;
   }
 
-  usageRecords?: Array<ApiV2010AccountUsageUsageRecordUsageRecordToday>;
-  end?: number;
-  firstPageUri?: string;
-  nextPageUri?: string;
-  page?: number;
-  pageSize?: number;
-  previousPageUri?: string;
-  start?: number;
-  uri?: string;
+  /**
+   * The SID of the Account accrued the usage
+   */
+  accountSid?: string | null;
+  /**
+   * The API version used to create the resource
+   */
+  apiVersion?: string | null;
+  /**
+   * Usage records up to date as of this timestamp
+   */
+  asOf?: string | null;
+  category?: UsageRecordTodayCategory;
+  /**
+   * The number of usage events
+   */
+  count?: string | null;
+  /**
+   * The units in which count is measured
+   */
+  countUnit?: string | null;
+  /**
+   * A plain-language description of the usage category
+   */
+  description?: string | null;
+  /**
+   * The last date for which usage is included in the UsageRecord
+   */
+  endDate?: Date | null;
+  /**
+   * The total price of the usage
+   */
+  price?: number | null;
+  /**
+   * The currency in which `price` is measured
+   */
+  priceUnit?: string | null;
+  /**
+   * The first date for which usage is included in this UsageRecord
+   */
+  startDate?: Date | null;
+  /**
+   * A list of related resources identified by their relative URIs
+   */
+  subresourceUris?: object | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  uri?: string | null;
+  /**
+   * The amount of usage
+   */
+  usage?: string | null;
+  /**
+   * The units in which usage is measured
+   */
+  usageUnit?: string | null;
 
   /**
    * Provide a user-friendly representation
@@ -676,15 +676,21 @@ export class TodayInstance {
    */
   toJSON() {
     return {
-      usageRecords: this.usageRecords,
-      end: this.end,
-      firstPageUri: this.firstPageUri,
-      nextPageUri: this.nextPageUri,
-      page: this.page,
-      pageSize: this.pageSize,
-      previousPageUri: this.previousPageUri,
-      start: this.start,
+      accountSid: this.accountSid,
+      apiVersion: this.apiVersion,
+      asOf: this.asOf,
+      category: this.category,
+      count: this.count,
+      countUnit: this.countUnit,
+      description: this.description,
+      endDate: this.endDate,
+      price: this.price,
+      priceUnit: this.priceUnit,
+      startDate: this.startDate,
+      subresourceUris: this.subresourceUris,
       uri: this.uri,
+      usage: this.usage,
+      usageUnit: this.usageUnit,
     };
   }
 

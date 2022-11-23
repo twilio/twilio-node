@@ -19,17 +19,6 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-export class ApiV2010AccountCallCallEvent {
-  /**
-   * Call Request.
-   */
-  "request"?: any | null;
-  /**
-   * Call Response with Events.
-   */
-  "response"?: any | null;
-}
-
 /**
  * Options to pass to each
  *
@@ -306,15 +295,8 @@ export function EventListInstance(
 interface EventPayload extends EventResource, Page.TwilioResponsePayload {}
 
 interface EventResource {
-  events?: Array<ApiV2010AccountCallCallEvent>;
-  end?: number;
-  first_page_uri?: string;
-  next_page_uri?: string;
-  page?: number;
-  page_size?: number;
-  previous_page_uri?: string;
-  start?: number;
-  uri?: string;
+  request?: any | null;
+  response?: any | null;
 }
 
 export class EventInstance {
@@ -324,26 +306,18 @@ export class EventInstance {
     accountSid: string,
     callSid?: string
   ) {
-    this.events = payload.events;
-    this.end = deserialize.integer(payload.end);
-    this.firstPageUri = payload.first_page_uri;
-    this.nextPageUri = payload.next_page_uri;
-    this.page = deserialize.integer(payload.page);
-    this.pageSize = deserialize.integer(payload.page_size);
-    this.previousPageUri = payload.previous_page_uri;
-    this.start = deserialize.integer(payload.start);
-    this.uri = payload.uri;
+    this.request = payload.request;
+    this.response = payload.response;
   }
 
-  events?: Array<ApiV2010AccountCallCallEvent>;
-  end?: number;
-  firstPageUri?: string;
-  nextPageUri?: string;
-  page?: number;
-  pageSize?: number;
-  previousPageUri?: string;
-  start?: number;
-  uri?: string;
+  /**
+   * Call Request.
+   */
+  request?: any | null;
+  /**
+   * Call Response with Events.
+   */
+  response?: any | null;
 
   /**
    * Provide a user-friendly representation
@@ -352,15 +326,8 @@ export class EventInstance {
    */
   toJSON() {
     return {
-      events: this.events,
-      end: this.end,
-      firstPageUri: this.firstPageUri,
-      nextPageUri: this.nextPageUri,
-      page: this.page,
-      pageSize: this.pageSize,
-      previousPageUri: this.previousPageUri,
-      start: this.start,
-      uri: this.uri,
+      request: this.request,
+      response: this.response,
     };
   }
 

@@ -19,47 +19,11 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class SupersimV1SettingsUpdate {
-  /**
-   * The unique identifier of this Settings Update
-   */
-  "sid"?: string | null;
-  /**
-   * The ICCID associated with the SIM
-   */
-  "iccid"?: string | null;
-  /**
-   * The SID of the Super SIM to which this Settings Update was applied
-   */
-  "simSid"?: string | null;
-  "status"?: SettingsUpdateEnumStatus;
-  /**
-   * Array containing the different Settings Packages that will be applied to the SIM after the update completes
-   */
-  "packages"?: Array<any> | null;
-  /**
-   * The time when the update successfully completed and the new settings were applied to the SIM
-   */
-  "dateCompleted"?: Date | null;
-  /**
-   * The date this Settings Update was created
-   */
-  "dateCreated"?: Date | null;
-  /**
-   * The date this Settings Update was last updated
-   */
-  "dateUpdated"?: Date | null;
-}
+type SettingsUpdateStatus =
+  | "scheduled"
+  | "in-progress"
+  | "successful"
+  | "failed";
 
 /**
  * Options to pass to each
@@ -352,18 +316,57 @@ interface SettingsUpdatePayload
     Page.TwilioResponsePayload {}
 
 interface SettingsUpdateResource {
-  settings_updates?: Array<SupersimV1SettingsUpdate>;
-  meta?: ListBillingPeriodResponseMeta;
+  sid?: string | null;
+  iccid?: string | null;
+  sim_sid?: string | null;
+  status?: SettingsUpdateStatus;
+  packages?: Array<any> | null;
+  date_completed?: Date | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class SettingsUpdateInstance {
   constructor(protected _version: V1, payload: SettingsUpdatePayload) {
-    this.settingsUpdates = payload.settings_updates;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.iccid = payload.iccid;
+    this.simSid = payload.sim_sid;
+    this.status = payload.status;
+    this.packages = payload.packages;
+    this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
   }
 
-  settingsUpdates?: Array<SupersimV1SettingsUpdate>;
-  meta?: ListBillingPeriodResponseMeta;
+  /**
+   * The unique identifier of this Settings Update
+   */
+  sid?: string | null;
+  /**
+   * The ICCID associated with the SIM
+   */
+  iccid?: string | null;
+  /**
+   * The SID of the Super SIM to which this Settings Update was applied
+   */
+  simSid?: string | null;
+  status?: SettingsUpdateStatus;
+  /**
+   * Array containing the different Settings Packages that will be applied to the SIM after the update completes
+   */
+  packages?: Array<any> | null;
+  /**
+   * The time when the update successfully completed and the new settings were applied to the SIM
+   */
+  dateCompleted?: Date | null;
+  /**
+   * The date this Settings Update was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The date this Settings Update was last updated
+   */
+  dateUpdated?: Date | null;
 
   /**
    * Provide a user-friendly representation
@@ -372,8 +375,14 @@ export class SettingsUpdateInstance {
    */
   toJSON() {
     return {
-      settingsUpdates: this.settingsUpdates,
-      meta: this.meta,
+      sid: this.sid,
+      iccid: this.iccid,
+      simSid: this.simSid,
+      status: this.status,
+      packages: this.packages,
+      dateCompleted: this.dateCompleted,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
     };
   }
 

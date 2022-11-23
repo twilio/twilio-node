@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 type DependentHostedNumberOrderStatus =
   | "received"
@@ -30,97 +31,7 @@ type DependentHostedNumberOrderStatus =
   | "failed"
   | "action-required";
 
-export class ListDeployedDevicesCertificateResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder {
-  /**
-   * HostedNumberOrder sid.
-   */
-  "sid"?: string | null;
-  /**
-   * Account sid.
-   */
-  "accountSid"?: string | null;
-  /**
-   * IncomingPhoneNumber sid.
-   */
-  "incomingPhoneNumberSid"?: string | null;
-  /**
-   * Address sid.
-   */
-  "addressSid"?: string | null;
-  /**
-   * LOA document sid.
-   */
-  "signingDocumentSid"?: string | null;
-  /**
-   * An E164 formatted phone number.
-   */
-  "phoneNumber"?: string | null;
-  "capabilities"?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
-  /**
-   * A human readable description of this resource.
-   */
-  "friendlyName"?: string | null;
-  /**
-   * A unique, developer assigned name of this HostedNumberOrder.
-   */
-  "uniqueName"?: string | null;
-  "status"?: DependentHostedNumberOrderEnumStatus;
-  /**
-   * Why a hosted_number_order reached status \"action-required\"
-   */
-  "failureReason"?: string | null;
-  /**
-   * The date this HostedNumberOrder was created.
-   */
-  "dateCreated"?: Date | null;
-  /**
-   * The date this HostedNumberOrder was updated.
-   */
-  "dateUpdated"?: Date | null;
-  /**
-   * The number of attempts made to verify ownership of the phone number.
-   */
-  "verificationAttempts"?: number | null;
-  /**
-   * Email.
-   */
-  "email"?: string | null;
-  /**
-   * A list of emails.
-   */
-  "ccEmails"?: Array<string> | null;
-  "verificationType"?: DependentHostedNumberOrderEnumVerificationType;
-  /**
-   * Verification Document Sid.
-   */
-  "verificationDocumentSid"?: string | null;
-  /**
-   * Phone extension to use for ownership verification call.
-   */
-  "extension"?: string | null;
-  /**
-   * Seconds (0-30) to delay ownership verification call by.
-   */
-  "callDelay"?: number | null;
-  /**
-   * The digits passed during the ownership verification call.
-   */
-  "verificationCode"?: string | null;
-  /**
-   * List of IDs for ownership verification calls.
-   */
-  "verificationCallSids"?: Array<string> | null;
-}
+type DependentHostedNumberOrderVerificationType = "phone-call" | "phone-bill";
 
 /**
  * A mapping of phone number capabilities.
@@ -493,8 +404,28 @@ interface DependentHostedNumberOrderPayload
     Page.TwilioResponsePayload {}
 
 interface DependentHostedNumberOrderResource {
-  items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
-  meta?: ListDeployedDevicesCertificateResponseMeta;
+  sid?: string | null;
+  account_sid?: string | null;
+  incoming_phone_number_sid?: string | null;
+  address_sid?: string | null;
+  signing_document_sid?: string | null;
+  phone_number?: string | null;
+  capabilities?: PhoneNumberCapabilities | null;
+  friendly_name?: string | null;
+  unique_name?: string | null;
+  status?: DependentHostedNumberOrderStatus;
+  failure_reason?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  verification_attempts?: number | null;
+  email?: string | null;
+  cc_emails?: Array<string> | null;
+  verification_type?: DependentHostedNumberOrderVerificationType;
+  verification_document_sid?: string | null;
+  extension?: string | null;
+  call_delay?: number | null;
+  verification_code?: string | null;
+  verification_call_sids?: Array<string> | null;
 }
 
 export class DependentHostedNumberOrderInstance {
@@ -503,12 +434,111 @@ export class DependentHostedNumberOrderInstance {
     payload: DependentHostedNumberOrderPayload,
     signingDocumentSid?: string
   ) {
-    this.items = payload.items;
-    this.meta = payload.meta;
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.incomingPhoneNumberSid = payload.incoming_phone_number_sid;
+    this.addressSid = payload.address_sid;
+    this.signingDocumentSid = payload.signing_document_sid;
+    this.phoneNumber = payload.phone_number;
+    this.capabilities = payload.capabilities;
+    this.friendlyName = payload.friendly_name;
+    this.uniqueName = payload.unique_name;
+    this.status = payload.status;
+    this.failureReason = payload.failure_reason;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.verificationAttempts = deserialize.integer(
+      payload.verification_attempts
+    );
+    this.email = payload.email;
+    this.ccEmails = payload.cc_emails;
+    this.verificationType = payload.verification_type;
+    this.verificationDocumentSid = payload.verification_document_sid;
+    this.extension = payload.extension;
+    this.callDelay = deserialize.integer(payload.call_delay);
+    this.verificationCode = payload.verification_code;
+    this.verificationCallSids = payload.verification_call_sids;
   }
 
-  items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
-  meta?: ListDeployedDevicesCertificateResponseMeta;
+  /**
+   * HostedNumberOrder sid.
+   */
+  sid?: string | null;
+  /**
+   * Account sid.
+   */
+  accountSid?: string | null;
+  /**
+   * IncomingPhoneNumber sid.
+   */
+  incomingPhoneNumberSid?: string | null;
+  /**
+   * Address sid.
+   */
+  addressSid?: string | null;
+  /**
+   * LOA document sid.
+   */
+  signingDocumentSid?: string | null;
+  /**
+   * An E164 formatted phone number.
+   */
+  phoneNumber?: string | null;
+  capabilities?: PhoneNumberCapabilities | null;
+  /**
+   * A human readable description of this resource.
+   */
+  friendlyName?: string | null;
+  /**
+   * A unique, developer assigned name of this HostedNumberOrder.
+   */
+  uniqueName?: string | null;
+  status?: DependentHostedNumberOrderStatus;
+  /**
+   * Why a hosted_number_order reached status \"action-required\"
+   */
+  failureReason?: string | null;
+  /**
+   * The date this HostedNumberOrder was created.
+   */
+  dateCreated?: Date | null;
+  /**
+   * The date this HostedNumberOrder was updated.
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The number of attempts made to verify ownership of the phone number.
+   */
+  verificationAttempts?: number | null;
+  /**
+   * Email.
+   */
+  email?: string | null;
+  /**
+   * A list of emails.
+   */
+  ccEmails?: Array<string> | null;
+  verificationType?: DependentHostedNumberOrderVerificationType;
+  /**
+   * Verification Document Sid.
+   */
+  verificationDocumentSid?: string | null;
+  /**
+   * Phone extension to use for ownership verification call.
+   */
+  extension?: string | null;
+  /**
+   * Seconds (0-30) to delay ownership verification call by.
+   */
+  callDelay?: number | null;
+  /**
+   * The digits passed during the ownership verification call.
+   */
+  verificationCode?: string | null;
+  /**
+   * List of IDs for ownership verification calls.
+   */
+  verificationCallSids?: Array<string> | null;
 
   /**
    * Provide a user-friendly representation
@@ -517,8 +547,28 @@ export class DependentHostedNumberOrderInstance {
    */
   toJSON() {
     return {
-      items: this.items,
-      meta: this.meta,
+      sid: this.sid,
+      accountSid: this.accountSid,
+      incomingPhoneNumberSid: this.incomingPhoneNumberSid,
+      addressSid: this.addressSid,
+      signingDocumentSid: this.signingDocumentSid,
+      phoneNumber: this.phoneNumber,
+      capabilities: this.capabilities,
+      friendlyName: this.friendlyName,
+      uniqueName: this.uniqueName,
+      status: this.status,
+      failureReason: this.failureReason,
+      dateCreated: this.dateCreated,
+      dateUpdated: this.dateUpdated,
+      verificationAttempts: this.verificationAttempts,
+      email: this.email,
+      ccEmails: this.ccEmails,
+      verificationType: this.verificationType,
+      verificationDocumentSid: this.verificationDocumentSid,
+      extension: this.extension,
+      callDelay: this.callDelay,
+      verificationCode: this.verificationCode,
+      verificationCallSids: this.verificationCallSids,
     };
   }
 
