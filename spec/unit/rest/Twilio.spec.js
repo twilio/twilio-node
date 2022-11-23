@@ -1,17 +1,38 @@
 "use strict";
 const nock = require("nock");
-const util = require("util");
-var moduleInfo = require("../../../package.json");
-var os = require("os");
-var url = require("url"); /* jshint ignore:line */
 
 describe("client", () => {
-  var client;
-  const twilio = require("../../../lib");
+  let client;
+  const Twilio = require("../../../lib");
+
+  describe("initializing", () => {
+    it("should use the first arg for the username as well", () => {
+      client = new Twilio("ACXXXXXXXX", "test-password");
+      expect(client.username).toEqual("ACXXXXXXXX");
+      expect(client.accountSid).toEqual("ACXXXXXXXX");
+    });
+
+    it("should use the first arg for the username as well and the option as the accountSid", () => {
+      client = new Twilio("SKXXXXXXXX", "test-password", {
+        accountSid: "ACXXXXXXXX",
+      });
+      expect(client.username).toEqual("SKXXXXXXXX");
+      expect(client.accountSid).toEqual("ACXXXXXXXX");
+    });
+
+    it("should throw given an invalid accountSid", () => {
+      expect(() => new Twilio("ADXXXXXXXX", "test-password")).toThrow(
+        "must start with"
+      );
+      expect(() => new Twilio("SKXXXXXXXX", "test-password")).toThrow(
+        "API Key"
+      );
+    });
+  });
 
   describe("setting region and edge", () => {
     beforeEach(() => {
-      client = new twilio("ACXXXXXXXX", "test-password");
+      client = new Twilio("ACXXXXXXXX", "test-password");
     });
     describe("setting the region", () => {
       it("should use no region or edge by default", () => {
@@ -112,7 +133,7 @@ describe("client", () => {
 
   describe("adding user agent extensions", () => {
     it("sets the user-agent by default", () => {
-      const client = new twilio("ACXXXXXXXX", "test-password");
+      const client = new Twilio("ACXXXXXXXX", "test-password");
       const scope = nock("https://api.twilio.com", {
         reqheaders: {
           "User-Agent":
@@ -127,7 +148,7 @@ describe("client", () => {
     });
 
     it("allows for user-agent extensions", () => {
-      const client = new twilio("ACXXXXXXXX", "test-password", {
+      const client = new Twilio("ACXXXXXXXX", "test-password", {
         userAgentExtensions: [
           "twilio-run/2.0.0-test",
           "@twilio-labs/plugin-serverless/1.1.0-test",
