@@ -43,6 +43,8 @@ Check out these [code examples](examples) in JavaScript and TypeScript to get up
 
 `twilio-node` supports credential storage in environment variables. If no credentials are provided when instantiating the Twilio client (e.g., `const client = require('twilio')();`), the values in following env vars will be used: `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`.
 
+Also take note that if you invoke any V2010 operations and do not set an account SID, the library will automatically use the `TWILIO_ACCOUNT_SID` value that the client was initialized with.
+
 If your environment requires SSL decryption, you can set the path to CA bundle in the env var `TWILIO_CA_BUNDLE`.
 
 ### Lazy Loading
