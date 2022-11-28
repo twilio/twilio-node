@@ -25,16 +25,6 @@ import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 
-/**
- * Indicate if a phone can receive calls or messages
- */
-export class ApiV2010AccountIncomingPhoneNumberCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
 type IncomingPhoneNumberAddressRequirement =
   | "none"
   | "any"

@@ -21,16 +21,6 @@ const serialize = require("../../../../../base/serialize");
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 /**
- * Whether a phone number can receive calls or messages
- */
-export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
-/**
  * Options to pass to each
  *
  * @property { number } [areaCode] The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.

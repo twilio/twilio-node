@@ -20,16 +20,6 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-/**
- * Indicate if a phone can receive calls or messages
- */
-export class ApiV2010AccountIncomingPhoneNumberCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
 type IncomingPhoneNumberTollFreeAddressRequirement =
   | "none"
   | "any"

@@ -21,16 +21,6 @@ const serialize = require("../../../../base/serialize");
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 /**
- * The capabilities of the short code
- */
-export class ProxyV1ServiceShortCodeCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
-/**
  * Options to pass to update a ShortCodeInstance
  *
  * @property { boolean } [isReserved] Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.

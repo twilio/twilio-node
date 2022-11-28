@@ -34,16 +34,6 @@ type HostedNumberOrderStatus =
 type HostedNumberOrderVerificationType = "phone-call" | "phone-bill";
 
 /**
- * A mapping of phone number capabilities.
- */
-export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
-/**
  * Options to pass to update a HostedNumberOrderInstance
  *
  * @property { string } [friendlyName] A 64 character string that is a human readable text that describes this resource.
