@@ -51,11 +51,11 @@ If you invoke any V2010 operations without specifying an account SID, `twilio-no
 ```javascript
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
-var subAccountSid = process.env.TWILIO_ACCOUNT_SUBACCOUNT_SID; // Your Subacount SID from www.twilio.com/console
+var subaccountSid = process.env.TWILIO_ACCOUNT_SUBACCOUNT_SID; // Your Subaccount SID from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken);
 const mainAccountCalls = client.api.v2010.account.calls.list; // SID not specified, so defaults to accountSid
-const subaccountCalls = client.api.v2010.account(subAccountSid).calls.list // SID specified as subAccountSid
+const subaccountCalls = client.api.v2010.account(subaccountSid).calls.list // SID specified as subaccountSid
 ```
 
 ### Lazy Loading
