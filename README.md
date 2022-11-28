@@ -43,9 +43,20 @@ Check out these [code examples](examples) in JavaScript and TypeScript to get up
 
 `twilio-node` supports credential storage in environment variables. If no credentials are provided when instantiating the Twilio client (e.g., `const client = require('twilio')();`), the values in following env vars will be used: `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`.
 
-Also take note that if you invoke any V2010 operations and do not set an account SID, the library will automatically use the `TWILIO_ACCOUNT_SID` value that the client was initialized with.
-
 If your environment requires SSL decryption, you can set the path to CA bundle in the env var `TWILIO_CA_BUNDLE`.
+
+### Client Initialization
+If you invoke any V2010 operations without specifying an account SID, `twilio-node` will automatically use the `TWILIO_ACCOUNT_SID` value that the client was initialized with. This is useful for when you'd like to, for example, fetch resources for your main account but also your subaccount. See below:
+
+```javascript
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+var subAccountSid = process.env.TWILIO_ACCOUNT_SUBACCOUNT_SID; // Your Subacount SID from www.twilio.com/console
+
+const client = require('twilio')(accountSid, authToken);
+const mainAccountCalls = client.api.v2010.account.calls.list; // SID not specified, so defaults to accountSid
+const subaccountCalls = client.api.v2010.account(subAccountSid).calls.list // SID specified as subAccountSid
+```
 
 ### Lazy Loading
 
