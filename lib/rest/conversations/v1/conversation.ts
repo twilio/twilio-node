@@ -42,12 +42,12 @@ export interface ConversationContextRemoveOptions {
  * @property { string } [friendlyName] The human-readable name of this conversation, limited to 256 characters. Optional.
  * @property { Date } [dateCreated] The date that this resource was created.
  * @property { Date } [dateUpdated] The date that this resource was last updated.
- * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @property { ConversationState } [state]
- * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
- * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL.
+ * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL.
  */
 export interface ConversationContextUpdateOptions {
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
@@ -67,14 +67,14 @@ export interface ConversationContextUpdateOptions {
  *
  * @property { ConversationWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] The human-readable name of this conversation, limited to 256 characters. Optional.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL.
  * @property { Date } [dateCreated] The date that this resource was created.
  * @property { Date } [dateUpdated] The date that this resource was last updated.
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
- * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @property { ConversationState } [state]
- * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute.
- * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes.
+ * @property { string } [timers.inactive] ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @property { string } [timers.closed] ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
  */
 export interface ConversationListInstanceCreateOptions {
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;

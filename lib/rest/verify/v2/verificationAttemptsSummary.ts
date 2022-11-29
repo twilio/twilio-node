@@ -30,7 +30,7 @@ type VerificationAttemptsSummaryChannels =
  * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  */
 export interface VerificationAttemptsSummaryContextFetchOptions {

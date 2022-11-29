@@ -25,7 +25,7 @@ type ServiceParticipantConversationState = "inactive" | "active" | "closed";
  * Options to pass to each
  *
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\&#39;s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
+ * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -52,7 +52,7 @@ export interface ParticipantConversationListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\&#39;s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
+ * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -70,7 +70,7 @@ export interface ParticipantConversationListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\&#39;s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
+ * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

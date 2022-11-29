@@ -20,7 +20,7 @@ const serialize = require("../../../base/serialize");
 /**
  * Options to pass to create a TokenInstance
  *
- * @property { string } grantType Grant type is a credential representing resource owner\\\&#39;s authorization which can be used by client to obtain access token.
+ * @property { string } grantType Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token.
  * @property { string } clientSid A 34 character string that uniquely identifies this OAuth App.
  * @property { string } [clientSecret] The credential for confidential OAuth App.
  * @property { string } [code] JWT token related to the authorization code grant type.

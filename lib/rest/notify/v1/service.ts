@@ -33,7 +33,7 @@ import { NotificationListInstance } from "./service/notification";
  * @property { string } [defaultGcmNotificationProtocolVersion] The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
  * @property { string } [fcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
  * @property { string } [defaultFcmNotificationProtocolVersion] The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { boolean } [logEnabled] Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+ * @property { boolean } [logEnabled] Whether to log notifications. Can be: `true` or `false` and the default is `true`.
  * @property { string } [alexaSkillId] Deprecated.
  * @property { string } [defaultAlexaNotificationProtocolVersion] Deprecated.
  * @property { string } [deliveryCallbackUrl] URL to send delivery status callback.
@@ -68,7 +68,7 @@ export interface ServiceContextUpdateOptions {
  * @property { string } [defaultGcmNotificationProtocolVersion] The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
  * @property { string } [fcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
  * @property { string } [defaultFcmNotificationProtocolVersion] The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { boolean } [logEnabled] Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+ * @property { boolean } [logEnabled] Whether to log notifications. Can be: `true` or `false` and the default is `true`.
  * @property { string } [alexaSkillId] Deprecated.
  * @property { string } [defaultAlexaNotificationProtocolVersion] Deprecated.
  * @property { string } [deliveryCallbackUrl] URL to send delivery status callback.

@@ -20,7 +20,7 @@ const serialize = require("../../../../base/serialize");
 /**
  * Options to pass to update a SettingsInstance
  *
- * @property { boolean } [dialingPermissionsInheritance] &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
+ * @property { boolean } [dialingPermissionsInheritance] `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
  */
 export interface SettingsContextUpdateOptions {
   dialingPermissionsInheritance?: boolean;

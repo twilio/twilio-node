@@ -25,12 +25,12 @@ import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
 /**
  * Options to pass to update a WorkflowInstance
  *
- * @property { string } [friendlyName] A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
+ * @property { string } [friendlyName] A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
  * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
- * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
+ * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the `assignment_callback_url` fails.
  * @property { string } [configuration] A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
- * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
- * @property { string } [reEvaluateTasks] Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
+ * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+ * @property { string } [reEvaluateTasks] Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
  */
 export interface WorkflowContextUpdateOptions {
   friendlyName?: string;
@@ -44,11 +44,11 @@ export interface WorkflowContextUpdateOptions {
 /**
  * Options to pass to create a WorkflowInstance
  *
- * @property { string } friendlyName A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
+ * @property { string } friendlyName A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
  * @property { string } configuration A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
  * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
- * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
- * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
+ * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the `assignment_callback_url` fails.
+ * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
  */
 export interface WorkflowListInstanceCreateOptions {
   friendlyName: string;
@@ -60,7 +60,7 @@ export interface WorkflowListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Workflow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -82,7 +82,7 @@ export interface WorkflowListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Workflow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -98,7 +98,7 @@ export interface WorkflowListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Workflow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

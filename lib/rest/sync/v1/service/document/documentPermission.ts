@@ -22,9 +22,9 @@ const serialize = require("../../../../../base/serialize");
 /**
  * Options to pass to update a DocumentPermissionInstance
  *
- * @property { boolean } read Whether the identity can read the Sync Document. Default value is &#x60;false&#x60;.
- * @property { boolean } write Whether the identity can update the Sync Document. Default value is &#x60;false&#x60;.
- * @property { boolean } manage Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
+ * @property { boolean } read Whether the identity can read the Sync Document. Default value is `false`.
+ * @property { boolean } write Whether the identity can update the Sync Document. Default value is `false`.
+ * @property { boolean } manage Whether the identity can delete the Sync Document. Default value is `false`.
  */
 export interface DocumentPermissionContextUpdateOptions {
   read: boolean;

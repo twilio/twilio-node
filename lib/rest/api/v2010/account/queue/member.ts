@@ -23,7 +23,7 @@ const serialize = require("../../../../../base/serialize");
  * Options to pass to update a MemberInstance
  *
  * @property { string } url The absolute URL of the Queue resource.
- * @property { string } [method] How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters.
+ * @property { string } [method] How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
  */
 export interface MemberContextUpdateOptions {
   url: string;

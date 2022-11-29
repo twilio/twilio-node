@@ -39,7 +39,7 @@ type InteractionChannelType =
  * Options to pass to update a InteractionChannelInstance
  *
  * @property { InteractionChannelStatus } status
- * @property { any } [routing] Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
+ * @property { any } [routing] Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
  */
 export interface InteractionChannelContextUpdateOptions {
   status: InteractionChannelStatus;

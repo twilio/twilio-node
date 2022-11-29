@@ -74,18 +74,18 @@ export interface HostedNumberOrderContextUpdateOptions {
  * Options to pass to create a HostedNumberOrderInstance
  *
  * @property { string } phoneNumber The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
- * @property { boolean } smsCapability Used to specify that the SMS capability will be hosted on Twilio\\\&#39;s platform.
+ * @property { boolean } smsCapability Used to specify that the SMS capability will be hosted on Twilio\\\'s platform.
  * @property { string } [accountSid] This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
  * @property { string } [friendlyName] A 64 character string that is a human readable text that describes this resource.
  * @property { string } [uniqueName] Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
  * @property { Array<string> } [ccEmails] Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
  * @property { string } [smsUrl] The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [smsMethod] The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource.
+ * @property { string } [smsMethod] The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
  * @property { string } [smsFallbackUrl] A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [smsFallbackMethod] The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource.
+ * @property { string } [smsFallbackMethod] The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
  * @property { string } [statusCallbackUrl] Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
  * @property { string } [statusCallbackMethod] Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
- * @property { string } [smsApplicationSid] Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+ * @property { string } [smsApplicationSid] Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
  * @property { string } [addressSid] Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
  * @property { string } [email] Optional. Email of the owner of this phone number that is being hosted.
  * @property { HostedNumberOrderVerificationType } [verificationType]
@@ -113,7 +113,7 @@ export interface HostedNumberOrderListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -146,7 +146,7 @@ export interface HostedNumberOrderListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -170,7 +170,7 @@ export interface HostedNumberOrderListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.

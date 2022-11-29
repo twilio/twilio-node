@@ -20,7 +20,7 @@ const serialize = require("../../../base/serialize");
 /**
  * Options to pass to update a ExportConfigurationInstance
  *
- * @property { boolean } [enabled] If true, Twilio will automatically generate every day\\\&#39;s file when the day is over.
+ * @property { boolean } [enabled] If true, Twilio will automatically generate every day\\\'s file when the day is over.
  * @property { string } [webhookUrl] Stores the URL destination for the method specified in webhook_method.
  * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */

@@ -37,9 +37,9 @@ export interface WebChannelContextUpdateOptions {
  *
  * @property { string } flexFlowSid The SID of the Flex Flow.
  * @property { string } identity The chat identity.
- * @property { string } customerFriendlyName The chat participant\\\&#39;s friendly name.
- * @property { string } chatFriendlyName The chat channel\\\&#39;s friendly name.
- * @property { string } [chatUniqueName] The chat channel\\\&#39;s unique name.
+ * @property { string } customerFriendlyName The chat participant\\\'s friendly name.
+ * @property { string } chatFriendlyName The chat channel\\\'s friendly name.
+ * @property { string } [chatUniqueName] The chat channel\\\'s unique name.
  * @property { string } [preEngagementData] The pre-engagement data.
  */
 export interface WebChannelListInstanceCreateOptions {

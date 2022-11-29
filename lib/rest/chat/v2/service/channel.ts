@@ -41,11 +41,11 @@ export interface ChannelContextRemoveOptions {
  *
  * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 256 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 256 characters or less in length and unique within the Service.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
  * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
- * @property { string } [createdBy] The &#x60;identity&#x60; of the User that created the channel. Default is: &#x60;system&#x60;.
+ * @property { string } [createdBy] The `identity` of the User that created the channel. Default is: `system`.
  */
 export interface ChannelContextUpdateOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
@@ -62,12 +62,12 @@ export interface ChannelContextUpdateOptions {
  *
  * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource\\\'s `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { ChannelChannelType } [type]
  * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
- * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is &#x60;null&#x60;. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
- * @property { string } [createdBy] The &#x60;identity&#x60; of the User that created the channel. Default is: &#x60;system&#x60;.
+ * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+ * @property { string } [createdBy] The `identity` of the User that created the channel. Default is: `system`.
  */
 export interface ChannelListInstanceCreateOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
@@ -82,7 +82,7 @@ export interface ChannelListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -104,7 +104,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -120,7 +120,7 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

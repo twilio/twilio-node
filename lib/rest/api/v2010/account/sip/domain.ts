@@ -26,14 +26,14 @@ import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControl
  * Options to pass to update a DomainInstance
  *
  * @property { string } [friendlyName] A descriptive string that you created to describe the resource. It can be up to 64 characters long.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML requested by &#x60;voice_url&#x60;.
- * @property { string } [voiceMethod] The HTTP method we should use to call &#x60;voice_url&#x60;
- * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+ * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+ * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`
+ * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
  * @property { string } [voiceStatusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
  * @property { string } [voiceUrl] The URL we should call when the domain receives a call.
- * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not.
- * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;.
+ * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+ * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
  * @property { boolean } [emergencyCallingEnabled] Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
  * @property { boolean } [secure] Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
  * @property { string } [byocTrunkSid] The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
@@ -58,15 +58,15 @@ export interface DomainContextUpdateOptions {
 /**
  * Options to pass to create a DomainInstance
  *
- * @property { string } domainName The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;.
+ * @property { string } domainName The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
  * @property { string } [friendlyName] A descriptive string that you created to describe the resource. It can be up to 64 characters long.
  * @property { string } [voiceUrl] The URL we should when the domain receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;voice_url&#x60;.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+ * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+ * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
  * @property { string } [voiceStatusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
- * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not.
+ * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+ * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
  * @property { boolean } [emergencyCallingEnabled] Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
  * @property { boolean } [secure] Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
  * @property { string } [byocTrunkSid] The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.

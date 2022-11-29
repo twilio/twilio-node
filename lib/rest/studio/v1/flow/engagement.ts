@@ -26,9 +26,9 @@ type EngagementStatus = "active" | "ended";
 /**
  * Options to pass to create a EngagementInstance
  *
- * @property { string } to The Contact phone number to start a Studio Flow Engagement, available as variable &#x60;{{contact.channel.address}}&#x60;.
- * @property { string } from The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable &#x60;{{flow.channel.address}}&#x60;
- * @property { any } [parameters] A JSON string we will add to your flow\\\&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&#39;name\\\&#39;:\\\&#39;Zeke\\\&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string \\\&#39;Zeke\\\&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+ * @property { string } to The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+ * @property { string } from The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+ * @property { any } [parameters] A JSON string we will add to your flow\\\'s context and that you can access as variables inside your flow. For example, if you pass in `Parameters={\\\'name\\\':\\\'Zeke\\\'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string \\\'Zeke\\\'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
  */
 export interface EngagementListInstanceCreateOptions {
   to: string;

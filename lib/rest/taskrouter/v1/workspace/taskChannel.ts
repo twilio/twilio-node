@@ -23,7 +23,7 @@ const serialize = require("../../../../base/serialize");
  * Options to pass to update a TaskChannelInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
- * @property { boolean } [channelOptimizedRouting] Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
+ * @property { boolean } [channelOptimizedRouting] Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelContextUpdateOptions {
   friendlyName?: string;
@@ -34,8 +34,8 @@ export interface TaskChannelContextUpdateOptions {
  * Options to pass to create a TaskChannelInstance
  *
  * @property { string } friendlyName A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
- * @property { string } uniqueName An application-defined string that uniquely identifies the Task Channel, such as &#x60;voice&#x60; or &#x60;sms&#x60;.
- * @property { boolean } [channelOptimizedRouting] Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
+ * @property { string } uniqueName An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+ * @property { boolean } [channelOptimizedRouting] Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
  */
 export interface TaskChannelListInstanceCreateOptions {
   friendlyName: string;

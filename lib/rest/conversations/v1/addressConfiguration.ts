@@ -32,11 +32,11 @@ type ConfigurationAddressType = "sms" | "whatsapp" | "messenger" | "gbm";
  * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
  * @property { ConfigurationAddressAutoCreationType } [autoCreation.type]
  * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreation.webhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
+ * @property { string } [autoCreation.webhookUrl] For type `webhook`, the url for the webhook request.
  * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod]
- * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
- * @property { string } [autoCreation.studioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreation.studioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
+ * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+ * @property { string } [autoCreation.studioFlowSid] For type `studio`, the studio flow SID where the webhook should be sent to.
+ * @property { number } [autoCreation.studioRetryCount] For type `studio`, number of times to retry the webhook request
  */
 export interface AddressConfigurationContextUpdateOptions {
   friendlyName?: string;
@@ -59,11 +59,11 @@ export interface AddressConfigurationContextUpdateOptions {
  * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
  * @property { ConfigurationAddressAutoCreationType } [autoCreation.type]
  * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreation.webhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
+ * @property { string } [autoCreation.webhookUrl] For type `webhook`, the url for the webhook request.
  * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod]
- * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
- * @property { string } [autoCreation.studioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreation.studioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
+ * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+ * @property { string } [autoCreation.studioFlowSid] For type `studio`, the studio flow SID where the webhook should be sent to.
+ * @property { number } [autoCreation.studioRetryCount] For type `studio`, number of times to retry the webhook request
  */
 export interface AddressConfigurationListInstanceCreateOptions {
   type: ConfigurationAddressType;
@@ -81,7 +81,7 @@ export interface AddressConfigurationListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: &#x60;whatsapp&#x60;, &#x60;sms&#x60;.
+ * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -106,7 +106,7 @@ export interface AddressConfigurationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: &#x60;whatsapp&#x60;, &#x60;sms&#x60;.
+ * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -122,7 +122,7 @@ export interface AddressConfigurationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: &#x60;whatsapp&#x60;, &#x60;sms&#x60;.
+ * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

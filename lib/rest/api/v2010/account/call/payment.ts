@@ -57,19 +57,19 @@ export interface PaymentContextUpdateOptions {
  * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
  * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
  * @property { PaymentsBankAccountType } [bankAccountType]
- * @property { number } [chargeAmount] A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with &#x60;currency&#x60; field. Leave blank or set to 0 to tokenize.
- * @property { string } [currency] The currency of the &#x60;charge_amount&#x60;, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is &#x60;USD&#x60; and all values allowed from the Pay Connector are accepted.
+ * @property { number } [chargeAmount] A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+ * @property { string } [currency] The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
  * @property { string } [description] The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
- * @property { string } [input] A list of inputs that should be accepted. Currently only &#x60;dtmf&#x60; is supported. All digits captured during a pay session are redacted from the logs.
- * @property { number } [minPostalCodeLength] A positive integer that is used to validate the length of the &#x60;PostalCode&#x60; inputted by the user. User must enter this many digits.
- * @property { any } [parameter] A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the &lt;Pay&gt; Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
- * @property { string } [paymentConnector] This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt; Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is &#x60;Default&#x60;.
+ * @property { string } [input] A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+ * @property { number } [minPostalCodeLength] A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+ * @property { any } [parameter] A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+ * @property { string } [paymentConnector] This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
  * @property { PaymentsPaymentMethod } [paymentMethod]
- * @property { boolean } [postalCode] Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;.
- * @property { boolean } [securityCode] Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;.
- * @property { number } [timeout] The number of seconds that &lt;Pay&gt; should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is &#x60;5&#x60;, maximum is &#x60;600&#x60;.
+ * @property { boolean } [postalCode] Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+ * @property { boolean } [securityCode] Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+ * @property { number } [timeout] The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
  * @property { PaymentsTokenType } [tokenType]
- * @property { string } [validCardTypes] Credit card types separated by space that Pay should accept. The default value is &#x60;visa mastercard amex&#x60;
+ * @property { string } [validCardTypes] Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
  */
 export interface PaymentListInstanceCreateOptions {
   idempotencyKey: string;

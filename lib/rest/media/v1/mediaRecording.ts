@@ -28,8 +28,8 @@ type MediaRecordingStatus = "processing" | "completed" | "deleted" | "failed";
 /**
  * Options to pass to each
  *
- * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -59,8 +59,8 @@ export interface MediaRecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -81,8 +81,8 @@ export interface MediaRecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.

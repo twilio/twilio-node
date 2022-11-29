@@ -28,7 +28,7 @@ type ChannelChannelType = "public" | "private";
  * Options to pass to update a ChannelInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface ChannelContextUpdateOptions {
@@ -41,7 +41,7 @@ export interface ChannelContextUpdateOptions {
  * Options to pass to create a ChannelInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { ChannelChannelType } [type]
  */
@@ -54,7 +54,7 @@ export interface ChannelListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -76,7 +76,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -92,7 +92,7 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

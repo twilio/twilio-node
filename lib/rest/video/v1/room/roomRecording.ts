@@ -30,8 +30,8 @@ type RoomRecordingType = "audio" | "video" | "data";
 /**
  * Options to pass to each
  *
- * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -58,8 +58,8 @@ export interface RoomRecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -80,8 +80,8 @@ export interface RoomRecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.

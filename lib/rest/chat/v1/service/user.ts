@@ -36,7 +36,7 @@ export interface UserContextUpdateOptions {
 /**
  * Options to pass to create a UserInstance
  *
- * @property { string } identity The &#x60;identity&#x60; value that uniquely identifies the new resource\\\&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details.
+ * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details.
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. This value is often used for display purposes.

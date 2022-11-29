@@ -38,7 +38,7 @@ export interface DocumentContextUpdateOptions {
  *
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the Sync Document
  * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\&#39;s time-to-live).
+ * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live).
  */
 export interface DocumentListInstanceCreateOptions {
   uniqueName?: string;

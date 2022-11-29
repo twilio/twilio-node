@@ -23,8 +23,8 @@ const serialize = require("../../../base/serialize");
  * Options to pass to each
  *
  * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \&#39;mobile country code\&#39; of a country. Network resources with this &#x60;mcc&#x60; in their &#x60;identifiers&#x60; will be read.
- * @property { string } [mnc] The \&#39;mobile network code\&#39; of a mobile operator network. Network resources with this &#x60;mnc&#x60; in their &#x60;identifiers&#x60; will be read.
+ * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
+ * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -49,8 +49,8 @@ export interface NetworkListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \&#39;mobile country code\&#39; of a country. Network resources with this &#x60;mcc&#x60; in their &#x60;identifiers&#x60; will be read.
- * @property { string } [mnc] The \&#39;mobile network code\&#39; of a mobile operator network. Network resources with this &#x60;mnc&#x60; in their &#x60;identifiers&#x60; will be read.
+ * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
+ * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -69,8 +69,8 @@ export interface NetworkListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \&#39;mobile country code\&#39; of a country. Network resources with this &#x60;mcc&#x60; in their &#x60;identifiers&#x60; will be read.
- * @property { string } [mnc] The \&#39;mobile network code\&#39; of a mobile operator network. Network resources with this &#x60;mnc&#x60; in their &#x60;identifiers&#x60; will be read.
+ * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
+ * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

@@ -25,9 +25,9 @@ const serialize = require("../../../../base/serialize");
  * @property { string } startDay The start day for the custom export specified as a string in the format of yyyy-mm-dd
  * @property { string } endDay The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
  * @property { string } friendlyName The friendly name specified when creating the job
- * @property { string } [webhookUrl] The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job\\\&#39;s status manually.
- * @property { string } [webhookMethod] This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied.
- * @property { string } [email] The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\&#39;s status.
+ * @property { string } [webhookUrl] The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job\\\'s status manually.
+ * @property { string } [webhookMethod] This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+ * @property { string } [email] The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\'s status.
  */
 export interface ExportCustomJobListInstanceCreateOptions {
   startDay: string;

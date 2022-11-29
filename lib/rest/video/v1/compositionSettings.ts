@@ -23,9 +23,9 @@ const serialize = require("../../../base/serialize");
  * @property { string } friendlyName A descriptive string that you create to describe the resource and show to the user in the console
  * @property { string } [awsCredentialsSid] The SID of the stored Credential resource.
  * @property { string } [encryptionKeySid] The SID of the Public Key resource to use for encryption.
- * @property { string } [awsS3Url] The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like &#x60;https://documentation-example-twilio-bucket/compositions&#x60;, where &#x60;compositions&#x60; is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the &lt;a href&#x3D;\\\&#39;https://tools.ietf.org/html/rfc3986#section-2\\\&#39;&gt;RFC 3986&lt;/a&gt;.
- * @property { boolean } [awsStorageEnabled] Whether all compositions should be written to the &#x60;aws_s3_url&#x60;. When &#x60;false&#x60;, all compositions are stored in our cloud.
- * @property { boolean } [encryptionEnabled] Whether all compositions should be stored in an encrypted form. The default is &#x60;false&#x60;.
+ * @property { string } [awsS3Url] The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>.
+ * @property { boolean } [awsStorageEnabled] Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+ * @property { boolean } [encryptionEnabled] Whether all compositions should be stored in an encrypted form. The default is `false`.
  */
 export interface CompositionSettingsContextCreateOptions {
   friendlyName: string;

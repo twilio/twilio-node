@@ -29,8 +29,8 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * @property { string } [city] The city of the address.
  * @property { string } [region] The state or region of the address.
  * @property { string } [postalCode] The postal code of the address.
- * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
- * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
+ * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the address. Can be: `true` or `false`.
+ * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
  */
 export interface AddressContextUpdateOptions {
   friendlyName?: string;
@@ -53,8 +53,8 @@ export interface AddressContextUpdateOptions {
  * @property { string } postalCode The postal code of the new address.
  * @property { string } isoCountry The ISO country code of the new address.
  * @property { string } [friendlyName] A descriptive string that you create to describe the new address. It can be up to 64 characters long.
- * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
- * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won\\\&#39;t alter the address you provide.
+ * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+ * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
  */
 export interface AddressListInstanceCreateOptions {
   customerName: string;
@@ -70,7 +70,7 @@ export interface AddressListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [customerName] The &#x60;customer_name&#x60; of the Address resources to read.
+ * @property { string } [customerName] The `customer_name` of the Address resources to read.
  * @property { string } [friendlyName] The string that identifies the Address resources to read.
  * @property { string } [isoCountry] The ISO country code of the Address resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -96,7 +96,7 @@ export interface AddressListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [customerName] The &#x60;customer_name&#x60; of the Address resources to read.
+ * @property { string } [customerName] The `customer_name` of the Address resources to read.
  * @property { string } [friendlyName] The string that identifies the Address resources to read.
  * @property { string } [isoCountry] The ISO country code of the Address resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -116,7 +116,7 @@ export interface AddressListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [customerName] The &#x60;customer_name&#x60; of the Address resources to read.
+ * @property { string } [customerName] The `customer_name` of the Address resources to read.
  * @property { string } [friendlyName] The string that identifies the Address resources to read.
  * @property { string } [isoCountry] The ISO country code of the Address resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.

@@ -30,13 +30,13 @@ type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
  *
  * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
  * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
- * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
+ * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
  * @property { string } [config.sdkVersion] The Verify Push SDK version used to configure the factor
  * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
  * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
  * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
  * @property { FactorTotpAlgorithms } [config.alg]
- * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+ * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
  */
 export interface FactorContextUpdateOptions {
   authPayload?: string;

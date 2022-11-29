@@ -30,7 +30,7 @@ type ServiceNumberSelectionBehavior = "avoid-sticky" | "prefer-sticky";
  * Options to pass to update a ServiceInstance
  *
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
- * @property { number } [defaultTtl] The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session\\\&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
+ * @property { number } [defaultTtl] The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\'s last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session\\\'s default TTL value by setting its `ttl` value.
  * @property { string } [callbackUrl] The URL we should call when the interaction status changes.
  * @property { ServiceGeoMatchLevel } [geoMatchLevel]
  * @property { ServiceNumberSelectionBehavior } [numberSelectionBehavior]
@@ -53,7 +53,7 @@ export interface ServiceContextUpdateOptions {
  * Options to pass to create a ServiceInstance
  *
  * @property { string } uniqueName An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
- * @property { number } [defaultTtl] The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session\\\&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
+ * @property { number } [defaultTtl] The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\'s last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session\\\'s default TTL value by setting its `ttl` value.
  * @property { string } [callbackUrl] The URL we should call when the interaction status changes.
  * @property { ServiceGeoMatchLevel } [geoMatchLevel]
  * @property { ServiceNumberSelectionBehavior } [numberSelectionBehavior]

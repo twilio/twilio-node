@@ -20,7 +20,7 @@ const serialize = require("../../../base/serialize");
 /**
  * Options to pass to fetch a BrandsInformationInstance
  *
- * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
+ * @property { string } [ifNoneMatch] Standard `If-None-Match` HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
  */
 export interface BrandsInformationContextFetchOptions {
   ifNoneMatch?: string;

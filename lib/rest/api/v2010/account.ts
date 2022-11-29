@@ -61,7 +61,7 @@ export interface AccountContextUpdateOptions {
 /**
  * Options to pass to create a AccountInstance
  *
- * @property { string } [friendlyName] A human readable description of the account to create, defaults to &#x60;SubAccount Created at {YYYY-MM-DD HH:MM meridian}&#x60;
+ * @property { string } [friendlyName] A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
  */
 export interface AccountListInstanceCreateOptions {
   friendlyName?: string;
@@ -70,7 +70,7 @@ export interface AccountListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -94,7 +94,7 @@ export interface AccountListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -112,7 +112,7 @@ export interface AccountListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

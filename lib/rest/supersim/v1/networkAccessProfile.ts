@@ -32,7 +32,7 @@ export interface NetworkAccessProfileContextUpdateOptions {
 /**
  * Options to pass to create a NetworkAccessProfileInstance
  *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL to address the resource.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
  * @property { Array<string> } [networks] List of Network SIDs that this Network Access Profile will allow connections to.
  */
 export interface NetworkAccessProfileListInstanceCreateOptions {

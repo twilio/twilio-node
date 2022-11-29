@@ -24,9 +24,9 @@ const serialize = require("../../../../base/serialize");
  *
  * @property { number } [weight] The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
  * @property { number } [priority] The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
- * @property { boolean } [enabled] Whether the URL is enabled. The default is &#x60;true&#x60;.
+ * @property { boolean } [enabled] Whether the URL is enabled. The default is `true`.
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [sipUrl] The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
+ * @property { string } [sipUrl] The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
  */
 export interface OriginationUrlContextUpdateOptions {
   weight?: number;
@@ -41,9 +41,9 @@ export interface OriginationUrlContextUpdateOptions {
  *
  * @property { number } weight The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
  * @property { number } priority The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
- * @property { boolean } enabled Whether the URL is enabled. The default is &#x60;true&#x60;.
+ * @property { boolean } enabled Whether the URL is enabled. The default is `true`.
  * @property { string } friendlyName A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } sipUrl The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
+ * @property { string } sipUrl The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
  */
 export interface OriginationUrlListInstanceCreateOptions {
   weight: number;

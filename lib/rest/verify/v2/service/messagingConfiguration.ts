@@ -31,7 +31,7 @@ export interface MessagingConfigurationContextUpdateOptions {
 /**
  * Options to pass to create a MessagingConfigurationInstance
  *
- * @property { string } country The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value &#x60;all&#x60;.
+ * @property { string } country The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
  * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationListInstanceCreateOptions {

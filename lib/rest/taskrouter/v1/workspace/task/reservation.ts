@@ -63,7 +63,7 @@ type TaskReservationSupervisorMode = "monitor" | "whisper" | "barge";
  * @property { string } [callRecord] Whether to record both legs of a call when executing a Call instruction or which leg to record.
  * @property { number } [callTimeout] Timeout for call when executing a Call instruction.
  * @property { string } [callTo] The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
- * @property { string } [callUrl] TwiML URI executed on answering the worker\\\&#39;s leg as a result of the Call instruction.
+ * @property { string } [callUrl] TwiML URI executed on answering the worker\\\'s leg as a result of the Call instruction.
  * @property { string } [callStatusCallbackUrl] The URL to call  for the completed call event when executing a Call instruction.
  * @property { boolean } [callAccept] Whether to accept a reservation when executing a Call instruction.
  * @property { string } [redirectCallSid] The Call SID of the call parked in the queue when executing a Redirect instruction.
@@ -71,30 +71,30 @@ type TaskReservationSupervisorMode = "monitor" | "whisper" | "barge";
  * @property { string } [redirectUrl] TwiML URI to redirect the call to when executing the Redirect instruction.
  * @property { string } [to] The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
  * @property { string } [from] The Caller ID of the call to the worker when executing a Conference instruction.
- * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
- * @property { Array<TaskReservationCallStatus> } [statusCallbackEvent] The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
+ * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
+ * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+ * @property { Array<TaskReservationCallStatus> } [statusCallbackEvent] The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
  * @property { number } [timeout] Timeout for call when executing a Conference instruction.
- * @property { boolean } [record] Whether to record the participant and their conferences, including the time between conferences. The default is &#x60;false&#x60;.
- * @property { boolean } [muted] Whether the agent is muted in the conference. The default is &#x60;false&#x60;.
- * @property { string } [beep] Whether to play a notification beep when the participant joins or when to play a beep. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;.
- * @property { boolean } [startConferenceOnEnter] Whether to start the conference when the participant joins, if it has not already started. The default is &#x60;true&#x60;. If &#x60;false&#x60; and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+ * @property { boolean } [record] Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+ * @property { boolean } [muted] Whether the agent is muted in the conference. The default is `false`.
+ * @property { string } [beep] Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+ * @property { boolean } [startConferenceOnEnter] Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
  * @property { boolean } [endConferenceOnExit] Whether to end the conference when the agent leaves.
- * @property { string } [waitUrl] The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
- * @property { string } [waitMethod] The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
- * @property { boolean } [earlyMedia] Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is &#x60;true&#x60;.
- * @property { number } [maxParticipants] The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
- * @property { string } [conferenceStatusCallback] The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored.
- * @property { string } [conferenceStatusCallbackMethod] The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { Array<TaskReservationConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
- * @property { string } [conferenceRecord] Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
- * @property { string } [conferenceTrim] How to trim the leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;.
- * @property { string } [recordingChannels] The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;.
- * @property { string } [recordingStatusCallback] The URL that we should call using the &#x60;recording_status_callback_method&#x60; when the recording status changes.
- * @property { string } [recordingStatusCallbackMethod] The HTTP method we should use when we call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [conferenceRecordingStatusCallback] The URL we should call using the &#x60;conference_recording_status_callback_method&#x60; when the conference recording is available.
- * @property { string } [conferenceRecordingStatusCallbackMethod] The HTTP method we should use to call &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [region] The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:&#x60;us1&#x60;, &#x60;ie1&#x60;, &#x60;de1&#x60;, &#x60;sg1&#x60;, &#x60;br1&#x60;, &#x60;au1&#x60;, or &#x60;jp1&#x60;.
+ * @property { string } [waitUrl] The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+ * @property { string } [waitMethod] The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+ * @property { boolean } [earlyMedia] Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+ * @property { number } [maxParticipants] The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+ * @property { string } [conferenceStatusCallback] The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+ * @property { string } [conferenceStatusCallbackMethod] The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+ * @property { Array<TaskReservationConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+ * @property { string } [conferenceRecord] Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+ * @property { string } [conferenceTrim] How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+ * @property { string } [recordingChannels] The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+ * @property { string } [recordingStatusCallback] The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+ * @property { string } [recordingStatusCallbackMethod] The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+ * @property { string } [conferenceRecordingStatusCallback] The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+ * @property { string } [conferenceRecordingStatusCallbackMethod] The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+ * @property { string } [region] The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
  * @property { string } [sipAuthUsername] The SIP username used for authentication.
  * @property { string } [sipAuthPassword] The SIP password for authentication.
  * @property { Array<string> } [dequeueStatusCallbackEvent] The Call progress events sent via webhooks as a result of a Dequeue instruction.
@@ -163,7 +163,7 @@ export interface ReservationContextUpdateOptions {
 /**
  * Options to pass to each
  *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
  * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -187,7 +187,7 @@ export interface ReservationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
  * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -205,7 +205,7 @@ export interface ReservationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
  * @property { string } [workerSid] The SID of the reserved Worker resource to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state

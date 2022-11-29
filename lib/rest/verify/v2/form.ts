@@ -22,7 +22,7 @@ type FormFormTypes = "form-push";
 /**
  * Options to pass to fetch a FormInstance
  *
- * @property { FormFormTypes } formType The Type of this Form. Currently only &#x60;form-push&#x60; is supported.
+ * @property { FormFormTypes } formType The Type of this Form. Currently only `form-push` is supported.
  */
 export interface FormContextFetchOptions {
   formType: FormFormTypes;

@@ -22,7 +22,7 @@ const serialize = require("../../../../base/serialize");
 /**
  * Options to pass to update a ActivityInstance
  *
- * @property { string } [friendlyName] A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: &#x60;on-call&#x60;, &#x60;break&#x60;, and &#x60;email&#x60;.
+ * @property { string } [friendlyName] A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
  */
 export interface ActivityContextUpdateOptions {
   friendlyName?: string;
@@ -31,8 +31,8 @@ export interface ActivityContextUpdateOptions {
 /**
  * Options to pass to create a ActivityInstance
  *
- * @property { string } friendlyName A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: &#x60;on-call&#x60;, &#x60;break&#x60;, and &#x60;email&#x60;.
- * @property { boolean } [available] Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of &#x60;true&#x60;, &#x60;1&#x60;, or &#x60;yes&#x60; specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+ * @property { string } friendlyName A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+ * @property { boolean } [available] Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
  */
 export interface ActivityListInstanceCreateOptions {
   friendlyName: string;
@@ -41,8 +41,8 @@ export interface ActivityListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of &#x60;true&#x60; returns only available activities. Values of \&#39;1\&#39; or &#x60;yes&#x60; also indicate &#x60;true&#x60;. All other values represent &#x60;false&#x60; and return activities that are unavailable.
+ * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
+ * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -65,8 +65,8 @@ export interface ActivityListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of &#x60;true&#x60; returns only available activities. Values of \&#39;1\&#39; or &#x60;yes&#x60; also indicate &#x60;true&#x60;. All other values represent &#x60;false&#x60; and return activities that are unavailable.
+ * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
+ * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -83,8 +83,8 @@ export interface ActivityListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of &#x60;true&#x60; returns only available activities. Values of \&#39;1\&#39; or &#x60;yes&#x60; also indicate &#x60;true&#x60;. All other values represent &#x60;false&#x60; and return activities that are unavailable.
+ * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
+ * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

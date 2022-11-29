@@ -24,9 +24,9 @@ const serialize = require("../../../../../base/serialize");
  * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
  * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @property { string } [taskQueueSid] The SID of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [friendlyName] Only include Workers with &#x60;friendly_name&#x60; values that match this parameter.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
+ * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
+ * @property { string } [friendlyName] Only include Workers with `friendly_name` values that match this parameter.
+ * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersStatisticsContextFetchOptions {
   minutes?: number;

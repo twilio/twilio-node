@@ -21,18 +21,18 @@ const serialize = require("../../../../../base/serialize");
  * Options to pass to update a NotificationInstance
  *
  * @property { boolean } [logEnabled] Weather the notification logging is enabled.
- * @property { boolean } [newMessage.enabled] Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessage.template] The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [newMessage.sound] The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessage.badgeCountEnabled] Whether the new message badge is enabled. The default is &#x60;false&#x60;.
- * @property { boolean } [addedToConversation.enabled] Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [addedToConversation.template] The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [addedToConversation.sound] The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [removedFromConversation.enabled] Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
- * @property { string } [removedFromConversation.template] The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { string } [removedFromConversation.sound] The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
- * @property { boolean } [newMessage.withMedia.enabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
- * @property { string } [newMessage.withMedia.template] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
+ * @property { boolean } [newMessage.enabled] Whether to send a notification when a new message is added to a conversation. The default is `false`.
+ * @property { string } [newMessage.template] The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @property { string } [newMessage.sound] The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @property { boolean } [newMessage.badgeCountEnabled] Whether the new message badge is enabled. The default is `false`.
+ * @property { boolean } [addedToConversation.enabled] Whether to send a notification when a participant is added to a conversation. The default is `false`.
+ * @property { string } [addedToConversation.template] The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @property { string } [addedToConversation.sound] The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @property { boolean } [removedFromConversation.enabled] Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+ * @property { string } [removedFromConversation.template] The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @property { string } [removedFromConversation.sound] The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @property { boolean } [newMessage.withMedia.enabled] Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+ * @property { string } [newMessage.withMedia.template] The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
  */
 export interface NotificationContextUpdateOptions {
   logEnabled?: boolean;
