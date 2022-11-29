@@ -21,16 +21,6 @@ const serialize = require("../../../../base/serialize");
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 /**
- * The capabilities of the phone number
- */
-export class ProxyV1ServicePhoneNumberCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
-/**
  * Options to pass to update a PhoneNumberInstance
  *
  * @property { boolean } [isReserved] Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.

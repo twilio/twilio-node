@@ -19,15 +19,6 @@ const serialize = require("../../../base/serialize");
 
 type FormFormTypes = "form-push";
 
-/**
- * Options to pass to fetch a FormInstance
- *
- * @property { FormFormTypes } formType The Type of this Form. Currently only `form-push` is supported.
- */
-export interface FormContextFetchOptions {
-  formType: FormFormTypes;
-}
-
 export interface FormContext {
   /**
    * Fetch a FormInstance
@@ -39,19 +30,6 @@ export interface FormContext {
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
   ): Promise<FormInstance>;
-  /**
-   * Fetch a FormInstance
-   *
-   * @param { FormContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FormInstance
-   */
-  fetch(
-    params: FormContextFetchOptions,
-    callback?: (error: Error | null, item?: FormInstance) => any
-  ): Promise<FormInstance>;
-  fetch(params?: any, callback?: any): Promise<FormInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -61,36 +39,23 @@ export interface FormContext {
 }
 
 export interface FormContextSolution {
-  formType?: FormEnumFormTypes;
+  formType?: FormFormTypes;
 }
 
 export class FormContextImpl implements FormContext {
   protected _solution: FormContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, formType: FormEnumFormTypes) {
+  constructor(protected _version: V2, formType: FormFormTypes) {
     this._solution = { formType };
     this._uri = `/Forms/${formType}`;
   }
 
-  fetch(params?: any, callback?: any): Promise<FormInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    let data: any = {};
-
-    const headers: any = {};
-
+  fetch(callback?: any): Promise<FormInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
         method: "get",
-        params: data,
-        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -135,7 +100,7 @@ export class FormInstance {
   constructor(
     protected _version: V2,
     payload: FormPayload,
-    formType?: FormEnumFormTypes
+    formType?: FormFormTypes
   ) {
     this.formType = payload.form_type;
     this.forms = payload.forms;
@@ -175,21 +140,8 @@ export class FormInstance {
    */
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
-  ): Promise<FormInstance>;
-  /**
-   * Fetch a FormInstance
-   *
-   * @param { FormContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FormInstance
-   */
-  fetch(
-    params: FormContextFetchOptions,
-    callback?: (error: Error | null, item?: FormInstance) => any
-  ): Promise<FormInstance>;
-  fetch(params?: any, callback?: any): Promise<FormInstance> {
-    return this._proxy.fetch(params, callback);
+  ): Promise<FormInstance> {
+    return this._proxy.fetch(callback);
   }
 
   /**
@@ -212,8 +164,8 @@ export class FormInstance {
 }
 
 export interface FormListInstance {
-  (formType: FormEnumFormTypes): FormContext;
-  get(formType: FormEnumFormTypes): FormContext;
+  (formType: FormFormTypes): FormContext;
+  get(formType: FormFormTypes): FormContext;
 
   /**
    * Provide a user-friendly representation
