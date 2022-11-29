@@ -24,7 +24,7 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
 /**
  * Options to pass to update a SyncMapInstance
  *
- * @property { number } [ttl] An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+ * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapContextUpdateOptions {
@@ -35,8 +35,8 @@ export interface SyncMapContextUpdateOptions {
 /**
  * Options to pass to create a SyncMapInstance
  *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
- * @property { number } [ttl] An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
+ * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
  * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapListInstanceCreateOptions {

@@ -45,7 +45,7 @@ type BrandRegistrationsStatus =
  *
  * @property { string } customerProfileBundleSid Customer Profile Bundle Sid.
  * @property { string } a2PProfileBundleSid A2P Messaging Profile Bundle Sid.
- * @property { string } [brandType] Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+ * @property { string } [brandType] Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
  * @property { boolean } [mock] A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
  * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */

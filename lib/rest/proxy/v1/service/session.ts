@@ -28,8 +28,8 @@ type SessionStatus = "open" | "in-progress" | "closed" | "failed" | "unknown";
 /**
  * Options to pass to update a SessionInstance
  *
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
+ * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+ * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
  * @property { SessionStatus } [status]
  */
 export interface SessionContextUpdateOptions {
@@ -42,8 +42,8 @@ export interface SessionContextUpdateOptions {
  * Options to pass to create a SessionInstance
  *
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
+ * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+ * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
  * @property { SessionMode } [mode]
  * @property { SessionStatus } [status]
  * @property { Array<any> } [participants] The Participant objects to include in the new session.

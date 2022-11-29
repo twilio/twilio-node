@@ -22,12 +22,12 @@ const serialize = require("../../../../base/serialize");
 /**
  * Options to pass to update a ShortCodeInstance
  *
- * @property { string } [friendlyName] A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the &#x60;FriendlyName&#x60; is the short code.
- * @property { string } [apiVersion] The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;.
+ * @property { string } [friendlyName] A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+ * @property { string } [apiVersion] The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
  * @property { string } [smsUrl] The URL we should call when receiving an incoming SMS message to this short code.
- * @property { string } [smsMethod] The HTTP method we should use when calling the &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { string } [smsFallbackUrl] The URL that we should call if an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;.
- * @property { string } [smsFallbackMethod] The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ * @property { string } [smsMethod] The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+ * @property { string } [smsFallbackUrl] The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+ * @property { string } [smsFallbackMethod] The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
  */
 export interface ShortCodeContextUpdateOptions {
   friendlyName?: string;
@@ -41,7 +41,7 @@ export interface ShortCodeContextUpdateOptions {
  * Options to pass to each
  *
  * @property { string } [friendlyName] The string that identifies the ShortCode resources to read.
- * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \&#39;*\&#39; as a wildcard for any digit.
+ * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \'*\' as a wildcard for any digit.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -65,7 +65,7 @@ export interface ShortCodeListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [friendlyName] The string that identifies the ShortCode resources to read.
- * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \&#39;*\&#39; as a wildcard for any digit.
+ * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \'*\' as a wildcard for any digit.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -83,7 +83,7 @@ export interface ShortCodeListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [friendlyName] The string that identifies the ShortCode resources to read.
- * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \&#39;*\&#39; as a wildcard for any digit.
+ * @property { string } [shortCode] Only show the ShortCode resources that match this pattern. You can specify partial numbers and use \'*\' as a wildcard for any digit.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

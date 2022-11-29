@@ -28,12 +28,12 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 /**
  * Options to pass to create a IpCommandInstance
  *
- * @property { string } sim The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+ * @property { string } sim The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
  * @property { string } payload The payload to be delivered to the device.
  * @property { number } devicePort The device port to which the IP Command will be sent.
  * @property { IpCommandPayloadType } [payloadType]
- * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; after we have sent the IP Command.
- * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;.
+ * @property { string } [callbackUrl] The URL we should call using the `callback_method` after we have sent the IP Command.
+ * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
  */
 export interface IpCommandListInstanceCreateOptions {
   sim: string;
@@ -48,8 +48,8 @@ export interface IpCommandListInstanceCreateOptions {
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
  * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+ * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -76,8 +76,8 @@ export interface IpCommandListInstanceEachOptions {
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
  * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+ * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -98,8 +98,8 @@ export interface IpCommandListInstanceOptions {
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
  * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+ * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

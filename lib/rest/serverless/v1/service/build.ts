@@ -29,7 +29,7 @@ type BuildStatus = "building" | "completed" | "failed";
  *
  * @property { Array<string> } [assetVersions] The list of Asset Version resource SIDs to include in the Build.
  * @property { Array<string> } [functionVersions] The list of the Function Version resource SIDs to include in the Build.
- * @property { string } [dependencies] A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency.
+ * @property { string } [dependencies] A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
  * @property { string } [runtime] The Runtime version that will be used to run the Build resource when it is deployed.
  */
 export interface BuildListInstanceCreateOptions {

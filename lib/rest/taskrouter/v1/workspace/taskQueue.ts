@@ -29,8 +29,8 @@ type TaskQueueTaskOrder = "FIFO" | "LIFO";
 /**
  * Options to pass to update a TaskQueueInstance
  *
- * @property { string } [friendlyName] A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
- * @property { string } [targetWorkers] A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example \\\&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;\\\&#39; If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+ * @property { string } [friendlyName] A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+ * @property { string } [targetWorkers] A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example \\\'\\\"language\\\" == \\\"spanish\\\"\\\' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned for them.
  * @property { number } [maxReservedWorkers] The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
@@ -48,8 +48,8 @@ export interface TaskQueueContextUpdateOptions {
 /**
  * Options to pass to create a TaskQueueInstance
  *
- * @property { string } friendlyName A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
- * @property { string } [targetWorkers] A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;\\\&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;\\\&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+ * @property { string } friendlyName A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+ * @property { string } [targetWorkers] A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `\\\'\\\"language\\\" == \\\"spanish\\\"\\\'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
  * @property { number } [maxReservedWorkers] The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
  * @property { TaskQueueTaskOrder } [taskOrder]
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
@@ -66,7 +66,7 @@ export interface TaskQueueListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
  * @property { string } [ordering] Sorting parameter for TaskQueues
@@ -94,7 +94,7 @@ export interface TaskQueueListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
  * @property { string } [ordering] Sorting parameter for TaskQueues
@@ -116,7 +116,7 @@ export interface TaskQueueListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
  * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
  * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
  * @property { string } [ordering] Sorting parameter for TaskQueues

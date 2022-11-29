@@ -30,7 +30,7 @@ type AuthorizationDocumentStatus =
 /**
  * Options to pass to update a AuthorizationDocumentInstance
  *
- * @property { Array<string> } [hostedNumberOrderSids] A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\&#39;s platform.
+ * @property { Array<string> } [hostedNumberOrderSids] A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform.
  * @property { string } [addressSid] A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
  * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
  * @property { Array<string> } [ccEmails] Email recipients who will be informed when an Authorization Document has been sent and signed
@@ -51,7 +51,7 @@ export interface AuthorizationDocumentContextUpdateOptions {
 /**
  * Options to pass to create a AuthorizationDocumentInstance
  *
- * @property { Array<string> } hostedNumberOrderSids A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\&#39;s platform.
+ * @property { Array<string> } hostedNumberOrderSids A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform.
  * @property { string } addressSid A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
  * @property { string } email Email that this AuthorizationDocument will be sent to for signing.
  * @property { string } contactTitle The title of the person authorized to sign the Authorization Document for this phone number.

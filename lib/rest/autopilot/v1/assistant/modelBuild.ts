@@ -29,7 +29,7 @@ type ModelBuildStatus =
 /**
  * Options to pass to update a ModelBuildInstance
  *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
  */
 export interface ModelBuildContextUpdateOptions {
   uniqueName?: string;
@@ -39,7 +39,7 @@ export interface ModelBuildContextUpdateOptions {
  * Options to pass to create a ModelBuildInstance
  *
  * @property { string } [statusCallback] The URL we should call using a POST method to send status information to your application.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
  */
 export interface ModelBuildListInstanceCreateOptions {
   statusCallback?: string;

@@ -58,8 +58,8 @@ type VideoRoomSummaryTwilioRealm =
 /**
  * Options to pass to each
  *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
@@ -88,8 +88,8 @@ export interface RoomListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
@@ -112,8 +112,8 @@ export interface RoomListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.

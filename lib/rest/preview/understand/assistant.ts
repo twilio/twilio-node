@@ -35,7 +35,7 @@ import { TaskListInstance } from "./assistant/task";
  * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  * @property { string } [callbackUrl] A user-provided URL to send event callbacks to.
  * @property { string } [callbackEvents] Space-separated list of callback events that will trigger callbacks.
- * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\&#39;s input is not recognized as matching any Task.
+ * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task.
  * @property { any } [initiationActions] The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
  * @property { any } [styleSheet] The JSON object that holds the style sheet for the assistant
  */
@@ -58,7 +58,7 @@ export interface AssistantContextUpdateOptions {
  * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  * @property { string } [callbackUrl] A user-provided URL to send event callbacks to.
  * @property { string } [callbackEvents] Space-separated list of callback events that will trigger callbacks.
- * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\&#39;s input is not recognized as matching any Task.
+ * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task.
  * @property { any } [initiationActions] The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
  * @property { any } [styleSheet] The JSON object that holds the style sheet for the assistant
  */

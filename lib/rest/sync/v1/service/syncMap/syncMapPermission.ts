@@ -22,9 +22,9 @@ const serialize = require("../../../../../base/serialize");
 /**
  * Options to pass to update a SyncMapPermissionInstance
  *
- * @property { boolean } read Whether the identity can read the Sync Map and its Items. Default value is &#x60;false&#x60;.
- * @property { boolean } write Whether the identity can create, update, and delete Items in the Sync Map. Default value is &#x60;false&#x60;.
- * @property { boolean } manage Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;.
+ * @property { boolean } read Whether the identity can read the Sync Map and its Items. Default value is `false`.
+ * @property { boolean } write Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
+ * @property { boolean } manage Whether the identity can delete the Sync Map. Default value is `false`.
  */
 export interface SyncMapPermissionContextUpdateOptions {
   read: boolean;

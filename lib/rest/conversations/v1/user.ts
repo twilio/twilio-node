@@ -36,7 +36,7 @@ export interface UserContextRemoveOptions {
  *
  * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
+ * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserContextUpdateOptions {
@@ -49,10 +49,10 @@ export interface UserContextUpdateOptions {
 /**
  * Options to pass to create a UserInstance
  *
- * @property { string } identity The application-defined string that uniquely identifies the resource\\\&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+ * @property { string } identity The application-defined string that uniquely identifies the resource\\\'s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
  * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
+ * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserListInstanceCreateOptions {

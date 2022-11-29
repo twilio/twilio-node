@@ -30,12 +30,12 @@ type RecordingType = "audio" | "video" | "data";
 /**
  * Options to pass to each
  *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
- * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
+ * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -62,12 +62,12 @@ export interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
- * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
+ * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -88,12 +88,12 @@ export interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
- * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
- * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+ * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
+ * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

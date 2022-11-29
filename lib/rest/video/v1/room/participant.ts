@@ -36,8 +36,8 @@ export interface ParticipantContextUpdateOptions {
 /**
  * Options to pass to each
  *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+ * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -64,8 +64,8 @@ export interface ParticipantListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+ * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -86,8 +86,8 @@ export interface ParticipantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+ * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.

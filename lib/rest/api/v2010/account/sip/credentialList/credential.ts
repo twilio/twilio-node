@@ -22,7 +22,7 @@ const serialize = require("../../../../../../base/serialize");
 /**
  * Options to pass to update a CredentialInstance
  *
- * @property { string } [password] The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
+ * @property { string } [password] The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
  */
 export interface CredentialContextUpdateOptions {
   password?: string;
@@ -31,8 +31,8 @@ export interface CredentialContextUpdateOptions {
 /**
  * Options to pass to create a CredentialInstance
  *
- * @property { string } username The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio\\\&#39;s challenge of the initial INVITE. It can be up to 32 characters long.
- * @property { string } password The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
+ * @property { string } username The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio\\\'s challenge of the initial INVITE. It can be up to 32 characters long.
+ * @property { string } password The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
  */
 export interface CredentialListInstanceCreateOptions {
   username: string;

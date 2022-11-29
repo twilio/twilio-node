@@ -50,7 +50,7 @@ export interface SinkListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status &#x60;initialized&#x60;, &#x60;validating&#x60;, &#x60;active&#x60; or &#x60;failed&#x60;.
+ * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -74,7 +74,7 @@ export interface SinkListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status &#x60;initialized&#x60;, &#x60;validating&#x60;, &#x60;active&#x60; or &#x60;failed&#x60;.
+ * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -92,7 +92,7 @@ export interface SinkListInstanceOptions {
  * Options to pass to page
  *
  * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status &#x60;initialized&#x60;, &#x60;validating&#x60;, &#x60;active&#x60; or &#x60;failed&#x60;.
+ * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

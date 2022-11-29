@@ -49,7 +49,7 @@ export interface WebhookContextUpdateOptions {
  * @property { Array<string> } [configuration.filters] The list of events, firing webhook event for this Conversation.
  * @property { Array<string> } [configuration.triggers] The list of keywords, firing webhook event for this Conversation.
  * @property { string } [configuration.flowSid] The studio flow SID, where the webhook should be sent to.
- * @property { number } [configuration.replayAfter] The message index for which and it\\\&#39;s successors the webhook will be replayed. Not set by default
+ * @property { number } [configuration.replayAfter] The message index for which and it\\\'s successors the webhook will be replayed. Not set by default
  */
 export interface WebhookListInstanceCreateOptions {
   target: ServiceConversationScopedWebhookTarget;

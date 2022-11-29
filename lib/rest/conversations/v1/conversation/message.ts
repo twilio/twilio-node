@@ -37,11 +37,11 @@ export interface MessageContextRemoveOptions {
  * Options to pass to update a MessageInstance
  *
  * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
+ * @property { string } [author] The channel specific identifier of the message\\\'s author. Defaults to `system`.
  * @property { string } [body] The content of the message, can be up to 1,600 characters long.
  * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
- * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ * @property { Date } [dateUpdated] The date that this resource was last updated. `null` if the message has not been edited.
+ * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  */
 export interface MessageContextUpdateOptions {
   xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
@@ -56,11 +56,11 @@ export interface MessageContextUpdateOptions {
  * Options to pass to create a MessageInstance
  *
  * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
+ * @property { string } [author] The channel specific identifier of the message\\\'s author. Defaults to `system`.
  * @property { string } [body] The content of the message, can be up to 1,600 characters long.
  * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
- * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ * @property { Date } [dateUpdated] The date that this resource was last updated. `null` if the message has not been edited.
+ * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @property { string } [mediaSid] The Media SID to be attached to the new Message.
  */
 export interface MessageListInstanceCreateOptions {
@@ -75,7 +75,7 @@ export interface MessageListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -97,7 +97,7 @@ export interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -113,7 +113,7 @@ export interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

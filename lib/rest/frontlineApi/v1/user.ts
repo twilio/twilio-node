@@ -25,7 +25,7 @@ type UserStateType = "active" | "deactivated";
  * @property { string } [friendlyName] The string that you assigned to describe the User.
  * @property { string } [avatar] The avatar URL which will be shown in Frontline application.
  * @property { UserStateType } [state]
- * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+ * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserContextUpdateOptions {
   friendlyName?: string;

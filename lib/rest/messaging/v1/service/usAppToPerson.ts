@@ -24,7 +24,7 @@ const serialize = require("../../../../base/serialize");
  *
  * @property { string } brandRegistrationSid A2P Brand Registration SID
  * @property { string } description A short description of what this SMS campaign does.
- * @property { Array<string> } messageSamples Message samples, at least 2 and up to 5 sample messages, &lt;&#x3D;1024 chars each.
+ * @property { Array<string> } messageSamples Message samples, at least 2 and up to 5 sample messages, <=1024 chars each.
  * @property { string } usAppToPersonUsecase A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
  * @property { boolean } hasEmbeddedLinks Indicates that this SMS campaign will send messages that contain links.
  * @property { boolean } hasEmbeddedPhone Indicates that this SMS campaign will send messages that contain phone numbers.

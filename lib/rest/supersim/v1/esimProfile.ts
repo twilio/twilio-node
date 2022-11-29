@@ -30,8 +30,8 @@ type EsimProfileStatus =
 /**
  * Options to pass to create a EsimProfileInstance
  *
- * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from &#x60;reserving&#x60; to &#x60;available&#x60;.
- * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
+ * @property { string } [callbackUrl] The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
+ * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
  * @property { string } [eid] Identifier of the eUICC that will claim the eSIM Profile.
  */
 export interface EsimProfileListInstanceCreateOptions {

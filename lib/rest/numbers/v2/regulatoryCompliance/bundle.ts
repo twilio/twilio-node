@@ -59,9 +59,9 @@ export interface BundleContextUpdateOptions {
  * @property { string } email The email address that will receive updates when the Bundle resource changes status.
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [regulationSid] The unique string of a regulation that is associated to the Bundle resource.
- * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\&#39;s phone number country ownership request.
+ * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\'s phone number country ownership request.
  * @property { BundleEndUserType } [endUserType]
- * @property { string } [numberType] The type of phone number of the Bundle\\\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
+ * @property { string } [numberType] The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
  */
 export interface BundleListInstanceCreateOptions {
   friendlyName: string;
@@ -78,14 +78,14 @@ export interface BundleListInstanceCreateOptions {
  * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
+ * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
+ * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
- * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
+ * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -120,14 +120,14 @@ export interface BundleListInstanceEachOptions {
  * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
+ * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
+ * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
- * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
+ * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -156,14 +156,14 @@ export interface BundleListInstanceOptions {
  * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
+ * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
+ * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
- * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
+ * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+ * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

@@ -28,7 +28,7 @@ type SettingsUpdateStatus =
 /**
  * Options to pass to each
  *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\&#39;s SID or UniqueName.
+ * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -53,7 +53,7 @@ export interface SettingsUpdateListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\&#39;s SID or UniqueName.
+ * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -69,7 +69,7 @@ export interface SettingsUpdateListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\&#39;s SID or UniqueName.
+ * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

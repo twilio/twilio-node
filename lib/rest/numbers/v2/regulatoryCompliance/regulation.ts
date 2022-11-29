@@ -24,8 +24,8 @@ type RegulationEndUserType = "individual" | "business";
 /**
  * Options to pass to each
  *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
- * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
+ * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -50,8 +50,8 @@ export interface RegulationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
- * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
+ * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -70,8 +70,8 @@ export interface RegulationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
- * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
+ * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state

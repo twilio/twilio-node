@@ -23,13 +23,13 @@ const serialize = require("../../../base/serialize");
  * Options to pass to create a ChannelInstance
  *
  * @property { string } flexFlowSid The SID of the Flex Flow.
- * @property { string } identity The &#x60;identity&#x60; value that uniquely identifies the new resource\\\&#39;s chat User.
- * @property { string } chatUserFriendlyName The chat participant\\\&#39;s friendly name.
- * @property { string } chatFriendlyName The chat channel\\\&#39;s friendly name.
+ * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s chat User.
+ * @property { string } chatUserFriendlyName The chat participant\\\'s friendly name.
+ * @property { string } chatFriendlyName The chat channel\\\'s friendly name.
  * @property { string } [target] The Target Contact Identity, for example the phone number of an SMS.
- * @property { string } [chatUniqueName] The chat channel\\\&#39;s unique name.
+ * @property { string } [chatUniqueName] The chat channel\\\'s unique name.
  * @property { string } [preEngagementData] The pre-engagement data.
- * @property { string } [taskSid] The SID of the TaskRouter Task. Only valid when integration type is &#x60;task&#x60;. &#x60;null&#x60; for integration types &#x60;studio&#x60; &amp; &#x60;external&#x60;
+ * @property { string } [taskSid] The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
  * @property { string } [taskAttributes] The Task attributes to be added for the TaskRouter Task.
  * @property { boolean } [longLived] Whether to create the channel as long-lived.
  */

@@ -23,7 +23,7 @@ const serialize = require("../../../../base/serialize");
  * Options to pass to update a QueryInstance
  *
  * @property { string } [sampleSid] The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
- * @property { string } [status] The new status of the resource. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+ * @property { string } [status] The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
  */
 export interface QueryContextUpdateOptions {
   sampleSid?: string;
@@ -33,9 +33,9 @@ export interface QueryContextUpdateOptions {
 /**
  * Options to pass to create a QueryInstance
  *
- * @property { string } language The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: &#x60;en-US&#x60;.
- * @property { string } query The end-user\\\&#39;s natural language input. It can be up to 2048 characters long.
- * @property { string } [tasks] The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task &#x60;unique_name&#x60; values. For example, &#x60;task-unique_name-1, task-unique_name-2&#x60;. Listing specific tasks is useful to constrain the paths that a user can take.
+ * @property { string } language The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+ * @property { string } query The end-user\\\'s natural language input. It can be up to 2048 characters long.
+ * @property { string } [tasks] The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
  * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
  */
 export interface QueryListInstanceCreateOptions {
@@ -47,9 +47,9 @@ export interface QueryListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: &#x60;en-US&#x60;.
+ * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
  * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+ * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
  * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -75,9 +75,9 @@ export interface QueryListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: &#x60;en-US&#x60;.
+ * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
  * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+ * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
  * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -97,9 +97,9 @@ export interface QueryListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: &#x60;en-US&#x60;.
+ * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
  * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: &#x60;pending-review&#x60;, &#x60;reviewed&#x60;, or &#x60;discarded&#x60;
+ * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
  * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state

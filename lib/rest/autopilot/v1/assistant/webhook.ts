@@ -22,10 +22,10 @@ const serialize = require("../../../../base/serialize");
 /**
  * Options to pass to update a WebhookInstance
  *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
  * @property { string } [events] The list of space-separated events that this Webhook will subscribe to.
  * @property { string } [webhookUrl] The URL associated with this Webhook.
- * @property { string } [webhookMethod] The method to be used when calling the webhook\\\&#39;s URL.
+ * @property { string } [webhookMethod] The method to be used when calling the webhook\\\'s URL.
  */
 export interface WebhookContextUpdateOptions {
   uniqueName?: string;
@@ -37,10 +37,10 @@ export interface WebhookContextUpdateOptions {
 /**
  * Options to pass to create a WebhookInstance
  *
- * @property { string } uniqueName An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+ * @property { string } uniqueName An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
  * @property { string } events The list of space-separated events that this Webhook will subscribe to.
  * @property { string } webhookUrl The URL associated with this Webhook.
- * @property { string } [webhookMethod] The method to be used when calling the webhook\\\&#39;s URL.
+ * @property { string } [webhookMethod] The method to be used when calling the webhook\\\'s URL.
  */
 export interface WebhookListInstanceCreateOptions {
   uniqueName: string;

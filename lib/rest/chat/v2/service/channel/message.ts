@@ -36,12 +36,12 @@ export interface MessageContextRemoveOptions {
  * Options to pass to update a MessageInstance
  *
  * @property { MessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [body] The message to send to the channel. Can be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+ * @property { string } [body] The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat\\\&#39;s history is being recreated from a backup/separate source.
+ * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat\\\'s history is being recreated from a backup/separate source.
  * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
  * @property { string } [lastUpdatedBy] The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
- * @property { string } [from] The [Identity](https://www.twilio.com/docs/chat/identity) of the message\\\&#39;s author.
+ * @property { string } [from] The [Identity](https://www.twilio.com/docs/chat/identity) of the message\\\'s author.
  */
 export interface MessageContextUpdateOptions {
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
@@ -57,12 +57,12 @@ export interface MessageContextUpdateOptions {
  * Options to pass to create a MessageInstance
  *
  * @property { MessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [from] The [Identity](https://www.twilio.com/docs/chat/identity) of the new message\\\&#39;s author. The default value is &#x60;system&#x60;.
+ * @property { string } [from] The [Identity](https://www.twilio.com/docs/chat/identity) of the new message\\\'s author. The default value is `system`.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat\\\&#39;s history is being recreated from a backup/separate source.
+ * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat\\\'s history is being recreated from a backup/separate source.
  * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
  * @property { string } [lastUpdatedBy] The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
- * @property { string } [body] The message to send to the channel. Can be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+ * @property { string } [body] The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
  * @property { string } [mediaSid] The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
  */
 export interface MessageListInstanceCreateOptions {
@@ -78,7 +78,7 @@ export interface MessageListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default.
+ * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -100,7 +100,7 @@ export interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default.
+ * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -116,7 +116,7 @@ export interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default.
+ * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

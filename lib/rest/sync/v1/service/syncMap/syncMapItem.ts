@@ -37,9 +37,9 @@ export interface SyncMapItemContextRemoveOptions {
  *
  * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+ * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
  * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\&#39;s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item\\\&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
+ * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item\\\'s `data` or `ttl` is updated in the same request.
  */
 export interface SyncMapItemContextUpdateOptions {
   ifMatch?: string;
@@ -54,9 +54,9 @@ export interface SyncMapItemContextUpdateOptions {
  *
  * @property { string } key The unique, user-defined key for the Map Item. Can be up to 320 characters long.
  * @property { any } data A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+ * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
  * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\&#39;s parent Sync Map expires (time-to-live) and is deleted.
+ * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapItemListInstanceCreateOptions {
   key: string;
@@ -68,9 +68,9 @@ export interface SyncMapItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+ * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
+ * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -94,9 +94,9 @@ export interface SyncMapItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+ * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
+ * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -114,9 +114,9 @@ export interface SyncMapItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+ * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
+ * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

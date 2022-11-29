@@ -23,7 +23,7 @@ const serialize = require("../../../../../base/serialize");
  * Options to pass to update a WorkerChannelInstance
  *
  * @property { number } [capacity] The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
- * @property { boolean } [available] Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+ * @property { boolean } [available] Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
  */
 export interface WorkerChannelContextUpdateOptions {
   capacity?: number;

@@ -29,7 +29,7 @@ type WebhookVersion = "v1" | "v2";
  * Options to pass to update a WebhookInstance
  *
  * @property { string } [friendlyName] The string that you assigned to describe the webhook. **This value should not contain PII.**
- * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
+ * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
  * @property { string } [webhookUrl] The URL associated with this Webhook.
  * @property { WebhookStatus } [status]
  * @property { WebhookVersion } [version]
@@ -46,7 +46,7 @@ export interface WebhookContextUpdateOptions {
  * Options to pass to create a WebhookInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the webhook. **This value should not contain PII.**
- * @property { Array<string> } eventTypes The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
+ * @property { Array<string> } eventTypes The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
  * @property { string } webhookUrl The URL associated with this Webhook.
  * @property { WebhookStatus } [status]
  * @property { WebhookVersion } [version]

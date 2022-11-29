@@ -21,8 +21,8 @@ import { InteractionChannelListInstance } from "./interaction/interactionChannel
 /**
  * Options to pass to create a InteractionInstance
  *
- * @property { any } channel The Interaction\\\&#39;s channel.
- * @property { any } routing The Interaction\\\&#39;s routing logic.
+ * @property { any } channel The Interaction\\\'s channel.
+ * @property { any } routing The Interaction\\\'s routing logic.
  */
 export interface InteractionListInstanceCreateOptions {
   channel: any;

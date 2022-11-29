@@ -22,7 +22,7 @@ const serialize = require("../../../../../base/serialize");
 /**
  * Options to pass to create a InteractionChannelInviteInstance
  *
- * @property { any } routing The Interaction\\\&#39;s routing logic.
+ * @property { any } routing The Interaction\\\'s routing logic.
  */
 export interface InteractionChannelInviteListInstanceCreateOptions {
   routing: any;

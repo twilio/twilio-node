@@ -26,12 +26,12 @@ type ConnectAppPermission = "get-all" | "post-all";
  *
  * @property { string } [authorizeRedirectUrl] The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
  * @property { string } [companyName] The company name to set for the Connect App.
- * @property { string } [deauthorizeCallbackMethod] The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;.
- * @property { string } [deauthorizeCallbackUrl] The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App.
+ * @property { string } [deauthorizeCallbackMethod] The HTTP method to use when calling `deauthorize_callback_url`.
+ * @property { string } [deauthorizeCallbackUrl] The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
  * @property { string } [description] A description of the Connect App.
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  * @property { string } [homepageUrl] A public URL where users can obtain more information about this Connect App.
- * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
+ * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
  */
 export interface ConnectAppContextUpdateOptions {
   authorizeRedirectUrl?: string;

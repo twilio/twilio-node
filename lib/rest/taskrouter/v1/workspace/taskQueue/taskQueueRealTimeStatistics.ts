@@ -20,7 +20,7 @@ const serialize = require("../../../../../base/serialize");
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
  *
- * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
+ * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface TaskQueueRealTimeStatisticsContextFetchOptions {
   taskChannel?: string;

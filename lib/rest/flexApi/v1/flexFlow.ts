@@ -35,20 +35,20 @@ type FlexFlowIntegrationType = "studio" | "external" | "task";
  * @property { string } [friendlyName] A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } [chatServiceSid] The SID of the chat service.
  * @property { FlexFlowChannelType } [channelType]
- * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
+ * @property { string } [contactIdentity] The channel contact\\\'s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
  * @property { FlexFlowIntegrationType } [integrationType]
- * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
- * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
- * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
- * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @property { string } [integration.url] The URL of the external webhook. Required when `integrationType` is `external`.
+ * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+ * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
  * @property { boolean } [integration.creationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to &#x60;false&#x60;.
- * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to &#x60;false&#x60;.
- * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
+ * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+ * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+ * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
  */
 export interface FlexFlowContextUpdateOptions {
   friendlyName?: string;
@@ -76,20 +76,20 @@ export interface FlexFlowContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } chatServiceSid The SID of the chat service.
  * @property { FlexFlowChannelType } channelType
- * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
+ * @property { string } [contactIdentity] The channel contact\\\'s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
  * @property { FlexFlowIntegrationType } [integrationType]
- * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
- * @property { string } [integration.url] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
- * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
- * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
- * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
- * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+ * @property { string } [integration.flowSid] The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @property { string } [integration.url] The URL of the external webhook. Required when `integrationType` is `external`.
+ * @property { string } [integration.workspaceSid] The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @property { string } [integration.workflowSid] The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @property { string } [integration.channel] The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+ * @property { number } [integration.timeout] The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @property { number } [integration.priority] The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
  * @property { boolean } [integration.creationOnMessage] In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to &#x60;false&#x60;.
- * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to &#x60;false&#x60;.
- * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
+ * @property { boolean } [longLived] When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+ * @property { boolean } [janitorEnabled] When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+ * @property { number } [integration.retryCount] The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
  */
 export interface FlexFlowListInstanceCreateOptions {
   friendlyName: string;
@@ -113,7 +113,7 @@ export interface FlexFlowListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Flex Flow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -135,7 +135,7 @@ export interface FlexFlowListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Flex Flow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -151,7 +151,7 @@ export interface FlexFlowListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [friendlyName] The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
+ * @property { string } [friendlyName] The `friendly_name` of the Flex Flow resources to read.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API

@@ -45,7 +45,7 @@ type TollfreeVerificationStatus =
  * @property { TollfreeVerificationOptInType } optInType
  * @property { string } messageVolume Estimate monthly volume of messages from the Tollfree Number.
  * @property { string } tollfreePhoneNumberSid The SID of the Phone Number associated with the Tollfree Verification.
- * @property { string } [customerProfileSid] Customer\\\&#39;s Profile Bundle BundleSid.
+ * @property { string } [customerProfileSid] Customer\\\'s Profile Bundle BundleSid.
  * @property { string } [businessStreetAddress] The address of the business or organization using the Tollfree number.
  * @property { string } [businessStreetAddress2] The address of the business or organization using the Tollfree number.
  * @property { string } [businessCity] The city of the business or organization using the Tollfree number.
