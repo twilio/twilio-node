@@ -1,8 +1,4 @@
-import {
-  AccountContext,
-  AccountContextImpl,
-  AccountListInstance,
-} from "./api/v2010/account";
+import { AccountContext, AccountListInstance } from "./api/v2010/account";
 import { AddressListInstance } from "./api/v2010/account/address";
 import { ApplicationListInstance } from "./api/v2010/account/application";
 import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
@@ -22,7 +18,7 @@ import { QueueListInstance } from "./api/v2010/account/queue";
 import { RecordingListInstance } from "./api/v2010/account/recording";
 import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
 import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
-import { SIPListInstance } from "./api/v2010/account/sip";
+import { SipListInstance } from "./api/v2010/account/sip";
 import { TokenListInstance } from "./api/v2010/account/token";
 import { TranscriptionListInstance } from "./api/v2010/account/transcription";
 import { UsageListInstance } from "./api/v2010/account/usage";
@@ -199,7 +195,7 @@ class Api extends ApiBase {
   /**
    * @deprecated - Use account.sip instead
    */
-  get sip(): SIPListInstance {
+  get sip(): SipListInstance {
     console.warn("sip is deprecated. Use account.sip instead.");
     return this.account.sip;
   }
