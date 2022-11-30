@@ -22,19 +22,18 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Cps', function() {
+describe('Assessments', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
-  it('should generate valid fetch request',
+  it('should generate valid create request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'xXcnamSensitivePhoneNumber': 'x_xcnam_sensitive_phone_number'};
-      var promise = client.preview.trusted_comms.cps().fetch(opts);
+      var promise = client.flexApi.v1.assessments().create();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,27 +41,23 @@ describe('Cps', function() {
         done();
       }).done();
 
-      var url = 'https://preview.twilio.com/TrustedComms/CPS';
+      var url = 'https://flex-api.twilio.com/v1/Accounts/Assessments';
 
-      var headers = {'X-Xcnam-Sensitive-Phone-Number': 'x_xcnam_sensitive_phone_number'};
       holodeck.assertHasRequest(new Request({
-        method: 'GET',
-        url: url,
-        headers: headers
+        method: 'POST',
+        url: url
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid create response',
     function(done) {
       var body = {
-          'cps_url': 'https://preview.twilio.com/TrustedComms/CurrentCall',
-          'phone_number': '+1500123',
-          'url': 'https://preview.twilio.com/TrustedComms/CPS'
+          'url': 'https://flex-api.twilio.com/v1/Accounts/Assessments'
       };
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.trusted_comms.cps().fetch();
+      var promise = client.flexApi.v1.assessments().create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

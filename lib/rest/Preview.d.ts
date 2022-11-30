@@ -10,18 +10,13 @@ import Domain = require('../base/Domain');
 import HostedNumbers = require('./preview/HostedNumbers');
 import Marketplace = require('./preview/Marketplace');
 import Sync = require('./preview/Sync');
-import TrustedComms = require('./preview/TrustedComms');
 import Twilio = require('./Twilio');
 import Understand = require('./preview/Understand');
 import Wireless = require('./preview/Wireless');
 import { AssistantListInstance } from './preview/understand/assistant';
 import { AuthorizationDocumentListInstance } from './preview/hosted_numbers/authorizationDocument';
 import { AvailableAddOnListInstance } from './preview/marketplace/availableAddOn';
-import { BrandedChannelListInstance } from './preview/trusted_comms/brandedChannel';
-import { BrandsInformationListInstance } from './preview/trusted_comms/brandsInformation';
 import { CommandListInstance } from './preview/wireless/command';
-import { CpsListInstance } from './preview/trusted_comms/cps';
-import { CurrentCallListInstance } from './preview/trusted_comms/currentCall';
 import { FleetListInstance } from './preview/deployed_devices/fleet';
 import { HostedNumberOrderListInstance } from './preview/hosted_numbers/hostedNumberOrder';
 import { InstalledAddOnListInstance } from './preview/marketplace/installedAddOn';
@@ -41,11 +36,7 @@ declare class Preview extends Domain {
   readonly assistants: AssistantListInstance;
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
   readonly availableAddOns: AvailableAddOnListInstance;
-  readonly brandedChannels: BrandedChannelListInstance;
-  readonly brandsInformation: BrandsInformationListInstance;
   readonly commands: CommandListInstance;
-  readonly cps: CpsListInstance;
-  readonly currentCalls: CurrentCallListInstance;
   readonly deployed_devices: DeployedDevices;
   readonly fleets: FleetListInstance;
   readonly hostedNumberOrders: HostedNumberOrderListInstance;
@@ -56,7 +47,6 @@ declare class Preview extends Domain {
   readonly services: ServiceListInstance;
   readonly sims: SimListInstance;
   readonly sync: Sync;
-  readonly trusted_comms: TrustedComms;
   readonly understand: Understand;
   readonly wireless: Wireless;
 }

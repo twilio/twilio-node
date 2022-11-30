@@ -90,66 +90,6 @@ describe('Content', function() {
       }).done();
     }
   );
-  it('should generate valid create request',
-    function(done) {
-      holodeck.mock(new Response(500, {}));
-
-      var promise = client.content.v1.contents.create();
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var url = 'https://content.twilio.com/v1/Content';
-
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid create response',
-    function(done) {
-      var body = {
-          'sid': 'HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': '',
-          'language': 'en',
-          'variables': {
-              'name': 'foo'
-          },
-          'types': {
-              'twilio/text': {
-                  'body': 'Foo Bar Co is located at 39.7392, 104.9903'
-              },
-              'twilio/location': {
-                  'longitude': 104.9903,
-                  'latitude': 39.7392,
-                  'label': 'Foo Bar Co'
-              }
-          },
-          'url': 'https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': '2015-07-30T19:00:00Z',
-          'date_updated': '2015-07-30T19:00:00Z',
-          'links': {
-              'approval_create': 'https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests/whatsapp',
-              'approval_fetch': 'https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests'
-          }
-      };
-
-      holodeck.mock(new Response(201, body));
-
-      var promise = client.content.v1.contents.create();
-      promise.then(function(response) {
-        expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
   it('should generate valid remove request',
     function(done) {
       holodeck.mock(new Response(500, {}));
