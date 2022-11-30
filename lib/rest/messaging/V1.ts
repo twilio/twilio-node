@@ -16,6 +16,8 @@ import MessagingBase from "../MessagingBase";
 import Version from "../../base/Version";
 import { BrandRegistrationListInstance } from "./v1/brandRegistration";
 import { DeactivationsListInstance } from "./v1/deactivations";
+import { DomainCertsListInstance } from "./v1/domainCerts";
+import { DomainConfigListInstance } from "./v1/domainConfig";
 import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { ServiceListInstance } from "./v1/service";
 import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
@@ -27,6 +29,8 @@ export default class V1 extends Version {
    *
    * @property { Twilio.Messaging.V1.BrandRegistrationListInstance } brandRegistrations - brandRegistrations resource
    * @property { Twilio.Messaging.V1.DeactivationsListInstance } deactivations - deactivations resource
+   * @property { Twilio.Messaging.V1.DomainCertsListInstance } domainCerts - domainCerts resource
+   * @property { Twilio.Messaging.V1.DomainConfigListInstance } domainConfig - domainConfig resource
    * @property { Twilio.Messaging.V1.ExternalCampaignListInstance } externalCampaign - externalCampaign resource
    * @property { Twilio.Messaging.V1.ServiceListInstance } services - services resource
    * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerifications - tollfreeVerifications resource
@@ -40,6 +44,8 @@ export default class V1 extends Version {
 
   protected _brandRegistrations?: BrandRegistrationListInstance;
   protected _deactivations?: DeactivationsListInstance;
+  protected _domainCerts?: DomainCertsListInstance;
+  protected _domainConfig?: DomainConfigListInstance;
   protected _externalCampaign?: ExternalCampaignListInstance;
   protected _services?: ServiceListInstance;
   protected _tollfreeVerifications?: TollfreeVerificationListInstance;
@@ -55,6 +61,16 @@ export default class V1 extends Version {
     this._deactivations =
       this._deactivations || DeactivationsListInstance(this);
     return this._deactivations;
+  }
+
+  get domainCerts(): DomainCertsListInstance {
+    this._domainCerts = this._domainCerts || DomainCertsListInstance(this);
+    return this._domainCerts;
+  }
+
+  get domainConfig(): DomainConfigListInstance {
+    this._domainConfig = this._domainConfig || DomainConfigListInstance(this);
+    return this._domainConfig;
   }
 
   get externalCampaign(): ExternalCampaignListInstance {

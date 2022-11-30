@@ -28,12 +28,32 @@ type PhoneNumberValidationError =
 /**
  * Options to pass to fetch a PhoneNumberInstance
  *
- * @property { string } [fields] A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence.
+ * @property { string } [fields] A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
  * @property { string } [countryCode] The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+ * @property { string } [firstName] User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [lastName] User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [addressLine1] User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [addressLine2] User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [city] User’s city. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [state] User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [postalCode] User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [addressCountryCode] User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [nationalId] User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+ * @property { string } [dateOfBirth] User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
  */
 export interface PhoneNumberContextFetchOptions {
   fields?: string;
   countryCode?: string;
+  firstName?: string;
+  lastName?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  addressCountryCode?: string;
+  nationalId?: string;
+  dateOfBirth?: string;
 }
 
 export interface PhoneNumberContext {
@@ -94,6 +114,23 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     if (params["fields"] !== undefined) data["Fields"] = params["fields"];
     if (params["countryCode"] !== undefined)
       data["CountryCode"] = params["countryCode"];
+    if (params["firstName"] !== undefined)
+      data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    if (params["addressLine1"] !== undefined)
+      data["AddressLine1"] = params["addressLine1"];
+    if (params["addressLine2"] !== undefined)
+      data["AddressLine2"] = params["addressLine2"];
+    if (params["city"] !== undefined) data["City"] = params["city"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
+    if (params["postalCode"] !== undefined)
+      data["PostalCode"] = params["postalCode"];
+    if (params["addressCountryCode"] !== undefined)
+      data["AddressCountryCode"] = params["addressCountryCode"];
+    if (params["nationalId"] !== undefined)
+      data["NationalId"] = params["nationalId"];
+    if (params["dateOfBirth"] !== undefined)
+      data["DateOfBirth"] = params["dateOfBirth"];
 
     const headers: any = {};
 
@@ -149,6 +186,7 @@ interface PhoneNumberResource {
   call_forwarding?: any | null;
   live_activity?: any | null;
   line_type_intelligence?: any | null;
+  identity_match?: any | null;
   url?: string | null;
 }
 
@@ -172,6 +210,7 @@ export class PhoneNumberInstance {
     this.callForwarding = payload.call_forwarding;
     this.liveActivity = payload.live_activity;
     this.lineTypeIntelligence = payload.line_type_intelligence;
+    this.identityMatch = payload.identity_match;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -221,6 +260,10 @@ export class PhoneNumberInstance {
    * An object that contains line type information
    */
   lineTypeIntelligence?: any | null;
+  /**
+   * An object that contains identity match information
+   */
+  identityMatch?: any | null;
   /**
    * The absolute URL of the resource
    */
@@ -277,6 +320,7 @@ export class PhoneNumberInstance {
       callForwarding: this.callForwarding,
       liveActivity: this.liveActivity,
       lineTypeIntelligence: this.lineTypeIntelligence,
+      identityMatch: this.identityMatch,
       url: this.url,
     };
   }

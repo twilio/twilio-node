@@ -1,6 +1,147 @@
 twilio-node changelog
 =====================
 
+[2022-11-30] Version 4.0.0-rc.1
+-------------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-11-30-3xx-to-400-rc1) for detailed migration notes.
+
+**Library - Fix**
+- [PR #830](https://github.com/twilio/twilio-node/pull/830): remove unused models. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #828](https://github.com/twilio/twilio-node/pull/828): give more descriptive error for accountSid init issues. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #827](https://github.com/twilio/twilio-node/pull/827): properly generate response models when there are no instance operations. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #820](https://github.com/twilio/twilio-node/pull/820): use proper parent resource when prefix not matched. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #818](https://github.com/twilio/twilio-node/pull/818): properly handle 'parent params'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #817](https://github.com/twilio/twilio-node/pull/817): properly serialize various parameters. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #816](https://github.com/twilio/twilio-node/pull/816): update casing for some mounts and properties. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #815](https://github.com/twilio/twilio-node/pull/815): serialize objects properly. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #814](https://github.com/twilio/twilio-node/pull/814): support nested instance resources using the pathType. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #813](https://github.com/twilio/twilio-node/pull/813): refactor for support of param names with dots. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #812](https://github.com/twilio/twilio-node/pull/812): add missing top-level account products. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #811](https://github.com/twilio/twilio-node/pull/811): correct the subdomain names with multiple parts. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #809](https://github.com/twilio/twilio-node/pull/809): include babel-config and global install twilio for internal testing. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #829](https://github.com/twilio/twilio-node/pull/829): add client initialization section. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #822](https://github.com/twilio/twilio-node/pull/822): add 4.0.0-rc upgrade guide. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Miscellaneous**
+- [PR #826](https://github.com/twilio/twilio-node/pull/826): remove unused dependencies. Thanks to [@Hunga1](https://github.com/Hunga1)!
+
+**Library - Chore**
+- [PR #819](https://github.com/twilio/twilio-node/pull/819): make everything prettier. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #803](https://github.com/twilio/twilio-node/pull/803): generate latest with twilio-oai-generator. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #808](https://github.com/twilio/twilio-node/pull/808): upgrade target to es2020. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #805](https://github.com/twilio/twilio-node/pull/805): yeet lodash. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #806](https://github.com/twilio/twilio-node/pull/806): revert "test: Include cluster test". Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #801](https://github.com/twilio/twilio-node/pull/801): sync with changes to main. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #796](https://github.com/twilio/twilio-node/pull/796): replace q with native promises. Thanks to [@Hunga1](https://github.com/Hunga1)!
+
+**Library - Test**
+- [PR #807](https://github.com/twilio/twilio-node/pull/807): Include cluster test again. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #804](https://github.com/twilio/twilio-node/pull/804): Include cluster test. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #793](https://github.com/twilio/twilio-node/pull/793): upgrading nock for typescript support. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Feature**
+- [PR #797](https://github.com/twilio/twilio-node/pull/797): Build pagination functions. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #794](https://github.com/twilio/twilio-node/pull/794): add support for node 18. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Api**
+- Set the Content resource to have public visibility as Preview
+- Added `contentSid` and `contentVariables` to Message resource with public visibility as Beta
+- Add `UserDefinedMessageSubscription` and `UserDefinedMessage` resource
+- Make link shortening parameters public **(breaking change)**
+- Added `virtual-agent` to `usage_record` API.
+- Add AMD attributes to participant create request
+- Remove `beta feature` from scheduling params and remove optimize parameters. **(breaking change)**
+- Added `amazon-polly` to `usage_record` API.
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Flex**
+- Adding new `assessments` api in version `v1`
+- Adding new parameter `base_url` to 'gooddata' response in version `v1`
+- Adding two new authorization API 'user_roles' and 'gooddata' in version `v1`
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Insights**
+- Added `answered_by` field in List Call Summary
+- Added `answered_by` field in call summary
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Lookups**
+- Add `identity_match` package to the lookup response
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+- Adding support for Lookup V2 API
+
+**Messaging**
+- Added `validated` parameter to Link Shortening API
+- Add new Campaign properties (MessageFlow, OptInMessage, OptInKeywords, OptOutMessage, OptOutKeywords, HelpMessage, HelpKeywords)
+- Add create, list and get tollfree verification API
+- Update alpha_sender docs with new valid characters
+
+**Oauth**
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+**Proxy**
+- Remove FailOnParticipantConflict param from Proxy Session create and update and Proxy Participant create
+
+**Routes**
+- Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. **(breaking change)**
+- Inbound Proccessing Region API - Public GA
+
+**Serverless**
+- Add node16 as a valid Build runtime
+- Add ie1 and au1 as supported regions for all endpoints.
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Supersim**
+- Update SettingsUpdates resource to remove PackageSid
+- Add SettingsUpdates resource
+- Allow updating `DataLimit` on a Fleet
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Taskrouter**
+- Add `Ordering` query parameter to Workers and TaskQueues for sorting by
+- Add `worker_sid` query param for list reservations endpoint
+
+**Verify**
+- Update Verify Push endpoints to `ga` maturity
+- Verify BYOT add Channels property to the Get Templates response
+- Verify SafeList API endpoints added.
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts.
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Video**
+- Add `Anonymize` API
+
+**Twiml**
+- Add new speech models to `Gather`.
+- Add `url` and `method` attributes to `<Conversation>`
+- Add `requireMatchingInputs` attribute and `input-matching-failed` errorType to `<Prompt>`
+- Add AMD attributes to `Number` and `Sip`
+- Update `event` value `call-in-progress` to `call-answered`
+- Add new Polly Neural voices
+- Add new languages to SSML `<lang>`.
+- Add `maxQueueSize` to `Enqueue`
+- Add `statusCallbackMethod` attribute, nested `<Config` and `<Parameter>` elements to `<VirtualAgent>` noun.
+- Add support for new Amazon Polly voices (Q2 2022) for `Say` verb
+- Add support for `<Conversation>` noun
+
+
 [2022-11-30] Version 4.0.0-rc.0
 ---------------------------
 - Release Candidate prep

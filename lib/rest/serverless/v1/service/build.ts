@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { BuildStatusListInstance } from "./build/buildStatus";
 
-type BuildRuntime = "node8" | "node10" | "node12" | "node14";
+type BuildRuntime = "node8" | "node10" | "node12" | "node14" | "node16";
 
 type BuildStatus = "building" | "completed" | "failed";
 

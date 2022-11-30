@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
 /**
  * Options to pass to each
@@ -67,6 +68,8 @@ export interface ContentListInstancePageOptions {
 }
 
 export interface ContentContext {
+  approvalFetch: ApprovalFetchListInstance;
+
   /**
    * Remove a ContentInstance
    *
@@ -104,9 +107,18 @@ export class ContentContextImpl implements ContentContext {
   protected _solution: ContentContextSolution;
   protected _uri: string;
 
+  protected _approvalFetch?: ApprovalFetchListInstance;
+
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Content/${sid}`;
+  }
+
+  get approvalFetch(): ApprovalFetchListInstance {
+    this._approvalFetch =
+      this._approvalFetch ||
+      ApprovalFetchListInstance(this._version, this._solution.sid);
+    return this._approvalFetch;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -262,6 +274,13 @@ export class ContentInstance {
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the approvalFetch.
+   */
+  approvalFetch(): ApprovalFetchListInstance {
+    return this._proxy.approvalFetch;
   }
 
   /**
