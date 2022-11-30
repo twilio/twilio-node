@@ -19,7 +19,7 @@ docs:
 	npm run jsdoc
 
 clean:
-	rm -rf node_modules
+	rm -rf node_modules dist
 
 prettier:
 	npm run prettier
