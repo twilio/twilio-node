@@ -54,7 +54,8 @@
     "test:typescript": "tsc --noEmit",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
-    "build": "tsc",
+    "prepublish": "npm run build",
+    "build": "tsc || true && cp package.json dist/",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "jsdoc": "jsdoc -r lib -d docs",
@@ -64,13 +65,9 @@
     "cluster": "jest ./cluster_test.spec.ts --coverage",
     "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage"
   },
-  "files": [
-    "lib",
-    "index.js",
-    "index.d.ts"
-  ],
-  "main": "./lib",
-  "types": "./index.d.ts",
+  "files": ["dist"],
+  "main": "./dist/lib",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=14.0"
   },

@@ -31,3 +31,4 @@ yarn.lock
 package-lock.json
 
 **/.openapi-generator*
+dist
