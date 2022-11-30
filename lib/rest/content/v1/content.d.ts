@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { ApprovalFetchList } from './content/approvalFetch';
+import { ApprovalFetchListInstance } from './content/approvalFetch';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -26,12 +28,6 @@ interface ContentListInstance {
    * @param sid - sid of instance
    */
   (sid: string): ContentContext;
-  /**
-   * create a ContentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: ContentInstance) => any): Promise<ContentInstance>;
   /**
    * Streams ContentInstance records from the API.
    *
@@ -230,6 +226,7 @@ declare class ContentContext {
    */
   constructor(version: V1, sid: string);
 
+  approvalFetch: ApprovalFetchListInstance;
   /**
    * fetch a ContentInstance
    *
@@ -265,6 +262,10 @@ declare class ContentInstance extends SerializableClass {
 
   private _proxy: ContentContext;
   accountSid: string;
+  /**
+   * Access the approvalFetch
+   */
+  approvalFetch(): ApprovalFetchListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**

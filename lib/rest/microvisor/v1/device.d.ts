@@ -212,6 +212,7 @@ interface DeviceResource {
   app: object;
   date_created: Date;
   date_updated: Date;
+  links: string;
   logging: object;
   sid: string;
   unique_name: string;
@@ -286,6 +287,7 @@ declare class DeviceInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  links: string;
   logging: any;
   sid: string;
   /**

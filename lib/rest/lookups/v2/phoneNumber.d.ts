@@ -27,12 +27,32 @@ declare function PhoneNumberList(version: V2): PhoneNumberListInstance;
 /**
  * Options to pass to fetch
  *
+ * @property addressCountryCode - User’s country, up to two characters.
+ * @property addressLine1 - User’s first address line.
+ * @property addressLine2 - User’s second address line.
+ * @property city - User’s city.
  * @property countryCode - Country code for national phone number lookups
+ * @property dateOfBirth - User’s date of birth, in YYYYMMDD format.
  * @property fields - Fields to return
+ * @property firstName - User’s first name.
+ * @property lastName - User’s last name.
+ * @property nationalId - User’s national ID, such as SSN or Passport ID.
+ * @property postalCode - User’s postal zip code.
+ * @property state - User’s country subdivision, such as state, province, or locality.
  */
 interface PhoneNumberInstanceFetchOptions {
+  addressCountryCode?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?: string;
   countryCode?: string;
+  dateOfBirth?: string;
   fields?: string;
+  firstName?: string;
+  lastName?: string;
+  nationalId?: string;
+  postalCode?: string;
+  state?: string;
 }
 
 interface PhoneNumberListInstance {
@@ -60,6 +80,7 @@ interface PhoneNumberResource {
   caller_name: object;
   calling_country_code: string;
   country_code: string;
+  identity_match: object;
   line_type_intelligence: object;
   live_activity: object;
   national_format: string;
@@ -137,6 +158,7 @@ declare class PhoneNumberInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  identityMatch: any;
   lineTypeIntelligence: any;
   liveActivity: any;
   nationalFormat: string;

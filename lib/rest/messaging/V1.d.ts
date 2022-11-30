@@ -11,6 +11,10 @@ import { BrandRegistrationList } from './v1/brandRegistration';
 import { BrandRegistrationListInstance } from './v1/brandRegistration';
 import { DeactivationsList } from './v1/deactivation';
 import { DeactivationsListInstance } from './v1/deactivation';
+import { DomainCertsList } from './v1/domainCert';
+import { DomainCertsListInstance } from './v1/domainCert';
+import { DomainConfigList } from './v1/domainConfig';
+import { DomainConfigListInstance } from './v1/domainConfig';
 import { ExternalCampaignList } from './v1/externalCampaign';
 import { ExternalCampaignListInstance } from './v1/externalCampaign';
 import { ServiceList } from './v1/service';
@@ -31,6 +35,8 @@ declare class V1 extends Version {
 
   readonly brandRegistrations: BrandRegistrationListInstance;
   readonly deactivations: DeactivationsListInstance;
+  readonly domainCerts: DomainCertsListInstance;
+  readonly domainConfig: DomainConfigListInstance;
   readonly externalCampaign: ExternalCampaignListInstance;
   readonly services: ServiceListInstance;
   readonly tollfreeVerifications: TollfreeVerificationListInstance;

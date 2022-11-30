@@ -12,7 +12,7 @@ import { BuildStatusList } from './build/buildStatus';
 import { BuildStatusListInstance } from './build/buildStatus';
 import { SerializableClass } from '../../../../interfaces';
 
-type BuildRuntime = 'node8'|'node10'|'node12'|'node14';
+type BuildRuntime = 'node8'|'node10'|'node12'|'node14'|'node16';
 
 type BuildStatus = 'building'|'completed'|'failed';
 

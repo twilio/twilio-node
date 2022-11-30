@@ -22,20 +22,19 @@ var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Channel', function() {
+describe('ApprovalFetch', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
-  it('should generate valid create request',
+  it('should generate valid fetch request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                                .channels.create(opts);
+      var promise = client.content.v1.contents('HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                     .approvalFetch().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,34 +42,35 @@ describe('Channel', function() {
         done();
       }).done();
 
-      var brandedChannelSid = 'BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://preview.twilio.com/TrustedComms/BrandedChannels/${brandedChannelSid}/Channels`;
+      var sid = 'HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://content.twilio.com/v1/Content/${sid}/ApprovalRequests`;
 
-      var values = {'PhoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'GET',
+        url: url
       }));
     }
   );
-  it('should generate valid create response',
+  it('should generate valid get_approval response',
     function(done) {
       var body = {
+          'sid': 'HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'business_sid': 'BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'brand_sid': 'BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'branded_channel_sid': 'BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'phone_number_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'phone_number': '+15000000000',
-          'url': 'https://preview.twilio.com/TrustedComms/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+          'whatsapp': {
+              'type': 'whatsapp',
+              'name': 'tree_fiddy',
+              'category': 'ACCOUNT_UPDATE',
+              'content_type': 'twilio/location',
+              'status': 'unsubmitted',
+              'rejection_reason': ''
+          },
+          'url': 'https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests'
       };
 
-      holodeck.mock(new Response(201, body));
+      holodeck.mock(new Response(200, body));
 
-      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                                .channels.create(opts);
+      var promise = client.content.v1.contents('HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                     .approvalFetch().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
