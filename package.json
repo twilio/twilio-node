@@ -65,7 +65,9 @@
     "cluster": "jest ./cluster_test.spec.ts --coverage",
     "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/lib",
   "types": "./dist/index.d.ts",
   "engines": {

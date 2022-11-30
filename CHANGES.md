@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2022-11-30] Version 4.0.0-rc.2
+-------------------------------
+**Library - Fix**
+- [PR #831](https://github.com/twilio/twilio-node/pull/831): add prepublish step for compiling. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-11-30] Version 4.0.0-rc.1
 -------------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-11-30-3xx-to-400-rc1) for detailed migration notes.
