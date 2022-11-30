@@ -1,5 +1,6 @@
 .github
 coverage
+dist
 
 babel.config.js
 *.md
