@@ -422,7 +422,7 @@ export class DependentHostedNumberOrderInstance {
   constructor(
     protected _version: HostedNumbers,
     payload: DependentHostedNumberOrderPayload,
-    signingDocumentSid?: string
+    signingDocumentSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

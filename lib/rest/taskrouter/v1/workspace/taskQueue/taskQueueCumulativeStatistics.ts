@@ -195,7 +195,7 @@ export class TaskQueueCumulativeStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueCumulativeStatisticsPayload,
     workspaceSid: string,
-    taskQueueSid?: string
+    taskQueueSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.avgTaskAcceptanceTime = deserialize.integer(
@@ -235,10 +235,7 @@ export class TaskQueueCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      taskQueueSid: taskQueueSid || this.taskQueueSid,
-    };
+    this._solution = { workspaceSid, taskQueueSid };
   }
 
   /**

@@ -108,7 +108,7 @@ export class BuildStatusInstance {
     protected _version: V1,
     payload: BuildStatusPayload,
     serviceSid: string,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -116,7 +116,7 @@ export class BuildStatusInstance {
     this.status = payload.status;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid };
   }
 
   /**

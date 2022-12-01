@@ -143,7 +143,7 @@ export class UsageInstance {
   constructor(
     protected _version: Wireless,
     payload: UsagePayload,
-    simSid?: string
+    simSid: string
   ) {
     this.simSid = payload.sim_sid;
     this.simUniqueName = payload.sim_unique_name;
@@ -155,7 +155,7 @@ export class UsageInstance {
     this.dataCosts = payload.data_costs;
     this.url = payload.url;
 
-    this._solution = { simSid: simSid || this.simSid };
+    this._solution = { simSid };
   }
 
   simSid?: string | null;

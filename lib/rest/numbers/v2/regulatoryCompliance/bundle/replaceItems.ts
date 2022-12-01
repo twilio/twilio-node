@@ -158,7 +158,7 @@ export class ReplaceItemsInstance {
   constructor(
     protected _version: V2,
     payload: ReplaceItemsPayload,
-    bundleSid?: string
+    bundleSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

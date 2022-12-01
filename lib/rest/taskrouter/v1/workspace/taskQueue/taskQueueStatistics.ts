@@ -166,7 +166,7 @@ export class TaskQueueStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueStatisticsPayload,
     workspaceSid: string,
-    taskQueueSid?: string
+    taskQueueSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;
@@ -175,10 +175,7 @@ export class TaskQueueStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      taskQueueSid: taskQueueSid || this.taskQueueSid,
-    };
+    this._solution = { workspaceSid, taskQueueSid };
   }
 
   /**

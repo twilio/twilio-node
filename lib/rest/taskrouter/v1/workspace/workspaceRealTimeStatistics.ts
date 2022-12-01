@@ -161,7 +161,7 @@ export class WorkspaceRealTimeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkspaceRealTimeStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.activityStatistics = payload.activity_statistics;
@@ -176,7 +176,7 @@ export class WorkspaceRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**

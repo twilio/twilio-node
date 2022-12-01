@@ -315,7 +315,7 @@ export class UserChannelInstance {
     protected _version: V1,
     payload: UserChannelPayload,
     serviceSid: string,
-    userSid?: string
+    userSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;

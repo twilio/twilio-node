@@ -106,7 +106,7 @@ export class EngagementContextInstance {
     protected _version: V1,
     payload: EngagementContextPayload,
     flowSid: string,
-    engagementSid?: string
+    engagementSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -114,10 +114,7 @@ export class EngagementContextInstance {
     this.flowSid = payload.flow_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      engagementSid: engagementSid || this.engagementSid,
-    };
+    this._solution = { flowSid, engagementSid };
   }
 
   /**

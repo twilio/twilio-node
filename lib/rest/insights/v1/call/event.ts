@@ -323,7 +323,7 @@ interface EventResource {
 }
 
 export class EventInstance {
-  constructor(protected _version: V1, payload: EventPayload, callSid?: string) {
+  constructor(protected _version: V1, payload: EventPayload, callSid: string) {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;

@@ -333,7 +333,7 @@ export class UsageRecordInstance {
   constructor(
     protected _version: V1,
     payload: UsageRecordPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.simSid = payload.sim_sid;
     this.accountSid = payload.account_sid;

@@ -115,7 +115,7 @@ export class StepContextInstance {
     payload: StepContextPayload,
     flowSid: string,
     engagementSid: string,
-    stepSid?: string
+    stepSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -124,11 +124,7 @@ export class StepContextInstance {
     this.stepSid = payload.step_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      engagementSid,
-      stepSid: stepSid || this.stepSid,
-    };
+    this._solution = { flowSid, engagementSid, stepSid };
   }
 
   /**

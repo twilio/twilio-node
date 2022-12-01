@@ -304,7 +304,7 @@ export class EventInstance {
     protected _version: V2010,
     payload: EventPayload,
     accountSid: string,
-    callSid?: string
+    callSid: string
   ) {
     this.request = payload.request;
     this.response = payload.response;

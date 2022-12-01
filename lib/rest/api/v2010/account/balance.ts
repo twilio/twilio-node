@@ -106,7 +106,7 @@ export class BalanceInstance {
   constructor(
     protected _version: V2010,
     payload: BalancePayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.balance = payload.balance;

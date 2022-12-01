@@ -408,7 +408,7 @@ export class InteractionChannelInviteInstance {
     protected _version: V1,
     payload: InteractionChannelInvitePayload,
     interactionSid: string,
-    channelSid?: string
+    channelSid: string
   ) {
     this.sid = payload.sid;
     this.interactionSid = payload.interaction_sid;

@@ -182,7 +182,7 @@ export class CallSummaryInstance {
   constructor(
     protected _version: V1,
     payload: CallSummaryPayload,
-    callSid?: string
+    callSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
@@ -208,7 +208,7 @@ export class CallSummaryInstance {
     this.trust = payload.trust;
     this.annotation = payload.annotation;
 
-    this._solution = { callSid: callSid || this.callSid };
+    this._solution = { callSid };
   }
 
   accountSid?: string | null;

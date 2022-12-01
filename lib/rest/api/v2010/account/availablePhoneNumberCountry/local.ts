@@ -461,7 +461,7 @@ export class LocalInstance {
     protected _version: V2010,
     payload: LocalPayload,
     accountSid: string,
-    countryCode?: string
+    countryCode: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;

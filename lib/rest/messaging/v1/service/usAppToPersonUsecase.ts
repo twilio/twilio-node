@@ -148,7 +148,7 @@ export class UsAppToPersonUsecaseInstance {
   constructor(
     protected _version: V1,
     payload: UsAppToPersonUsecasePayload,
-    messagingServiceSid?: string
+    messagingServiceSid: string
   ) {
     this.usAppToPersonUsecases = payload.us_app_to_person_usecases;
   }

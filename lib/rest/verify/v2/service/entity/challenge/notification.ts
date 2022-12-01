@@ -161,7 +161,7 @@ export class NotificationInstance {
     payload: NotificationPayload,
     serviceSid: string,
     identity: string,
-    challengeSid?: string
+    challengeSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

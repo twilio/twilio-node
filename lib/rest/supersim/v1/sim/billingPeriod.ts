@@ -318,7 +318,7 @@ export class BillingPeriodInstance {
   constructor(
     protected _version: V1,
     payload: BillingPeriodPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

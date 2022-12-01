@@ -229,7 +229,7 @@ export class NotificationInstance {
   constructor(
     protected _version: V1,
     payload: NotificationPayload,
-    serviceSid?: string
+    serviceSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

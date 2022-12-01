@@ -306,7 +306,7 @@ export class SimIpAddressInstance {
   constructor(
     protected _version: V1,
     payload: SimIpAddressPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.ipAddress = payload.ip_address;
     this.ipAddressVersion = payload.ip_address_version;

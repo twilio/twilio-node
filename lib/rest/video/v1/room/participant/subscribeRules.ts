@@ -200,7 +200,7 @@ export class SubscribeRulesInstance {
     protected _version: V1,
     payload: SubscribeRulesPayload,
     roomSid: string,
-    participantSid?: string
+    participantSid: string
   ) {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;

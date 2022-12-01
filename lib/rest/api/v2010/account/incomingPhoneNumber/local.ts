@@ -566,7 +566,7 @@ export class LocalInstance {
   constructor(
     protected _version: V2010,
     payload: LocalPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;

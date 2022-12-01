@@ -164,7 +164,7 @@ export class ChannelInstance {
   constructor(
     protected _version: V3,
     payload: ChannelPayload,
-    serviceSid: string,
+    serviceSid?: string,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -182,7 +182,10 @@ export class ChannelInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = {
+      serviceSid: serviceSid || this.serviceSid,
+      sid: sid || this.sid,
+    };
   }
 
   /**

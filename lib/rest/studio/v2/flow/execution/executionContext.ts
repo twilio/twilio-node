@@ -106,7 +106,7 @@ export class ExecutionContextInstance {
     protected _version: V2,
     payload: ExecutionContextPayload,
     flowSid: string,
-    executionSid?: string
+    executionSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -114,10 +114,7 @@ export class ExecutionContextInstance {
     this.executionSid = payload.execution_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      executionSid: executionSid || this.executionSid,
-    };
+    this._solution = { flowSid, executionSid };
   }
 
   /**

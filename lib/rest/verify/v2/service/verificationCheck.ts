@@ -174,7 +174,7 @@ export class VerificationCheckInstance {
   constructor(
     protected _version: V2,
     payload: VerificationCheckPayload,
-    serviceSid?: string
+    serviceSid: string
   ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;

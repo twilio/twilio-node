@@ -156,7 +156,7 @@ export class FeedbackInstance {
     protected _version: V2010,
     payload: FeedbackPayload,
     accountSid: string,
-    messageSid?: string
+    messageSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;
