@@ -32,6 +32,12 @@ export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
   "prices"?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices>;
 }
 
+export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
 /**
  * Options to pass to each
  *
