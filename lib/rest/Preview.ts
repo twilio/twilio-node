@@ -4,10 +4,6 @@ import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNu
 import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
 import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
 import { ServiceListInstance } from "./preview/sync/service";
-import { BrandedChannelListInstance } from "./preview/trusted_comms/brandedChannel";
-import { BrandsInformationListInstance } from "./preview/trusted_comms/brandsInformation";
-import { CpsListInstance } from "./preview/trusted_comms/cps";
-import { CurrentCallListInstance } from "./preview/trusted_comms/currentCall";
 import { AssistantListInstance } from "./preview/understand/assistant";
 import { CommandListInstance } from "./preview/wireless/command";
 import { RatePlanListInstance } from "./preview/wireless/ratePlan";
@@ -103,44 +99,6 @@ class Preview extends PreviewBase {
   get sims(): SimListInstance {
     console.warn("sims is deprecated. Use wireless.sims instead.");
     return this.wireless.sims;
-  }
-
-  /**
-   * @deprecated - Use trusted_comms.brandedChannels instead
-   */
-  get brandedChannels(): BrandedChannelListInstance {
-    console.warn(
-      "brandedChannels is deprecated. Use trusted_comms.brandedChannels instead."
-    );
-    return this.trusted_comms.brandedChannels;
-  }
-
-  /**
-   * @deprecated - Use trusted_comms.brandsInformation instead
-   */
-  get brandsInformation(): BrandsInformationListInstance {
-    console.warn(
-      "brandsInformation is deprecated. Use trusted_comms.brandsInformation instead."
-    );
-    return this.trusted_comms.brandsInformation;
-  }
-
-  /**
-   * @deprecated - Use trusted_comms.cps instead
-   */
-  get cps(): CpsListInstance {
-    console.warn("cps is deprecated. Use trusted_comms.cps instead.");
-    return this.trusted_comms.cps;
-  }
-
-  /**
-   * @deprecated - Use trusted_comms.currentCalls instead
-   */
-  get currentCalls(): CurrentCallListInstance {
-    console.warn(
-      "currentCalls is deprecated. Use trusted_comms.currentCalls instead."
-    );
-    return this.trusted_comms.currentCalls;
   }
 }
 
