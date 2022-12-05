@@ -1,6 +1,37 @@
 "use strict";
 
-var jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
+
+export interface TaskRouterCapabilityOptions {
+  accountSid: string;
+  authToken: string;
+  workspaceSid: string;
+  channelId: string;
+  friendlyName?: string;
+  ttl?: number;
+  version?: string;
+}
+
+export interface PolicyOptions {
+  /** Policy URL */
+  url?: string;
+  /** HTTP Method */
+  method?: string;
+  /** Request query filter allowances */
+  queryFilter?: object;
+  /** Request post filter allowances */
+  postFilter?: object;
+  /** Allow the policy */
+  allow?: boolean;
+}
+
+export interface PolicyPayload {
+  url: string;
+  method: string;
+  query_filter: object;
+  post_filter: object;
+  allow: boolean;
+}
 
 /**
  * Create a new Policy
@@ -13,8 +44,14 @@ var jwt = require("jsonwebtoken");
  * @param {object} [options.postFilter] - Request post filter allowances
  * @param {boolean} [options.allowed] - Allow the policy
  */
-class Policy {
-  constructor(options) {
+export class Policy {
+  url?: string;
+  method: string;
+  queryFilter: object;
+  postFilter: object;
+  allow: boolean
+
+  constructor(options: PolicyOptions) {
     options = options || {};
     this.url = options.url;
     this.method = options.method || "GET";
@@ -23,7 +60,7 @@ class Policy {
     this.allow = options.allow || true;
   }
 
-  payload() {
+  payload(): PolicyPayload {
     return {
       url: this.url,
       method: this.method,
@@ -45,8 +82,17 @@ class Policy {
  * @param {number} [options.ttl] - time to live
  * @param {string} [options.version] - taskrouter version
  */
-class TaskRouterCapability {
-  constructor(options) {
+export default class TaskRouterCapability {
+  accountSid: string;
+  authToken: string;
+  workspaceSid: string;
+  channelId: string;
+  ttl: number;
+  version: string;
+  policies: Policy[];
+  friendlyName?: string;
+
+  constructor(options: TaskRouterCapabilityOptions) {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
     }
@@ -73,14 +119,16 @@ class TaskRouterCapability {
     this.policies = [];
   }
 
-  addPolicy(policy) {
+  static Policy = Policy
+
+  addPolicy(policy: Policy) {
     this.policies.push(policy);
   }
 
-  toJwt() {
-    var payload = {
+  toJwt(): string {
+    var payload: any = {
       iss: this.accountSid,
-      exp: Math.floor(new Date() / 1000) + this.ttl,
+      exp: Math.floor(new Date().valueOf() / 1000) + this.ttl,
       version: this.version,
       friendly_name: this.friendlyName,
       account_sid: this.accountSid,
@@ -98,7 +146,3 @@ class TaskRouterCapability {
     return jwt.sign(payload, this.authToken);
   }
 }
-
-TaskRouterCapability.Policy = Policy;
-
-module.exports = TaskRouterCapability;

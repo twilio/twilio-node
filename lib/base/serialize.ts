@@ -1,11 +1,9 @@
 "use strict";
 
-var dayjs = require("dayjs");
-var utc = require("dayjs/plugin/utc");
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
-
-module.exports = {};
 
 /**
  * @namespace serialize
@@ -20,11 +18,12 @@ module.exports = {};
  * @param  {Date} d date object to format
  * @return {string|object} date formatted in YYYY-MM-DD form
  */
-module.exports.iso8601Date = function (d) {
-  if (!d || typeof d === "string" || !(d instanceof Date)) {
-    return d;
+export function iso8601Date<T> (date: T): T;
+export function iso8601Date (date: Date): string | Date {
+  if (!date || !(date instanceof Date)) {
+    return date;
   } else {
-    return dayjs.utc(d).format("YYYY-MM-DD");
+    return dayjs.utc(date).format("YYYY-MM-DD");
   }
 };
 
@@ -37,25 +36,28 @@ module.exports.iso8601Date = function (d) {
  * @param  {Date} d date object to format
  * @return {string|object} date formatted in YYYY-MM-DD[T]HH:mm:ss[Z] form
  */
-module.exports.iso8601DateTime = function (d) {
-  if (!d || typeof d === "string" || !(d instanceof Date)) {
-    return d;
+export function iso8601DateTime<T>(date: T): T;
+export function iso8601DateTime(date: Date): string | Date {
+  if (!date || !(date instanceof Date)) {
+    return date;
   } else {
-    return dayjs.utc(d).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
+    return dayjs.utc(date).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
   }
-};
+}
 
 /**
  * @function prefixedCollapsibleMap
  * @memberOf serialize
+ * 
  * @description turns a map of params int oa flattened map separated by dots
  * if the parameter is an object, otherwise returns an empty map
  *
- * @param {object} m map to transform
- * @param {string|undefined} prefix to append to each flattened value
- * @return {object} flattened map
+ * @param m map to transform
+ * @param prefix to append to each flattened value
+ * @returns flattened map
  */
-module.exports.prefixedCollapsibleMap = function (m, prefix) {
+export function prefixedCollapsibleMap<T extends {}>(m: T, prefix?: string): T;
+export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {} {
   if (
     !m ||
     typeof m !== "object" ||
@@ -64,7 +66,7 @@ module.exports.prefixedCollapsibleMap = function (m, prefix) {
     return {};
   }
 
-  function flatten(m, result, previous) {
+  function flatten(m, result?, previous?) {
     result = result || {};
     previous = previous || [];
 
@@ -101,29 +103,32 @@ module.exports.prefixedCollapsibleMap = function (m, prefix) {
 /**
  * @function object
  * @memberOf serialize
- * @description turns an object into a JSON string if the parameter
- * is an object, otherwise returns the passed in object
+ * 
+ * @description Turns an object into a JSON string if the parameter is an
+ * object, otherwise returns the passed in object
  *
- * @param {object|array} o json object or array
- * @returns {string|object} stringified object
+ * @param o json object or array
+ * @returns stringified object
  */
-module.exports.object = function (o) {
+export function object<T>(o: T): T;
+export function object(o: object | Array<any>): string {
   if (typeof o === "object") {
     return JSON.stringify(o);
   }
 
   return o;
-};
+}
 
 /**
  * @function bool
  * @memberOf serialize
- * @description coerces a boolean literal into a string
+ * @description Coerces a boolean literal into a string
  *
- * @param {boolean|string} input boolean or string to be coerced
- * @returns {string} a string "true" or "false"
+ * @param input boolean or string to be coerced
+ * @returns a string 'true' or 'false' if passed a boolean, else the value
  */
-module.exports.bool = function (input) {
+export function bool(input: boolean): "true" | "false";
+export function bool(input: string | boolean): string {
   if (typeof input === "string") {
     return input;
   }
@@ -136,23 +141,29 @@ module.exports.bool = function (input) {
   }
 
   return input;
-};
+}
+
+type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
 
 /**
  * @function map
  * @memberOf serialize
- * @description maps transform over each element in input if input is an array
+ * @description  Maps transform over each element in input if input is an array
  *
- * @param {array} input array to map transform over, if not an array then it is
+ * @param input array to map transform over, if not an array then it is
  * returned as is.
- * @returns {array} new array with transform applied to each element.
+ * @returns new array with transform applied to each element.
  */
-module.exports.map = function (input, transform) {
+export function map<T>(input: T, transform?: (T) => any): T;
+export function map<TInput, TOutput> (
+  input: Array<TInput>,
+  transform: MapFunction<TInput, TOutput>
+  ): Array<TOutput> {
   if (
     typeof input === "object" &&
-    Object.prototype.toString.call(input) === "[object Array]"
+    Array.isArray(input)
   ) {
     return input.map((element) => transform(element));
   }
   return input;
-};
+}

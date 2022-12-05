@@ -1,15 +1,100 @@
 "use strict";
 
-var axios = require("axios");
-var fs = require("fs");
-var HttpsProxyAgent = require("https-proxy-agent");
-var qs = require("qs");
-var https = require("https");
-var Response = require("../http/response");
-var Request = require("../http/request");
+import { HttpMethod } from "../interfaces";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import * as fs from "fs";
+import HttpsProxyAgent from "https-proxy-agent";
+import qs from "qs";
+import * as https from "https";
+import Response from "../http/response";
+import Request from "../http/request";
+import { RequestOptions as LastRequestOptions, Headers } from "../http/request";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
+
+export interface RequestOptions<TData = any, TParams = object> {
+  /**
+  * The HTTP method
+  */
+  method: HttpMethod;
+  /**
+  * The request URI
+  */
+  uri: string;
+  /**
+  * The username used for auth
+  */
+  username?: string;
+  /**
+  * The password used for auth
+  */
+  password?: string;
+  /**
+  * The request headers
+  */
+  headers?: Headers;
+  /**
+  * The object of params added as query string to the request
+  */
+  params?: TParams;
+  /**
+  * The form data that should be submitted
+  */
+  data?: TData;
+  /**
+  * The request timeout in milliseconds
+  */
+  timeout?: number;
+  /**
+  * Should the client follow redirects
+  */
+  allowRedirects?: boolean;
+  /**
+  * Set to true to use the forever-agent
+  */
+  forever?: boolean;
+  /**
+  * Set to 'debug' to enable debug logging
+  */
+  logLevel?: string;
+}
+
+export interface RequestClientOptions {
+  /**
+   * A timeout in milliseconds. This will be used as the HTTPS agent's socket
+   * timeout, AND as the default request timeout.
+   */
+  timeout?: number;
+  /**
+  * https.Agent keepAlive option
+  */
+  keepAlive?: boolean;
+  /**
+  * https.Agent keepAliveMSecs option
+  */
+  keepAliveMsecs?: number;
+  /**
+  * https.Agent maxSockets option
+  */
+  maxSockets?: number;
+  /**
+  * https.Agent maxTotalSockets option
+  */
+  maxTotalSockets?: number;
+  /**
+  * https.Agent maxFreeSockets option
+  */
+  maxFreeSockets?: number;
+  /**
+  * https.Agent scheduling option
+  */
+  scheduling?: string;
+  /**
+  * The private CA certificate bundle (if private SSL certificate)
+  */
+  ca?: string | Buffer;
+}
 
 /**
  * Make http request
@@ -22,8 +107,14 @@ const DEFAULT_TIMEOUT = 30000;
  * @param {number} opts.maxFreeSockets - https.Agent maxFreeSockets option
  * @param {string} opts.scheduling - https.Agent scheduling option
  */
-class RequestClient {
-  constructor(opts) {
+export default class RequestClient {
+  defaultTimeout: number;
+  axios: AxiosInstance;
+  ca?: string | Buffer;
+  lastResponse?: Response<any>;
+  lastRequest?: Request<any>;
+
+  constructor(opts?: RequestClientOptions) {
     opts = opts || {};
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
 
@@ -36,13 +127,22 @@ class RequestClient {
       maxTotalSockets: opts.maxTotalSockets,
       maxFreeSockets: opts.maxFreeSockets,
       scheduling: opts.scheduling,
+      ca: opts.ca,
     };
+
+    // sets https agent CA bundle if defined in CA bundle filepath env variable
+    if (process.env.TWILIO_CA_BUNDLE !== undefined) {
+      if (agentOpts.ca === undefined) {
+        this.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
+      }
+      agentOpts.ca = this.ca;
+    }
 
     let agent;
     if (process.env.HTTP_PROXY) {
       // Note: if process.env.HTTP_PROXY is set, we're not able to apply the given
       // socket timeout. See: https://github.com/TooTallNate/node-https-proxy-agent/pull/96
-      agent = new HttpsProxyAgent(process.env.HTTP_PROXY);
+      agent = HttpsProxyAgent(process.env.HTTP_PROXY);
     } else {
       agent = new https.Agent(agentOpts);
     }
@@ -68,9 +168,7 @@ class RequestClient {
    * @param {boolean} [opts.forever] - Set to true to use the forever-agent
    * @param {string} [opts.logLevel] - Show debug logs
    */
-
-  request(opts) {
-    opts = opts || {};
+  request<TData> (opts: RequestOptions<TData>): Promise<Response<TData>> {
     if (!opts.method) {
       throw new Error("http method is required");
     }
@@ -94,7 +192,7 @@ class RequestClient {
       headers.Authorization = "Basic " + b64Auth;
     }
 
-    var options = {
+    var options: AxiosRequestConfig = {
       timeout: opts.timeout || this.defaultTimeout,
       maxRedirects: opts.allowRedirects ? 10 : 0,
       url: opts.uri,
@@ -103,13 +201,6 @@ class RequestClient {
       proxy: false,
       validateStatus: (status) => status >= 100 && status < 600,
     };
-
-    if (process.env.TWILIO_CA_BUNDLE !== undefined) {
-      if (this.ca === undefined) {
-        this.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
-      }
-      options.ca = this.ca;
-    }
 
     if (opts.data) {
       options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
@@ -122,23 +213,23 @@ class RequestClient {
       };
     }
 
-    var optionsRequest = {
-      method: options.method,
-      url: options.url,
+    var requestOptions: LastRequestOptions<TData> = {
+      method: opts.method,
+      url: opts.uri,
       auth: b64Auth || null,
       params: options.params,
       data: opts.data,
-      headers: options.headers,
-      ca: options.ca,
+      headers: opts.headers,
+      ca: this.ca,
     };
 
     if (opts.logLevel === "debug") {
-      this.logRequest(options);
+      this.logRequest(requestOptions);
     }
 
     var _this = this;
     this.lastResponse = undefined;
-    this.lastRequest = new Request(optionsRequest);
+    this.lastRequest = new Request(requestOptions);
 
     return this.axios(options)
       .then((response) => {
@@ -163,13 +254,13 @@ class RequestClient {
       });
   }
 
-  filterLoggingHeaders(headers) {
+  filterLoggingHeaders(headers: Headers | "*") {
     return Object.keys(headers).filter((header) => {
       return !"authorization".includes(header.toLowerCase());
     });
   }
 
-  logRequest(options) {
+  private logRequest<TData> (options: LastRequestOptions<TData>) {
     console.log("-- BEGIN Twilio API Request --");
     console.log(`${options.method} ${options.url}`);
 
@@ -189,5 +280,3 @@ class RequestClient {
     console.log("-- END Twilio API Request --");
   }
 }
-
-module.exports = RequestClient;
