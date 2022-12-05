@@ -9,5 +9,7 @@ describe("isValidPathParam", () => {
 
     expect(isValidPathParam("AC123")).toBeTruthy();
     expect(isValidPathParam("space in name")).toBeTruthy();
+    expect(isValidPathParam(123)).toBeTruthy();
+    expect(isValidPathParam({})).toBeTruthy();
   });
 });
