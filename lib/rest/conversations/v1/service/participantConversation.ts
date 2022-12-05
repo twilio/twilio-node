@@ -360,7 +360,7 @@ export class ParticipantConversationInstance {
   constructor(
     protected _version: V1,
     payload: ParticipantConversationPayload,
-    chatServiceSid?: string
+    chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;

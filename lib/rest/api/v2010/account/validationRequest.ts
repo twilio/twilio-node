@@ -163,7 +163,7 @@ export class ValidationRequestInstance {
   constructor(
     protected _version: V2010,
     payload: ValidationRequestPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;

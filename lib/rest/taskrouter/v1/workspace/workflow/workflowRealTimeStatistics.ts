@@ -167,7 +167,7 @@ export class WorkflowRealTimeStatisticsInstance {
     protected _version: V1,
     payload: WorkflowRealTimeStatisticsPayload,
     workspaceSid: string,
-    workflowSid?: string
+    workflowSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.longestTaskWaitingAge = deserialize.integer(
@@ -181,10 +181,7 @@ export class WorkflowRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      workflowSid: workflowSid || this.workflowSid,
-    };
+    this._solution = { workspaceSid, workflowSid };
   }
 
   /**

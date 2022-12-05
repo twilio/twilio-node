@@ -393,7 +393,7 @@ export class DependentPhoneNumberInstance {
     protected _version: V2010,
     payload: DependentPhoneNumberPayload,
     accountSid: string,
-    addressSid?: string
+    addressSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

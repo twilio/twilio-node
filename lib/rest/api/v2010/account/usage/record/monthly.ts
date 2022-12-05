@@ -592,7 +592,7 @@ export class MonthlyInstance {
   constructor(
     protected _version: V2010,
     payload: MonthlyPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;

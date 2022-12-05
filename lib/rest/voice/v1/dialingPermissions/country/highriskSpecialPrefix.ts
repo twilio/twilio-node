@@ -322,7 +322,7 @@ export class HighriskSpecialPrefixInstance {
   constructor(
     protected _version: V1,
     payload: HighriskSpecialPrefixPayload,
-    isoCode?: string
+    isoCode: string
   ) {
     this.prefix = payload.prefix;
   }

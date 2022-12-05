@@ -98,14 +98,14 @@ export class ApprovalFetchInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalFetchPayload,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.whatsapp = payload.whatsapp;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid };
   }
 
   /**

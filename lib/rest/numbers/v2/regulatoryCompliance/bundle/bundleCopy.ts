@@ -394,7 +394,7 @@ export class BundleCopyInstance {
   constructor(
     protected _version: V2,
     payload: BundleCopyPayload,
-    bundleSid?: string
+    bundleSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

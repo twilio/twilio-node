@@ -121,7 +121,7 @@ export class FunctionVersionContentInstance {
     payload: FunctionVersionContentPayload,
     serviceSid: string,
     functionSid: string,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -130,7 +130,7 @@ export class FunctionVersionContentInstance {
     this.content = payload.content;
     this.url = payload.url;
 
-    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, functionSid, sid };
   }
 
   /**

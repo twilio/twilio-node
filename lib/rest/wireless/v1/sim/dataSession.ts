@@ -318,7 +318,7 @@ export class DataSessionInstance {
   constructor(
     protected _version: V1,
     payload: DataSessionPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.sid = payload.sid;
     this.simSid = payload.sim_sid;

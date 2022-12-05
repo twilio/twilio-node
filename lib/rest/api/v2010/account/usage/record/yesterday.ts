@@ -594,7 +594,7 @@ export class YesterdayInstance {
   constructor(
     protected _version: V2010,
     payload: YesterdayPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;

@@ -111,7 +111,7 @@ export class TaskStatisticsInstance {
     protected _version: Understand,
     payload: TaskStatisticsPayload,
     assistantSid: string,
-    taskSid?: string
+    taskSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
@@ -120,7 +120,7 @@ export class TaskStatisticsInstance {
     this.fieldsCount = deserialize.integer(payload.fields_count);
     this.url = payload.url;
 
-    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
+    this._solution = { assistantSid, taskSid };
   }
 
   /**

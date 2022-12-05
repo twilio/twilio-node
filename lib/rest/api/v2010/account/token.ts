@@ -154,7 +154,7 @@ export class TokenInstance {
   constructor(
     protected _version: V2010,
     payload: TokenPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

@@ -184,7 +184,7 @@ export class TaskActionsInstance {
     protected _version: Understand,
     payload: TaskActionsPayload,
     assistantSid: string,
-    taskSid?: string
+    taskSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
@@ -192,7 +192,7 @@ export class TaskActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
+    this._solution = { assistantSid, taskSid };
   }
 
   /**

@@ -184,12 +184,12 @@ export class RecordingInstance {
   constructor(
     protected _version: V1,
     payload: RecordingPayload,
-    trunkSid?: string
+    trunkSid: string
   ) {
     this.mode = payload.mode;
     this.trim = payload.trim;
 
-    this._solution = { trunkSid: trunkSid || this.trunkSid };
+    this._solution = { trunkSid };
   }
 
   mode?: RecordingRecordingMode;

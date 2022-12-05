@@ -132,7 +132,7 @@ export class SinkValidateInstance {
   constructor(
     protected _version: V1,
     payload: SinkValidatePayload,
-    sid?: string
+    sid: string
   ) {
     this.result = payload.result;
   }

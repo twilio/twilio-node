@@ -166,7 +166,7 @@ export class WorkflowStatisticsInstance {
     protected _version: V1,
     payload: WorkflowStatisticsPayload,
     workspaceSid: string,
-    workflowSid?: string
+    workflowSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;
@@ -175,10 +175,7 @@ export class WorkflowStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      workflowSid: workflowSid || this.workflowSid,
-    };
+    this._solution = { workspaceSid, workflowSid };
   }
 
   /**

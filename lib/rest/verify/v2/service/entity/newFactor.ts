@@ -221,7 +221,7 @@ export class NewFactorInstance {
     protected _version: V2,
     payload: NewFactorPayload,
     serviceSid: string,
-    identity?: string
+    identity: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

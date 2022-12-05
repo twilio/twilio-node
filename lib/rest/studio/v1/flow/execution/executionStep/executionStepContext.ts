@@ -117,7 +117,7 @@ export class ExecutionStepContextInstance {
     payload: ExecutionStepContextPayload,
     flowSid: string,
     executionSid: string,
-    stepSid?: string
+    stepSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -126,11 +126,7 @@ export class ExecutionStepContextInstance {
     this.stepSid = payload.step_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      executionSid,
-      stepSid: stepSid || this.stepSid,
-    };
+    this._solution = { flowSid, executionSid, stepSid };
   }
 
   /**

@@ -196,7 +196,7 @@ export class ConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: ConfigurationPayload,
-    chatServiceSid?: string
+    chatServiceSid: string
   ) {
     this.chatServiceSid = payload.chat_service_sid;
     this.defaultConversationCreatorRoleSid =
@@ -207,7 +207,7 @@ export class ConfigurationInstance {
     this.links = payload.links;
     this.reachabilityEnabled = payload.reachability_enabled;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
+    this._solution = { chatServiceSid };
   }
 
   /**

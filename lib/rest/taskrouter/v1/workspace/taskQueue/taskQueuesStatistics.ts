@@ -373,7 +373,7 @@ export class TaskQueuesStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: TaskQueuesStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;

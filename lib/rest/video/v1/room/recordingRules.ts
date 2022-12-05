@@ -193,7 +193,7 @@ export class RecordingRulesInstance {
   constructor(
     protected _version: V1,
     payload: RecordingRulesPayload,
-    roomSid?: string
+    roomSid: string
   ) {
     this.roomSid = payload.room_sid;
     this.rules = payload.rules;

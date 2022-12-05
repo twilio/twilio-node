@@ -187,7 +187,7 @@ export class WorkspaceCumulativeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkspaceCumulativeStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.avgTaskAcceptanceTime = deserialize.integer(
@@ -227,7 +227,7 @@ export class WorkspaceCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**

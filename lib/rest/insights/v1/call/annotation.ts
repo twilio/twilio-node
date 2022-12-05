@@ -213,7 +213,7 @@ export class AnnotationInstance {
   constructor(
     protected _version: V1,
     payload: AnnotationPayload,
-    callSid?: string
+    callSid: string
   ) {
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
@@ -226,7 +226,7 @@ export class AnnotationInstance {
     this.incident = payload.incident;
     this.url = payload.url;
 
-    this._solution = { callSid: callSid || this.callSid };
+    this._solution = { callSid };
   }
 
   /**

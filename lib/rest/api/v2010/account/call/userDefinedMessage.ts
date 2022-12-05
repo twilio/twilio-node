@@ -150,7 +150,7 @@ export class UserDefinedMessageInstance {
     protected _version: V2010,
     payload: UserDefinedMessagePayload,
     accountSid: string,
-    callSid?: string
+    callSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;

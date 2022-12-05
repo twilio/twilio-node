@@ -171,7 +171,7 @@ export class PlaybackGrantInstance {
   constructor(
     protected _version: V1,
     payload: PlaybackGrantPayload,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.url = payload.url;
@@ -179,7 +179,7 @@ export class PlaybackGrantInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.grant = payload.grant;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid };
   }
 
   /**

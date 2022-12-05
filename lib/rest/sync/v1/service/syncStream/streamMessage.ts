@@ -141,7 +141,7 @@ export class StreamMessageInstance {
     protected _version: V1,
     payload: StreamMessagePayload,
     serviceSid: string,
-    streamSid?: string
+    streamSid: string
   ) {
     this.sid = payload.sid;
     this.data = payload.data;

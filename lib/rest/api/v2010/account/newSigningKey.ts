@@ -150,7 +150,7 @@ export class NewSigningKeyInstance {
   constructor(
     protected _version: V2010,
     payload: NewSigningKeyPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;

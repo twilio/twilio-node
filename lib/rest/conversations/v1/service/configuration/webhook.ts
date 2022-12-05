@@ -191,7 +191,7 @@ export class WebhookInstance {
   constructor(
     protected _version: V1,
     payload: WebhookPayload,
-    chatServiceSid?: string
+    chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -201,7 +201,7 @@ export class WebhookInstance {
     this.method = payload.method;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
+    this._solution = { chatServiceSid };
   }
 
   /**

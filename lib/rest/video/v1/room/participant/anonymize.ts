@@ -114,7 +114,7 @@ export class AnonymizeInstance {
     protected _version: V1,
     payload: AnonymizePayload,
     roomSid: string,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
@@ -128,7 +128,7 @@ export class AnonymizeInstance {
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
 
-    this._solution = { roomSid, sid: sid || this.sid };
+    this._solution = { roomSid, sid };
   }
 
   /**

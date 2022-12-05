@@ -572,7 +572,7 @@ export class TollFreeInstance {
   constructor(
     protected _version: V2010,
     payload: TollFreePayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;

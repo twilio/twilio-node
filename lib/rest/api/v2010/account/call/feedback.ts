@@ -195,7 +195,7 @@ export class FeedbackInstance {
     protected _version: V2010,
     payload: FeedbackPayload,
     accountSid: string,
-    callSid?: string
+    callSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -204,7 +204,7 @@ export class FeedbackInstance {
     this.qualityScore = deserialize.integer(payload.quality_score);
     this.sid = payload.sid;
 
-    this._solution = { accountSid, callSid: callSid || this.callSid };
+    this._solution = { accountSid, callSid };
   }
 
   /**

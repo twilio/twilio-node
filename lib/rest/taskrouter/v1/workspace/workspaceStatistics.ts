@@ -158,7 +158,7 @@ export class WorkspaceStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkspaceStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.realtime = payload.realtime;
     this.cumulative = payload.cumulative;
@@ -166,7 +166,7 @@ export class WorkspaceStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**

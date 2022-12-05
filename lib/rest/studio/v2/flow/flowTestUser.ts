@@ -156,13 +156,13 @@ export class FlowTestUserInstance {
   constructor(
     protected _version: V2,
     payload: FlowTestUserPayload,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.testUsers = payload.test_users;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid };
   }
 
   /**

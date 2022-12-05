@@ -329,11 +329,7 @@ interface MetricResource {
 }
 
 export class MetricInstance {
-  constructor(
-    protected _version: V1,
-    payload: MetricPayload,
-    callSid?: string
-  ) {
+  constructor(protected _version: V1, payload: MetricPayload, callSid: string) {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;

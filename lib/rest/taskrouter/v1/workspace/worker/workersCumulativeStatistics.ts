@@ -174,7 +174,7 @@ export class WorkersCumulativeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersCumulativeStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
@@ -201,7 +201,7 @@ export class WorkersCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**

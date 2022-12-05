@@ -175,14 +175,14 @@ export class StyleSheetInstance {
   constructor(
     protected _version: Understand,
     payload: StyleSheetPayload,
-    assistantSid?: string
+    assistantSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
+    this._solution = { assistantSid };
   }
 
   /**

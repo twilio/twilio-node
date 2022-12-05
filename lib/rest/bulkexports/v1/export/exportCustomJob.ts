@@ -418,7 +418,7 @@ export class ExportCustomJobInstance {
   constructor(
     protected _version: V1,
     payload: ExportCustomJobPayload,
-    resourceType?: string
+    resourceType: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.resourceType = payload.resource_type;
