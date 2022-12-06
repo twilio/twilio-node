@@ -1,10 +1,10 @@
 "use strict";
 
-var Policy = require("./TaskRouterCapability").Policy;
+import { Policy } from "./TaskRouterCapability";
 
-var EVENT_URL_BASE = "https://event-bridge.twilio.com/v1/wschannels";
-var TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
-var TASKROUTER_VERSION = "v1";
+const EVENT_URL_BASE = "https://event-bridge.twilio.com/v1/wschannels";
+const TASKROUTER_BASE_URL = "https://taskrouter.twilio.com";
+const TASKROUTER_VERSION = "v1";
 
 /**
  * Build the default Policies for a worker
@@ -14,7 +14,10 @@ var TASKROUTER_VERSION = "v1";
  * @param {string} workerSid worker sid
  * @returns {Array<Policy>} list of Policies
  */
-function defaultWorkerPolicies(version, workspaceSid, workerSid) {
+export function defaultWorkerPolicies (
+  version: string,
+  workspaceSid: string,
+  workerSid: string): Policy[] {
   var activities = new Policy({
     url: [
       TASKROUTER_BASE_URL,
@@ -75,7 +78,9 @@ function defaultWorkerPolicies(version, workspaceSid, workerSid) {
  * @param {string} channelId channel id
  * @returns {Array<Policy>} list of Policies
  */
-function defaultEventBridgePolicies(accountSid, channelId) {
+export function defaultEventBridgePolicies(
+  accountSid: string,
+  channelId: string): Policy[] {
   var url = [EVENT_URL_BASE, accountSid, channelId].join("/");
   return [
     new Policy({
@@ -97,7 +102,7 @@ function defaultEventBridgePolicies(accountSid, channelId) {
  * @param {string} [workspaceSid] workspace sid or '**' for all workspaces
  * @return {string} generated url
  */
-function workspacesUrl(workspaceSid) {
+export function workspacesUrl(workspaceSid?: string): string {
   return [TASKROUTER_BASE_URL, TASKROUTER_VERSION, "Workspaces", workspaceSid]
     .filter((item) => typeof item === "string")
     .join("/");
@@ -110,7 +115,9 @@ function workspacesUrl(workspaceSid) {
  * @param {string} [taskQueueSid] task queue sid or '**' for all task queues
  * @return {string} generated url
  */
-function taskQueuesUrl(workspaceSid, taskQueueSid) {
+export function taskQueuesUrl(
+  workspaceSid: string,
+  taskQueueSid?: string): string {
   return [workspacesUrl(workspaceSid), "TaskQueues", taskQueueSid]
     .filter((item) => typeof item === "string")
     .join("/");
@@ -123,7 +130,7 @@ function taskQueuesUrl(workspaceSid, taskQueueSid) {
  * @param {string} [taskSid] task sid or '**' for all tasks
  * @returns {string} generated url
  */
-function tasksUrl(workspaceSid, taskSid) {
+export function tasksUrl(workspaceSid: string, taskSid?: string): string {
   return [workspacesUrl(workspaceSid), "Tasks", taskSid]
     .filter((item) => typeof item === "string")
     .join("/");
@@ -136,7 +143,9 @@ function tasksUrl(workspaceSid, taskSid) {
  * @param {string} [activitySid] activity sid or '**' for all activities
  * @returns {string} generated url
  */
-function activitiesUrl(workspaceSid, activitySid) {
+export function activitiesUrl(
+  workspaceSid: string,
+  activitySid?: string): string {
   return [workspacesUrl(workspaceSid), "Activities", activitySid]
     .filter((item) => typeof item === "string")
     .join("/");
@@ -149,7 +158,7 @@ function activitiesUrl(workspaceSid, activitySid) {
  * @param {string} [workerSid] worker sid or '**' for all workers
  * @returns {string} generated url
  */
-function workersUrl(workspaceSid, workerSid) {
+export function workersUrl(workspaceSid: string, workerSid?: string): string {
   return [workspacesUrl(workspaceSid), "Workers", workerSid]
     .filter((item) => typeof item === "string")
     .join("/");
@@ -163,20 +172,11 @@ function workersUrl(workspaceSid, workerSid) {
  * @param {string} [reservationSid] reservation sid or '**' for all reservations
  * @returns {string} generated url
  */
-function reservationsUrl(workspaceSid, workerSid, reservationSid) {
+export function reservationsUrl(
+  workspaceSid: string,
+  workerSid: string,
+  reservationSid?: string): string {
   return [workersUrl(workspaceSid, workerSid), "Reservations", reservationSid]
     .filter((item) => typeof item === "string")
     .join("/");
 }
-
-module.exports = {
-  defaultWorkerPolicies: defaultWorkerPolicies,
-  defaultEventBridgePolicies: defaultEventBridgePolicies,
-
-  workspacesUrl: workspacesUrl,
-  taskQueuesUrl: taskQueuesUrl,
-  tasksUrl: tasksUrl,
-  activitiesUrl: activitiesUrl,
-  workersUrl: workersUrl,
-  reservationsUrl: reservationsUrl,
-};

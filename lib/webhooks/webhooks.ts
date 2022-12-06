@@ -1,9 +1,65 @@
 "use strict";
 
-var crypto = require("crypto");
-var scmp = require("scmp");
-var urllib = require("url");
-var Url = require("url-parse");
+import crypto from "crypto";
+import scmp from "scmp";
+import urllib from "url";
+import Url from "url-parse";
+import { IncomingHttpHeaders } from "http2";
+
+export interface Request {
+  protocol: string;
+  header(name: string): string | undefined;
+  headers: IncomingHttpHeaders;
+  originalUrl: string;
+  rawBody?: any;
+  body: any;
+}
+
+export interface RequestValidatorOptions {
+  /**
+   * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+   */
+  url?: string;
+  /**
+   * Manually specify the host name used by Twilio in a number's webhook config
+   */
+  host?: string;
+  /**
+   * Manually specify the protocol used by Twilio in a number's webhook config
+   */
+  protocol?: string;
+}
+
+export interface WebhookOptions {
+  /**
+   * Whether or not the middleware should validate the request
+   * came from Twilio.  Default true. If the request does not originate from
+   * Twilio, we will return a text body and a 403.  If there is no configured
+   * auth token and validate=true, this is an error condition, so we will return
+   * a 500.
+   */
+  validate?: boolean;
+  /**
+   * Add helpers to the response object to improve support for XML (TwiML) rendering.  Default true.
+   */
+  includeHelpers?: boolean;
+  /**
+   * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+   */
+  url?: string;
+  /**
+   * Manually specify the host name used by Twilio in a number's webhook config
+   */
+  host?: string;
+  /**
+   * Manually specify the protocol used by Twilio in a number's webhook config
+   */
+  protocol?: string;
+  /**
+   * Authentication token
+   */
+  authToken?: string;
+}
 
 /**
  * Utility function to construct the URL string, since Node.js url library won't include standard port numbers
@@ -11,7 +67,7 @@ var Url = require("url-parse");
  * @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
  * @returns {string} - URL with standard port number included
  */
-function buildUrlWithStandardPort(parsedUrl) {
+function buildUrlWithStandardPort(parsedUrl: Url): string {
   let url = "";
   const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
 
@@ -28,10 +84,11 @@ function buildUrlWithStandardPort(parsedUrl) {
 /**
  Utility function to add a port number to a URL
 
- @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
+ @param {Url} parsedUrl - The parsed url object that Twilio requested on your
+ server
  @returns {string} - URL with port
  */
-function addPort(parsedUrl) {
+function addPort(parsedUrl: Url): string {
   if (!parsedUrl.port) {
     return buildUrlWithStandardPort(parsedUrl);
   }
@@ -41,10 +98,11 @@ function addPort(parsedUrl) {
 /**
  Utility function to remove a port number from a URL
 
- @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
+ @param {Url} parsedUrl - The parsed url object that Twilio requested on your
+ server
  @returns {string} - URL without port
  */
-function removePort(parsedUrl) {
+function removePort(parsedUrl: Url): string {
   parsedUrl.set("port", "");
   return parsedUrl.toString();
 }
@@ -56,7 +114,9 @@ function removePort(parsedUrl) {
  @param {string|array<string>} paramValue - The request parameter value
  @returns {string} - Formatted parameter string
  */
-function toFormUrlEncodedParam(paramName, paramValue) {
+function toFormUrlEncodedParam (
+  paramName: string,
+  paramValue: string | Array<string>): string {
   if (paramValue instanceof Array) {
     return Array.from(new Set(paramValue))
       .sort()
@@ -70,11 +130,15 @@ function toFormUrlEncodedParam(paramName, paramValue) {
  Utility function to get the expected signature for a given request
 
  @param {string} authToken - The auth token, as seen in the Twilio portal
- @param {string} url - The full URL (with query string) you configured to handle this request
+ @param {string} url - The full URL (with query string) you configured to handle
+ this request
  @param {object} params - the parameters sent with this request
  @returns {string} - signature
  */
-function getExpectedTwilioSignature(authToken, url, params) {
+export function getExpectedTwilioSignature (
+  authToken: string,
+  url: string,
+  params: Record<string, any>): string {
   if (url.indexOf("bodySHA256") !== -1 && params === null) {
     params = {};
   }
@@ -94,7 +158,7 @@ function getExpectedTwilioSignature(authToken, url, params) {
 
  @param {string} body - The plain-text body of the request
  */
-function getExpectedBodyHash(body) {
+export function getExpectedBodyHash(body: string): string {
   return crypto
     .createHash("sha256")
     .update(Buffer.from(body, "utf-8"))
@@ -110,7 +174,11 @@ function getExpectedBodyHash(body) {
  @param {object} params - the parameters sent with this request
  @returns {boolean} - valid
  */
-function validateRequest(authToken, twilioHeader, url, params) {
+export function validateRequest (
+  authToken: string,
+  twilioHeader: string,
+  url: string,
+  params: Record<string, any>): boolean {
   twilioHeader = twilioHeader || "";
   const urlObject = new Url(url);
   const urlWithPort = addPort(urlObject);
@@ -142,7 +210,9 @@ function validateRequest(authToken, twilioHeader, url, params) {
   return validSignatureWithoutPort || validSignatureWithPort;
 }
 
-function validateBody(body, bodyHash) {
+export function validateBody (
+  body: string,
+  bodyHash: any[] | string | ArrayBuffer | Buffer): boolean {
   var expectedHash = getExpectedBodyHash(body);
   return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
 }
@@ -157,7 +227,11 @@ function validateBody(body, bodyHash) {
  @param {string} body - The body of the request
  @returns {boolean} - valid
  */
-function validateRequestWithBody(authToken, twilioHeader, url, body) {
+export function validateRequestWithBody (
+  authToken: string,
+  twilioHeader: string,
+  url: string,
+  body: string): boolean {
   const urlObject = new Url(url, true);
   return (
     validateRequest(authToken, twilioHeader, url, {}) &&
@@ -176,7 +250,10 @@ function validateRequestWithBody(authToken, twilioHeader, url, body) {
     - host: manually specify the host name used by Twilio in a number's webhook config
     - protocol: manually specify the protocol used by Twilio in a number's webhook config
  */
-function validateExpressRequest(request, authToken, opts) {
+export function validateExpressRequest (
+  request: Request,
+  authToken: string,
+  opts?: RequestValidatorOptions): boolean {
   var options = opts || {};
   var webhookUrl;
 
@@ -244,10 +321,36 @@ var webhookMiddleware = twilio.webhook({
     protocol: 'https'
 });
  */
-function webhook() {
-  var opts = {
-    validate: true,
-  };
+export function webhook(): (req: any, res: any, next: any) => void;
+export function webhook(
+  opts?: string | WebhookOptions,
+  authToken?: string | WebhookOptions): (req: any, res: any, next: any) => void {
+  let token: string;
+  let options: WebhookOptions;
+
+  // Narrowing the args
+  if (opts) {
+    if (typeof opts === 'string') {
+      token = opts;
+    }
+    if (typeof opts === 'object') {
+      options = opts;
+    }
+  }
+  if (authToken) {
+    if (typeof authToken === 'string') {
+      token = authToken;
+    }
+    if (typeof authToken === 'object') {
+      options = authToken;
+    }
+  }
+
+  if (!options) {
+    options = {
+      validate: true
+    };
+  }
 
   // Process arguments
   var tokenString;
@@ -256,17 +359,17 @@ function webhook() {
     if (typeof arg === "string") {
       tokenString = arg;
     } else {
-      opts = Object.assign(opts, arg);
+      options = Object.assign(options, arg);
     }
   }
 
   // set auth token from input or environment variable
-  opts.authToken = tokenString ? tokenString : process.env.TWILIO_AUTH_TOKEN;
+  options.authToken = tokenString ? tokenString : process.env.TWILIO_AUTH_TOKEN;
 
   // Create middleware function
   return function hook(request, response, next) {
     // Do validation if requested
-    if (opts.validate) {
+    if (options.validate) {
       // Check if the 'X-Twilio-Signature' header exists or not
       if (!request.header("X-Twilio-Signature")) {
         return response
@@ -277,7 +380,7 @@ function webhook() {
           );
       }
       // Check for a valid auth token
-      if (!opts.authToken) {
+      if (!options.authToken) {
         console.error(
           "[Twilio]: Error - Twilio auth token is required for webhook request validation."
         );
@@ -289,10 +392,10 @@ function webhook() {
           );
       } else {
         // Check that the request originated from Twilio
-        var valid = validateExpressRequest(request, opts.authToken, {
-          url: opts.url,
-          host: opts.host,
-          protocol: opts.protocol,
+        var valid = validateExpressRequest(request, options.authToken, {
+          url: options.url,
+          host: options.host,
+          protocol: options.protocol,
         });
 
         if (valid) {
@@ -309,13 +412,3 @@ function webhook() {
     }
   };
 }
-
-module.exports = {
-  getExpectedTwilioSignature,
-  getExpectedBodyHash,
-  validateRequest,
-  validateRequestWithBody,
-  validateExpressRequest,
-  validateBody,
-  webhook,
-};
