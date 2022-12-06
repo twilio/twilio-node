@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DeploymentInstance
@@ -155,6 +156,14 @@ export class DeploymentContextImpl implements DeploymentContext {
     fleetSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(fleetSid)) {
+      throw new Error("Parameter 'fleetSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { fleetSid, sid };
     this._uri = `/Fleets/${fleetSid}/Deployments/${sid}`;
   }
@@ -581,6 +590,10 @@ export function DeploymentListInstance(
   version: DeployedDevices,
   fleetSid: string
 ): DeploymentListInstance {
+  if (!isValidPathParam(fleetSid)) {
+    throw new Error("Parameter 'fleetSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as DeploymentListInstanceImpl;
 
   instance.get = function get(sid): DeploymentContext {

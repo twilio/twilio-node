@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type CallRecordingSource =
   | "DialVerb"
@@ -190,6 +191,18 @@ export class RecordingContextImpl implements RecordingContext {
     callSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Recordings/${sid}.json`;
   }
@@ -676,6 +689,14 @@ export function RecordingListInstance(
   accountSid: string,
   callSid: string
 ): RecordingListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as RecordingListInstanceImpl;
 
   instance.get = function get(sid): RecordingContext {

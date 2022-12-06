@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type UserConversationNotificationLevel = "default" | "muted";
 
@@ -153,6 +154,14 @@ export class UserConversationContextImpl implements UserConversationContext {
     userSid: string,
     conversationSid: string
   ) {
+    if (!isValidPathParam(userSid)) {
+      throw new Error("Parameter 'userSid' is not valid.");
+    }
+
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
     this._solution = { userSid, conversationSid };
     this._uri = `/Users/${userSid}/Conversations/${conversationSid}`;
   }
@@ -634,6 +643,10 @@ export function UserConversationListInstance(
   version: V1,
   userSid: string
 ): UserConversationListInstance {
+  if (!isValidPathParam(userSid)) {
+    throw new Error("Parameter 'userSid' is not valid.");
+  }
+
   const instance = ((conversationSid) =>
     instance.get(conversationSid)) as UserConversationListInstanceImpl;
 

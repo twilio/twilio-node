@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
 
@@ -100,6 +101,10 @@ export class AnnotationContextImpl implements AnnotationContext {
   protected _uri: string;
 
   constructor(protected _version: V1, callSid: string) {
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
     this._solution = { callSid };
     this._uri = `/Voice/${callSid}/Annotation`;
   }
@@ -361,6 +366,10 @@ export function AnnotationListInstance(
   version: V1,
   callSid: string
 ): AnnotationListInstance {
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as AnnotationListInstanceImpl;
 
   instance.get = function get(): AnnotationContext {

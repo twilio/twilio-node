@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a UsAppToPersonInstance
@@ -142,6 +143,14 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     messagingServiceSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(messagingServiceSid)) {
+      throw new Error("Parameter 'messagingServiceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { messagingServiceSid, sid };
     this._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/${sid}`;
   }
@@ -607,6 +616,10 @@ export function UsAppToPersonListInstance(
   version: V1,
   messagingServiceSid: string
 ): UsAppToPersonListInstance {
+  if (!isValidPathParam(messagingServiceSid)) {
+    throw new Error("Parameter 'messagingServiceSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as UsAppToPersonListInstanceImpl;
 

@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type UserBindingBindingType = "gcm" | "apn" | "fcm";
 
@@ -120,6 +121,18 @@ export class UserBindingContextImpl implements UserBindingContext {
     userSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(userSid)) {
+      throw new Error("Parameter 'userSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, userSid, sid };
     this._uri = `/Services/${serviceSid}/Users/${userSid}/Bindings/${sid}`;
   }
@@ -483,6 +496,14 @@ export function UserBindingListInstance(
   serviceSid: string,
   userSid: string
 ): UserBindingListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(userSid)) {
+    throw new Error("Parameter 'userSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as UserBindingListInstanceImpl;
 
   instance.get = function get(sid): UserBindingContext {

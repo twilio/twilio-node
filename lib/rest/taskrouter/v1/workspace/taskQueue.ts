@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
@@ -206,6 +207,14 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   protected _statistics?: TaskQueueStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${sid}`;
   }
@@ -734,6 +743,10 @@ export function TaskQueueListInstance(
   version: V1,
   workspaceSid: string
 ): TaskQueueListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as TaskQueueListInstanceImpl;
 
   instance.get = function get(sid): TaskQueueContext {

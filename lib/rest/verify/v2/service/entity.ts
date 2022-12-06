@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { ChallengeListInstance } from "./entity/challenge";
 import { FactorListInstance } from "./entity/factor";
 import { NewFactorListInstance } from "./entity/newFactor";
@@ -125,6 +126,14 @@ export class EntityContextImpl implements EntityContext {
   protected _newFactors?: NewFactorListInstance;
 
   constructor(protected _version: V2, serviceSid: string, identity: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(identity)) {
+      throw new Error("Parameter 'identity' is not valid.");
+    }
+
     this._solution = { serviceSid, identity };
     this._uri = `/Services/${serviceSid}/Entities/${identity}`;
   }
@@ -524,6 +533,10 @@ export function EntityListInstance(
   version: V2,
   serviceSid: string
 ): EntityListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((identity) =>
     instance.get(identity)) as EntityListInstanceImpl;
 

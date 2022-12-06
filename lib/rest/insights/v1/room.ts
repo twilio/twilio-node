@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 
 type VideoRoomSummaryCodec = "VP8" | "H264" | "VP9";
@@ -164,6 +165,10 @@ export class RoomContextImpl implements RoomContext {
   protected _participants?: ParticipantListInstance;
 
   constructor(protected _version: V1, roomSid: string) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
     this._solution = { roomSid };
     this._uri = `/Video/Rooms/${roomSid}`;
   }

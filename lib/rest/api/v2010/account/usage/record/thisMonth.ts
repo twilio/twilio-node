@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type UsageRecordThisMonthCategory =
   | "a2p-registration-fees"
@@ -481,6 +482,10 @@ export function ThisMonthListInstance(
   version: V2010,
   accountSid: string
 ): ThisMonthListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as ThisMonthListInstanceImpl;
 
   instance._version = version;

@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 import { StepListInstance } from "./engagement/step";
 
@@ -128,6 +129,14 @@ export class EngagementContextImpl implements EngagementContext {
   protected _steps?: StepListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { flowSid, sid };
     this._uri = `/Flows/${flowSid}/Engagements/${sid}`;
   }
@@ -529,6 +538,10 @@ export function EngagementListInstance(
   version: V1,
   flowSid: string
 ): EngagementListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as EngagementListInstanceImpl;
 
   instance.get = function get(sid): EngagementContext {

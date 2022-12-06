@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type ReplaceItemsStatus =
   | "draft"
@@ -71,6 +72,10 @@ export function ReplaceItemsListInstance(
   version: V2,
   bundleSid: string
 ): ReplaceItemsListInstance {
+  if (!isValidPathParam(bundleSid)) {
+    throw new Error("Parameter 'bundleSid' is not valid.");
+  }
+
   const instance = {} as ReplaceItemsListInstanceImpl;
 
   instance._version = version;

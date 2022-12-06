@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPrefix";
 
 /**
@@ -135,6 +136,10 @@ export class CountryContextImpl implements CountryContext {
   protected _highriskSpecialPrefixes?: HighriskSpecialPrefixListInstance;
 
   constructor(protected _version: V1, isoCode: string) {
+    if (!isValidPathParam(isoCode)) {
+      throw new Error("Parameter 'isoCode' is not valid.");
+    }
+
     this._solution = { isoCode };
     this._uri = `/DialingPermissions/Countries/${isoCode}`;
   }

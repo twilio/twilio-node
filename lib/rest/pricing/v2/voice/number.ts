@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * The InboundCallPrice record
@@ -82,6 +83,10 @@ export class NumberContextImpl implements NumberContext {
   protected _uri: string;
 
   constructor(protected _version: V2, destinationNumber: string) {
+    if (!isValidPathParam(destinationNumber)) {
+      throw new Error("Parameter 'destinationNumber' is not valid.");
+    }
+
     this._solution = { destinationNumber };
     this._uri = `/Voice/Numbers/${destinationNumber}`;
   }

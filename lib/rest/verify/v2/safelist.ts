@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a SafelistInstance
@@ -65,6 +66,10 @@ export class SafelistContextImpl implements SafelistContext {
   protected _uri: string;
 
   constructor(protected _version: V2, phoneNumber: string) {
+    if (!isValidPathParam(phoneNumber)) {
+      throw new Error("Parameter 'phoneNumber' is not valid.");
+    }
+
     this._solution = { phoneNumber };
     this._uri = `/SafeList/Numbers/${phoneNumber}`;
   }

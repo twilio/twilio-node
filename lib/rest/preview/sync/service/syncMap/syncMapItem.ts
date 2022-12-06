@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type SyncMapItemQueryFromBoundType = "inclusive" | "exclusive";
 
@@ -191,6 +192,18 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     mapSid: string,
     key: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(mapSid)) {
+      throw new Error("Parameter 'mapSid' is not valid.");
+    }
+
+    if (!isValidPathParam(key)) {
+      throw new Error("Parameter 'key' is not valid.");
+    }
+
     this._solution = { serviceSid, mapSid, key };
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
   }
@@ -615,6 +628,14 @@ export function SyncMapItemListInstance(
   serviceSid: string,
   mapSid: string
 ): SyncMapItemListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(mapSid)) {
+    throw new Error("Parameter 'mapSid' is not valid.");
+  }
+
   const instance = ((key) => instance.get(key)) as SyncMapItemListInstanceImpl;
 
   instance.get = function get(key): SyncMapItemContext {

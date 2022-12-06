@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { BundleCopyListInstance } from "./bundle/bundleCopy";
 import { EvaluationListInstance } from "./bundle/evaluation";
 import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
@@ -258,6 +259,10 @@ export class BundleContextImpl implements BundleContext {
   protected _replaceItems?: ReplaceItemsListInstance;
 
   constructor(protected _version: V2, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/RegulatoryCompliance/Bundles/${sid}`;
   }

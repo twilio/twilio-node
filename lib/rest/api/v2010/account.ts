@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V2010 from "../V2010";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { AddressListInstance } from "./account/address";
 import { ApplicationListInstance } from "./account/application";
 import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp";
@@ -227,6 +228,10 @@ export class AccountContextImpl implements AccountContext {
   protected _validationRequests?: ValidationRequestListInstance;
 
   constructor(protected _version: V2010, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Accounts/${sid}.json`;
   }

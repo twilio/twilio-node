@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { SyncListItemListInstance } from "./syncList/syncListItem";
 import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
 
@@ -122,6 +123,14 @@ export class SyncListContextImpl implements SyncListContext {
   protected _syncListPermissions?: SyncListPermissionListInstance;
 
   constructor(protected _version: Sync, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Lists/${sid}`;
   }
@@ -499,6 +508,10 @@ export function SyncListListInstance(
   version: Sync,
   serviceSid: string
 ): SyncListListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as SyncListListInstanceImpl;
 
   instance.get = function get(sid): SyncListContext {

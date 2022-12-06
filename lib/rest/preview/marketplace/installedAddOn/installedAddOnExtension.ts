@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Marketplace from "../../Marketplace";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a InstalledAddOnExtensionInstance
@@ -132,6 +133,14 @@ export class InstalledAddOnExtensionContextImpl
     installedAddOnSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(installedAddOnSid)) {
+      throw new Error("Parameter 'installedAddOnSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { installedAddOnSid, sid };
     this._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions/${sid}`;
   }
@@ -518,6 +527,10 @@ export function InstalledAddOnExtensionListInstance(
   version: Marketplace,
   installedAddOnSid: string
 ): InstalledAddOnExtensionListInstance {
+  if (!isValidPathParam(installedAddOnSid)) {
+    throw new Error("Parameter 'installedAddOnSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as InstalledAddOnExtensionListInstanceImpl;
 

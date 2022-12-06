@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddOnExtension";
 
 /**
@@ -125,6 +126,18 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
     resourceSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(resourceSid)) {
+      throw new Error("Parameter 'resourceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, resourceSid, sid };
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${sid}.json`;
   }
@@ -523,6 +536,14 @@ export function AssignedAddOnListInstance(
   accountSid: string,
   resourceSid: string
 ): AssignedAddOnListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(resourceSid)) {
+    throw new Error("Parameter 'resourceSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as AssignedAddOnListInstanceImpl;
 

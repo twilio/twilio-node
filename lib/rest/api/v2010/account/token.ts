@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export class ApiV2010AccountTokenIceServers {
   "credential"?: string;
@@ -80,6 +81,10 @@ export function TokenListInstance(
   version: V2010,
   accountSid: string
 ): TokenListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as TokenListInstanceImpl;
 
   instance._version = version;

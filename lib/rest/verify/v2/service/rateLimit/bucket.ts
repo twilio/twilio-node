@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a BucketInstance
@@ -157,6 +158,18 @@ export class BucketContextImpl implements BucketContext {
     rateLimitSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(rateLimitSid)) {
+      throw new Error("Parameter 'rateLimitSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, rateLimitSid, sid };
     this._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets/${sid}`;
   }
@@ -582,6 +595,14 @@ export function BucketListInstance(
   serviceSid: string,
   rateLimitSid: string
 ): BucketListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(rateLimitSid)) {
+    throw new Error("Parameter 'rateLimitSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as BucketListInstanceImpl;
 
   instance.get = function get(sid): BucketContext {

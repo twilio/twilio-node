@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a VariableInstance
@@ -157,6 +158,18 @@ export class VariableContextImpl implements VariableContext {
     environmentSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(environmentSid)) {
+      throw new Error("Parameter 'environmentSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, environmentSid, sid };
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Variables/${sid}`;
   }
@@ -584,6 +597,14 @@ export function VariableListInstance(
   serviceSid: string,
   environmentSid: string
 ): VariableListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(environmentSid)) {
+    throw new Error("Parameter 'environmentSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as VariableListInstanceImpl;
 
   instance.get = function get(sid): VariableContext {

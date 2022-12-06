@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueStatisticsInstance
@@ -82,6 +83,14 @@ export class TaskQueueStatisticsContextImpl
     workspaceSid: string,
     taskQueueSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskQueueSid)) {
+      throw new Error("Parameter 'taskQueueSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, taskQueueSid };
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
   }
@@ -292,6 +301,14 @@ export function TaskQueueStatisticsListInstance(
   workspaceSid: string,
   taskQueueSid: string
 ): TaskQueueStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskQueueSid)) {
+    throw new Error("Parameter 'taskQueueSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as TaskQueueStatisticsListInstanceImpl;
 

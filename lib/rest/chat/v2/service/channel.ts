@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { InviteListInstance } from "./channel/invite";
 import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
@@ -219,6 +220,14 @@ export class ChannelContextImpl implements ChannelContext {
   protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
   }
@@ -792,6 +801,10 @@ export function ChannelListInstance(
   version: V2,
   serviceSid: string
 ): ChannelListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ChannelListInstanceImpl;
 
   instance.get = function get(sid): ChannelContext {

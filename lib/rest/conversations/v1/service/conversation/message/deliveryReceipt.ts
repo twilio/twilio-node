@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type ServiceConversationMessageReceiptDeliveryStatus =
   | "read"
@@ -113,6 +114,22 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
     messageSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
+    if (!isValidPathParam(messageSid)) {
+      throw new Error("Parameter 'messageSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { chatServiceSid, conversationSid, messageSid, sid };
     this._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
   }
@@ -465,6 +482,18 @@ export function DeliveryReceiptListInstance(
   conversationSid: string,
   messageSid: string
 ): DeliveryReceiptListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(conversationSid)) {
+    throw new Error("Parameter 'conversationSid' is not valid.");
+  }
+
+  if (!isValidPathParam(messageSid)) {
+    throw new Error("Parameter 'messageSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as DeliveryReceiptListInstanceImpl;
 

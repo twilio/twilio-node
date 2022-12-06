@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type ServiceUserConversationNotificationLevel = "default" | "muted";
 
@@ -155,6 +156,18 @@ export class UserConversationContextImpl implements UserConversationContext {
     userSid: string,
     conversationSid: string
   ) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(userSid)) {
+      throw new Error("Parameter 'userSid' is not valid.");
+    }
+
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
     this._solution = { chatServiceSid, userSid, conversationSid };
     this._uri = `/Services/${chatServiceSid}/Users/${userSid}/Conversations/${conversationSid}`;
   }
@@ -643,6 +656,14 @@ export function UserConversationListInstance(
   chatServiceSid: string,
   userSid: string
 ): UserConversationListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(userSid)) {
+    throw new Error("Parameter 'userSid' is not valid.");
+  }
+
   const instance = ((conversationSid) =>
     instance.get(conversationSid)) as UserConversationListInstanceImpl;
 

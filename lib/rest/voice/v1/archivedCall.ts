@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 export interface ArchivedCallContext {
   /**
@@ -46,6 +47,14 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   protected _uri: string;
 
   constructor(protected _version: V1, date: Date, sid: string) {
+    if (!isValidPathParam(date)) {
+      throw new Error("Parameter 'date' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { date, sid };
     this._uri = `/Archives/${date}/Calls/${sid}`;
   }

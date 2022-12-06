@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type CallFeedbackSummaryStatus =
   | "queued"
@@ -80,6 +81,14 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   protected _uri: string;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/FeedbackSummary/${sid}.json`;
   }
@@ -344,6 +353,10 @@ export function FeedbackSummaryListInstance(
   version: V2010,
   accountSid: string
 ): FeedbackSummaryListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as FeedbackSummaryListInstanceImpl;
 

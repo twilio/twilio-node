@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../../base/utility";
 import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping";
 
 export interface AuthTypeRegistrationsListInstance {
@@ -50,6 +51,14 @@ export function AuthTypeRegistrationsListInstance(
   accountSid: string,
   domainSid: string
 ): AuthTypeRegistrationsListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(domainSid)) {
+    throw new Error("Parameter 'domainSid' is not valid.");
+  }
+
   const instance = {} as AuthTypeRegistrationsListInstanceImpl;
 
   instance._version = version;

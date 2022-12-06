@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a ExportCustomJobInstance
@@ -251,6 +252,10 @@ export function ExportCustomJobListInstance(
   version: V1,
   resourceType: string
 ): ExportCustomJobListInstance {
+  if (!isValidPathParam(resourceType)) {
+    throw new Error("Parameter 'resourceType' is not valid.");
+  }
+
   const instance = {} as ExportCustomJobListInstanceImpl;
 
   instance._version = version;

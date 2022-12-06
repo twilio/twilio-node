@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { UsageListInstance } from "./sim/usage";
 
 /**
@@ -191,6 +192,10 @@ export class SimContextImpl implements SimContext {
   protected _usage?: UsageListInstance;
 
   constructor(protected _version: Wireless, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Sims/${sid}`;
   }

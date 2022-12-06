@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type RoomParticipantSubscribedTrackKind = "audio" | "video" | "data";
 
@@ -106,6 +107,18 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
     participantSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
+    if (!isValidPathParam(participantSid)) {
+      throw new Error("Parameter 'participantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { roomSid, participantSid, sid };
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
   }
@@ -434,6 +447,14 @@ export function SubscribedTrackListInstance(
   roomSid: string,
   participantSid: string
 ): SubscribedTrackListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
+  if (!isValidPathParam(participantSid)) {
+    throw new Error("Parameter 'participantSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as SubscribedTrackListInstanceImpl;
 

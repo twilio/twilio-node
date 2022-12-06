@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 type IncomingPhoneNumberLocalAddressRequirement =
@@ -319,6 +320,10 @@ export function LocalListInstance(
   version: V2010,
   accountSid: string
 ): LocalListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as LocalListInstanceImpl;
 
   instance._version = version;

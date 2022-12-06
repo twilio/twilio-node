@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
@@ -225,6 +226,10 @@ export function EventListInstance(
   version: V1,
   callSid: string
 ): EventListInstance {
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = {} as EventListInstanceImpl;
 
   instance._version = version;

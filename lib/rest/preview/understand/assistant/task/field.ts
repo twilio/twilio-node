@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import Understand from "../../../Understand";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a FieldInstance
@@ -122,6 +123,18 @@ export class FieldContextImpl implements FieldContext {
     taskSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskSid)) {
+      throw new Error("Parameter 'taskSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, taskSid, sid };
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields/${sid}`;
   }
@@ -476,6 +489,14 @@ export function FieldListInstance(
   assistantSid: string,
   taskSid: string
 ): FieldListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskSid)) {
+    throw new Error("Parameter 'taskSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as FieldListInstanceImpl;
 
   instance.get = function get(sid): FieldContext {

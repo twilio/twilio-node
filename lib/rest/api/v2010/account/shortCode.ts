@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a ShortCodeInstance
@@ -149,6 +150,14 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   protected _uri: string;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/SMS/ShortCodes/${sid}.json`;
   }
@@ -573,6 +582,10 @@ export function ShortCodeListInstance(
   version: V2010,
   accountSid: string
 ): ShortCodeListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ShortCodeListInstanceImpl;
 
   instance.get = function get(sid): ShortCodeContext {

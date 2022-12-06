@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 type FormFormTypes = "form-push";
 
@@ -47,6 +48,10 @@ export class FormContextImpl implements FormContext {
   protected _uri: string;
 
   constructor(protected _version: V2, formType: FormFormTypes) {
+    if (!isValidPathParam(formType)) {
+      throw new Error("Parameter 'formType' is not valid.");
+    }
+
     this._solution = { formType };
     this._uri = `/Forms/${formType}`;
   }

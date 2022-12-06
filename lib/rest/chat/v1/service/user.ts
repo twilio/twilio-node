@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { UserChannelListInstance } from "./user/userChannel";
 
 /**
@@ -162,6 +163,14 @@ export class UserContextImpl implements UserContext {
   protected _userChannels?: UserChannelListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Users/${sid}`;
   }
@@ -639,6 +648,10 @@ export function UserListInstance(
   version: V1,
   serviceSid: string
 ): UserListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as UserListInstanceImpl;
 
   instance.get = function get(sid): UserContext {

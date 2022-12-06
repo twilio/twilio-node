@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkflowStatisticsInstance
@@ -82,6 +83,14 @@ export class WorkflowStatisticsContextImpl
     workspaceSid: string,
     workflowSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(workflowSid)) {
+      throw new Error("Parameter 'workflowSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, workflowSid };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
   }
@@ -292,6 +301,14 @@ export function WorkflowStatisticsListInstance(
   workspaceSid: string,
   workflowSid: string
 ): WorkflowStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(workflowSid)) {
+    throw new Error("Parameter 'workflowSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as WorkflowStatisticsListInstanceImpl;
 
   instance.get = function get(): WorkflowStatisticsContext {

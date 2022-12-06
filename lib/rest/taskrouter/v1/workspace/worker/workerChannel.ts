@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a WorkerChannelInstance
@@ -135,6 +136,18 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     workerSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(workerSid)) {
+      throw new Error("Parameter 'workerSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { workspaceSid, workerSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels/${sid}`;
   }
@@ -558,6 +571,14 @@ export function WorkerChannelListInstance(
   workspaceSid: string,
   workerSid: string
 ): WorkerChannelListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(workerSid)) {
+    throw new Error("Parameter 'workerSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as WorkerChannelListInstanceImpl;
 

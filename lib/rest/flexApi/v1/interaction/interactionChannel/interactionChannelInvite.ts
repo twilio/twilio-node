@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a InteractionChannelInviteInstance
@@ -261,6 +262,14 @@ export function InteractionChannelInviteListInstance(
   interactionSid: string,
   channelSid: string
 ): InteractionChannelInviteListInstance {
+  if (!isValidPathParam(interactionSid)) {
+    throw new Error("Parameter 'interactionSid' is not valid.");
+  }
+
+  if (!isValidPathParam(channelSid)) {
+    throw new Error("Parameter 'channelSid' is not valid.");
+  }
+
   const instance = {} as InteractionChannelInviteListInstanceImpl;
 
   instance._version = version;

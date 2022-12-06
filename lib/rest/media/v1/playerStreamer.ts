@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { PlaybackGrantListInstance } from "./playerStreamer/playbackGrant";
 
 type PlayerStreamerEndedReason =
@@ -163,6 +164,10 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
   protected _playbackGrant?: PlaybackGrantListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/PlayerStreamers/${sid}`;
   }

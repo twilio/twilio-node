@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { MessageInteractionListInstance } from "./participant/messageInteraction";
 
 /**
@@ -131,6 +132,18 @@ export class ParticipantContextImpl implements ParticipantContext {
     sessionSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sessionSid)) {
+      throw new Error("Parameter 'sessionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sessionSid, sid };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${sid}`;
   }
@@ -537,6 +550,14 @@ export function ParticipantListInstance(
   serviceSid: string,
   sessionSid: string
 ): ParticipantListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(sessionSid)) {
+    throw new Error("Parameter 'sessionSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
 
   instance.get = function get(sid): ParticipantContext {

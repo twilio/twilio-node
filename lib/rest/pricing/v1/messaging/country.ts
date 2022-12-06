@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
   "basePrice"?: number;
@@ -113,6 +114,10 @@ export class CountryContextImpl implements CountryContext {
   protected _uri: string;
 
   constructor(protected _version: V1, isoCountry: string) {
+    if (!isValidPathParam(isoCountry)) {
+      throw new Error("Parameter 'isoCountry' is not valid.");
+    }
+
     this._solution = { isoCountry };
     this._uri = `/Messaging/Countries/${isoCountry}`;
   }

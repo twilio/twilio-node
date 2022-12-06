@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
 
 export interface SchemaContext {
@@ -50,6 +51,10 @@ export class SchemaContextImpl implements SchemaContext {
   protected _versions?: SchemaVersionListInstance;
 
   constructor(protected _version: V1, id: string) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
+    }
+
     this._solution = { id };
     this._uri = `/Schemas/${id}`;
   }

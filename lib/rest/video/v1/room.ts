@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
@@ -194,6 +195,10 @@ export class RoomContextImpl implements RoomContext {
   protected _recordings?: RoomRecordingListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Rooms/${sid}`;
   }

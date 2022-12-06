@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { AccessTokenListInstance } from "./service/accessToken";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
@@ -233,6 +234,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _webhooks?: WebhookListInstance;
 
   constructor(protected _version: V2, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }

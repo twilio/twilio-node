@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to fetch a PhoneNumberInstance
@@ -73,6 +74,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   protected _uri: string;
 
   constructor(protected _version: V1, phoneNumber: string) {
+    if (!isValidPathParam(phoneNumber)) {
+      throw new Error("Parameter 'phoneNumber' is not valid.");
+    }
+
     this._solution = { phoneNumber };
     this._uri = `/PhoneNumbers/${phoneNumber}`;
   }

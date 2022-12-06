@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type ServiceWebhookConfigurationMethod = "GET" | "POST";
 
@@ -86,6 +87,10 @@ export class WebhookContextImpl implements WebhookContext {
   protected _uri: string;
 
   constructor(protected _version: V1, chatServiceSid: string) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
     this._solution = { chatServiceSid };
     this._uri = `/Services/${chatServiceSid}/Configuration/Webhooks`;
   }
@@ -324,6 +329,10 @@ export function WebhookListInstance(
   version: V1,
   chatServiceSid: string
 ): WebhookListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as WebhookListInstanceImpl;
 
   instance.get = function get(): WebhookContext {

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a FlowTestUserInstance
@@ -68,6 +69,10 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   protected _uri: string;
 
   constructor(protected _version: V2, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Flows/${sid}/TestUsers`;
   }
@@ -258,6 +263,10 @@ export function FlowTestUserListInstance(
   version: V2,
   sid: string
 ): FlowTestUserListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as FlowTestUserListInstanceImpl;
 
   instance.get = function get(): FlowTestUserContext {

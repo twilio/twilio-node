@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type ServiceParticipantConversationState = "inactive" | "active" | "closed";
 
@@ -245,6 +246,10 @@ export function ParticipantConversationListInstance(
   version: V1,
   chatServiceSid: string
 ): ParticipantConversationListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
   const instance = {} as ParticipantConversationListInstanceImpl;
 
   instance._version = version;

@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { DocumentPermissionListInstance } from "./document/documentPermission";
 
 /**
@@ -146,6 +147,14 @@ export class DocumentContextImpl implements DocumentContext {
   protected _documentPermissions?: DocumentPermissionListInstance;
 
   constructor(protected _version: Sync, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Documents/${sid}`;
   }
@@ -568,6 +577,10 @@ export function DocumentListInstance(
   version: Sync,
   serviceSid: string
 ): DocumentListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
 
   instance.get = function get(sid): DocumentContext {

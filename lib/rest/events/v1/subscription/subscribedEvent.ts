@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a SubscribedEventInstance
@@ -152,6 +153,14 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   protected _uri: string;
 
   constructor(protected _version: V1, subscriptionSid: string, type: string) {
+    if (!isValidPathParam(subscriptionSid)) {
+      throw new Error("Parameter 'subscriptionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(type)) {
+      throw new Error("Parameter 'type' is not valid.");
+    }
+
     this._solution = { subscriptionSid, type };
     this._uri = `/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
   }
@@ -551,6 +560,10 @@ export function SubscribedEventListInstance(
   version: V1,
   subscriptionSid: string
 ): SubscribedEventListInstance {
+  if (!isValidPathParam(subscriptionSid)) {
+    throw new Error("Parameter 'subscriptionSid' is not valid.");
+  }
+
   const instance = ((type) =>
     instance.get(type)) as SubscribedEventListInstanceImpl;
 

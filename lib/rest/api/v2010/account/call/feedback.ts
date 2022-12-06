@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type CallFeedbackIssues =
   | "audio-latency"
@@ -91,6 +92,14 @@ export class FeedbackContextImpl implements FeedbackContext {
   protected _uri: string;
 
   constructor(protected _version: V2010, accountSid: string, callSid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
     this._solution = { accountSid, callSid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
   }
@@ -331,6 +340,14 @@ export function FeedbackListInstance(
   accountSid: string,
   callSid: string
 ): FeedbackListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as FeedbackListInstanceImpl;
 
   instance.get = function get(): FeedbackContext {

@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { BindingListInstance } from "./service/binding";
 import { NotificationListInstance } from "./service/notification";
 
@@ -212,6 +213,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _notifications?: NotificationListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }

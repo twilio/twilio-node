@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type ServiceRoleRoleType = "conversation" | "service";
 
@@ -143,6 +144,14 @@ export class RoleContextImpl implements RoleContext {
   protected _uri: string;
 
   constructor(protected _version: V1, chatServiceSid: string, sid: string) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { chatServiceSid, sid };
     this._uri = `/Services/${chatServiceSid}/Roles/${sid}`;
   }
@@ -549,6 +558,10 @@ export function RoleListInstance(
   version: V1,
   chatServiceSid: string
 ): RoleListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as RoleListInstanceImpl;
 
   instance.get = function get(sid): RoleContext {

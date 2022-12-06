@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -114,6 +115,22 @@ export class PayloadContextImpl implements PayloadContext {
     addOnResultSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(referenceSid)) {
+      throw new Error("Parameter 'referenceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(addOnResultSid)) {
+      throw new Error("Parameter 'addOnResultSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, referenceSid, addOnResultSid, sid };
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
   }
@@ -481,6 +498,18 @@ export function PayloadListInstance(
   referenceSid: string,
   addOnResultSid: string
 ): PayloadListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(referenceSid)) {
+    throw new Error("Parameter 'referenceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(addOnResultSid)) {
+    throw new Error("Parameter 'addOnResultSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as PayloadListInstanceImpl;
 
   instance.get = function get(sid): PayloadContext {

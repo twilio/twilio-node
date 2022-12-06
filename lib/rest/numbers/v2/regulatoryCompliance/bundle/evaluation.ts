@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type EvaluationStatus = "compliant" | "noncompliant";
 
@@ -97,6 +98,14 @@ export class EvaluationContextImpl implements EvaluationContext {
   protected _uri: string;
 
   constructor(protected _version: V2, bundleSid: string, sid: string) {
+    if (!isValidPathParam(bundleSid)) {
+      throw new Error("Parameter 'bundleSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { bundleSid, sid };
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations/${sid}`;
   }
@@ -405,6 +414,10 @@ export function EvaluationListInstance(
   version: V2,
   bundleSid: string
 ): EvaluationListInstance {
+  if (!isValidPathParam(bundleSid)) {
+    throw new Error("Parameter 'bundleSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as EvaluationListInstanceImpl;
 
   instance.get = function get(sid): EvaluationContext {

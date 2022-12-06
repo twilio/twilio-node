@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type NewFactorFactorStatuses = "unverified" | "verified";
 
@@ -99,6 +100,14 @@ export function NewFactorListInstance(
   serviceSid: string,
   identity: string
 ): NewFactorListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(identity)) {
+    throw new Error("Parameter 'identity' is not valid.");
+  }
+
   const instance = {} as NewFactorListInstanceImpl;
 
   instance._version = version;

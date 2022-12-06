@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type PhoneNumberAddressRequirement = "none" | "any" | "local" | "foreign";
 
@@ -116,6 +117,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   protected _uri: string;
 
   constructor(protected _version: V1, trunkSid: string, sid: string) {
+    if (!isValidPathParam(trunkSid)) {
+      throw new Error("Parameter 'trunkSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { trunkSid, sid };
     this._uri = `/Trunks/${trunkSid}/PhoneNumbers/${sid}`;
   }
@@ -621,6 +630,10 @@ export function PhoneNumberListInstance(
   version: V1,
   trunkSid: string
 ): PhoneNumberListInstance {
+  if (!isValidPathParam(trunkSid)) {
+    throw new Error("Parameter 'trunkSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstanceImpl;
 
   instance.get = function get(sid): PhoneNumberContext {

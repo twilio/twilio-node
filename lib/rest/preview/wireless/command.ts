@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a CommandInstance
@@ -138,6 +139,10 @@ export class CommandContextImpl implements CommandContext {
   protected _uri: string;
 
   constructor(protected _version: Wireless, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Commands/${sid}`;
   }

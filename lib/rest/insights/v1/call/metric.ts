@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
@@ -231,6 +232,10 @@ export function MetricListInstance(
   version: V1,
   callSid: string
 ): MetricListInstance {
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = {} as MetricListInstanceImpl;
 
   instance._version = version;
