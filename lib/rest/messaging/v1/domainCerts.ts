@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DomainCertsInstance
@@ -79,6 +80,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   protected _uri: string;
 
   constructor(protected _version: V1, domainSid: string) {
+    if (!isValidPathParam(domainSid)) {
+      throw new Error("Parameter 'domainSid' is not valid.");
+    }
+
     this._solution = { domainSid };
     this._uri = `/LinkShortening/Domains/${domainSid}/Certificate`;
   }

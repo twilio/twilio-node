@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueCumulativeStatisticsInstance
@@ -91,6 +92,14 @@ export class TaskQueueCumulativeStatisticsContextImpl
     workspaceSid: string,
     taskQueueSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskQueueSid)) {
+      throw new Error("Parameter 'taskQueueSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, taskQueueSid };
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/CumulativeStatistics`;
   }
@@ -441,6 +450,14 @@ export function TaskQueueCumulativeStatisticsListInstance(
   workspaceSid: string,
   taskQueueSid: string
 ): TaskQueueCumulativeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskQueueSid)) {
+    throw new Error("Parameter 'taskQueueSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as TaskQueueCumulativeStatisticsListInstanceImpl;
 

@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a MemberInstance
@@ -125,6 +126,18 @@ export class MemberContextImpl implements MemberContext {
     queueSid: string,
     callSid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(queueSid)) {
+      throw new Error("Parameter 'queueSid' is not valid.");
+    }
+
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
     this._solution = { accountSid, queueSid, callSid };
     this._uri = `/Accounts/${accountSid}/Queues/${queueSid}/Members/${callSid}.json`;
   }
@@ -479,6 +492,14 @@ export function MemberListInstance(
   accountSid: string,
   queueSid: string
 ): MemberListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(queueSid)) {
+    throw new Error("Parameter 'queueSid' is not valid.");
+  }
+
   const instance = ((callSid) =>
     instance.get(callSid)) as MemberListInstanceImpl;
 

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a TaskActionsInstance
@@ -79,6 +80,14 @@ export class TaskActionsContextImpl implements TaskActionsContext {
   protected _uri: string;
 
   constructor(protected _version: V1, assistantSid: string, taskSid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskSid)) {
+      throw new Error("Parameter 'taskSid' is not valid.");
+    }
+
     this._solution = { assistantSid, taskSid };
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
   }
@@ -310,6 +319,14 @@ export function TaskActionsListInstance(
   assistantSid: string,
   taskSid: string
 ): TaskActionsListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskSid)) {
+    throw new Error("Parameter 'taskSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as TaskActionsListInstanceImpl;
 
   instance.get = function get(): TaskActionsContext {

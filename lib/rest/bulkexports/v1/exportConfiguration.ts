@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a ExportConfigurationInstance
@@ -84,6 +85,10 @@ export class ExportConfigurationContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, resourceType: string) {
+    if (!isValidPathParam(resourceType)) {
+      throw new Error("Parameter 'resourceType' is not valid.");
+    }
+
     this._solution = { resourceType };
     this._uri = `/Exports/${resourceType}/Configuration`;
   }

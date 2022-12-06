@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a SinkValidateInstance
@@ -63,6 +64,10 @@ export function SinkValidateListInstance(
   version: V1,
   sid: string
 ): SinkValidateListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = {} as SinkValidateListInstanceImpl;
 
   instance._version = version;

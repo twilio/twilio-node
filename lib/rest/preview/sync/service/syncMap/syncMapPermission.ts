@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SyncMapPermissionInstance
@@ -141,6 +142,18 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     mapSid: string,
     identity: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(mapSid)) {
+      throw new Error("Parameter 'mapSid' is not valid.");
+    }
+
+    if (!isValidPathParam(identity)) {
+      throw new Error("Parameter 'identity' is not valid.");
+    }
+
     this._solution = { serviceSid, mapSid, identity };
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
   }
@@ -562,6 +575,14 @@ export function SyncMapPermissionListInstance(
   serviceSid: string,
   mapSid: string
 ): SyncMapPermissionListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(mapSid)) {
+    throw new Error("Parameter 'mapSid' is not valid.");
+  }
+
   const instance = ((identity) =>
     instance.get(identity)) as SyncMapPermissionListInstanceImpl;
 

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 type ChannelChannelType = "public" | "private";
 
@@ -76,6 +77,14 @@ export class ChannelContextImpl implements ChannelContext {
   protected _uri: string;
 
   constructor(protected _version: V3, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
   }

@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -161,6 +162,14 @@ export class EventContextImpl implements EventContext {
   protected _uri: string;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Events/${sid}`;
   }
@@ -528,6 +537,10 @@ export function EventListInstance(
   version: V1,
   workspaceSid: string
 ): EventListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as EventListInstanceImpl;
 
   instance.get = function get(sid): EventContext {

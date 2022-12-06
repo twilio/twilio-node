@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type ConversationScopedWebhookMethod = "GET" | "POST";
 
@@ -171,6 +172,14 @@ export class WebhookContextImpl implements WebhookContext {
   protected _uri: string;
 
   constructor(protected _version: V1, conversationSid: string, sid: string) {
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { conversationSid, sid };
     this._uri = `/Conversations/${conversationSid}/Webhooks/${sid}`;
   }
@@ -597,6 +606,10 @@ export function WebhookListInstance(
   version: V1,
   conversationSid: string
 ): WebhookListInstance {
+  if (!isValidPathParam(conversationSid)) {
+    throw new Error("Parameter 'conversationSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
 
   instance.get = function get(sid): WebhookContext {

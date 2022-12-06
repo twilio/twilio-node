@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -95,6 +96,14 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   protected _uri: string;
 
   constructor(protected _version: V1, id: string, schemaVersion: number) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
+    }
+
+    if (!isValidPathParam(schemaVersion)) {
+      throw new Error("Parameter 'schemaVersion' is not valid.");
+    }
+
     this._solution = { id, schemaVersion };
     this._uri = `/Schemas/${id}/Versions/${schemaVersion}`;
   }
@@ -383,6 +392,10 @@ export function SchemaVersionListInstance(
   version: V1,
   id: string
 ): SchemaVersionListInstance {
+  if (!isValidPathParam(id)) {
+    throw new Error("Parameter 'id' is not valid.");
+  }
+
   const instance = ((schemaVersion) =>
     instance.get(schemaVersion)) as SchemaVersionListInstanceImpl;
 

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type SummaryAnsweredBy =
   | "unknown"
@@ -90,6 +91,10 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   protected _uri: string;
 
   constructor(protected _version: V1, callSid: string) {
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
     this._solution = { callSid };
     this._uri = `/Voice/${callSid}/Summary`;
   }
@@ -332,6 +337,10 @@ export function CallSummaryListInstance(
   version: V1,
   callSid: string
 ): CallSummaryListInstance {
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as CallSummaryListInstanceImpl;
 
   instance.get = function get(): CallSummaryContext {

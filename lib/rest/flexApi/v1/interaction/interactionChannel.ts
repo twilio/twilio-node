@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 
@@ -146,6 +147,14 @@ export class InteractionChannelContextImpl
   protected _participants?: InteractionChannelParticipantListInstance;
 
   constructor(protected _version: V1, interactionSid: string, sid: string) {
+    if (!isValidPathParam(interactionSid)) {
+      throw new Error("Parameter 'interactionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { interactionSid, sid };
     this._uri = `/Interactions/${interactionSid}/Channels/${sid}`;
   }
@@ -544,6 +553,10 @@ export function InteractionChannelListInstance(
   version: V1,
   interactionSid: string
 ): InteractionChannelListInstance {
+  if (!isValidPathParam(interactionSid)) {
+    throw new Error("Parameter 'interactionSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as InteractionChannelListInstanceImpl;
 

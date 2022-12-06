@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a StyleSheetInstance
@@ -78,6 +79,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
   protected _uri: string;
 
   constructor(protected _version: V1, assistantSid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
     this._solution = { assistantSid };
     this._uri = `/Assistants/${assistantSid}/StyleSheet`;
   }
@@ -293,6 +298,10 @@ export function StyleSheetListInstance(
   version: V1,
   assistantSid: string
 ): StyleSheetListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as StyleSheetListInstanceImpl;
 
   instance.get = function get(): StyleSheetContext {

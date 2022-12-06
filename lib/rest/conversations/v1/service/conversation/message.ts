@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
 
 type ServiceConversationMessageOrderType = "asc" | "desc";
@@ -212,6 +213,18 @@ export class MessageContextImpl implements MessageContext {
     conversationSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { chatServiceSid, conversationSid, sid };
     this._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${sid}`;
   }
@@ -744,6 +757,14 @@ export function MessageListInstance(
   chatServiceSid: string,
   conversationSid: string
 ): MessageListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(conversationSid)) {
+    throw new Error("Parameter 'conversationSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
 
   instance.get = function get(sid): MessageContext {

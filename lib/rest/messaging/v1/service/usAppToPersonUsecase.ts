@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a UsAppToPersonUsecaseInstance
@@ -76,6 +77,10 @@ export function UsAppToPersonUsecaseListInstance(
   version: V1,
   messagingServiceSid: string
 ): UsAppToPersonUsecaseListInstance {
+  if (!isValidPathParam(messagingServiceSid)) {
+    throw new Error("Parameter 'messagingServiceSid' is not valid.");
+  }
+
   const instance = {} as UsAppToPersonUsecaseListInstanceImpl;
 
   instance._version = version;

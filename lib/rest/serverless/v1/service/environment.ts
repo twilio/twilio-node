@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { DeploymentListInstance } from "./environment/deployment";
 import { LogListInstance } from "./environment/log";
 import { VariableListInstance } from "./environment/variable";
@@ -127,6 +128,14 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   protected _variables?: VariableListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Environments/${sid}`;
   }
@@ -549,6 +558,10 @@ export function EnvironmentListInstance(
   version: V1,
   serviceSid: string
 ): EnvironmentListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as EnvironmentListInstanceImpl;
 
   instance.get = function get(sid): EnvironmentContext {

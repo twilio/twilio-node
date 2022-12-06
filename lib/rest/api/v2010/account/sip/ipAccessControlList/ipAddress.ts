@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to update a IpAddressInstance
@@ -161,6 +162,18 @@ export class IpAddressContextImpl implements IpAddressContext {
     ipAccessControlListSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(ipAccessControlListSid)) {
+      throw new Error("Parameter 'ipAccessControlListSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, ipAccessControlListSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses/${sid}.json`;
   }
@@ -596,6 +609,14 @@ export function IpAddressListInstance(
   accountSid: string,
   ipAccessControlListSid: string
 ): IpAddressListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(ipAccessControlListSid)) {
+    throw new Error("Parameter 'ipAccessControlListSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as IpAddressListInstanceImpl;
 
   instance.get = function get(sid): IpAddressContext {

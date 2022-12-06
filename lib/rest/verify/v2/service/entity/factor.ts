@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type FactorFactorStatuses = "unverified" | "verified";
 
@@ -166,6 +167,18 @@ export class FactorContextImpl implements FactorContext {
     identity: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(identity)) {
+      throw new Error("Parameter 'identity' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, identity, sid };
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
@@ -616,6 +629,14 @@ export function FactorListInstance(
   serviceSid: string,
   identity: string
 ): FactorListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(identity)) {
+    throw new Error("Parameter 'identity' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
 
   instance.get = function get(sid): FactorContext {

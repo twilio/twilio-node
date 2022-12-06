@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
@@ -100,6 +101,10 @@ export class EventTypeContextImpl implements EventTypeContext {
   protected _uri: string;
 
   constructor(protected _version: V1, type: string) {
+    if (!isValidPathParam(type)) {
+      throw new Error("Parameter 'type' is not valid.");
+    }
+
     this._solution = { type };
     this._uri = `/Types/${type}`;
   }

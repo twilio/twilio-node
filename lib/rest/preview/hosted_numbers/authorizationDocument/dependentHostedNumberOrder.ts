@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 type DependentHostedNumberOrderStatus =
@@ -290,6 +291,10 @@ export function DependentHostedNumberOrderListInstance(
   version: HostedNumbers,
   signingDocumentSid: string
 ): DependentHostedNumberOrderListInstance {
+  if (!isValidPathParam(signingDocumentSid)) {
+    throw new Error("Parameter 'signingDocumentSid' is not valid.");
+  }
+
   const instance = {} as DependentHostedNumberOrderListInstanceImpl;
 
   instance._version = version;

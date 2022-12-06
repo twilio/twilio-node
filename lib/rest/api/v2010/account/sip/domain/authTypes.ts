@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
 import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
 
@@ -50,6 +51,14 @@ export function AuthTypesListInstance(
   accountSid: string,
   domainSid: string
 ): AuthTypesListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(domainSid)) {
+    throw new Error("Parameter 'domainSid' is not valid.");
+  }
+
   const instance = {} as AuthTypesListInstanceImpl;
 
   instance._version = version;

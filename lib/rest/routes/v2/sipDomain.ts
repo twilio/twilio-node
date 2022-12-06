@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a SipDomainInstance
@@ -80,6 +81,10 @@ export class SipDomainContextImpl implements SipDomainContext {
   protected _uri: string;
 
   constructor(protected _version: V2, sipDomain: string) {
+    if (!isValidPathParam(sipDomain)) {
+      throw new Error("Parameter 'sipDomain' is not valid.");
+    }
+
     this._solution = { sipDomain };
     this._uri = `/SipDomains/${sipDomain}`;
   }

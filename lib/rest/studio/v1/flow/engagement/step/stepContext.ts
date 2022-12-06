@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 export interface StepContextContext {
   /**
@@ -52,6 +53,18 @@ export class StepContextContextImpl implements StepContextContext {
     engagementSid: string,
     stepSid: string
   ) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(engagementSid)) {
+      throw new Error("Parameter 'engagementSid' is not valid.");
+    }
+
+    if (!isValidPathParam(stepSid)) {
+      throw new Error("Parameter 'stepSid' is not valid.");
+    }
+
     this._solution = { flowSid, engagementSid, stepSid };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
   }
@@ -228,6 +241,18 @@ export function StepContextListInstance(
   engagementSid: string,
   stepSid: string
 ): StepContextListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(engagementSid)) {
+    throw new Error("Parameter 'engagementSid' is not valid.");
+  }
+
+  if (!isValidPathParam(stepSid)) {
+    throw new Error("Parameter 'stepSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as StepContextListInstanceImpl;
 
   instance.get = function get(): StepContextContext {

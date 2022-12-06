@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type ModelBuildStatus =
   | "enqueued"
@@ -160,6 +161,14 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     assistantSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/ModelBuilds/${sid}`;
   }
@@ -589,6 +598,10 @@ export function ModelBuildListInstance(
   version: Understand,
   assistantSid: string
 ): ModelBuildListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ModelBuildListInstanceImpl;
 
   instance.get = function get(sid): ModelBuildContext {

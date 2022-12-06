@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 export interface ExecutionContextContext {
   /**
@@ -46,6 +47,14 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   protected _uri: string;
 
   constructor(protected _version: V1, flowSid: string, executionSid: string) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(executionSid)) {
+      throw new Error("Parameter 'executionSid' is not valid.");
+    }
+
     this._solution = { flowSid, executionSid };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
   }
@@ -211,6 +220,14 @@ export function ExecutionContextListInstance(
   flowSid: string,
   executionSid: string
 ): ExecutionContextListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(executionSid)) {
+    throw new Error("Parameter 'executionSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
 
   instance.get = function get(): ExecutionContextContext {

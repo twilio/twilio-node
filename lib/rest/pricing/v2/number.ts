@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "originationPrefixes"?: Array<string>;
@@ -84,6 +85,10 @@ export class NumberContextImpl implements NumberContext {
   protected _uri: string;
 
   constructor(protected _version: V2, destinationNumber: string) {
+    if (!isValidPathParam(destinationNumber)) {
+      throw new Error("Parameter 'destinationNumber' is not valid.");
+    }
+
     this._solution = { destinationNumber };
     this._uri = `/Trunking/Numbers/${destinationNumber}`;
   }

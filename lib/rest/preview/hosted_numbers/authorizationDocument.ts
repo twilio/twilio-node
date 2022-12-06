@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/dependentHostedNumberOrder";
 
 type AuthorizationDocumentStatus =
@@ -195,6 +196,10 @@ export class AuthorizationDocumentContextImpl
   protected _dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
 
   constructor(protected _version: HostedNumbers, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/AuthorizationDocuments/${sid}`;
   }

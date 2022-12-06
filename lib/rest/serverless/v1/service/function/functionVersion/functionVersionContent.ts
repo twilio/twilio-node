@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 export interface FunctionVersionContentContext {
   /**
@@ -57,6 +58,18 @@ export class FunctionVersionContentContextImpl
     functionSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(functionSid)) {
+      throw new Error("Parameter 'functionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, functionSid, sid };
     this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
   }
@@ -237,6 +250,18 @@ export function FunctionVersionContentListInstance(
   functionSid: string,
   sid: string
 ): FunctionVersionContentListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(functionSid)) {
+    throw new Error("Parameter 'functionSid' is not valid.");
+  }
+
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as FunctionVersionContentListInstanceImpl;
 

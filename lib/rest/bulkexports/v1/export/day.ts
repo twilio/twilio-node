@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -95,6 +96,14 @@ export class DayContextImpl implements DayContext {
   protected _uri: string;
 
   constructor(protected _version: V1, resourceType: string, day: string) {
+    if (!isValidPathParam(resourceType)) {
+      throw new Error("Parameter 'resourceType' is not valid.");
+    }
+
+    if (!isValidPathParam(day)) {
+      throw new Error("Parameter 'day' is not valid.");
+    }
+
     this._solution = { resourceType, day };
     this._uri = `/Exports/${resourceType}/Days/${day}`;
   }
@@ -382,6 +391,10 @@ export function DayListInstance(
   version: V1,
   resourceType: string
 ): DayListInstance {
+  if (!isValidPathParam(resourceType)) {
+    throw new Error("Parameter 'resourceType' is not valid.");
+  }
+
   const instance = ((day) => instance.get(day)) as DayListInstanceImpl;
 
   instance.get = function get(day): DayContext {

@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type UsageRecordTodayCategory =
   | "a2p-registration-fees"
@@ -481,6 +482,10 @@ export function TodayListInstance(
   version: V2010,
   accountSid: string
 ): TodayListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as TodayListInstanceImpl;
 
   instance._version = version;

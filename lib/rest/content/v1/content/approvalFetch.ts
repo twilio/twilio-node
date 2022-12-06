@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export interface ApprovalFetchContext {
   /**
@@ -45,6 +46,10 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   protected _uri: string;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Content/${sid}/ApprovalRequests`;
   }
@@ -190,6 +195,10 @@ export function ApprovalFetchListInstance(
   version: V1,
   sid: string
 ): ApprovalFetchListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as ApprovalFetchListInstanceImpl;
 
   instance.get = function get(): ApprovalFetchContext {

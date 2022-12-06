@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type VerificationCheckChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
@@ -86,6 +87,10 @@ export function VerificationCheckListInstance(
   version: V2,
   serviceSid: string
 ): VerificationCheckListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = {} as VerificationCheckListInstanceImpl;
 
   instance._version = version;

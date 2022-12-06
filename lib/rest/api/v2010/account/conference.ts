@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
@@ -198,6 +199,14 @@ export class ConferenceContextImpl implements ConferenceContext {
   protected _recordings?: RecordingListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Conferences/${sid}.json`;
   }
@@ -632,6 +641,10 @@ export function ConferenceListInstance(
   version: V2010,
   accountSid: string
 ): ConferenceListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
 
   instance.get = function get(sid): ConferenceContext {

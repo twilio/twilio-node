@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type SyncListItemQueryFromBoundType = "inclusive" | "exclusive";
 
@@ -189,6 +190,18 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     listSid: string,
     index: number
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(listSid)) {
+      throw new Error("Parameter 'listSid' is not valid.");
+    }
+
+    if (!isValidPathParam(index)) {
+      throw new Error("Parameter 'index' is not valid.");
+    }
+
     this._solution = { serviceSid, listSid, index };
     this._uri = `/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
   }
@@ -613,6 +626,14 @@ export function SyncListItemListInstance(
   serviceSid: string,
   listSid: string
 ): SyncListItemListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(listSid)) {
+    throw new Error("Parameter 'listSid' is not valid.");
+  }
+
   const instance = ((index) =>
     instance.get(index)) as SyncListItemListInstanceImpl;
 

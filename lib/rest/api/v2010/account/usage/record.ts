@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { AllTimeListInstance } from "./record/allTime";
 import { DailyListInstance } from "./record/daily";
 import { LastMonthListInstance } from "./record/lastMonth";
@@ -507,6 +508,10 @@ export function RecordListInstance(
   version: V2010,
   accountSid: string
 ): RecordListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as RecordListInstanceImpl;
 
   instance._version = version;

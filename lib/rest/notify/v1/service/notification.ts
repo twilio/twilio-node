@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type NotificationPriority = "high" | "low";
 
@@ -109,6 +110,10 @@ export function NotificationListInstance(
   version: V1,
   serviceSid: string
 ): NotificationListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = {} as NotificationListInstanceImpl;
 
   instance._version = version;

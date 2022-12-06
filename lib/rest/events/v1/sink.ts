@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
@@ -164,6 +165,10 @@ export class SinkContextImpl implements SinkContext {
   protected _sinkValidate?: SinkValidateListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Sinks/${sid}`;
   }

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkspaceCumulativeStatisticsInstance
@@ -86,6 +87,10 @@ export class WorkspaceCumulativeStatisticsContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, workspaceSid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
     this._solution = { workspaceSid };
     this._uri = `/Workspaces/${workspaceSid}/CumulativeStatistics`;
   }
@@ -425,6 +430,10 @@ export function WorkspaceCumulativeStatisticsListInstance(
   version: V1,
   workspaceSid: string
 ): WorkspaceCumulativeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as WorkspaceCumulativeStatisticsListInstanceImpl;
 

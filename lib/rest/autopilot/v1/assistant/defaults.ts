@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DefaultsInstance
@@ -78,6 +79,10 @@ export class DefaultsContextImpl implements DefaultsContext {
   protected _uri: string;
 
   constructor(protected _version: V1, assistantSid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
     this._solution = { assistantSid };
     this._uri = `/Assistants/${assistantSid}/Defaults`;
   }
@@ -293,6 +298,10 @@ export function DefaultsListInstance(
   version: V1,
   assistantSid: string
 ): DefaultsListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as DefaultsListInstanceImpl;
 
   instance.get = function get(): DefaultsContext {

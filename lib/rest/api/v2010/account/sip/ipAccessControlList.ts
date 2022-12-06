@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { IpAddressListInstance } from "./ipAccessControlList/ipAddress";
 
 /**
@@ -147,6 +148,14 @@ export class IpAccessControlListContextImpl
   protected _ipAddresses?: IpAddressListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${sid}.json`;
   }
@@ -580,6 +589,10 @@ export function IpAccessControlListListInstance(
   version: V2010,
   accountSid: string
 ): IpAccessControlListListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as IpAccessControlListListInstanceImpl;
 

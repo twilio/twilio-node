@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type ConferenceParticipantCallDirection = "inbound" | "outbound";
 
@@ -185,6 +186,14 @@ export class ConferenceParticipantContextImpl
     conferenceSid: string,
     participantSid: string
   ) {
+    if (!isValidPathParam(conferenceSid)) {
+      throw new Error("Parameter 'conferenceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(participantSid)) {
+      throw new Error("Parameter 'participantSid' is not valid.");
+    }
+
     this._solution = { conferenceSid, participantSid };
     this._uri = `/Conferences/${conferenceSid}/Participants/${participantSid}`;
   }
@@ -660,6 +669,10 @@ export function ConferenceParticipantListInstance(
   version: V1,
   conferenceSid: string
 ): ConferenceParticipantListInstance {
+  if (!isValidPathParam(conferenceSid)) {
+    throw new Error("Parameter 'conferenceSid' is not valid.");
+  }
+
   const instance = ((participantSid) =>
     instance.get(participantSid)) as ConferenceParticipantListInstanceImpl;
 

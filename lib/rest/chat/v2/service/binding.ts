@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type BindingBindingType = "gcm" | "apn" | "fcm";
 
@@ -120,6 +121,14 @@ export class BindingContextImpl implements BindingContext {
   protected _uri: string;
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Bindings/${sid}`;
   }
@@ -476,6 +485,10 @@ export function BindingListInstance(
   version: V2,
   serviceSid: string
 ): BindingListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as BindingListInstanceImpl;
 
   instance.get = function get(sid): BindingContext {

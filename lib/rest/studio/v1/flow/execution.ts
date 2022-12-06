@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 import { ExecutionStepListInstance } from "./execution/executionStep";
 
@@ -163,6 +164,14 @@ export class ExecutionContextImpl implements ExecutionContext {
   protected _steps?: ExecutionStepListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { flowSid, sid };
     this._uri = `/Flows/${flowSid}/Executions/${sid}`;
   }
@@ -621,6 +630,10 @@ export function ExecutionListInstance(
   version: V1,
   flowSid: string
 ): ExecutionListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ExecutionListInstanceImpl;
 
   instance.get = function get(sid): ExecutionContext {

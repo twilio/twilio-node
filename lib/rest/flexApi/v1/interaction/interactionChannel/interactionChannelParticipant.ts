@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
@@ -143,6 +144,18 @@ export class InteractionChannelParticipantContextImpl
     channelSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(interactionSid)) {
+      throw new Error("Parameter 'interactionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(channelSid)) {
+      throw new Error("Parameter 'channelSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { interactionSid, channelSid, sid };
     this._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Participants/${sid}`;
   }
@@ -512,6 +525,14 @@ export function InteractionChannelParticipantListInstance(
   interactionSid: string,
   channelSid: string
 ): InteractionChannelParticipantListInstance {
+  if (!isValidPathParam(interactionSid)) {
+    throw new Error("Parameter 'interactionSid' is not valid.");
+  }
+
+  if (!isValidPathParam(channelSid)) {
+    throw new Error("Parameter 'channelSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as InteractionChannelParticipantListInstanceImpl;
 

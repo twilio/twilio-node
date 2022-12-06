@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type RecordingTranscriptionStatus = "in-progress" | "completed" | "failed";
 
@@ -114,6 +115,18 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     recordingSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(recordingSid)) {
+      throw new Error("Parameter 'recordingSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, recordingSid, sid };
     this._uri = `/Accounts/${accountSid}/Recordings/${recordingSid}/Transcriptions/${sid}.json`;
   }
@@ -490,6 +503,14 @@ export function TranscriptionListInstance(
   accountSid: string,
   recordingSid: string
 ): TranscriptionListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(recordingSid)) {
+    throw new Error("Parameter 'recordingSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as TranscriptionListInstanceImpl;
 

@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { FieldListInstance } from "./task/field";
 import { SampleListInstance } from "./task/sample";
 import { TaskActionsListInstance } from "./task/taskActions";
@@ -173,6 +174,14 @@ export class TaskContextImpl implements TaskContext {
   protected _statistics?: TaskStatisticsListInstance;
 
   constructor(protected _version: V1, assistantSid: string, sid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/Tasks/${sid}`;
   }
@@ -677,6 +686,10 @@ export function TaskListInstance(
   version: V1,
   assistantSid: string
 ): TaskListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as TaskListInstanceImpl;
 
   instance.get = function get(sid): TaskContext {

@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -228,6 +229,10 @@ export function HighriskSpecialPrefixListInstance(
   version: V1,
   isoCode: string
 ): HighriskSpecialPrefixListInstance {
+  if (!isValidPathParam(isoCode)) {
+    throw new Error("Parameter 'isoCode' is not valid.");
+  }
+
   const instance = {} as HighriskSpecialPrefixListInstanceImpl;
 
   instance._version = version;

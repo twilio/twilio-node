@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to create a NotificationInstance
@@ -77,6 +78,18 @@ export function NotificationListInstance(
   identity: string,
   challengeSid: string
 ): NotificationListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(identity)) {
+    throw new Error("Parameter 'identity' is not valid.");
+  }
+
+  if (!isValidPathParam(challengeSid)) {
+    throw new Error("Parameter 'challengeSid' is not valid.");
+  }
+
   const instance = {} as NotificationListInstanceImpl;
 
   instance._version = version;

@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to update a CredentialInstance
@@ -155,6 +156,18 @@ export class CredentialContextImpl implements CredentialContext {
     credentialListSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(credentialListSid)) {
+      throw new Error("Parameter 'credentialListSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, credentialListSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials/${sid}.json`;
   }
@@ -567,6 +580,14 @@ export function CredentialListInstance(
   accountSid: string,
   credentialListSid: string
 ): CredentialListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(credentialListSid)) {
+    throw new Error("Parameter 'credentialListSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as CredentialListInstanceImpl;
 
   instance.get = function get(sid): CredentialContext {

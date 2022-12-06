@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
 /**
@@ -331,6 +332,14 @@ export function MachineToMachineListInstance(
   accountSid: string,
   countryCode: string
 ): MachineToMachineListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(countryCode)) {
+    throw new Error("Parameter 'countryCode' is not valid.");
+  }
+
   const instance = {} as MachineToMachineListInstanceImpl;
 
   instance._version = version;

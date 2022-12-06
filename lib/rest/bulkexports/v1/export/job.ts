@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export interface JobContext {
   /**
@@ -56,6 +57,10 @@ export class JobContextImpl implements JobContext {
   protected _uri: string;
 
   constructor(protected _version: V1, jobSid: string) {
+    if (!isValidPathParam(jobSid)) {
+      throw new Error("Parameter 'jobSid' is not valid.");
+    }
+
     this._solution = { jobSid };
     this._uri = `/Exports/Jobs/${jobSid}`;
   }

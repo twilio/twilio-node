@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a TrustProductsEntityAssignmentsInstance
@@ -122,6 +123,14 @@ export class TrustProductsEntityAssignmentsContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, trustProductSid: string, sid: string) {
+    if (!isValidPathParam(trustProductSid)) {
+      throw new Error("Parameter 'trustProductSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { trustProductSid, sid };
     this._uri = `/TrustProducts/${trustProductSid}/EntityAssignments/${sid}`;
   }
@@ -500,6 +509,10 @@ export function TrustProductsEntityAssignmentsListInstance(
   version: V1,
   trustProductSid: string
 ): TrustProductsEntityAssignmentsListInstance {
+  if (!isValidPathParam(trustProductSid)) {
+    throw new Error("Parameter 'trustProductSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as TrustProductsEntityAssignmentsListInstanceImpl;
 

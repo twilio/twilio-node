@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
 
 type ConversationMessageOrderType = "asc" | "desc";
@@ -206,6 +207,14 @@ export class MessageContextImpl implements MessageContext {
   protected _deliveryReceipts?: DeliveryReceiptListInstance;
 
   constructor(protected _version: V1, conversationSid: string, sid: string) {
+    if (!isValidPathParam(conversationSid)) {
+      throw new Error("Parameter 'conversationSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { conversationSid, sid };
     this._uri = `/Conversations/${conversationSid}/Messages/${sid}`;
   }
@@ -724,6 +733,10 @@ export function MessageListInstance(
   version: V1,
   conversationSid: string
 ): MessageListInstance {
+  if (!isValidPathParam(conversationSid)) {
+    throw new Error("Parameter 'conversationSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
 
   instance.get = function get(sid): MessageContext {

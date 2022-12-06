@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a CertificateInstance
@@ -163,6 +164,14 @@ export class CertificateContextImpl implements CertificateContext {
     fleetSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(fleetSid)) {
+      throw new Error("Parameter 'fleetSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { fleetSid, sid };
     this._uri = `/Fleets/${fleetSid}/Certificates/${sid}`;
   }
@@ -586,6 +595,10 @@ export function CertificateListInstance(
   version: DeployedDevices,
   fleetSid: string
 ): CertificateListInstance {
+  if (!isValidPathParam(fleetSid)) {
+    throw new Error("Parameter 'fleetSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as CertificateListInstanceImpl;
 
   instance.get = function get(sid): CertificateContext {

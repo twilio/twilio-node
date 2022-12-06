@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to create a CredentialListMappingInstance
@@ -128,6 +129,18 @@ export class CredentialListMappingContextImpl
     domainSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(domainSid)) {
+      throw new Error("Parameter 'domainSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, domainSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
   }
@@ -494,6 +507,14 @@ export function CredentialListMappingListInstance(
   accountSid: string,
   domainSid: string
 ): CredentialListMappingListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(domainSid)) {
+    throw new Error("Parameter 'domainSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as CredentialListMappingListInstanceImpl;
 

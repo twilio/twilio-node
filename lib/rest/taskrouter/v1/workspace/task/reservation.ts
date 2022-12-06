@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type TaskReservationCallStatus =
   | "initiated"
@@ -278,6 +279,18 @@ export class ReservationContextImpl implements ReservationContext {
     taskSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskSid)) {
+      throw new Error("Parameter 'taskSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { workspaceSid, taskSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations/${sid}`;
   }
@@ -793,6 +806,14 @@ export function ReservationListInstance(
   workspaceSid: string,
   taskSid: string
 ): ReservationListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskSid)) {
+    throw new Error("Parameter 'taskSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ReservationListInstanceImpl;
 
   instance.get = function get(sid): ReservationContext {

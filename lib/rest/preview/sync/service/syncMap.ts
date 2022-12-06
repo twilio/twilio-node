@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { SyncMapItemListInstance } from "./syncMap/syncMapItem";
 import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
 
@@ -122,6 +123,14 @@ export class SyncMapContextImpl implements SyncMapContext {
   protected _syncMapPermissions?: SyncMapPermissionListInstance;
 
   constructor(protected _version: Sync, serviceSid: string, sid: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Maps/${sid}`;
   }
@@ -497,6 +506,10 @@ export function SyncMapListInstance(
   version: Sync,
   serviceSid: string
 ): SyncMapListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as SyncMapListInstanceImpl;
 
   instance.get = function get(sid): SyncMapContext {

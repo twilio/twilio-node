@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a IpAccessControlListInstance
@@ -119,6 +120,14 @@ export class IpAccessControlListContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, trunkSid: string, sid: string) {
+    if (!isValidPathParam(trunkSid)) {
+      throw new Error("Parameter 'trunkSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { trunkSid, sid };
     this._uri = `/Trunks/${trunkSid}/IpAccessControlLists/${sid}`;
   }
@@ -474,6 +483,10 @@ export function IpAccessControlListListInstance(
   version: V1,
   trunkSid: string
 ): IpAccessControlListListInstance {
+  if (!isValidPathParam(trunkSid)) {
+    throw new Error("Parameter 'trunkSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as IpAccessControlListListInstanceImpl;
 

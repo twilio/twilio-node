@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type BrandVettingVettingProvider = "campaign-verify";
 
@@ -117,6 +118,14 @@ export class BrandVettingContextImpl implements BrandVettingContext {
     brandSid: string,
     brandVettingSid: string
   ) {
+    if (!isValidPathParam(brandSid)) {
+      throw new Error("Parameter 'brandSid' is not valid.");
+    }
+
+    if (!isValidPathParam(brandVettingSid)) {
+      throw new Error("Parameter 'brandVettingSid' is not valid.");
+    }
+
     this._solution = { brandSid, brandVettingSid };
     this._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
   }
@@ -451,6 +460,10 @@ export function BrandVettingListInstance(
   version: V1,
   brandSid: string
 ): BrandVettingListInstance {
+  if (!isValidPathParam(brandSid)) {
+    throw new Error("Parameter 'brandSid' is not valid.");
+  }
+
   const instance = ((brandVettingSid) =>
     instance.get(brandVettingSid)) as BrandVettingListInstanceImpl;
 

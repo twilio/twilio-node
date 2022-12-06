@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export class VideoV1RoomRoomRecordingRuleRules {
   "type"?: string;
@@ -92,6 +93,10 @@ export function RecordingRulesListInstance(
   version: V1,
   roomSid: string
 ): RecordingRulesListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
   const instance = {} as RecordingRulesListInstanceImpl;
 
   instance._version = version;
