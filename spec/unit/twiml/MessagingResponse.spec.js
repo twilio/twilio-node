@@ -2,7 +2,7 @@
 
 process.noDeprecation = true;
 
-var MessagingResponse = require("../../../lib/twiml/MessagingResponse");
+import MessagingResponse from "../../../lib/twiml/MessagingResponse";
 
 describe("create messaging response TwiML", function () {
   it("should serialize empty response", function () {
