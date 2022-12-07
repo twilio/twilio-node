@@ -112,6 +112,103 @@ export class UserDefinedMessageSubscriptionContextImpl
   }
 }
 
+interface UserDefinedMessageSubscriptionPayload
+  extends UserDefinedMessageSubscriptionResource {}
+
+interface UserDefinedMessageSubscriptionResource {
+  account_sid?: string | null;
+  call_sid?: string | null;
+  sid?: string | null;
+  date_created?: string | null;
+  uri?: string | null;
+}
+
+export class UserDefinedMessageSubscriptionInstance {
+  protected _solution: UserDefinedMessageSubscriptionContextSolution;
+  protected _context?: UserDefinedMessageSubscriptionContext;
+
+  constructor(
+    protected _version: V2010,
+    payload: UserDefinedMessageSubscriptionPayload,
+    accountSid: string,
+    callSid: string,
+    sid?: string
+  ) {
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
+    this.sid = payload.sid;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.uri = payload.uri;
+
+    this._solution = { accountSid, callSid, sid: sid || this.sid };
+  }
+
+  /**
+   * Account SID.
+   */
+  accountSid?: string | null;
+  /**
+   * Call SID.
+   */
+  callSid?: string | null;
+  /**
+   * User Defined Message Subscription SID.
+   */
+  sid?: string | null;
+  /**
+   * The date this User Defined Message Subscription was created.
+   */
+  dateCreated?: string | null;
+  /**
+   * The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
+   */
+  uri?: string | null;
+
+  private get _proxy(): UserDefinedMessageSubscriptionContext {
+    this._context =
+      this._context ||
+      new UserDefinedMessageSubscriptionContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.callSid,
+        this._solution.sid
+      );
+    return this._context;
+  }
+
+  /**
+   * Remove a UserDefinedMessageSubscriptionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid,
+      callSid: this.callSid,
+      sid: this.sid,
+      dateCreated: this.dateCreated,
+      uri: this.uri,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 export interface UserDefinedMessageSubscriptionListInstance {
   (sid: string): UserDefinedMessageSubscriptionContext;
   get(sid: string): UserDefinedMessageSubscriptionContext;
