@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a NotificationInstance
@@ -102,6 +103,10 @@ export class NotificationContextImpl implements NotificationContext {
   protected _uri: string;
 
   constructor(protected _version: V1, chatServiceSid: string) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
     this._solution = { chatServiceSid };
     this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
   }
@@ -238,7 +243,7 @@ export class NotificationInstance {
   constructor(
     protected _version: V1,
     payload: NotificationPayload,
-    chatServiceSid?: string
+    chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -248,7 +253,7 @@ export class NotificationInstance {
     this.logEnabled = payload.log_enabled;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
+    this._solution = { chatServiceSid };
   }
 
   /**
@@ -374,6 +379,10 @@ export function NotificationListInstance(
   version: V1,
   chatServiceSid: string
 ): NotificationListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as NotificationListInstanceImpl;
 
   instance.get = function get(): NotificationContext {

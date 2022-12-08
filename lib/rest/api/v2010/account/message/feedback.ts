@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
 
@@ -77,6 +78,14 @@ export function FeedbackListInstance(
   accountSid: string,
   messageSid: string
 ): FeedbackListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(messageSid)) {
+    throw new Error("Parameter 'messageSid' is not valid.");
+  }
+
   const instance = {} as FeedbackListInstanceImpl;
 
   instance._version = version;
@@ -156,7 +165,7 @@ export class FeedbackInstance {
     protected _version: V2010,
     payload: FeedbackPayload,
     accountSid: string,
-    messageSid?: string
+    messageSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.messageSid = payload.message_sid;

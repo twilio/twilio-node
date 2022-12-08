@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
 
@@ -212,6 +213,10 @@ export function SimIpAddressListInstance(
   version: V1,
   simSid: string
 ): SimIpAddressListInstance {
+  if (!isValidPathParam(simSid)) {
+    throw new Error("Parameter 'simSid' is not valid.");
+  }
+
   const instance = {} as SimIpAddressListInstanceImpl;
 
   instance._version = version;
@@ -306,7 +311,7 @@ export class SimIpAddressInstance {
   constructor(
     protected _version: V1,
     payload: SimIpAddressPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.ipAddress = payload.ip_address;
     this.ipAddressVersion = payload.ip_address_version;

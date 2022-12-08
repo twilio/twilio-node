@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { ConferenceParticipantListInstance } from "./conference/conferenceParticipant";
 
 type ConferenceConferenceEndReason =
@@ -189,6 +190,10 @@ export class ConferenceContextImpl implements ConferenceContext {
   protected _conferenceParticipants?: ConferenceParticipantListInstance;
 
   constructor(protected _version: V1, conferenceSid: string) {
+    if (!isValidPathParam(conferenceSid)) {
+      throw new Error("Parameter 'conferenceSid' is not valid.");
+    }
+
     this._solution = { conferenceSid };
     this._uri = `/Conferences/${conferenceSid}`;
   }

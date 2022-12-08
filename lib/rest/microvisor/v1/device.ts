@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DeviceInstance
@@ -130,6 +131,10 @@ export class DeviceContextImpl implements DeviceContext {
   protected _uri: string;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Devices/${sid}`;
   }
@@ -218,6 +223,7 @@ interface DeviceResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
+  links?: object | null;
 }
 
 export class DeviceInstance {
@@ -233,6 +239,7 @@ export class DeviceInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
+    this.links = payload.links;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -269,6 +276,10 @@ export class DeviceInstance {
    * The URL of this resource.
    */
   url?: string | null;
+  /**
+   * The absolute URLs of related resources
+   */
+  links?: object | null;
 
   private get _proxy(): DeviceContext {
     this._context =
@@ -330,6 +341,7 @@ export class DeviceInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
+      links: this.links,
     };
   }
 

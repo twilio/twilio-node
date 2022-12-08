@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
 
@@ -214,6 +215,14 @@ export function UserChannelListInstance(
   serviceSid: string,
   userSid: string
 ): UserChannelListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(userSid)) {
+    throw new Error("Parameter 'userSid' is not valid.");
+  }
+
   const instance = {} as UserChannelListInstanceImpl;
 
   instance._version = version;
@@ -315,7 +324,7 @@ export class UserChannelInstance {
     protected _version: V1,
     payload: UserChannelPayload,
     serviceSid: string,
-    userSid?: string
+    userSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;

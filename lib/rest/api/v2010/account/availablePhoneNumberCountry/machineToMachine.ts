@@ -18,17 +18,8 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
-
-/**
- * Whether a phone number can receive calls or messages
- */
-export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
 
 /**
  * Options to pass to each
@@ -341,6 +332,14 @@ export function MachineToMachineListInstance(
   accountSid: string,
   countryCode: string
 ): MachineToMachineListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(countryCode)) {
+    throw new Error("Parameter 'countryCode' is not valid.");
+  }
+
   const instance = {} as MachineToMachineListInstanceImpl;
 
   instance._version = version;
@@ -485,7 +484,7 @@ export class MachineToMachineInstance {
     protected _version: V2010,
     payload: MachineToMachinePayload,
     accountSid: string,
-    countryCode?: string
+    countryCode: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;

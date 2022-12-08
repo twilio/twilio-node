@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
@@ -258,6 +259,14 @@ export class MessageContextImpl implements MessageContext {
   protected _media?: MediaListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Messages/${sid}.json`;
   }
@@ -784,6 +793,10 @@ export function MessageListInstance(
   version: V2010,
   accountSid: string
 ): MessageListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
 
   instance.get = function get(sid): MessageContext {

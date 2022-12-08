@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type AuthorizedConnectAppPermission = "get-all" | "post-all";
 
@@ -106,6 +107,14 @@ export class AuthorizedConnectAppContextImpl
     accountSid: string,
     connectAppSid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(connectAppSid)) {
+      throw new Error("Parameter 'connectAppSid' is not valid.");
+    }
+
     this._solution = { accountSid, connectAppSid };
     this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
   }
@@ -444,6 +453,10 @@ export function AuthorizedConnectAppListInstance(
   version: V2010,
   accountSid: string
 ): AuthorizedConnectAppListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((connectAppSid) =>
     instance.get(connectAppSid)) as AuthorizedConnectAppListInstanceImpl;
 

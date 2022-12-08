@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 import { NotificationListInstance } from "./configuration/notification";
 import { WebhookListInstance } from "./configuration/webhook";
@@ -87,6 +88,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   protected _uri: string;
 
   constructor(protected _version: V1, chatServiceSid: string) {
+    if (!isValidPathParam(chatServiceSid)) {
+      throw new Error("Parameter 'chatServiceSid' is not valid.");
+    }
+
     this._solution = { chatServiceSid };
     this._uri = `/Services/${chatServiceSid}/Configuration`;
   }
@@ -196,7 +201,7 @@ export class ConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: ConfigurationPayload,
-    chatServiceSid?: string
+    chatServiceSid: string
   ) {
     this.chatServiceSid = payload.chat_service_sid;
     this.defaultConversationCreatorRoleSid =
@@ -207,7 +212,7 @@ export class ConfigurationInstance {
     this.links = payload.links;
     this.reachabilityEnabled = payload.reachability_enabled;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
+    this._solution = { chatServiceSid };
   }
 
   /**
@@ -342,6 +347,10 @@ export function ConfigurationListInstance(
   version: V1,
   chatServiceSid: string
 ): ConfigurationListInstance {
+  if (!isValidPathParam(chatServiceSid)) {
+    throw new Error("Parameter 'chatServiceSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
 
   instance.get = function get(): ConfigurationContext {

@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { StepContextListInstance } from "./step/stepContext";
 
 /**
@@ -106,6 +107,18 @@ export class StepContextImpl implements StepContext {
     engagementSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(engagementSid)) {
+      throw new Error("Parameter 'engagementSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { flowSid, engagementSid, sid };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${sid}`;
   }
@@ -462,6 +475,14 @@ export function StepListInstance(
   flowSid: string,
   engagementSid: string
 ): StepListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(engagementSid)) {
+    throw new Error("Parameter 'engagementSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as StepListInstanceImpl;
 
   instance.get = function get(sid): StepContext {

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export interface SinkTestListInstance {
   /**
@@ -51,6 +52,10 @@ export function SinkTestListInstance(
   version: V1,
   sid: string
 ): SinkTestListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = {} as SinkTestListInstanceImpl;
 
   instance._version = version;
@@ -97,7 +102,7 @@ interface SinkTestResource {
 }
 
 export class SinkTestInstance {
-  constructor(protected _version: V1, payload: SinkTestPayload, sid?: string) {
+  constructor(protected _version: V1, payload: SinkTestPayload, sid: string) {
     this.result = payload.result;
   }
 

@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import Marketplace from "../Marketplace";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedAddOnExtension";
 
 /**
@@ -162,6 +163,10 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   protected _extensions?: InstalledAddOnExtensionListInstance;
 
   constructor(protected _version: Marketplace, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/InstalledAddOns/${sid}`;
   }

@@ -14,6 +14,7 @@
 
 import FlexApiBase from "../FlexApiBase";
 import Version from "../../base/Version";
+import { AssessmentsListInstance } from "./v1/assessments";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
@@ -26,6 +27,7 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *
+   * @property { Twilio.FlexApi.V1.AssessmentsListInstance } assessments - assessments resource
    * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
    * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
@@ -40,6 +42,7 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
+  protected _assessments?: AssessmentsListInstance;
   protected _channel?: ChannelListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _flexFlow?: FlexFlowListInstance;
@@ -47,6 +50,11 @@ export default class V1 extends Version {
   protected _interaction?: InteractionListInstance;
   protected _userRoles?: UserRolesListInstance;
   protected _webChannel?: WebChannelListInstance;
+
+  get assessments(): AssessmentsListInstance {
+    this._assessments = this._assessments || AssessmentsListInstance(this);
+    return this._assessments;
+  }
 
   get channel(): ChannelListInstance {
     this._channel = this._channel || ChannelListInstance(this);

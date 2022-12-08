@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type RoomRecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
 
@@ -138,6 +139,14 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
   protected _uri: string;
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { roomSid, sid };
     this._uri = `/Rooms/${roomSid}/Recordings/${sid}`;
   }
@@ -528,6 +537,10 @@ export function RoomRecordingListInstance(
   version: V1,
   roomSid: string
 ): RoomRecordingListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as RoomRecordingListInstanceImpl;
 

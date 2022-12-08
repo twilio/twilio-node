@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
 import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
@@ -244,6 +245,14 @@ export class WorkerContextImpl implements WorkerContext {
   protected _statistics?: WorkerStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/${sid}`;
   }
@@ -793,6 +802,10 @@ export function WorkerListInstance(
   version: V1,
   workspaceSid: string
 ): WorkerListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
 
   instance.get = function get(sid): WorkerContext {

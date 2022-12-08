@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a MessagingConfigurationInstance
@@ -150,6 +151,14 @@ export class MessagingConfigurationContextImpl
   protected _uri: string;
 
   constructor(protected _version: V2, serviceSid: string, country: string) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(country)) {
+      throw new Error("Parameter 'country' is not valid.");
+    }
+
     this._solution = { serviceSid, country };
     this._uri = `/Services/${serviceSid}/MessagingConfigurations/${country}`;
   }
@@ -576,6 +585,10 @@ export function MessagingConfigurationListInstance(
   version: V2,
   serviceSid: string
 ): MessagingConfigurationListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
   const instance = ((country) =>
     instance.get(country)) as MessagingConfigurationListInstanceImpl;
 

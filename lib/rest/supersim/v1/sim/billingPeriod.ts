@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type BillingPeriodBpType = "ready" | "active";
 
@@ -218,6 +219,10 @@ export function BillingPeriodListInstance(
   version: V1,
   simSid: string
 ): BillingPeriodListInstance {
+  if (!isValidPathParam(simSid)) {
+    throw new Error("Parameter 'simSid' is not valid.");
+  }
+
   const instance = {} as BillingPeriodListInstanceImpl;
 
   instance._version = version;
@@ -318,7 +323,7 @@ export class BillingPeriodInstance {
   constructor(
     protected _version: V1,
     payload: BillingPeriodPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

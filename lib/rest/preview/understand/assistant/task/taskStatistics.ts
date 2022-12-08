@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import Understand from "../../../Understand";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 export interface TaskStatisticsContext {
   /**
@@ -50,6 +51,14 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
     assistantSid: string,
     taskSid: string
   ) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskSid)) {
+      throw new Error("Parameter 'taskSid' is not valid.");
+    }
+
     this._solution = { assistantSid, taskSid };
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
   }
@@ -111,7 +120,7 @@ export class TaskStatisticsInstance {
     protected _version: Understand,
     payload: TaskStatisticsPayload,
     assistantSid: string,
-    taskSid?: string
+    taskSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
@@ -120,7 +129,7 @@ export class TaskStatisticsInstance {
     this.fieldsCount = deserialize.integer(payload.fields_count);
     this.url = payload.url;
 
-    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
+    this._solution = { assistantSid, taskSid };
   }
 
   /**
@@ -218,6 +227,14 @@ export function TaskStatisticsListInstance(
   assistantSid: string,
   taskSid: string
 ): TaskStatisticsListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskSid)) {
+    throw new Error("Parameter 'taskSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as TaskStatisticsListInstanceImpl;
 
   instance.get = function get(): TaskStatisticsContext {

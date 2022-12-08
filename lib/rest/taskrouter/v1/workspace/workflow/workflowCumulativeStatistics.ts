@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkflowCumulativeStatisticsInstance
@@ -91,6 +92,14 @@ export class WorkflowCumulativeStatisticsContextImpl
     workspaceSid: string,
     workflowSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(workflowSid)) {
+      throw new Error("Parameter 'workflowSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, workflowSid };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
   }
@@ -195,7 +204,7 @@ export class WorkflowCumulativeStatisticsInstance {
     protected _version: V1,
     payload: WorkflowCumulativeStatisticsPayload,
     workspaceSid: string,
-    workflowSid?: string
+    workflowSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.avgTaskAcceptanceTime = deserialize.integer(
@@ -236,10 +245,7 @@ export class WorkflowCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      workflowSid: workflowSid || this.workflowSid,
-    };
+    this._solution = { workspaceSid, workflowSid };
   }
 
   /**
@@ -445,6 +451,14 @@ export function WorkflowCumulativeStatisticsListInstance(
   workspaceSid: string,
   workflowSid: string
 ): WorkflowCumulativeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(workflowSid)) {
+    throw new Error("Parameter 'workflowSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as WorkflowCumulativeStatisticsListInstanceImpl;
 

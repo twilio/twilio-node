@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type UsageRecordLastMonthCategory =
   | "a2p-registration-fees"
@@ -481,6 +482,10 @@ export function LastMonthListInstance(
   version: V2010,
   accountSid: string
 ): LastMonthListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as LastMonthListInstanceImpl;
 
   instance._version = version;
@@ -594,7 +599,7 @@ export class LastMonthInstance {
   constructor(
     protected _version: V2010,
     payload: LastMonthPayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;

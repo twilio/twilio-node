@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type AssetVersionVisibility = "public" | "private" | "protected";
 
@@ -103,6 +104,18 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     assetSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(assetSid)) {
+      throw new Error("Parameter 'assetSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, assetSid, sid };
     this._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
   }
@@ -411,6 +424,14 @@ export function AssetVersionListInstance(
   serviceSid: string,
   assetSid: string
 ): AssetVersionListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(assetSid)) {
+    throw new Error("Parameter 'assetSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as AssetVersionListInstanceImpl;
 
   instance.get = function get(sid): AssetVersionContext {

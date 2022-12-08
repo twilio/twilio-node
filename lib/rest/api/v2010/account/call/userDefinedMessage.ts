@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a UserDefinedMessageInstance
@@ -70,6 +71,14 @@ export function UserDefinedMessageListInstance(
   accountSid: string,
   callSid: string
 ): UserDefinedMessageListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = {} as UserDefinedMessageListInstanceImpl;
 
   instance._version = version;
@@ -150,7 +159,7 @@ export class UserDefinedMessageInstance {
     protected _version: V2010,
     payload: UserDefinedMessagePayload,
     accountSid: string,
-    callSid?: string
+    callSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;

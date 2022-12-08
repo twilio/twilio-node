@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -210,6 +211,10 @@ export function DataSessionListInstance(
   version: V1,
   simSid: string
 ): DataSessionListInstance {
+  if (!isValidPathParam(simSid)) {
+    throw new Error("Parameter 'simSid' is not valid.");
+  }
+
   const instance = {} as DataSessionListInstanceImpl;
 
   instance._version = version;
@@ -318,7 +323,7 @@ export class DataSessionInstance {
   constructor(
     protected _version: V1,
     payload: DataSessionPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.sid = payload.sid;
     this.simSid = payload.sim_sid;

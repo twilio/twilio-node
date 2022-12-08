@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -159,6 +160,14 @@ export class WebhookContextImpl implements WebhookContext {
   protected _uri: string;
 
   constructor(protected _version: V1, assistantSid: string, sid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/Webhooks/${sid}`;
   }
@@ -590,6 +599,10 @@ export function WebhookListInstance(
   version: V1,
   assistantSid: string
 ): WebhookListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
 
   instance.get = function get(sid): WebhookContext {

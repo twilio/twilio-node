@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type MessageInteractionResourceStatus =
   | "accepted"
@@ -143,6 +144,22 @@ export class MessageInteractionContextImpl
     participantSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sessionSid)) {
+      throw new Error("Parameter 'sessionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(participantSid)) {
+      throw new Error("Parameter 'participantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, sessionSid, participantSid, sid };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions/${sid}`;
   }
@@ -572,6 +589,18 @@ export function MessageInteractionListInstance(
   sessionSid: string,
   participantSid: string
 ): MessageInteractionListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(sessionSid)) {
+    throw new Error("Parameter 'sessionSid' is not valid.");
+  }
+
+  if (!isValidPathParam(participantSid)) {
+    throw new Error("Parameter 'participantSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as MessageInteractionListInstanceImpl;
 

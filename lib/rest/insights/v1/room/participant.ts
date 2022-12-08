@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type VideoParticipantSummaryCodec = "VP8" | "H264" | "VP9";
 
@@ -122,6 +123,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _uri: string;
 
   constructor(protected _version: V1, roomSid: string, participantSid: string) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
+    if (!isValidPathParam(participantSid)) {
+      throw new Error("Parameter 'participantSid' is not valid.");
+    }
+
     this._solution = { roomSid, participantSid };
     this._uri = `/Video/Rooms/${roomSid}/Participants/${participantSid}`;
   }
@@ -485,6 +494,10 @@ export function ParticipantListInstance(
   version: V1,
   roomSid: string
 ): ParticipantListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
   const instance = ((participantSid) =>
     instance.get(participantSid)) as ParticipantListInstanceImpl;
 

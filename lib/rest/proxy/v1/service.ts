@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
 import { ShortCodeListInstance } from "./service/shortCode";
@@ -189,6 +190,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _shortCodes?: ShortCodeListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersStatisticsInstance
@@ -79,6 +80,10 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   protected _uri: string;
 
   constructor(protected _version: V1, workspaceSid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
     this._solution = { workspaceSid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
   }
@@ -164,7 +169,7 @@ export class WorkersStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.realtime = payload.realtime;
     this.cumulative = payload.cumulative;
@@ -172,7 +177,7 @@ export class WorkersStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**
@@ -281,6 +286,10 @@ export function WorkersStatisticsListInstance(
   version: V1,
   workspaceSid: string
 ): WorkersStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as WorkersStatisticsListInstanceImpl;
 
   instance.get = function get(): WorkersStatisticsContext {

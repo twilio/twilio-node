@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 export interface BalanceListInstance {
   /**
@@ -51,6 +52,10 @@ export function BalanceListInstance(
   version: V2010,
   accountSid: string
 ): BalanceListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as BalanceListInstanceImpl;
 
   instance._version = version;
@@ -106,7 +111,7 @@ export class BalanceInstance {
   constructor(
     protected _version: V2010,
     payload: BalancePayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.balance = payload.balance;

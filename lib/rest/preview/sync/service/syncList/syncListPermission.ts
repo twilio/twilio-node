@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SyncListPermissionInstance
@@ -143,6 +144,18 @@ export class SyncListPermissionContextImpl
     listSid: string,
     identity: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(listSid)) {
+      throw new Error("Parameter 'listSid' is not valid.");
+    }
+
+    if (!isValidPathParam(identity)) {
+      throw new Error("Parameter 'identity' is not valid.");
+    }
+
     this._solution = { serviceSid, listSid, identity };
     this._uri = `/Services/${serviceSid}/Lists/${listSid}/Permissions/${identity}`;
   }
@@ -564,6 +577,14 @@ export function SyncListPermissionListInstance(
   serviceSid: string,
   listSid: string
 ): SyncListPermissionListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(listSid)) {
+    throw new Error("Parameter 'listSid' is not valid.");
+  }
+
   const instance = ((identity) =>
     instance.get(identity)) as SyncListPermissionListInstanceImpl;
 

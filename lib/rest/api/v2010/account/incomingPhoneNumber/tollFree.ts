@@ -18,17 +18,8 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
-
-/**
- * Indicate if a phone can receive calls or messages
- */
-export class ApiV2010AccountIncomingPhoneNumberCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
 
 type IncomingPhoneNumberTollFreeAddressRequirement =
   | "none"
@@ -329,6 +320,10 @@ export function TollFreeListInstance(
   version: V2010,
   accountSid: string
 ): TollFreeListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as TollFreeListInstanceImpl;
 
   instance._version = version;
@@ -582,7 +577,7 @@ export class TollFreeInstance {
   constructor(
     protected _version: V2010,
     payload: TollFreePayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.addressSid = payload.address_sid;

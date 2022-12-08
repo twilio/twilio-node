@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -212,6 +213,14 @@ export function EventListInstance(
   accountSid: string,
   callSid: string
 ): EventListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = {} as EventListInstanceImpl;
 
   instance._version = version;
@@ -304,7 +313,7 @@ export class EventInstance {
     protected _version: V2010,
     payload: EventPayload,
     accountSid: string,
-    callSid?: string
+    callSid: string
   ) {
     this.request = payload.request;
     this.response = payload.response;

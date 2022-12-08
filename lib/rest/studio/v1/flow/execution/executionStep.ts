@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { ExecutionStepContextListInstance } from "./executionStep/executionStepContext";
 
 /**
@@ -106,6 +107,18 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
     executionSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(executionSid)) {
+      throw new Error("Parameter 'executionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { flowSid, executionSid, sid };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${sid}`;
   }
@@ -470,6 +483,14 @@ export function ExecutionStepListInstance(
   flowSid: string,
   executionSid: string
 ): ExecutionStepListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(executionSid)) {
+    throw new Error("Parameter 'executionSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as ExecutionStepListInstanceImpl;
 

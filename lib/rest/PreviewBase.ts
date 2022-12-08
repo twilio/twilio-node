@@ -13,7 +13,6 @@ import Domain from "../base/Domain";
 import DeployedDevices from "./preview/DeployedDevices";
 import HostedNumbers from "./preview/HostedNumbers";
 import Sync from "./preview/Sync";
-import TrustedComms from "./preview/TrustedComms";
 import Marketplace from "./preview/Marketplace";
 import Understand from "./preview/Understand";
 import Wireless from "./preview/Wireless";
@@ -22,7 +21,6 @@ class PreviewBase extends Domain {
   _deployed_devices?: DeployedDevices;
   _hosted_numbers?: HostedNumbers;
   _sync?: Sync;
-  _trusted_comms?: TrustedComms;
   _marketplace?: Marketplace;
   _understand?: Understand;
   _wireless?: Wireless;
@@ -48,10 +46,6 @@ class PreviewBase extends Domain {
   get sync(): Sync {
     this._sync = this._sync || new Sync(this);
     return this._sync;
-  }
-  get trusted_comms(): TrustedComms {
-    this._trusted_comms = this._trusted_comms || new TrustedComms(this);
-    return this._trusted_comms;
   }
   get marketplace(): Marketplace {
     this._marketplace = this._marketplace || new Marketplace(this);

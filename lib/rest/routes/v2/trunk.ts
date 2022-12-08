@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a TrunkInstance
@@ -80,6 +81,10 @@ export class TrunkContextImpl implements TrunkContext {
   protected _uri: string;
 
   constructor(protected _version: V2, sipTrunkDomain: string) {
+    if (!isValidPathParam(sipTrunkDomain)) {
+      throw new Error("Parameter 'sipTrunkDomain' is not valid.");
+    }
+
     this._solution = { sipTrunkDomain };
     this._uri = `/Trunks/${sipTrunkDomain}`;
   }

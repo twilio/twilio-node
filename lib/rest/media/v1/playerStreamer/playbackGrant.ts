@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a PlaybackGrantInstance
@@ -80,6 +81,10 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
   protected _uri: string;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/PlayerStreamers/${sid}/PlaybackGrant`;
   }
@@ -171,7 +176,7 @@ export class PlaybackGrantInstance {
   constructor(
     protected _version: V1,
     payload: PlaybackGrantPayload,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.url = payload.url;
@@ -179,7 +184,7 @@ export class PlaybackGrantInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.grant = payload.grant;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid };
   }
 
   /**
@@ -295,6 +300,10 @@ export function PlaybackGrantListInstance(
   version: V1,
   sid: string
 ): PlaybackGrantListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as PlaybackGrantListInstanceImpl;
 
   instance.get = function get(): PlaybackGrantContext {

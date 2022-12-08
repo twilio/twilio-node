@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import Wireless from "../../Wireless";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a UsageInstance
@@ -69,6 +70,10 @@ export class UsageContextImpl implements UsageContext {
   protected _uri: string;
 
   constructor(protected _version: Wireless, simSid: string) {
+    if (!isValidPathParam(simSid)) {
+      throw new Error("Parameter 'simSid' is not valid.");
+    }
+
     this._solution = { simSid };
     this._uri = `/Sims/${simSid}/Usage`;
   }
@@ -143,7 +148,7 @@ export class UsageInstance {
   constructor(
     protected _version: Wireless,
     payload: UsagePayload,
-    simSid?: string
+    simSid: string
   ) {
     this.simSid = payload.sim_sid;
     this.simUniqueName = payload.sim_unique_name;
@@ -155,7 +160,7 @@ export class UsageInstance {
     this.dataCosts = payload.data_costs;
     this.url = payload.url;
 
-    this._solution = { simSid: simSid || this.simSid };
+    this._solution = { simSid };
   }
 
   simSid?: string | null;
@@ -251,6 +256,10 @@ export function UsageListInstance(
   version: Wireless,
   simSid: string
 ): UsageListInstance {
+  if (!isValidPathParam(simSid)) {
+    throw new Error("Parameter 'simSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as UsageListInstanceImpl;
 
   instance.get = function get(): UsageContext {

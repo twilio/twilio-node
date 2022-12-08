@@ -5,5 +5,8 @@
     "declaration": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-  }
+    "allowJs": true,
+    "outDir": "dist",
+  },
+  "include": ["lib", "index.*"],
 }

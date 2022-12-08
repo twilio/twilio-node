@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 type DependentHostedNumberOrderStatus =
@@ -32,16 +33,6 @@ type DependentHostedNumberOrderStatus =
   | "action-required";
 
 type DependentHostedNumberOrderVerificationType = "phone-call" | "phone-bill";
-
-/**
- * A mapping of phone number capabilities.
- */
-export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
 
 /**
  * Options to pass to each
@@ -300,6 +291,10 @@ export function DependentHostedNumberOrderListInstance(
   version: HostedNumbers,
   signingDocumentSid: string
 ): DependentHostedNumberOrderListInstance {
+  if (!isValidPathParam(signingDocumentSid)) {
+    throw new Error("Parameter 'signingDocumentSid' is not valid.");
+  }
+
   const instance = {} as DependentHostedNumberOrderListInstanceImpl;
 
   instance._version = version;
@@ -432,7 +427,7 @@ export class DependentHostedNumberOrderInstance {
   constructor(
     protected _version: HostedNumbers,
     payload: DependentHostedNumberOrderPayload,
-    signingDocumentSid?: string
+    signingDocumentSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

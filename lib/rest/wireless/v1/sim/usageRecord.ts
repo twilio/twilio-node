@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type UsageRecordGranularity = "hourly" | "daily" | "all";
 
@@ -230,6 +231,10 @@ export function UsageRecordListInstance(
   version: V1,
   simSid: string
 ): UsageRecordListInstance {
+  if (!isValidPathParam(simSid)) {
+    throw new Error("Parameter 'simSid' is not valid.");
+  }
+
   const instance = {} as UsageRecordListInstanceImpl;
 
   instance._version = version;
@@ -333,7 +338,7 @@ export class UsageRecordInstance {
   constructor(
     protected _version: V1,
     payload: UsageRecordPayload,
-    simSid?: string
+    simSid: string
   ) {
     this.simSid = payload.sim_sid;
     this.accountSid = payload.account_sid;

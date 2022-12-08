@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../interfaces";
 
 type HostedNumberOrderStatus =
@@ -32,16 +33,6 @@ type HostedNumberOrderStatus =
   | "action-required";
 
 type HostedNumberOrderVerificationType = "phone-call" | "phone-bill";
-
-/**
- * A mapping of phone number capabilities.
- */
-export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
 
 /**
  * Options to pass to update a HostedNumberOrderInstance
@@ -253,6 +244,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   protected _uri: string;
 
   constructor(protected _version: HostedNumbers, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/HostedNumberOrders/${sid}`;
   }

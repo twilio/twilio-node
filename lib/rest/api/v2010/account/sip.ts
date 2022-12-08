@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { CredentialListListInstance } from "./sip/credentialList";
 import { DomainListInstance } from "./sip/domain";
 import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
@@ -51,6 +52,10 @@ export function SipListInstance(
   version: V2010,
   accountSid: string
 ): SipListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as SipListInstanceImpl;
 
   instance._version = version;

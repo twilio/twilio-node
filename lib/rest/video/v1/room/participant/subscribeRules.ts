@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "type"?: string;
@@ -95,6 +96,14 @@ export function SubscribeRulesListInstance(
   roomSid: string,
   participantSid: string
 ): SubscribeRulesListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
+  if (!isValidPathParam(participantSid)) {
+    throw new Error("Parameter 'participantSid' is not valid.");
+  }
+
   const instance = {} as SubscribeRulesListInstanceImpl;
 
   instance._version = version;
@@ -200,7 +209,7 @@ export class SubscribeRulesInstance {
     protected _version: V1,
     payload: SubscribeRulesPayload,
     roomSid: string,
-    participantSid?: string
+    participantSid: string
   ) {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;

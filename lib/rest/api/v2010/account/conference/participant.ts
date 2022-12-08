@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type ParticipantStatus =
   | "queued"
@@ -291,6 +292,18 @@ export class ParticipantContextImpl implements ParticipantContext {
     conferenceSid: string,
     callSid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(conferenceSid)) {
+      throw new Error("Parameter 'conferenceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
     this._solution = { accountSid, conferenceSid, callSid };
     this._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants/${callSid}.json`;
   }
@@ -776,6 +789,14 @@ export function ParticipantListInstance(
   accountSid: string,
   conferenceSid: string
 ): ParticipantListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(conferenceSid)) {
+    throw new Error("Parameter 'conferenceSid' is not valid.");
+  }
+
   const instance = ((callSid) =>
     instance.get(callSid)) as ParticipantListInstanceImpl;
 

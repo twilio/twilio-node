@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
@@ -83,6 +84,14 @@ export class TaskQueueRealTimeStatisticsContextImpl
     workspaceSid: string,
     taskQueueSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(taskQueueSid)) {
+      throw new Error("Parameter 'taskQueueSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, taskQueueSid };
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
   }
@@ -172,7 +181,7 @@ export class TaskQueueRealTimeStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueRealTimeStatisticsPayload,
     workspaceSid: string,
-    taskQueueSid?: string
+    taskQueueSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.activityStatistics = payload.activity_statistics;
@@ -198,10 +207,7 @@ export class TaskQueueRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      taskQueueSid: taskQueueSid || this.taskQueueSid,
-    };
+    this._solution = { workspaceSid, taskQueueSid };
   }
 
   /**
@@ -367,6 +373,14 @@ export function TaskQueueRealTimeStatisticsListInstance(
   workspaceSid: string,
   taskQueueSid: string
 ): TaskQueueRealTimeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(taskQueueSid)) {
+    throw new Error("Parameter 'taskQueueSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as TaskQueueRealTimeStatisticsListInstanceImpl;
 

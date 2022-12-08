@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type MemberWebhookEnabledType = "true" | "false";
 
@@ -209,6 +210,18 @@ export class MemberContextImpl implements MemberContext {
     channelSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(channelSid)) {
+      throw new Error("Parameter 'channelSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, channelSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
   }
@@ -664,6 +677,14 @@ export function MemberListInstance(
   serviceSid: string,
   channelSid: string
 ): MemberListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(channelSid)) {
+    throw new Error("Parameter 'channelSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MemberListInstanceImpl;
 
   instance.get = function get(sid): MemberContext {

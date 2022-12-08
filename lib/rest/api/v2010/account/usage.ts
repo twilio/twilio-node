@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { RecordListInstance } from "./usage/record";
 import { TriggerListInstance } from "./usage/trigger";
 
@@ -295,6 +296,10 @@ export function UsageListInstance(
   version: V2010,
   accountSid: string
 ): UsageListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as UsageListInstanceImpl;
 
   instance._version = version;

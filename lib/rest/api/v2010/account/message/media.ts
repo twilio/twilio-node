@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -130,6 +131,18 @@ export class MediaContextImpl implements MediaContext {
     messageSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(messageSid)) {
+      throw new Error("Parameter 'messageSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, messageSid, sid };
     this._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Media/${sid}.json`;
   }
@@ -459,6 +472,14 @@ export function MediaListInstance(
   accountSid: string,
   messageSid: string
 ): MediaListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(messageSid)) {
+    throw new Error("Parameter 'messageSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MediaListInstanceImpl;
 
   instance.get = function get(sid): MediaContext {

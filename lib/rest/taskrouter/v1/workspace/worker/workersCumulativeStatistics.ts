@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersCumulativeStatisticsInstance
@@ -84,6 +85,10 @@ export class WorkersCumulativeStatisticsContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, workspaceSid: string) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
     this._solution = { workspaceSid };
     this._uri = `/Workspaces/${workspaceSid}/Workers/CumulativeStatistics`;
   }
@@ -174,7 +179,7 @@ export class WorkersCumulativeStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersCumulativeStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
@@ -201,7 +206,7 @@ export class WorkersCumulativeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid: workspaceSid || this.workspaceSid };
+    this._solution = { workspaceSid };
   }
 
   /**
@@ -354,6 +359,10 @@ export function WorkersCumulativeStatisticsListInstance(
   version: V1,
   workspaceSid: string
 ): WorkersCumulativeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as WorkersCumulativeStatisticsListInstanceImpl;
 

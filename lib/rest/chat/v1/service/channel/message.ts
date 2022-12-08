@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type MessageOrderType = "asc" | "desc";
 
@@ -167,6 +168,18 @@ export class MessageContextImpl implements MessageContext {
     channelSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(serviceSid)) {
+      throw new Error("Parameter 'serviceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(channelSid)) {
+      throw new Error("Parameter 'channelSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { serviceSid, channelSid, sid };
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages/${sid}`;
   }
@@ -621,6 +634,14 @@ export function MessageListInstance(
   serviceSid: string,
   channelSid: string
 ): MessageListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(channelSid)) {
+    throw new Error("Parameter 'channelSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
 
   instance.get = function get(sid): MessageContext {

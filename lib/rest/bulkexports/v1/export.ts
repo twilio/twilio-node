@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { DayListInstance } from "./export/day";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 
@@ -55,6 +56,10 @@ export class ExportContextImpl implements ExportContext {
   protected _exportCustomJobs?: ExportCustomJobListInstance;
 
   constructor(protected _version: V1, resourceType: string) {
+    if (!isValidPathParam(resourceType)) {
+      throw new Error("Parameter 'resourceType' is not valid.");
+    }
+
     this._solution = { resourceType };
     this._uri = `/Exports/${resourceType}`;
   }

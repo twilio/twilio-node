@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 export interface ExecutionContextContext {
   /**
@@ -46,6 +47,14 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   protected _uri: string;
 
   constructor(protected _version: V2, flowSid: string, executionSid: string) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(executionSid)) {
+      throw new Error("Parameter 'executionSid' is not valid.");
+    }
+
     this._solution = { flowSid, executionSid };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
   }
@@ -106,7 +115,7 @@ export class ExecutionContextInstance {
     protected _version: V2,
     payload: ExecutionContextPayload,
     flowSid: string,
-    executionSid?: string
+    executionSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -114,10 +123,7 @@ export class ExecutionContextInstance {
     this.executionSid = payload.execution_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      executionSid: executionSid || this.executionSid,
-    };
+    this._solution = { flowSid, executionSid };
   }
 
   /**
@@ -214,6 +220,14 @@ export function ExecutionContextListInstance(
   flowSid: string,
   executionSid: string
 ): ExecutionContextListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(executionSid)) {
+    throw new Error("Parameter 'executionSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
 
   instance.get = function get(): ExecutionContextContext {

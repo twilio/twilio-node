@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type SiprecStatus = "in-progress" | "stopped";
 
@@ -483,6 +484,18 @@ export class SiprecContextImpl implements SiprecContext {
     callSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(callSid)) {
+      throw new Error("Parameter 'callSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { accountSid, callSid, sid };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
   }
@@ -705,6 +718,14 @@ export function SiprecListInstance(
   accountSid: string,
   callSid: string
 ): SiprecListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(callSid)) {
+    throw new Error("Parameter 'callSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as SiprecListInstanceImpl;
 
   instance.get = function get(sid): SiprecContext {

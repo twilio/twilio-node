@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type BundleCopyStatus =
   | "draft"
@@ -250,6 +251,10 @@ export function BundleCopyListInstance(
   version: V2,
   bundleSid: string
 ): BundleCopyListInstance {
+  if (!isValidPathParam(bundleSid)) {
+    throw new Error("Parameter 'bundleSid' is not valid.");
+  }
+
   const instance = {} as BundleCopyListInstanceImpl;
 
   instance._version = version;
@@ -394,7 +399,7 @@ export class BundleCopyInstance {
   constructor(
     protected _version: V2,
     payload: BundleCopyPayload,
-    bundleSid?: string
+    bundleSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

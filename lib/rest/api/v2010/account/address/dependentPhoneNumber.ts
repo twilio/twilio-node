@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type DependentPhoneNumberAddressRequirement =
   | "none"
@@ -238,6 +239,14 @@ export function DependentPhoneNumberListInstance(
   accountSid: string,
   addressSid: string
 ): DependentPhoneNumberListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(addressSid)) {
+    throw new Error("Parameter 'addressSid' is not valid.");
+  }
+
   const instance = {} as DependentPhoneNumberListInstanceImpl;
 
   instance._version = version;
@@ -393,7 +402,7 @@ export class DependentPhoneNumberInstance {
     protected _version: V2010,
     payload: DependentPhoneNumberPayload,
     accountSid: string,
-    addressSid?: string
+    addressSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

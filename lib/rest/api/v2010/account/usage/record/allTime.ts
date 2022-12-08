@@ -18,6 +18,7 @@ import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 type UsageRecordAllTimeCategory =
   | "a2p-registration-fees"
@@ -481,6 +482,10 @@ export function AllTimeListInstance(
   version: V2010,
   accountSid: string
 ): AllTimeListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = {} as AllTimeListInstanceImpl;
 
   instance._version = version;
@@ -592,7 +597,7 @@ export class AllTimeInstance {
   constructor(
     protected _version: V2010,
     payload: AllTimePayload,
-    accountSid?: string
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;

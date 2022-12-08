@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { FieldValueListInstance } from "./fieldType/fieldValue";
 
 /**
@@ -160,6 +161,14 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     assistantSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/FieldTypes/${sid}`;
   }
@@ -595,6 +604,10 @@ export function FieldTypeListInstance(
   version: Understand,
   assistantSid: string
 ): FieldTypeListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as FieldTypeListInstanceImpl;
 
   instance.get = function get(sid): FieldTypeContext {

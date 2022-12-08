@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { LocalListInstance } from "./availablePhoneNumberCountry/local";
 import { MachineToMachineListInstance } from "./availablePhoneNumberCountry/machineToMachine";
 import { MobileListInstance } from "./availablePhoneNumberCountry/mobile";
@@ -130,6 +131,14 @@ export class AvailablePhoneNumberCountryContextImpl
     accountSid: string,
     countryCode: string
   ) {
+    if (!isValidPathParam(accountSid)) {
+      throw new Error("Parameter 'accountSid' is not valid.");
+    }
+
+    if (!isValidPathParam(countryCode)) {
+      throw new Error("Parameter 'countryCode' is not valid.");
+    }
+
     this._solution = { accountSid, countryCode };
     this._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}.json`;
   }
@@ -580,6 +589,10 @@ export function AvailablePhoneNumberCountryListInstance(
   version: V2010,
   accountSid: string
 ): AvailablePhoneNumberCountryListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
   const instance = ((countryCode) =>
     instance.get(countryCode)) as AvailablePhoneNumberCountryListInstanceImpl;
 

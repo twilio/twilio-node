@@ -18,17 +18,8 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
-
-/**
- * Whether a phone number can receive calls or messages
- */
-export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
 
 /**
  * Options to pass to each
@@ -331,6 +322,14 @@ export function NationalListInstance(
   accountSid: string,
   countryCode: string
 ): NationalListInstance {
+  if (!isValidPathParam(accountSid)) {
+    throw new Error("Parameter 'accountSid' is not valid.");
+  }
+
+  if (!isValidPathParam(countryCode)) {
+    throw new Error("Parameter 'countryCode' is not valid.");
+  }
+
   const instance = {} as NationalListInstanceImpl;
 
   instance._version = version;
@@ -473,7 +472,7 @@ export class NationalInstance {
     protected _version: V2010,
     payload: NationalPayload,
     accountSid: string,
-    countryCode?: string
+    countryCode: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;

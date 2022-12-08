@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import DeployedDevices from "../DeployedDevices";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { CertificateListInstance } from "./fleet/certificate";
 import { DeploymentListInstance } from "./fleet/deployment";
 import { DeviceListInstance } from "./fleet/device";
@@ -162,6 +163,10 @@ export class FleetContextImpl implements FleetContext {
   protected _keys?: KeyListInstance;
 
   constructor(protected _version: DeployedDevices, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Fleets/${sid}`;
   }

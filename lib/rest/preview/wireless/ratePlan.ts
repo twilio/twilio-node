@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a RatePlanInstance
@@ -166,6 +167,10 @@ export class RatePlanContextImpl implements RatePlanContext {
   protected _uri: string;
 
   constructor(protected _version: Wireless, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/RatePlans/${sid}`;
   }

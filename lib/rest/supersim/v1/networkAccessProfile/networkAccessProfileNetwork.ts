@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a NetworkAccessProfileNetworkInstance
@@ -126,6 +127,14 @@ export class NetworkAccessProfileNetworkContextImpl
     networkAccessProfileSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(networkAccessProfileSid)) {
+      throw new Error("Parameter 'networkAccessProfileSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { networkAccessProfileSid, sid };
     this._uri = `/NetworkAccessProfiles/${networkAccessProfileSid}/Networks/${sid}`;
   }
@@ -501,6 +510,10 @@ export function NetworkAccessProfileNetworkListInstance(
   version: V1,
   networkAccessProfileSid: string
 ): NetworkAccessProfileNetworkListInstance {
+  if (!isValidPathParam(networkAccessProfileSid)) {
+    throw new Error("Parameter 'networkAccessProfileSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(sid)) as NetworkAccessProfileNetworkListInstanceImpl;
 

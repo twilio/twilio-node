@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type RecordingRecordingMode =
   | "do-not-record"
@@ -89,6 +90,10 @@ export class RecordingContextImpl implements RecordingContext {
   protected _uri: string;
 
   constructor(protected _version: V1, trunkSid: string) {
+    if (!isValidPathParam(trunkSid)) {
+      throw new Error("Parameter 'trunkSid' is not valid.");
+    }
+
     this._solution = { trunkSid };
     this._uri = `/Trunks/${trunkSid}/Recording`;
   }
@@ -184,12 +189,12 @@ export class RecordingInstance {
   constructor(
     protected _version: V1,
     payload: RecordingPayload,
-    trunkSid?: string
+    trunkSid: string
   ) {
     this.mode = payload.mode;
     this.trim = payload.trim;
 
-    this._solution = { trunkSid: trunkSid || this.trunkSid };
+    this._solution = { trunkSid };
   }
 
   mode?: RecordingRecordingMode;
@@ -284,6 +289,10 @@ export function RecordingListInstance(
   version: V1,
   trunkSid: string
 ): RecordingListInstance {
+  if (!isValidPathParam(trunkSid)) {
+    throw new Error("Parameter 'trunkSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as RecordingListInstanceImpl;
 
   instance.get = function get(): RecordingContext {

@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
@@ -263,6 +264,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _users?: UserListInstance;
 
   constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }

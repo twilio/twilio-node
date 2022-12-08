@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a StyleSheetInstance
@@ -78,6 +79,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
   protected _uri: string;
 
   constructor(protected _version: Understand, assistantSid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
     this._solution = { assistantSid };
     this._uri = `/Assistants/${assistantSid}/StyleSheet`;
   }
@@ -175,14 +180,14 @@ export class StyleSheetInstance {
   constructor(
     protected _version: Understand,
     payload: StyleSheetPayload,
-    assistantSid?: string
+    assistantSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
+    this._solution = { assistantSid };
   }
 
   /**
@@ -290,6 +295,10 @@ export function StyleSheetListInstance(
   version: Understand,
   assistantSid: string
 ): StyleSheetListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as StyleSheetListInstanceImpl;
 
   instance.get = function get(): StyleSheetContext {

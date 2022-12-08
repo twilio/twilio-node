@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 type FlowRevisionStatus = "draft" | "published";
 
@@ -97,6 +98,14 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   protected _uri: string;
 
   constructor(protected _version: V2, sid: string, revision: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
+    if (!isValidPathParam(revision)) {
+      throw new Error("Parameter 'revision' is not valid.");
+    }
+
     this._solution = { sid, revision };
     this._uri = `/Flows/${sid}/Revisions/${revision}`;
   }
@@ -428,6 +437,10 @@ export function FlowRevisionListInstance(
   version: V2,
   sid: string
 ): FlowRevisionListInstance {
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = ((revision) =>
     instance.get(revision)) as FlowRevisionListInstanceImpl;
 

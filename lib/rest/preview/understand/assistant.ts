@@ -18,6 +18,7 @@ import Response from "../../../http/response";
 import Understand from "../Understand";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { AssistantFallbackActionsListInstance } from "./assistant/assistantFallbackActions";
 import { AssistantInitiationActionsListInstance } from "./assistant/assistantInitiationActions";
 import { DialogueListInstance } from "./assistant/dialogue";
@@ -200,6 +201,10 @@ export class AssistantContextImpl implements AssistantContext {
   protected _tasks?: TaskListInstance;
 
   constructor(protected _version: Understand, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { sid };
     this._uri = `/Assistants/${sid}`;
   }

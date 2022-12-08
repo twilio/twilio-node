@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a CustomerProfilesChannelEndpointAssignmentInstance
@@ -136,6 +137,14 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   protected _uri: string;
 
   constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+    if (!isValidPathParam(customerProfileSid)) {
+      throw new Error("Parameter 'customerProfileSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { customerProfileSid, sid };
     this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
   }
@@ -523,6 +532,10 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
   version: V1,
   customerProfileSid: string
 ): CustomerProfilesChannelEndpointAssignmentListInstance {
+  if (!isValidPathParam(customerProfileSid)) {
+    throw new Error("Parameter 'customerProfileSid' is not valid.");
+  }
+
   const instance = ((sid) =>
     instance.get(
       sid

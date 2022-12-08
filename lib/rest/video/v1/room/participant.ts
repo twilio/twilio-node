@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 import { AnonymizeListInstance } from "./participant/anonymize";
 import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribeRulesListInstance } from "./participant/subscribeRules";
@@ -167,6 +168,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _subscribedTracks?: SubscribedTrackListInstance;
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { roomSid, sid };
     this._uri = `/Rooms/${roomSid}/Participants/${sid}`;
   }
@@ -636,6 +645,10 @@ export function ParticipantListInstance(
   version: V1,
   roomSid: string
 ): ParticipantListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
 
   instance.get = function get(sid): ParticipantContext {

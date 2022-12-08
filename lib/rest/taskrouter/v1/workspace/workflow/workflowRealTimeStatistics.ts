@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkflowRealTimeStatisticsInstance
@@ -83,6 +84,14 @@ export class WorkflowRealTimeStatisticsContextImpl
     workspaceSid: string,
     workflowSid: string
   ) {
+    if (!isValidPathParam(workspaceSid)) {
+      throw new Error("Parameter 'workspaceSid' is not valid.");
+    }
+
+    if (!isValidPathParam(workflowSid)) {
+      throw new Error("Parameter 'workflowSid' is not valid.");
+    }
+
     this._solution = { workspaceSid, workflowSid };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/RealTimeStatistics`;
   }
@@ -167,7 +176,7 @@ export class WorkflowRealTimeStatisticsInstance {
     protected _version: V1,
     payload: WorkflowRealTimeStatisticsPayload,
     workspaceSid: string,
-    workflowSid?: string
+    workflowSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.longestTaskWaitingAge = deserialize.integer(
@@ -181,10 +190,7 @@ export class WorkflowRealTimeStatisticsInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = {
-      workspaceSid,
-      workflowSid: workflowSid || this.workflowSid,
-    };
+    this._solution = { workspaceSid, workflowSid };
   }
 
   /**
@@ -325,6 +331,14 @@ export function WorkflowRealTimeStatisticsListInstance(
   workspaceSid: string,
   workflowSid: string
 ): WorkflowRealTimeStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(workflowSid)) {
+    throw new Error("Parameter 'workflowSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as WorkflowRealTimeStatisticsListInstanceImpl;
 

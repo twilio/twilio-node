@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a StreamMessageInstance
@@ -65,6 +66,14 @@ export function StreamMessageListInstance(
   serviceSid: string,
   streamSid: string
 ): StreamMessageListInstance {
+  if (!isValidPathParam(serviceSid)) {
+    throw new Error("Parameter 'serviceSid' is not valid.");
+  }
+
+  if (!isValidPathParam(streamSid)) {
+    throw new Error("Parameter 'streamSid' is not valid.");
+  }
+
   const instance = {} as StreamMessageListInstanceImpl;
 
   instance._version = version;
@@ -141,7 +150,7 @@ export class StreamMessageInstance {
     protected _version: V1,
     payload: StreamMessagePayload,
     serviceSid: string,
-    streamSid?: string
+    streamSid: string
   ) {
     this.sid = payload.sid;
     this.data = payload.data;

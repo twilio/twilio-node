@@ -18,6 +18,7 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
@@ -264,6 +265,10 @@ export function TaskQueuesStatisticsListInstance(
   version: V1,
   workspaceSid: string
 ): TaskQueuesStatisticsListInstance {
+  if (!isValidPathParam(workspaceSid)) {
+    throw new Error("Parameter 'workspaceSid' is not valid.");
+  }
+
   const instance = {} as TaskQueuesStatisticsListInstanceImpl;
 
   instance._version = version;
@@ -373,7 +378,7 @@ export class TaskQueuesStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: TaskQueuesStatisticsPayload,
-    workspaceSid?: string
+    workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;

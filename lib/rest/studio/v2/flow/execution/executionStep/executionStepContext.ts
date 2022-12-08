@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../../../../V2";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../../base/utility";
 
 export interface ExecutionStepContextContext {
   /**
@@ -54,6 +55,18 @@ export class ExecutionStepContextContextImpl
     executionSid: string,
     stepSid: string
   ) {
+    if (!isValidPathParam(flowSid)) {
+      throw new Error("Parameter 'flowSid' is not valid.");
+    }
+
+    if (!isValidPathParam(executionSid)) {
+      throw new Error("Parameter 'executionSid' is not valid.");
+    }
+
+    if (!isValidPathParam(stepSid)) {
+      throw new Error("Parameter 'stepSid' is not valid.");
+    }
+
     this._solution = { flowSid, executionSid, stepSid };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
   }
@@ -117,7 +130,7 @@ export class ExecutionStepContextInstance {
     payload: ExecutionStepContextPayload,
     flowSid: string,
     executionSid: string,
-    stepSid?: string
+    stepSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -126,11 +139,7 @@ export class ExecutionStepContextInstance {
     this.stepSid = payload.step_sid;
     this.url = payload.url;
 
-    this._solution = {
-      flowSid,
-      executionSid,
-      stepSid: stepSid || this.stepSid,
-    };
+    this._solution = { flowSid, executionSid, stepSid };
   }
 
   /**
@@ -237,6 +246,18 @@ export function ExecutionStepContextListInstance(
   executionSid: string,
   stepSid: string
 ): ExecutionStepContextListInstance {
+  if (!isValidPathParam(flowSid)) {
+    throw new Error("Parameter 'flowSid' is not valid.");
+  }
+
+  if (!isValidPathParam(executionSid)) {
+    throw new Error("Parameter 'executionSid' is not valid.");
+  }
+
+  if (!isValidPathParam(stepSid)) {
+    throw new Error("Parameter 'stepSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as ExecutionStepContextListInstanceImpl;
 

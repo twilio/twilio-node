@@ -18,6 +18,7 @@ import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a QueryInstance
@@ -179,6 +180,14 @@ export class QueryContextImpl implements QueryContext {
     assistantSid: string,
     sid: string
   ) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/Queries/${sid}`;
   }
@@ -624,6 +633,10 @@ export function QueryListInstance(
   version: Understand,
   assistantSid: string
 ): QueryListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = ((sid) => instance.get(sid)) as QueryListInstanceImpl;
 
   instance.get = function get(sid): QueryContext {

@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { isValidPathParam } from "../../../base/utility";
 import { BundleListInstance } from "./regulatoryCompliance/bundle";
 import { EndUserListInstance } from "./regulatoryCompliance/endUser";
 import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType";

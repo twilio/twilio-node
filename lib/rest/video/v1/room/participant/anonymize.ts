@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+import { isValidPathParam } from "../../../../../base/utility";
 
 type RoomParticipantAnonymizeStatus = "connected" | "disconnected";
 
@@ -48,6 +49,14 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   protected _uri: string;
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
+    if (!isValidPathParam(roomSid)) {
+      throw new Error("Parameter 'roomSid' is not valid.");
+    }
+
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
+    }
+
     this._solution = { roomSid, sid };
     this._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
   }
@@ -114,7 +123,7 @@ export class AnonymizeInstance {
     protected _version: V1,
     payload: AnonymizePayload,
     roomSid: string,
-    sid?: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
@@ -128,7 +137,7 @@ export class AnonymizeInstance {
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
 
-    this._solution = { roomSid, sid: sid || this.sid };
+    this._solution = { roomSid, sid };
   }
 
   /**
@@ -251,6 +260,14 @@ export function AnonymizeListInstance(
   roomSid: string,
   sid: string
 ): AnonymizeListInstance {
+  if (!isValidPathParam(roomSid)) {
+    throw new Error("Parameter 'roomSid' is not valid.");
+  }
+
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
+  }
+
   const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
 
   instance.get = function get(): AnonymizeContext {

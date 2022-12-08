@@ -16,6 +16,7 @@ import { inspect, InspectOptions } from "util";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AssistantFallbackActionsInstance
@@ -92,6 +93,10 @@ export class AssistantFallbackActionsContextImpl
   protected _uri: string;
 
   constructor(protected _version: Understand, assistantSid: string) {
+    if (!isValidPathParam(assistantSid)) {
+      throw new Error("Parameter 'assistantSid' is not valid.");
+    }
+
     this._solution = { assistantSid };
     this._uri = `/Assistants/${assistantSid}/FallbackActions`;
   }
@@ -193,14 +198,14 @@ export class AssistantFallbackActionsInstance {
   constructor(
     protected _version: Understand,
     payload: AssistantFallbackActionsPayload,
-    assistantSid?: string
+    assistantSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.assistantSid = payload.assistant_sid;
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
+    this._solution = { assistantSid };
   }
 
   accountSid?: string | null;
@@ -317,6 +322,10 @@ export function AssistantFallbackActionsListInstance(
   version: Understand,
   assistantSid: string
 ): AssistantFallbackActionsListInstance {
+  if (!isValidPathParam(assistantSid)) {
+    throw new Error("Parameter 'assistantSid' is not valid.");
+  }
+
   const instance = (() =>
     instance.get()) as AssistantFallbackActionsListInstanceImpl;
 
