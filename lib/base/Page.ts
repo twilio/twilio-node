@@ -23,7 +23,9 @@ export interface TwilioResponsePayload {
   };
 }
 
-interface Solution {}
+interface Solution {
+  [name: string]: any;
+}
 
 type META_KEYS = "end" | "first_page_uri" | "last_page_uri" | "next_page_uri" |
 "num_pages" | "page" | "page_size" | "previous_page_uri" | "start" | "total" |
