@@ -466,7 +466,9 @@ export class AccountContextImpl implements AccountContext {
   }
 }
 
-interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {}
+interface AccountPayload
+  extends AccountResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AccountResource {
   auth_token?: string | null;

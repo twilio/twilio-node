@@ -380,7 +380,7 @@ export type ApplicationVoiceMethod =
 
 interface ApplicationPayload
   extends ApplicationResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ApplicationResource {
   account_sid?: string | null;

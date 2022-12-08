@@ -573,7 +573,9 @@ export function MonthlyListInstance(
   return instance;
 }
 
-interface MonthlyPayload extends MonthlyResource, Page.TwilioResponsePayload {}
+interface MonthlyPayload
+  extends MonthlyResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface MonthlyResource {
   account_sid?: string | null;

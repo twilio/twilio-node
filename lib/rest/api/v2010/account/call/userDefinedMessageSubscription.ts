@@ -22,13 +22,13 @@ import { isValidPathParam } from "../../../../../base/utility";
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
  *
  * @property { string } callback The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
- * @property { string } method The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
  * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+ * @property { string } [method] The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
  */
 export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
   callback: string;
-  method: string;
   idempotencyKey?: string;
+  method?: string;
 }
 
 export interface UserDefinedMessageSubscriptionContext {
@@ -199,17 +199,12 @@ export function UserDefinedMessageSubscriptionListInstance(
       throw new Error("Required parameter \"params['callback']\" missing.");
     }
 
-    if (params["method"] === null || params["method"] === undefined) {
-      throw new Error("Required parameter \"params['method']\" missing.");
-    }
-
     let data: any = {};
 
     data["Callback"] = params["callback"];
-
-    data["Method"] = params["method"];
     if (params["idempotencyKey"] !== undefined)
       data["IdempotencyKey"] = params["idempotencyKey"];
+    if (params["method"] !== undefined) data["Method"] = params["method"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

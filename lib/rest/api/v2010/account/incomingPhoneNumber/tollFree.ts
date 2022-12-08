@@ -534,7 +534,7 @@ export type TollFreeVoiceMethod =
 
 interface TollFreePayload
   extends TollFreeResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface TollFreeResource {
   account_sid?: string | null;

@@ -573,7 +573,9 @@ export function AllTimeListInstance(
   return instance;
 }
 
-interface AllTimePayload extends AllTimeResource, Page.TwilioResponsePayload {}
+interface AllTimePayload
+  extends AllTimeResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AllTimeResource {
   account_sid?: string | null;

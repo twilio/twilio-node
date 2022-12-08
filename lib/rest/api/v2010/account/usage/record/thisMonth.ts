@@ -575,7 +575,7 @@ export function ThisMonthListInstance(
 
 interface ThisMonthPayload
   extends ThisMonthResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ThisMonthResource {
   account_sid?: string | null;

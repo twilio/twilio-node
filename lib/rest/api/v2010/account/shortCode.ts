@@ -266,7 +266,7 @@ export type ShortCodeSmsMethod =
 
 interface ShortCodePayload
   extends ShortCodeResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ShortCodeResource {
   account_sid?: string | null;

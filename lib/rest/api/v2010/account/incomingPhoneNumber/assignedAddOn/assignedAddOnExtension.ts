@@ -174,7 +174,7 @@ export class AssignedAddOnExtensionContextImpl
 
 interface AssignedAddOnExtensionPayload
   extends AssignedAddOnExtensionResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AssignedAddOnExtensionResource {
   sid?: string | null;

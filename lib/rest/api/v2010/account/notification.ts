@@ -179,7 +179,7 @@ export type NotificationRequestMethod =
 
 interface NotificationPayload
   extends NotificationResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface NotificationResource {
   account_sid?: string | null;

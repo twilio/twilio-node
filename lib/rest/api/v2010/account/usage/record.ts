@@ -695,7 +695,9 @@ export function RecordListInstance(
   return instance;
 }
 
-interface RecordPayload extends RecordResource, Page.TwilioResponsePayload {}
+interface RecordPayload
+  extends RecordResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface RecordResource {
   account_sid?: string | null;

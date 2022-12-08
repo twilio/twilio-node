@@ -260,7 +260,7 @@ export class AvailablePhoneNumberCountryContextImpl
 
 interface AvailablePhoneNumberCountryPayload
   extends AvailablePhoneNumberCountryResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AvailablePhoneNumberCountryResource {
   country_code?: string | null;

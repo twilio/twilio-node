@@ -279,7 +279,7 @@ export class IpAddressContextImpl implements IpAddressContext {
 
 interface IpAddressPayload
   extends IpAddressResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface IpAddressResource {
   sid?: string | null;

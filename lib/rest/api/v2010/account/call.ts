@@ -551,7 +551,9 @@ export class CallContextImpl implements CallContext {
   }
 }
 
-interface CallPayload extends CallResource, Page.TwilioResponsePayload {}
+interface CallPayload
+  extends CallResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface CallResource {
   sid?: string | null;

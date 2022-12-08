@@ -269,7 +269,7 @@ export class IpAccessControlListContextImpl
 
 interface IpAccessControlListPayload
   extends IpAccessControlListResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface IpAccessControlListResource {
   sid?: string | null;

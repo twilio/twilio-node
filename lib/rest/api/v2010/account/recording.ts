@@ -294,7 +294,7 @@ export class RecordingContextImpl implements RecordingContext {
 
 interface RecordingPayload
   extends RecordingResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface RecordingResource {
   account_sid?: string | null;

@@ -386,7 +386,9 @@ export class MessageContextImpl implements MessageContext {
   }
 }
 
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {}
+interface MessagePayload
+  extends MessageResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface MessageResource {
   body?: string | null;

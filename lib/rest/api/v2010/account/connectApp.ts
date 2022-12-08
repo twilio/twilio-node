@@ -283,7 +283,7 @@ export type ConnectAppDeauthorizeCallbackMethod =
 
 interface ConnectAppPayload
   extends ConnectAppResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ConnectAppResource {
   account_sid?: string | null;

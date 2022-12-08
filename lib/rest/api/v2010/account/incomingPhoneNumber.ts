@@ -491,7 +491,7 @@ export type IncomingPhoneNumberVoiceMethod =
 
 interface IncomingPhoneNumberPayload
   extends IncomingPhoneNumberResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface IncomingPhoneNumberResource {
   account_sid?: string | null;

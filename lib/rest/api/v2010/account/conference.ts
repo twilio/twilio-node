@@ -317,7 +317,7 @@ export class ConferenceContextImpl implements ConferenceContext {
 
 interface ConferencePayload
   extends ConferenceResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ConferenceResource {
   account_sid?: string | null;

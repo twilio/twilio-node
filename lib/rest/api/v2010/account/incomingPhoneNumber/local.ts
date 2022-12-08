@@ -528,7 +528,9 @@ export type LocalVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {}
+interface LocalPayload
+  extends LocalResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface LocalResource {
   account_sid?: string | null;

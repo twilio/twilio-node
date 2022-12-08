@@ -200,7 +200,7 @@ export class IpAccessControlListMappingContextImpl
 
 interface IpAccessControlListMappingPayload
   extends IpAccessControlListMappingResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface IpAccessControlListMappingResource {
   account_sid?: string | null;

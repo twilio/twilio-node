@@ -106,7 +106,7 @@ declare namespace Page {
     previous_page_uri: string;
     // DEPRECTATED: start: number;
     // DEPRECTATED: total: number;
-    uri: string;
+    uri?: string;
     meta?: {
       key?: string;
     };

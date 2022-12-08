@@ -159,7 +159,7 @@ export class AuthorizedConnectAppContextImpl
 
 interface AuthorizedConnectAppPayload
   extends AuthorizedConnectAppResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AuthorizedConnectAppResource {
   account_sid?: string | null;

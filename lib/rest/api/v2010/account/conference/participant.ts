@@ -427,7 +427,7 @@ export class ParticipantContextImpl implements ParticipantContext {
 
 interface ParticipantPayload
   extends ParticipantResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface ParticipantResource {
   account_sid?: string | null;

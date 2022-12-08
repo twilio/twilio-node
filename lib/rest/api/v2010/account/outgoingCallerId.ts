@@ -261,7 +261,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
 interface OutgoingCallerIdPayload
   extends OutgoingCallerIdResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface OutgoingCallerIdResource {
   sid?: string | null;

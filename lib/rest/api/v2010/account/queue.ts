@@ -274,7 +274,9 @@ export class QueueContextImpl implements QueueContext {
   }
 }
 
-interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {}
+interface QueuePayload
+  extends QueueResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface QueueResource {
   date_updated?: string | null;

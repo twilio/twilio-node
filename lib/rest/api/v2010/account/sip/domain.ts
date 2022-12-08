@@ -391,7 +391,9 @@ export type DomainVoiceStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {}
+interface DomainPayload
+  extends DomainResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface DomainResource {
   account_sid?: string | null;

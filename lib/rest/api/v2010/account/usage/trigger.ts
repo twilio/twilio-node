@@ -549,7 +549,9 @@ export type TriggerCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {}
+interface TriggerPayload
+  extends TriggerResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface TriggerResource {
   account_sid?: string | null;

@@ -209,7 +209,7 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
 
 interface AssignedAddOnPayload
   extends AssignedAddOnResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface AssignedAddOnResource {
   sid?: string | null;

@@ -268,7 +268,7 @@ export class CredentialContextImpl implements CredentialContext {
 
 interface CredentialPayload
   extends CredentialResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface CredentialResource {
   sid?: string | null;

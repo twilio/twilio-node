@@ -200,7 +200,7 @@ export class CredentialListMappingContextImpl
 
 interface CredentialListMappingPayload
   extends CredentialListMappingResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface CredentialListMappingResource {
   account_sid?: string | null;

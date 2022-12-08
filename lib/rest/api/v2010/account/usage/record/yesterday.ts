@@ -575,7 +575,7 @@ export function YesterdayListInstance(
 
 interface YesterdayPayload
   extends YesterdayResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface YesterdayResource {
   account_sid?: string | null;

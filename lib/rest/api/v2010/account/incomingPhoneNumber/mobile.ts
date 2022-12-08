@@ -528,7 +528,9 @@ export type MobileVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface MobilePayload extends MobileResource, Page.TwilioResponsePayload {}
+interface MobilePayload
+  extends MobileResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface MobileResource {
   account_sid?: string | null;

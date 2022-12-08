@@ -200,7 +200,9 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
-interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {}
+interface MediaPayload
+  extends MediaResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface MediaResource {
   account_sid?: string | null;

@@ -366,7 +366,7 @@ export type DependentPhoneNumberStatusCallbackMethod =
 
 interface DependentPhoneNumberPayload
   extends DependentPhoneNumberResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface DependentPhoneNumberResource {
   sid?: string | null;

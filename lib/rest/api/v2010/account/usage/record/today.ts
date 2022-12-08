@@ -573,7 +573,9 @@ export function TodayListInstance(
   return instance;
 }
 
-interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {}
+interface TodayPayload
+  extends TodayResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface TodayResource {
   account_sid?: string | null;

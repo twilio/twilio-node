@@ -573,7 +573,9 @@ export function YearlyListInstance(
   return instance;
 }
 
-interface YearlyPayload extends YearlyResource, Page.TwilioResponsePayload {}
+interface YearlyPayload
+  extends YearlyResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface YearlyResource {
   account_sid?: string | null;

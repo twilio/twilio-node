@@ -175,7 +175,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
 interface TranscriptionPayload
   extends TranscriptionResource,
-    Page.TwilioResponsePayload {}
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface TranscriptionResource {
   account_sid?: string | null;

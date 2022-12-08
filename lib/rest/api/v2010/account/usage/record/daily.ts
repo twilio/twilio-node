@@ -573,7 +573,9 @@ export function DailyListInstance(
   return instance;
 }
 
-interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {}
+interface DailyPayload
+  extends DailyResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface DailyResource {
   account_sid?: string | null;

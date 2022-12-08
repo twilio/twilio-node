@@ -224,7 +224,9 @@ export class MemberContextImpl implements MemberContext {
   }
 }
 
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {}
+interface MemberPayload
+  extends MemberResource,
+    Omit<Page.TwilioResponsePayload, "uri"> {}
 
 interface MemberResource {
   call_sid?: string | null;
