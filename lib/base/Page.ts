@@ -4,25 +4,23 @@ import Version from "./Version";
 import Response from "../http/response";
 import RestException from "./RestException";
 
-namespace Page {
-  export interface TwilioResponsePayload {
-    // DEPRECTATED: end: any;
-    first_page_uri: string;
-    // DEPRECTATED: last_page_uri: string;
-    next_page_uri: string;
-    // DEPRECTATED: num_pages: number;
-    page: number;
-    page_size: number;
-    previous_page_uri: string;
-    // DEPRECTATED: start: number;
-    // DEPRECTATED: total: number;
-    uri: string;
-    meta?: {
-      key?: string;
-      next_page_url?: string;
-      previous_page_url?: string;
-    };
-  }
+export interface TwilioResponsePayload {
+  // DEPRECTATED: end: any;
+  first_page_uri: string;
+  // DEPRECTATED: last_page_uri: string;
+  next_page_uri: string;
+  // DEPRECTATED: num_pages: number;
+  page: number;
+  page_size: number;
+  previous_page_uri: string;
+  // DEPRECTATED: start: number;
+  // DEPRECTATED: total: number;
+  uri: string;
+  meta?: {
+    key?: string;
+    next_page_url?: string;
+    previous_page_url?: string;
+  };
 }
 
 interface Solution {}
@@ -33,7 +31,7 @@ type META_KEYS = "end" | "first_page_uri" | "last_page_uri" | "next_page_uri" |
 
 export default class Page<
   TVersion extends Version,
-  TPayload extends Page.TwilioResponsePayload,
+  TPayload extends TwilioResponsePayload,
   TResource,
   TInstance
   > {

@@ -5,27 +5,25 @@ import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
 import { trim } from "./utility";
 
-namespace Version {
-  export interface PageLimitOptions {
-    /**
-     * The maximum number of items to fetch
-     */
-     limit: number;
-     /**
-      * The maximum number of items to return with every request
-      */
-     pageSize: number;
-  }
-
-  export interface PageLimit {
+export interface PageLimitOptions {
+  /**
+   * The maximum number of items to fetch
+   */
     limit: number;
+    /**
+    * The maximum number of items to return with every request
+    */
     pageSize: number;
-  }
+}
+
+export interface PageLimit {
+  limit: number;
+  pageSize: number;
 }
 
 export default class Version {
   _domain: Domain;
-  _version: Version;
+  _version: string;
 
   /**
    * @constructor
@@ -35,7 +33,7 @@ export default class Version {
    * @param {Domain} domain twilio domain
    * @param {Version} version api version
    */
-  constructor(domain: Domain, version: Version) {
+  constructor(domain: Domain, version: string) {
     this._domain = domain;
     this._version = version;
   }
@@ -197,7 +195,7 @@ export default class Version {
    * @param {number} [opts.pageSize] The maximum number of items to return
    *                                  with every request
    */
-  readLimits(opts: Version.PageLimitOptions): Version.PageLimit {
+  readLimits(opts: PageLimitOptions): PageLimit {
     var limit = opts.limit;
     var pageSize = opts.pageSize;
     if ((limit && !Number.isFinite(limit)) || limit <= 0) {
@@ -243,7 +241,7 @@ export default class Version {
     let done = false;
     let currentPage = 1;
     let currentResource = 0;
-    let limits = this._version.readLimits({
+    let limits = this.readLimits({
       limit: params.limit,
       pageSize: params.pageSize,
     });
@@ -314,7 +312,7 @@ export default class Version {
         }
       };
     });
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = this.setPromiseCallback(
       operationPromise,
       callback
     );
