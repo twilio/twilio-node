@@ -22,7 +22,10 @@ class MessagingResponse extends TwiML {
    * <Message> TwiML Verb
    *
    * @function message
-   * @memberof MessagingResponse#
+   * @memberof MessagingResponse
+   *
+   * @param attributes - TwiML attributes
+   * @param body - Message Body
    */
   message(body: string): MessagingResponse.Message;
   message(
@@ -45,7 +48,10 @@ class MessagingResponse extends TwiML {
    * <Redirect> TwiML Verb
    *
    * @function redirect
-   * @memberof MessagingResponse#
+   * @memberof MessagingResponse
+   *
+   * @param attributes - TwiML attributes
+   * @param url - Redirect URL
    */
   redirect(url: string): MessagingResponse.Redirect;
   redirect(
@@ -67,6 +73,15 @@ class MessagingResponse extends TwiML {
 }
 
 namespace MessagingResponse {
+  /**
+   * Attributes to pass to message
+   *
+   * @property action - Action URL
+   * @property from - Phone Number to send Message from
+   * @property method - Action URL Method
+   * @property statusCallback - Status callback URL. Deprecated in favor of action.
+   * @property to - Phone Number to send Message to
+   */
   export interface MessageAttributes {
     action?: string;
     from?: string;
@@ -75,6 +90,11 @@ namespace MessagingResponse {
     to?: string;
   }
 
+  /**
+   * Attributes to pass to redirect
+   *
+   * @property method - Redirect URL method
+   */
   export interface RedirectAttributes {
     method?: string;
   }
@@ -117,7 +137,10 @@ namespace MessagingResponse {
      * <Body> TwiML Noun
      *
      * @function body
-     * @memberof Message#
+     * @memberof Message
+     *
+     * @param attributes - TwiML attributes
+     * @param message - Message Body
      */
     body(message: string): MessagingResponse.Body;
     body(attributes: object, message: string): MessagingResponse.Body;
@@ -137,7 +160,10 @@ namespace MessagingResponse {
      * <Media> TwiML Noun
      *
      * @function media
-     * @memberof Message#
+     * @memberof Message
+     *
+     * @param attributes - TwiML attributes
+     * @param url - Media URL
      */
     media(url: string): MessagingResponse.Media;
     media(attributes: object, url: string): MessagingResponse.Media;
