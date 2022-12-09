@@ -23,7 +23,7 @@ export interface PageLimit {
 
 export default class Version {
   _domain: Domain;
-  _version: string;
+  _version: Version | string;
 
   /**
    * @constructor
@@ -33,7 +33,7 @@ export default class Version {
    * @param {Domain} domain twilio domain
    * @param {Version} version api version
    */
-  constructor(domain: Domain, version: string) {
+  constructor(domain: Domain, version: string | Version) {
     this._domain = domain;
     this._version = version;
   }
@@ -241,10 +241,13 @@ export default class Version {
     let done = false;
     let currentPage = 1;
     let currentResource = 0;
-    let limits = this.readLimits({
-      limit: params.limit,
-      pageSize: params.pageSize,
-    });
+    let limits = {} as PageLimit;
+    if (this._version instanceof Version) {
+      limits = this._version.readLimits({
+        limit: params.limit,
+        pageSize: params.pageSize,
+      });
+    }
     function onComplete(error?) {
       done = true;
       if (typeof params.done === "function") {
@@ -312,10 +315,12 @@ export default class Version {
         }
       };
     });
-    operationPromise = this.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    if (this._version instanceof Version) {
+      operationPromise = this._version.setPromiseCallback(
+        operationPromise,
+        callback
+      );
+    }
     this.each(params);
     return operationPromise;
   }

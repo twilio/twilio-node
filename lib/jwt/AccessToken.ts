@@ -16,7 +16,7 @@ export interface TaskRouterGrantOptions {
 
 export interface TaskRouterGrantPayload {
   workspace_sid?: string;
-  worker_id?: string;
+  worker_sid?: string;
   role?: string;
 }
 
@@ -125,7 +125,7 @@ class TaskRouterGrant
       grant.workspace_sid = this.workspaceSid;
     }
     if (this.workerSid) {
-      grant.worker_id = this.workerSid;
+      grant.worker_sid = this.workerSid;
     }
     if (this.role) {
       grant.role = this.role;
@@ -330,7 +330,8 @@ class PlaybackGrant
  * @param {string} [options.region] - The region value associated with this account
  */
 export default class AccessToken implements AccessTokenOptions {
-  static DEFAULT_ALGORITHM: "HS256";
+
+  static DEFAULT_ALGORITHM: "HS256" = "HS256";
   static ALGORITHMS: ALGORITHMS[] = ["HS256", "HS384", "HS512"];
   static ChatGrant = ChatGrant;
   static VoiceGrant = VoiceGrant;

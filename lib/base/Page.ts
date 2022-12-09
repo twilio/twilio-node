@@ -5,16 +5,11 @@ import Response from "../http/response";
 import RestException from "./RestException";
 
 export interface TwilioResponsePayload {
-  // DEPRECTATED: end: any;
   first_page_uri: string;
-  // DEPRECTATED: last_page_uri: string;
   next_page_uri: string;
-  // DEPRECTATED: num_pages: number;
   page: number;
   page_size: number;
   previous_page_uri: string;
-  // DEPRECTATED: start: number;
-  // DEPRECTATED: total: number;
   uri: string;
   meta?: {
     key?: string;
@@ -38,12 +33,12 @@ export default class Page<
   TInstance
   > {
 
-  nextPageUrl: string
-  previousPageUrl: string
-  instances: TInstance[]
-  _version: TVersion
-  _payload: TPayload
-  _solution: Solution
+  nextPageUrl: string;
+  previousPageUrl: string;
+  instances: TInstance[];
+  _version: TVersion;
+  _payload: TPayload;
+  _solution: Solution;
   
   /**
    * @constructor
@@ -150,7 +145,7 @@ export default class Page<
    * @return {Array} list of resources
    */
   loadInstances(resources: TResource[] | TInstance[]): TInstance[] {
-    let instances: TInstance[]; // TODO: Is this the correct type?, as it seems that instances is a map/dict type object.
+    let instances: TInstance[] = [];
     Object.keys(resources).forEach((key) => {
       instances[key] = this.getInstance(resources[key]);
     });
