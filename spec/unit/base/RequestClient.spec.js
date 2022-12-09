@@ -284,12 +284,9 @@ describe("lastRequest defined, lastResponse undefined", function () {
 });
 
 describe("User specified CA bundle", function () {
-  let client;
   let options;
   beforeEach(function () {
     axios.create.mockReturnValue(createMockAxios(Promise.reject("failed")));
-
-    client = new RequestClient();
 
     options = {
       method: "GET",
@@ -313,6 +310,8 @@ describe("User specified CA bundle", function () {
   });
 
   it("should not modify CA if not specified", function () {
+    let client = new RequestClient();
+
     return client.request(options).catch(() => {
       expect(client.lastRequest.ca).toBeUndefined();
     });
@@ -320,24 +319,29 @@ describe("User specified CA bundle", function () {
 
   it("should use CA if it is specified", function () {
     process.env.TWILIO_CA_BUNDLE = "/path/to/ca/test-ca.pem";
+    let client = new RequestClient();
+
     return client.request(options).catch(() => {
       expect(client.lastRequest.ca.toString()).toEqual("test ca data");
       delete process.env.TWILIO_CA_BUNDLE;
     });
   });
 
-  it("should cache the CA after loading it for the first time", function () {
-    process.env.TWILIO_CA_BUNDLE = "/path/to/ca/test-ca.pem";
-    return client.request(options).catch(() => {
-      mockfs({
-        "/path/to/ca": {
-          "test-ca.pem": null,
-        },
-      });
-      return client.request(options).catch(() => {
-        expect(client.lastRequest.ca.toString()).toEqual("test ca data");
-        delete process.env.TWILIO_CA_BUNDLE;
-      });
-    });
-  });
+  /* This doesn't make sense because Axios requires the CA to be set in a custom HTTP agent */
+  /* See: https://stackoverflow.com/questions/51363855/how-to-configure-axios-to-use-ssl-certificate */
+  /* See (doesn't specify SSL CA certificates in the request): https://axios-http.com/docs/req_config */
+  // it("should cache the CA after loading it for the first time", function () {
+  //   process.env.TWILIO_CA_BUNDLE = "/path/to/ca/test-ca.pem";
+  //   return client.request(options).catch(() => {
+  //     mockfs({
+  //       "/path/to/ca": {
+  //         "test-ca.pem": null,
+  //       },
+  //     });
+  //     return client.request(options).catch(() => {
+  //       expect(client.lastRequest.ca.toString()).toEqual("test ca data");
+  //       delete process.env.TWILIO_CA_BUNDLE;
+  //     });
+  //   });
+  // });
 });
