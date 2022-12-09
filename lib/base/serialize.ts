@@ -15,13 +15,13 @@ dayjs.extend(utc);
  * @description turns a Date object into a string if parameter is a Date
  * otherwise returns the parameter
  *
- * @param  {Date} d date object to format
- * @return {string|object} date formatted in YYYY-MM-DD form
+ * @param d date object to format
+ * @return date formatted in YYYY-MM-DD form, otherwise the
+ * provided parameter.
  */
-export function iso8601Date<T>(date: T): T;
-export function iso8601Date(date: Date): string | Date {
+export function iso8601Date<T>(date: T | Date): T | string {
   if (!date || !(date instanceof Date)) {
-    return date;
+    return date as T;
   } else {
     return dayjs.utc(date).format("YYYY-MM-DD");
   }
@@ -33,13 +33,13 @@ export function iso8601Date(date: Date): string | Date {
  * @description turns a Date object into a string if parameter is a Date
  * otherwise returns the parameter
  *
- * @param  {Date} d date object to format
- * @return {string|object} date formatted in YYYY-MM-DD[T]HH:mm:ss[Z] form
+ * @param  d date object to format
+ * @return date formatted in YYYY-MM-DD[T]HH:mm:ss[Z] form, otherwise the
+ * provided parameter.
  */
-export function iso8601DateTime<T>(date: T): T;
-export function iso8601DateTime(date: Date): string | Date {
+export function iso8601DateTime<T>(date: T | Date): T | string {
   if (!date || !(date instanceof Date)) {
-    return date;
+    return date as T;
   } else {
     return dayjs.utc(date).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
   }
@@ -127,8 +127,7 @@ export function object(o: object | Array<any>): string {
  * @param input boolean or string to be coerced
  * @returns a string 'true' or 'false' if passed a boolean, else the value
  */
-export function bool(input: boolean): "true" | "false";
-export function bool(input: string | boolean): string {
+export function bool(input: string | boolean): string | "true" | "false" {
   if (typeof input === "string") {
     return input;
   }

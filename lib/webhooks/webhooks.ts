@@ -327,7 +327,6 @@ var webhookMiddleware = twilio.webhook({
     protocol: 'https'
 });
  */
-export function webhook(): (req: any, res: any, next: any) => void;
 export function webhook(
   opts?: string | WebhookOptions,
   authToken?: string | WebhookOptions
