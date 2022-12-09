@@ -1,9 +1,9 @@
 "use strict";
 
-const mockfs = require("mock-fs");
-const axios = require("axios");
-const RequestClient = require("../../../lib/base/RequestClient");
-const HttpsProxyAgent = require("https-proxy-agent");
+import mockfs from "mock-fs";
+import axios from "axios";
+import RequestClient from "../../../lib/base/RequestClient";
+import HttpsProxyAgent from "https-proxy-agent";
 
 jest.mock("axios");
 

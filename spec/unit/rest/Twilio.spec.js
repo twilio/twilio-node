@@ -1,9 +1,9 @@
 "use strict";
-const nock = require("nock");
+import nock from "nock";
+import Twilio from "../../../lib/";
 
 describe("client", () => {
   let client;
-  const Twilio = require("../../../lib");
 
   describe("initializing", () => {
     it("should use the first arg for the username as well", () => {

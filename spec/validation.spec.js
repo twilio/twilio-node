@@ -1,13 +1,12 @@
 "use strict";
 
-const {
+import {
   validateRequest,
   validateRequestWithBody,
   validateBody,
-  webhook,
-} = require("../lib/webhooks/webhooks");
-const httpMocks = require("node-mocks-http");
-const url = require("url");
+  webhook } from "../lib/webhooks/webhooks";
+import httpMocks from "node-mocks-http";
+import url from "url";
 
 const defaultParams = {
   CallSid: "CA1234567890ABCDE",
