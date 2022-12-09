@@ -49,7 +49,7 @@ export class Policy {
   method: string;
   queryFilter: object;
   postFilter: object;
-  allow: boolean
+  allow: boolean;
 
   constructor(options: PolicyOptions) {
     options = options || {};
@@ -119,7 +119,7 @@ export default class TaskRouterCapability {
     this.policies = [];
   }
 
-  static Policy = Policy
+  static Policy = Policy;
 
   addPolicy(policy: Policy) {
     this.policies.push(policy);

@@ -9,21 +9,22 @@ import builder from "xmlbuilder";
 /* jshint ignore:end */
 
 export default class TwiML {
-  response: any
-  _propertyName: string
+  response: any;
+  _propertyName: string;
 
   constructor() {
-    this.response = builder.create("Response", {
-      stringify: {
-        attValue: function (value) {
-          if (Array.isArray(value)) {
-            value = value.join(" ");
-          }
-          return this.attEscape("" + value || "");
+    this.response = builder
+      .create("Response", {
+        stringify: {
+          attValue: function (value) {
+            if (Array.isArray(value)) {
+              value = value.join(" ");
+            }
+            return this.attEscape("" + value || "");
+          },
         },
-      },
-    })
-    .dec("1.0", "UTF-8");
+      })
+      .dec("1.0", "UTF-8");
   }
 
   /* jshint ignore:start */
@@ -80,7 +81,7 @@ export default class TwiML {
 class GenericNode extends TwiML {
   // must match variable name for _getPropertyName
   constructor(public node: any) {
-    super()
+    super();
     this._propertyName = "node";
   }
 }

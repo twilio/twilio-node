@@ -38,24 +38,24 @@ export default class Request<TData> {
   }
 
   get ANY(): "*" {
-    return "*"
+    return "*";
   }
 
   attributeEqual(lhs: any, rhs: any): boolean {
     if (lhs === this.ANY || rhs === this.ANY) {
       return true;
     }
-  
+
     lhs = lhs || undefined;
     rhs = rhs || undefined;
-  
+
     if (typeof lhs !== typeof rhs) {
       return false;
     }
     if (typeof lhs !== "object") {
       return lhs === rhs;
     }
-  
+
     return (
       Object.entries(lhs)
         .sort((a, b) => a[0].localeCompare(b[0]))

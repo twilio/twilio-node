@@ -84,7 +84,7 @@ function parseDate(s: string, format: string): Date | string {
 
 function parseNumber(n: string, parser: NumberParser) {
   var parsed = parser(n);
-  if (typeof parsed === 'number' && isNaN(parsed)) {
+  if (typeof parsed === "number" && isNaN(parsed)) {
     return n;
   }
 

@@ -22,24 +22,32 @@ interface Solution {
   [name: string]: any;
 }
 
-type META_KEYS = "end" | "first_page_uri" | "last_page_uri" | "next_page_uri" |
-"num_pages" | "page" | "page_size" | "previous_page_uri" | "start" | "total" |
-"uri"
+type META_KEYS =
+  | "end"
+  | "first_page_uri"
+  | "last_page_uri"
+  | "next_page_uri"
+  | "num_pages"
+  | "page"
+  | "page_size"
+  | "previous_page_uri"
+  | "start"
+  | "total"
+  | "uri";
 
 export default class Page<
   TVersion extends Version,
   TPayload extends TwilioResponsePayload,
   TResource,
   TInstance
-  > {
-
+> {
   nextPageUrl: string;
   previousPageUrl: string;
   instances: TInstance[];
   _version: TVersion;
   _payload: TPayload;
   _solution: Solution;
-  
+
   /**
    * @constructor
    *
@@ -49,7 +57,11 @@ export default class Page<
    * @param {Object} response - The http response
    * @param {Object} solution - path solution
    */
-  constructor(version: TVersion, response: Response<string | TPayload>, solution: Solution) {
+  constructor(
+    version: TVersion,
+    response: Response<string | TPayload>,
+    solution: Solution
+  ) {
     let payload = this.processResponse(response);
 
     this._version = version;
@@ -93,12 +105,15 @@ export default class Page<
       // jshint ignore:line
       return this._payload.meta.previous_page_url; // jshint ignore:line
     }
-  
-    if ("previous_page_uri" in this._payload && this._payload.previous_page_uri) {
+
+    if (
+      "previous_page_uri" in this._payload &&
+      this._payload.previous_page_uri
+    ) {
       // jshint ignore:line
       return this._version._domain.absoluteUrl(this._payload.previous_page_uri); // jshint ignore:line
     }
-  
+
     return undefined;
   }
 
@@ -116,12 +131,12 @@ export default class Page<
       // jshint ignore:line
       return this._payload.meta.next_page_url; // jshint ignore:line
     }
-  
+
     if ("next_page_uri" in this._payload && this._payload.next_page_uri) {
       // jshint ignore:line
       return this._version._domain.absoluteUrl(this._payload.next_page_uri); // jshint ignore:line
     }
-  
+
     return undefined;
   }
 
@@ -161,13 +176,15 @@ export default class Page<
     if (!this.nextPageUrl) {
       return undefined;
     }
-  
+
     var reqPromise = this._version._domain.twilio.request({
       method: "get",
       uri: this.nextPageUrl,
     });
-  
-    var nextPagePromise: Promise<Page<TVersion, TPayload, TResource, TInstance>> = reqPromise.then(
+
+    var nextPagePromise: Promise<
+      Page<TVersion, TPayload, TResource, TInstance>
+    > = reqPromise.then(
       function (response) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
@@ -185,18 +202,20 @@ export default class Page<
     if (!this.previousPageUrl) {
       return undefined;
     }
-  
+
     var reqPromise = this._version._domain.twilio.request({
       method: "get",
       uri: this.previousPageUrl,
     });
-  
-    var prevPagePromise: Promise<Page<TVersion, TPayload, TResource, TInstance>> = reqPromise.then(
+
+    var prevPagePromise: Promise<
+      Page<TVersion, TPayload, TResource, TInstance>
+    > = reqPromise.then(
       function (response) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
-  
+
     return prevPagePromise;
   }
 
@@ -211,7 +230,7 @@ export default class Page<
     if (response.statusCode !== 200) {
       throw new RestException(response);
     }
-  
+
     if (typeof response.body === "string") {
       return JSON.parse(response.body);
     }
@@ -229,14 +248,14 @@ export default class Page<
     if ("meta" in payload && "key" in payload.meta) {
       return payload[payload.meta.key];
     }
-  
+
     const keys = Object.keys(payload).filter(
       (key: META_KEYS) => !Page.META_KEYS.includes(key)
     );
     if (keys.length === 1) {
       return payload[keys[0]];
     }
-  
+
     throw new Error("Page Records cannot be deserialized");
   }
 

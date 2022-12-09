@@ -12,7 +12,6 @@ import { trim } from "./utility";
  * @param {string} baseUrl - Base url for this domain
  */
 export default class Domain {
-
   /**
    * Base domain object
    *

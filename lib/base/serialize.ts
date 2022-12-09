@@ -18,14 +18,14 @@ dayjs.extend(utc);
  * @param  {Date} d date object to format
  * @return {string|object} date formatted in YYYY-MM-DD form
  */
-export function iso8601Date<T> (date: T): T;
-export function iso8601Date (date: Date): string | Date {
+export function iso8601Date<T>(date: T): T;
+export function iso8601Date(date: Date): string | Date {
   if (!date || !(date instanceof Date)) {
     return date;
   } else {
     return dayjs.utc(date).format("YYYY-MM-DD");
   }
-};
+}
 
 /**
  * @function iso8601DateTime
@@ -48,7 +48,7 @@ export function iso8601DateTime(date: Date): string | Date {
 /**
  * @function prefixedCollapsibleMap
  * @memberOf serialize
- * 
+ *
  * @description turns a map of params int oa flattened map separated by dots
  * if the parameter is an object, otherwise returns an empty map
  *
@@ -98,12 +98,12 @@ export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {} {
   }
 
   return result;
-};
+}
 
 /**
  * @function object
  * @memberOf serialize
- * 
+ *
  * @description Turns an object into a JSON string if the parameter is an
  * object, otherwise returns the passed in object
  *
@@ -155,14 +155,11 @@ type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
  * @returns new array with transform applied to each element.
  */
 export function map<T>(input: T, transform?: (T) => any): T;
-export function map<TInput, TOutput> (
+export function map<TInput, TOutput>(
   input: Array<TInput>,
   transform: MapFunction<TInput, TOutput>
-  ): Array<TOutput> {
-  if (
-    typeof input === "object" &&
-    Array.isArray(input)
-  ) {
+): Array<TOutput> {
+  if (typeof input === "object" && Array.isArray(input)) {
     return input.map((element) => transform(element));
   }
   return input;

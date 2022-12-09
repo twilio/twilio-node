@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export abstract class Grant<TOptions, TPayload, TKey> {
   key: TKey;
-  constructor(opts?: TOptions) {};
+  constructor(opts?: TOptions) {}
   abstract toPayload(): TPayload;
 }
 
@@ -61,7 +61,7 @@ export interface VoiceGrantOptions {
 }
 
 export interface VoiceGrantPayload {
-  incoming?: { allow: boolean }; 
+  incoming?: { allow: boolean };
   outgoing?: { application_sid: string; params?: object };
   push_credential_sid?: string;
   endpoint_id?: string;
@@ -94,7 +94,7 @@ export interface AccessTokenOptions {
   region?: string;
 }
 
-type ALGORITHMS = "HS256" | "HS384" | "HS512"
+type ALGORITHMS = "HS256" | "HS384" | "HS512";
 
 /**
  * @constructor
@@ -104,8 +104,9 @@ type ALGORITHMS = "HS256" | "HS384" | "HS512"
  * @param {string} options.role - The role of the grant
  */
 class TaskRouterGrant
-  extends Grant<TaskRouterGrantOptions, TaskRouterGrantPayload, "task_router"> 
-  implements TaskRouterGrantOptions {
+  extends Grant<TaskRouterGrantOptions, TaskRouterGrantPayload, "task_router">
+  implements TaskRouterGrantOptions
+{
   workspaceSid?: string;
   workerSid?: string;
   role?: string;
@@ -145,12 +146,13 @@ class TaskRouterGrant
  */
 export class ChatGrant
   extends Grant<ChatGrantOptions, ChatGrantPayload, "chat">
-  implements ChatGrantOptions {
+  implements ChatGrantOptions
+{
   serviceSid?: string;
   endpointId?: string;
   deploymentRoleSid?: string;
   pushCredentialSid?: string;
-  
+
   constructor(options: ChatGrantOptions) {
     options = options || {};
     super(options);
@@ -186,7 +188,8 @@ export class ChatGrant
  */
 class VideoGrant
   extends Grant<VideoGrantOptions, VideoGrantPayload, "video">
-  implements VideoGrantOptions {
+  implements VideoGrantOptions
+{
   room?: string;
 
   constructor(options: VideoGrantOptions) {
@@ -212,10 +215,11 @@ class VideoGrant
  */
 class SyncGrant
   extends Grant<SyncGrantOptions, SyncGrantPayload, "data_sync">
-  implements SyncGrantOptions {
+  implements SyncGrantOptions
+{
   serviceSid?: string;
   endpointId?: string;
-  
+
   constructor(options: SyncGrantOptions) {
     options = options || {};
     super(options);
@@ -248,7 +252,8 @@ class SyncGrant
  */
 class VoiceGrant
   extends Grant<VoiceGrantOptions, VoiceGrantPayload, "voice">
-  implements VoiceGrantOptions {
+  implements VoiceGrantOptions
+{
   incomingAllow?: boolean;
   outgoingApplicationSid?: string;
   outgoingApplicationParams?: object;
@@ -274,7 +279,7 @@ class VoiceGrant
 
     if (this.outgoingApplicationSid) {
       grant.outgoing = {
-        application_sid: this.outgoingApplicationSid
+        application_sid: this.outgoingApplicationSid,
       };
 
       if (this.outgoingApplicationParams) {
@@ -299,7 +304,8 @@ class VoiceGrant
  */
 class PlaybackGrant
   extends Grant<PlaybackGrantOptions, PlaybackGrantPayload, "player">
-  implements PlaybackGrantOptions {
+  implements PlaybackGrantOptions
+{
   grant?: object;
 
   constructor(options: PlaybackGrantOptions) {
@@ -330,7 +336,6 @@ class PlaybackGrant
  * @param {string} [options.region] - The region value associated with this account
  */
 export default class AccessToken implements AccessTokenOptions {
-
   static DEFAULT_ALGORITHM: "HS256" = "HS256";
   static ALGORITHMS: ALGORITHMS[] = ["HS256", "HS384", "HS512"];
   static ChatGrant = ChatGrant;
@@ -346,7 +351,7 @@ export default class AccessToken implements AccessTokenOptions {
   identity?: string;
   nbf?: number;
   region?: string;
-  grants: Grant<any, any, any>[]
+  grants: Grant<any, any, any>[];
 
   constructor(accountSid, keySid, secret, options) {
     if (!accountSid) {
@@ -370,7 +375,7 @@ export default class AccessToken implements AccessTokenOptions {
     this.grants = [];
   }
 
-  addGrant<T extends Grant<any, any, any>> (grant: T) {
+  addGrant<T extends Grant<any, any, any>>(grant: T) {
     this.grants.push(grant);
   }
 

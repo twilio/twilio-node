@@ -15,48 +15,48 @@ const DEFAULT_TIMEOUT = 30000;
 
 export interface RequestOptions<TData = any, TParams = object> {
   /**
-  * The HTTP method
-  */
+   * The HTTP method
+   */
   method: HttpMethod;
   /**
-  * The request URI
-  */
+   * The request URI
+   */
   uri: string;
   /**
-  * The username used for auth
-  */
+   * The username used for auth
+   */
   username?: string;
   /**
-  * The password used for auth
-  */
+   * The password used for auth
+   */
   password?: string;
   /**
-  * The request headers
-  */
+   * The request headers
+   */
   headers?: Headers;
   /**
-  * The object of params added as query string to the request
-  */
+   * The object of params added as query string to the request
+   */
   params?: TParams;
   /**
-  * The form data that should be submitted
-  */
+   * The form data that should be submitted
+   */
   data?: TData;
   /**
-  * The request timeout in milliseconds
-  */
+   * The request timeout in milliseconds
+   */
   timeout?: number;
   /**
-  * Should the client follow redirects
-  */
+   * Should the client follow redirects
+   */
   allowRedirects?: boolean;
   /**
-  * Set to true to use the forever-agent
-  */
+   * Set to true to use the forever-agent
+   */
   forever?: boolean;
   /**
-  * Set to 'debug' to enable debug logging
-  */
+   * Set to 'debug' to enable debug logging
+   */
   logLevel?: string;
 }
 
@@ -67,32 +67,32 @@ export interface RequestClientOptions {
    */
   timeout?: number;
   /**
-  * https.Agent keepAlive option
-  */
+   * https.Agent keepAlive option
+   */
   keepAlive?: boolean;
   /**
-  * https.Agent keepAliveMSecs option
-  */
+   * https.Agent keepAliveMSecs option
+   */
   keepAliveMsecs?: number;
   /**
-  * https.Agent maxSockets option
-  */
+   * https.Agent maxSockets option
+   */
   maxSockets?: number;
   /**
-  * https.Agent maxTotalSockets option
-  */
+   * https.Agent maxTotalSockets option
+   */
   maxTotalSockets?: number;
   /**
-  * https.Agent maxFreeSockets option
-  */
+   * https.Agent maxFreeSockets option
+   */
   maxFreeSockets?: number;
   /**
-  * https.Agent scheduling option
-  */
+   * https.Agent scheduling option
+   */
   scheduling?: string;
   /**
-  * The private CA certificate bundle (if private SSL certificate)
-  */
+   * The private CA certificate bundle (if private SSL certificate)
+   */
   ca?: string | Buffer;
 }
 
@@ -168,7 +168,7 @@ export default class RequestClient {
    * @param {boolean} [opts.forever] - Set to true to use the forever-agent
    * @param {string} [opts.logLevel] - Show debug logs
    */
-  request<TData> (opts: RequestOptions<TData>): Promise<Response<TData>> {
+  request<TData>(opts: RequestOptions<TData>): Promise<Response<TData>> {
     if (!opts.method) {
       throw new Error("http method is required");
     }
@@ -260,7 +260,7 @@ export default class RequestClient {
     });
   }
 
-  private logRequest<TData> (options: LastRequestOptions<TData>) {
+  private logRequest<TData>(options: LastRequestOptions<TData>) {
     console.log("-- BEGIN Twilio API Request --");
     console.log(`${options.method} ${options.url}`);
 

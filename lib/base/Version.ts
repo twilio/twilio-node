@@ -9,11 +9,11 @@ export interface PageLimitOptions {
   /**
    * The maximum number of items to fetch
    */
-    limit: number;
-    /**
-    * The maximum number of items to return with every request
-    */
-    pageSize: number;
+  limit: number;
+  /**
+   * The maximum number of items to return with every request
+   */
+  pageSize: number;
 }
 
 export interface PageLimit {
@@ -117,11 +117,11 @@ export default class Version {
    * @param  {object} opts request options
    * @return {Promise} promise that resolves to fetched result
    */
-   fetch(opts: RequestOpts): Promise<any> {
+  fetch(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
 
     qResponse = qResponse.then(function success(response) {
-    if (response.statusCode < 200 || response.statusCode >= 400) {
+      if (response.statusCode < 200 || response.statusCode >= 400) {
         throw new RestException(response);
       }
 
@@ -225,7 +225,10 @@ export default class Version {
     return operationPromise;
   }
 
-  each<T>(params?: any, callback?: (item: T, done: (err?: Error) => void) => void): void {
+  each<T>(
+    params?: any,
+    callback?: (item: T, done: (err?: Error) => void) => void
+  ): void {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -289,7 +292,10 @@ export default class Version {
     fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
   }
 
-  list<T>(params?: any, callback?: (error: Error | null, items: T) => any): Promise<any> {
+  list<T>(
+    params?: any,
+    callback?: (error: Error | null, items: T) => any
+  ): Promise<any> {
     if (typeof params === "function") {
       callback = params;
       params = {};

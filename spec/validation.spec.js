@@ -4,7 +4,8 @@ import {
   validateRequest,
   validateRequestWithBody,
   validateBody,
-  webhook } from "../lib/webhooks/webhooks";
+  webhook,
+} from "../lib/webhooks/webhooks";
 import httpMocks from "node-mocks-http";
 import url from "url";
 

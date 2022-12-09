@@ -114,9 +114,10 @@ function removePort(parsedUrl: Url): string {
  @param {string|array<string>} paramValue - The request parameter value
  @returns {string} - Formatted parameter string
  */
-function toFormUrlEncodedParam (
+function toFormUrlEncodedParam(
   paramName: string,
-  paramValue: string | Array<string>): string {
+  paramValue: string | Array<string>
+): string {
   if (paramValue instanceof Array) {
     return Array.from(new Set(paramValue))
       .sort()
@@ -135,10 +136,11 @@ function toFormUrlEncodedParam (
  @param {object} params - the parameters sent with this request
  @returns {string} - signature
  */
-export function getExpectedTwilioSignature (
+export function getExpectedTwilioSignature(
   authToken: string,
   url: string,
-  params: Record<string, any>): string {
+  params: Record<string, any>
+): string {
   if (url.indexOf("bodySHA256") !== -1 && params === null) {
     params = {};
   }
@@ -174,11 +176,12 @@ export function getExpectedBodyHash(body: string): string {
  @param {object} params - the parameters sent with this request
  @returns {boolean} - valid
  */
-export function validateRequest (
+export function validateRequest(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: Record<string, any>): boolean {
+  params: Record<string, any>
+): boolean {
   twilioHeader = twilioHeader || "";
   const urlObject = new Url(url);
   const urlWithPort = addPort(urlObject);
@@ -210,9 +213,10 @@ export function validateRequest (
   return validSignatureWithoutPort || validSignatureWithPort;
 }
 
-export function validateBody (
+export function validateBody(
   body: string,
-  bodyHash: any[] | string | ArrayBuffer | Buffer): boolean {
+  bodyHash: any[] | string | ArrayBuffer | Buffer
+): boolean {
   var expectedHash = getExpectedBodyHash(body);
   return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
 }
@@ -227,11 +231,12 @@ export function validateBody (
  @param {string} body - The body of the request
  @returns {boolean} - valid
  */
-export function validateRequestWithBody (
+export function validateRequestWithBody(
   authToken: string,
   twilioHeader: string,
   url: string,
-  body: string): boolean {
+  body: string
+): boolean {
   const urlObject = new Url(url, true);
   return (
     validateRequest(authToken, twilioHeader, url, {}) &&
@@ -250,10 +255,11 @@ export function validateRequestWithBody (
     - host: manually specify the host name used by Twilio in a number's webhook config
     - protocol: manually specify the protocol used by Twilio in a number's webhook config
  */
-export function validateExpressRequest (
+export function validateExpressRequest(
   request: Request,
   authToken: string,
-  opts?: RequestValidatorOptions): boolean {
+  opts?: RequestValidatorOptions
+): boolean {
   var options = opts || {};
   var webhookUrl;
 
@@ -324,31 +330,32 @@ var webhookMiddleware = twilio.webhook({
 export function webhook(): (req: any, res: any, next: any) => void;
 export function webhook(
   opts?: string | WebhookOptions,
-  authToken?: string | WebhookOptions): (req: any, res: any, next: any) => void {
+  authToken?: string | WebhookOptions
+): (req: any, res: any, next: any) => void {
   let token: string;
   let options: WebhookOptions;
 
   // Narrowing the args
   if (opts) {
-    if (typeof opts === 'string') {
+    if (typeof opts === "string") {
       token = opts;
     }
-    if (typeof opts === 'object') {
+    if (typeof opts === "object") {
       options = opts;
     }
   }
   if (authToken) {
-    if (typeof authToken === 'string') {
+    if (typeof authToken === "string") {
       token = authToken;
     }
-    if (typeof authToken === 'object') {
+    if (typeof authToken === "object") {
       options = authToken;
     }
   }
 
   if (!options) {
     options = {
-      validate: true
+      validate: true,
     };
   }
 

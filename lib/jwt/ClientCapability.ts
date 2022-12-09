@@ -84,7 +84,7 @@ export class OutgoingClientScope implements Scope {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
     }
-    if (typeof options !== 'object') {
+    if (typeof options !== "object") {
       throw new TypeError('Parameter "options" must be a type Object');
     }
     if (!options.applicationSid) {
@@ -134,7 +134,7 @@ export default class ClientCapability {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
     }
-    if (typeof options !== 'object') {
+    if (typeof options !== "object") {
       throw new TypeError('Parameter "options" must be a type Object');
     }
     if (!options.accountSid) {
