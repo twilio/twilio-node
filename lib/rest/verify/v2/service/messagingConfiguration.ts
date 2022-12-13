@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -263,7 +263,7 @@ export class MessagingConfigurationContextImpl
 
 interface MessagingConfigurationPayload
   extends MessagingConfigurationResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface MessagingConfigurationResource {
   account_sid?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import Understand from "../Understand";
 const deserialize = require("../../../base/deserialize");
@@ -360,9 +360,7 @@ export class AssistantContextImpl implements AssistantContext {
   }
 }
 
-interface AssistantPayload
-  extends AssistantResource,
-    Page.TwilioResponsePayload {}
+interface AssistantPayload extends AssistantResource, TwilioResponsePayload {}
 
 interface AssistantResource {
   account_sid?: string | null;

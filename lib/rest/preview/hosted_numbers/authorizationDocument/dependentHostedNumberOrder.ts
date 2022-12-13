@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
@@ -396,7 +396,7 @@ export function DependentHostedNumberOrderListInstance(
 
 interface DependentHostedNumberOrderPayload
   extends DependentHostedNumberOrderResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface DependentHostedNumberOrderResource {
   sid?: string | null;

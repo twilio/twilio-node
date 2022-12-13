@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -227,7 +227,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
 
 interface BrandRegistrationPayload
   extends BrandRegistrationResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface BrandRegistrationResource {
   sid?: string | null;

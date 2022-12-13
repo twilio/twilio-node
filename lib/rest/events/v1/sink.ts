@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -269,7 +269,7 @@ export class SinkContextImpl implements SinkContext {
   }
 }
 
-interface SinkPayload extends SinkResource, Page.TwilioResponsePayload {}
+interface SinkPayload extends SinkResource, TwilioResponsePayload {}
 
 interface SinkResource {
   date_created?: Date | null;

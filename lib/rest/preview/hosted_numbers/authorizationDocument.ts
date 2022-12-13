@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
@@ -303,7 +303,7 @@ export class AuthorizationDocumentContextImpl
 
 interface AuthorizationDocumentPayload
   extends AuthorizationDocumentResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface AuthorizationDocumentResource {
   sid?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -248,7 +248,7 @@ export class EndUserContextImpl implements EndUserContext {
   }
 }
 
-interface EndUserPayload extends EndUserResource, Page.TwilioResponsePayload {}
+interface EndUserPayload extends EndUserResource, TwilioResponsePayload {}
 
 interface EndUserResource {
   sid?: string | null;

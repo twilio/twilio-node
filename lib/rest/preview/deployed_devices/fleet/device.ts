@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
@@ -282,7 +282,7 @@ export class DeviceContextImpl implements DeviceContext {
   }
 }
 
-interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {}
+interface DevicePayload extends DeviceResource, TwilioResponsePayload {}
 
 interface DeviceResource {
   sid?: string | null;

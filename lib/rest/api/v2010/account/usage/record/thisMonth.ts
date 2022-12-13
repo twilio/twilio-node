@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
@@ -573,9 +573,7 @@ export function ThisMonthListInstance(
   return instance;
 }
 
-interface ThisMonthPayload
-  extends ThisMonthResource,
-    Page.TwilioResponsePayload {}
+interface ThisMonthPayload extends ThisMonthResource, TwilioResponsePayload {}
 
 interface ThisMonthResource {
   account_sid?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
@@ -297,9 +297,7 @@ export class ChallengeContextImpl implements ChallengeContext {
   }
 }
 
-interface ChallengePayload
-  extends ChallengeResource,
-    Page.TwilioResponsePayload {}
+interface ChallengePayload extends ChallengeResource, TwilioResponsePayload {}
 
 interface ChallengeResource {
   sid?: string | null;

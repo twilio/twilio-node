@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
@@ -573,9 +573,7 @@ export function YesterdayListInstance(
   return instance;
 }
 
-interface YesterdayPayload
-  extends YesterdayResource,
-    Page.TwilioResponsePayload {}
+interface YesterdayPayload extends YesterdayResource, TwilioResponsePayload {}
 
 interface YesterdayResource {
   account_sid?: string | null;

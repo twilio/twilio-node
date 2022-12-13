@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
@@ -295,7 +295,7 @@ export class FactorContextImpl implements FactorContext {
   }
 }
 
-interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {}
+interface FactorPayload extends FactorResource, TwilioResponsePayload {}
 
 interface FactorResource {
   sid?: string | null;

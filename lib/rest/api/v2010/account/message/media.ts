@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -200,7 +200,7 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
-interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {}
+interface MediaPayload extends MediaResource, TwilioResponsePayload {}
 
 interface MediaResource {
   account_sid?: string | null;

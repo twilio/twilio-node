@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -181,7 +181,7 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
 
 interface AlphaSenderPayload
   extends AlphaSenderResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface AlphaSenderResource {
   sid?: string | null;

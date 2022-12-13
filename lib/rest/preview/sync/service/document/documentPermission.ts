@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
@@ -269,7 +269,7 @@ export class DocumentPermissionContextImpl
 
 interface DocumentPermissionPayload
   extends DocumentPermissionResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface DocumentPermissionResource {
   account_sid?: string | null;

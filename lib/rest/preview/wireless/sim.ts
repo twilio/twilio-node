@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
@@ -323,7 +323,7 @@ export type SimVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface SimPayload extends SimResource, Page.TwilioResponsePayload {}
+interface SimPayload extends SimResource, TwilioResponsePayload {}
 
 interface SimResource {
   sid?: string | null;

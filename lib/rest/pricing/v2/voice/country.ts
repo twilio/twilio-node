@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -154,7 +154,7 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
-interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {}
+interface CountryPayload extends CountryResource, TwilioResponsePayload {}
 
 interface CountryResource {
   country?: string | null;

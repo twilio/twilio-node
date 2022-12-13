@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
@@ -165,9 +165,7 @@ export class DeploymentContextImpl implements DeploymentContext {
   }
 }
 
-interface DeploymentPayload
-  extends DeploymentResource,
-    Page.TwilioResponsePayload {}
+interface DeploymentPayload extends DeploymentResource, TwilioResponsePayload {}
 
 interface DeploymentResource {
   sid?: string | null;

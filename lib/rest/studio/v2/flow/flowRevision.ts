@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -150,7 +150,7 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
 
 interface FlowRevisionPayload
   extends FlowRevisionResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface FlowRevisionResource {
   sid?: string | null;

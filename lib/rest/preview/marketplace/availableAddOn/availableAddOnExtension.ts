@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import Marketplace from "../../Marketplace";
 const deserialize = require("../../../../base/deserialize");
@@ -160,7 +160,7 @@ export class AvailableAddOnExtensionContextImpl
 
 interface AvailableAddOnExtensionPayload
   extends AvailableAddOnExtensionResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface AvailableAddOnExtensionResource {
   sid?: string | null;

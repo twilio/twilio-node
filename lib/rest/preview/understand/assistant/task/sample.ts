@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import Understand from "../../../Understand";
 const deserialize = require("../../../../../base/deserialize");
@@ -282,7 +282,7 @@ export class SampleContextImpl implements SampleContext {
   }
 }
 
-interface SamplePayload extends SampleResource, Page.TwilioResponsePayload {}
+interface SamplePayload extends SampleResource, TwilioResponsePayload {}
 
 interface SampleResource {
   account_sid?: string | null;

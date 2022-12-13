@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -205,7 +205,7 @@ export class BuildContextImpl implements BuildContext {
   }
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {}
+interface BuildPayload extends BuildResource, TwilioResponsePayload {}
 
 interface BuildResource {
   sid?: string | null;
