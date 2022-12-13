@@ -36,18 +36,6 @@ export interface RequestOpts {
 /* jshint ignore:start */
 /**
  * Parent class for Twilio Client that implements request & validation logic
- *
- * @constructor BaseTwilio
- *
- * @param {string} username -
- *          The username used for authentication. This is normally account sid, but if using key/secret auth will be
- *          the api key sid.
- * @param {string} password -
- *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
- *          the secret.
- * @param {ClientOpts} [opts] - The options argument
- *
- * @returns {BaseTwilio} A new instance of BaseTwilio
  */
 /* jshint ignore:end */
 
@@ -62,6 +50,22 @@ export class BaseTwilio {
   logLevel?: string;
   userAgentExtensions?: string[];
   _httpClient?: RequestClient;
+
+  /* jshint ignore:start */
+  /**
+   * Create a BaseTwilio instance
+   *
+   * @param username - 
+   *          The username used for authentication. This is normally account sid, but if using key/secret auth will be 
+   *          the api key sid.
+   * @param password -
+   *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
+   *          the secret.
+   * @param opts - The options argument
+   *
+   * @returns A new instance of BaseTwilio
+   */
+  /* jshint ignore:end */
 
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     this.opts = opts || {};
@@ -108,10 +112,7 @@ export class BaseTwilio {
    * Makes a request to the Twilio API using the configured http client.
    * Authentication information is automatically added if none is provided.
    *
-   * @function request
-   * @memberof BaseTwilio#
-   *
-   * @param {RequestOpts} opts - The options argument
+   * @param opts - The options argument
    */
   /* jshint ignore:end */
 
@@ -177,12 +178,9 @@ export class BaseTwilio {
   /**
    * Adds a region and/or edge to a given hostname
    *
-   * @function getHostname
-   * @memberof BaseTwilio#
-   *
-   * @param {string} hostname - A URI hostname (e.g. api.twilio.com)
-   * @param {string | undefined} targetEdge - The targeted edge location (e.g. sydney)
-   * @param {string | undefined} targetRegion - The targeted region location (e.g. au1)
+   * @param hostname - A URI hostname (e.g. api.twilio.com)
+   * @param targetEdge - The targeted edge location (e.g. sydney)
+   * @param targetRegion - The targeted region location (e.g. au1)
    */
   /* jshint ignore:end */
 
@@ -213,10 +211,8 @@ export class BaseTwilio {
   /**
    * Validates that a request to the new SSL certificate is successful.
    *
-   * @throws {RestException} if the request fails
+   * @throws RestException if the request fails
    *
-   * @function validateSslCert
-   * @memberof BaseTwilio#
    */
   /* jshint ignore:end */
 
