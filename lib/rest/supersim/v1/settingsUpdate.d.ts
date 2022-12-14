@@ -143,6 +143,7 @@ interface SettingsUpdateListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property sim - Filter the Settings Updates by Super SIM
+ * @property status - Filter the Settings Updates by status
  */
 interface SettingsUpdateListInstanceEachOptions {
   callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void;
@@ -150,6 +151,7 @@ interface SettingsUpdateListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   sim?: string;
+  status?: SettingsUpdateStatus;
 }
 
 /**
@@ -166,11 +168,13 @@ interface SettingsUpdateListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property sim - Filter the Settings Updates by Super SIM
+ * @property status - Filter the Settings Updates by status
  */
 interface SettingsUpdateListInstanceOptions {
   limit?: number;
   pageSize?: number;
   sim?: string;
+  status?: SettingsUpdateStatus;
 }
 
 /**
@@ -180,12 +184,14 @@ interface SettingsUpdateListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property sim - Filter the Settings Updates by Super SIM
+ * @property status - Filter the Settings Updates by status
  */
 interface SettingsUpdateListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   sim?: string;
+  status?: SettingsUpdateStatus;
 }
 
 interface SettingsUpdatePayload extends SettingsUpdateResource, Page.TwilioResponsePayload {

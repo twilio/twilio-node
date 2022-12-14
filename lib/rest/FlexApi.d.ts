@@ -8,6 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./flexApi/V1');
+import V2 = require('./flexApi/V2');
 import { AssessmentsListInstance } from './flexApi/v1/assessments';
 import { ChannelListInstance } from './flexApi/v1/channel';
 import { ConfigurationListInstance } from './flexApi/v1/configuration';
@@ -16,6 +17,7 @@ import { GoodDataListInstance } from './flexApi/v1/goodData';
 import { InteractionListInstance } from './flexApi/v1/interaction';
 import { UserRolesListInstance } from './flexApi/v1/userRoles';
 import { WebChannelListInstance } from './flexApi/v1/webChannel';
+import { WebChannelsListInstance } from './flexApi/v2/webChannels';
 
 
 declare class FlexApi extends Domain {
@@ -34,7 +36,9 @@ declare class FlexApi extends Domain {
   readonly interaction: InteractionListInstance;
   readonly userRoles: UserRolesListInstance;
   readonly v1: V1;
+  readonly v2: V2;
   readonly webChannel: WebChannelListInstance;
+  readonly webChannels: WebChannelsListInstance;
 }
 
 export = FlexApi;

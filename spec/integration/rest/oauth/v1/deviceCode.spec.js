@@ -17,12 +17,14 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
 var holodeck;
 
-describe('GoodData', function() {
+describe('DeviceCode', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,8 +35,8 @@ describe('GoodData', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'token': 'token'};
-      var promise = client.flexApi.v1.goodData().create(opts);
+      var opts = {'clientSid': 'client_sid', 'scopes': ['scopes']};
+      var promise = client.oauth.v1.deviceCode.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,29 +44,34 @@ describe('GoodData', function() {
         done();
       }).done();
 
-      var url = 'https://flex-api.twilio.com/v1/Insights/Session';
+      var url = 'https://oauth.twilio.com/v1/device/code';
 
-      var headers = {'Token': 'token'};
+      var values = {
+        'ClientSid': 'client_sid',
+        'Scopes': serialize.map(['scopes'], function(e) { return e; }),
+      };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
   it('should generate valid create response',
     function(done) {
       var body = {
-          'session_expiry': '2022-09-27T09:28:01Z',
-          'workspace_id': 'clbi1eelh1x8z4.......ijpnyu',
-          'session_id': '-----BEGIN PGP MESSAGE-----\n\nwcBMA11tX1FL13rp\u2026\u2026kHXd\n=vOBk\n-----END PGP MESSAGE-----\n',
-          'base_url': 'https://analytics.ytica.com/',
-          'url': 'https://flex-api.twilio.com/v1/Insights/Session'
+          'device_code': 'LiwuhE0bIhqemK6sd34tXfobVCR9yrk0',
+          'user_code': 'Hkf1WaID3',
+          'verification_uri': 'v1/oauth2/device/activate',
+          'verification_uri_complete': 'v1/oauth2/device/activate?user_code=Hkf1WaID3',
+          'expires_in': 299,
+          'interval': 5
       };
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.flexApi.v1.goodData().create();
+      var opts = {'clientSid': 'client_sid', 'scopes': ['scopes']};
+      var promise = client.oauth.v1.deviceCode.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

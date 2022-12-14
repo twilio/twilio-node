@@ -45,7 +45,7 @@ interface GoodDataPayload extends GoodDataResource, Page.TwilioResponsePayload {
 }
 
 interface GoodDataResource {
-  gd_base_url: string;
+  base_url: string;
   session_expiry: string;
   session_id: string;
   url: string;
@@ -94,6 +94,7 @@ declare class GoodDataInstance extends SerializableClass {
   constructor(version: V1, payload: GoodDataPayload);
 
   private _proxy: GoodDataContext;
+  baseUrl: string;
   /**
    * create a GoodDataInstance
    *
@@ -107,7 +108,6 @@ declare class GoodDataInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   create(opts?: GoodDataInstanceCreateOptions, callback?: (error: Error | null, items: GoodDataInstance) => any): Promise<GoodDataInstance>;
-  gdBaseUrl: string;
   sessionExpiry: string;
   sessionId: string;
   /**

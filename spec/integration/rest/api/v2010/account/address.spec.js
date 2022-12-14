@@ -83,6 +83,7 @@ describe('Address', function() {
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'street_secondary': null,
           'validated': false,
           'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -185,6 +186,7 @@ describe('Address', function() {
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'street_secondary': null,
           'validated': false,
           'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -240,6 +242,7 @@ describe('Address', function() {
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'street_secondary': null,
           'validated': false,
           'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -274,6 +277,7 @@ describe('Address', function() {
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'street_secondary': null,
                   'validated': false,
                   'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -313,6 +317,7 @@ describe('Address', function() {
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'street_secondary': null,
                   'validated': false,
                   'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -357,6 +362,7 @@ describe('Address', function() {
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'street_secondary': null,
                   'validated': false,
                   'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -418,6 +424,7 @@ describe('Address', function() {
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'street_secondary': null,
                   'validated': false,
                   'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'

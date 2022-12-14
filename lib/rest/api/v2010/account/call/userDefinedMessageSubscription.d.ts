@@ -53,7 +53,7 @@ interface UserDefinedMessageSubscriptionListInstance {
 interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
   callback: string;
   idempotencyKey?: string;
-  method: string;
+  method?: string;
 }
 
 interface UserDefinedMessageSubscriptionPayload extends UserDefinedMessageSubscriptionResource, Page.TwilioResponsePayload {

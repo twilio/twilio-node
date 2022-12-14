@@ -38,6 +38,7 @@ describe('UsAppToPerson', function() {
       var opts = {
         'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         'description': 'description',
+        'messageFlow': 'message_flow',
         'messageSamples': ['message_samples'],
         'usAppToPersonUsecase': 'us_app_to_person_usecase',
         'hasEmbeddedLinks': true,
@@ -58,6 +59,7 @@ describe('UsAppToPerson', function() {
       var values = {
         'BrandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         'Description': 'description',
+        'MessageFlow': 'message_flow',
         'MessageSamples': serialize.map(['message_samples'], function(e) { return e; }),
         'UsAppToPersonUsecase': 'us_app_to_person_usecase',
         'HasEmbeddedLinks': serialize.bool(true),
@@ -121,6 +123,7 @@ describe('UsAppToPerson', function() {
       var opts = {
         'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         'description': 'description',
+        'messageFlow': 'message_flow',
         'messageSamples': ['message_samples'],
         'usAppToPersonUsecase': 'us_app_to_person_usecase',
         'hasEmbeddedLinks': true,
@@ -193,6 +196,7 @@ describe('UsAppToPerson', function() {
       var opts = {
         'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         'description': 'description',
+        'messageFlow': 'message_flow',
         'messageSamples': ['message_samples'],
         'usAppToPersonUsecase': 'us_app_to_person_usecase',
         'hasEmbeddedLinks': true,

@@ -41,7 +41,7 @@ describe('OpenidDiscovery', function() {
         done();
       }).done();
 
-      var url = 'https://oauth.twilio.com/v1/well-known/openid-configuration';
+      var url = 'https://oauth.twilio.com/v1/.well-known/openid-configuration';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -89,7 +89,7 @@ describe('OpenidDiscovery', function() {
               'scp',
               'sub'
           ],
-          'url': 'https://oauth.twilio.com/v1/well-known/openid-configuration'
+          'url': 'https://oauth.twilio.com/v1/.well-known/openid-configuration'
       };
 
       holodeck.mock(new Response(200, body));

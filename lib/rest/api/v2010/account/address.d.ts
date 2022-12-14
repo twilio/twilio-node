@@ -31,6 +31,7 @@ declare function AddressList(version: V2010, accountSid: string): AddressListIns
  * @property postalCode - The postal code of the address
  * @property region - The state or region of the address
  * @property street - The number and street address of the address
+ * @property streetSecondary - The additional number and street address of the address
  */
 interface AddressInstanceUpdateOptions {
   autoCorrectAddress?: boolean;
@@ -41,6 +42,7 @@ interface AddressInstanceUpdateOptions {
   postalCode?: string;
   region?: string;
   street?: string;
+  streetSecondary?: string;
 }
 
 interface AddressListInstance {
@@ -175,6 +177,7 @@ interface AddressListInstance {
  * @property postalCode - The postal code of the new address
  * @property region - The state or region of the new address
  * @property street - The number and street address of the new address
+ * @property streetSecondary - The additional number and street address of the address
  */
 interface AddressListInstanceCreateOptions {
   autoCorrectAddress?: boolean;
@@ -186,6 +189,7 @@ interface AddressListInstanceCreateOptions {
   postalCode: string;
   region: string;
   street: string;
+  streetSecondary?: string;
 }
 
 /**
@@ -279,6 +283,7 @@ interface AddressResource {
   region: string;
   sid: string;
   street: string;
+  street_secondary: string;
   uri: string;
   validated: boolean;
   verified: boolean;
@@ -372,6 +377,7 @@ declare class AddressInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AddressInstance) => any): Promise<boolean>;
   sid: string;
   street: string;
+  streetSecondary: string;
   /**
    * Provide a user-friendly representation
    */

@@ -42,7 +42,7 @@ describe('UserRoles', function() {
         done();
       }).done();
 
-      var url = 'https://flex-api.twilio.com/v1/Accounts/UserRoles';
+      var url = 'https://flex-api.twilio.com/v1/Insights/UserRoles';
 
       var headers = {'Token': 'token'};
       holodeck.assertHasRequest(new Request({
@@ -58,7 +58,7 @@ describe('UserRoles', function() {
           'roles': [
               'wfo.full_access'
           ],
-          'url': 'https://flex-api.twilio.com/v1/Accounts/UserRoles'
+          'url': 'https://flex-api.twilio.com/v1/Insights/UserRoles'
       };
 
       holodeck.mock(new Response(200, body));

@@ -22,7 +22,7 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('GoodData', function() {
+describe('WebChannels', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,8 +33,8 @@ describe('GoodData', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'token': 'token'};
-      var promise = client.flexApi.v1.goodData().create(opts);
+      var opts = {'addressSid': 'address_sid'};
+      var promise = client.flexApi.v2.webChannels.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,29 +42,27 @@ describe('GoodData', function() {
         done();
       }).done();
 
-      var url = 'https://flex-api.twilio.com/v1/Insights/Session';
+      var url = 'https://flex-api.twilio.com/v2/WebChats';
 
-      var headers = {'Token': 'token'};
+      var values = {'AddressSid': 'address_sid', };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
   it('should generate valid create response',
     function(done) {
       var body = {
-          'session_expiry': '2022-09-27T09:28:01Z',
-          'workspace_id': 'clbi1eelh1x8z4.......ijpnyu',
-          'session_id': '-----BEGIN PGP MESSAGE-----\n\nwcBMA11tX1FL13rp\u2026\u2026kHXd\n=vOBk\n-----END PGP MESSAGE-----\n',
-          'base_url': 'https://analytics.ytica.com/',
-          'url': 'https://flex-api.twilio.com/v1/Insights/Session'
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'seinfeld'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.flexApi.v1.goodData().create();
+      var opts = {'addressSid': 'address_sid'};
+      var promise = client.flexApi.v2.webChannels.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

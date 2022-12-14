@@ -165,7 +165,7 @@ interface UsAppToPersonListInstanceCreateOptions {
   hasEmbeddedPhone: boolean;
   helpKeywords?: string | string[];
   helpMessage?: string;
-  messageFlow?: string;
+  messageFlow: string;
   messageSamples: string | string[];
   optInKeywords?: string | string[];
   optInMessage?: string;

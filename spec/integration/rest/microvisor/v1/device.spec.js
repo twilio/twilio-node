@@ -54,6 +54,7 @@ describe('Device', function() {
                   'date_updated': '2021-01-01T12:34:56Z',
                   'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
+                      'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
                       'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
                   }
               }
@@ -97,6 +98,7 @@ describe('Device', function() {
                   'date_updated': '2021-01-01T12:34:56Z',
                   'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
+                      'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
                       'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
                   }
               }
@@ -145,6 +147,7 @@ describe('Device', function() {
                   'date_updated': '2021-01-01T12:34:56Z',
                   'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
+                      'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
                       'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
                   }
               }
@@ -234,6 +237,7 @@ describe('Device', function() {
                   'date_updated': '2021-01-01T12:34:56Z',
                   'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
+                      'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
                       'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
                   }
               }
@@ -304,6 +308,7 @@ describe('Device', function() {
           'date_updated': '2021-01-01T12:34:56Z',
           'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
+              'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
               'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
           }
       };
@@ -363,6 +368,7 @@ describe('Device', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
+              'device_configs': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configs',
               'device_secrets': 'https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets'
           }
       };

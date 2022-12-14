@@ -8,6 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./oauth/V1');
+import { DeviceCodeListInstance } from './oauth/v1/deviceCode';
 import { OauthListInstance } from './oauth/v1/oauth';
 import { OpenidDiscoveryListInstance } from './oauth/v1/openidDiscovery';
 import { TokenListInstance } from './oauth/v1/token';
@@ -22,6 +23,7 @@ declare class Oauth extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly deviceCode: DeviceCodeListInstance;
   readonly oauth: OauthListInstance;
   readonly openidDiscovery: OpenidDiscoveryListInstance;
   readonly token: TokenListInstance;

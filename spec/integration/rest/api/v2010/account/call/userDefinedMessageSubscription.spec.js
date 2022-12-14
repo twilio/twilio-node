@@ -33,7 +33,7 @@ describe('UserDefinedMessageSubscription', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'callback': 'https://example.com', 'method': 'GET'};
+      var opts = {'callback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .userDefinedMessageSubscriptions.create(opts);
@@ -48,7 +48,7 @@ describe('UserDefinedMessageSubscription', function() {
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions.json`;
 
-      var values = {'Callback': 'https://example.com', 'Method': 'GET', };
+      var values = {'Callback': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('UserDefinedMessageSubscription', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {'callback': 'https://example.com', 'method': 'GET'};
+      var opts = {'callback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .userDefinedMessageSubscriptions.create(opts);

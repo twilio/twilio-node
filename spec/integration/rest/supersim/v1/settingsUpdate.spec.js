@@ -37,7 +37,7 @@ describe('SettingsUpdate', function() {
                   'sid': 'OBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': '89883070000123456789',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'scheduled',
+                  'status': 'successful',
                   'packages': [
                       {
                           'name': 'base-settings',
@@ -53,9 +53,9 @@ describe('SettingsUpdate', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'settings_updates'
           }
@@ -72,7 +72,7 @@ describe('SettingsUpdate', function() {
                   'sid': 'OBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': '89883070000123456789',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'scheduled',
+                  'status': 'successful',
                   'packages': [
                       {
                           'name': 'base-settings',
@@ -88,9 +88,9 @@ describe('SettingsUpdate', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'settings_updates'
           }
@@ -112,7 +112,7 @@ describe('SettingsUpdate', function() {
                   'sid': 'OBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': '89883070000123456789',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'scheduled',
+                  'status': 'successful',
                   'packages': [
                       {
                           'name': 'base-settings',
@@ -128,9 +128,9 @@ describe('SettingsUpdate', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'settings_updates'
           }
@@ -166,9 +166,95 @@ describe('SettingsUpdate', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'settings_updates'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.settingsUpdates.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_sim_only response',
+    function(done) {
+      var body = {
+          'settings_updates': [
+              {
+                  'sid': 'OBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': '89883070000123456789',
+                  'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'successful',
+                  'packages': [
+                      {
+                          'name': 'base-settings',
+                          'version': '1.0.0',
+                          'more_info': 'https://twilio.com/docs/iot/supersim/settings-packages/base-settings'
+                      }
+                  ],
+                  'date_completed': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
               'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'settings_updates'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.settingsUpdates.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_status_only response',
+    function(done) {
+      var body = {
+          'settings_updates': [
+              {
+                  'sid': 'OBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': '89883070000123456789',
+                  'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'scheduled',
+                  'packages': [
+                      {
+                          'name': 'base-settings',
+                          'version': '1.0.0',
+                          'more_info': 'https://twilio.com/docs/iot/supersim/settings-packages/base-settings'
+                      }
+                  ],
+                  'date_completed': null,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Status=scheduled&PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Status=scheduled&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'settings_updates'
           }
@@ -201,7 +287,7 @@ describe('SettingsUpdate', function() {
                           'more_info': 'https://twilio.com/docs/iot/supersim/settings-packages/base-settings'
                       }
                   ],
-                  'date_completed': '2015-07-30T20:00:00Z',
+                  'date_completed': null,
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z'
               }
@@ -209,9 +295,9 @@ describe('SettingsUpdate', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SettingsUpdates?Status=scheduled&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Sim=1234567890123456789&PageSize=50&Page=0',
+              'url': 'https://supersim.twilio.com/v1/SettingsUpdates?Status=scheduled&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'settings_updates'
           }

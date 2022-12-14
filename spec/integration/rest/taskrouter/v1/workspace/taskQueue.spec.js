@@ -77,7 +77,8 @@ describe('TaskQueue', function() {
           'target_workers': null,
           'task_order': 'FIFO',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
@@ -140,7 +141,8 @@ describe('TaskQueue', function() {
           'target_workers': null,
           'task_order': 'FIFO',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
@@ -191,7 +193,8 @@ describe('TaskQueue', function() {
                   'target_workers': null,
                   'task_order': 'FIFO',
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
@@ -236,7 +239,8 @@ describe('TaskQueue', function() {
                   'target_workers': null,
                   'task_order': 'FIFO',
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
@@ -286,7 +290,8 @@ describe('TaskQueue', function() {
                   'target_workers': null,
                   'task_order': 'FIFO',
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
@@ -353,7 +358,8 @@ describe('TaskQueue', function() {
                   'target_workers': null,
                   'task_order': 'FIFO',
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
@@ -447,7 +453,8 @@ describe('TaskQueue', function() {
           'target_workers': null,
           'task_order': 'FIFO',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'operating_unit_sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));

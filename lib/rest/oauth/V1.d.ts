@@ -7,6 +7,8 @@
 
 import Oauth = require('../Oauth');
 import Version = require('../../base/Version');
+import { DeviceCodeList } from './v1/deviceCode';
+import { DeviceCodeListInstance } from './v1/deviceCode';
 import { OauthList } from './v1/oauth';
 import { OauthListInstance } from './v1/oauth';
 import { OpenidDiscoveryList } from './v1/openidDiscovery';
@@ -25,6 +27,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Oauth);
 
+  readonly deviceCode: DeviceCodeListInstance;
   readonly oauth: OauthListInstance;
   readonly openidDiscovery: OpenidDiscoveryListInstance;
   readonly token: TokenListInstance;

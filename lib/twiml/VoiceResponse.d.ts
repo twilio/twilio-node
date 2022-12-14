@@ -259,7 +259,7 @@ declare namespace VoiceResponse {
 
   type SayLanguage = 'arb'|'ca-ES'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-CA'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-ZA'|'en-US'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'zh-CN'|'zh-HK'|'zh-TW';
 
-  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Aria-Neural'|'Polly.Arlet-Neural'|'Polly.Arthur-Neural'|'Polly.Ayanda-Neural'|'Polly.Bianca-Neural'|'Polly.Brian-Neural'|'Polly.Camila-Neural'|'Polly.Daniel-Neural'|'Polly.Emma-Neural'|'Polly.Gabrielle-Neural'|'Polly.Hannah-Neural'|'Polly.Ines-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Kajal-Neural'|'Polly.Kendra-Neural'|'Polly.Kevin-Neural'|'Polly.Kimberly-Neural'|'Polly.Lea-Neural'|'Polly.Liam-Neural'|'Polly.Lucia-Neural'|'Polly.Lupe-Neural'|'Polly.Matthew-Neural'|'Polly.Mia-Neural'|'Polly.Olivia-Neural'|'Polly.Pedro-Neural'|'Polly.Salli-Neural'|'Polly.Seoyeon-Neural'|'Polly.Takumi-Neural'|'Polly.Vicki-Neural'|'Polly.Vitoria-Neural';
+  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Aria-Neural'|'Polly.Arlet-Neural'|'Polly.Arthur-Neural'|'Polly.Ayanda-Neural'|'Polly.Bianca-Neural'|'Polly.Brian-Neural'|'Polly.Camila-Neural'|'Polly.Daniel-Neural'|'Polly.Elin-Neural'|'Polly.Emma-Neural'|'Polly.Gabrielle-Neural'|'Polly.Hala-Neural'|'Polly.Hannah-Neural'|'Polly.Hiujin-Neural'|'Polly.Ida-Neural'|'Polly.Ines-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Kajal-Neural'|'Polly.Kendra-Neural'|'Polly.Kevin-Neural'|'Polly.Kimberly-Neural'|'Polly.Laura-Neural'|'Polly.Lea-Neural'|'Polly.Liam-Neural'|'Polly.Lucia-Neural'|'Polly.Lupe-Neural'|'Polly.Matthew-Neural'|'Polly.Mia-Neural'|'Polly.Ola-Neural'|'Polly.Olivia-Neural'|'Polly.Pedro-Neural'|'Polly.Salli-Neural'|'Polly.Seoyeon-Neural'|'Polly.Suvi-Neural'|'Polly.Takumi-Neural'|'Polly.Vicki-Neural'|'Polly.Vitoria-Neural'|'Polly.Zhiyu-Neural';
 
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -269,13 +269,13 @@ declare namespace VoiceResponse {
 
   type SsmlEmphasisLevel = 'strong'|'moderate'|'reduced';
 
-  type SsmlLangXmlLang = 'arb'|'ca-ES'|'cmn-CN'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-US'|'en-ZA'|'es-ES'|'es-MX'|'es-US'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR';
+  type SsmlLangXmlLang = 'arb'|'ar-AE'|'ca-ES'|'cmn-CN'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-US'|'en-ZA'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'yue-CN';
 
-  type SsmlPhonemeAlphabet = 'ipa'|'x-sampa';
+  type SsmlPhonemeAlphabet = 'ipa'|'x-sampa'|'x-amazon-jyutping'|'x-amazon-pinyin'|'x-amazon-pron-kana'|'x-amazon-yomigana';
 
-  type SsmlSayAsInterpretAs = 'character'|'spell-out'|'cardinal'|'number'|'ordinal'|'digits'|'fraction'|'unit'|'date'|'time'|'address'|'expletive'|'telephone';
+  type SsmlSayAsFormat = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
 
-  type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
+  type SsmlSayAsInterpretAs = 'characters'|'spell-out'|'cardinal'|'number'|'ordinal'|'digits'|'fraction'|'unit'|'date'|'time'|'address'|'expletive'|'telephone';
 
   type StreamStatusCallbackMethod = 'GET'|'POST';
 
@@ -849,12 +849,12 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to sayAs
    *
+   * @property format - Specify the format of the date when interpret-as is set to date
    * @property interpret-as - Specify the type of words are spoken
-   * @property role - Specify the format of the date when interpret-as is set to date
    */
   export interface SsmlSayAsAttributes {
+    format?: SsmlSayAsFormat;
     "interpret-as"?: SsmlSayAsInterpretAs;
-    role?: SsmlSayAsRole;
   }
 
   /**
