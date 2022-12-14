@@ -32,6 +32,7 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
  * @property { string } [postalCode] The postal code of the address.
  * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the address. Can be: `true` or `false`.
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
+ * @property { string } [streetSecondary] The additional number and street address of the address.
  */
 export interface AddressContextUpdateOptions {
   friendlyName?: string;
@@ -42,6 +43,7 @@ export interface AddressContextUpdateOptions {
   postalCode?: string;
   emergencyEnabled?: boolean;
   autoCorrectAddress?: boolean;
+  streetSecondary?: string;
 }
 
 /**
@@ -56,6 +58,7 @@ export interface AddressContextUpdateOptions {
  * @property { string } [friendlyName] A descriptive string that you create to describe the new address. It can be up to 64 characters long.
  * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the new address. Can be: `true` or `false`.
  * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
+ * @property { string } [streetSecondary] The additional number and street address of the address.
  */
 export interface AddressListInstanceCreateOptions {
   customerName: string;
@@ -67,6 +70,7 @@ export interface AddressListInstanceCreateOptions {
   friendlyName?: string;
   emergencyEnabled?: boolean;
   autoCorrectAddress?: boolean;
+  streetSecondary?: string;
 }
 /**
  * Options to pass to each
@@ -285,6 +289,8 @@ export class AddressContextImpl implements AddressContext {
       data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
       data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    if (params["streetSecondary"] !== undefined)
+      data["StreetSecondary"] = params["streetSecondary"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -346,6 +352,7 @@ interface AddressResource {
   emergency_enabled?: boolean | null;
   validated?: boolean | null;
   verified?: boolean | null;
+  street_secondary?: string | null;
 }
 
 export class AddressInstance {
@@ -373,6 +380,7 @@ export class AddressInstance {
     this.emergencyEnabled = payload.emergency_enabled;
     this.validated = payload.validated;
     this.verified = payload.verified;
+    this.streetSecondary = payload.street_secondary;
 
     this._solution = { accountSid, sid: sid || this.sid };
   }
@@ -437,6 +445,10 @@ export class AddressInstance {
    * Whether the address has been verified to comply with regulation
    */
   verified?: boolean | null;
+  /**
+   * The additional number and street address of the address
+   */
+  streetSecondary?: string | null;
 
   private get _proxy(): AddressContext {
     this._context =
@@ -530,6 +542,7 @@ export class AddressInstance {
       emergencyEnabled: this.emergencyEnabled,
       validated: this.validated,
       verified: this.verified,
+      streetSecondary: this.streetSecondary,
     };
   }
 
@@ -767,6 +780,8 @@ export function AddressListInstance(
       data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
       data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    if (params["streetSecondary"] !== undefined)
+      data["StreetSecondary"] = params["streetSecondary"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
