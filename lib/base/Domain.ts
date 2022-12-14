@@ -51,7 +51,7 @@ export default class Domain {
    * @param {object} opts request options
    * @return {Promise} request promise
    */
-  request(opts?: RequestOpts): Promise<any> {
+  request(opts: RequestOpts): Promise<any> {
     return this.twilio.request({
       ...opts,
       uri: this.absoluteUrl(opts.uri),

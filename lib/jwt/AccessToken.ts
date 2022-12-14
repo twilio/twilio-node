@@ -111,7 +111,7 @@ class TaskRouterGrant
   workerSid?: string;
   role?: string;
 
-  constructor(options: TaskRouterGrantOptions) {
+  constructor(options?: TaskRouterGrantOptions) {
     options = options || {};
     super(options);
     this.workspaceSid = options.workspaceSid;
@@ -153,7 +153,7 @@ export class ChatGrant
   deploymentRoleSid?: string;
   pushCredentialSid?: string;
 
-  constructor(options: ChatGrantOptions) {
+  constructor(options?: ChatGrantOptions) {
     options = options || {};
     super(options);
     this.serviceSid = options.serviceSid;
@@ -192,7 +192,7 @@ class VideoGrant
 {
   room?: string;
 
-  constructor(options: VideoGrantOptions) {
+  constructor(options?: VideoGrantOptions) {
     options = options || {};
     super(options);
     this.room = options.room;
@@ -220,7 +220,7 @@ class SyncGrant
   serviceSid?: string;
   endpointId?: string;
 
-  constructor(options: SyncGrantOptions) {
+  constructor(options?: SyncGrantOptions) {
     options = options || {};
     super(options);
     this.serviceSid = options.serviceSid;
@@ -260,7 +260,7 @@ class VoiceGrant
   pushCredentialSid?: string;
   endpointId?: string;
 
-  constructor(options: VoiceGrantOptions) {
+  constructor(options?: VoiceGrantOptions) {
     options = options || {};
     super(options);
     this.incomingAllow = options.incomingAllow;
@@ -308,7 +308,7 @@ class PlaybackGrant
 {
   grant?: object;
 
-  constructor(options: PlaybackGrantOptions) {
+  constructor(options?: PlaybackGrantOptions) {
     options = options || {};
     super(options);
     this.grant = options.grant;
@@ -353,7 +353,7 @@ export default class AccessToken implements AccessTokenOptions {
   region?: string;
   grants: Grant<any, any, any>[];
 
-  constructor(accountSid, keySid, secret, options) {
+  constructor(accountSid, keySid, secret, options?) {
     if (!accountSid) {
       throw new Error("accountSid is required");
     }

@@ -51,7 +51,7 @@ export class Policy {
   postFilter: object;
   allow: boolean;
 
-  constructor(options: PolicyOptions) {
+  constructor(options?: PolicyOptions) {
     options = options || {};
     this.url = options.url;
     this.method = options.method || "GET";

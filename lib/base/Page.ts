@@ -94,9 +94,10 @@ export default class Page<
   /**
    * Get the url of the previous page of records
    *
-   * @return {string|undefined} url of the previous page
+   * @return {string|undefined} url of the previous page, or undefined if the
+   * previous page URI/URL is not defined.
    */
-  getPreviousPageUrl(): string {
+  getPreviousPageUrl(): string | undefined {
     if (
       "meta" in this._payload &&
       "previous_page_url" in this._payload.meta &&
@@ -120,9 +121,10 @@ export default class Page<
   /**
    * Get the url of the next page of records
    *
-   * @return {string|undefined} url of the next page
+   * @return {string|undefined} url of the next page, or undefined if the
+   * next page URI/URL is not defined.
    */
-  getNextPageUrl(): string {
+  getNextPageUrl(): string | undefined {
     if (
       "meta" in this._payload &&
       "next_page_url" in this._payload.meta &&
@@ -159,7 +161,7 @@ export default class Page<
    * @param  {object} resources json payload of records
    * @return {Array} list of resources
    */
-  loadInstances(resources: TResource[] | TInstance[]): TInstance[] {
+  loadInstances(resources: TResource[]): TInstance[] {
     let instances: TInstance[] = [];
     Object.keys(resources).forEach((key) => {
       instances[key] = this.getInstance(resources[key]);
@@ -170,9 +172,12 @@ export default class Page<
   /**
    * Fetch the next page of records
    *
-   * @return {promise} promise that resolves to next page of results
+   * @return {promise|undefined} promise that resolves to next page of results,
+   * or undefined if there isn't a nextPageUrl undefined.
    */
-  nextPage(): Promise<Page<TVersion, TPayload, TResource, TInstance>> {
+  nextPage():
+    | Promise<Page<TVersion, TPayload, TResource, TInstance>>
+    | undefined {
     if (!this.nextPageUrl) {
       return undefined;
     }
@@ -196,9 +201,12 @@ export default class Page<
   /**
    * Fetch the previous page of records
    *
-   * @return {promise} promise that resolves to previous page of results
+   * @return {promise|undefined} promise that resolves to previous page of
+   * results, or undefined if there isn't a previousPageUrl undefined.
    */
-  previousPage(): Promise<Page<TVersion, TPayload, TResource, TInstance>> {
+  previousPage():
+    | Promise<Page<TVersion, TPayload, TResource, TInstance>>
+    | undefined {
     if (!this.previousPageUrl) {
       return undefined;
     }

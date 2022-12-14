@@ -25,7 +25,7 @@ export default class Request<TData> {
   headers: Headers | "*";
   ca: string | Buffer;
 
-  constructor(opts: RequestOptions<TData>) {
+  constructor(opts?: RequestOptions<TData>) {
     opts = opts || {};
 
     this.method = opts.method || this.ANY;

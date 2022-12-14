@@ -28,7 +28,7 @@ export class EventStreamScope implements Scope {
   scope: string = "scope:stream:subscribe";
   filters: object;
 
-  constructor(filters: object) {
+  constructor(filters?: object) {
     this.filters = filters || {};
   }
 
