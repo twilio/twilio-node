@@ -1,6 +1,12 @@
 "use strict";
 
-class RestException extends Error {
+export default class RestException extends Error {
+  status: number;
+  message: string;
+  code: number;
+  moreInfo: string;
+  details: object;
+
   constructor(response) {
     super("[HTTP " + response.statusCode + "] Failed to execute request");
 
@@ -15,5 +21,3 @@ class RestException extends Error {
     this.details = body.details;
   }
 }
-
-module.exports = RestException;

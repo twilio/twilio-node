@@ -1,4 +1,4 @@
-var util = require("../../../../index").jwt.taskrouter.util;
+import * as util from "../../../../lib/jwt/taskrouter/util";
 
 describe("util", function () {
   describe("url utils", function () {

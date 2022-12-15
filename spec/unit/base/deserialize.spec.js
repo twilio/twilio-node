@@ -1,4 +1,4 @@
-var deserialize = require("../../../lib/base/deserialize");
+import * as deserialize from "../../../lib/base/deserialize";
 
 describe("deserialize date tests", function () {
   it("should parse date", function () {

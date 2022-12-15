@@ -1,7 +1,6 @@
-var TaskRouterCapability =
-  require("../../../../index").jwt.taskrouter.TaskRouterCapability;
-var util = require("../../../../index").jwt.taskrouter.util;
-var jwt = require("jsonwebtoken");
+import TaskRouterCapability from "../../../../lib/jwt/taskrouter/TaskRouterCapability";
+import * as util from "../../../../lib/jwt/taskrouter/util";
+import jwt from "jsonwebtoken";
 
 describe("The TaskRouter Capability Token Object", function () {
   it("should allow construction of a capability token", function () {

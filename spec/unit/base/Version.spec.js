@@ -1,7 +1,7 @@
-const Version = require("../../../lib/base/Version");
-const Holodeck = require("../../integration/holodeck");
-const Response = require("../../../lib/http/response");
-const Twilio = require("../../../lib");
+import Version from "../../../lib/base/Version";
+import Holodeck from "../../integration/holodeck";
+import Response from "../../../lib/http/response";
+import Twilio from "../../../lib";
 
 describe("fetch method", function () {
   it("should not throw an exception on 3xx status code", function (done) {

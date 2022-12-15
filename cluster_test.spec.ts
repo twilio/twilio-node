@@ -2,7 +2,7 @@
 
 jest.setTimeout(15000);
 
-const twilio = require("./lib/index.js");
+import twilio from "./lib/";
 
 const fromNumber = process.env.TWILIO_FROM_NUMBER;
 const toNumber = process.env.TWILIO_TO_NUMBER;

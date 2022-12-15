@@ -1,4 +1,4 @@
-var RestException = require("../../../lib/base/RestException");
+import RestException from "../../../lib/base/RestException";
 
 describe("exception gets created from string", function () {
   it("should test serialize without details", function () {

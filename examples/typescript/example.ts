@@ -1,4 +1,4 @@
-import twilio = require("../../");
+import twilio from "../../";
 import { MessageListInstanceCreateOptions } from "../../lib/rest/api/v2010/account/message";
 
 const accountSid: string = process.env.TWILIO_ACCOUNT_SID || "";

@@ -1,8 +1,8 @@
 "use strict";
 
-var Holodeck = require("../../integration/holodeck");
-var Response = require("../../../lib/http/response");
-var Twilio = require("../../../lib");
+import Holodeck from "../../integration/holodeck";
+import Response from "../../../lib/http/response";
+import Twilio from "../../../lib/";
 
 var client;
 var holodeck;

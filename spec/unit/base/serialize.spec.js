@@ -1,4 +1,4 @@
-var serialize = require("../../../lib/base/serialize");
+import * as serialize from "../../../lib/base/serialize";
 
 describe("serialize date tests", function () {
   it("should be unable to serialize undefined date", function () {
