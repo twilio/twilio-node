@@ -207,9 +207,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 }
 
-interface UsAppToPersonPayload
-  extends UsAppToPersonResource,
-    TwilioResponsePayload {}
+interface UsAppToPersonPayload extends TwilioResponsePayload {
+  compliance: UsAppToPersonResource[];
+}
 
 interface UsAppToPersonResource {
   sid?: string | null;
@@ -244,7 +244,7 @@ export class UsAppToPersonInstance {
 
   constructor(
     protected _version: V1,
-    payload: UsAppToPersonPayload,
+    payload: UsAppToPersonResource,
     messagingServiceSid: string,
     sid?: string
   ) {
@@ -851,7 +851,7 @@ export class UsAppToPersonPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UsAppToPersonPayload): UsAppToPersonInstance {
+  getInstance(payload: UsAppToPersonResource): UsAppToPersonInstance {
     return new UsAppToPersonInstance(
       this._version,
       payload,

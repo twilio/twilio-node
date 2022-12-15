@@ -215,7 +215,9 @@ export class EngagementContextImpl implements EngagementContext {
   }
 }
 
-interface EngagementPayload extends EngagementResource, TwilioResponsePayload {}
+interface EngagementPayload extends TwilioResponsePayload {
+  engagements: EngagementResource[];
+}
 
 interface EngagementResource {
   sid?: string | null;
@@ -237,7 +239,7 @@ export class EngagementInstance {
 
   constructor(
     protected _version: V1,
-    payload: EngagementPayload,
+    payload: EngagementResource,
     flowSid: string,
     sid?: string
   ) {
@@ -701,7 +703,7 @@ export class EngagementPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EngagementPayload): EngagementInstance {
+  getInstance(payload: EngagementResource): EngagementInstance {
     return new EngagementInstance(
       this._version,
       payload,

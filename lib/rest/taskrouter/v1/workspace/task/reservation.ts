@@ -494,9 +494,9 @@ export class ReservationContextImpl implements ReservationContext {
   }
 }
 
-interface ReservationPayload
-  extends ReservationResource,
-    TwilioResponsePayload {}
+interface ReservationPayload extends TwilioResponsePayload {
+  reservations: ReservationResource[];
+}
 
 interface ReservationResource {
   account_sid?: string | null;
@@ -518,7 +518,7 @@ export class ReservationInstance {
 
   constructor(
     protected _version: V1,
-    payload: ReservationPayload,
+    payload: ReservationResource,
     workspaceSid: string,
     taskSid: string,
     sid?: string
@@ -929,7 +929,7 @@ export class ReservationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ReservationPayload): ReservationInstance {
+  getInstance(payload: ReservationResource): ReservationInstance {
     return new ReservationInstance(
       this._version,
       payload,

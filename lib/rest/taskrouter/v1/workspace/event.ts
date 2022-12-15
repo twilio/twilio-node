@@ -212,7 +212,9 @@ export class EventContextImpl implements EventContext {
   }
 }
 
-interface EventPayload extends EventResource, TwilioResponsePayload {}
+interface EventPayload extends TwilioResponsePayload {
+  events: EventResource[];
+}
 
 interface EventResource {
   account_sid?: string | null;
@@ -240,7 +242,7 @@ export class EventInstance {
 
   constructor(
     protected _version: V1,
-    payload: EventPayload,
+    payload: EventResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -670,7 +672,7 @@ export class EventPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EventPayload): EventInstance {
+  getInstance(payload: EventResource): EventInstance {
     return new EventInstance(
       this._version,
       payload,

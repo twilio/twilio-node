@@ -198,9 +198,9 @@ export class CredentialListMappingContextImpl
   }
 }
 
-interface CredentialListMappingPayload
-  extends CredentialListMappingResource,
-    TwilioResponsePayload {}
+interface CredentialListMappingPayload extends TwilioResponsePayload {
+  credential_list_mappings: CredentialListMappingResource[];
+}
 
 interface CredentialListMappingResource {
   account_sid?: string | null;
@@ -218,7 +218,7 @@ export class CredentialListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: CredentialListMappingPayload,
+    payload: CredentialListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -683,7 +683,7 @@ export class CredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CredentialListMappingPayload
+    payload: CredentialListMappingResource
   ): CredentialListMappingInstance {
     return new CredentialListMappingInstance(
       this._version,

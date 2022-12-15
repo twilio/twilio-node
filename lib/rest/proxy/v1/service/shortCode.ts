@@ -254,7 +254,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 }
 
-interface ShortCodePayload extends ShortCodeResource, TwilioResponsePayload {}
+interface ShortCodePayload extends TwilioResponsePayload {
+  short_codes: ShortCodeResource[];
+}
 
 interface ShortCodeResource {
   sid?: string | null;
@@ -275,7 +277,7 @@ export class ShortCodeInstance {
 
   constructor(
     protected _version: V1,
-    payload: ShortCodePayload,
+    payload: ShortCodeResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -737,7 +739,7 @@ export class ShortCodePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance {
+  getInstance(payload: ShortCodeResource): ShortCodeInstance {
     return new ShortCodeInstance(
       this._version,
       payload,

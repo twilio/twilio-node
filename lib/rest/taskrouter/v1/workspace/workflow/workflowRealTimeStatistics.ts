@@ -174,7 +174,7 @@ export class WorkflowRealTimeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkflowRealTimeStatisticsPayload,
+    payload: WorkflowRealTimeStatisticsResource,
     workspaceSid: string,
     workflowSid: string
   ) {

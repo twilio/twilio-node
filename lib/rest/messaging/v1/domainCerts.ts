@@ -198,7 +198,7 @@ export class DomainCertsInstance {
 
   constructor(
     protected _version: V1,
-    payload: DomainCertsPayload,
+    payload: DomainCertsResource,
     domainSid?: string
   ) {
     this.domainSid = payload.domain_sid;

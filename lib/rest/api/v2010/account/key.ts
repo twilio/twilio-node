@@ -244,7 +244,9 @@ export class KeyContextImpl implements KeyContext {
   }
 }
 
-interface KeyPayload extends KeyResource, TwilioResponsePayload {}
+interface KeyPayload extends TwilioResponsePayload {
+  keys: KeyResource[];
+}
 
 interface KeyResource {
   sid?: string | null;
@@ -259,7 +261,7 @@ export class KeyInstance {
 
   constructor(
     protected _version: V2010,
-    payload: KeyPayload,
+    payload: KeyResource,
     accountSid: string,
     sid?: string
   ) {
@@ -626,7 +628,7 @@ export class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: KeyPayload): KeyInstance {
+  getInstance(payload: KeyResource): KeyInstance {
     return new KeyInstance(this._version, payload, this._solution.accountSid);
   }
 

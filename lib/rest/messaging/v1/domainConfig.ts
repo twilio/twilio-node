@@ -193,7 +193,7 @@ export class DomainConfigInstance {
 
   constructor(
     protected _version: V1,
-    payload: DomainConfigPayload,
+    payload: DomainConfigResource,
     domainSid?: string
   ) {
     this.domainSid = payload.domain_sid;

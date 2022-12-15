@@ -242,7 +242,9 @@ export class IpRecordContextImpl implements IpRecordContext {
   }
 }
 
-interface IpRecordPayload extends IpRecordResource, TwilioResponsePayload {}
+interface IpRecordPayload extends TwilioResponsePayload {
+  ip_records: IpRecordResource[];
+}
 
 interface IpRecordResource {
   account_sid?: string | null;
@@ -259,7 +261,7 @@ export class IpRecordInstance {
   protected _solution: IpRecordContextSolution;
   protected _context?: IpRecordContext;
 
-  constructor(protected _version: V1, payload: IpRecordPayload, sid?: string) {
+  constructor(protected _version: V1, payload: IpRecordResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -695,7 +697,7 @@ export class IpRecordPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpRecordPayload): IpRecordInstance {
+  getInstance(payload: IpRecordResource): IpRecordInstance {
     return new IpRecordInstance(this._version, payload);
   }
 

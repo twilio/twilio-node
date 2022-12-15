@@ -113,7 +113,7 @@ export class DialogueInstance {
 
   constructor(
     protected _version: V1,
-    payload: DialoguePayload,
+    payload: DialogueResource,
     assistantSid: string,
     sid?: string
   ) {

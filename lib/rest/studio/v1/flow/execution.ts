@@ -291,7 +291,9 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 }
 
-interface ExecutionPayload extends ExecutionResource, TwilioResponsePayload {}
+interface ExecutionPayload extends TwilioResponsePayload {
+  executions: ExecutionResource[];
+}
 
 interface ExecutionResource {
   sid?: string | null;
@@ -313,7 +315,7 @@ export class ExecutionInstance {
 
   constructor(
     protected _version: V1,
-    payload: ExecutionPayload,
+    payload: ExecutionResource,
     flowSid: string,
     sid?: string
   ) {
@@ -797,7 +799,7 @@ export class ExecutionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ExecutionPayload): ExecutionInstance {
+  getInstance(payload: ExecutionResource): ExecutionInstance {
     return new ExecutionInstance(
       this._version,
       payload,

@@ -277,9 +277,9 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
   }
 }
 
-interface OriginationUrlPayload
-  extends OriginationUrlResource,
-    TwilioResponsePayload {}
+interface OriginationUrlPayload extends TwilioResponsePayload {
+  origination_urls: OriginationUrlResource[];
+}
 
 interface OriginationUrlResource {
   account_sid?: string | null;
@@ -301,7 +301,7 @@ export class OriginationUrlInstance {
 
   constructor(
     protected _version: V1,
-    payload: OriginationUrlPayload,
+    payload: OriginationUrlResource,
     trunkSid: string,
     sid?: string
   ) {
@@ -808,7 +808,7 @@ export class OriginationUrlPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance {
+  getInstance(payload: OriginationUrlResource): OriginationUrlInstance {
     return new OriginationUrlInstance(
       this._version,
       payload,

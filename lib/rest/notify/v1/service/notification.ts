@@ -233,7 +233,7 @@ interface NotificationResource {
 export class NotificationInstance {
   constructor(
     protected _version: V1,
-    payload: NotificationPayload,
+    payload: NotificationResource,
     serviceSid: string
   ) {
     this.sid = payload.sid;

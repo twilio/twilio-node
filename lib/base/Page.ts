@@ -10,7 +10,7 @@ export interface TwilioResponsePayload {
   page: number;
   page_size: number;
   previous_page_uri: string;
-  uri: string;
+  uri?: string;
   meta?: {
     key?: string;
     next_page_url?: string;

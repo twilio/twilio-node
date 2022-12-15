@@ -113,7 +113,7 @@ export class EngagementContextInstance {
 
   constructor(
     protected _version: V1,
-    payload: EngagementContextPayload,
+    payload: EngagementContextResource,
     flowSid: string,
     engagementSid: string
   ) {

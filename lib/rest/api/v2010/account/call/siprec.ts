@@ -574,7 +574,7 @@ export class SiprecInstance {
 
   constructor(
     protected _version: V2010,
-    payload: SiprecPayload,
+    payload: SiprecResource,
     accountSid: string,
     callSid: string,
     sid?: string

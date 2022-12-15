@@ -165,7 +165,7 @@ export class WorkspaceRealTimeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkspaceRealTimeStatisticsPayload,
+    payload: WorkspaceRealTimeStatisticsResource,
     workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;

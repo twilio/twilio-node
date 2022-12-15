@@ -146,7 +146,9 @@ export class DayContextImpl implements DayContext {
   }
 }
 
-interface DayPayload extends DayResource, TwilioResponsePayload {}
+interface DayPayload extends TwilioResponsePayload {
+  days: DayResource[];
+}
 
 interface DayResource {
   redirect_to?: string | null;
@@ -163,7 +165,7 @@ export class DayInstance {
 
   constructor(
     protected _version: V1,
-    payload: DayPayload,
+    payload: DayResource,
     resourceType: string,
     day?: string
   ) {
@@ -496,7 +498,7 @@ export class DayPage extends Page<V1, DayPayload, DayResource, DayInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DayPayload): DayInstance {
+  getInstance(payload: DayResource): DayInstance {
     return new DayInstance(this._version, payload, this._solution.resourceType);
   }
 

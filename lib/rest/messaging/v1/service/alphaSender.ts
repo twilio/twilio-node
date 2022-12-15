@@ -179,9 +179,9 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   }
 }
 
-interface AlphaSenderPayload
-  extends AlphaSenderResource,
-    TwilioResponsePayload {}
+interface AlphaSenderPayload extends TwilioResponsePayload {
+  alpha_senders: AlphaSenderResource[];
+}
 
 interface AlphaSenderResource {
   sid?: string | null;
@@ -200,7 +200,7 @@ export class AlphaSenderInstance {
 
   constructor(
     protected _version: V1,
-    payload: AlphaSenderPayload,
+    payload: AlphaSenderResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -628,7 +628,7 @@ export class AlphaSenderPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AlphaSenderPayload): AlphaSenderInstance {
+  getInstance(payload: AlphaSenderResource): AlphaSenderInstance {
     return new AlphaSenderInstance(
       this._version,
       payload,

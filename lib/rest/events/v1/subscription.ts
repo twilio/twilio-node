@@ -263,9 +263,9 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   }
 }
 
-interface SubscriptionPayload
-  extends SubscriptionResource,
-    TwilioResponsePayload {}
+interface SubscriptionPayload extends TwilioResponsePayload {
+  subscriptions: SubscriptionResource[];
+}
 
 interface SubscriptionResource {
   account_sid?: string | null;
@@ -284,7 +284,7 @@ export class SubscriptionInstance {
 
   constructor(
     protected _version: V1,
-    payload: SubscriptionPayload,
+    payload: SubscriptionResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -741,7 +741,7 @@ export class SubscriptionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SubscriptionPayload): SubscriptionInstance {
+  getInstance(payload: SubscriptionResource): SubscriptionInstance {
     return new SubscriptionInstance(this._version, payload);
   }
 

@@ -201,7 +201,7 @@ export class PhoneNumberInstance {
 
   constructor(
     protected _version: V2,
-    payload: PhoneNumberPayload,
+    payload: PhoneNumberResource,
     phoneNumber?: string
   ) {
     this.callingCountryCode = payload.calling_country_code;

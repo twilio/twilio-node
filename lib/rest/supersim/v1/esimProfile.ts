@@ -174,9 +174,9 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   }
 }
 
-interface EsimProfilePayload
-  extends EsimProfileResource,
-    TwilioResponsePayload {}
+interface EsimProfilePayload extends TwilioResponsePayload {
+  esim_profiles: EsimProfileResource[];
+}
 
 interface EsimProfileResource {
   sid?: string | null;
@@ -199,7 +199,7 @@ export class EsimProfileInstance {
 
   constructor(
     protected _version: V1,
-    payload: EsimProfilePayload,
+    payload: EsimProfileResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -632,7 +632,7 @@ export class EsimProfilePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EsimProfilePayload): EsimProfileInstance {
+  getInstance(payload: EsimProfileResource): EsimProfileInstance {
     return new EsimProfileInstance(this._version, payload);
   }
 

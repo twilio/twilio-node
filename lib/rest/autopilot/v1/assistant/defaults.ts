@@ -179,7 +179,7 @@ export class DefaultsInstance {
 
   constructor(
     protected _version: V1,
-    payload: DefaultsPayload,
+    payload: DefaultsResource,
     assistantSid: string
   ) {
     this.accountSid = payload.account_sid;

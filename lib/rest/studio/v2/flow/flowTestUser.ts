@@ -160,7 +160,7 @@ export class FlowTestUserInstance {
 
   constructor(
     protected _version: V2,
-    payload: FlowTestUserPayload,
+    payload: FlowTestUserResource,
     sid: string
   ) {
     this.sid = payload.sid;

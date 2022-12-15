@@ -364,9 +364,9 @@ export type DependentPhoneNumberStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DependentPhoneNumberPayload
-  extends DependentPhoneNumberResource,
-    TwilioResponsePayload {}
+interface DependentPhoneNumberPayload extends TwilioResponsePayload {
+  dependent_phone_numbers: DependentPhoneNumberResource[];
+}
 
 interface DependentPhoneNumberResource {
   sid?: string | null;
@@ -400,7 +400,7 @@ interface DependentPhoneNumberResource {
 export class DependentPhoneNumberInstance {
   constructor(
     protected _version: V2010,
-    payload: DependentPhoneNumberPayload,
+    payload: DependentPhoneNumberResource,
     accountSid: string,
     addressSid: string
   ) {
@@ -599,7 +599,7 @@ export class DependentPhoneNumberPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DependentPhoneNumberPayload
+    payload: DependentPhoneNumberResource
   ): DependentPhoneNumberInstance {
     return new DependentPhoneNumberInstance(
       this._version,

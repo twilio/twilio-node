@@ -163,7 +163,7 @@ interface FeedbackResource {
 export class FeedbackInstance {
   constructor(
     protected _version: V2010,
-    payload: FeedbackPayload,
+    payload: FeedbackResource,
     accountSid: string,
     messageSid: string
   ) {

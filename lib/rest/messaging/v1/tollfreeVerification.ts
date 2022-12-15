@@ -220,9 +220,9 @@ export class TollfreeVerificationContextImpl
   }
 }
 
-interface TollfreeVerificationPayload
-  extends TollfreeVerificationResource,
-    TwilioResponsePayload {}
+interface TollfreeVerificationPayload extends TwilioResponsePayload {
+  verifications: TollfreeVerificationResource[];
+}
 
 interface TollfreeVerificationResource {
   sid?: string | null;
@@ -264,7 +264,7 @@ export class TollfreeVerificationInstance {
 
   constructor(
     protected _version: V1,
-    payload: TollfreeVerificationPayload,
+    payload: TollfreeVerificationResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -940,7 +940,7 @@ export class TollfreeVerificationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TollfreeVerificationPayload
+    payload: TollfreeVerificationResource
   ): TollfreeVerificationInstance {
     return new TollfreeVerificationInstance(this._version, payload);
   }

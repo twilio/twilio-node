@@ -352,7 +352,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 }
 
-interface FlexFlowPayload extends FlexFlowResource, TwilioResponsePayload {}
+interface FlexFlowPayload extends TwilioResponsePayload {
+  flex_flows: FlexFlowResource[];
+}
 
 interface FlexFlowResource {
   account_sid?: string | null;
@@ -375,7 +377,7 @@ export class FlexFlowInstance {
   protected _solution: FlexFlowContextSolution;
   protected _context?: FlexFlowContext;
 
-  constructor(protected _version: V1, payload: FlexFlowPayload, sid?: string) {
+  constructor(protected _version: V1, payload: FlexFlowResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -889,7 +891,7 @@ export class FlexFlowPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FlexFlowPayload): FlexFlowInstance {
+  getInstance(payload: FlexFlowResource): FlexFlowInstance {
     return new FlexFlowInstance(this._version, payload);
   }
 

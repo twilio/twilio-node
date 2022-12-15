@@ -209,9 +209,9 @@ export class AddOnResultContextImpl implements AddOnResultContext {
   }
 }
 
-interface AddOnResultPayload
-  extends AddOnResultResource,
-    TwilioResponsePayload {}
+interface AddOnResultPayload extends TwilioResponsePayload {
+  add_on_results: AddOnResultResource[];
+}
 
 interface AddOnResultResource {
   sid?: string | null;
@@ -232,7 +232,7 @@ export class AddOnResultInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AddOnResultPayload,
+    payload: AddOnResultResource,
     accountSid: string,
     referenceSid: string,
     sid?: string
@@ -627,7 +627,7 @@ export class AddOnResultPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AddOnResultPayload): AddOnResultInstance {
+  getInstance(payload: AddOnResultResource): AddOnResultInstance {
     return new AddOnResultInstance(
       this._version,
       payload,

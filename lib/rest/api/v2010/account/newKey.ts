@@ -150,7 +150,7 @@ interface NewKeyResource {
 export class NewKeyInstance {
   constructor(
     protected _version: V2010,
-    payload: NewKeyPayload,
+    payload: NewKeyResource,
     accountSid: string
   ) {
     this.sid = payload.sid;

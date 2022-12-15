@@ -401,9 +401,9 @@ export function ExportCustomJobListInstance(
   return instance;
 }
 
-interface ExportCustomJobPayload
-  extends ExportCustomJobResource,
-    TwilioResponsePayload {}
+interface ExportCustomJobPayload extends TwilioResponsePayload {
+  jobs: ExportCustomJobResource[];
+}
 
 interface ExportCustomJobResource {
   friendly_name?: string | null;
@@ -422,7 +422,7 @@ interface ExportCustomJobResource {
 export class ExportCustomJobInstance {
   constructor(
     protected _version: V1,
-    payload: ExportCustomJobPayload,
+    payload: ExportCustomJobResource,
     resourceType: string
   ) {
     this.friendlyName = payload.friendly_name;
@@ -535,7 +535,7 @@ export class ExportCustomJobPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ExportCustomJobPayload): ExportCustomJobInstance {
+  getInstance(payload: ExportCustomJobResource): ExportCustomJobInstance {
     return new ExportCustomJobInstance(
       this._version,
       payload,

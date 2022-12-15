@@ -136,7 +136,9 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 }
 
-interface PoliciesPayload extends PoliciesResource, TwilioResponsePayload {}
+interface PoliciesPayload extends TwilioResponsePayload {
+  results: PoliciesResource[];
+}
 
 interface PoliciesResource {
   sid?: string | null;
@@ -149,7 +151,7 @@ export class PoliciesInstance {
   protected _solution: PoliciesContextSolution;
   protected _context?: PoliciesContext;
 
-  constructor(protected _version: V1, payload: PoliciesPayload, sid?: string) {
+  constructor(protected _version: V1, payload: PoliciesResource, sid?: string) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.requirements = payload.requirements;
@@ -466,7 +468,7 @@ export class PoliciesPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PoliciesPayload): PoliciesInstance {
+  getInstance(payload: PoliciesResource): PoliciesInstance {
     return new PoliciesInstance(this._version, payload);
   }
 

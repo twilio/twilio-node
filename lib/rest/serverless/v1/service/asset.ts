@@ -262,7 +262,9 @@ export class AssetContextImpl implements AssetContext {
   }
 }
 
-interface AssetPayload extends AssetResource, TwilioResponsePayload {}
+interface AssetPayload extends TwilioResponsePayload {
+  assets: AssetResource[];
+}
 
 interface AssetResource {
   sid?: string | null;
@@ -281,7 +283,7 @@ export class AssetInstance {
 
   constructor(
     protected _version: V1,
-    payload: AssetPayload,
+    payload: AssetResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -730,7 +732,7 @@ export class AssetPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssetPayload): AssetInstance {
+  getInstance(payload: AssetResource): AssetInstance {
     return new AssetInstance(this._version, payload, this._solution.serviceSid);
   }
 

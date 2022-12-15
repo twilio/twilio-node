@@ -45,7 +45,7 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
 
   constructor(protected _version: V1) {
     this._solution = {};
-    this._uri = `/.well-known/openid-configuration`;
+    this._uri = `/well-known/openid-configuration`;
   }
 
   fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
@@ -102,7 +102,7 @@ export class OpenidDiscoveryInstance {
   protected _solution: OpenidDiscoveryContextSolution;
   protected _context?: OpenidDiscoveryContext;
 
-  constructor(protected _version: V1, payload: OpenidDiscoveryPayload) {
+  constructor(protected _version: V1, payload: OpenidDiscoveryResource) {
     this.issuer = payload.issuer;
     this.authorizationEndpoint = payload.authorization_endpoint;
     this.deviceAuthorizationEndpoint = payload.device_authorization_endpoint;

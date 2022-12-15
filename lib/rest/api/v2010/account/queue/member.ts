@@ -224,7 +224,9 @@ export class MemberContextImpl implements MemberContext {
   }
 }
 
-interface MemberPayload extends MemberResource, TwilioResponsePayload {}
+interface MemberPayload extends TwilioResponsePayload {
+  queue_members: MemberResource[];
+}
 
 interface MemberResource {
   call_sid?: string | null;
@@ -241,7 +243,7 @@ export class MemberInstance {
 
   constructor(
     protected _version: V2010,
-    payload: MemberPayload,
+    payload: MemberResource,
     accountSid: string,
     queueSid: string,
     callSid?: string
@@ -611,7 +613,7 @@ export class MemberPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MemberPayload): MemberInstance {
+  getInstance(payload: MemberResource): MemberInstance {
     return new MemberInstance(
       this._version,
       payload,

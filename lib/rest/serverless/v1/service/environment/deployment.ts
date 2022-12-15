@@ -165,7 +165,9 @@ export class DeploymentContextImpl implements DeploymentContext {
   }
 }
 
-interface DeploymentPayload extends DeploymentResource, TwilioResponsePayload {}
+interface DeploymentPayload extends TwilioResponsePayload {
+  deployments: DeploymentResource[];
+}
 
 interface DeploymentResource {
   sid?: string | null;
@@ -184,7 +186,7 @@ export class DeploymentInstance {
 
   constructor(
     protected _version: V1,
-    payload: DeploymentPayload,
+    payload: DeploymentResource,
     serviceSid: string,
     environmentSid: string,
     sid?: string
@@ -616,7 +618,7 @@ export class DeploymentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DeploymentPayload): DeploymentInstance {
+  getInstance(payload: DeploymentResource): DeploymentInstance {
     return new DeploymentInstance(
       this._version,
       payload,

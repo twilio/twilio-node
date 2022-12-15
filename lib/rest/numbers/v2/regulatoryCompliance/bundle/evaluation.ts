@@ -148,7 +148,9 @@ export class EvaluationContextImpl implements EvaluationContext {
   }
 }
 
-interface EvaluationPayload extends EvaluationResource, TwilioResponsePayload {}
+interface EvaluationPayload extends TwilioResponsePayload {
+  results: EvaluationResource[];
+}
 
 interface EvaluationResource {
   sid?: string | null;
@@ -167,7 +169,7 @@ export class EvaluationInstance {
 
   constructor(
     protected _version: V2,
-    payload: EvaluationPayload,
+    payload: EvaluationResource,
     bundleSid: string,
     sid?: string
   ) {
@@ -551,7 +553,7 @@ export class EvaluationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EvaluationPayload): EvaluationInstance {
+  getInstance(payload: EvaluationResource): EvaluationInstance {
     return new EvaluationInstance(
       this._version,
       payload,

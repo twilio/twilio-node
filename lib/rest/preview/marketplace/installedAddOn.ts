@@ -271,9 +271,9 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   }
 }
 
-interface InstalledAddOnPayload
-  extends InstalledAddOnResource,
-    TwilioResponsePayload {}
+interface InstalledAddOnPayload extends TwilioResponsePayload {
+  installed_add_ons: InstalledAddOnResource[];
+}
 
 interface InstalledAddOnResource {
   sid?: string | null;
@@ -294,7 +294,7 @@ export class InstalledAddOnInstance {
 
   constructor(
     protected _version: Marketplace,
-    payload: InstalledAddOnPayload,
+    payload: InstalledAddOnResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -780,7 +780,7 @@ export class InstalledAddOnPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InstalledAddOnPayload): InstalledAddOnInstance {
+  getInstance(payload: InstalledAddOnResource): InstalledAddOnInstance {
     return new InstalledAddOnInstance(this._version, payload);
   }
 

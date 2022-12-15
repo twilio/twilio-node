@@ -161,7 +161,7 @@ export class SettingsInstance {
   protected _solution: SettingsContextSolution;
   protected _context?: SettingsContext;
 
-  constructor(protected _version: V1, payload: SettingsPayload) {
+  constructor(protected _version: V1, payload: SettingsResource) {
     this.dialingPermissionsInheritance =
       payload.dialing_permissions_inheritance;
     this.url = payload.url;

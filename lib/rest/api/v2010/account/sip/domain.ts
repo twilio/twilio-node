@@ -391,7 +391,9 @@ export type DomainVoiceStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DomainPayload extends DomainResource, TwilioResponsePayload {}
+interface DomainPayload extends TwilioResponsePayload {
+  domains: DomainResource[];
+}
 
 interface DomainResource {
   account_sid?: string | null;
@@ -423,7 +425,7 @@ export class DomainInstance {
 
   constructor(
     protected _version: V2010,
-    payload: DomainPayload,
+    payload: DomainResource,
     accountSid: string,
     sid?: string
   ) {
@@ -996,7 +998,7 @@ export class DomainPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DomainPayload): DomainInstance {
+  getInstance(payload: DomainResource): DomainInstance {
     return new DomainInstance(
       this._version,
       payload,

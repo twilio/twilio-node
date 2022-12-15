@@ -264,7 +264,9 @@ export type ShortCodeSmsMethod =
   | "PUT"
   | "DELETE";
 
-interface ShortCodePayload extends ShortCodeResource, TwilioResponsePayload {}
+interface ShortCodePayload extends TwilioResponsePayload {
+  short_codes: ShortCodeResource[];
+}
 
 interface ShortCodeResource {
   account_sid?: string | null;
@@ -287,7 +289,7 @@ export class ShortCodeInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ShortCodePayload,
+    payload: ShortCodeResource,
     accountSid: string,
     sid?: string
   ) {
@@ -698,7 +700,7 @@ export class ShortCodePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance {
+  getInstance(payload: ShortCodeResource): ShortCodeInstance {
     return new ShortCodeInstance(
       this._version,
       payload,

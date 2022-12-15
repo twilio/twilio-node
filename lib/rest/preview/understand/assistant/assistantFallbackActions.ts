@@ -197,7 +197,7 @@ export class AssistantFallbackActionsInstance {
 
   constructor(
     protected _version: Understand,
-    payload: AssistantFallbackActionsPayload,
+    payload: AssistantFallbackActionsResource,
     assistantSid: string
   ) {
     this.accountSid = payload.account_sid;

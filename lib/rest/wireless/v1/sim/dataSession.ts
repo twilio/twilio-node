@@ -296,9 +296,9 @@ export function DataSessionListInstance(
   return instance;
 }
 
-interface DataSessionPayload
-  extends DataSessionResource,
-    TwilioResponsePayload {}
+interface DataSessionPayload extends TwilioResponsePayload {
+  data_sessions: DataSessionResource[];
+}
 
 interface DataSessionResource {
   sid?: string | null;
@@ -322,7 +322,7 @@ interface DataSessionResource {
 export class DataSessionInstance {
   constructor(
     protected _version: V1,
-    payload: DataSessionPayload,
+    payload: DataSessionResource,
     simSid: string
   ) {
     this.sid = payload.sid;
@@ -465,7 +465,7 @@ export class DataSessionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DataSessionPayload): DataSessionInstance {
+  getInstance(payload: DataSessionResource): DataSessionInstance {
     return new DataSessionInstance(
       this._version,
       payload,

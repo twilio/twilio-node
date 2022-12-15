@@ -135,7 +135,7 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
-  constructor(protected _version: V1, payload: BulkCountryUpdatePayload) {
+  constructor(protected _version: V1, payload: BulkCountryUpdateResource) {
     this.updateCount = deserialize.integer(payload.update_count);
     this.updateRequest = payload.update_request;
   }

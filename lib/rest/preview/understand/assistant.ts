@@ -360,7 +360,9 @@ export class AssistantContextImpl implements AssistantContext {
   }
 }
 
-interface AssistantPayload extends AssistantResource, TwilioResponsePayload {}
+interface AssistantPayload extends TwilioResponsePayload {
+  assistants: AssistantResource[];
+}
 
 interface AssistantResource {
   account_sid?: string | null;
@@ -383,7 +385,7 @@ export class AssistantInstance {
 
   constructor(
     protected _version: Understand,
-    payload: AssistantPayload,
+    payload: AssistantResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -917,7 +919,7 @@ export class AssistantPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssistantPayload): AssistantInstance {
+  getInstance(payload: AssistantResource): AssistantInstance {
     return new AssistantInstance(this._version, payload);
   }
 

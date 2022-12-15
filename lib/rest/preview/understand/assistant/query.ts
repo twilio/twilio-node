@@ -286,7 +286,9 @@ export class QueryContextImpl implements QueryContext {
   }
 }
 
-interface QueryPayload extends QueryResource, TwilioResponsePayload {}
+interface QueryPayload extends TwilioResponsePayload {
+  queries: QueryResource[];
+}
 
 interface QueryResource {
   account_sid?: string | null;
@@ -310,7 +312,7 @@ export class QueryInstance {
 
   constructor(
     protected _version: Understand,
-    payload: QueryPayload,
+    payload: QueryResource,
     assistantSid: string,
     sid?: string
   ) {
@@ -804,7 +806,7 @@ export class QueryPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: QueryPayload): QueryInstance {
+  getInstance(payload: QueryResource): QueryInstance {
     return new QueryInstance(
       this._version,
       payload,

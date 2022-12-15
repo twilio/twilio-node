@@ -332,7 +332,9 @@ export class WorkflowContextImpl implements WorkflowContext {
   }
 }
 
-interface WorkflowPayload extends WorkflowResource, TwilioResponsePayload {}
+interface WorkflowPayload extends TwilioResponsePayload {
+  workflows: WorkflowResource[];
+}
 
 interface WorkflowResource {
   account_sid?: string | null;
@@ -356,7 +358,7 @@ export class WorkflowInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkflowPayload,
+    payload: WorkflowResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -886,7 +888,7 @@ export class WorkflowPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkflowPayload): WorkflowInstance {
+  getInstance(payload: WorkflowResource): WorkflowInstance {
     return new WorkflowInstance(
       this._version,
       payload,

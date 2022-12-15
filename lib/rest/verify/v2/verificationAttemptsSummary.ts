@@ -178,7 +178,7 @@ export class VerificationAttemptsSummaryInstance {
 
   constructor(
     protected _version: V2,
-    payload: VerificationAttemptsSummaryPayload
+    payload: VerificationAttemptsSummaryResource
   ) {
     this.totalAttempts = deserialize.integer(payload.total_attempts);
     this.totalConverted = deserialize.integer(payload.total_converted);

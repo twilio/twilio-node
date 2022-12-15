@@ -317,9 +317,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   }
 }
 
-interface TrustProductsPayload
-  extends TrustProductsResource,
-    TwilioResponsePayload {}
+interface TrustProductsPayload extends TwilioResponsePayload {
+  results: TrustProductsResource[];
+}
 
 interface TrustProductsResource {
   sid?: string | null;
@@ -342,7 +342,7 @@ export class TrustProductsInstance {
 
   constructor(
     protected _version: V1,
-    payload: TrustProductsPayload,
+    payload: TrustProductsResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -850,7 +850,7 @@ export class TrustProductsPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TrustProductsPayload): TrustProductsInstance {
+  getInstance(payload: TrustProductsResource): TrustProductsInstance {
     return new TrustProductsInstance(this._version, payload);
   }
 

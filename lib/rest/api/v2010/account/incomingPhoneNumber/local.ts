@@ -528,7 +528,9 @@ export type LocalVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface LocalPayload extends LocalResource, TwilioResponsePayload {}
+interface LocalPayload extends TwilioResponsePayload {
+  incoming_phone_numbers: LocalResource[];
+}
 
 interface LocalResource {
   account_sid?: string | null;
@@ -570,7 +572,7 @@ interface LocalResource {
 export class LocalInstance {
   constructor(
     protected _version: V2010,
-    payload: LocalPayload,
+    payload: LocalResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -803,7 +805,7 @@ export class LocalPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LocalPayload): LocalInstance {
+  getInstance(payload: LocalResource): LocalInstance {
     return new LocalInstance(this._version, payload, this._solution.accountSid);
   }
 

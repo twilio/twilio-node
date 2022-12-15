@@ -695,7 +695,9 @@ export function RecordListInstance(
   return instance;
 }
 
-interface RecordPayload extends RecordResource, TwilioResponsePayload {}
+interface RecordPayload extends TwilioResponsePayload {
+  usage_records: RecordResource[];
+}
 
 interface RecordResource {
   account_sid?: string | null;
@@ -718,7 +720,7 @@ interface RecordResource {
 export class RecordInstance {
   constructor(
     protected _version: V2010,
-    payload: RecordPayload,
+    payload: RecordResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -852,7 +854,7 @@ export class RecordPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordPayload): RecordInstance {
+  getInstance(payload: RecordResource): RecordInstance {
     return new RecordInstance(
       this._version,
       payload,

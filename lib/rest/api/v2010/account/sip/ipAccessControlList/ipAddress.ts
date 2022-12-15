@@ -277,7 +277,9 @@ export class IpAddressContextImpl implements IpAddressContext {
   }
 }
 
-interface IpAddressPayload extends IpAddressResource, TwilioResponsePayload {}
+interface IpAddressPayload extends TwilioResponsePayload {
+  ip_addresses: IpAddressResource[];
+}
 
 interface IpAddressResource {
   sid?: string | null;
@@ -297,7 +299,7 @@ export class IpAddressInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IpAddressPayload,
+    payload: IpAddressResource,
     accountSid: string,
     ipAccessControlListSid: string,
     sid?: string
@@ -785,7 +787,7 @@ export class IpAddressPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpAddressPayload): IpAddressInstance {
+  getInstance(payload: IpAddressResource): IpAddressInstance {
     return new IpAddressInstance(
       this._version,
       payload,

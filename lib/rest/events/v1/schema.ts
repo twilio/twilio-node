@@ -113,7 +113,7 @@ export class SchemaInstance {
   protected _solution: SchemaContextSolution;
   protected _context?: SchemaContext;
 
-  constructor(protected _version: V1, payload: SchemaPayload, id?: string) {
+  constructor(protected _version: V1, payload: SchemaResource, id?: string) {
     this.id = payload.id;
     this.url = payload.url;
     this.links = payload.links;

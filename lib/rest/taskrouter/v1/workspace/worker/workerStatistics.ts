@@ -162,7 +162,7 @@ export class WorkerStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkerStatisticsPayload,
+    payload: WorkerStatisticsResource,
     workspaceSid: string,
     workerSid: string
   ) {

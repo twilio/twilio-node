@@ -158,7 +158,7 @@ interface TokenResource {
 export class TokenInstance {
   constructor(
     protected _version: V2010,
-    payload: TokenPayload,
+    payload: TokenResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;

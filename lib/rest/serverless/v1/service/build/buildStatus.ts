@@ -115,7 +115,7 @@ export class BuildStatusInstance {
 
   constructor(
     protected _version: V1,
-    payload: BuildStatusPayload,
+    payload: BuildStatusResource,
     serviceSid: string,
     sid: string
   ) {

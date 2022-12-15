@@ -267,9 +267,9 @@ export class DocumentPermissionContextImpl
   }
 }
 
-interface DocumentPermissionPayload
-  extends DocumentPermissionResource,
-    TwilioResponsePayload {}
+interface DocumentPermissionPayload extends TwilioResponsePayload {
+  permissions: DocumentPermissionResource[];
+}
 
 interface DocumentPermissionResource {
   account_sid?: string | null;
@@ -288,7 +288,7 @@ export class DocumentPermissionInstance {
 
   constructor(
     protected _version: V1,
-    payload: DocumentPermissionPayload,
+    payload: DocumentPermissionResource,
     serviceSid: string,
     documentSid: string,
     identity?: string
@@ -703,7 +703,7 @@ export class DocumentPermissionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance {
+  getInstance(payload: DocumentPermissionResource): DocumentPermissionInstance {
     return new DocumentPermissionInstance(
       this._version,
       payload,

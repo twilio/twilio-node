@@ -162,9 +162,9 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
   }
 }
 
-interface PublishedTrackPayload
-  extends PublishedTrackResource,
-    TwilioResponsePayload {}
+interface PublishedTrackPayload extends TwilioResponsePayload {
+  published_tracks: PublishedTrackResource[];
+}
 
 interface PublishedTrackResource {
   sid?: string | null;
@@ -184,7 +184,7 @@ export class PublishedTrackInstance {
 
   constructor(
     protected _version: V1,
-    payload: PublishedTrackPayload,
+    payload: PublishedTrackResource,
     roomSid: string,
     participantSid: string,
     sid?: string
@@ -561,7 +561,7 @@ export class PublishedTrackPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance {
+  getInstance(payload: PublishedTrackResource): PublishedTrackInstance {
     return new PublishedTrackInstance(
       this._version,
       payload,

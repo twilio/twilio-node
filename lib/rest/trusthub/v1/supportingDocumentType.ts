@@ -148,9 +148,9 @@ export class SupportingDocumentTypeContextImpl
   }
 }
 
-interface SupportingDocumentTypePayload
-  extends SupportingDocumentTypeResource,
-    TwilioResponsePayload {}
+interface SupportingDocumentTypePayload extends TwilioResponsePayload {
+  supporting_document_types: SupportingDocumentTypeResource[];
+}
 
 interface SupportingDocumentTypeResource {
   sid?: string | null;
@@ -166,7 +166,7 @@ export class SupportingDocumentTypeInstance {
 
   constructor(
     protected _version: V1,
-    payload: SupportingDocumentTypePayload,
+    payload: SupportingDocumentTypeResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -519,7 +519,7 @@ export class SupportingDocumentTypePage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: SupportingDocumentTypePayload
+    payload: SupportingDocumentTypeResource
   ): SupportingDocumentTypeInstance {
     return new SupportingDocumentTypeInstance(this._version, payload);
   }

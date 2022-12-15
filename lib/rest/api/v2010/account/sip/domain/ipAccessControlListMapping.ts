@@ -198,9 +198,9 @@ export class IpAccessControlListMappingContextImpl
   }
 }
 
-interface IpAccessControlListMappingPayload
-  extends IpAccessControlListMappingResource,
-    TwilioResponsePayload {}
+interface IpAccessControlListMappingPayload extends TwilioResponsePayload {
+  ip_access_control_list_mappings: IpAccessControlListMappingResource[];
+}
 
 interface IpAccessControlListMappingResource {
   account_sid?: string | null;
@@ -218,7 +218,7 @@ export class IpAccessControlListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IpAccessControlListMappingPayload,
+    payload: IpAccessControlListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -712,7 +712,7 @@ export class IpAccessControlListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: IpAccessControlListMappingPayload
+    payload: IpAccessControlListMappingResource
   ): IpAccessControlListMappingInstance {
     return new IpAccessControlListMappingInstance(
       this._version,

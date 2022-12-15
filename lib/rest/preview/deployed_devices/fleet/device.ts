@@ -282,7 +282,9 @@ export class DeviceContextImpl implements DeviceContext {
   }
 }
 
-interface DevicePayload extends DeviceResource, TwilioResponsePayload {}
+interface DevicePayload extends TwilioResponsePayload {
+  devices: DeviceResource[];
+}
 
 interface DeviceResource {
   sid?: string | null;
@@ -305,7 +307,7 @@ export class DeviceInstance {
 
   constructor(
     protected _version: DeployedDevices,
-    payload: DevicePayload,
+    payload: DeviceResource,
     fleetSid: string,
     sid?: string
   ) {
@@ -799,7 +801,7 @@ export class DevicePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DevicePayload): DeviceInstance {
+  getInstance(payload: DeviceResource): DeviceInstance {
     return new DeviceInstance(this._version, payload, this._solution.fleetSid);
   }
 

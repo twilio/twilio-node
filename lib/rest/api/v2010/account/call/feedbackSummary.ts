@@ -170,7 +170,7 @@ export class FeedbackSummaryInstance {
 
   constructor(
     protected _version: V2010,
-    payload: FeedbackSummaryPayload,
+    payload: FeedbackSummaryResource,
     accountSid: string,
     sid?: string
   ) {

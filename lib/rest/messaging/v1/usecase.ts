@@ -92,7 +92,7 @@ interface UsecaseResource {
 }
 
 export class UsecaseInstance {
-  constructor(protected _version: V1, payload: UsecasePayload) {
+  constructor(protected _version: V1, payload: UsecaseResource) {
     this.usecases = payload.usecases;
   }
 

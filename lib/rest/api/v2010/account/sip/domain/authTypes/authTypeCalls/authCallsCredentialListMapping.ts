@@ -198,9 +198,9 @@ export class AuthCallsCredentialListMappingContextImpl
   }
 }
 
-interface AuthCallsCredentialListMappingPayload
-  extends AuthCallsCredentialListMappingResource,
-    TwilioResponsePayload {}
+interface AuthCallsCredentialListMappingPayload extends TwilioResponsePayload {
+  contents: AuthCallsCredentialListMappingResource[];
+}
 
 interface AuthCallsCredentialListMappingResource {
   account_sid?: string | null;
@@ -216,7 +216,7 @@ export class AuthCallsCredentialListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthCallsCredentialListMappingPayload,
+    payload: AuthCallsCredentialListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -701,7 +701,7 @@ export class AuthCallsCredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthCallsCredentialListMappingPayload
+    payload: AuthCallsCredentialListMappingResource
   ): AuthCallsCredentialListMappingInstance {
     return new AuthCallsCredentialListMappingInstance(
       this._version,

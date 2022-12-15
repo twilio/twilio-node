@@ -282,7 +282,9 @@ export class SampleContextImpl implements SampleContext {
   }
 }
 
-interface SamplePayload extends SampleResource, TwilioResponsePayload {}
+interface SamplePayload extends TwilioResponsePayload {
+  samples: SampleResource[];
+}
 
 interface SampleResource {
   account_sid?: string | null;
@@ -303,7 +305,7 @@ export class SampleInstance {
 
   constructor(
     protected _version: V1,
-    payload: SamplePayload,
+    payload: SampleResource,
     assistantSid: string,
     taskSid: string,
     sid?: string
@@ -786,7 +788,7 @@ export class SamplePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SamplePayload): SampleInstance {
+  getInstance(payload: SampleResource): SampleInstance {
     return new SampleInstance(
       this._version,
       payload,

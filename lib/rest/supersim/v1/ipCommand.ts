@@ -184,7 +184,9 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 }
 
-interface IpCommandPayload extends IpCommandResource, TwilioResponsePayload {}
+interface IpCommandPayload extends TwilioResponsePayload {
+  ip_commands: IpCommandResource[];
+}
 
 interface IpCommandResource {
   sid?: string | null;
@@ -206,7 +208,11 @@ export class IpCommandInstance {
   protected _solution: IpCommandContextSolution;
   protected _context?: IpCommandContext;
 
-  constructor(protected _version: V1, payload: IpCommandPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: IpCommandResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
@@ -643,7 +649,7 @@ export class IpCommandPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpCommandPayload): IpCommandInstance {
+  getInstance(payload: IpCommandResource): IpCommandInstance {
     return new IpCommandInstance(this._version, payload);
   }
 

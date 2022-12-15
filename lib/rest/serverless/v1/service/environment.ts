@@ -225,9 +225,9 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   }
 }
 
-interface EnvironmentPayload
-  extends EnvironmentResource,
-    TwilioResponsePayload {}
+interface EnvironmentPayload extends TwilioResponsePayload {
+  environments: EnvironmentResource[];
+}
 
 interface EnvironmentResource {
   sid?: string | null;
@@ -249,7 +249,7 @@ export class EnvironmentInstance {
 
   constructor(
     protected _version: V1,
-    payload: EnvironmentPayload,
+    payload: EnvironmentResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -718,7 +718,7 @@ export class EnvironmentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EnvironmentPayload): EnvironmentInstance {
+  getInstance(payload: EnvironmentResource): EnvironmentInstance {
     return new EnvironmentInstance(
       this._version,
       payload,

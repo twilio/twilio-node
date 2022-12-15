@@ -262,7 +262,9 @@ export class RatePlanContextImpl implements RatePlanContext {
   }
 }
 
-interface RatePlanPayload extends RatePlanResource, TwilioResponsePayload {}
+interface RatePlanPayload extends TwilioResponsePayload {
+  rate_plans: RatePlanResource[];
+}
 
 interface RatePlanResource {
   sid?: string | null;
@@ -287,7 +289,7 @@ export class RatePlanInstance {
   protected _solution: RatePlanContextSolution;
   protected _context?: RatePlanContext;
 
-  constructor(protected _version: V1, payload: RatePlanPayload, sid?: string) {
+  constructor(protected _version: V1, payload: RatePlanResource, sid?: string) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -807,7 +809,7 @@ export class RatePlanPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RatePlanPayload): RatePlanInstance {
+  getInstance(payload: RatePlanResource): RatePlanInstance {
     return new RatePlanInstance(this._version, payload);
   }
 

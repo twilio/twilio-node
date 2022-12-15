@@ -178,7 +178,7 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V1, payload: ConfigurationPayload) {
+  constructor(protected _version: V1, payload: ConfigurationResource) {
     this.accountSid = payload.account_sid;
     this.defaultChatServiceSid = payload.default_chat_service_sid;
     this.defaultMessagingServiceSid = payload.default_messaging_service_sid;

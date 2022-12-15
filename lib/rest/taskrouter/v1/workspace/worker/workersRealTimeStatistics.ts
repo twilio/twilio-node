@@ -160,7 +160,7 @@ export class WorkersRealTimeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkersRealTimeStatisticsPayload,
+    payload: WorkersRealTimeStatisticsResource,
     workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;

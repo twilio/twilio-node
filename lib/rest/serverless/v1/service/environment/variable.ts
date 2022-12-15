@@ -269,7 +269,9 @@ export class VariableContextImpl implements VariableContext {
   }
 }
 
-interface VariablePayload extends VariableResource, TwilioResponsePayload {}
+interface VariablePayload extends TwilioResponsePayload {
+  variables: VariableResource[];
+}
 
 interface VariableResource {
   sid?: string | null;
@@ -289,7 +291,7 @@ export class VariableInstance {
 
   constructor(
     protected _version: V1,
-    payload: VariablePayload,
+    payload: VariableResource,
     serviceSid: string,
     environmentSid: string,
     sid?: string
@@ -763,7 +765,7 @@ export class VariablePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VariablePayload): VariableInstance {
+  getInstance(payload: VariableResource): VariableInstance {
     return new VariableInstance(
       this._version,
       payload,

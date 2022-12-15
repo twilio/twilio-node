@@ -129,7 +129,7 @@ export class UserDefinedMessageSubscriptionInstance {
 
   constructor(
     protected _version: V2010,
-    payload: UserDefinedMessageSubscriptionPayload,
+    payload: UserDefinedMessageSubscriptionResource,
     accountSid: string,
     callSid: string,
     sid?: string

@@ -147,7 +147,7 @@ export class UsageInstance {
 
   constructor(
     protected _version: Wireless,
-    payload: UsagePayload,
+    payload: UsageResource,
     simSid: string
   ) {
     this.simSid = payload.sim_sid;

@@ -159,9 +159,9 @@ export class AssetVersionContextImpl implements AssetVersionContext {
   }
 }
 
-interface AssetVersionPayload
-  extends AssetVersionResource,
-    TwilioResponsePayload {}
+interface AssetVersionPayload extends TwilioResponsePayload {
+  asset_versions: AssetVersionResource[];
+}
 
 interface AssetVersionResource {
   sid?: string | null;
@@ -180,7 +180,7 @@ export class AssetVersionInstance {
 
   constructor(
     protected _version: V1,
-    payload: AssetVersionPayload,
+    payload: AssetVersionResource,
     serviceSid: string,
     assetSid: string,
     sid?: string
@@ -543,7 +543,7 @@ export class AssetVersionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssetVersionPayload): AssetVersionInstance {
+  getInstance(payload: AssetVersionResource): AssetVersionInstance {
     return new AssetVersionInstance(
       this._version,
       payload,

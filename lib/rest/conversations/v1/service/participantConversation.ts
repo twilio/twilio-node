@@ -338,9 +338,9 @@ export function ParticipantConversationListInstance(
   return instance;
 }
 
-interface ParticipantConversationPayload
-  extends ParticipantConversationResource,
-    TwilioResponsePayload {}
+interface ParticipantConversationPayload extends TwilioResponsePayload {
+  conversations: ParticipantConversationResource[];
+}
 
 interface ParticipantConversationResource {
   account_sid?: string | null;
@@ -364,7 +364,7 @@ interface ParticipantConversationResource {
 export class ParticipantConversationInstance {
   constructor(
     protected _version: V1,
-    payload: ParticipantConversationPayload,
+    payload: ParticipantConversationResource,
     chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -509,7 +509,7 @@ export class ParticipantConversationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: ParticipantConversationPayload
+    payload: ParticipantConversationResource
   ): ParticipantConversationInstance {
     return new ParticipantConversationInstance(
       this._version,

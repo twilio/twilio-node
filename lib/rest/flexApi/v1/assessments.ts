@@ -90,7 +90,7 @@ export class AssessmentsInstance {
   protected _solution: AssessmentsContextSolution;
   protected _context?: AssessmentsContext;
 
-  constructor(protected _version: V1, payload: AssessmentsPayload) {
+  constructor(protected _version: V1, payload: AssessmentsResource) {
     this.url = payload.url;
 
     this._solution = {};

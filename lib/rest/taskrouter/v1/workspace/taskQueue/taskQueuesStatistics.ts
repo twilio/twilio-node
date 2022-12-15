@@ -362,9 +362,9 @@ export function TaskQueuesStatisticsListInstance(
   return instance;
 }
 
-interface TaskQueuesStatisticsPayload
-  extends TaskQueuesStatisticsResource,
-    TwilioResponsePayload {}
+interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
+  task_queues_statistics: TaskQueuesStatisticsResource[];
+}
 
 interface TaskQueuesStatisticsResource {
   account_sid?: string | null;
@@ -377,7 +377,7 @@ interface TaskQueuesStatisticsResource {
 export class TaskQueuesStatisticsInstance {
   constructor(
     protected _version: V1,
-    payload: TaskQueuesStatisticsPayload,
+    payload: TaskQueuesStatisticsResource,
     workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -455,7 +455,7 @@ export class TaskQueuesStatisticsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TaskQueuesStatisticsPayload
+    payload: TaskQueuesStatisticsResource
   ): TaskQueuesStatisticsInstance {
     return new TaskQueuesStatisticsInstance(
       this._version,

@@ -184,9 +184,9 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 }
 
-interface TranscriptionPayload
-  extends TranscriptionResource,
-    TwilioResponsePayload {}
+interface TranscriptionPayload extends TwilioResponsePayload {
+  transcriptions: TranscriptionResource[];
+}
 
 interface TranscriptionResource {
   account_sid?: string | null;
@@ -210,7 +210,7 @@ export class TranscriptionInstance {
 
   constructor(
     protected _version: V2010,
-    payload: TranscriptionPayload,
+    payload: TranscriptionResource,
     accountSid: string,
     recordingSid: string,
     sid?: string
@@ -623,7 +623,7 @@ export class TranscriptionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TranscriptionPayload): TranscriptionInstance {
+  getInstance(payload: TranscriptionResource): TranscriptionInstance {
     return new TranscriptionInstance(
       this._version,
       payload,

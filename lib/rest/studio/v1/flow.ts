@@ -185,7 +185,9 @@ export class FlowContextImpl implements FlowContext {
   }
 }
 
-interface FlowPayload extends FlowResource, TwilioResponsePayload {}
+interface FlowPayload extends TwilioResponsePayload {
+  flows: FlowResource[];
+}
 
 interface FlowResource {
   sid?: string | null;
@@ -203,7 +205,7 @@ export class FlowInstance {
   protected _solution: FlowContextSolution;
   protected _context?: FlowContext;
 
-  constructor(protected _version: V1, payload: FlowPayload, sid?: string) {
+  constructor(protected _version: V1, payload: FlowResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -569,7 +571,7 @@ export class FlowPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FlowPayload): FlowInstance {
+  getInstance(payload: FlowResource): FlowInstance {
     return new FlowInstance(this._version, payload);
   }
 

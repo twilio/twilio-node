@@ -400,9 +400,9 @@ export function InteractionChannelInviteListInstance(
   return instance;
 }
 
-interface InteractionChannelInvitePayload
-  extends InteractionChannelInviteResource,
-    TwilioResponsePayload {}
+interface InteractionChannelInvitePayload extends TwilioResponsePayload {
+  invites: InteractionChannelInviteResource[];
+}
 
 interface InteractionChannelInviteResource {
   sid?: string | null;
@@ -415,7 +415,7 @@ interface InteractionChannelInviteResource {
 export class InteractionChannelInviteInstance {
   constructor(
     protected _version: V1,
-    payload: InteractionChannelInvitePayload,
+    payload: InteractionChannelInviteResource,
     interactionSid: string,
     channelSid: string
   ) {
@@ -491,7 +491,7 @@ export class InteractionChannelInvitePage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InteractionChannelInvitePayload
+    payload: InteractionChannelInviteResource
   ): InteractionChannelInviteInstance {
     return new InteractionChannelInviteInstance(
       this._version,

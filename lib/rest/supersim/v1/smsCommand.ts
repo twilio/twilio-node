@@ -172,7 +172,9 @@ export class SmsCommandContextImpl implements SmsCommandContext {
   }
 }
 
-interface SmsCommandPayload extends SmsCommandResource, TwilioResponsePayload {}
+interface SmsCommandPayload extends TwilioResponsePayload {
+  sms_commands: SmsCommandResource[];
+}
 
 interface SmsCommandResource {
   sid?: string | null;
@@ -192,7 +194,7 @@ export class SmsCommandInstance {
 
   constructor(
     protected _version: V1,
-    payload: SmsCommandPayload,
+    payload: SmsCommandResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -601,7 +603,7 @@ export class SmsCommandPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SmsCommandPayload): SmsCommandInstance {
+  getInstance(payload: SmsCommandResource): SmsCommandInstance {
     return new SmsCommandInstance(this._version, payload);
   }
 

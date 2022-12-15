@@ -274,7 +274,9 @@ export class QueueContextImpl implements QueueContext {
   }
 }
 
-interface QueuePayload extends QueueResource, TwilioResponsePayload {}
+interface QueuePayload extends TwilioResponsePayload {
+  queues: QueueResource[];
+}
 
 interface QueueResource {
   date_updated?: string | null;
@@ -294,7 +296,7 @@ export class QueueInstance {
 
   constructor(
     protected _version: V2010,
-    payload: QueuePayload,
+    payload: QueueResource,
     accountSid: string,
     sid?: string
   ) {
@@ -760,7 +762,7 @@ export class QueuePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: QueuePayload): QueueInstance {
+  getInstance(payload: QueueResource): QueueInstance {
     return new QueueInstance(this._version, payload, this._solution.accountSid);
   }
 

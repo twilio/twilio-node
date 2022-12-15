@@ -154,7 +154,7 @@ interface NewSigningKeyResource {
 export class NewSigningKeyInstance {
   constructor(
     protected _version: V2010,
-    payload: NewSigningKeyPayload,
+    payload: NewSigningKeyResource,
     accountSid: string
   ) {
     this.sid = payload.sid;

@@ -269,7 +269,9 @@ export class SinkContextImpl implements SinkContext {
   }
 }
 
-interface SinkPayload extends SinkResource, TwilioResponsePayload {}
+interface SinkPayload extends TwilioResponsePayload {
+  sinks: SinkResource[];
+}
 
 interface SinkResource {
   date_created?: Date | null;
@@ -287,7 +289,7 @@ export class SinkInstance {
   protected _solution: SinkContextSolution;
   protected _context?: SinkContext;
 
-  constructor(protected _version: V1, payload: SinkPayload, sid?: string) {
+  constructor(protected _version: V1, payload: SinkResource, sid?: string) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.description = payload.description;
@@ -738,7 +740,7 @@ export class SinkPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SinkPayload): SinkInstance {
+  getInstance(payload: SinkResource): SinkInstance {
     return new SinkInstance(this._version, payload);
   }
 

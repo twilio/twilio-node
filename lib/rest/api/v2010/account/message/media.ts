@@ -200,7 +200,9 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
-interface MediaPayload extends MediaResource, TwilioResponsePayload {}
+interface MediaPayload extends TwilioResponsePayload {
+  media_list: MediaResource[];
+}
 
 interface MediaResource {
   account_sid?: string | null;
@@ -218,7 +220,7 @@ export class MediaInstance {
 
   constructor(
     protected _version: V2010,
-    payload: MediaPayload,
+    payload: MediaResource,
     accountSid: string,
     messageSid: string,
     sid?: string
@@ -600,7 +602,7 @@ export class MediaPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MediaPayload): MediaInstance {
+  getInstance(payload: MediaResource): MediaInstance {
     return new MediaInstance(
       this._version,
       payload,

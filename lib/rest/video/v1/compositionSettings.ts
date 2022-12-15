@@ -179,7 +179,7 @@ export class CompositionSettingsInstance {
   protected _solution: CompositionSettingsContextSolution;
   protected _context?: CompositionSettingsContext;
 
-  constructor(protected _version: V1, payload: CompositionSettingsPayload) {
+  constructor(protected _version: V1, payload: CompositionSettingsResource) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.awsCredentialsSid = payload.aws_credentials_sid;

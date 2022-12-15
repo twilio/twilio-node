@@ -301,9 +301,9 @@ export class AuthorizationDocumentContextImpl
   }
 }
 
-interface AuthorizationDocumentPayload
-  extends AuthorizationDocumentResource,
-    TwilioResponsePayload {}
+interface AuthorizationDocumentPayload extends TwilioResponsePayload {
+  items: AuthorizationDocumentResource[];
+}
 
 interface AuthorizationDocumentResource {
   sid?: string | null;
@@ -323,7 +323,7 @@ export class AuthorizationDocumentInstance {
 
   constructor(
     protected _version: HostedNumbers,
-    payload: AuthorizationDocumentPayload,
+    payload: AuthorizationDocumentResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -825,7 +825,7 @@ export class AuthorizationDocumentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthorizationDocumentPayload
+    payload: AuthorizationDocumentResource
   ): AuthorizationDocumentInstance {
     return new AuthorizationDocumentInstance(this._version, payload);
   }

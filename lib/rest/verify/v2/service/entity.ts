@@ -223,7 +223,9 @@ export class EntityContextImpl implements EntityContext {
   }
 }
 
-interface EntityPayload extends EntityResource, TwilioResponsePayload {}
+interface EntityPayload extends TwilioResponsePayload {
+  entities: EntityResource[];
+}
 
 interface EntityResource {
   sid?: string | null;
@@ -242,7 +244,7 @@ export class EntityInstance {
 
   constructor(
     protected _version: V2,
-    payload: EntityPayload,
+    payload: EntityResource,
     serviceSid: string,
     identity?: string
   ) {
@@ -687,7 +689,7 @@ export class EntityPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EntityPayload): EntityInstance {
+  getInstance(payload: EntityResource): EntityInstance {
     return new EntityInstance(
       this._version,
       payload,

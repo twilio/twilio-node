@@ -573,7 +573,9 @@ export function AllTimeListInstance(
   return instance;
 }
 
-interface AllTimePayload extends AllTimeResource, TwilioResponsePayload {}
+interface AllTimePayload extends TwilioResponsePayload {
+  usage_records: AllTimeResource[];
+}
 
 interface AllTimeResource {
   account_sid?: string | null;
@@ -596,7 +598,7 @@ interface AllTimeResource {
 export class AllTimeInstance {
   constructor(
     protected _version: V2010,
-    payload: AllTimePayload,
+    payload: AllTimeResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -730,7 +732,7 @@ export class AllTimePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AllTimePayload): AllTimeInstance {
+  getInstance(payload: AllTimeResource): AllTimeInstance {
     return new AllTimeInstance(
       this._version,
       payload,

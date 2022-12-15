@@ -265,9 +265,9 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 }
 
-interface SyncMapPermissionPayload
-  extends SyncMapPermissionResource,
-    TwilioResponsePayload {}
+interface SyncMapPermissionPayload extends TwilioResponsePayload {
+  permissions: SyncMapPermissionResource[];
+}
 
 interface SyncMapPermissionResource {
   account_sid?: string | null;
@@ -286,7 +286,7 @@ export class SyncMapPermissionInstance {
 
   constructor(
     protected _version: Sync,
-    payload: SyncMapPermissionPayload,
+    payload: SyncMapPermissionResource,
     serviceSid: string,
     mapSid: string,
     identity?: string
@@ -701,7 +701,7 @@ export class SyncMapPermissionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance {
+  getInstance(payload: SyncMapPermissionResource): SyncMapPermissionInstance {
     return new SyncMapPermissionInstance(
       this._version,
       payload,

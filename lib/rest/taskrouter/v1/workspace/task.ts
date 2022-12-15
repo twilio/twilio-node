@@ -394,7 +394,9 @@ export class TaskContextImpl implements TaskContext {
   }
 }
 
-interface TaskPayload extends TaskResource, TwilioResponsePayload {}
+interface TaskPayload extends TwilioResponsePayload {
+  tasks: TaskResource[];
+}
 
 interface TaskResource {
   account_sid?: string | null;
@@ -426,7 +428,7 @@ export class TaskInstance {
 
   constructor(
     protected _version: V1,
-    payload: TaskPayload,
+    payload: TaskResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -1003,7 +1005,7 @@ export class TaskPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskPayload): TaskInstance {
+  getInstance(payload: TaskResource): TaskInstance {
     return new TaskInstance(
       this._version,
       payload,

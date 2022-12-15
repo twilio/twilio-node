@@ -262,7 +262,9 @@ export class FunctionContextImpl implements FunctionContext {
   }
 }
 
-interface FunctionPayload extends FunctionResource, TwilioResponsePayload {}
+interface FunctionPayload extends TwilioResponsePayload {
+  functions: FunctionResource[];
+}
 
 interface FunctionResource {
   sid?: string | null;
@@ -281,7 +283,7 @@ export class FunctionInstance {
 
   constructor(
     protected _version: V1,
-    payload: FunctionPayload,
+    payload: FunctionResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -734,7 +736,7 @@ export class FunctionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FunctionPayload): FunctionInstance {
+  getInstance(payload: FunctionResource): FunctionInstance {
     return new FunctionInstance(
       this._version,
       payload,

@@ -261,9 +261,9 @@ export class MessagingConfigurationContextImpl
   }
 }
 
-interface MessagingConfigurationPayload
-  extends MessagingConfigurationResource,
-    TwilioResponsePayload {}
+interface MessagingConfigurationPayload extends TwilioResponsePayload {
+  messaging_configurations: MessagingConfigurationResource[];
+}
 
 interface MessagingConfigurationResource {
   account_sid?: string | null;
@@ -281,7 +281,7 @@ export class MessagingConfigurationInstance {
 
   constructor(
     protected _version: V2,
-    payload: MessagingConfigurationPayload,
+    payload: MessagingConfigurationResource,
     serviceSid: string,
     country?: string
   ) {
@@ -761,7 +761,7 @@ export class MessagingConfigurationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: MessagingConfigurationPayload
+    payload: MessagingConfigurationResource
   ): MessagingConfigurationInstance {
     return new MessagingConfigurationInstance(
       this._version,

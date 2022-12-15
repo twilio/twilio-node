@@ -142,7 +142,9 @@ export class EventTypeContextImpl implements EventTypeContext {
   }
 }
 
-interface EventTypePayload extends EventTypeResource, TwilioResponsePayload {}
+interface EventTypePayload extends TwilioResponsePayload {
+  types: EventTypeResource[];
+}
 
 interface EventTypeResource {
   type?: string | null;
@@ -160,7 +162,7 @@ export class EventTypeInstance {
 
   constructor(
     protected _version: V1,
-    payload: EventTypePayload,
+    payload: EventTypeResource,
     type?: string
   ) {
     this.type = payload.type;
@@ -495,7 +497,7 @@ export class EventTypePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EventTypePayload): EventTypeInstance {
+  getInstance(payload: EventTypeResource): EventTypeInstance {
     return new EventTypeInstance(this._version, payload);
   }
 

@@ -319,9 +319,9 @@ export function SettingsUpdateListInstance(
   return instance;
 }
 
-interface SettingsUpdatePayload
-  extends SettingsUpdateResource,
-    TwilioResponsePayload {}
+interface SettingsUpdatePayload extends TwilioResponsePayload {
+  settings_updates: SettingsUpdateResource[];
+}
 
 interface SettingsUpdateResource {
   sid?: string | null;
@@ -335,7 +335,7 @@ interface SettingsUpdateResource {
 }
 
 export class SettingsUpdateInstance {
-  constructor(protected _version: V1, payload: SettingsUpdatePayload) {
+  constructor(protected _version: V1, payload: SettingsUpdateResource) {
     this.sid = payload.sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
@@ -425,7 +425,7 @@ export class SettingsUpdatePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SettingsUpdatePayload): SettingsUpdateInstance {
+  getInstance(payload: SettingsUpdateResource): SettingsUpdateInstance {
     return new SettingsUpdateInstance(this._version, payload);
   }
 

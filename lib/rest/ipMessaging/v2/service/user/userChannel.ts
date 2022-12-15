@@ -270,9 +270,9 @@ export class UserChannelContextImpl implements UserChannelContext {
   }
 }
 
-interface UserChannelPayload
-  extends UserChannelResource,
-    TwilioResponsePayload {}
+interface UserChannelPayload extends TwilioResponsePayload {
+  channels: UserChannelResource[];
+}
 
 interface UserChannelResource {
   account_sid?: string | null;
@@ -294,7 +294,7 @@ export class UserChannelInstance {
 
   constructor(
     protected _version: V2,
-    payload: UserChannelPayload,
+    payload: UserChannelResource,
     serviceSid: string,
     userSid: string,
     channelSid?: string
@@ -693,7 +693,7 @@ export class UserChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserChannelPayload): UserChannelInstance {
+  getInstance(payload: UserChannelResource): UserChannelInstance {
     return new UserChannelInstance(
       this._version,
       payload,

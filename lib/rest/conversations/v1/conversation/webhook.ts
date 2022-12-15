@@ -291,7 +291,9 @@ export class WebhookContextImpl implements WebhookContext {
   }
 }
 
-interface WebhookPayload extends WebhookResource, TwilioResponsePayload {}
+interface WebhookPayload extends TwilioResponsePayload {
+  webhooks: WebhookResource[];
+}
 
 interface WebhookResource {
   sid?: string | null;
@@ -310,7 +312,7 @@ export class WebhookInstance {
 
   constructor(
     protected _version: V1,
-    payload: WebhookPayload,
+    payload: WebhookResource,
     conversationSid: string,
     sid?: string
   ) {
@@ -781,7 +783,7 @@ export class WebhookPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WebhookPayload): WebhookInstance {
+  getInstance(payload: WebhookResource): WebhookInstance {
     return new WebhookInstance(
       this._version,
       payload,

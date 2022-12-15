@@ -175,7 +175,7 @@ export class PlaybackGrantInstance {
 
   constructor(
     protected _version: V1,
-    payload: PlaybackGrantPayload,
+    payload: PlaybackGrantResource,
     sid: string
   ) {
     this.sid = payload.sid;

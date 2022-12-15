@@ -118,7 +118,7 @@ export class TaskStatisticsInstance {
 
   constructor(
     protected _version: Understand,
-    payload: TaskStatisticsPayload,
+    payload: TaskStatisticsResource,
     assistantSid: string,
     taskSid: string
   ) {

@@ -178,7 +178,7 @@ interface VerificationCheckResource {
 export class VerificationCheckInstance {
   constructor(
     protected _version: V2,
-    payload: VerificationCheckPayload,
+    payload: VerificationCheckResource,
     serviceSid: string
   ) {
     this.sid = payload.sid;
