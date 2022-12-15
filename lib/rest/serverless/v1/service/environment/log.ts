@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
@@ -177,7 +177,7 @@ export class LogContextImpl implements LogContext {
   }
 }
 
-interface LogPayload extends LogResource, Page.TwilioResponsePayload {}
+interface LogPayload extends LogResource, TwilioResponsePayload {}
 
 interface LogResource {
   sid?: string | null;

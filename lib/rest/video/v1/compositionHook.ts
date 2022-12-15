@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -333,7 +333,7 @@ export type CompositionHookStatusCallbackMethod =
 
 interface CompositionHookPayload
   extends CompositionHookResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface CompositionHookResource {
   account_sid?: string | null;

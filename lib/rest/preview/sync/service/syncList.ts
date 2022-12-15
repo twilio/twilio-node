@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
@@ -209,9 +209,7 @@ export class SyncListContextImpl implements SyncListContext {
   }
 }
 
-interface SyncListPayload
-  extends SyncListResource,
-    Page.TwilioResponsePayload {}
+interface SyncListPayload extends SyncListResource, TwilioResponsePayload {}
 
 interface SyncListResource {
   sid?: string | null;

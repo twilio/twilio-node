@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -391,7 +391,7 @@ export type DomainVoiceStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {}
+interface DomainPayload extends DomainResource, TwilioResponsePayload {}
 
 interface DomainResource {
   account_sid?: string | null;

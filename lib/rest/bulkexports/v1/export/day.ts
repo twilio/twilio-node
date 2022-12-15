@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -146,7 +146,7 @@ export class DayContextImpl implements DayContext {
   }
 }
 
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {}
+interface DayPayload extends DayResource, TwilioResponsePayload {}
 
 interface DayResource {
   redirect_to?: string | null;

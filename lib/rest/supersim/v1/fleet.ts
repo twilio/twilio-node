@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -275,7 +275,7 @@ export type FleetIpCommandsMethod =
   | "PUT"
   | "DELETE";
 
-interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {}
+interface FleetPayload extends FleetResource, TwilioResponsePayload {}
 
 interface FleetResource {
   account_sid?: string | null;

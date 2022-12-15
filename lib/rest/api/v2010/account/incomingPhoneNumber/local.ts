@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -528,7 +528,7 @@ export type LocalVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {}
+interface LocalPayload extends LocalResource, TwilioResponsePayload {}
 
 interface LocalResource {
   account_sid?: string | null;

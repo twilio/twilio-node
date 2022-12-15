@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -352,9 +352,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 }
 
-interface FlexFlowPayload
-  extends FlexFlowResource,
-    Page.TwilioResponsePayload {}
+interface FlexFlowPayload extends FlexFlowResource, TwilioResponsePayload {}
 
 interface FlexFlowResource {
   account_sid?: string | null;

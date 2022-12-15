@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -447,9 +447,7 @@ export function TollFreeListInstance(
   return instance;
 }
 
-interface TollFreePayload
-  extends TollFreeResource,
-    Page.TwilioResponsePayload {}
+interface TollFreePayload extends TollFreeResource, TwilioResponsePayload {}
 
 interface TollFreeResource {
   friendly_name?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -385,9 +385,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 }
 
-interface WorkspacePayload
-  extends WorkspaceResource,
-    Page.TwilioResponsePayload {}
+interface WorkspacePayload extends WorkspaceResource, TwilioResponsePayload {}
 
 interface WorkspaceResource {
   account_sid?: string | null;

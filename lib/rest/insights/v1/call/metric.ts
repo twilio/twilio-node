@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
@@ -319,7 +319,7 @@ export function MetricListInstance(
   return instance;
 }
 
-interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {}
+interface MetricPayload extends MetricResource, TwilioResponsePayload {}
 
 interface MetricResource {
   timestamp?: string | null;

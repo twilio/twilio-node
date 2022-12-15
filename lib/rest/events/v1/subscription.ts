@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -265,7 +265,7 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
 interface SubscriptionPayload
   extends SubscriptionResource,
-    Page.TwilioResponsePayload {}
+    TwilioResponsePayload {}
 
 interface SubscriptionResource {
   account_sid?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import Understand from "../../../Understand";
 const deserialize = require("../../../../../base/deserialize");
@@ -200,9 +200,7 @@ export class FieldValueContextImpl implements FieldValueContext {
   }
 }
 
-interface FieldValuePayload
-  extends FieldValueResource,
-    Page.TwilioResponsePayload {}
+interface FieldValuePayload extends FieldValueResource, TwilioResponsePayload {}
 
 interface FieldValueResource {
   account_sid?: string | null;

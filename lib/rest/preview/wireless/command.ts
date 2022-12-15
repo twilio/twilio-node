@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import Wireless from "../Wireless";
 const deserialize = require("../../../base/deserialize");
@@ -180,7 +180,7 @@ export class CommandContextImpl implements CommandContext {
   }
 }
 
-interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {}
+interface CommandPayload extends CommandResource, TwilioResponsePayload {}
 
 interface CommandResource {
   sid?: string | null;

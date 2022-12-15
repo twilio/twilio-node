@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
@@ -198,7 +198,7 @@ export class InviteContextImpl implements InviteContext {
   }
 }
 
-interface InvitePayload extends InviteResource, Page.TwilioResponsePayload {}
+interface InvitePayload extends InviteResource, TwilioResponsePayload {}
 
 interface InviteResource {
   sid?: string | null;

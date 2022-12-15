@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
@@ -549,7 +549,7 @@ export type TriggerCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {}
+interface TriggerPayload extends TriggerResource, TwilioResponsePayload {}
 
 interface TriggerResource {
   account_sid?: string | null;

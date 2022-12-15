@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
@@ -185,7 +185,7 @@ export class BindingContextImpl implements BindingContext {
   }
 }
 
-interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {}
+interface BindingPayload extends BindingResource, TwilioResponsePayload {}
 
 interface BindingResource {
   sid?: string | null;

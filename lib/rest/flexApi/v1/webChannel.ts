@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -254,9 +254,7 @@ export class WebChannelContextImpl implements WebChannelContext {
   }
 }
 
-interface WebChannelPayload
-  extends WebChannelResource,
-    Page.TwilioResponsePayload {}
+interface WebChannelPayload extends WebChannelResource, TwilioResponsePayload {}
 
 interface WebChannelResource {
   account_sid?: string | null;

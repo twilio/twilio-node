@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import DeployedDevices from "../../DeployedDevices";
 const deserialize = require("../../../../base/deserialize");
@@ -269,7 +269,7 @@ export class KeyContextImpl implements KeyContext {
   }
 }
 
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {}
+interface KeyPayload extends KeyResource, TwilioResponsePayload {}
 
 interface KeyResource {
   sid?: string | null;

@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
@@ -333,7 +333,7 @@ export class TaskContextImpl implements TaskContext {
   }
 }
 
-interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {}
+interface TaskPayload extends TaskResource, TwilioResponsePayload {}
 
 interface TaskResource {
   account_sid?: string | null;

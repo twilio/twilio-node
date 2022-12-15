@@ -13,7 +13,7 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -161,7 +161,7 @@ export class AppContextImpl implements AppContext {
   }
 }
 
-interface AppPayload extends AppResource, Page.TwilioResponsePayload {}
+interface AppPayload extends AppResource, TwilioResponsePayload {}
 
 interface AppResource {
   sid?: string | null;
