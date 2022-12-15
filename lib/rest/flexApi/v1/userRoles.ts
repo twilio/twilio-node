@@ -67,7 +67,7 @@ export class UserRolesContextImpl implements UserRolesContext {
 
   constructor(protected _version: V1) {
     this._solution = {};
-    this._uri = `/Accounts/UserRoles`;
+    this._uri = `/Insights/UserRoles`;
   }
 
   fetch(params?: any, callback?: any): Promise<UserRolesInstance> {

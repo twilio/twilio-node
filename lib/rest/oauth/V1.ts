@@ -14,6 +14,7 @@
 
 import OauthBase from "../OauthBase";
 import Version from "../../base/Version";
+import { DeviceCodeListInstance } from "./v1/deviceCode";
 import { OauthListInstance } from "./v1/oauth";
 import { OpenidDiscoveryListInstance } from "./v1/openidDiscovery";
 import { TokenListInstance } from "./v1/token";
@@ -23,6 +24,7 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Oauth
    *
+   * @property { Twilio.Oauth.V1.DeviceCodeListInstance } deviceCode - deviceCode resource
    * @property { Twilio.Oauth.V1.OauthListInstance } oauth - oauth resource
    * @property { Twilio.Oauth.V1.OpenidDiscoveryListInstance } openidDiscovery - openidDiscovery resource
    * @property { Twilio.Oauth.V1.TokenListInstance } token - token resource
@@ -34,10 +36,16 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
+  protected _deviceCode?: DeviceCodeListInstance;
   protected _oauth?: OauthListInstance;
   protected _openidDiscovery?: OpenidDiscoveryListInstance;
   protected _token?: TokenListInstance;
   protected _userInfo?: UserInfoListInstance;
+
+  get deviceCode(): DeviceCodeListInstance {
+    this._deviceCode = this._deviceCode || DeviceCodeListInstance(this);
+    return this._deviceCode;
+  }
 
   get oauth(): OauthListInstance {
     this._oauth = this._oauth || OauthListInstance(this);
