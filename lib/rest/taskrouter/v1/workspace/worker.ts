@@ -408,7 +408,9 @@ export class WorkerContextImpl implements WorkerContext {
   }
 }
 
-interface WorkerPayload extends WorkerResource, TwilioResponsePayload {}
+interface WorkerPayload extends TwilioResponsePayload {
+  workers: WorkerResource[];
+}
 
 interface WorkerResource {
   account_sid?: string | null;
@@ -432,7 +434,7 @@ export class WorkerInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkerPayload,
+    payload: WorkerResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -1017,7 +1019,7 @@ export class WorkerPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkerPayload): WorkerInstance {
+  getInstance(payload: WorkerResource): WorkerInstance {
     return new WorkerInstance(
       this._version,
       payload,

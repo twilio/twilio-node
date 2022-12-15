@@ -322,9 +322,9 @@ export class AddressConfigurationContextImpl
   }
 }
 
-interface AddressConfigurationPayload
-  extends AddressConfigurationResource,
-    TwilioResponsePayload {}
+interface AddressConfigurationPayload extends TwilioResponsePayload {
+  address_configurations: AddressConfigurationResource[];
+}
 
 interface AddressConfigurationResource {
   sid?: string | null;
@@ -344,7 +344,7 @@ export class AddressConfigurationInstance {
 
   constructor(
     protected _version: V1,
-    payload: AddressConfigurationPayload,
+    payload: AddressConfigurationResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -837,7 +837,7 @@ export class AddressConfigurationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AddressConfigurationPayload
+    payload: AddressConfigurationResource
   ): AddressConfigurationInstance {
     return new AddressConfigurationInstance(this._version, payload);
   }

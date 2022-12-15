@@ -322,9 +322,9 @@ export function UsageRecordListInstance(
   return instance;
 }
 
-interface UsageRecordPayload
-  extends UsageRecordResource,
-    TwilioResponsePayload {}
+interface UsageRecordPayload extends TwilioResponsePayload {
+  usage_records: UsageRecordResource[];
+}
 
 interface UsageRecordResource {
   sim_sid?: string | null;
@@ -337,7 +337,7 @@ interface UsageRecordResource {
 export class UsageRecordInstance {
   constructor(
     protected _version: V1,
-    payload: UsageRecordPayload,
+    payload: UsageRecordResource,
     simSid: string
   ) {
     this.simSid = payload.sim_sid;
@@ -414,7 +414,7 @@ export class UsageRecordPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UsageRecordPayload): UsageRecordInstance {
+  getInstance(payload: UsageRecordResource): UsageRecordInstance {
     return new UsageRecordInstance(
       this._version,
       payload,

@@ -158,7 +158,7 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-  constructor(protected _version: V1, payload: TokenPayload) {
+  constructor(protected _version: V1, payload: TokenResource) {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;

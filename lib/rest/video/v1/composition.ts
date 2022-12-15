@@ -225,9 +225,9 @@ export type CompositionStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface CompositionPayload
-  extends CompositionResource,
-    TwilioResponsePayload {}
+interface CompositionPayload extends TwilioResponsePayload {
+  compositions: CompositionResource[];
+}
 
 interface CompositionResource {
   account_sid?: string | null;
@@ -259,7 +259,7 @@ export class CompositionInstance {
 
   constructor(
     protected _version: V1,
-    payload: CompositionPayload,
+    payload: CompositionResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -768,7 +768,7 @@ export class CompositionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CompositionPayload): CompositionInstance {
+  getInstance(payload: CompositionResource): CompositionInstance {
     return new CompositionInstance(this._version, payload);
   }
 

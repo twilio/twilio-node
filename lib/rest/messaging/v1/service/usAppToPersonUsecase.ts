@@ -152,7 +152,7 @@ interface UsAppToPersonUsecaseResource {
 export class UsAppToPersonUsecaseInstance {
   constructor(
     protected _version: V1,
-    payload: UsAppToPersonUsecasePayload,
+    payload: UsAppToPersonUsecaseResource,
     messagingServiceSid: string
   ) {
     this.usAppToPersonUsecases = payload.us_app_to_person_usecases;

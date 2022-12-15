@@ -168,7 +168,7 @@ export class WorkersStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkersStatisticsPayload,
+    payload: WorkersStatisticsResource,
     workspaceSid: string
   ) {
     this.realtime = payload.realtime;

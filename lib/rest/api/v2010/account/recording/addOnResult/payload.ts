@@ -189,7 +189,9 @@ export class PayloadContextImpl implements PayloadContext {
   }
 }
 
-interface PayloadPayload extends PayloadResource, TwilioResponsePayload {}
+interface PayloadPayload extends TwilioResponsePayload {
+  payloads: PayloadResource[];
+}
 
 interface PayloadResource {
   sid?: string | null;
@@ -211,7 +213,7 @@ export class PayloadInstance {
 
   constructor(
     protected _version: V2010,
-    payload: PayloadPayload,
+    payload: PayloadResource,
     accountSid: string,
     referenceSid: string,
     addOnResultSid: string,
@@ -626,7 +628,7 @@ export class PayloadPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PayloadPayload): PayloadInstance {
+  getInstance(payload: PayloadResource): PayloadInstance {
     return new PayloadInstance(
       this._version,
       payload,

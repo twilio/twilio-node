@@ -282,7 +282,9 @@ export class FleetContextImpl implements FleetContext {
   }
 }
 
-interface FleetPayload extends FleetResource, TwilioResponsePayload {}
+interface FleetPayload extends TwilioResponsePayload {
+  fleets: FleetResource[];
+}
 
 interface FleetResource {
   sid?: string | null;
@@ -302,7 +304,7 @@ export class FleetInstance {
 
   constructor(
     protected _version: DeployedDevices,
-    payload: FleetPayload,
+    payload: FleetResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -779,7 +781,7 @@ export class FleetPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FleetPayload): FleetInstance {
+  getInstance(payload: FleetResource): FleetInstance {
     return new FleetInstance(this._version, payload);
   }
 

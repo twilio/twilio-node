@@ -258,9 +258,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   }
 }
 
-interface SubscribedEventPayload
-  extends SubscribedEventResource,
-    TwilioResponsePayload {}
+interface SubscribedEventPayload extends TwilioResponsePayload {
+  types: SubscribedEventResource[];
+}
 
 interface SubscribedEventResource {
   account_sid?: string | null;
@@ -276,7 +276,7 @@ export class SubscribedEventInstance {
 
   constructor(
     protected _version: V1,
-    payload: SubscribedEventPayload,
+    payload: SubscribedEventResource,
     subscriptionSid: string,
     type?: string
   ) {
@@ -722,7 +722,7 @@ export class SubscribedEventPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SubscribedEventPayload): SubscribedEventInstance {
+  getInstance(payload: SubscribedEventResource): SubscribedEventInstance {
     return new SubscribedEventInstance(
       this._version,
       payload,

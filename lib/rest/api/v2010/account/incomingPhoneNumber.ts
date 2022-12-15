@@ -489,9 +489,9 @@ export type IncomingPhoneNumberVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface IncomingPhoneNumberPayload
-  extends IncomingPhoneNumberResource,
-    TwilioResponsePayload {}
+interface IncomingPhoneNumberPayload extends TwilioResponsePayload {
+  incoming_phone_numbers: IncomingPhoneNumberResource[];
+}
 
 interface IncomingPhoneNumberResource {
   account_sid?: string | null;
@@ -536,7 +536,7 @@ export class IncomingPhoneNumberInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IncomingPhoneNumberPayload,
+    payload: IncomingPhoneNumberResource,
     accountSid: string,
     sid?: string
   ) {
@@ -1258,7 +1258,7 @@ export class IncomingPhoneNumberPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: IncomingPhoneNumberPayload
+    payload: IncomingPhoneNumberResource
   ): IncomingPhoneNumberInstance {
     return new IncomingPhoneNumberInstance(
       this._version,

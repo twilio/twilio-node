@@ -300,7 +300,9 @@ export type RoomStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface RoomPayload extends RoomResource, TwilioResponsePayload {}
+interface RoomPayload extends TwilioResponsePayload {
+  rooms: RoomResource[];
+}
 
 interface RoomResource {
   sid?: string | null;
@@ -333,7 +335,7 @@ export class RoomInstance {
   protected _solution: RoomContextSolution;
   protected _context?: RoomContext;
 
-  constructor(protected _version: V1, payload: RoomPayload, sid?: string) {
+  constructor(protected _version: V1, payload: RoomResource, sid?: string) {
     this.sid = payload.sid;
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -902,7 +904,7 @@ export class RoomPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RoomPayload): RoomInstance {
+  getInstance(payload: RoomResource): RoomInstance {
     return new RoomInstance(this._version, payload);
   }
 

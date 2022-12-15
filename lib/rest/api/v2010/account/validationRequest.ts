@@ -167,7 +167,7 @@ interface ValidationRequestResource {
 export class ValidationRequestInstance {
   constructor(
     protected _version: V2010,
-    payload: ValidationRequestPayload,
+    payload: ValidationRequestResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;

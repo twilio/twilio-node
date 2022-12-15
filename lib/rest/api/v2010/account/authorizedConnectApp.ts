@@ -157,9 +157,9 @@ export class AuthorizedConnectAppContextImpl
   }
 }
 
-interface AuthorizedConnectAppPayload
-  extends AuthorizedConnectAppResource,
-    TwilioResponsePayload {}
+interface AuthorizedConnectAppPayload extends TwilioResponsePayload {
+  authorized_connect_apps: AuthorizedConnectAppResource[];
+}
 
 interface AuthorizedConnectAppResource {
   account_sid?: string | null;
@@ -180,7 +180,7 @@ export class AuthorizedConnectAppInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthorizedConnectAppPayload,
+    payload: AuthorizedConnectAppResource,
     accountSid: string,
     connectAppSid?: string
   ) {
@@ -575,7 +575,7 @@ export class AuthorizedConnectAppPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthorizedConnectAppPayload
+    payload: AuthorizedConnectAppResource
   ): AuthorizedConnectAppInstance {
     return new AuthorizedConnectAppInstance(
       this._version,

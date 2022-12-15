@@ -234,9 +234,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   }
 }
 
-interface WorkerChannelPayload
-  extends WorkerChannelResource,
-    TwilioResponsePayload {}
+interface WorkerChannelPayload extends TwilioResponsePayload {
+  channels: WorkerChannelResource[];
+}
 
 interface WorkerChannelResource {
   account_sid?: string | null;
@@ -260,7 +260,7 @@ export class WorkerChannelInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkerChannelPayload,
+    payload: WorkerChannelResource,
     workspaceSid: string,
     workerSid: string,
     sid?: string
@@ -691,7 +691,7 @@ export class WorkerChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance {
+  getInstance(payload: WorkerChannelResource): WorkerChannelInstance {
     return new WorkerChannelInstance(
       this._version,
       payload,

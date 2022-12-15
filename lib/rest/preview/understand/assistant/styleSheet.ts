@@ -179,7 +179,7 @@ export class StyleSheetInstance {
 
   constructor(
     protected _version: Understand,
-    payload: StyleSheetPayload,
+    payload: StyleSheetResource,
     assistantSid: string
   ) {
     this.accountSid = payload.account_sid;

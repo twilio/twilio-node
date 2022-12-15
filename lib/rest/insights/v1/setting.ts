@@ -207,7 +207,7 @@ export class SettingInstance {
   protected _solution: SettingContextSolution;
   protected _context?: SettingContext;
 
-  constructor(protected _version: V1, payload: SettingPayload) {
+  constructor(protected _version: V1, payload: SettingResource) {
     this.accountSid = payload.account_sid;
     this.advancedFeatures = payload.advanced_features;
     this.voiceTrace = payload.voice_trace;

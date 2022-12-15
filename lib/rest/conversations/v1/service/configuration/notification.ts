@@ -242,7 +242,7 @@ export class NotificationInstance {
 
   constructor(
     protected _version: V1,
-    payload: NotificationPayload,
+    payload: NotificationResource,
     chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;

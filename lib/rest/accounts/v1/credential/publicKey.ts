@@ -242,7 +242,9 @@ export class PublicKeyContextImpl implements PublicKeyContext {
   }
 }
 
-interface PublicKeyPayload extends PublicKeyResource, TwilioResponsePayload {}
+interface PublicKeyPayload extends TwilioResponsePayload {
+  credentials: PublicKeyResource[];
+}
 
 interface PublicKeyResource {
   sid?: string | null;
@@ -257,7 +259,11 @@ export class PublicKeyInstance {
   protected _solution: PublicKeyContextSolution;
   protected _context?: PublicKeyContext;
 
-  constructor(protected _version: V1, payload: PublicKeyPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: PublicKeyResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -681,7 +687,7 @@ export class PublicKeyPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PublicKeyPayload): PublicKeyInstance {
+  getInstance(payload: PublicKeyResource): PublicKeyInstance {
     return new PublicKeyInstance(this._version, payload);
   }
 

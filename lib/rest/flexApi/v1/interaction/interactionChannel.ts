@@ -262,9 +262,9 @@ export class InteractionChannelContextImpl
   }
 }
 
-interface InteractionChannelPayload
-  extends InteractionChannelResource,
-    TwilioResponsePayload {}
+interface InteractionChannelPayload extends TwilioResponsePayload {
+  channels: InteractionChannelResource[];
+}
 
 interface InteractionChannelResource {
   sid?: string | null;
@@ -283,7 +283,7 @@ export class InteractionChannelInstance {
 
   constructor(
     protected _version: V1,
-    payload: InteractionChannelPayload,
+    payload: InteractionChannelResource,
     interactionSid: string,
     sid?: string
   ) {
@@ -670,7 +670,7 @@ export class InteractionChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InteractionChannelPayload): InteractionChannelInstance {
+  getInstance(payload: InteractionChannelResource): InteractionChannelInstance {
     return new InteractionChannelInstance(
       this._version,
       payload,

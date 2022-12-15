@@ -184,7 +184,9 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
-interface CountryPayload extends CountryResource, TwilioResponsePayload {}
+interface CountryPayload extends TwilioResponsePayload {
+  content: CountryResource[];
+}
 
 interface CountryResource {
   iso_code?: string | null;
@@ -204,7 +206,7 @@ export class CountryInstance {
 
   constructor(
     protected _version: V1,
-    payload: CountryPayload,
+    payload: CountryResource,
     isoCode?: string
   ) {
     this.isoCode = payload.iso_code;
@@ -580,7 +582,7 @@ export class CountryPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CountryPayload): CountryInstance {
+  getInstance(payload: CountryResource): CountryInstance {
     return new CountryInstance(this._version, payload);
   }
 

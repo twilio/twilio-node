@@ -292,7 +292,9 @@ export class RecordingContextImpl implements RecordingContext {
   }
 }
 
-interface RecordingPayload extends RecordingResource, TwilioResponsePayload {}
+interface RecordingPayload extends TwilioResponsePayload {
+  recordings: RecordingResource[];
+}
 
 interface RecordingResource {
   account_sid?: string | null;
@@ -322,7 +324,7 @@ export class RecordingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: RecordingPayload,
+    payload: RecordingResource,
     accountSid: string,
     sid?: string
   ) {
@@ -794,7 +796,7 @@ export class RecordingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingPayload): RecordingInstance {
+  getInstance(payload: RecordingResource): RecordingInstance {
     return new RecordingInstance(
       this._version,
       payload,

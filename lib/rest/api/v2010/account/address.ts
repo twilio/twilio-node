@@ -334,7 +334,9 @@ export class AddressContextImpl implements AddressContext {
   }
 }
 
-interface AddressPayload extends AddressResource, TwilioResponsePayload {}
+interface AddressPayload extends TwilioResponsePayload {
+  addresses: AddressResource[];
+}
 
 interface AddressResource {
   account_sid?: string | null;
@@ -361,7 +363,7 @@ export class AddressInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AddressPayload,
+    payload: AddressResource,
     accountSid: string,
     sid?: string
   ) {
@@ -916,7 +918,7 @@ export class AddressPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AddressPayload): AddressInstance {
+  getInstance(payload: AddressResource): AddressInstance {
     return new AddressInstance(
       this._version,
       payload,

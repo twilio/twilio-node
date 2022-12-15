@@ -207,9 +207,9 @@ export class InteractionContextImpl implements InteractionContext {
   }
 }
 
-interface InteractionPayload
-  extends InteractionResource,
-    TwilioResponsePayload {}
+interface InteractionPayload extends TwilioResponsePayload {
+  interactions: InteractionResource[];
+}
 
 interface InteractionResource {
   sid?: string | null;
@@ -239,7 +239,7 @@ export class InteractionInstance {
 
   constructor(
     protected _version: V1,
-    payload: InteractionPayload,
+    payload: InteractionResource,
     serviceSid: string,
     sessionSid: string,
     sid?: string
@@ -675,7 +675,7 @@ export class InteractionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InteractionPayload): InteractionInstance {
+  getInstance(payload: InteractionResource): InteractionInstance {
     return new InteractionInstance(
       this._version,
       payload,

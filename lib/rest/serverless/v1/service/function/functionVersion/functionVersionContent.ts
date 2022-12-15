@@ -131,7 +131,7 @@ export class FunctionVersionContentInstance {
 
   constructor(
     protected _version: V1,
-    payload: FunctionVersionContentPayload,
+    payload: FunctionVersionContentResource,
     serviceSid: string,
     functionSid: string,
     sid: string

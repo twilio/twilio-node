@@ -209,7 +209,9 @@ export class SyncListContextImpl implements SyncListContext {
   }
 }
 
-interface SyncListPayload extends SyncListResource, TwilioResponsePayload {}
+interface SyncListPayload extends TwilioResponsePayload {
+  lists: SyncListResource[];
+}
 
 interface SyncListResource {
   sid?: string | null;
@@ -230,7 +232,7 @@ export class SyncListInstance {
 
   constructor(
     protected _version: Sync,
-    payload: SyncListPayload,
+    payload: SyncListResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -663,7 +665,7 @@ export class SyncListPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncListPayload): SyncListInstance {
+  getInstance(payload: SyncListResource): SyncListInstance {
     return new SyncListInstance(
       this._version,
       payload,

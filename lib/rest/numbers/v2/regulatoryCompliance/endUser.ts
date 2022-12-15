@@ -248,7 +248,9 @@ export class EndUserContextImpl implements EndUserContext {
   }
 }
 
-interface EndUserPayload extends EndUserResource, TwilioResponsePayload {}
+interface EndUserPayload extends TwilioResponsePayload {
+  results: EndUserResource[];
+}
 
 interface EndUserResource {
   sid?: string | null;
@@ -265,7 +267,7 @@ export class EndUserInstance {
   protected _solution: EndUserContextSolution;
   protected _context?: EndUserContext;
 
-  constructor(protected _version: V2, payload: EndUserPayload, sid?: string) {
+  constructor(protected _version: V2, payload: EndUserResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -705,7 +707,7 @@ export class EndUserPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EndUserPayload): EndUserInstance {
+  getInstance(payload: EndUserResource): EndUserInstance {
     return new EndUserInstance(this._version, payload);
   }
 

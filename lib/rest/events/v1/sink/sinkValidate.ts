@@ -136,7 +136,7 @@ interface SinkValidateResource {
 export class SinkValidateInstance {
   constructor(
     protected _version: V1,
-    payload: SinkValidatePayload,
+    payload: SinkValidateResource,
     sid: string
   ) {
     this.result = payload.result;

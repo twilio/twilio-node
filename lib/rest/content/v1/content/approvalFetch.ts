@@ -102,7 +102,7 @@ export class ApprovalFetchInstance {
 
   constructor(
     protected _version: V1,
-    payload: ApprovalFetchPayload,
+    payload: ApprovalFetchResource,
     sid: string
   ) {
     this.sid = payload.sid;

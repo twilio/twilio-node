@@ -171,7 +171,7 @@ interface NotificationResource {
 export class NotificationInstance {
   constructor(
     protected _version: V2,
-    payload: NotificationPayload,
+    payload: NotificationResource,
     serviceSid: string,
     identity: string,
     challengeSid: string

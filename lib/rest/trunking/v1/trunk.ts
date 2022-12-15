@@ -343,7 +343,9 @@ export type TrunkDisasterRecoveryMethod =
   | "PUT"
   | "DELETE";
 
-interface TrunkPayload extends TrunkResource, TwilioResponsePayload {}
+interface TrunkPayload extends TwilioResponsePayload {
+  trunks: TrunkResource[];
+}
 
 interface TrunkResource {
   account_sid?: string | null;
@@ -369,7 +371,7 @@ export class TrunkInstance {
   protected _solution: TrunkContextSolution;
   protected _context?: TrunkContext;
 
-  constructor(protected _version: V1, payload: TrunkPayload, sid?: string) {
+  constructor(protected _version: V1, payload: TrunkResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.domainName = payload.domain_name;
     this.disasterRecoveryMethod = payload.disaster_recovery_method;
@@ -907,7 +909,7 @@ export class TrunkPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TrunkPayload): TrunkInstance {
+  getInstance(payload: TrunkResource): TrunkInstance {
     return new TrunkInstance(this._version, payload);
   }
 

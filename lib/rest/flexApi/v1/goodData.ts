@@ -130,7 +130,7 @@ export class GoodDataInstance {
   protected _solution: GoodDataContextSolution;
   protected _context?: GoodDataContext;
 
-  constructor(protected _version: V1, payload: GoodDataPayload) {
+  constructor(protected _version: V1, payload: GoodDataResource) {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;

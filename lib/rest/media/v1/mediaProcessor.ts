@@ -249,9 +249,9 @@ export type MediaProcessorStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface MediaProcessorPayload
-  extends MediaProcessorResource,
-    TwilioResponsePayload {}
+interface MediaProcessorPayload extends TwilioResponsePayload {
+  media_processors: MediaProcessorResource[];
+}
 
 interface MediaProcessorResource {
   account_sid?: string | null;
@@ -274,7 +274,7 @@ export class MediaProcessorInstance {
 
   constructor(
     protected _version: V1,
-    payload: MediaProcessorPayload,
+    payload: MediaProcessorResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -740,7 +740,7 @@ export class MediaProcessorPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MediaProcessorPayload): MediaProcessorInstance {
+  getInstance(payload: MediaProcessorResource): MediaProcessorInstance {
     return new MediaProcessorInstance(this._version, payload);
   }
 

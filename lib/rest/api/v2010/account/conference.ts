@@ -315,7 +315,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 }
 
-interface ConferencePayload extends ConferenceResource, TwilioResponsePayload {}
+interface ConferencePayload extends TwilioResponsePayload {
+  conferences: ConferenceResource[];
+}
 
 interface ConferenceResource {
   account_sid?: string | null;
@@ -338,7 +340,7 @@ export class ConferenceInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ConferencePayload,
+    payload: ConferenceResource,
     accountSid: string,
     sid?: string
   ) {
@@ -768,7 +770,7 @@ export class ConferencePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ConferencePayload): ConferenceInstance {
+  getInstance(payload: ConferenceResource): ConferenceInstance {
     return new ConferenceInstance(
       this._version,
       payload,

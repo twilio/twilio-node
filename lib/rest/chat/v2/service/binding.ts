@@ -185,7 +185,9 @@ export class BindingContextImpl implements BindingContext {
   }
 }
 
-interface BindingPayload extends BindingResource, TwilioResponsePayload {}
+interface BindingPayload extends TwilioResponsePayload {
+  bindings: BindingResource[];
+}
 
 interface BindingResource {
   sid?: string | null;
@@ -208,7 +210,7 @@ export class BindingInstance {
 
   constructor(
     protected _version: V2,
-    payload: BindingPayload,
+    payload: BindingResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -603,7 +605,7 @@ export class BindingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BindingPayload): BindingInstance {
+  getInstance(payload: BindingResource): BindingInstance {
     return new BindingInstance(
       this._version,
       payload,

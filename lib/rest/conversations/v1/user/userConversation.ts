@@ -265,9 +265,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   }
 }
 
-interface UserConversationPayload
-  extends UserConversationResource,
-    TwilioResponsePayload {}
+interface UserConversationPayload extends TwilioResponsePayload {
+  conversations: UserConversationResource[];
+}
 
 interface UserConversationResource {
   account_sid?: string | null;
@@ -296,7 +296,7 @@ export class UserConversationInstance {
 
   constructor(
     protected _version: V1,
-    payload: UserConversationPayload,
+    payload: UserConversationResource,
     userSid: string,
     conversationSid?: string
   ) {
@@ -760,7 +760,7 @@ export class UserConversationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserConversationPayload): UserConversationInstance {
+  getInstance(payload: UserConversationResource): UserConversationInstance {
     return new UserConversationInstance(
       this._version,
       payload,

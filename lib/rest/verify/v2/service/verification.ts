@@ -226,7 +226,7 @@ export class VerificationInstance {
 
   constructor(
     protected _version: V2,
-    payload: VerificationPayload,
+    payload: VerificationResource,
     serviceSid: string,
     sid?: string
   ) {

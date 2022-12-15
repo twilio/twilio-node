@@ -549,7 +549,9 @@ export type TriggerCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface TriggerPayload extends TriggerResource, TwilioResponsePayload {}
+interface TriggerPayload extends TwilioResponsePayload {
+  usage_triggers: TriggerResource[];
+}
 
 interface TriggerResource {
   account_sid?: string | null;
@@ -576,7 +578,7 @@ export class TriggerInstance {
 
   constructor(
     protected _version: V2010,
-    payload: TriggerPayload,
+    payload: TriggerResource,
     accountSid: string,
     sid?: string
   ) {
@@ -1102,7 +1104,7 @@ export class TriggerPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TriggerPayload): TriggerInstance {
+  getInstance(payload: TriggerResource): TriggerInstance {
     return new TriggerInstance(
       this._version,
       payload,

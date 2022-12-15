@@ -191,7 +191,7 @@ export class WorkspaceCumulativeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkspaceCumulativeStatisticsPayload,
+    payload: WorkspaceCumulativeStatisticsResource,
     workspaceSid: string
   ) {
     this.accountSid = payload.account_sid;

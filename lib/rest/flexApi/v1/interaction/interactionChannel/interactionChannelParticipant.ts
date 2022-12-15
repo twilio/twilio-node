@@ -219,9 +219,9 @@ export class InteractionChannelParticipantContextImpl
   }
 }
 
-interface InteractionChannelParticipantPayload
-  extends InteractionChannelParticipantResource,
-    TwilioResponsePayload {}
+interface InteractionChannelParticipantPayload extends TwilioResponsePayload {
+  participants: InteractionChannelParticipantResource[];
+}
 
 interface InteractionChannelParticipantResource {
   sid?: string | null;
@@ -237,7 +237,7 @@ export class InteractionChannelParticipantInstance {
 
   constructor(
     protected _version: V1,
-    payload: InteractionChannelParticipantPayload,
+    payload: InteractionChannelParticipantResource,
     interactionSid: string,
     channelSid: string,
     sid?: string
@@ -715,7 +715,7 @@ export class InteractionChannelParticipantPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InteractionChannelParticipantPayload
+    payload: InteractionChannelParticipantResource
   ): InteractionChannelParticipantInstance {
     return new InteractionChannelParticipantInstance(
       this._version,

@@ -201,8 +201,9 @@ export class AuthRegistrationsCredentialListMappingContextImpl
 }
 
 interface AuthRegistrationsCredentialListMappingPayload
-  extends AuthRegistrationsCredentialListMappingResource,
-    TwilioResponsePayload {}
+  extends TwilioResponsePayload {
+  contents: AuthRegistrationsCredentialListMappingResource[];
+}
 
 interface AuthRegistrationsCredentialListMappingResource {
   account_sid?: string | null;
@@ -218,7 +219,7 @@ export class AuthRegistrationsCredentialListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthRegistrationsCredentialListMappingPayload,
+    payload: AuthRegistrationsCredentialListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -707,7 +708,7 @@ export class AuthRegistrationsCredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthRegistrationsCredentialListMappingPayload
+    payload: AuthRegistrationsCredentialListMappingResource
   ): AuthRegistrationsCredentialListMappingInstance {
     return new AuthRegistrationsCredentialListMappingInstance(
       this._version,

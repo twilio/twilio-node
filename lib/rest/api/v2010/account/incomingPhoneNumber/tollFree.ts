@@ -532,7 +532,9 @@ export type TollFreeVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface TollFreePayload extends TollFreeResource, TwilioResponsePayload {}
+interface TollFreePayload extends TwilioResponsePayload {
+  incoming_phone_numbers: TollFreeResource[];
+}
 
 interface TollFreeResource {
   account_sid?: string | null;
@@ -574,7 +576,7 @@ interface TollFreeResource {
 export class TollFreeInstance {
   constructor(
     protected _version: V2010,
-    payload: TollFreePayload,
+    payload: TollFreeResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -807,7 +809,7 @@ export class TollFreePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TollFreePayload): TollFreeInstance {
+  getInstance(payload: TollFreeResource): TollFreeInstance {
     return new TollFreeInstance(
       this._version,
       payload,

@@ -447,7 +447,9 @@ export function NationalListInstance(
   return instance;
 }
 
-interface NationalPayload extends NationalResource, TwilioResponsePayload {}
+interface NationalPayload extends TwilioResponsePayload {
+  available_phone_numbers: NationalResource[];
+}
 
 interface NationalResource {
   friendly_name?: string | null;
@@ -468,7 +470,7 @@ interface NationalResource {
 export class NationalInstance {
   constructor(
     protected _version: V2010,
-    payload: NationalPayload,
+    payload: NationalResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -591,7 +593,7 @@ export class NationalPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: NationalPayload): NationalInstance {
+  getInstance(payload: NationalResource): NationalInstance {
     return new NationalInstance(
       this._version,
       payload,

@@ -113,7 +113,7 @@ export class ExecutionContextInstance {
 
   constructor(
     protected _version: V1,
-    payload: ExecutionContextPayload,
+    payload: ExecutionContextResource,
     flowSid: string,
     executionSid: string
   ) {

@@ -177,7 +177,9 @@ export class LogContextImpl implements LogContext {
   }
 }
 
-interface LogPayload extends LogResource, TwilioResponsePayload {}
+interface LogPayload extends TwilioResponsePayload {
+  logs: LogResource[];
+}
 
 interface LogResource {
   sid?: string | null;
@@ -200,7 +202,7 @@ export class LogInstance {
 
   constructor(
     protected _version: V1,
-    payload: LogPayload,
+    payload: LogResource,
     serviceSid: string,
     environmentSid: string,
     sid?: string
@@ -583,7 +585,7 @@ export class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LogPayload): LogInstance {
+  getInstance(payload: LogResource): LogInstance {
     return new LogInstance(
       this._version,
       payload,

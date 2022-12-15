@@ -275,7 +275,9 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   }
 }
 
-interface FieldTypePayload extends FieldTypeResource, TwilioResponsePayload {}
+interface FieldTypePayload extends TwilioResponsePayload {
+  field_types: FieldTypeResource[];
+}
 
 interface FieldTypeResource {
   account_sid?: string | null;
@@ -295,7 +297,7 @@ export class FieldTypeInstance {
 
   constructor(
     protected _version: V1,
-    payload: FieldTypePayload,
+    payload: FieldTypeResource,
     assistantSid: string,
     sid?: string
   ) {
@@ -763,7 +765,7 @@ export class FieldTypePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FieldTypePayload): FieldTypeInstance {
+  getInstance(payload: FieldTypeResource): FieldTypeInstance {
     return new FieldTypeInstance(
       this._version,
       payload,

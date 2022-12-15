@@ -312,7 +312,9 @@ export type ByocTrunkStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface ByocTrunkPayload extends ByocTrunkResource, TwilioResponsePayload {}
+interface ByocTrunkPayload extends TwilioResponsePayload {
+  byoc_trunks: ByocTrunkResource[];
+}
 
 interface ByocTrunkResource {
   account_sid?: string | null;
@@ -336,7 +338,11 @@ export class ByocTrunkInstance {
   protected _solution: ByocTrunkContextSolution;
   protected _context?: ByocTrunkContext;
 
-  constructor(protected _version: V1, payload: ByocTrunkPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ByocTrunkResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -837,7 +843,7 @@ export class ByocTrunkPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ByocTrunkPayload): ByocTrunkInstance {
+  getInstance(payload: ByocTrunkResource): ByocTrunkInstance {
     return new ByocTrunkInstance(this._version, payload);
   }
 

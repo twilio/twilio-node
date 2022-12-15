@@ -164,9 +164,9 @@ export class CustomerProfilesEvaluationsContextImpl
   }
 }
 
-interface CustomerProfilesEvaluationsPayload
-  extends CustomerProfilesEvaluationsResource,
-    TwilioResponsePayload {}
+interface CustomerProfilesEvaluationsPayload extends TwilioResponsePayload {
+  results: CustomerProfilesEvaluationsResource[];
+}
 
 interface CustomerProfilesEvaluationsResource {
   sid?: string | null;
@@ -185,7 +185,7 @@ export class CustomerProfilesEvaluationsInstance {
 
   constructor(
     protected _version: V1,
-    payload: CustomerProfilesEvaluationsPayload,
+    payload: CustomerProfilesEvaluationsResource,
     customerProfileSid: string,
     sid?: string
   ) {
@@ -648,7 +648,7 @@ export class CustomerProfilesEvaluationsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CustomerProfilesEvaluationsPayload
+    payload: CustomerProfilesEvaluationsResource
   ): CustomerProfilesEvaluationsInstance {
     return new CustomerProfilesEvaluationsInstance(
       this._version,

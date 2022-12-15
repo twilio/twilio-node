@@ -197,7 +197,7 @@ interface RecordingRulesResource {
 export class RecordingRulesInstance {
   constructor(
     protected _version: V1,
-    payload: RecordingRulesPayload,
+    payload: RecordingRulesResource,
     roomSid: string
   ) {
     this.roomSid = payload.room_sid;

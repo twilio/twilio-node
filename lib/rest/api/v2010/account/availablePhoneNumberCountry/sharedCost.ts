@@ -447,7 +447,9 @@ export function SharedCostListInstance(
   return instance;
 }
 
-interface SharedCostPayload extends SharedCostResource, TwilioResponsePayload {}
+interface SharedCostPayload extends TwilioResponsePayload {
+  available_phone_numbers: SharedCostResource[];
+}
 
 interface SharedCostResource {
   friendly_name?: string | null;
@@ -468,7 +470,7 @@ interface SharedCostResource {
 export class SharedCostInstance {
   constructor(
     protected _version: V2010,
-    payload: SharedCostPayload,
+    payload: SharedCostResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -591,7 +593,7 @@ export class SharedCostPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SharedCostPayload): SharedCostInstance {
+  getInstance(payload: SharedCostResource): SharedCostInstance {
     return new SharedCostInstance(
       this._version,
       payload,

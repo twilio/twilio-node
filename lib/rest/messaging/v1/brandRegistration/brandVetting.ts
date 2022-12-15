@@ -168,9 +168,9 @@ export class BrandVettingContextImpl implements BrandVettingContext {
   }
 }
 
-interface BrandVettingPayload
-  extends BrandVettingResource,
-    TwilioResponsePayload {}
+interface BrandVettingPayload extends TwilioResponsePayload {
+  data: BrandVettingResource[];
+}
 
 interface BrandVettingResource {
   account_sid?: string | null;
@@ -191,7 +191,7 @@ export class BrandVettingInstance {
 
   constructor(
     protected _version: V1,
-    payload: BrandVettingPayload,
+    payload: BrandVettingResource,
     brandSid: string,
     brandVettingSid?: string
   ) {
@@ -628,7 +628,7 @@ export class BrandVettingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BrandVettingPayload): BrandVettingInstance {
+  getInstance(payload: BrandVettingResource): BrandVettingInstance {
     return new BrandVettingInstance(
       this._version,
       payload,

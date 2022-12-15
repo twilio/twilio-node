@@ -133,7 +133,7 @@ export class JobInstance {
   protected _solution: JobContextSolution;
   protected _context?: JobContext;
 
-  constructor(protected _version: V1, payload: JobPayload, jobSid?: string) {
+  constructor(protected _version: V1, payload: JobResource, jobSid?: string) {
     this.resourceType = payload.resource_type;
     this.friendlyName = payload.friendly_name;
     this.details = payload.details;

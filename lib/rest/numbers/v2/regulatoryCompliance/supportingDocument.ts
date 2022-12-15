@@ -267,9 +267,9 @@ export class SupportingDocumentContextImpl
   }
 }
 
-interface SupportingDocumentPayload
-  extends SupportingDocumentResource,
-    TwilioResponsePayload {}
+interface SupportingDocumentPayload extends TwilioResponsePayload {
+  results: SupportingDocumentResource[];
+}
 
 interface SupportingDocumentResource {
   sid?: string | null;
@@ -291,7 +291,7 @@ export class SupportingDocumentInstance {
 
   constructor(
     protected _version: V2,
-    payload: SupportingDocumentPayload,
+    payload: SupportingDocumentResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -765,7 +765,7 @@ export class SupportingDocumentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SupportingDocumentPayload): SupportingDocumentInstance {
+  getInstance(payload: SupportingDocumentResource): SupportingDocumentInstance {
     return new SupportingDocumentInstance(this._version, payload);
   }
 

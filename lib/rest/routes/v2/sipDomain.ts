@@ -187,7 +187,7 @@ export class SipDomainInstance {
 
   constructor(
     protected _version: V2,
-    payload: SipDomainPayload,
+    payload: SipDomainResource,
     sipDomain?: string
   ) {
     this.sipDomain = payload.sip_domain;

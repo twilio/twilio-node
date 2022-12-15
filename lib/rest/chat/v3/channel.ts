@@ -172,7 +172,7 @@ export class ChannelInstance {
 
   constructor(
     protected _version: V3,
-    payload: ChannelPayload,
+    payload: ChannelResource,
     serviceSid?: string,
     sid?: string
   ) {

@@ -528,7 +528,9 @@ export type MobileVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface MobilePayload extends MobileResource, TwilioResponsePayload {}
+interface MobilePayload extends TwilioResponsePayload {
+  incoming_phone_numbers: MobileResource[];
+}
 
 interface MobileResource {
   account_sid?: string | null;
@@ -570,7 +572,7 @@ interface MobileResource {
 export class MobileInstance {
   constructor(
     protected _version: V2010,
-    payload: MobilePayload,
+    payload: MobileResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -803,7 +805,7 @@ export class MobilePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MobilePayload): MobileInstance {
+  getInstance(payload: MobileResource): MobileInstance {
     return new MobileInstance(
       this._version,
       payload,

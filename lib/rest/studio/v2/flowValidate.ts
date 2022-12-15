@@ -151,7 +151,7 @@ interface FlowValidateResource {
 }
 
 export class FlowValidateInstance {
-  constructor(protected _version: V2, payload: FlowValidatePayload) {
+  constructor(protected _version: V2, payload: FlowValidateResource) {
     this.valid = payload.valid;
   }
 

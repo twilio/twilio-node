@@ -188,9 +188,9 @@ export type NotificationRequestMethod =
   | "PUT"
   | "DELETE";
 
-interface NotificationPayload
-  extends NotificationResource,
-    TwilioResponsePayload {}
+interface NotificationPayload extends TwilioResponsePayload {
+  notifications: NotificationResource[];
+}
 
 interface NotificationResource {
   account_sid?: string | null;
@@ -218,7 +218,7 @@ export class NotificationInstance {
 
   constructor(
     protected _version: V2010,
-    payload: NotificationPayload,
+    payload: NotificationResource,
     accountSid: string,
     callSid: string,
     sid?: string
@@ -645,7 +645,7 @@ export class NotificationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: NotificationPayload): NotificationInstance {
+  getInstance(payload: NotificationResource): NotificationInstance {
     return new NotificationInstance(
       this._version,
       payload,

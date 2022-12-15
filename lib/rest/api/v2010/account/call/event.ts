@@ -301,7 +301,9 @@ export function EventListInstance(
   return instance;
 }
 
-interface EventPayload extends EventResource, TwilioResponsePayload {}
+interface EventPayload extends TwilioResponsePayload {
+  events: EventResource[];
+}
 
 interface EventResource {
   request?: any | null;
@@ -311,7 +313,7 @@ interface EventResource {
 export class EventInstance {
   constructor(
     protected _version: V2010,
-    payload: EventPayload,
+    payload: EventResource,
     accountSid: string,
     callSid: string
   ) {
@@ -371,7 +373,7 @@ export class EventPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EventPayload): EventInstance {
+  getInstance(payload: EventResource): EventInstance {
     return new EventInstance(
       this._version,
       payload,

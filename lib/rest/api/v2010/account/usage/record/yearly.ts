@@ -573,7 +573,9 @@ export function YearlyListInstance(
   return instance;
 }
 
-interface YearlyPayload extends YearlyResource, TwilioResponsePayload {}
+interface YearlyPayload extends TwilioResponsePayload {
+  usage_records: YearlyResource[];
+}
 
 interface YearlyResource {
   account_sid?: string | null;
@@ -596,7 +598,7 @@ interface YearlyResource {
 export class YearlyInstance {
   constructor(
     protected _version: V2010,
-    payload: YearlyPayload,
+    payload: YearlyResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -730,7 +732,7 @@ export class YearlyPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: YearlyPayload): YearlyInstance {
+  getInstance(payload: YearlyResource): YearlyInstance {
     return new YearlyInstance(
       this._version,
       payload,

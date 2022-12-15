@@ -236,7 +236,7 @@ export class PaymentInstance {
 
   constructor(
     protected _version: V2010,
-    payload: PaymentPayload,
+    payload: PaymentResource,
     accountSid: string,
     callSid: string,
     sid?: string

@@ -356,7 +356,9 @@ export class AssistantContextImpl implements AssistantContext {
   }
 }
 
-interface AssistantPayload extends AssistantResource, TwilioResponsePayload {}
+interface AssistantPayload extends TwilioResponsePayload {
+  assistants: AssistantResource[];
+}
 
 interface AssistantResource {
   account_sid?: string | null;
@@ -379,7 +381,11 @@ export class AssistantInstance {
   protected _solution: AssistantContextSolution;
   protected _context?: AssistantContext;
 
-  constructor(protected _version: V1, payload: AssistantPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AssistantResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -925,7 +931,7 @@ export class AssistantPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssistantPayload): AssistantInstance {
+  getInstance(payload: AssistantResource): AssistantInstance {
     return new AssistantInstance(this._version, payload);
   }
 

@@ -191,7 +191,7 @@ export class TaskActionsInstance {
 
   constructor(
     protected _version: Understand,
-    payload: TaskActionsPayload,
+    payload: TaskActionsResource,
     assistantSid: string,
     taskSid: string
   ) {

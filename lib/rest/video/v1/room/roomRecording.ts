@@ -203,9 +203,9 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
   }
 }
 
-interface RoomRecordingPayload
-  extends RoomRecordingResource,
-    TwilioResponsePayload {}
+interface RoomRecordingPayload extends TwilioResponsePayload {
+  recordings: RoomRecordingResource[];
+}
 
 interface RoomRecordingResource {
   account_sid?: string | null;
@@ -233,7 +233,7 @@ export class RoomRecordingInstance {
 
   constructor(
     protected _version: V1,
-    payload: RoomRecordingPayload,
+    payload: RoomRecordingResource,
     roomSid: string,
     sid?: string
   ) {
@@ -664,7 +664,7 @@ export class RoomRecordingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RoomRecordingPayload): RoomRecordingInstance {
+  getInstance(payload: RoomRecordingResource): RoomRecordingInstance {
     return new RoomRecordingInstance(
       this._version,
       payload,

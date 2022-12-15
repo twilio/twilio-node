@@ -177,7 +177,7 @@ export class RecordingSettingsInstance {
   protected _solution: RecordingSettingsContextSolution;
   protected _context?: RecordingSettingsContext;
 
-  constructor(protected _version: V1, payload: RecordingSettingsPayload) {
+  constructor(protected _version: V1, payload: RecordingSettingsResource) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.awsCredentialsSid = payload.aws_credentials_sid;

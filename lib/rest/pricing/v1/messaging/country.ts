@@ -159,7 +159,9 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
-interface CountryPayload extends CountryResource, TwilioResponsePayload {}
+interface CountryPayload extends TwilioResponsePayload {
+  countries: CountryResource[];
+}
 
 interface CountryResource {
   country?: string | null;
@@ -176,7 +178,7 @@ export class CountryInstance {
 
   constructor(
     protected _version: V1,
-    payload: CountryPayload,
+    payload: CountryResource,
     isoCountry?: string
   ) {
     this.country = payload.country;
@@ -508,7 +510,7 @@ export class CountryPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CountryPayload): CountryInstance {
+  getInstance(payload: CountryResource): CountryInstance {
     return new CountryInstance(this._version, payload);
   }
 

@@ -259,9 +259,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 }
 
-interface OutgoingCallerIdPayload
-  extends OutgoingCallerIdResource,
-    TwilioResponsePayload {}
+interface OutgoingCallerIdPayload extends TwilioResponsePayload {
+  outgoing_caller_ids: OutgoingCallerIdResource[];
+}
 
 interface OutgoingCallerIdResource {
   sid?: string | null;
@@ -279,7 +279,7 @@ export class OutgoingCallerIdInstance {
 
   constructor(
     protected _version: V2010,
-    payload: OutgoingCallerIdPayload,
+    payload: OutgoingCallerIdResource,
     accountSid: string,
     sid?: string
   ) {
@@ -683,7 +683,7 @@ export class OutgoingCallerIdPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
+  getInstance(payload: OutgoingCallerIdResource): OutgoingCallerIdInstance {
     return new OutgoingCallerIdInstance(
       this._version,
       payload,

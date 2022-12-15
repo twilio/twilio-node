@@ -127,7 +127,7 @@ export class UserRolesInstance {
   protected _solution: UserRolesContextSolution;
   protected _context?: UserRolesContext;
 
-  constructor(protected _version: V1, payload: UserRolesPayload) {
+  constructor(protected _version: V1, payload: UserRolesResource) {
     this.roles = payload.roles;
     this.url = payload.url;
 

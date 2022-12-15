@@ -182,9 +182,9 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   }
 }
 
-interface ItemAssignmentPayload
-  extends ItemAssignmentResource,
-    TwilioResponsePayload {}
+interface ItemAssignmentPayload extends TwilioResponsePayload {
+  results: ItemAssignmentResource[];
+}
 
 interface ItemAssignmentResource {
   sid?: string | null;
@@ -201,7 +201,7 @@ export class ItemAssignmentInstance {
 
   constructor(
     protected _version: V2,
-    payload: ItemAssignmentPayload,
+    payload: ItemAssignmentResource,
     bundleSid: string,
     sid?: string
   ) {
@@ -625,7 +625,7 @@ export class ItemAssignmentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ItemAssignmentPayload): ItemAssignmentInstance {
+  getInstance(payload: ItemAssignmentResource): ItemAssignmentInstance {
     return new ItemAssignmentInstance(
       this._version,
       payload,

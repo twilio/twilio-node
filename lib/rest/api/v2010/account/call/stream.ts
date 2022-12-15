@@ -574,7 +574,7 @@ export class StreamInstance {
 
   constructor(
     protected _version: V2010,
-    payload: StreamPayload,
+    payload: StreamResource,
     accountSid: string,
     callSid: string,
     sid?: string

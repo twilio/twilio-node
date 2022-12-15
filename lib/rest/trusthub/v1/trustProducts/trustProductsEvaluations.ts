@@ -164,9 +164,9 @@ export class TrustProductsEvaluationsContextImpl
   }
 }
 
-interface TrustProductsEvaluationsPayload
-  extends TrustProductsEvaluationsResource,
-    TwilioResponsePayload {}
+interface TrustProductsEvaluationsPayload extends TwilioResponsePayload {
+  results: TrustProductsEvaluationsResource[];
+}
 
 interface TrustProductsEvaluationsResource {
   sid?: string | null;
@@ -185,7 +185,7 @@ export class TrustProductsEvaluationsInstance {
 
   constructor(
     protected _version: V1,
-    payload: TrustProductsEvaluationsPayload,
+    payload: TrustProductsEvaluationsResource,
     trustProductSid: string,
     sid?: string
   ) {
@@ -629,7 +629,7 @@ export class TrustProductsEvaluationsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TrustProductsEvaluationsPayload
+    payload: TrustProductsEvaluationsResource
   ): TrustProductsEvaluationsInstance {
     return new TrustProductsEvaluationsInstance(
       this._version,

@@ -386,7 +386,9 @@ export type SimVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface SimPayload extends SimResource, TwilioResponsePayload {}
+interface SimPayload extends TwilioResponsePayload {
+  sims: SimResource[];
+}
 
 interface SimResource {
   sid?: string | null;
@@ -419,7 +421,7 @@ export class SimInstance {
   protected _solution: SimContextSolution;
   protected _context?: SimContext;
 
-  constructor(protected _version: V1, payload: SimPayload, sid?: string) {
+  constructor(protected _version: V1, payload: SimResource, sid?: string) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -899,7 +901,7 @@ export class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SimPayload): SimInstance {
+  getInstance(payload: SimResource): SimInstance {
     return new SimInstance(this._version, payload);
   }
 

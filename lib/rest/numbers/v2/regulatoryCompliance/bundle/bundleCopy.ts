@@ -378,7 +378,9 @@ export function BundleCopyListInstance(
   return instance;
 }
 
-interface BundleCopyPayload extends BundleCopyResource, TwilioResponsePayload {}
+interface BundleCopyPayload extends TwilioResponsePayload {
+  results: BundleCopyResource[];
+}
 
 interface BundleCopyResource {
   sid?: string | null;
@@ -396,7 +398,7 @@ interface BundleCopyResource {
 export class BundleCopyInstance {
   constructor(
     protected _version: V2,
-    payload: BundleCopyPayload,
+    payload: BundleCopyResource,
     bundleSid: string
   ) {
     this.sid = payload.sid;
@@ -500,7 +502,7 @@ export class BundleCopyPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BundleCopyPayload): BundleCopyInstance {
+  getInstance(payload: BundleCopyResource): BundleCopyInstance {
     return new BundleCopyInstance(
       this._version,
       payload,

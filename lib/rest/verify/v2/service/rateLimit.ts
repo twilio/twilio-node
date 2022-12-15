@@ -271,7 +271,9 @@ export class RateLimitContextImpl implements RateLimitContext {
   }
 }
 
-interface RateLimitPayload extends RateLimitResource, TwilioResponsePayload {}
+interface RateLimitPayload extends TwilioResponsePayload {
+  rate_limits: RateLimitResource[];
+}
 
 interface RateLimitResource {
   sid?: string | null;
@@ -291,7 +293,7 @@ export class RateLimitInstance {
 
   constructor(
     protected _version: V2,
-    payload: RateLimitPayload,
+    payload: RateLimitResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -759,7 +761,7 @@ export class RateLimitPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RateLimitPayload): RateLimitInstance {
+  getInstance(payload: RateLimitResource): RateLimitInstance {
     return new RateLimitInstance(
       this._version,
       payload,

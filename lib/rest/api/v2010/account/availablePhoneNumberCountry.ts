@@ -258,9 +258,9 @@ export class AvailablePhoneNumberCountryContextImpl
   }
 }
 
-interface AvailablePhoneNumberCountryPayload
-  extends AvailablePhoneNumberCountryResource,
-    TwilioResponsePayload {}
+interface AvailablePhoneNumberCountryPayload extends TwilioResponsePayload {
+  countries: AvailablePhoneNumberCountryResource[];
+}
 
 interface AvailablePhoneNumberCountryResource {
   country_code?: string | null;
@@ -276,7 +276,7 @@ export class AvailablePhoneNumberCountryInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AvailablePhoneNumberCountryPayload,
+    payload: AvailablePhoneNumberCountryResource,
     accountSid: string,
     countryCode?: string
   ) {
@@ -719,7 +719,7 @@ export class AvailablePhoneNumberCountryPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AvailablePhoneNumberCountryPayload
+    payload: AvailablePhoneNumberCountryResource
   ): AvailablePhoneNumberCountryInstance {
     return new AvailablePhoneNumberCountryInstance(
       this._version,

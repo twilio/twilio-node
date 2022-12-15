@@ -197,9 +197,9 @@ export class VerificationAttemptContextImpl
   }
 }
 
-interface VerificationAttemptPayload
-  extends VerificationAttemptResource,
-    TwilioResponsePayload {}
+interface VerificationAttemptPayload extends TwilioResponsePayload {
+  attempts: VerificationAttemptResource[];
+}
 
 interface VerificationAttemptResource {
   sid?: string | null;
@@ -221,7 +221,7 @@ export class VerificationAttemptInstance {
 
   constructor(
     protected _version: V2,
-    payload: VerificationAttemptPayload,
+    payload: VerificationAttemptResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -611,7 +611,7 @@ export class VerificationAttemptPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: VerificationAttemptPayload
+    payload: VerificationAttemptResource
   ): VerificationAttemptInstance {
     return new VerificationAttemptInstance(this._version, payload);
   }

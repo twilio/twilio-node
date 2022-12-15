@@ -263,9 +263,9 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   }
 }
 
-interface TaskChannelPayload
-  extends TaskChannelResource,
-    TwilioResponsePayload {}
+interface TaskChannelPayload extends TwilioResponsePayload {
+  channels: TaskChannelResource[];
+}
 
 interface TaskChannelResource {
   account_sid?: string | null;
@@ -286,7 +286,7 @@ export class TaskChannelInstance {
 
   constructor(
     protected _version: V1,
-    payload: TaskChannelPayload,
+    payload: TaskChannelResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -765,7 +765,7 @@ export class TaskChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskChannelPayload): TaskChannelInstance {
+  getInstance(payload: TaskChannelResource): TaskChannelInstance {
     return new TaskChannelInstance(
       this._version,
       payload,

@@ -167,9 +167,9 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   }
 }
 
-interface DeliveryReceiptPayload
-  extends DeliveryReceiptResource,
-    TwilioResponsePayload {}
+interface DeliveryReceiptPayload extends TwilioResponsePayload {
+  delivery_receipts: DeliveryReceiptResource[];
+}
 
 interface DeliveryReceiptResource {
   account_sid?: string | null;
@@ -191,7 +191,7 @@ export class DeliveryReceiptInstance {
 
   constructor(
     protected _version: V1,
-    payload: DeliveryReceiptPayload,
+    payload: DeliveryReceiptResource,
     conversationSid: string,
     messageSid: string,
     sid?: string
@@ -585,7 +585,7 @@ export class DeliveryReceiptPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DeliveryReceiptPayload): DeliveryReceiptInstance {
+  getInstance(payload: DeliveryReceiptResource): DeliveryReceiptInstance {
     return new DeliveryReceiptInstance(
       this._version,
       payload,

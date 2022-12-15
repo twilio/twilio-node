@@ -157,7 +157,7 @@ interface UserDefinedMessageResource {
 export class UserDefinedMessageInstance {
   constructor(
     protected _version: V2010,
-    payload: UserDefinedMessagePayload,
+    payload: UserDefinedMessageResource,
     accountSid: string,
     callSid: string
   ) {

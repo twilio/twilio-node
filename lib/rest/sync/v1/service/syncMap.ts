@@ -290,7 +290,9 @@ export class SyncMapContextImpl implements SyncMapContext {
   }
 }
 
-interface SyncMapPayload extends SyncMapResource, TwilioResponsePayload {}
+interface SyncMapPayload extends TwilioResponsePayload {
+  maps: SyncMapResource[];
+}
 
 interface SyncMapResource {
   sid?: string | null;
@@ -312,7 +314,7 @@ export class SyncMapInstance {
 
   constructor(
     protected _version: V1,
-    payload: SyncMapPayload,
+    payload: SyncMapResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -810,7 +812,7 @@ export class SyncMapPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncMapPayload): SyncMapInstance {
+  getInstance(payload: SyncMapResource): SyncMapInstance {
     return new SyncMapInstance(
       this._version,
       payload,

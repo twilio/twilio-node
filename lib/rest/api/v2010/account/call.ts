@@ -551,7 +551,9 @@ export class CallContextImpl implements CallContext {
   }
 }
 
-interface CallPayload extends CallResource, TwilioResponsePayload {}
+interface CallPayload extends TwilioResponsePayload {
+  calls: CallResource[];
+}
 
 interface CallResource {
   sid?: string | null;
@@ -588,7 +590,7 @@ export class CallInstance {
 
   constructor(
     protected _version: V2010,
-    payload: CallPayload,
+    payload: CallResource,
     accountSid: string,
     sid?: string
   ) {
@@ -1313,7 +1315,7 @@ export class CallPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CallPayload): CallInstance {
+  getInstance(payload: CallResource): CallInstance {
     return new CallInstance(this._version, payload, this._solution.accountSid);
   }
 

@@ -91,7 +91,7 @@ export class OauthInstance {
   protected _solution: OauthContextSolution;
   protected _context?: OauthContext;
 
-  constructor(protected _version: V1, payload: OauthPayload) {
+  constructor(protected _version: V1, payload: OauthResource) {
     this.keys = payload.keys;
     this.url = payload.url;
 

@@ -378,9 +378,9 @@ export type ApplicationVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface ApplicationPayload
-  extends ApplicationResource,
-    TwilioResponsePayload {}
+interface ApplicationPayload extends TwilioResponsePayload {
+  applications: ApplicationResource[];
+}
 
 interface ApplicationResource {
   account_sid?: string | null;
@@ -411,7 +411,7 @@ export class ApplicationInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ApplicationPayload,
+    payload: ApplicationResource,
     accountSid: string,
     sid?: string
   ) {
@@ -977,7 +977,7 @@ export class ApplicationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ApplicationPayload): ApplicationInstance {
+  getInstance(payload: ApplicationResource): ApplicationInstance {
     return new ApplicationInstance(
       this._version,
       payload,

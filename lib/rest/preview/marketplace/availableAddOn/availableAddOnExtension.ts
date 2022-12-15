@@ -158,9 +158,9 @@ export class AvailableAddOnExtensionContextImpl
   }
 }
 
-interface AvailableAddOnExtensionPayload
-  extends AvailableAddOnExtensionResource,
-    TwilioResponsePayload {}
+interface AvailableAddOnExtensionPayload extends TwilioResponsePayload {
+  extensions: AvailableAddOnExtensionResource[];
+}
 
 interface AvailableAddOnExtensionResource {
   sid?: string | null;
@@ -177,7 +177,7 @@ export class AvailableAddOnExtensionInstance {
 
   constructor(
     protected _version: Marketplace,
-    payload: AvailableAddOnExtensionPayload,
+    payload: AvailableAddOnExtensionResource,
     availableAddOnSid: string,
     sid?: string
   ) {
@@ -555,7 +555,7 @@ export class AvailableAddOnExtensionPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AvailableAddOnExtensionPayload
+    payload: AvailableAddOnExtensionResource
   ): AvailableAddOnExtensionInstance {
     return new AvailableAddOnExtensionInstance(
       this._version,

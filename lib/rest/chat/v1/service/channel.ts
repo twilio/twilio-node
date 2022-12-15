@@ -319,7 +319,9 @@ export class ChannelContextImpl implements ChannelContext {
   }
 }
 
-interface ChannelPayload extends ChannelResource, TwilioResponsePayload {}
+interface ChannelPayload extends TwilioResponsePayload {
+  channels: ChannelResource[];
+}
 
 interface ChannelResource {
   sid?: string | null;
@@ -344,7 +346,7 @@ export class ChannelInstance {
 
   constructor(
     protected _version: V1,
-    payload: ChannelPayload,
+    payload: ChannelResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -868,7 +870,7 @@ export class ChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ChannelPayload): ChannelInstance {
+  getInstance(payload: ChannelResource): ChannelInstance {
     return new ChannelInstance(
       this._version,
       payload,

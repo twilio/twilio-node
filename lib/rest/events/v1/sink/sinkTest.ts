@@ -102,7 +102,7 @@ interface SinkTestResource {
 }
 
 export class SinkTestInstance {
-  constructor(protected _version: V1, payload: SinkTestPayload, sid: string) {
+  constructor(protected _version: V1, payload: SinkTestResource, sid: string) {
     this.result = payload.result;
   }
 

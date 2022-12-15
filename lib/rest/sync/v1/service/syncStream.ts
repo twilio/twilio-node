@@ -270,7 +270,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   }
 }
 
-interface SyncStreamPayload extends SyncStreamResource, TwilioResponsePayload {}
+interface SyncStreamPayload extends TwilioResponsePayload {
+  streams: SyncStreamResource[];
+}
 
 interface SyncStreamResource {
   sid?: string | null;
@@ -291,7 +293,7 @@ export class SyncStreamInstance {
 
   constructor(
     protected _version: V1,
-    payload: SyncStreamPayload,
+    payload: SyncStreamResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -774,7 +776,7 @@ export class SyncStreamPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncStreamPayload): SyncStreamInstance {
+  getInstance(payload: SyncStreamResource): SyncStreamInstance {
     return new SyncStreamInstance(
       this._version,
       payload,

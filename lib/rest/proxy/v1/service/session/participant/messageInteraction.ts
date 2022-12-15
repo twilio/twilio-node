@@ -204,9 +204,9 @@ export class MessageInteractionContextImpl
   }
 }
 
-interface MessageInteractionPayload
-  extends MessageInteractionResource,
-    TwilioResponsePayload {}
+interface MessageInteractionPayload extends TwilioResponsePayload {
+  interactions: MessageInteractionResource[];
+}
 
 interface MessageInteractionResource {
   sid?: string | null;
@@ -237,7 +237,7 @@ export class MessageInteractionInstance {
 
   constructor(
     protected _version: V1,
-    payload: MessageInteractionPayload,
+    payload: MessageInteractionResource,
     serviceSid: string,
     sessionSid: string,
     participantSid: string,
@@ -766,7 +766,7 @@ export class MessageInteractionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance {
+  getInstance(payload: MessageInteractionResource): MessageInteractionInstance {
     return new MessageInteractionInstance(
       this._version,
       payload,

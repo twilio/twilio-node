@@ -136,9 +136,9 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   }
 }
 
-interface EndUserTypePayload
-  extends EndUserTypeResource,
-    TwilioResponsePayload {}
+interface EndUserTypePayload extends TwilioResponsePayload {
+  end_user_types: EndUserTypeResource[];
+}
 
 interface EndUserTypeResource {
   sid?: string | null;
@@ -154,7 +154,7 @@ export class EndUserTypeInstance {
 
   constructor(
     protected _version: V1,
-    payload: EndUserTypePayload,
+    payload: EndUserTypeResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -480,7 +480,7 @@ export class EndUserTypePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EndUserTypePayload): EndUserTypeInstance {
+  getInstance(payload: EndUserTypeResource): EndUserTypeInstance {
     return new EndUserTypeInstance(this._version, payload);
   }
 

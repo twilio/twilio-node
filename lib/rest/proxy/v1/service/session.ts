@@ -303,7 +303,9 @@ export class SessionContextImpl implements SessionContext {
   }
 }
 
-interface SessionPayload extends SessionResource, TwilioResponsePayload {}
+interface SessionPayload extends TwilioResponsePayload {
+  sessions: SessionResource[];
+}
 
 interface SessionResource {
   sid?: string | null;
@@ -330,7 +332,7 @@ export class SessionInstance {
 
   constructor(
     protected _version: V1,
-    payload: SessionPayload,
+    payload: SessionResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -860,7 +862,7 @@ export class SessionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SessionPayload): SessionInstance {
+  getInstance(payload: SessionResource): SessionInstance {
     return new SessionInstance(
       this._version,
       payload,

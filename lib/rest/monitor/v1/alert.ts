@@ -161,7 +161,9 @@ export type AlertRequestMethod =
   | "PUT"
   | "DELETE";
 
-interface AlertPayload extends AlertResource, TwilioResponsePayload {}
+interface AlertPayload extends TwilioResponsePayload {
+  alerts: AlertResource[];
+}
 
 interface AlertResource {
   account_sid?: string | null;
@@ -189,7 +191,7 @@ export class AlertInstance {
   protected _solution: AlertContextSolution;
   protected _context?: AlertContext;
 
-  constructor(protected _version: V1, payload: AlertPayload, sid?: string) {
+  constructor(protected _version: V1, payload: AlertResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.alertText = payload.alert_text;
     this.apiVersion = payload.api_version;
@@ -600,7 +602,7 @@ export class AlertPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AlertPayload): AlertInstance {
+  getInstance(payload: AlertResource): AlertInstance {
     return new AlertInstance(this._version, payload);
   }
 

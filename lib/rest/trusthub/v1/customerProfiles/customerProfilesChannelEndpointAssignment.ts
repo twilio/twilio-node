@@ -204,8 +204,9 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
 }
 
 interface CustomerProfilesChannelEndpointAssignmentPayload
-  extends CustomerProfilesChannelEndpointAssignmentResource,
-    TwilioResponsePayload {}
+  extends TwilioResponsePayload {
+  results: CustomerProfilesChannelEndpointAssignmentResource[];
+}
 
 interface CustomerProfilesChannelEndpointAssignmentResource {
   sid?: string | null;
@@ -223,7 +224,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
 
   constructor(
     protected _version: V1,
-    payload: CustomerProfilesChannelEndpointAssignmentPayload,
+    payload: CustomerProfilesChannelEndpointAssignmentResource,
     customerProfileSid: string,
     sid?: string
   ) {
@@ -729,7 +730,7 @@ export class CustomerProfilesChannelEndpointAssignmentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CustomerProfilesChannelEndpointAssignmentPayload
+    payload: CustomerProfilesChannelEndpointAssignmentResource
   ): CustomerProfilesChannelEndpointAssignmentInstance {
     return new CustomerProfilesChannelEndpointAssignmentInstance(
       this._version,

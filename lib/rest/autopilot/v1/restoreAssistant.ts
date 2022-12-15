@@ -138,7 +138,7 @@ interface RestoreAssistantResource {
 }
 
 export class RestoreAssistantInstance {
-  constructor(protected _version: V1, payload: RestoreAssistantPayload) {
+  constructor(protected _version: V1, payload: RestoreAssistantResource) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

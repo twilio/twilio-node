@@ -120,7 +120,11 @@ export class NumberInstance {
   protected _solution: NumberContextSolution;
   protected _context?: NumberContext;
 
-  constructor(protected _version: V1, payload: NumberPayload, number?: string) {
+  constructor(
+    protected _version: V1,
+    payload: NumberResource,
+    number?: string
+  ) {
     this.number = payload.number;
     this.country = payload.country;
     this.isoCountry = payload.iso_country;

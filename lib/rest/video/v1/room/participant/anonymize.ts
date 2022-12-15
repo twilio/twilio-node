@@ -121,7 +121,7 @@ export class AnonymizeInstance {
 
   constructor(
     protected _version: V1,
-    payload: AnonymizePayload,
+    payload: AnonymizeResource,
     roomSid: string,
     sid: string
   ) {

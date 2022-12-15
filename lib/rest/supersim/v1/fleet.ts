@@ -275,7 +275,9 @@ export type FleetIpCommandsMethod =
   | "PUT"
   | "DELETE";
 
-interface FleetPayload extends FleetResource, TwilioResponsePayload {}
+interface FleetPayload extends TwilioResponsePayload {
+  fleets: FleetResource[];
+}
 
 interface FleetResource {
   account_sid?: string | null;
@@ -299,7 +301,7 @@ export class FleetInstance {
   protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
-  constructor(protected _version: V1, payload: FleetPayload, sid?: string) {
+  constructor(protected _version: V1, payload: FleetResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -779,7 +781,7 @@ export class FleetPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FleetPayload): FleetInstance {
+  getInstance(payload: FleetResource): FleetInstance {
     return new FleetInstance(this._version, payload);
   }
 

@@ -459,9 +459,9 @@ export function MachineToMachineListInstance(
   return instance;
 }
 
-interface MachineToMachinePayload
-  extends MachineToMachineResource,
-    TwilioResponsePayload {}
+interface MachineToMachinePayload extends TwilioResponsePayload {
+  available_phone_numbers: MachineToMachineResource[];
+}
 
 interface MachineToMachineResource {
   friendly_name?: string | null;
@@ -482,7 +482,7 @@ interface MachineToMachineResource {
 export class MachineToMachineInstance {
   constructor(
     protected _version: V2010,
-    payload: MachineToMachinePayload,
+    payload: MachineToMachineResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -605,7 +605,7 @@ export class MachineToMachinePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MachineToMachinePayload): MachineToMachineInstance {
+  getInstance(payload: MachineToMachineResource): MachineToMachineInstance {
     return new MachineToMachineInstance(
       this._version,
       payload,

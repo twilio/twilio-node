@@ -385,7 +385,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 }
 
-interface WorkspacePayload extends WorkspaceResource, TwilioResponsePayload {}
+interface WorkspacePayload extends TwilioResponsePayload {
+  workspaces: WorkspaceResource[];
+}
 
 interface WorkspaceResource {
   account_sid?: string | null;
@@ -409,7 +411,11 @@ export class WorkspaceInstance {
   protected _solution: WorkspaceContextSolution;
   protected _context?: WorkspaceContext;
 
-  constructor(protected _version: V1, payload: WorkspacePayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: WorkspaceResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -964,7 +970,7 @@ export class WorkspacePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkspacePayload): WorkspaceInstance {
+  getInstance(payload: WorkspaceResource): WorkspaceInstance {
     return new WorkspaceInstance(this._version, payload);
   }
 

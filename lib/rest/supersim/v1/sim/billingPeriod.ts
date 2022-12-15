@@ -304,9 +304,9 @@ export function BillingPeriodListInstance(
   return instance;
 }
 
-interface BillingPeriodPayload
-  extends BillingPeriodResource,
-    TwilioResponsePayload {}
+interface BillingPeriodPayload extends TwilioResponsePayload {
+  billing_periods: BillingPeriodResource[];
+}
 
 interface BillingPeriodResource {
   sid?: string | null;
@@ -322,7 +322,7 @@ interface BillingPeriodResource {
 export class BillingPeriodInstance {
   constructor(
     protected _version: V1,
-    payload: BillingPeriodPayload,
+    payload: BillingPeriodResource,
     simSid: string
   ) {
     this.sid = payload.sid;
@@ -414,7 +414,7 @@ export class BillingPeriodPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BillingPeriodPayload): BillingPeriodInstance {
+  getInstance(payload: BillingPeriodResource): BillingPeriodInstance {
     return new BillingPeriodInstance(
       this._version,
       payload,

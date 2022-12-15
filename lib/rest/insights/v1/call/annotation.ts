@@ -217,7 +217,7 @@ export class AnnotationInstance {
 
   constructor(
     protected _version: V1,
-    payload: AnnotationPayload,
+    payload: AnnotationResource,
     callSid: string
   ) {
     this.callSid = payload.call_sid;

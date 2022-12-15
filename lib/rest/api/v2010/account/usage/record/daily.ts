@@ -573,7 +573,9 @@ export function DailyListInstance(
   return instance;
 }
 
-interface DailyPayload extends DailyResource, TwilioResponsePayload {}
+interface DailyPayload extends TwilioResponsePayload {
+  usage_records: DailyResource[];
+}
 
 interface DailyResource {
   account_sid?: string | null;
@@ -596,7 +598,7 @@ interface DailyResource {
 export class DailyInstance {
   constructor(
     protected _version: V2010,
-    payload: DailyPayload,
+    payload: DailyResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -730,7 +732,7 @@ export class DailyPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DailyPayload): DailyInstance {
+  getInstance(payload: DailyResource): DailyInstance {
     return new DailyInstance(this._version, payload, this._solution.accountSid);
   }
 

@@ -144,7 +144,7 @@ interface ExternalCampaignResource {
 }
 
 export class ExternalCampaignInstance {
-  constructor(protected _version: V1, payload: ExternalCampaignPayload) {
+  constructor(protected _version: V1, payload: ExternalCampaignResource) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.campaignId = payload.campaign_id;

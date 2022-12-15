@@ -161,7 +161,9 @@ export class AppContextImpl implements AppContext {
   }
 }
 
-interface AppPayload extends AppResource, TwilioResponsePayload {}
+interface AppPayload extends TwilioResponsePayload {
+  apps: AppResource[];
+}
 
 interface AppResource {
   sid?: string | null;
@@ -177,7 +179,7 @@ export class AppInstance {
   protected _solution: AppContextSolution;
   protected _context?: AppContext;
 
-  constructor(protected _version: V1, payload: AppPayload, sid?: string) {
+  constructor(protected _version: V1, payload: AppResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.hash = payload.hash;
@@ -515,7 +517,7 @@ export class AppPage extends Page<V1, AppPayload, AppResource, AppInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AppPayload): AppInstance {
+  getInstance(payload: AppResource): AppInstance {
     return new AppInstance(this._version, payload);
   }
 

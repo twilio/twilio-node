@@ -447,7 +447,9 @@ export function VoipListInstance(
   return instance;
 }
 
-interface VoipPayload extends VoipResource, TwilioResponsePayload {}
+interface VoipPayload extends TwilioResponsePayload {
+  available_phone_numbers: VoipResource[];
+}
 
 interface VoipResource {
   friendly_name?: string | null;
@@ -468,7 +470,7 @@ interface VoipResource {
 export class VoipInstance {
   constructor(
     protected _version: V2010,
-    payload: VoipPayload,
+    payload: VoipResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -591,7 +593,7 @@ export class VoipPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VoipPayload): VoipInstance {
+  getInstance(payload: VoipResource): VoipInstance {
     return new VoipInstance(
       this._version,
       payload,
