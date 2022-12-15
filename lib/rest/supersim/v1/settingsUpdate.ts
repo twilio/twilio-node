@@ -30,6 +30,7 @@ type SettingsUpdateStatus =
  * Options to pass to each
  *
  * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
+ * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -42,6 +43,7 @@ type SettingsUpdateStatus =
  */
 export interface SettingsUpdateListInstanceEachOptions {
   sim?: string;
+  status?: SettingsUpdateStatus;
   pageSize?: number;
   callback?: (
     item: SettingsUpdateInstance,
@@ -55,6 +57,7 @@ export interface SettingsUpdateListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
+ * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -63,6 +66,7 @@ export interface SettingsUpdateListInstanceEachOptions {
  */
 export interface SettingsUpdateListInstanceOptions {
   sim?: string;
+  status?: SettingsUpdateStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -71,12 +75,14 @@ export interface SettingsUpdateListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
+ * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SettingsUpdateListInstancePageOptions {
   sim?: string;
+  status?: SettingsUpdateStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -249,6 +255,7 @@ export function SettingsUpdateListInstance(
     let data: any = {};
 
     if (params["sim"] !== undefined) data["Sim"] = params["sim"];
+    if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.page !== undefined) data["Page"] = params.pageNumber;

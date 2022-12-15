@@ -2,7 +2,7 @@
 
 process.noDeprecation = true;
 
-var VoiceResponse = require("../../../lib/twiml/VoiceResponse");
+import VoiceResponse from "../../../lib/twiml/VoiceResponse";
 
 describe("create voice response TwiML", function () {
   it("should serialize empty response", function () {

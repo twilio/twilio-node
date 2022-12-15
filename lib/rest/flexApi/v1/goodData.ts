@@ -67,7 +67,7 @@ export class GoodDataContextImpl implements GoodDataContext {
 
   constructor(protected _version: V1) {
     this._solution = {};
-    this._uri = `/Accounts/GoodData`;
+    this._uri = `/Insights/Session`;
   }
 
   create(params?: any, callback?: any): Promise<GoodDataInstance> {
@@ -122,7 +122,7 @@ interface GoodDataResource {
   workspace_id?: string | null;
   session_expiry?: string | null;
   session_id?: string | null;
-  gd_base_url?: string | null;
+  base_url?: string | null;
   url?: string | null;
 }
 
@@ -134,14 +134,14 @@ export class GoodDataInstance {
     this.workspaceId = payload.workspace_id;
     this.sessionExpiry = payload.session_expiry;
     this.sessionId = payload.session_id;
-    this.gdBaseUrl = payload.gd_base_url;
+    this.baseUrl = payload.base_url;
     this.url = payload.url;
 
     this._solution = {};
   }
 
   /**
-   * Unique workspace ID in gooddata
+   * Unique ID to identify the user\'s workspace
    */
   workspaceId?: string | null;
   /**
@@ -153,9 +153,9 @@ export class GoodDataInstance {
    */
   sessionId?: string | null;
   /**
-   * GoodData login base URL
+   * Base URL to fetch reports and dashboards
    */
-  gdBaseUrl?: string | null;
+  baseUrl?: string | null;
   /**
    * The URL of this resource.
    */
@@ -202,7 +202,7 @@ export class GoodDataInstance {
       workspaceId: this.workspaceId,
       sessionExpiry: this.sessionExpiry,
       sessionId: this.sessionId,
-      gdBaseUrl: this.gdBaseUrl,
+      baseUrl: this.baseUrl,
       url: this.url,
     };
   }
