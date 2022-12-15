@@ -1,19 +1,38 @@
 "use strict";
 
-var jwt = require("jsonwebtoken");
-var qs = require("querystring");
+import jwt from "jsonwebtoken";
+import qs from "querystring";
+
+export interface Scope {
+  scope: string;
+  payload(): string;
+}
+
+export interface OutgoingClientScopeOptions {
+  applicationSid: string;
+  clientName?: string;
+  params?: object;
+}
+
+export interface ClientCapabilityOptions {
+  accountSid: string;
+  authToken: string;
+  ttl?: number;
+}
 
 /**
  * @constructor
  * @param filters
  */
-class EventStreamScope {
-  constructor(filters) {
+export class EventStreamScope implements Scope {
+  scope: string = "scope:stream:subscribe";
+  filters: object;
+
+  constructor(filters?: object) {
     this.filters = filters || {};
-    this.scope = "scope:stream:subscribe";
   }
 
-  payload() {
+  payload(): string {
     var queryArgs = ["path=/2010-04-01/Events"];
 
     if (Object.keys(this.filters).length > 0) {
@@ -34,13 +53,15 @@ class EventStreamScope {
  * @constructor
  * @param clientName
  */
-class IncomingClientScope {
-  constructor(clientName) {
+export class IncomingClientScope implements Scope {
+  scope: string = "scope:client:incoming";
+  clientName: string;
+
+  constructor(clientName: string) {
     this.clientName = clientName;
-    this.scope = "scope:client:incoming";
   }
 
-  payload() {
+  payload(): string {
     var query = ["clientName", qs.escape(this.clientName)].join("=");
     return [this.scope, query].join("?");
   }
@@ -53,23 +74,29 @@ class IncomingClientScope {
  * @param {string} [options.clientName] - the client name
  * @param {object} [options.params] - parameters
  */
-class OutgoingClientScope {
-  constructor(options) {
+export class OutgoingClientScope implements Scope {
+  scope: string = "scope:client:outgoing";
+  applicationSid: string;
+  clientName?: string;
+  params?: object;
+
+  constructor(options: OutgoingClientScopeOptions) {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
+    }
+    if (typeof options !== "object") {
+      throw new TypeError('Parameter "options" must be a type Object');
     }
     if (!options.applicationSid) {
       throw new Error('Required parameter "options.applicationSid" missing.');
     }
 
-    options = options || {};
     this.applicationSid = options.applicationSid;
     this.clientName = options.clientName;
     this.params = options.params;
-    this.scope = "scope:client:outgoing";
   }
 
-  payload() {
+  payload(): string {
     var queryArgs = [["appSid", qs.escape(this.applicationSid)].join("=")];
 
     if (typeof this.clientName === "string") {
@@ -94,10 +121,21 @@ class OutgoingClientScope {
  * @constructor
  * @param options
  */
-class ClientCapability {
-  constructor(options) {
+export default class ClientCapability {
+  static EventStreamScope = EventStreamScope;
+  static IncomingClientScope = IncomingClientScope;
+  static OutgoingClientScope = OutgoingClientScope;
+  accountSid: string;
+  authToken: string;
+  ttl: number;
+  scopes: Scope[];
+
+  constructor(options: ClientCapabilityOptions) {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
+    }
+    if (typeof options !== "object") {
+      throw new TypeError('Parameter "options" must be a type Object');
     }
     if (!options.accountSid) {
       throw new Error('Required parameter "options.accountSid" missing.');
@@ -106,31 +144,24 @@ class ClientCapability {
       throw new Error('Required parameter "options.authToken" missing.');
     }
 
-    options = options || {};
     this.accountSid = options.accountSid;
     this.authToken = options.authToken;
     this.ttl = options.ttl || 3600;
     this.scopes = [];
   }
 
-  addScope(scope) {
+  addScope(scope: Scope) {
     this.scopes.push(scope);
   }
 
-  toJwt() {
+  toJwt(): string {
     const scope = this.scopes.map((scope) => scope.payload()).join(" ");
     var payload = {
       scope: scope,
       iss: this.accountSid,
-      exp: Math.floor(new Date() / 1000) + this.ttl,
+      exp: Math.floor(new Date().valueOf() / 1000) + this.ttl,
     };
 
     return jwt.sign(payload, this.authToken);
   }
 }
-
-ClientCapability.EventStreamScope = EventStreamScope;
-ClientCapability.IncomingClientScope = IncomingClientScope;
-ClientCapability.OutgoingClientScope = OutgoingClientScope;
-
-module.exports = ClientCapability;

@@ -1,5 +1,5 @@
-var twilio = require("../../../index");
-var jwt = require("jsonwebtoken");
+import twilio from "../../../";
+import jwt from "jsonwebtoken";
 
 process.noDeprecation = true;
 

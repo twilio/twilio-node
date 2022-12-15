@@ -1,9 +1,10 @@
 "use strict";
-var util = require("util");
-var Request = require("../../lib/http/request");
-var RequestClient = require("../../lib/base/RequestClient");
-var moduleInfo = require("../../package.json");
-var os = require("os");
+
+import util from "util";
+import Request from "../../lib/http/request";
+import RequestClient from "../../lib/base/RequestClient";
+import moduleInfo from "../../package.json";
+import os from "os";
 
 class Hologram {
   constructor(request, response) {
