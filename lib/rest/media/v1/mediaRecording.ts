@@ -197,6 +197,7 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type MediaRecordingStatusCallbackMethod =
   | "HEAD"
   | "GET"

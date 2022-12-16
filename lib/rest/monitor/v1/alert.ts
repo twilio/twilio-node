@@ -153,6 +153,7 @@ export class AlertContextImpl implements AlertContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type AlertRequestMethod =
   | "HEAD"
   | "GET"

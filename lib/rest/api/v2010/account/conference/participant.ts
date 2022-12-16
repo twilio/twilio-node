@@ -436,8 +436,8 @@ interface ParticipantResource {
   call_sid_to_coach?: string | null;
   coaching?: boolean | null;
   conference_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   end_conference_on_exit?: boolean | null;
   muted?: boolean | null;
   hold?: boolean | null;
@@ -506,11 +506,11 @@ export class ParticipantInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Whether the conference ends when the participant leaves
    */

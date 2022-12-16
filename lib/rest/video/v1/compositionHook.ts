@@ -323,6 +323,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type CompositionHookStatusCallbackMethod =
   | "HEAD"
   | "GET"

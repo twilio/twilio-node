@@ -201,8 +201,8 @@ interface PayloadResource {
   add_on_sid?: string | null;
   add_on_configuration_sid?: string | null;
   content_type?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   reference_sid?: string | null;
   subresource_uris?: object | null;
 }
@@ -270,11 +270,11 @@ export class PayloadInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The SID of the recording to which the AddOnResult resource that contains the payload belongs
    */

@@ -212,6 +212,7 @@ export class RoomContextImpl implements RoomContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type RoomStatusCallbackMethod =
   | "HEAD"
   | "GET"

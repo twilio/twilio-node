@@ -21,6 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { EventListInstance } from "./call/event";
 import { FeedbackListInstance } from "./call/feedback";
+import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 import { NotificationListInstance } from "./call/notification";
 import { PaymentListInstance } from "./call/payment";
 import { RecordingListInstance } from "./call/recording";
@@ -28,8 +29,6 @@ import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
 import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
-
-import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 
 type CallStatus =
   | "queued"
@@ -557,8 +556,8 @@ interface CallPayload extends TwilioResponsePayload {
 
 interface CallResource {
   sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   parent_call_sid?: string | null;
   account_sid?: string | null;
   to?: string | null;
@@ -567,8 +566,8 @@ interface CallResource {
   from_formatted?: string | null;
   phone_number_sid?: string | null;
   status?: CallStatus;
-  start_time?: string | null;
-  end_time?: string | null;
+  start_time?: Date | null;
+  end_time?: Date | null;
   duration?: string | null;
   price?: string | null;
   price_unit?: string | null;
@@ -631,11 +630,11 @@ export class CallInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The SID that identifies the call that created this leg.
    */
@@ -668,11 +667,11 @@ export class CallInstance {
   /**
    * The start time of the call. Null if the call has not yet been dialed.
    */
-  startTime?: string | null;
+  startTime?: Date | null;
   /**
    * The end time of the call. Null if the call did not complete successfully.
    */
-  endTime?: string | null;
+  endTime?: Date | null;
   /**
    * The length of the call in seconds.
    */

@@ -168,8 +168,8 @@ interface AuthorizedConnectAppResource {
   connect_app_friendly_name?: string | null;
   connect_app_homepage_url?: string | null;
   connect_app_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   permissions?: Array<AuthorizedConnectAppPermission> | null;
   uri?: string | null;
 }
@@ -228,11 +228,11 @@ export class AuthorizedConnectAppInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Permissions authorized to the app
    */

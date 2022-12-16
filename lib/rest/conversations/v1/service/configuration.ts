@@ -17,7 +17,6 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-
 import { NotificationListInstance } from "./configuration/notification";
 import { WebhookListInstance } from "./configuration/webhook";
 

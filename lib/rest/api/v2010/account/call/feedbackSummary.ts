@@ -151,8 +151,8 @@ interface FeedbackSummaryResource {
   account_sid?: string | null;
   call_count?: number | null;
   call_feedback_count?: number | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   end_date?: Date | null;
   include_subaccounts?: boolean | null;
   issues?: Array<any> | null;
@@ -208,11 +208,11 @@ export class FeedbackSummaryInstance {
   /**
    * The date this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The latest feedback entry date in the summary
    */

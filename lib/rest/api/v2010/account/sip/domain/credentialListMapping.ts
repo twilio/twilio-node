@@ -204,8 +204,8 @@ interface CredentialListMappingPayload extends TwilioResponsePayload {
 
 interface CredentialListMappingResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   domain_sid?: string | null;
   friendly_name?: string | null;
   sid?: string | null;
@@ -241,11 +241,11 @@ export class CredentialListMappingInstance {
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The unique string that identifies the SipDomain resource.
    */

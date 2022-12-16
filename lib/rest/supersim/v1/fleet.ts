@@ -260,6 +260,7 @@ export class FleetContextImpl implements FleetContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type FleetSmsCommandsMethod =
   | "HEAD"
   | "GET"

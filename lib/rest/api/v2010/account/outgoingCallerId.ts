@@ -265,8 +265,8 @@ interface OutgoingCallerIdPayload extends TwilioResponsePayload {
 
 interface OutgoingCallerIdResource {
   sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   account_sid?: string | null;
   phone_number?: string | null;
@@ -301,11 +301,11 @@ export class OutgoingCallerIdInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
