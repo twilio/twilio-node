@@ -23,7 +23,7 @@
     "axios": "^0.26.1",
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "qs": "^6.9.4",
     "scmp": "^2.1.0",
     "url-parse": "^1.5.9",
