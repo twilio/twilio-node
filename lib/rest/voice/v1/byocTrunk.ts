@@ -290,6 +290,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ByocTrunkVoiceMethod =
   | "HEAD"
   | "GET"

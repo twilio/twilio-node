@@ -22,7 +22,6 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
 import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
-
 import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics";
 import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
 import { WorkersStatisticsListInstance } from "./worker/workersStatistics";

@@ -204,6 +204,7 @@ export class RecordingContextImpl implements RecordingContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type RecordingStatusCallbackMethod =
   | "HEAD"
   | "GET"

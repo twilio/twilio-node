@@ -384,6 +384,7 @@ export class ServiceContextImpl implements ServiceContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ServiceInboundMethod =
   | "HEAD"
   | "GET"

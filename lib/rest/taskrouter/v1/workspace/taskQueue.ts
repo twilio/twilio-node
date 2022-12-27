@@ -22,7 +22,6 @@ import { isValidPathParam } from "../../../../base/utility";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
-
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
 type TaskQueueTaskOrder = "FIFO" | "LIFO";
