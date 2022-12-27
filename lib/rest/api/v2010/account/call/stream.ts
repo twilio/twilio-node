@@ -564,7 +564,7 @@ interface StreamResource {
   call_sid?: string | null;
   name?: string | null;
   status?: StreamStatus;
-  date_updated?: string | null;
+  date_updated?: Date | null;
   uri?: string | null;
 }
 
@@ -610,7 +610,7 @@ export class StreamInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */

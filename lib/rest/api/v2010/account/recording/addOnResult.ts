@@ -219,9 +219,9 @@ interface AddOnResultResource {
   status?: RecordingAddOnResultStatus;
   add_on_sid?: string | null;
   add_on_configuration_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  date_completed?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  date_completed?: Date | null;
   reference_sid?: string | null;
   subresource_uris?: object | null;
 }
@@ -271,15 +271,15 @@ export class AddOnResultInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The date and time in GMT that the result was completed
    */
-  dateCompleted?: string | null;
+  dateCompleted?: Date | null;
   /**
    * The SID of the recording to which the AddOnResult resource belongs
    */

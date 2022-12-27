@@ -217,6 +217,7 @@ export class CompositionContextImpl implements CompositionContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type CompositionStatusCallbackMethod =
   | "HEAD"
   | "GET"

@@ -230,7 +230,7 @@ interface MemberPayload extends TwilioResponsePayload {
 
 interface MemberResource {
   call_sid?: string | null;
-  date_enqueued?: string | null;
+  date_enqueued?: Date | null;
   position?: number | null;
   uri?: string | null;
   wait_time?: number | null;
@@ -265,7 +265,7 @@ export class MemberInstance {
   /**
    * The date the member was enqueued
    */
-  dateEnqueued?: string | null;
+  dateEnqueued?: Date | null;
   /**
    * This member\'s current position in the queue.
    */

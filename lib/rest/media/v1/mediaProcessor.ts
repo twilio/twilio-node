@@ -241,6 +241,7 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type MediaProcessorStatusCallbackMethod =
   | "HEAD"
   | "GET"

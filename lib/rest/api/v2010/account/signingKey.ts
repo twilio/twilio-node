@@ -251,8 +251,8 @@ interface SigningKeyPayload extends TwilioResponsePayload {
 interface SigningKeyResource {
   sid?: string | null;
   friendly_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class SigningKeyInstance {
@@ -275,8 +275,8 @@ export class SigningKeyInstance {
 
   sid?: string | null;
   friendlyName?: string | null;
-  dateCreated?: string | null;
-  dateUpdated?: string | null;
+  dateCreated?: Date | null;
+  dateUpdated?: Date | null;
 
   private get _proxy(): SigningKeyContext {
     this._context =

@@ -321,8 +321,8 @@ interface ConferencePayload extends TwilioResponsePayload {
 
 interface ConferenceResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   api_version?: string | null;
   friendly_name?: string | null;
   region?: string | null;
@@ -367,11 +367,11 @@ export class ConferenceInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The API version used to create this conference
    */

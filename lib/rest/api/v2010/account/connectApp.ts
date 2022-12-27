@@ -273,6 +273,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ConnectAppDeauthorizeCallbackMethod =
   | "HEAD"
   | "GET"

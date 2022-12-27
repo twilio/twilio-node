@@ -300,6 +300,7 @@ export class SimContextImpl implements SimContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type SimSmsFallbackMethod =
   | "HEAD"
   | "GET"

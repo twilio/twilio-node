@@ -19,7 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
 
 /**
  * Options to pass to update a ShortCodeInstance

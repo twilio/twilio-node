@@ -271,8 +271,8 @@ interface CredentialListPayload extends TwilioResponsePayload {
 
 interface CredentialListResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   sid?: string | null;
   subresource_uris?: object | null;
@@ -307,11 +307,11 @@ export class CredentialListInstance {
   /**
    * The date this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Human readable descriptive text
    */

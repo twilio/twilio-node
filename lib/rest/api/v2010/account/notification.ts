@@ -169,6 +169,7 @@ export class NotificationContextImpl implements NotificationContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type NotificationRequestMethod =
   | "HEAD"
   | "GET"
@@ -185,11 +186,11 @@ interface NotificationResource {
   account_sid?: string | null;
   api_version?: string | null;
   call_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   error_code?: string | null;
   log?: string | null;
-  message_date?: string | null;
+  message_date?: Date | null;
   message_text?: string | null;
   more_info?: string | null;
   request_method?: NotificationRequestMethod;
@@ -247,11 +248,11 @@ export class NotificationInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * A unique error code corresponding to the notification
    */
@@ -263,7 +264,7 @@ export class NotificationInstance {
   /**
    * The date the notification was generated
    */
-  messageDate?: string | null;
+  messageDate?: Date | null;
   /**
    * The text of the notification
    */
