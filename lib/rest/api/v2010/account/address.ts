@@ -181,10 +181,11 @@ export interface AddressContext {
    * @returns { Promise } Resolves to processed AddressInstance
    */
   update(
-    params: AddressContextUpdateOptions,
+    params?:
+      | AddressContextUpdateOptions
+      | ((error: Error | null, item?: AddressInstance) => any),
     callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance>;
-  update(params?: any, callback?: any): Promise<AddressInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -508,10 +509,11 @@ export class AddressInstance {
    * @returns { Promise } Resolves to processed AddressInstance
    */
   update(
-    params: AddressContextUpdateOptions,
+    params?:
+      | AddressContextUpdateOptions
+      | ((error: Error | null, item?: AddressInstance) => any),
     callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
-  update(params?: any, callback?: any): Promise<AddressInstance> {
+  ): Promise<AddressInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -569,25 +571,7 @@ export interface AddressListInstance {
     params: AddressListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance>;
-  create(params: any, callback?: any): Promise<AddressInstance>;
 
-  /**
-   * Streams AddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AddressInstance records from the API.
    *
@@ -604,50 +588,23 @@ export interface AddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AddressListInstanceEachOptions,
+    params?:
+      | AddressListInstanceEachOptions
+      | ((item: AddressInstance, done: (err?: Error) => void) => void),
     callback?: (item: AddressInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage>;
-  /**
-   * Retrieve a single target page of AddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AddressPage) => any
   ): Promise<AddressPage>;
-  getPage(params?: any, callback?: any): Promise<AddressPage>;
-  /**
-   * Lists AddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AddressInstance[]) => any
-  ): Promise<AddressInstance[]>;
   /**
    * Lists AddressInstance records from the API as a list.
    *
@@ -658,23 +615,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AddressListInstanceOptions,
+    params?:
+      | AddressListInstanceOptions
+      | ((error: Error | null, items: AddressInstance[]) => any),
     callback?: (error: Error | null, items: AddressInstance[]) => any
   ): Promise<AddressInstance[]>;
-  list(params?: any, callback?: any): Promise<AddressInstance[]>;
-  /**
-   * Retrieve a single page of AddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
    *
@@ -687,10 +632,11 @@ export interface AddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AddressListInstancePageOptions,
+    params?:
+      | AddressListInstancePageOptions
+      | ((error: Error | null, items: AddressPage) => any),
     callback?: (error: Error | null, items: AddressPage) => any
   ): Promise<AddressPage>;
-  page(params?: any, callback?: any): Promise<AddressPage>;
 
   /**
    * Provide a user-friendly representation
@@ -729,8 +675,8 @@ export function AddressListInstance(
   instance._uri = `/Accounts/${accountSid}/Addresses.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AddressListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -813,8 +759,10 @@ export function AddressListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AddressListInstancePageOptions
+      | ((error: Error | null, item?: AddressPage) => any),
+    callback?: (error: Error | null, item?: AddressPage) => any
   ): Promise<AddressPage> {
     if (typeof params === "function") {
       callback = params;
@@ -860,8 +808,8 @@ export function AddressListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AddressPage) => any
   ): Promise<AddressPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

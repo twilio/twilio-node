@@ -351,71 +351,27 @@ export interface AllTimeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams AllTimeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AllTimeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AllTimeListInstanceEachOptions,
+    params?:
+      | AllTimeListInstanceEachOptions
+      | ((item: AllTimeInstance, done: (err?: Error) => void) => void),
     callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AllTimeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AllTimePage) => any
-  ): Promise<AllTimePage>;
-  /**
-   * Retrieve a single target page of AllTimeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage>;
-  getPage(params?: any, callback?: any): Promise<AllTimePage>;
-  /**
-   * Lists AllTimeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AllTimeInstance[]) => any
-  ): Promise<AllTimeInstance[]>;
   /**
    * Lists AllTimeInstance records from the API as a list.
    *
@@ -426,23 +382,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AllTimeListInstanceOptions,
+    params?:
+      | AllTimeListInstanceOptions
+      | ((error: Error | null, items: AllTimeInstance[]) => any),
     callback?: (error: Error | null, items: AllTimeInstance[]) => any
   ): Promise<AllTimeInstance[]>;
-  list(params?: any, callback?: any): Promise<AllTimeInstance[]>;
-  /**
-   * Retrieve a single page of AllTimeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AllTimePage) => any
-  ): Promise<AllTimePage>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API.
    *
@@ -455,10 +399,11 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AllTimeListInstancePageOptions,
+    params?:
+      | AllTimeListInstancePageOptions
+      | ((error: Error | null, items: AllTimePage) => any),
     callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage>;
-  page(params?: any, callback?: any): Promise<AllTimePage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function AllTimeListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/AllTime.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AllTimeListInstancePageOptions
+      | ((error: Error | null, item?: AllTimePage) => any),
+    callback?: (error: Error | null, item?: AllTimePage) => any
   ): Promise<AllTimePage> {
     if (typeof params === "function") {
       callback = params;
@@ -541,8 +488,8 @@ export function AllTimeListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

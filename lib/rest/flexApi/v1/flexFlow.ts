@@ -206,10 +206,11 @@ export interface FlexFlowContext {
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
   update(
-    params: FlexFlowContextUpdateOptions,
+    params?:
+      | FlexFlowContextUpdateOptions
+      | ((error: Error | null, item?: FlexFlowInstance) => any),
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance>;
-  update(params?: any, callback?: any): Promise<FlexFlowInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -499,10 +500,11 @@ export class FlexFlowInstance {
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
   update(
-    params: FlexFlowContextUpdateOptions,
+    params?:
+      | FlexFlowContextUpdateOptions
+      | ((error: Error | null, item?: FlexFlowInstance) => any),
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
-  ): Promise<FlexFlowInstance>;
-  update(params?: any, callback?: any): Promise<FlexFlowInstance> {
+  ): Promise<FlexFlowInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -551,25 +553,7 @@ export interface FlexFlowListInstance {
     params: FlexFlowListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance>;
-  create(params: any, callback?: any): Promise<FlexFlowInstance>;
 
-  /**
-   * Streams FlexFlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FlexFlowInstance records from the API.
    *
@@ -586,50 +570,23 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FlexFlowListInstanceEachOptions,
+    params?:
+      | FlexFlowListInstanceEachOptions
+      | ((item: FlexFlowInstance, done: (err?: Error) => void) => void),
     callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FlexFlowInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FlexFlowPage) => any
-  ): Promise<FlexFlowPage>;
-  /**
-   * Retrieve a single target page of FlexFlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage>;
-  getPage(params?: any, callback?: any): Promise<FlexFlowPage>;
-  /**
-   * Lists FlexFlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FlexFlowInstance[]) => any
-  ): Promise<FlexFlowInstance[]>;
   /**
    * Lists FlexFlowInstance records from the API as a list.
    *
@@ -640,23 +597,11 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FlexFlowListInstanceOptions,
+    params?:
+      | FlexFlowListInstanceOptions
+      | ((error: Error | null, items: FlexFlowInstance[]) => any),
     callback?: (error: Error | null, items: FlexFlowInstance[]) => any
   ): Promise<FlexFlowInstance[]>;
-  list(params?: any, callback?: any): Promise<FlexFlowInstance[]>;
-  /**
-   * Retrieve a single page of FlexFlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FlexFlowPage) => any
-  ): Promise<FlexFlowPage>;
   /**
    * Retrieve a single page of FlexFlowInstance records from the API.
    *
@@ -669,10 +614,11 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: FlexFlowListInstancePageOptions,
+    params?:
+      | FlexFlowListInstancePageOptions
+      | ((error: Error | null, items: FlexFlowPage) => any),
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage>;
-  page(params?: any, callback?: any): Promise<FlexFlowPage>;
 
   /**
    * Provide a user-friendly representation
@@ -702,8 +648,8 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   instance._uri = `/FlexFlows`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FlexFlowListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -790,8 +736,10 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FlexFlowListInstancePageOptions
+      | ((error: Error | null, item?: FlexFlowPage) => any),
+    callback?: (error: Error | null, item?: FlexFlowPage) => any
   ): Promise<FlexFlowPage> {
     if (typeof params === "function") {
       callback = params;
@@ -833,8 +781,8 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

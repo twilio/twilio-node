@@ -66,10 +66,11 @@ export interface UserContext {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params: UserContextUpdateOptions,
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -260,10 +261,11 @@ export class UserInstance {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params: UserContextUpdateOptions,
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
     callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance> {
+  ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 

@@ -130,10 +130,11 @@ export interface DeploymentContext {
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   update(
-    params: DeploymentContextUpdateOptions,
+    params?:
+      | DeploymentContextUpdateOptions
+      | ((error: Error | null, item?: DeploymentInstance) => any),
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance>;
-  update(params?: any, callback?: any): Promise<DeploymentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -389,10 +390,11 @@ export class DeploymentInstance {
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   update(
-    params: DeploymentContextUpdateOptions,
+    params?:
+      | DeploymentContextUpdateOptions
+      | ((error: Error | null, item?: DeploymentInstance) => any),
     callback?: (error: Error | null, item?: DeploymentInstance) => any
-  ): Promise<DeploymentInstance>;
-  update(params?: any, callback?: any): Promise<DeploymentInstance> {
+  ): Promise<DeploymentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -442,28 +444,12 @@ export interface DeploymentListInstance {
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   create(
-    params: DeploymentListInstanceCreateOptions,
+    params?:
+      | DeploymentListInstanceCreateOptions
+      | ((error: Error | null, item?: DeploymentInstance) => any),
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance>;
-  create(params?: any, callback?: any): Promise<DeploymentInstance>;
 
-  /**
-   * Streams DeploymentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DeploymentInstance records from the API.
    *
@@ -480,50 +466,23 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DeploymentListInstanceEachOptions,
+    params?:
+      | DeploymentListInstanceEachOptions
+      | ((item: DeploymentInstance, done: (err?: Error) => void) => void),
     callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DeploymentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DeploymentPage) => any
-  ): Promise<DeploymentPage>;
-  /**
-   * Retrieve a single target page of DeploymentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage>;
-  getPage(params?: any, callback?: any): Promise<DeploymentPage>;
-  /**
-   * Lists DeploymentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DeploymentInstance[]) => any
-  ): Promise<DeploymentInstance[]>;
   /**
    * Lists DeploymentInstance records from the API as a list.
    *
@@ -534,23 +493,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DeploymentListInstanceOptions,
+    params?:
+      | DeploymentListInstanceOptions
+      | ((error: Error | null, items: DeploymentInstance[]) => any),
     callback?: (error: Error | null, items: DeploymentInstance[]) => any
   ): Promise<DeploymentInstance[]>;
-  list(params?: any, callback?: any): Promise<DeploymentInstance[]>;
-  /**
-   * Retrieve a single page of DeploymentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DeploymentPage) => any
-  ): Promise<DeploymentPage>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
    *
@@ -563,10 +510,11 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DeploymentListInstancePageOptions,
+    params?:
+      | DeploymentListInstancePageOptions
+      | ((error: Error | null, items: DeploymentPage) => any),
     callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage>;
-  page(params?: any, callback?: any): Promise<DeploymentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -605,8 +553,10 @@ export function DeploymentListInstance(
   instance._uri = `/Fleets/${fleetSid}/Deployments`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | DeploymentListInstanceCreateOptions
+      | ((error: Error | null, item?: DeploymentInstance) => any),
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -650,8 +600,10 @@ export function DeploymentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DeploymentListInstancePageOptions
+      | ((error: Error | null, item?: DeploymentPage) => any),
+    callback?: (error: Error | null, item?: DeploymentPage) => any
   ): Promise<DeploymentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -691,8 +643,8 @@ export function DeploymentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

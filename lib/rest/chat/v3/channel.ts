@@ -55,10 +55,11 @@ export interface ChannelContext {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params: ChannelContextUpdateOptions,
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -281,10 +282,11 @@ export class ChannelInstance {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params: ChannelContextUpdateOptions,
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
     callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
+  ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
   }
 

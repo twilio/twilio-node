@@ -56,15 +56,16 @@ export interface WorkersCumulativeStatisticsContext {
    * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
-    params: WorkersCumulativeStatisticsContextFetchOptions,
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersCumulativeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance
     ) => any
-  ): Promise<WorkersCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkersCumulativeStatisticsInstance>;
 
   /**
@@ -290,15 +291,16 @@ export class WorkersCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
-    params: WorkersCumulativeStatisticsContextFetchOptions,
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersCumulativeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance
     ) => any
-  ): Promise<WorkersCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkersCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

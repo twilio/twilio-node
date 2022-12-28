@@ -173,10 +173,11 @@ export interface CustomerProfilesContext {
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
   update(
-    params: CustomerProfilesContextUpdateOptions,
+    params?:
+      | CustomerProfilesContextUpdateOptions
+      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance>;
-  update(params?: any, callback?: any): Promise<CustomerProfilesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -473,10 +474,11 @@ export class CustomerProfilesInstance {
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
   update(
-    params: CustomerProfilesContextUpdateOptions,
+    params?:
+      | CustomerProfilesContextUpdateOptions
+      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
-  update(params?: any, callback?: any): Promise<CustomerProfilesInstance> {
+  ): Promise<CustomerProfilesInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -544,28 +546,7 @@ export interface CustomerProfilesListInstance {
     params: CustomerProfilesListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance>;
-  create(params: any, callback?: any): Promise<CustomerProfilesInstance>;
 
-  /**
-   * Streams CustomerProfilesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: CustomerProfilesInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams CustomerProfilesInstance records from the API.
    *
@@ -582,53 +563,26 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CustomerProfilesListInstanceEachOptions,
+    params?:
+      | CustomerProfilesListInstanceEachOptions
+      | ((item: CustomerProfilesInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: CustomerProfilesInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CustomerProfilesInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage>;
-  /**
-   * Retrieve a single target page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage>;
-  getPage(params?: any, callback?: any): Promise<CustomerProfilesPage>;
-  /**
-   * Lists CustomerProfilesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
-  ): Promise<CustomerProfilesInstance[]>;
   /**
    * Lists CustomerProfilesInstance records from the API as a list.
    *
@@ -639,23 +593,11 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CustomerProfilesListInstanceOptions,
+    params?:
+      | CustomerProfilesListInstanceOptions
+      | ((error: Error | null, items: CustomerProfilesInstance[]) => any),
     callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
   ): Promise<CustomerProfilesInstance[]>;
-  list(params?: any, callback?: any): Promise<CustomerProfilesInstance[]>;
-  /**
-   * Retrieve a single page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CustomerProfilesPage) => any
-  ): Promise<CustomerProfilesPage>;
   /**
    * Retrieve a single page of CustomerProfilesInstance records from the API.
    *
@@ -668,10 +610,11 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CustomerProfilesListInstancePageOptions,
+    params?:
+      | CustomerProfilesListInstancePageOptions
+      | ((error: Error | null, items: CustomerProfilesPage) => any),
     callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage>;
-  page(params?: any, callback?: any): Promise<CustomerProfilesPage>;
 
   /**
    * Provide a user-friendly representation
@@ -705,8 +648,8 @@ export function CustomerProfilesListInstance(
   instance._uri = `/CustomerProfiles`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CustomerProfilesListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -760,8 +703,10 @@ export function CustomerProfilesListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CustomerProfilesListInstancePageOptions
+      | ((error: Error | null, item?: CustomerProfilesPage) => any),
+    callback?: (error: Error | null, item?: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
     if (typeof params === "function") {
       callback = params;
@@ -807,8 +752,8 @@ export function CustomerProfilesListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

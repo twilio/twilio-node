@@ -50,7 +50,6 @@ export interface ValidationRequestListInstance {
     params: ValidationRequestListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance>;
-  create(params: any, callback?: any): Promise<ValidationRequestInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -88,8 +87,8 @@ export function ValidationRequestListInstance(
   instance._uri = `/Accounts/${accountSid}/OutgoingCallerIds.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ValidationRequestListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

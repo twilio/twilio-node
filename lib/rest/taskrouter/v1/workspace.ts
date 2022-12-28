@@ -177,10 +177,11 @@ export interface WorkspaceContext {
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
   update(
-    params: WorkspaceContextUpdateOptions,
+    params?:
+      | WorkspaceContextUpdateOptions
+      | ((error: Error | null, item?: WorkspaceInstance) => any),
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -545,10 +546,11 @@ export class WorkspaceInstance {
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
   update(
-    params: WorkspaceContextUpdateOptions,
+    params?:
+      | WorkspaceContextUpdateOptions
+      | ((error: Error | null, item?: WorkspaceInstance) => any),
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
-  ): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance> {
+  ): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -668,25 +670,7 @@ export interface WorkspaceListInstance {
     params: WorkspaceListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
-  create(params: any, callback?: any): Promise<WorkspaceInstance>;
 
-  /**
-   * Streams WorkspaceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -703,50 +687,23 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WorkspaceListInstanceEachOptions,
+    params?:
+      | WorkspaceListInstanceEachOptions
+      | ((item: WorkspaceInstance, done: (err?: Error) => void) => void),
     callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WorkspacePage) => any
-  ): Promise<WorkspacePage>;
-  /**
-   * Retrieve a single target page of WorkspaceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage>;
-  getPage(params?: any, callback?: any): Promise<WorkspacePage>;
-  /**
-   * Lists WorkspaceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
-  ): Promise<WorkspaceInstance[]>;
   /**
    * Lists WorkspaceInstance records from the API as a list.
    *
@@ -757,23 +714,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WorkspaceListInstanceOptions,
+    params?:
+      | WorkspaceListInstanceOptions
+      | ((error: Error | null, items: WorkspaceInstance[]) => any),
     callback?: (error: Error | null, items: WorkspaceInstance[]) => any
   ): Promise<WorkspaceInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkspaceInstance[]>;
-  /**
-   * Retrieve a single page of WorkspaceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WorkspacePage) => any
-  ): Promise<WorkspacePage>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    *
@@ -786,10 +731,11 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: WorkspaceListInstancePageOptions,
+    params?:
+      | WorkspaceListInstancePageOptions
+      | ((error: Error | null, items: WorkspacePage) => any),
     callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage>;
-  page(params?: any, callback?: any): Promise<WorkspacePage>;
 
   /**
    * Provide a user-friendly representation
@@ -819,8 +765,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance._uri = `/Workspaces`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WorkspaceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -869,8 +815,10 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkspaceListInstancePageOptions
+      | ((error: Error | null, item?: WorkspacePage) => any),
+    callback?: (error: Error | null, item?: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     if (typeof params === "function") {
       callback = params;
@@ -912,8 +860,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

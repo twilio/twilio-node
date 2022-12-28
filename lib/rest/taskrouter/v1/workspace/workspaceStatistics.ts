@@ -55,10 +55,11 @@ export interface WorkspaceStatisticsContext {
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
   fetch(
-    params: WorkspaceStatisticsContextFetchOptions,
+    params?:
+      | WorkspaceStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkspaceStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -224,10 +225,11 @@ export class WorkspaceStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
    */
   fetch(
-    params: WorkspaceStatisticsContextFetchOptions,
+    params?:
+      | WorkspaceStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkspaceStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
-  ): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
+  ): Promise<WorkspaceStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

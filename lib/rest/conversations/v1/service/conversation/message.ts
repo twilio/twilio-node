@@ -148,10 +148,11 @@ export interface MessageContext {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   remove(
-    params: MessageContextRemoveOptions,
+    params?:
+      | MessageContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a MessageInstance
@@ -183,10 +184,11 @@ export interface MessageContext {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params: MessageContextUpdateOptions,
+    params?:
+      | MessageContextUpdateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -503,10 +505,11 @@ export class MessageInstance {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   remove(
-    params: MessageContextRemoveOptions,
+    params?:
+      | MessageContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -542,10 +545,11 @@ export class MessageInstance {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params: MessageContextUpdateOptions,
+    params?:
+      | MessageContextUpdateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
     callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance> {
+  ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -609,28 +613,12 @@ export interface MessageListInstance {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   create(
-    params: MessageListInstanceCreateOptions,
+    params?:
+      | MessageListInstanceCreateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
-  create(params?: any, callback?: any): Promise<MessageInstance>;
 
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams MessageInstance records from the API.
    *
@@ -647,50 +635,23 @@ export interface MessageListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MessageListInstanceEachOptions,
+    params?:
+      | MessageListInstanceEachOptions
+      | ((item: MessageInstance, done: (err?: Error) => void) => void),
     callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
-  getPage(params?: any, callback?: any): Promise<MessagePage>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MessageInstance[]) => any
-  ): Promise<MessageInstance[]>;
   /**
    * Lists MessageInstance records from the API as a list.
    *
@@ -701,23 +662,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MessageListInstanceOptions,
+    params?:
+      | MessageListInstanceOptions
+      | ((error: Error | null, items: MessageInstance[]) => any),
     callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
-  list(params?: any, callback?: any): Promise<MessageInstance[]>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    *
@@ -730,10 +679,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MessageListInstancePageOptions,
+    params?:
+      | MessageListInstancePageOptions
+      | ((error: Error | null, items: MessagePage) => any),
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
-  page(params?: any, callback?: any): Promise<MessagePage>;
 
   /**
    * Provide a user-friendly representation
@@ -783,8 +733,10 @@ export function MessageListInstance(
   instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageListInstanceCreateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -836,8 +788,10 @@ export function MessageListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageListInstancePageOptions
+      | ((error: Error | null, item?: MessagePage) => any),
+    callback?: (error: Error | null, item?: MessagePage) => any
   ): Promise<MessagePage> {
     if (typeof params === "function") {
       callback = params;
@@ -878,8 +832,8 @@ export function MessageListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

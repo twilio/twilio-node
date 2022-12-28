@@ -58,15 +58,16 @@ export interface WorkflowCumulativeStatisticsContext {
    * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
-    params: WorkflowCumulativeStatisticsContextFetchOptions,
+    params?:
+      | WorkflowCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowCumulativeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkflowCumulativeStatisticsInstance
     ) => any
-  ): Promise<WorkflowCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkflowCumulativeStatisticsInstance>;
 
   /**
@@ -370,15 +371,16 @@ export class WorkflowCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
-    params: WorkflowCumulativeStatisticsContextFetchOptions,
+    params?:
+      | WorkflowCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowCumulativeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkflowCumulativeStatisticsInstance
     ) => any
-  ): Promise<WorkflowCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

@@ -143,10 +143,11 @@ export interface SupportingDocumentContext {
    * @returns { Promise } Resolves to processed SupportingDocumentInstance
    */
   update(
-    params: SupportingDocumentContextUpdateOptions,
+    params?:
+      | SupportingDocumentContextUpdateOptions
+      | ((error: Error | null, item?: SupportingDocumentInstance) => any),
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance>;
-  update(params?: any, callback?: any): Promise<SupportingDocumentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -397,10 +398,11 @@ export class SupportingDocumentInstance {
    * @returns { Promise } Resolves to processed SupportingDocumentInstance
    */
   update(
-    params: SupportingDocumentContextUpdateOptions,
+    params?:
+      | SupportingDocumentContextUpdateOptions
+      | ((error: Error | null, item?: SupportingDocumentInstance) => any),
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
-  update(params?: any, callback?: any): Promise<SupportingDocumentInstance> {
+  ): Promise<SupportingDocumentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -445,28 +447,7 @@ export interface SupportingDocumentListInstance {
     params: SupportingDocumentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance>;
-  create(params: any, callback?: any): Promise<SupportingDocumentInstance>;
 
-  /**
-   * Streams SupportingDocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams SupportingDocumentInstance records from the API.
    *
@@ -483,53 +464,29 @@ export interface SupportingDocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SupportingDocumentListInstanceEachOptions,
+    params?:
+      | SupportingDocumentListInstanceEachOptions
+      | ((
+          item: SupportingDocumentInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: SupportingDocumentInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SupportingDocumentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage>;
-  /**
-   * Retrieve a single target page of SupportingDocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage>;
-  getPage(params?: any, callback?: any): Promise<SupportingDocumentPage>;
-  /**
-   * Lists SupportingDocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
-  ): Promise<SupportingDocumentInstance[]>;
   /**
    * Lists SupportingDocumentInstance records from the API as a list.
    *
@@ -540,23 +497,11 @@ export interface SupportingDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SupportingDocumentListInstanceOptions,
+    params?:
+      | SupportingDocumentListInstanceOptions
+      | ((error: Error | null, items: SupportingDocumentInstance[]) => any),
     callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
   ): Promise<SupportingDocumentInstance[]>;
-  list(params?: any, callback?: any): Promise<SupportingDocumentInstance[]>;
-  /**
-   * Retrieve a single page of SupportingDocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage>;
   /**
    * Retrieve a single page of SupportingDocumentInstance records from the API.
    *
@@ -569,10 +514,11 @@ export interface SupportingDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SupportingDocumentListInstancePageOptions,
+    params?:
+      | SupportingDocumentListInstancePageOptions
+      | ((error: Error | null, items: SupportingDocumentPage) => any),
     callback?: (error: Error | null, items: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage>;
-  page(params?: any, callback?: any): Promise<SupportingDocumentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -608,8 +554,8 @@ export function SupportingDocumentListInstance(
   instance._uri = `/SupportingDocuments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SupportingDocumentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -657,8 +603,10 @@ export function SupportingDocumentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SupportingDocumentListInstancePageOptions
+      | ((error: Error | null, item?: SupportingDocumentPage) => any),
+    callback?: (error: Error | null, item?: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -699,8 +647,8 @@ export function SupportingDocumentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -50,15 +50,16 @@ export interface WorkflowRealTimeStatisticsContext {
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
+    params?:
+      | WorkflowRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowRealTimeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkflowRealTimeStatisticsInstance
     ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkflowRealTimeStatisticsInstance>;
 
   /**
@@ -263,15 +264,16 @@ export class WorkflowRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
-    params: WorkflowRealTimeStatisticsContextFetchOptions,
+    params?:
+      | WorkflowRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowRealTimeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: WorkflowRealTimeStatisticsInstance
     ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

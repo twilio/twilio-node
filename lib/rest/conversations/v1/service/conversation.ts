@@ -160,10 +160,11 @@ export interface ConversationContext {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   remove(
-    params: ConversationContextRemoveOptions,
+    params?:
+      | ConversationContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a ConversationInstance
@@ -195,10 +196,11 @@ export interface ConversationContext {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   update(
-    params: ConversationContextUpdateOptions,
+    params?:
+      | ConversationContextUpdateOptions
+      | ((error: Error | null, item?: ConversationInstance) => any),
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
-  update(params?: any, callback?: any): Promise<ConversationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -521,10 +523,11 @@ export class ConversationInstance {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   remove(
-    params: ConversationContextRemoveOptions,
+    params?:
+      | ConversationContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -560,10 +563,11 @@ export class ConversationInstance {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   update(
-    params: ConversationContextUpdateOptions,
+    params?:
+      | ConversationContextUpdateOptions
+      | ((error: Error | null, item?: ConversationInstance) => any),
     callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
-  update(params?: any, callback?: any): Promise<ConversationInstance> {
+  ): Promise<ConversationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -640,28 +644,12 @@ export interface ConversationListInstance {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   create(
-    params: ConversationListInstanceCreateOptions,
+    params?:
+      | ConversationListInstanceCreateOptions
+      | ((error: Error | null, item?: ConversationInstance) => any),
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
-  create(params?: any, callback?: any): Promise<ConversationInstance>;
 
-  /**
-   * Streams ConversationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ConversationInstance records from the API.
    *
@@ -678,50 +666,23 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ConversationListInstanceEachOptions,
+    params?:
+      | ConversationListInstanceEachOptions
+      | ((item: ConversationInstance, done: (err?: Error) => void) => void),
     callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConversationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage>;
-  /**
-   * Retrieve a single target page of ConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
-  getPage(params?: any, callback?: any): Promise<ConversationPage>;
-  /**
-   * Lists ConversationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ConversationInstance[]) => any
-  ): Promise<ConversationInstance[]>;
   /**
    * Lists ConversationInstance records from the API as a list.
    *
@@ -732,23 +693,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ConversationListInstanceOptions,
+    params?:
+      | ConversationListInstanceOptions
+      | ((error: Error | null, items: ConversationInstance[]) => any),
     callback?: (error: Error | null, items: ConversationInstance[]) => any
   ): Promise<ConversationInstance[]>;
-  list(params?: any, callback?: any): Promise<ConversationInstance[]>;
-  /**
-   * Retrieve a single page of ConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage>;
   /**
    * Retrieve a single page of ConversationInstance records from the API.
    *
@@ -761,10 +710,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ConversationListInstancePageOptions,
+    params?:
+      | ConversationListInstancePageOptions
+      | ((error: Error | null, items: ConversationPage) => any),
     callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
-  page(params?: any, callback?: any): Promise<ConversationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -803,8 +753,10 @@ export function ConversationListInstance(
   instance._uri = `/Services/${chatServiceSid}/Conversations`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | ConversationListInstanceCreateOptions
+      | ((error: Error | null, item?: ConversationInstance) => any),
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -863,8 +815,10 @@ export function ConversationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ConversationListInstancePageOptions
+      | ((error: Error | null, item?: ConversationPage) => any),
+    callback?: (error: Error | null, item?: ConversationPage) => any
   ): Promise<ConversationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -905,8 +859,8 @@ export function ConversationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

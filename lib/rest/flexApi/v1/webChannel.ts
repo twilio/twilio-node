@@ -140,10 +140,11 @@ export interface WebChannelContext {
    * @returns { Promise } Resolves to processed WebChannelInstance
    */
   update(
-    params: WebChannelContextUpdateOptions,
+    params?:
+      | WebChannelContextUpdateOptions
+      | ((error: Error | null, item?: WebChannelInstance) => any),
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance>;
-  update(params?: any, callback?: any): Promise<WebChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -363,10 +364,11 @@ export class WebChannelInstance {
    * @returns { Promise } Resolves to processed WebChannelInstance
    */
   update(
-    params: WebChannelContextUpdateOptions,
+    params?:
+      | WebChannelContextUpdateOptions
+      | ((error: Error | null, item?: WebChannelInstance) => any),
     callback?: (error: Error | null, item?: WebChannelInstance) => any
-  ): Promise<WebChannelInstance>;
-  update(params?: any, callback?: any): Promise<WebChannelInstance> {
+  ): Promise<WebChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -407,25 +409,7 @@ export interface WebChannelListInstance {
     params: WebChannelListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance>;
-  create(params: any, callback?: any): Promise<WebChannelInstance>;
 
-  /**
-   * Streams WebChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WebChannelInstance records from the API.
    *
@@ -442,50 +426,23 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WebChannelListInstanceEachOptions,
+    params?:
+      | WebChannelListInstanceEachOptions
+      | ((item: WebChannelInstance, done: (err?: Error) => void) => void),
     callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of WebChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WebChannelPage) => any
-  ): Promise<WebChannelPage>;
-  /**
-   * Retrieve a single target page of WebChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WebChannelPage) => any
   ): Promise<WebChannelPage>;
-  getPage(params?: any, callback?: any): Promise<WebChannelPage>;
-  /**
-   * Lists WebChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WebChannelInstance[]) => any
-  ): Promise<WebChannelInstance[]>;
   /**
    * Lists WebChannelInstance records from the API as a list.
    *
@@ -496,23 +453,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WebChannelListInstanceOptions,
+    params?:
+      | WebChannelListInstanceOptions
+      | ((error: Error | null, items: WebChannelInstance[]) => any),
     callback?: (error: Error | null, items: WebChannelInstance[]) => any
   ): Promise<WebChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<WebChannelInstance[]>;
-  /**
-   * Retrieve a single page of WebChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WebChannelPage) => any
-  ): Promise<WebChannelPage>;
   /**
    * Retrieve a single page of WebChannelInstance records from the API.
    *
@@ -525,10 +470,11 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: WebChannelListInstancePageOptions,
+    params?:
+      | WebChannelListInstancePageOptions
+      | ((error: Error | null, items: WebChannelPage) => any),
     callback?: (error: Error | null, items: WebChannelPage) => any
   ): Promise<WebChannelPage>;
-  page(params?: any, callback?: any): Promise<WebChannelPage>;
 
   /**
    * Provide a user-friendly representation
@@ -558,8 +504,8 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
   instance._uri = `/WebChannels`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WebChannelListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -628,8 +574,10 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WebChannelListInstancePageOptions
+      | ((error: Error | null, item?: WebChannelPage) => any),
+    callback?: (error: Error | null, item?: WebChannelPage) => any
   ): Promise<WebChannelPage> {
     if (typeof params === "function") {
       callback = params;
@@ -669,8 +617,8 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WebChannelPage) => any
   ): Promise<WebChannelPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -51,7 +51,6 @@ export interface FlowTestUserContext {
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance>;
-  update(params: any, callback?: any): Promise<FlowTestUserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -214,8 +213,7 @@ export class FlowTestUserInstance {
   update(
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
-  ): Promise<FlowTestUserInstance>;
-  update(params: any, callback?: any): Promise<FlowTestUserInstance> {
+  ): Promise<FlowTestUserInstance> {
     return this._proxy.update(params, callback);
   }
 

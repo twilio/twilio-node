@@ -351,71 +351,27 @@ export interface YesterdayListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams YesterdayInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { YesterdayListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: YesterdayListInstanceEachOptions,
+    params?:
+      | YesterdayListInstanceEachOptions
+      | ((item: YesterdayInstance, done: (err?: Error) => void) => void),
     callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of YesterdayInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: YesterdayPage) => any
-  ): Promise<YesterdayPage>;
-  /**
-   * Retrieve a single target page of YesterdayInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: YesterdayPage) => any
   ): Promise<YesterdayPage>;
-  getPage(params?: any, callback?: any): Promise<YesterdayPage>;
-  /**
-   * Lists YesterdayInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: YesterdayInstance[]) => any
-  ): Promise<YesterdayInstance[]>;
   /**
    * Lists YesterdayInstance records from the API as a list.
    *
@@ -426,23 +382,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: YesterdayListInstanceOptions,
+    params?:
+      | YesterdayListInstanceOptions
+      | ((error: Error | null, items: YesterdayInstance[]) => any),
     callback?: (error: Error | null, items: YesterdayInstance[]) => any
   ): Promise<YesterdayInstance[]>;
-  list(params?: any, callback?: any): Promise<YesterdayInstance[]>;
-  /**
-   * Retrieve a single page of YesterdayInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: YesterdayPage) => any
-  ): Promise<YesterdayPage>;
   /**
    * Retrieve a single page of YesterdayInstance records from the API.
    *
@@ -455,10 +399,11 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: YesterdayListInstancePageOptions,
+    params?:
+      | YesterdayListInstancePageOptions
+      | ((error: Error | null, items: YesterdayPage) => any),
     callback?: (error: Error | null, items: YesterdayPage) => any
   ): Promise<YesterdayPage>;
-  page(params?: any, callback?: any): Promise<YesterdayPage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function YesterdayListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/Yesterday.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | YesterdayListInstancePageOptions
+      | ((error: Error | null, item?: YesterdayPage) => any),
+    callback?: (error: Error | null, item?: YesterdayPage) => any
   ): Promise<YesterdayPage> {
     if (typeof params === "function") {
       callback = params;
@@ -541,8 +488,8 @@ export function YesterdayListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: YesterdayPage) => any
   ): Promise<YesterdayPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -171,10 +171,11 @@ export interface AssistantContext {
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   update(
-    params: AssistantContextUpdateOptions,
+    params?:
+      | AssistantContextUpdateOptions
+      | ((error: Error | null, item?: AssistantInstance) => any),
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
-  update(params?: any, callback?: any): Promise<AssistantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -499,10 +500,11 @@ export class AssistantInstance {
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   update(
-    params: AssistantContextUpdateOptions,
+    params?:
+      | AssistantContextUpdateOptions
+      | ((error: Error | null, item?: AssistantInstance) => any),
     callback?: (error: Error | null, item?: AssistantInstance) => any
-  ): Promise<AssistantInstance>;
-  update(params?: any, callback?: any): Promise<AssistantInstance> {
+  ): Promise<AssistantInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -612,28 +614,12 @@ export interface AssistantListInstance {
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   create(
-    params: AssistantListInstanceCreateOptions,
+    params?:
+      | AssistantListInstanceCreateOptions
+      | ((error: Error | null, item?: AssistantInstance) => any),
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
-  create(params?: any, callback?: any): Promise<AssistantInstance>;
 
-  /**
-   * Streams AssistantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AssistantInstance records from the API.
    *
@@ -650,50 +636,23 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssistantListInstanceEachOptions,
+    params?:
+      | AssistantListInstanceEachOptions
+      | ((item: AssistantInstance, done: (err?: Error) => void) => void),
     callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssistantPage) => any
-  ): Promise<AssistantPage>;
-  /**
-   * Retrieve a single target page of AssistantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssistantPage) => any
   ): Promise<AssistantPage>;
-  getPage(params?: any, callback?: any): Promise<AssistantPage>;
-  /**
-   * Lists AssistantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AssistantInstance[]) => any
-  ): Promise<AssistantInstance[]>;
   /**
    * Lists AssistantInstance records from the API as a list.
    *
@@ -704,23 +663,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssistantListInstanceOptions,
+    params?:
+      | AssistantListInstanceOptions
+      | ((error: Error | null, items: AssistantInstance[]) => any),
     callback?: (error: Error | null, items: AssistantInstance[]) => any
   ): Promise<AssistantInstance[]>;
-  list(params?: any, callback?: any): Promise<AssistantInstance[]>;
-  /**
-   * Retrieve a single page of AssistantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssistantPage) => any
-  ): Promise<AssistantPage>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    *
@@ -733,10 +680,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AssistantListInstancePageOptions,
+    params?:
+      | AssistantListInstancePageOptions
+      | ((error: Error | null, items: AssistantPage) => any),
     callback?: (error: Error | null, items: AssistantPage) => any
   ): Promise<AssistantPage>;
-  page(params?: any, callback?: any): Promise<AssistantPage>;
 
   /**
    * Provide a user-friendly representation
@@ -768,8 +716,10 @@ export function AssistantListInstance(
   instance._uri = `/Assistants`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantListInstanceCreateOptions
+      | ((error: Error | null, item?: AssistantInstance) => any),
+    callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -820,8 +770,10 @@ export function AssistantListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantListInstancePageOptions
+      | ((error: Error | null, item?: AssistantPage) => any),
+    callback?: (error: Error | null, item?: AssistantPage) => any
   ): Promise<AssistantPage> {
     if (typeof params === "function") {
       callback = params;
@@ -861,8 +813,8 @@ export function AssistantListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssistantPage) => any
   ): Promise<AssistantPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

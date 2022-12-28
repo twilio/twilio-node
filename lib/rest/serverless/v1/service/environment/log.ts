@@ -337,71 +337,27 @@ export interface LogListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams LogInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { LogListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: LogListInstanceEachOptions,
+    params?:
+      | LogListInstanceEachOptions
+      | ((item: LogInstance, done: (err?: Error) => void) => void),
     callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of LogInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
-  /**
-   * Retrieve a single target page of LogInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
-  getPage(params?: any, callback?: any): Promise<LogPage>;
-  /**
-   * Lists LogInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: LogInstance[]) => any
-  ): Promise<LogInstance[]>;
   /**
    * Lists LogInstance records from the API as a list.
    *
@@ -412,23 +368,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: LogListInstanceOptions,
+    params?:
+      | LogListInstanceOptions
+      | ((error: Error | null, items: LogInstance[]) => any),
     callback?: (error: Error | null, items: LogInstance[]) => any
   ): Promise<LogInstance[]>;
-  list(params?: any, callback?: any): Promise<LogInstance[]>;
-  /**
-   * Retrieve a single page of LogInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
   /**
    * Retrieve a single page of LogInstance records from the API.
    *
@@ -441,10 +385,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: LogListInstancePageOptions,
+    params?:
+      | LogListInstancePageOptions
+      | ((error: Error | null, items: LogPage) => any),
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
-  page(params?: any, callback?: any): Promise<LogPage>;
 
   /**
    * Provide a user-friendly representation
@@ -489,8 +434,10 @@ export function LogListInstance(
   instance._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | LogListInstancePageOptions
+      | ((error: Error | null, item?: LogPage) => any),
+    callback?: (error: Error | null, item?: LogPage) => any
   ): Promise<LogPage> {
     if (typeof params === "function") {
       callback = params;
@@ -536,8 +483,8 @@ export function LogListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

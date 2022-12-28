@@ -47,10 +47,11 @@ export interface GoodDataContext {
    * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    params: GoodDataContextCreateOptions,
+    params?:
+      | GoodDataContextCreateOptions
+      | ((error: Error | null, item?: GoodDataInstance) => any),
     callback?: (error: Error | null, item?: GoodDataInstance) => any
   ): Promise<GoodDataInstance>;
-  create(params?: any, callback?: any): Promise<GoodDataInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -185,10 +186,11 @@ export class GoodDataInstance {
    * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    params: GoodDataContextCreateOptions,
+    params?:
+      | GoodDataContextCreateOptions
+      | ((error: Error | null, item?: GoodDataInstance) => any),
     callback?: (error: Error | null, item?: GoodDataInstance) => any
-  ): Promise<GoodDataInstance>;
-  create(params?: any, callback?: any): Promise<GoodDataInstance> {
+  ): Promise<GoodDataInstance> {
     return this._proxy.create(params, callback);
   }
 

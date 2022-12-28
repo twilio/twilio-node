@@ -132,10 +132,11 @@ export interface OutgoingCallerIdContext {
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    params: OutgoingCallerIdContextUpdateOptions,
+    params?:
+      | OutgoingCallerIdContextUpdateOptions
+      | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
-  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -379,10 +380,11 @@ export class OutgoingCallerIdInstance {
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    params: OutgoingCallerIdContextUpdateOptions,
+    params?:
+      | OutgoingCallerIdContextUpdateOptions
+      | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
-  ): Promise<OutgoingCallerIdInstance>;
-  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance> {
+  ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -424,77 +426,30 @@ export interface OutgoingCallerIdListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: OutgoingCallerIdInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams OutgoingCallerIdInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { OutgoingCallerIdListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: OutgoingCallerIdListInstanceEachOptions,
+    params?:
+      | OutgoingCallerIdListInstanceEachOptions
+      | ((item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: OutgoingCallerIdInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
-  ): Promise<OutgoingCallerIdPage>;
-  /**
-   * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
-  getPage(params?: any, callback?: any): Promise<OutgoingCallerIdPage>;
-  /**
-   * Lists OutgoingCallerIdInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
-  ): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list.
    *
@@ -505,23 +460,11 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: OutgoingCallerIdListInstanceOptions,
+    params?:
+      | OutgoingCallerIdListInstanceOptions
+      | ((error: Error | null, items: OutgoingCallerIdInstance[]) => any),
     callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
   ): Promise<OutgoingCallerIdInstance[]>;
-  list(params?: any, callback?: any): Promise<OutgoingCallerIdInstance[]>;
-  /**
-   * Retrieve a single page of OutgoingCallerIdInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
-  ): Promise<OutgoingCallerIdPage>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
    *
@@ -534,10 +477,11 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: OutgoingCallerIdListInstancePageOptions,
+    params?:
+      | OutgoingCallerIdListInstancePageOptions
+      | ((error: Error | null, items: OutgoingCallerIdPage) => any),
     callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
-  page(params?: any, callback?: any): Promise<OutgoingCallerIdPage>;
 
   /**
    * Provide a user-friendly representation
@@ -578,8 +522,10 @@ export function OutgoingCallerIdListInstance(
   instance._uri = `/Accounts/${accountSid}/OutgoingCallerIds.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | OutgoingCallerIdListInstancePageOptions
+      | ((error: Error | null, item?: OutgoingCallerIdPage) => any),
+    callback?: (error: Error | null, item?: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage> {
     if (typeof params === "function") {
       callback = params;
@@ -624,8 +570,8 @@ export function OutgoingCallerIdListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

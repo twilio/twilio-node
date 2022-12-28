@@ -49,10 +49,11 @@ export interface PlaybackGrantContext {
    * @returns { Promise } Resolves to processed PlaybackGrantInstance
    */
   create(
-    params: PlaybackGrantContextCreateOptions,
+    params?:
+      | PlaybackGrantContextCreateOptions
+      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance>;
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance>;
 
   /**
    * Fetch a PlaybackGrantInstance
@@ -234,10 +235,11 @@ export class PlaybackGrantInstance {
    * @returns { Promise } Resolves to processed PlaybackGrantInstance
    */
   create(
-    params: PlaybackGrantContextCreateOptions,
+    params?:
+      | PlaybackGrantContextCreateOptions
+      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
-  ): Promise<PlaybackGrantInstance>;
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance> {
+  ): Promise<PlaybackGrantInstance> {
     return this._proxy.create(params, callback);
   }
 

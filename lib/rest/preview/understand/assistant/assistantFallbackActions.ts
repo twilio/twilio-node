@@ -64,15 +64,13 @@ export interface AssistantFallbackActionsContext {
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
   update(
-    params: AssistantFallbackActionsContextUpdateOptions,
+    params?:
+      | AssistantFallbackActionsContextUpdateOptions
+      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
     callback?: (
       error: Error | null,
       item?: AssistantFallbackActionsInstance
     ) => any
-  ): Promise<AssistantFallbackActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantFallbackActionsInstance>;
 
   /**
@@ -261,15 +259,13 @@ export class AssistantFallbackActionsInstance {
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
   update(
-    params: AssistantFallbackActionsContextUpdateOptions,
+    params?:
+      | AssistantFallbackActionsContextUpdateOptions
+      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
     callback?: (
       error: Error | null,
       item?: AssistantFallbackActionsInstance
     ) => any
-  ): Promise<AssistantFallbackActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantFallbackActionsInstance> {
     return this._proxy.update(params, callback);
   }

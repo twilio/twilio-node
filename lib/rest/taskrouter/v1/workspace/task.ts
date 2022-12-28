@@ -196,10 +196,11 @@ export interface TaskContext {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   remove(
-    params: TaskContextRemoveOptions,
+    params?:
+      | TaskContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a TaskInstance
@@ -231,10 +232,11 @@ export interface TaskContext {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params: TaskContextUpdateOptions,
+    params?:
+      | TaskContextUpdateOptions
+      | ((error: Error | null, item?: TaskInstance) => any),
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
-  update(params?: any, callback?: any): Promise<TaskInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -571,10 +573,11 @@ export class TaskInstance {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   remove(
-    params: TaskContextRemoveOptions,
+    params?:
+      | TaskContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -610,10 +613,11 @@ export class TaskInstance {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params: TaskContextUpdateOptions,
+    params?:
+      | TaskContextUpdateOptions
+      | ((error: Error | null, item?: TaskInstance) => any),
     callback?: (error: Error | null, item?: TaskInstance) => any
-  ): Promise<TaskInstance>;
-  update(params?: any, callback?: any): Promise<TaskInstance> {
+  ): Promise<TaskInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -683,28 +687,12 @@ export interface TaskListInstance {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   create(
-    params: TaskListInstanceCreateOptions,
+    params?:
+      | TaskListInstanceCreateOptions
+      | ((error: Error | null, item?: TaskInstance) => any),
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
-  create(params?: any, callback?: any): Promise<TaskInstance>;
 
-  /**
-   * Streams TaskInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams TaskInstance records from the API.
    *
@@ -721,50 +709,23 @@ export interface TaskListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TaskListInstanceEachOptions,
+    params?:
+      | TaskListInstanceEachOptions
+      | ((item: TaskInstance, done: (err?: Error) => void) => void),
     callback?: (item: TaskInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TaskInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TaskPage) => any
-  ): Promise<TaskPage>;
-  /**
-   * Retrieve a single target page of TaskInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage>;
-  getPage(params?: any, callback?: any): Promise<TaskPage>;
-  /**
-   * Lists TaskInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TaskInstance[]) => any
-  ): Promise<TaskInstance[]>;
   /**
    * Lists TaskInstance records from the API as a list.
    *
@@ -775,23 +736,11 @@ export interface TaskListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TaskListInstanceOptions,
+    params?:
+      | TaskListInstanceOptions
+      | ((error: Error | null, items: TaskInstance[]) => any),
     callback?: (error: Error | null, items: TaskInstance[]) => any
   ): Promise<TaskInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskInstance[]>;
-  /**
-   * Retrieve a single page of TaskInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TaskPage) => any
-  ): Promise<TaskPage>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
    *
@@ -804,10 +753,11 @@ export interface TaskListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TaskListInstancePageOptions,
+    params?:
+      | TaskListInstancePageOptions
+      | ((error: Error | null, items: TaskPage) => any),
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage>;
-  page(params?: any, callback?: any): Promise<TaskPage>;
 
   /**
    * Provide a user-friendly representation
@@ -846,8 +796,10 @@ export function TaskListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/Tasks`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskListInstanceCreateOptions
+      | ((error: Error | null, item?: TaskInstance) => any),
+    callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -891,8 +843,10 @@ export function TaskListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskListInstancePageOptions
+      | ((error: Error | null, item?: TaskPage) => any),
+    callback?: (error: Error | null, item?: TaskPage) => any
   ): Promise<TaskPage> {
     if (typeof params === "function") {
       callback = params;
@@ -951,8 +905,8 @@ export function TaskListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -188,10 +188,11 @@ export interface ApplicationContext {
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   update(
-    params: ApplicationContextUpdateOptions,
+    params?:
+      | ApplicationContextUpdateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
-  update(params?: any, callback?: any): Promise<ApplicationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -577,10 +578,11 @@ export class ApplicationInstance {
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   update(
-    params: ApplicationContextUpdateOptions,
+    params?:
+      | ApplicationContextUpdateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
     callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
-  update(params?: any, callback?: any): Promise<ApplicationInstance> {
+  ): Promise<ApplicationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -642,28 +644,12 @@ export interface ApplicationListInstance {
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   create(
-    params: ApplicationListInstanceCreateOptions,
+    params?:
+      | ApplicationListInstanceCreateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
-  create(params?: any, callback?: any): Promise<ApplicationInstance>;
 
-  /**
-   * Streams ApplicationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ApplicationInstance records from the API.
    *
@@ -680,50 +666,23 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ApplicationListInstanceEachOptions,
+    params?:
+      | ApplicationListInstanceEachOptions
+      | ((item: ApplicationInstance, done: (err?: Error) => void) => void),
     callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage>;
-  /**
-   * Retrieve a single target page of ApplicationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
-  getPage(params?: any, callback?: any): Promise<ApplicationPage>;
-  /**
-   * Lists ApplicationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any
-  ): Promise<ApplicationInstance[]>;
   /**
    * Lists ApplicationInstance records from the API as a list.
    *
@@ -734,23 +693,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ApplicationListInstanceOptions,
+    params?:
+      | ApplicationListInstanceOptions
+      | ((error: Error | null, items: ApplicationInstance[]) => any),
     callback?: (error: Error | null, items: ApplicationInstance[]) => any
   ): Promise<ApplicationInstance[]>;
-  list(params?: any, callback?: any): Promise<ApplicationInstance[]>;
-  /**
-   * Retrieve a single page of ApplicationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ApplicationPage) => any
-  ): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    *
@@ -763,10 +710,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ApplicationListInstancePageOptions,
+    params?:
+      | ApplicationListInstancePageOptions
+      | ((error: Error | null, items: ApplicationPage) => any),
     callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
-  page(params?: any, callback?: any): Promise<ApplicationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -805,8 +753,10 @@ export function ApplicationListInstance(
   instance._uri = `/Accounts/${accountSid}/Applications.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | ApplicationListInstanceCreateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -876,8 +826,10 @@ export function ApplicationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ApplicationListInstancePageOptions
+      | ((error: Error | null, item?: ApplicationPage) => any),
+    callback?: (error: Error | null, item?: ApplicationPage) => any
   ): Promise<ApplicationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -920,8 +872,8 @@ export function ApplicationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

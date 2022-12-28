@@ -101,28 +101,7 @@ export interface ExportCustomJobListInstance {
     params: ExportCustomJobListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ExportCustomJobInstance) => any
   ): Promise<ExportCustomJobInstance>;
-  create(params: any, callback?: any): Promise<ExportCustomJobInstance>;
 
-  /**
-   * Streams ExportCustomJobInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ExportCustomJobInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams ExportCustomJobInstance records from the API.
    *
@@ -139,53 +118,26 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ExportCustomJobListInstanceEachOptions,
+    params?:
+      | ExportCustomJobListInstanceEachOptions
+      | ((item: ExportCustomJobInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: ExportCustomJobInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ExportCustomJobInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any
-  ): Promise<ExportCustomJobPage>;
-  /**
-   * Retrieve a single target page of ExportCustomJobInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
-  getPage(params?: any, callback?: any): Promise<ExportCustomJobPage>;
-  /**
-   * Lists ExportCustomJobInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
-  ): Promise<ExportCustomJobInstance[]>;
   /**
    * Lists ExportCustomJobInstance records from the API as a list.
    *
@@ -196,23 +148,11 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ExportCustomJobListInstanceOptions,
+    params?:
+      | ExportCustomJobListInstanceOptions
+      | ((error: Error | null, items: ExportCustomJobInstance[]) => any),
     callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
   ): Promise<ExportCustomJobInstance[]>;
-  list(params?: any, callback?: any): Promise<ExportCustomJobInstance[]>;
-  /**
-   * Retrieve a single page of ExportCustomJobInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any
-  ): Promise<ExportCustomJobPage>;
   /**
    * Retrieve a single page of ExportCustomJobInstance records from the API.
    *
@@ -225,10 +165,11 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ExportCustomJobListInstancePageOptions,
+    params?:
+      | ExportCustomJobListInstancePageOptions
+      | ((error: Error | null, items: ExportCustomJobPage) => any),
     callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
-  page(params?: any, callback?: any): Promise<ExportCustomJobPage>;
 
   /**
    * Provide a user-friendly representation
@@ -263,8 +204,8 @@ export function ExportCustomJobListInstance(
   instance._uri = `/Exports/${resourceType}/Jobs`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ExportCustomJobListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ExportCustomJobInstance) => any
   ): Promise<ExportCustomJobInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -326,8 +267,10 @@ export function ExportCustomJobListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ExportCustomJobListInstancePageOptions
+      | ((error: Error | null, item?: ExportCustomJobPage) => any),
+    callback?: (error: Error | null, item?: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
     if (typeof params === "function") {
       callback = params;
@@ -368,8 +311,8 @@ export function ExportCustomJobListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

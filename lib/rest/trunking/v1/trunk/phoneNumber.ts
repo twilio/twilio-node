@@ -486,25 +486,7 @@ export interface PhoneNumberListInstance {
     params: PhoneNumberListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
-  create(params: any, callback?: any): Promise<PhoneNumberInstance>;
 
-  /**
-   * Streams PhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams PhoneNumberInstance records from the API.
    *
@@ -521,50 +503,23 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: PhoneNumberListInstanceEachOptions,
+    params?:
+      | PhoneNumberListInstanceEachOptions
+      | ((item: PhoneNumberInstance, done: (err?: Error) => void) => void),
     callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of PhoneNumberInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
-  /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage>;
-  getPage(params?: any, callback?: any): Promise<PhoneNumberPage>;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
-  ): Promise<PhoneNumberInstance[]>;
   /**
    * Lists PhoneNumberInstance records from the API as a list.
    *
@@ -575,23 +530,11 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: PhoneNumberListInstanceOptions,
+    params?:
+      | PhoneNumberListInstanceOptions
+      | ((error: Error | null, items: PhoneNumberInstance[]) => any),
     callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
   ): Promise<PhoneNumberInstance[]>;
-  list(params?: any, callback?: any): Promise<PhoneNumberInstance[]>;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    *
@@ -604,10 +547,11 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: PhoneNumberListInstancePageOptions,
+    params?:
+      | PhoneNumberListInstancePageOptions
+      | ((error: Error | null, items: PhoneNumberPage) => any),
     callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage>;
-  page(params?: any, callback?: any): Promise<PhoneNumberPage>;
 
   /**
    * Provide a user-friendly representation
@@ -646,8 +590,8 @@ export function PhoneNumberListInstance(
   instance._uri = `/Trunks/${trunkSid}/PhoneNumbers`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: PhoneNumberListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -694,8 +638,10 @@ export function PhoneNumberListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | PhoneNumberListInstancePageOptions
+      | ((error: Error | null, item?: PhoneNumberPage) => any),
+    callback?: (error: Error | null, item?: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage> {
     if (typeof params === "function") {
       callback = params;
@@ -736,8 +682,8 @@ export function PhoneNumberListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

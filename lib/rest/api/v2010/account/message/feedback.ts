@@ -49,10 +49,11 @@ export interface FeedbackListInstance {
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   create(
-    params: FeedbackListInstanceCreateOptions,
+    params?:
+      | FeedbackListInstanceCreateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
-  create(params?: any, callback?: any): Promise<FeedbackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -93,8 +94,10 @@ export function FeedbackListInstance(
   instance._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Feedback.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | FeedbackListInstanceCreateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
       callback = params;

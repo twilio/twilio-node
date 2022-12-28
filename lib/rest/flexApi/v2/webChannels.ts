@@ -46,7 +46,6 @@ export interface WebChannelsListInstance {
     params: WebChannelsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance>;
-  create(params: any, callback?: any): Promise<WebChannelsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -72,8 +71,8 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
   instance._uri = `/WebChats`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WebChannelsListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

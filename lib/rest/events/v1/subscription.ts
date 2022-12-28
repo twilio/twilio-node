@@ -141,10 +141,11 @@ export interface SubscriptionContext {
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
   update(
-    params: SubscriptionContextUpdateOptions,
+    params?:
+      | SubscriptionContextUpdateOptions
+      | ((error: Error | null, item?: SubscriptionInstance) => any),
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance>;
-  update(params?: any, callback?: any): Promise<SubscriptionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -384,10 +385,11 @@ export class SubscriptionInstance {
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
   update(
-    params: SubscriptionContextUpdateOptions,
+    params?:
+      | SubscriptionContextUpdateOptions
+      | ((error: Error | null, item?: SubscriptionInstance) => any),
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
-  ): Promise<SubscriptionInstance>;
-  update(params?: any, callback?: any): Promise<SubscriptionInstance> {
+  ): Promise<SubscriptionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -437,25 +439,7 @@ export interface SubscriptionListInstance {
     params: SubscriptionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance>;
-  create(params: any, callback?: any): Promise<SubscriptionInstance>;
 
-  /**
-   * Streams SubscriptionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SubscriptionInstance records from the API.
    *
@@ -472,50 +456,23 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SubscriptionListInstanceEachOptions,
+    params?:
+      | SubscriptionListInstanceEachOptions
+      | ((item: SubscriptionInstance, done: (err?: Error) => void) => void),
     callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SubscriptionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SubscriptionPage) => any
-  ): Promise<SubscriptionPage>;
-  /**
-   * Retrieve a single target page of SubscriptionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage>;
-  getPage(params?: any, callback?: any): Promise<SubscriptionPage>;
-  /**
-   * Lists SubscriptionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SubscriptionInstance[]) => any
-  ): Promise<SubscriptionInstance[]>;
   /**
    * Lists SubscriptionInstance records from the API as a list.
    *
@@ -526,23 +483,11 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SubscriptionListInstanceOptions,
+    params?:
+      | SubscriptionListInstanceOptions
+      | ((error: Error | null, items: SubscriptionInstance[]) => any),
     callback?: (error: Error | null, items: SubscriptionInstance[]) => any
   ): Promise<SubscriptionInstance[]>;
-  list(params?: any, callback?: any): Promise<SubscriptionInstance[]>;
-  /**
-   * Retrieve a single page of SubscriptionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SubscriptionPage) => any
-  ): Promise<SubscriptionPage>;
   /**
    * Retrieve a single page of SubscriptionInstance records from the API.
    *
@@ -555,10 +500,11 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SubscriptionListInstancePageOptions,
+    params?:
+      | SubscriptionListInstancePageOptions
+      | ((error: Error | null, items: SubscriptionPage) => any),
     callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage>;
-  page(params?: any, callback?: any): Promise<SubscriptionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -590,8 +536,8 @@ export function SubscriptionListInstance(
   instance._uri = `/Subscriptions`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SubscriptionListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -640,8 +586,10 @@ export function SubscriptionListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SubscriptionListInstancePageOptions
+      | ((error: Error | null, item?: SubscriptionPage) => any),
+    callback?: (error: Error | null, item?: SubscriptionPage) => any
   ): Promise<SubscriptionPage> {
     if (typeof params === "function") {
       callback = params;
@@ -683,8 +631,8 @@ export function SubscriptionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

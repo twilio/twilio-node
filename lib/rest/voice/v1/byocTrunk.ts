@@ -162,10 +162,11 @@ export interface ByocTrunkContext {
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   update(
-    params: ByocTrunkContextUpdateOptions,
+    params?:
+      | ByocTrunkContextUpdateOptions
+      | ((error: Error | null, item?: ByocTrunkInstance) => any),
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance>;
-  update(params?: any, callback?: any): Promise<ByocTrunkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -476,10 +477,11 @@ export class ByocTrunkInstance {
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   update(
-    params: ByocTrunkContextUpdateOptions,
+    params?:
+      | ByocTrunkContextUpdateOptions
+      | ((error: Error | null, item?: ByocTrunkInstance) => any),
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
-  ): Promise<ByocTrunkInstance>;
-  update(params?: any, callback?: any): Promise<ByocTrunkInstance> {
+  ): Promise<ByocTrunkInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -536,28 +538,12 @@ export interface ByocTrunkListInstance {
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   create(
-    params: ByocTrunkListInstanceCreateOptions,
+    params?:
+      | ByocTrunkListInstanceCreateOptions
+      | ((error: Error | null, item?: ByocTrunkInstance) => any),
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance>;
-  create(params?: any, callback?: any): Promise<ByocTrunkInstance>;
 
-  /**
-   * Streams ByocTrunkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ByocTrunkInstance records from the API.
    *
@@ -574,50 +560,23 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ByocTrunkListInstanceEachOptions,
+    params?:
+      | ByocTrunkListInstanceEachOptions
+      | ((item: ByocTrunkInstance, done: (err?: Error) => void) => void),
     callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ByocTrunkInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
-  ): Promise<ByocTrunkPage>;
-  /**
-   * Retrieve a single target page of ByocTrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage>;
-  getPage(params?: any, callback?: any): Promise<ByocTrunkPage>;
-  /**
-   * Lists ByocTrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
-  ): Promise<ByocTrunkInstance[]>;
   /**
    * Lists ByocTrunkInstance records from the API as a list.
    *
@@ -628,23 +587,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ByocTrunkListInstanceOptions,
+    params?:
+      | ByocTrunkListInstanceOptions
+      | ((error: Error | null, items: ByocTrunkInstance[]) => any),
     callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
   ): Promise<ByocTrunkInstance[]>;
-  list(params?: any, callback?: any): Promise<ByocTrunkInstance[]>;
-  /**
-   * Retrieve a single page of ByocTrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
-  ): Promise<ByocTrunkPage>;
   /**
    * Retrieve a single page of ByocTrunkInstance records from the API.
    *
@@ -657,10 +604,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ByocTrunkListInstancePageOptions,
+    params?:
+      | ByocTrunkListInstancePageOptions
+      | ((error: Error | null, items: ByocTrunkPage) => any),
     callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage>;
-  page(params?: any, callback?: any): Promise<ByocTrunkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -690,8 +638,10 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   instance._uri = `/ByocTrunks`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | ByocTrunkListInstanceCreateOptions
+      | ((error: Error | null, item?: ByocTrunkInstance) => any),
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -745,8 +695,10 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ByocTrunkListInstancePageOptions
+      | ((error: Error | null, item?: ByocTrunkPage) => any),
+    callback?: (error: Error | null, item?: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage> {
     if (typeof params === "function") {
       callback = params;
@@ -786,8 +738,8 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

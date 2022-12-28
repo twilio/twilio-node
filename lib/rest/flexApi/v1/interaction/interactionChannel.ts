@@ -123,7 +123,6 @@ export interface InteractionChannelContext {
     params: InteractionChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: InteractionChannelInstance) => any
   ): Promise<InteractionChannelInstance>;
-  update(params: any, callback?: any): Promise<InteractionChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -355,8 +354,7 @@ export class InteractionChannelInstance {
   update(
     params: InteractionChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: InteractionChannelInstance) => any
-  ): Promise<InteractionChannelInstance>;
-  update(params: any, callback?: any): Promise<InteractionChannelInstance> {
+  ): Promise<InteractionChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -413,77 +411,33 @@ export interface InteractionChannelListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: InteractionChannelInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams InteractionChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { InteractionChannelListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InteractionChannelListInstanceEachOptions,
+    params?:
+      | InteractionChannelListInstanceEachOptions
+      | ((
+          item: InteractionChannelInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: InteractionChannelInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of InteractionChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InteractionChannelPage) => any
-  ): Promise<InteractionChannelPage>;
-  /**
-   * Retrieve a single target page of InteractionChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage>;
-  getPage(params?: any, callback?: any): Promise<InteractionChannelPage>;
-  /**
-   * Lists InteractionChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: InteractionChannelInstance[]) => any
-  ): Promise<InteractionChannelInstance[]>;
   /**
    * Lists InteractionChannelInstance records from the API as a list.
    *
@@ -494,23 +448,11 @@ export interface InteractionChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InteractionChannelListInstanceOptions,
+    params?:
+      | InteractionChannelListInstanceOptions
+      | ((error: Error | null, items: InteractionChannelInstance[]) => any),
     callback?: (error: Error | null, items: InteractionChannelInstance[]) => any
   ): Promise<InteractionChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<InteractionChannelInstance[]>;
-  /**
-   * Retrieve a single page of InteractionChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InteractionChannelPage) => any
-  ): Promise<InteractionChannelPage>;
   /**
    * Retrieve a single page of InteractionChannelInstance records from the API.
    *
@@ -523,10 +465,11 @@ export interface InteractionChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: InteractionChannelListInstancePageOptions,
+    params?:
+      | InteractionChannelListInstancePageOptions
+      | ((error: Error | null, items: InteractionChannelPage) => any),
     callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage>;
-  page(params?: any, callback?: any): Promise<InteractionChannelPage>;
 
   /**
    * Provide a user-friendly representation
@@ -569,8 +512,10 @@ export function InteractionChannelListInstance(
   instance._uri = `/Interactions/${interactionSid}/Channels`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InteractionChannelListInstancePageOptions
+      | ((error: Error | null, item?: InteractionChannelPage) => any),
+    callback?: (error: Error | null, item?: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage> {
     if (typeof params === "function") {
       callback = params;
@@ -611,8 +556,8 @@ export function InteractionChannelListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

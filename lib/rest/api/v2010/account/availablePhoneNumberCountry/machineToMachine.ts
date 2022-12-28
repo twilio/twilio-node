@@ -192,77 +192,30 @@ export interface MachineToMachineListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams MachineToMachineInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { MachineToMachineListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MachineToMachineListInstanceEachOptions,
+    params?:
+      | MachineToMachineListInstanceEachOptions
+      | ((item: MachineToMachineInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: MachineToMachineInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
-  /**
-   * Retrieve a single target page of MachineToMachineInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
-  getPage(params?: any, callback?: any): Promise<MachineToMachinePage>;
-  /**
-   * Lists MachineToMachineInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
   /**
    * Lists MachineToMachineInstance records from the API as a list.
    *
@@ -273,23 +226,11 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MachineToMachineListInstanceOptions,
+    params?:
+      | MachineToMachineListInstanceOptions
+      | ((error: Error | null, items: MachineToMachineInstance[]) => any),
     callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
   ): Promise<MachineToMachineInstance[]>;
-  list(params?: any, callback?: any): Promise<MachineToMachineInstance[]>;
-  /**
-   * Retrieve a single page of MachineToMachineInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API.
    *
@@ -302,10 +243,11 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MachineToMachineListInstancePageOptions,
+    params?:
+      | MachineToMachineListInstancePageOptions
+      | ((error: Error | null, items: MachineToMachinePage) => any),
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
-  page(params?: any, callback?: any): Promise<MachineToMachinePage>;
 
   /**
    * Provide a user-friendly representation
@@ -347,8 +289,10 @@ export function MachineToMachineListInstance(
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/MachineToMachine.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MachineToMachineListInstancePageOptions
+      | ((error: Error | null, item?: MachineToMachinePage) => any),
+    callback?: (error: Error | null, item?: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
     if (typeof params === "function") {
       callback = params;
@@ -426,8 +370,8 @@ export function MachineToMachineListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

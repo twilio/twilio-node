@@ -59,10 +59,11 @@ export interface WorkersStatisticsContext {
    * @returns { Promise } Resolves to processed WorkersStatisticsInstance
    */
   fetch(
-    params: WorkersStatisticsContextFetchOptions,
+    params?:
+      | WorkersStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkersStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
   ): Promise<WorkersStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -230,10 +231,11 @@ export class WorkersStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkersStatisticsInstance
    */
   fetch(
-    params: WorkersStatisticsContextFetchOptions,
+    params?:
+      | WorkersStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkersStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance> {
+  ): Promise<WorkersStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

@@ -49,10 +49,11 @@ export interface UsageContext {
    * @returns { Promise } Resolves to processed UsageInstance
    */
   fetch(
-    params: UsageContextFetchOptions,
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: UsageInstance) => any),
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance>;
-  fetch(params?: any, callback?: any): Promise<UsageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -199,10 +200,11 @@ export class UsageInstance {
    * @returns { Promise } Resolves to processed UsageInstance
    */
   fetch(
-    params: UsageContextFetchOptions,
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: UsageInstance) => any),
     callback?: (error: Error | null, item?: UsageInstance) => any
-  ): Promise<UsageInstance>;
-  fetch(params?: any, callback?: any): Promise<UsageInstance> {
+  ): Promise<UsageInstance> {
     return this._proxy.fetch(params, callback);
   }
 

@@ -151,10 +151,11 @@ export interface FleetContext {
    * @returns { Promise } Resolves to processed FleetInstance
    */
   update(
-    params: FleetContextUpdateOptions,
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: FleetInstance) => any),
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
-  update(params?: any, callback?: any): Promise<FleetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -418,10 +419,11 @@ export class FleetInstance {
    * @returns { Promise } Resolves to processed FleetInstance
    */
   update(
-    params: FleetContextUpdateOptions,
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: FleetInstance) => any),
     callback?: (error: Error | null, item?: FleetInstance) => any
-  ): Promise<FleetInstance>;
-  update(params?: any, callback?: any): Promise<FleetInstance> {
+  ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -471,25 +473,7 @@ export interface FleetListInstance {
     params: FleetListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
-  create(params: any, callback?: any): Promise<FleetInstance>;
 
-  /**
-   * Streams FleetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FleetInstance records from the API.
    *
@@ -506,50 +490,23 @@ export interface FleetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FleetListInstanceEachOptions,
+    params?:
+      | FleetListInstanceEachOptions
+      | ((item: FleetInstance, done: (err?: Error) => void) => void),
     callback?: (item: FleetInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FleetPage) => any
-  ): Promise<FleetPage>;
-  /**
-   * Retrieve a single target page of FleetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
-  getPage(params?: any, callback?: any): Promise<FleetPage>;
-  /**
-   * Lists FleetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FleetInstance[]) => any
-  ): Promise<FleetInstance[]>;
   /**
    * Lists FleetInstance records from the API as a list.
    *
@@ -560,23 +517,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FleetListInstanceOptions,
+    params?:
+      | FleetListInstanceOptions
+      | ((error: Error | null, items: FleetInstance[]) => any),
     callback?: (error: Error | null, items: FleetInstance[]) => any
   ): Promise<FleetInstance[]>;
-  list(params?: any, callback?: any): Promise<FleetInstance[]>;
-  /**
-   * Retrieve a single page of FleetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FleetPage) => any
-  ): Promise<FleetPage>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    *
@@ -589,10 +534,11 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: FleetListInstancePageOptions,
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, items: FleetPage) => any),
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
-  page(params?: any, callback?: any): Promise<FleetPage>;
 
   /**
    * Provide a user-friendly representation
@@ -622,8 +568,8 @@ export function FleetListInstance(version: V1): FleetListInstance {
   instance._uri = `/Fleets`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -681,8 +627,10 @@ export function FleetListInstance(version: V1): FleetListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, item?: FleetPage) => any),
+    callback?: (error: Error | null, item?: FleetPage) => any
   ): Promise<FleetPage> {
     if (typeof params === "function") {
       callback = params;
@@ -724,8 +672,8 @@ export function FleetListInstance(version: V1): FleetListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

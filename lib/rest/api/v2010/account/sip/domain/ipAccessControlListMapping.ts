@@ -345,31 +345,7 @@ export interface IpAccessControlListMappingListInstance {
       item?: IpAccessControlListMappingInstance
     ) => any
   ): Promise<IpAccessControlListMappingInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<IpAccessControlListMappingInstance>;
 
-  /**
-   * Streams IpAccessControlListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: IpAccessControlListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams IpAccessControlListMappingInstance records from the API.
    *
@@ -386,65 +362,32 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpAccessControlListMappingListInstanceEachOptions,
+    params?:
+      | IpAccessControlListMappingListInstanceEachOptions
+      | ((
+          item: IpAccessControlListMappingInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: IpAccessControlListMappingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of IpAccessControlListMappingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: IpAccessControlListMappingPage
-    ) => any
-  ): Promise<IpAccessControlListMappingPage>;
-  /**
-   * Retrieve a single target page of IpAccessControlListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<IpAccessControlListMappingPage>;
-  /**
-   * Lists IpAccessControlListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: IpAccessControlListMappingInstance[]
-    ) => any
-  ): Promise<IpAccessControlListMappingInstance[]>;
   /**
    * Lists IpAccessControlListMappingInstance records from the API as a list.
    *
@@ -455,32 +398,17 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpAccessControlListMappingListInstanceOptions,
+    params?:
+      | IpAccessControlListMappingListInstanceOptions
+      | ((
+          error: Error | null,
+          items: IpAccessControlListMappingInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: IpAccessControlListMappingInstance[]
     ) => any
   ): Promise<IpAccessControlListMappingInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<IpAccessControlListMappingInstance[]>;
-  /**
-   * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: IpAccessControlListMappingPage
-    ) => any
-  ): Promise<IpAccessControlListMappingPage>;
   /**
    * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
    *
@@ -493,13 +421,14 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: IpAccessControlListMappingListInstancePageOptions,
+    params?:
+      | IpAccessControlListMappingListInstancePageOptions
+      | ((error: Error | null, items: IpAccessControlListMappingPage) => any),
     callback?: (
       error: Error | null,
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage>;
-  page(params?: any, callback?: any): Promise<IpAccessControlListMappingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -553,8 +482,11 @@ export function IpAccessControlListMappingListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/IpAccessControlListMappings.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpAccessControlListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: IpAccessControlListMappingInstance
+    ) => any
   ): Promise<IpAccessControlListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -602,8 +534,13 @@ export function IpAccessControlListMappingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpAccessControlListMappingListInstancePageOptions
+      | ((error: Error | null, item?: IpAccessControlListMappingPage) => any),
+    callback?: (
+      error: Error | null,
+      item?: IpAccessControlListMappingPage
+    ) => any
   ): Promise<IpAccessControlListMappingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -648,8 +585,11 @@ export function IpAccessControlListMappingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: IpAccessControlListMappingPage
+    ) => any
   ): Promise<IpAccessControlListMappingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

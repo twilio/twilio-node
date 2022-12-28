@@ -145,10 +145,11 @@ export interface OriginationUrlContext {
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
   update(
-    params: OriginationUrlContextUpdateOptions,
+    params?:
+      | OriginationUrlContextUpdateOptions
+      | ((error: Error | null, item?: OriginationUrlInstance) => any),
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance>;
-  update(params?: any, callback?: any): Promise<OriginationUrlInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -421,10 +422,11 @@ export class OriginationUrlInstance {
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
   update(
-    params: OriginationUrlContextUpdateOptions,
+    params?:
+      | OriginationUrlContextUpdateOptions
+      | ((error: Error | null, item?: OriginationUrlInstance) => any),
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
-  ): Promise<OriginationUrlInstance>;
-  update(params?: any, callback?: any): Promise<OriginationUrlInstance> {
+  ): Promise<OriginationUrlInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -470,28 +472,7 @@ export interface OriginationUrlListInstance {
     params: OriginationUrlListInstanceCreateOptions,
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance>;
-  create(params: any, callback?: any): Promise<OriginationUrlInstance>;
 
-  /**
-   * Streams OriginationUrlInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: OriginationUrlInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams OriginationUrlInstance records from the API.
    *
@@ -508,53 +489,26 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: OriginationUrlListInstanceEachOptions,
+    params?:
+      | OriginationUrlListInstanceEachOptions
+      | ((item: OriginationUrlInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: OriginationUrlInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
-  ): Promise<OriginationUrlPage>;
-  /**
-   * Retrieve a single target page of OriginationUrlInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage>;
-  getPage(params?: any, callback?: any): Promise<OriginationUrlPage>;
-  /**
-   * Lists OriginationUrlInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
-  ): Promise<OriginationUrlInstance[]>;
   /**
    * Lists OriginationUrlInstance records from the API as a list.
    *
@@ -565,23 +519,11 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: OriginationUrlListInstanceOptions,
+    params?:
+      | OriginationUrlListInstanceOptions
+      | ((error: Error | null, items: OriginationUrlInstance[]) => any),
     callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
   ): Promise<OriginationUrlInstance[]>;
-  list(params?: any, callback?: any): Promise<OriginationUrlInstance[]>;
-  /**
-   * Retrieve a single page of OriginationUrlInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: OriginationUrlPage) => any
-  ): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    *
@@ -594,10 +536,11 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: OriginationUrlListInstancePageOptions,
+    params?:
+      | OriginationUrlListInstancePageOptions
+      | ((error: Error | null, items: OriginationUrlPage) => any),
     callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage>;
-  page(params?: any, callback?: any): Promise<OriginationUrlPage>;
 
   /**
    * Provide a user-friendly representation
@@ -637,8 +580,8 @@ export function OriginationUrlListInstance(
   instance._uri = `/Trunks/${trunkSid}/OriginationUrls`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: OriginationUrlListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -707,8 +650,10 @@ export function OriginationUrlListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | OriginationUrlListInstancePageOptions
+      | ((error: Error | null, item?: OriginationUrlPage) => any),
+    callback?: (error: Error | null, item?: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage> {
     if (typeof params === "function") {
       callback = params;
@@ -749,8 +694,8 @@ export function OriginationUrlListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

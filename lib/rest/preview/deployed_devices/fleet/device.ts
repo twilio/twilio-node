@@ -146,10 +146,11 @@ export interface DeviceContext {
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   update(
-    params: DeviceContextUpdateOptions,
+    params?:
+      | DeviceContextUpdateOptions
+      | ((error: Error | null, item?: DeviceInstance) => any),
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance>;
-  update(params?: any, callback?: any): Promise<DeviceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -434,10 +435,11 @@ export class DeviceInstance {
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   update(
-    params: DeviceContextUpdateOptions,
+    params?:
+      | DeviceContextUpdateOptions
+      | ((error: Error | null, item?: DeviceInstance) => any),
     callback?: (error: Error | null, item?: DeviceInstance) => any
-  ): Promise<DeviceInstance>;
-  update(params?: any, callback?: any): Promise<DeviceInstance> {
+  ): Promise<DeviceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -491,28 +493,12 @@ export interface DeviceListInstance {
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   create(
-    params: DeviceListInstanceCreateOptions,
+    params?:
+      | DeviceListInstanceCreateOptions
+      | ((error: Error | null, item?: DeviceInstance) => any),
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance>;
-  create(params?: any, callback?: any): Promise<DeviceInstance>;
 
-  /**
-   * Streams DeviceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DeviceInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DeviceInstance records from the API.
    *
@@ -529,50 +515,23 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DeviceListInstanceEachOptions,
+    params?:
+      | DeviceListInstanceEachOptions
+      | ((item: DeviceInstance, done: (err?: Error) => void) => void),
     callback?: (item: DeviceInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DeviceInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DevicePage) => any
-  ): Promise<DevicePage>;
-  /**
-   * Retrieve a single target page of DeviceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DevicePage) => any
   ): Promise<DevicePage>;
-  getPage(params?: any, callback?: any): Promise<DevicePage>;
-  /**
-   * Lists DeviceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DeviceInstance[]) => any
-  ): Promise<DeviceInstance[]>;
   /**
    * Lists DeviceInstance records from the API as a list.
    *
@@ -583,23 +542,11 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DeviceListInstanceOptions,
+    params?:
+      | DeviceListInstanceOptions
+      | ((error: Error | null, items: DeviceInstance[]) => any),
     callback?: (error: Error | null, items: DeviceInstance[]) => any
   ): Promise<DeviceInstance[]>;
-  list(params?: any, callback?: any): Promise<DeviceInstance[]>;
-  /**
-   * Retrieve a single page of DeviceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DevicePage) => any
-  ): Promise<DevicePage>;
   /**
    * Retrieve a single page of DeviceInstance records from the API.
    *
@@ -612,10 +559,11 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DeviceListInstancePageOptions,
+    params?:
+      | DeviceListInstancePageOptions
+      | ((error: Error | null, items: DevicePage) => any),
     callback?: (error: Error | null, items: DevicePage) => any
   ): Promise<DevicePage>;
-  page(params?: any, callback?: any): Promise<DevicePage>;
 
   /**
    * Provide a user-friendly representation
@@ -654,8 +602,10 @@ export function DeviceListInstance(
   instance._uri = `/Fleets/${fleetSid}/Devices`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | DeviceListInstanceCreateOptions
+      | ((error: Error | null, item?: DeviceInstance) => any),
+    callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -700,8 +650,10 @@ export function DeviceListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DeviceListInstancePageOptions
+      | ((error: Error | null, item?: DevicePage) => any),
+    callback?: (error: Error | null, item?: DevicePage) => any
   ): Promise<DevicePage> {
     if (typeof params === "function") {
       callback = params;
@@ -743,8 +695,8 @@ export function DeviceListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DevicePage) => any
   ): Promise<DevicePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

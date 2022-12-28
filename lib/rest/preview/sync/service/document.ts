@@ -126,7 +126,6 @@ export interface DocumentContext {
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
-  update(params: any, callback?: any): Promise<DocumentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -368,8 +367,7 @@ export class DocumentInstance {
   update(
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
-  ): Promise<DocumentInstance>;
-  update(params: any, callback?: any): Promise<DocumentInstance> {
+  ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -429,28 +427,12 @@ export interface DocumentListInstance {
    * @returns { Promise } Resolves to processed DocumentInstance
    */
   create(
-    params: DocumentListInstanceCreateOptions,
+    params?:
+      | DocumentListInstanceCreateOptions
+      | ((error: Error | null, item?: DocumentInstance) => any),
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
-  create(params?: any, callback?: any): Promise<DocumentInstance>;
 
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DocumentInstance records from the API.
    *
@@ -467,50 +449,23 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DocumentListInstanceEachOptions,
+    params?:
+      | DocumentListInstanceEachOptions
+      | ((item: DocumentInstance, done: (err?: Error) => void) => void),
     callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DocumentPage) => any
-  ): Promise<DocumentPage>;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage>;
-  getPage(params?: any, callback?: any): Promise<DocumentPage>;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DocumentInstance[]) => any
-  ): Promise<DocumentInstance[]>;
   /**
    * Lists DocumentInstance records from the API as a list.
    *
@@ -521,23 +476,11 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DocumentListInstanceOptions,
+    params?:
+      | DocumentListInstanceOptions
+      | ((error: Error | null, items: DocumentInstance[]) => any),
     callback?: (error: Error | null, items: DocumentInstance[]) => any
   ): Promise<DocumentInstance[]>;
-  list(params?: any, callback?: any): Promise<DocumentInstance[]>;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DocumentPage) => any
-  ): Promise<DocumentPage>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    *
@@ -550,10 +493,11 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DocumentListInstancePageOptions,
+    params?:
+      | DocumentListInstancePageOptions
+      | ((error: Error | null, items: DocumentPage) => any),
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage>;
-  page(params?: any, callback?: any): Promise<DocumentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -592,8 +536,10 @@ export function DocumentListInstance(
   instance._uri = `/Services/${serviceSid}/Documents`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | DocumentListInstanceCreateOptions
+      | ((error: Error | null, item?: DocumentInstance) => any),
+    callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -637,8 +583,10 @@ export function DocumentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DocumentListInstancePageOptions
+      | ((error: Error | null, item?: DocumentPage) => any),
+    callback?: (error: Error | null, item?: DocumentPage) => any
   ): Promise<DocumentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -678,8 +626,8 @@ export function DocumentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

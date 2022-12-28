@@ -189,71 +189,27 @@ export interface SharedCostListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams SharedCostInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SharedCostListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SharedCostListInstanceEachOptions,
+    params?:
+      | SharedCostListInstanceEachOptions
+      | ((item: SharedCostInstance, done: (err?: Error) => void) => void),
     callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SharedCostInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage>;
-  /**
-   * Retrieve a single target page of SharedCostInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage>;
-  getPage(params?: any, callback?: any): Promise<SharedCostPage>;
-  /**
-   * Lists SharedCostInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SharedCostInstance[]) => any
-  ): Promise<SharedCostInstance[]>;
   /**
    * Lists SharedCostInstance records from the API as a list.
    *
@@ -264,23 +220,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SharedCostListInstanceOptions,
+    params?:
+      | SharedCostListInstanceOptions
+      | ((error: Error | null, items: SharedCostInstance[]) => any),
     callback?: (error: Error | null, items: SharedCostInstance[]) => any
   ): Promise<SharedCostInstance[]>;
-  list(params?: any, callback?: any): Promise<SharedCostInstance[]>;
-  /**
-   * Retrieve a single page of SharedCostInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage>;
   /**
    * Retrieve a single page of SharedCostInstance records from the API.
    *
@@ -293,10 +237,11 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SharedCostListInstancePageOptions,
+    params?:
+      | SharedCostListInstancePageOptions
+      | ((error: Error | null, items: SharedCostPage) => any),
     callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage>;
-  page(params?: any, callback?: any): Promise<SharedCostPage>;
 
   /**
    * Provide a user-friendly representation
@@ -337,8 +282,10 @@ export function SharedCostListInstance(
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/SharedCost.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SharedCostListInstancePageOptions
+      | ((error: Error | null, item?: SharedCostPage) => any),
+    callback?: (error: Error | null, item?: SharedCostPage) => any
   ): Promise<SharedCostPage> {
     if (typeof params === "function") {
       callback = params;
@@ -415,8 +362,8 @@ export function SharedCostListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

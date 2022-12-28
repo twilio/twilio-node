@@ -58,10 +58,11 @@ export interface DefaultsContext {
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
   update(
-    params: DefaultsContextUpdateOptions,
+    params?:
+      | DefaultsContextUpdateOptions
+      | ((error: Error | null, item?: DefaultsInstance) => any),
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance>;
-  update(params?: any, callback?: any): Promise<DefaultsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -246,10 +247,11 @@ export class DefaultsInstance {
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
   update(
-    params: DefaultsContextUpdateOptions,
+    params?:
+      | DefaultsContextUpdateOptions
+      | ((error: Error | null, item?: DefaultsInstance) => any),
     callback?: (error: Error | null, item?: DefaultsInstance) => any
-  ): Promise<DefaultsInstance>;
-  update(params?: any, callback?: any): Promise<DefaultsInstance> {
+  ): Promise<DefaultsInstance> {
     return this._proxy.update(params, callback);
   }
 

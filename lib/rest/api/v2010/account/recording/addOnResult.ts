@@ -375,71 +375,27 @@ export interface AddOnResultListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams AddOnResultInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AddOnResultListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AddOnResultListInstanceEachOptions,
+    params?:
+      | AddOnResultListInstanceEachOptions
+      | ((item: AddOnResultInstance, done: (err?: Error) => void) => void),
     callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage>;
-  /**
-   * Retrieve a single target page of AddOnResultInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
-  getPage(params?: any, callback?: any): Promise<AddOnResultPage>;
-  /**
-   * Lists AddOnResultInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
-  ): Promise<AddOnResultInstance[]>;
   /**
    * Lists AddOnResultInstance records from the API as a list.
    *
@@ -450,23 +406,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AddOnResultListInstanceOptions,
+    params?:
+      | AddOnResultListInstanceOptions
+      | ((error: Error | null, items: AddOnResultInstance[]) => any),
     callback?: (error: Error | null, items: AddOnResultInstance[]) => any
   ): Promise<AddOnResultInstance[]>;
-  list(params?: any, callback?: any): Promise<AddOnResultInstance[]>;
-  /**
-   * Retrieve a single page of AddOnResultInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
    *
@@ -479,10 +423,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AddOnResultListInstancePageOptions,
+    params?:
+      | AddOnResultListInstancePageOptions
+      | ((error: Error | null, items: AddOnResultPage) => any),
     callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
-  page(params?: any, callback?: any): Promise<AddOnResultPage>;
 
   /**
    * Provide a user-friendly representation
@@ -527,8 +472,10 @@ export function AddOnResultListInstance(
   instance._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AddOnResultListInstancePageOptions
+      | ((error: Error | null, item?: AddOnResultPage) => any),
+    callback?: (error: Error | null, item?: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     if (typeof params === "function") {
       callback = params;
@@ -569,8 +516,8 @@ export function AddOnResultListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

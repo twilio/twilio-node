@@ -328,71 +328,27 @@ export interface CountryListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams CountryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { CountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CountryListInstanceEachOptions,
+    params?:
+      | CountryListInstanceEachOptions
+      | ((item: CountryInstance, done: (err?: Error) => void) => void),
     callback?: (item: CountryInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage>;
-  /**
-   * Retrieve a single target page of CountryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage>;
-  getPage(params?: any, callback?: any): Promise<CountryPage>;
-  /**
-   * Lists CountryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CountryInstance[]) => any
-  ): Promise<CountryInstance[]>;
   /**
    * Lists CountryInstance records from the API as a list.
    *
@@ -403,23 +359,11 @@ export interface CountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CountryListInstanceOptions,
+    params?:
+      | CountryListInstanceOptions
+      | ((error: Error | null, items: CountryInstance[]) => any),
     callback?: (error: Error | null, items: CountryInstance[]) => any
   ): Promise<CountryInstance[]>;
-  list(params?: any, callback?: any): Promise<CountryInstance[]>;
-  /**
-   * Retrieve a single page of CountryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    *
@@ -432,10 +376,11 @@ export interface CountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CountryListInstancePageOptions,
+    params?:
+      | CountryListInstancePageOptions
+      | ((error: Error | null, items: CountryPage) => any),
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage>;
-  page(params?: any, callback?: any): Promise<CountryPage>;
 
   /**
    * Provide a user-friendly representation
@@ -466,8 +411,10 @@ export function CountryListInstance(version: V1): CountryListInstance {
   instance._uri = `/DialingPermissions/Countries`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CountryListInstancePageOptions
+      | ((error: Error | null, item?: CountryPage) => any),
+    callback?: (error: Error | null, item?: CountryPage) => any
   ): Promise<CountryPage> {
     if (typeof params === "function") {
       callback = params;
@@ -524,8 +471,8 @@ export function CountryListInstance(version: V1): CountryListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

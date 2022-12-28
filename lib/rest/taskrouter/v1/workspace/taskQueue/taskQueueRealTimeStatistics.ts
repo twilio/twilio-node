@@ -50,15 +50,16 @@ export interface TaskQueueRealTimeStatisticsContext {
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
-    params: TaskQueueRealTimeStatisticsContextFetchOptions,
+    params?:
+      | TaskQueueRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueRealTimeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: TaskQueueRealTimeStatisticsInstance
     ) => any
-  ): Promise<TaskQueueRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
 
   /**
@@ -300,15 +301,16 @@ export class TaskQueueRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
-    params: TaskQueueRealTimeStatisticsContextFetchOptions,
+    params?:
+      | TaskQueueRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueRealTimeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: TaskQueueRealTimeStatisticsInstance
     ) => any
-  ): Promise<TaskQueueRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

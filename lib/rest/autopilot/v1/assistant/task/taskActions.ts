@@ -58,10 +58,11 @@ export interface TaskActionsContext {
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
   update(
-    params: TaskActionsContextUpdateOptions,
+    params?:
+      | TaskActionsContextUpdateOptions
+      | ((error: Error | null, item?: TaskActionsInstance) => any),
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -264,10 +265,11 @@ export class TaskActionsInstance {
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
   update(
-    params: TaskActionsContextUpdateOptions,
+    params?:
+      | TaskActionsContextUpdateOptions
+      | ((error: Error | null, item?: TaskActionsInstance) => any),
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
-  ): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
+  ): Promise<TaskActionsInstance> {
     return this._proxy.update(params, callback);
   }
 

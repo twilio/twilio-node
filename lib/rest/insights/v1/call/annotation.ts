@@ -80,10 +80,11 @@ export interface AnnotationContext {
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
   update(
-    params: AnnotationContextUpdateOptions,
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: AnnotationInstance) => any),
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -308,10 +309,11 @@ export class AnnotationInstance {
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
   update(
-    params: AnnotationContextUpdateOptions,
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: AnnotationInstance) => any),
     callback?: (error: Error | null, item?: AnnotationInstance) => any
-  ): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance> {
+  ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);
   }
 

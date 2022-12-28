@@ -150,10 +150,11 @@ export interface CredentialContext {
    * @returns { Promise } Resolves to processed CredentialInstance
    */
   update(
-    params: CredentialContextUpdateOptions,
+    params?:
+      | CredentialContextUpdateOptions
+      | ((error: Error | null, item?: CredentialInstance) => any),
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance>;
-  update(params?: any, callback?: any): Promise<CredentialInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -367,10 +368,11 @@ export class CredentialInstance {
    * @returns { Promise } Resolves to processed CredentialInstance
    */
   update(
-    params: CredentialContextUpdateOptions,
+    params?:
+      | CredentialContextUpdateOptions
+      | ((error: Error | null, item?: CredentialInstance) => any),
     callback?: (error: Error | null, item?: CredentialInstance) => any
-  ): Promise<CredentialInstance>;
-  update(params?: any, callback?: any): Promise<CredentialInstance> {
+  ): Promise<CredentialInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -413,25 +415,7 @@ export interface CredentialListInstance {
     params: CredentialListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance>;
-  create(params: any, callback?: any): Promise<CredentialInstance>;
 
-  /**
-   * Streams CredentialInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams CredentialInstance records from the API.
    *
@@ -448,50 +432,23 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CredentialListInstanceEachOptions,
+    params?:
+      | CredentialListInstanceEachOptions
+      | ((item: CredentialInstance, done: (err?: Error) => void) => void),
     callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CredentialPage) => any
-  ): Promise<CredentialPage>;
-  /**
-   * Retrieve a single target page of CredentialInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage>;
-  getPage(params?: any, callback?: any): Promise<CredentialPage>;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CredentialInstance[]) => any
-  ): Promise<CredentialInstance[]>;
   /**
    * Lists CredentialInstance records from the API as a list.
    *
@@ -502,23 +459,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CredentialListInstanceOptions,
+    params?:
+      | CredentialListInstanceOptions
+      | ((error: Error | null, items: CredentialInstance[]) => any),
     callback?: (error: Error | null, items: CredentialInstance[]) => any
   ): Promise<CredentialInstance[]>;
-  list(params?: any, callback?: any): Promise<CredentialInstance[]>;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CredentialPage) => any
-  ): Promise<CredentialPage>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
    *
@@ -531,10 +476,11 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CredentialListInstancePageOptions,
+    params?:
+      | CredentialListInstancePageOptions
+      | ((error: Error | null, items: CredentialPage) => any),
     callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage>;
-  page(params?: any, callback?: any): Promise<CredentialPage>;
 
   /**
    * Provide a user-friendly representation
@@ -564,8 +510,8 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance._uri = `/Credentials`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CredentialListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -612,8 +558,10 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CredentialListInstancePageOptions
+      | ((error: Error | null, item?: CredentialPage) => any),
+    callback?: (error: Error | null, item?: CredentialPage) => any
   ): Promise<CredentialPage> {
     if (typeof params === "function") {
       callback = params;
@@ -653,8 +601,8 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

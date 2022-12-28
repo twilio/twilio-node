@@ -314,28 +314,7 @@ export interface ItemAssignmentListInstance {
     params: ItemAssignmentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance>;
-  create(params: any, callback?: any): Promise<ItemAssignmentInstance>;
 
-  /**
-   * Streams ItemAssignmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams ItemAssignmentInstance records from the API.
    *
@@ -352,53 +331,26 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ItemAssignmentListInstanceEachOptions,
+    params?:
+      | ItemAssignmentListInstanceEachOptions
+      | ((item: ItemAssignmentInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: ItemAssignmentInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ItemAssignmentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
-  /**
-   * Retrieve a single target page of ItemAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage>;
-  getPage(params?: any, callback?: any): Promise<ItemAssignmentPage>;
-  /**
-   * Lists ItemAssignmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
-  ): Promise<ItemAssignmentInstance[]>;
   /**
    * Lists ItemAssignmentInstance records from the API as a list.
    *
@@ -409,23 +361,11 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ItemAssignmentListInstanceOptions,
+    params?:
+      | ItemAssignmentListInstanceOptions
+      | ((error: Error | null, items: ItemAssignmentInstance[]) => any),
     callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
   ): Promise<ItemAssignmentInstance[]>;
-  list(params?: any, callback?: any): Promise<ItemAssignmentInstance[]>;
-  /**
-   * Retrieve a single page of ItemAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
   /**
    * Retrieve a single page of ItemAssignmentInstance records from the API.
    *
@@ -438,10 +378,11 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ItemAssignmentListInstancePageOptions,
+    params?:
+      | ItemAssignmentListInstancePageOptions
+      | ((error: Error | null, items: ItemAssignmentPage) => any),
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage>;
-  page(params?: any, callback?: any): Promise<ItemAssignmentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -481,8 +422,8 @@ export function ItemAssignmentListInstance(
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ItemAssignmentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -524,8 +465,10 @@ export function ItemAssignmentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ItemAssignmentListInstancePageOptions
+      | ((error: Error | null, item?: ItemAssignmentPage) => any),
+    callback?: (error: Error | null, item?: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -566,8 +509,8 @@ export function ItemAssignmentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

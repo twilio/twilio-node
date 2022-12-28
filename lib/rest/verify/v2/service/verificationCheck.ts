@@ -57,10 +57,11 @@ export interface VerificationCheckListInstance {
    * @returns { Promise } Resolves to processed VerificationCheckInstance
    */
   create(
-    params: VerificationCheckListInstanceCreateOptions,
+    params?:
+      | VerificationCheckListInstanceCreateOptions
+      | ((error: Error | null, item?: VerificationCheckInstance) => any),
     callback?: (error: Error | null, item?: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance>;
-  create(params?: any, callback?: any): Promise<VerificationCheckInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -98,8 +99,10 @@ export function VerificationCheckListInstance(
   instance._uri = `/Services/${serviceSid}/VerificationCheck`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | VerificationCheckListInstanceCreateOptions
+      | ((error: Error | null, item?: VerificationCheckInstance) => any),
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance> {
     if (typeof params === "function") {
       callback = params;

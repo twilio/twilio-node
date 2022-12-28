@@ -503,28 +503,7 @@ export interface TollfreeVerificationListInstance {
     params: TollfreeVerificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance>;
-  create(params: any, callback?: any): Promise<TollfreeVerificationInstance>;
 
-  /**
-   * Streams TollfreeVerificationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams TollfreeVerificationInstance records from the API.
    *
@@ -541,56 +520,29 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TollfreeVerificationListInstanceEachOptions,
+    params?:
+      | TollfreeVerificationListInstanceEachOptions
+      | ((
+          item: TollfreeVerificationInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: TollfreeVerificationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TollfreeVerificationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
-  ): Promise<TollfreeVerificationPage>;
-  /**
-   * Retrieve a single target page of TollfreeVerificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
-  getPage(params?: any, callback?: any): Promise<TollfreeVerificationPage>;
-  /**
-   * Lists TollfreeVerificationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: TollfreeVerificationInstance[]
-    ) => any
-  ): Promise<TollfreeVerificationInstance[]>;
   /**
    * Lists TollfreeVerificationInstance records from the API as a list.
    *
@@ -601,26 +553,14 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TollfreeVerificationListInstanceOptions,
+    params?:
+      | TollfreeVerificationListInstanceOptions
+      | ((error: Error | null, items: TollfreeVerificationInstance[]) => any),
     callback?: (
       error: Error | null,
       items: TollfreeVerificationInstance[]
     ) => any
   ): Promise<TollfreeVerificationInstance[]>;
-  list(params?: any, callback?: any): Promise<TollfreeVerificationInstance[]>;
-  /**
-   * Retrieve a single page of TollfreeVerificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
-  ): Promise<TollfreeVerificationPage>;
   /**
    * Retrieve a single page of TollfreeVerificationInstance records from the API.
    *
@@ -633,10 +573,11 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TollfreeVerificationListInstancePageOptions,
+    params?:
+      | TollfreeVerificationListInstancePageOptions
+      | ((error: Error | null, items: TollfreeVerificationPage) => any),
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
-  page(params?: any, callback?: any): Promise<TollfreeVerificationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -672,8 +613,8 @@ export function TollfreeVerificationListInstance(
   instance._uri = `/Tollfree/Verifications`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TollfreeVerificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -835,8 +776,10 @@ export function TollfreeVerificationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TollfreeVerificationListInstancePageOptions
+      | ((error: Error | null, item?: TollfreeVerificationPage) => any),
+    callback?: (error: Error | null, item?: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -880,8 +823,8 @@ export function TollfreeVerificationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

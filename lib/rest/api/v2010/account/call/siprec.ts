@@ -459,7 +459,6 @@ export interface SiprecContext {
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
-  update(params: any, callback?: any): Promise<SiprecInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -639,8 +638,7 @@ export class SiprecInstance {
   update(
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
-  update(params: any, callback?: any): Promise<SiprecInstance> {
+  ): Promise<SiprecInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -689,10 +687,11 @@ export interface SiprecListInstance {
    * @returns { Promise } Resolves to processed SiprecInstance
    */
   create(
-    params: SiprecListInstanceCreateOptions,
+    params?:
+      | SiprecListInstanceCreateOptions
+      | ((error: Error | null, item?: SiprecInstance) => any),
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
-  create(params?: any, callback?: any): Promise<SiprecInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -737,8 +736,10 @@ export function SiprecListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | SiprecListInstanceCreateOptions
+      | ((error: Error | null, item?: SiprecInstance) => any),
+    callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance> {
     if (typeof params === "function") {
       callback = params;

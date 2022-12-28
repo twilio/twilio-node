@@ -168,13 +168,14 @@ export interface AuthorizationDocumentContext {
    * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
    */
   update(
-    params: AuthorizationDocumentContextUpdateOptions,
+    params?:
+      | AuthorizationDocumentContextUpdateOptions
+      | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance
     ) => any
   ): Promise<AuthorizationDocumentInstance>;
-  update(params?: any, callback?: any): Promise<AuthorizationDocumentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -412,13 +413,14 @@ export class AuthorizationDocumentInstance {
    * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
    */
   update(
-    params: AuthorizationDocumentContextUpdateOptions,
+    params?:
+      | AuthorizationDocumentContextUpdateOptions
+      | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance
     ) => any
-  ): Promise<AuthorizationDocumentInstance>;
-  update(params?: any, callback?: any): Promise<AuthorizationDocumentInstance> {
+  ): Promise<AuthorizationDocumentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -472,28 +474,7 @@ export interface AuthorizationDocumentListInstance {
       item?: AuthorizationDocumentInstance
     ) => any
   ): Promise<AuthorizationDocumentInstance>;
-  create(params: any, callback?: any): Promise<AuthorizationDocumentInstance>;
 
-  /**
-   * Streams AuthorizationDocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AuthorizationDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams AuthorizationDocumentInstance records from the API.
    *
@@ -510,56 +491,29 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AuthorizationDocumentListInstanceEachOptions,
+    params?:
+      | AuthorizationDocumentListInstanceEachOptions
+      | ((
+          item: AuthorizationDocumentInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: AuthorizationDocumentInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
-  ): Promise<AuthorizationDocumentPage>;
-  /**
-   * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
-  getPage(params?: any, callback?: any): Promise<AuthorizationDocumentPage>;
-  /**
-   * Lists AuthorizationDocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AuthorizationDocumentInstance[]
-    ) => any
-  ): Promise<AuthorizationDocumentInstance[]>;
   /**
    * Lists AuthorizationDocumentInstance records from the API as a list.
    *
@@ -570,26 +524,14 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AuthorizationDocumentListInstanceOptions,
+    params?:
+      | AuthorizationDocumentListInstanceOptions
+      | ((error: Error | null, items: AuthorizationDocumentInstance[]) => any),
     callback?: (
       error: Error | null,
       items: AuthorizationDocumentInstance[]
     ) => any
   ): Promise<AuthorizationDocumentInstance[]>;
-  list(params?: any, callback?: any): Promise<AuthorizationDocumentInstance[]>;
-  /**
-   * Retrieve a single page of AuthorizationDocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
-  ): Promise<AuthorizationDocumentPage>;
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API.
    *
@@ -602,10 +544,11 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AuthorizationDocumentListInstancePageOptions,
+    params?:
+      | AuthorizationDocumentListInstancePageOptions
+      | ((error: Error | null, items: AuthorizationDocumentPage) => any),
     callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
-  page(params?: any, callback?: any): Promise<AuthorizationDocumentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -641,8 +584,11 @@ export function AuthorizationDocumentListInstance(
   instance._uri = `/AuthorizationDocuments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AuthorizationDocumentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -721,8 +667,10 @@ export function AuthorizationDocumentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AuthorizationDocumentListInstancePageOptions
+      | ((error: Error | null, item?: AuthorizationDocumentPage) => any),
+    callback?: (error: Error | null, item?: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -765,8 +713,8 @@ export function AuthorizationDocumentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

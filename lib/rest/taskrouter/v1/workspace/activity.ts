@@ -140,10 +140,11 @@ export interface ActivityContext {
    * @returns { Promise } Resolves to processed ActivityInstance
    */
   update(
-    params: ActivityContextUpdateOptions,
+    params?:
+      | ActivityContextUpdateOptions
+      | ((error: Error | null, item?: ActivityInstance) => any),
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance>;
-  update(params?: any, callback?: any): Promise<ActivityInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -396,10 +397,11 @@ export class ActivityInstance {
    * @returns { Promise } Resolves to processed ActivityInstance
    */
   update(
-    params: ActivityContextUpdateOptions,
+    params?:
+      | ActivityContextUpdateOptions
+      | ((error: Error | null, item?: ActivityInstance) => any),
     callback?: (error: Error | null, item?: ActivityInstance) => any
-  ): Promise<ActivityInstance>;
-  update(params?: any, callback?: any): Promise<ActivityInstance> {
+  ): Promise<ActivityInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -443,25 +445,7 @@ export interface ActivityListInstance {
     params: ActivityListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance>;
-  create(params: any, callback?: any): Promise<ActivityInstance>;
 
-  /**
-   * Streams ActivityInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ActivityInstance records from the API.
    *
@@ -478,50 +462,23 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ActivityListInstanceEachOptions,
+    params?:
+      | ActivityListInstanceEachOptions
+      | ((item: ActivityInstance, done: (err?: Error) => void) => void),
     callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ActivityInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage>;
-  /**
-   * Retrieve a single target page of ActivityInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage>;
-  getPage(params?: any, callback?: any): Promise<ActivityPage>;
-  /**
-   * Lists ActivityInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ActivityInstance[]) => any
-  ): Promise<ActivityInstance[]>;
   /**
    * Lists ActivityInstance records from the API as a list.
    *
@@ -532,23 +489,11 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ActivityListInstanceOptions,
+    params?:
+      | ActivityListInstanceOptions
+      | ((error: Error | null, items: ActivityInstance[]) => any),
     callback?: (error: Error | null, items: ActivityInstance[]) => any
   ): Promise<ActivityInstance[]>;
-  list(params?: any, callback?: any): Promise<ActivityInstance[]>;
-  /**
-   * Retrieve a single page of ActivityInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ActivityPage) => any
-  ): Promise<ActivityPage>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
    *
@@ -561,10 +506,11 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ActivityListInstancePageOptions,
+    params?:
+      | ActivityListInstancePageOptions
+      | ((error: Error | null, items: ActivityPage) => any),
     callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage>;
-  page(params?: any, callback?: any): Promise<ActivityPage>;
 
   /**
    * Provide a user-friendly representation
@@ -603,8 +549,8 @@ export function ActivityListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/Activities`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ActivityListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -651,8 +597,10 @@ export function ActivityListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ActivityListInstancePageOptions
+      | ((error: Error | null, item?: ActivityPage) => any),
+    callback?: (error: Error | null, item?: ActivityPage) => any
   ): Promise<ActivityPage> {
     if (typeof params === "function") {
       callback = params;
@@ -696,8 +644,8 @@ export function ActivityListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

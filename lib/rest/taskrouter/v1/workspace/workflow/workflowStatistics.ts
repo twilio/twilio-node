@@ -55,10 +55,11 @@ export interface WorkflowStatisticsContext {
    * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    params: WorkflowStatisticsContextFetchOptions,
+    params?:
+      | WorkflowStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -242,10 +243,11 @@ export class WorkflowStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    params: WorkflowStatisticsContextFetchOptions,
+    params?:
+      | WorkflowStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
-  ): Promise<WorkflowStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
+  ): Promise<WorkflowStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

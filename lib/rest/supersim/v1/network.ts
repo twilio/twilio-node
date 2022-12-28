@@ -257,71 +257,27 @@ export interface NetworkListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams NetworkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { NetworkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: NetworkListInstanceEachOptions,
+    params?:
+      | NetworkListInstanceEachOptions
+      | ((item: NetworkInstance, done: (err?: Error) => void) => void),
     callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
-  /**
-   * Retrieve a single target page of NetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
-  getPage(params?: any, callback?: any): Promise<NetworkPage>;
-  /**
-   * Lists NetworkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: NetworkInstance[]) => any
-  ): Promise<NetworkInstance[]>;
   /**
    * Lists NetworkInstance records from the API as a list.
    *
@@ -332,23 +288,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: NetworkListInstanceOptions,
+    params?:
+      | NetworkListInstanceOptions
+      | ((error: Error | null, items: NetworkInstance[]) => any),
     callback?: (error: Error | null, items: NetworkInstance[]) => any
   ): Promise<NetworkInstance[]>;
-  list(params?: any, callback?: any): Promise<NetworkInstance[]>;
-  /**
-   * Retrieve a single page of NetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
    *
@@ -361,10 +305,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: NetworkListInstancePageOptions,
+    params?:
+      | NetworkListInstancePageOptions
+      | ((error: Error | null, items: NetworkPage) => any),
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
-  page(params?: any, callback?: any): Promise<NetworkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -394,8 +339,10 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   instance._uri = `/Networks`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | NetworkListInstancePageOptions
+      | ((error: Error | null, item?: NetworkPage) => any),
+    callback?: (error: Error | null, item?: NetworkPage) => any
   ): Promise<NetworkPage> {
     if (typeof params === "function") {
       callback = params;
@@ -439,8 +386,8 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

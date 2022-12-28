@@ -411,10 +411,11 @@ export interface TriggerContext {
    * @returns { Promise } Resolves to processed TriggerInstance
    */
   update(
-    params: TriggerContextUpdateOptions,
+    params?:
+      | TriggerContextUpdateOptions
+      | ((error: Error | null, item?: TriggerInstance) => any),
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
-  update(params?: any, callback?: any): Promise<TriggerInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -715,10 +716,11 @@ export class TriggerInstance {
    * @returns { Promise } Resolves to processed TriggerInstance
    */
   update(
-    params: TriggerContextUpdateOptions,
+    params?:
+      | TriggerContextUpdateOptions
+      | ((error: Error | null, item?: TriggerInstance) => any),
     callback?: (error: Error | null, item?: TriggerInstance) => any
-  ): Promise<TriggerInstance>;
-  update(params?: any, callback?: any): Promise<TriggerInstance> {
+  ): Promise<TriggerInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -769,25 +771,7 @@ export interface TriggerListInstance {
     params: TriggerListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
-  create(params: any, callback?: any): Promise<TriggerInstance>;
 
-  /**
-   * Streams TriggerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams TriggerInstance records from the API.
    *
@@ -804,50 +788,23 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TriggerListInstanceEachOptions,
+    params?:
+      | TriggerListInstanceEachOptions
+      | ((item: TriggerInstance, done: (err?: Error) => void) => void),
     callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TriggerInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TriggerPage) => any
-  ): Promise<TriggerPage>;
-  /**
-   * Retrieve a single target page of TriggerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
-  getPage(params?: any, callback?: any): Promise<TriggerPage>;
-  /**
-   * Lists TriggerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TriggerInstance[]) => any
-  ): Promise<TriggerInstance[]>;
   /**
    * Lists TriggerInstance records from the API as a list.
    *
@@ -858,23 +815,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TriggerListInstanceOptions,
+    params?:
+      | TriggerListInstanceOptions
+      | ((error: Error | null, items: TriggerInstance[]) => any),
     callback?: (error: Error | null, items: TriggerInstance[]) => any
   ): Promise<TriggerInstance[]>;
-  list(params?: any, callback?: any): Promise<TriggerInstance[]>;
-  /**
-   * Retrieve a single page of TriggerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TriggerPage) => any
-  ): Promise<TriggerPage>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    *
@@ -887,10 +832,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TriggerListInstancePageOptions,
+    params?:
+      | TriggerListInstancePageOptions
+      | ((error: Error | null, items: TriggerPage) => any),
     callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
-  page(params?: any, callback?: any): Promise<TriggerPage>;
 
   /**
    * Provide a user-friendly representation
@@ -929,8 +875,8 @@ export function TriggerListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Triggers.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TriggerListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1000,8 +946,10 @@ export function TriggerListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TriggerListInstancePageOptions
+      | ((error: Error | null, item?: TriggerPage) => any),
+    callback?: (error: Error | null, item?: TriggerPage) => any
   ): Promise<TriggerPage> {
     if (typeof params === "function") {
       callback = params;
@@ -1047,8 +995,8 @@ export function TriggerListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

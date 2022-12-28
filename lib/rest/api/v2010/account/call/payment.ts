@@ -104,7 +104,6 @@ export interface PaymentContext {
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
-  update(params: any, callback?: any): Promise<PaymentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -299,8 +298,7 @@ export class PaymentInstance {
   update(
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
-  ): Promise<PaymentInstance>;
-  update(params: any, callback?: any): Promise<PaymentInstance> {
+  ): Promise<PaymentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -341,7 +339,6 @@ export interface PaymentListInstance {
     params: PaymentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
-  create(params: any, callback?: any): Promise<PaymentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -386,8 +383,8 @@ export function PaymentListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

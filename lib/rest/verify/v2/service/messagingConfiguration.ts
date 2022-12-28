@@ -130,7 +130,6 @@ export interface MessagingConfigurationContext {
       item?: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -379,8 +378,7 @@ export class MessagingConfigurationInstance {
       error: Error | null,
       item?: MessagingConfigurationInstance
     ) => any
-  ): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
+  ): Promise<MessagingConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -425,28 +423,7 @@ export interface MessagingConfigurationListInstance {
       item?: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance>;
-  create(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
-  /**
-   * Streams MessagingConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MessagingConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams MessagingConfigurationInstance records from the API.
    *
@@ -463,56 +440,29 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MessagingConfigurationListInstanceEachOptions,
+    params?:
+      | MessagingConfigurationListInstanceEachOptions
+      | ((
+          item: MessagingConfigurationInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: MessagingConfigurationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MessagingConfigurationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
-  ): Promise<MessagingConfigurationPage>;
-  /**
-   * Retrieve a single target page of MessagingConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage>;
-  getPage(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
-  /**
-   * Lists MessagingConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: MessagingConfigurationInstance[]
-    ) => any
-  ): Promise<MessagingConfigurationInstance[]>;
   /**
    * Lists MessagingConfigurationInstance records from the API as a list.
    *
@@ -523,26 +473,14 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MessagingConfigurationListInstanceOptions,
+    params?:
+      | MessagingConfigurationListInstanceOptions
+      | ((error: Error | null, items: MessagingConfigurationInstance[]) => any),
     callback?: (
       error: Error | null,
       items: MessagingConfigurationInstance[]
     ) => any
   ): Promise<MessagingConfigurationInstance[]>;
-  list(params?: any, callback?: any): Promise<MessagingConfigurationInstance[]>;
-  /**
-   * Retrieve a single page of MessagingConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
-  ): Promise<MessagingConfigurationPage>;
   /**
    * Retrieve a single page of MessagingConfigurationInstance records from the API.
    *
@@ -555,10 +493,11 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MessagingConfigurationListInstancePageOptions,
+    params?:
+      | MessagingConfigurationListInstancePageOptions
+      | ((error: Error | null, items: MessagingConfigurationPage) => any),
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage>;
-  page(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -601,8 +540,11 @@ export function MessagingConfigurationListInstance(
   instance._uri = `/Services/${serviceSid}/MessagingConfigurations`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: MessagingConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
   ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -655,8 +597,10 @@ export function MessagingConfigurationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MessagingConfigurationListInstancePageOptions
+      | ((error: Error | null, item?: MessagingConfigurationPage) => any),
+    callback?: (error: Error | null, item?: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -701,8 +645,8 @@ export function MessagingConfigurationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

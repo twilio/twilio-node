@@ -60,10 +60,11 @@ export interface SettingContext {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   fetch(
-    params: SettingContextFetchOptions,
+    params?:
+      | SettingContextFetchOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance>;
-  fetch(params?: any, callback?: any): Promise<SettingInstance>;
 
   /**
    * Update a SettingInstance
@@ -84,10 +85,11 @@ export interface SettingContext {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   update(
-    params: SettingContextUpdateOptions,
+    params?:
+      | SettingContextUpdateOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance>;
-  update(params?: any, callback?: any): Promise<SettingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -245,10 +247,11 @@ export class SettingInstance {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   fetch(
-    params: SettingContextFetchOptions,
+    params?:
+      | SettingContextFetchOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
-  ): Promise<SettingInstance>;
-  fetch(params?: any, callback?: any): Promise<SettingInstance> {
+  ): Promise<SettingInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -271,10 +274,11 @@ export class SettingInstance {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   update(
-    params: SettingContextUpdateOptions,
+    params?:
+      | SettingContextUpdateOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
-  ): Promise<SettingInstance>;
-  update(params?: any, callback?: any): Promise<SettingInstance> {
+  ): Promise<SettingInstance> {
     return this._proxy.update(params, callback);
   }
 

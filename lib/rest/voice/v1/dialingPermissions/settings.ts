@@ -58,10 +58,11 @@ export interface SettingsContext {
    * @returns { Promise } Resolves to processed SettingsInstance
    */
   update(
-    params: SettingsContextUpdateOptions,
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: SettingsInstance) => any),
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -215,10 +216,11 @@ export class SettingsInstance {
    * @returns { Promise } Resolves to processed SettingsInstance
    */
   update(
-    params: SettingsContextUpdateOptions,
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: SettingsInstance) => any),
     callback?: (error: Error | null, item?: SettingsInstance) => any
-  ): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance> {
+  ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);
   }
 

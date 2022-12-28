@@ -465,28 +465,7 @@ export interface UsAppToPersonListInstance {
     params: UsAppToPersonListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
-  create(params: any, callback?: any): Promise<UsAppToPersonInstance>;
 
-  /**
-   * Streams UsAppToPersonInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams UsAppToPersonInstance records from the API.
    *
@@ -503,53 +482,26 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UsAppToPersonListInstanceEachOptions,
+    params?:
+      | UsAppToPersonListInstanceEachOptions
+      | ((item: UsAppToPersonInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: UsAppToPersonInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
-  /**
-   * Retrieve a single target page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
-  getPage(params?: any, callback?: any): Promise<UsAppToPersonPage>;
-  /**
-   * Lists UsAppToPersonInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
-  ): Promise<UsAppToPersonInstance[]>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list.
    *
@@ -560,23 +512,11 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UsAppToPersonListInstanceOptions,
+    params?:
+      | UsAppToPersonListInstanceOptions
+      | ((error: Error | null, items: UsAppToPersonInstance[]) => any),
     callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
   ): Promise<UsAppToPersonInstance[]>;
-  list(params?: any, callback?: any): Promise<UsAppToPersonInstance[]>;
-  /**
-   * Retrieve a single page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API.
    *
@@ -589,10 +529,11 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: UsAppToPersonListInstancePageOptions,
+    params?:
+      | UsAppToPersonListInstancePageOptions
+      | ((error: Error | null, items: UsAppToPersonPage) => any),
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
-  page(params?: any, callback?: any): Promise<UsAppToPersonPage>;
 
   /**
    * Provide a user-friendly representation
@@ -632,8 +573,8 @@ export function UsAppToPersonListInstance(
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UsAppToPersonListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -751,8 +692,10 @@ export function UsAppToPersonListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UsAppToPersonListInstancePageOptions
+      | ((error: Error | null, item?: UsAppToPersonPage) => any),
+    callback?: (error: Error | null, item?: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
     if (typeof params === "function") {
       callback = params;
@@ -793,8 +736,8 @@ export function UsAppToPersonListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

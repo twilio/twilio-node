@@ -40,7 +40,6 @@ export interface SinkValidateListInstance {
     params: SinkValidateListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SinkValidateInstance) => any
   ): Promise<SinkValidateInstance>;
-  create(params: any, callback?: any): Promise<SinkValidateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -75,8 +74,8 @@ export function SinkValidateListInstance(
   instance._uri = `/Sinks/${sid}/Validate`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SinkValidateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SinkValidateInstance) => any
   ): Promise<SinkValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

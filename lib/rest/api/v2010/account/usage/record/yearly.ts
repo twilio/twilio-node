@@ -351,71 +351,27 @@ export interface YearlyListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams YearlyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { YearlyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: YearlyListInstanceEachOptions,
+    params?:
+      | YearlyListInstanceEachOptions
+      | ((item: YearlyInstance, done: (err?: Error) => void) => void),
     callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of YearlyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: YearlyPage) => any
-  ): Promise<YearlyPage>;
-  /**
-   * Retrieve a single target page of YearlyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage>;
-  getPage(params?: any, callback?: any): Promise<YearlyPage>;
-  /**
-   * Lists YearlyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: YearlyInstance[]) => any
-  ): Promise<YearlyInstance[]>;
   /**
    * Lists YearlyInstance records from the API as a list.
    *
@@ -426,23 +382,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: YearlyListInstanceOptions,
+    params?:
+      | YearlyListInstanceOptions
+      | ((error: Error | null, items: YearlyInstance[]) => any),
     callback?: (error: Error | null, items: YearlyInstance[]) => any
   ): Promise<YearlyInstance[]>;
-  list(params?: any, callback?: any): Promise<YearlyInstance[]>;
-  /**
-   * Retrieve a single page of YearlyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: YearlyPage) => any
-  ): Promise<YearlyPage>;
   /**
    * Retrieve a single page of YearlyInstance records from the API.
    *
@@ -455,10 +399,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: YearlyListInstancePageOptions,
+    params?:
+      | YearlyListInstancePageOptions
+      | ((error: Error | null, items: YearlyPage) => any),
     callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage>;
-  page(params?: any, callback?: any): Promise<YearlyPage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function YearlyListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/Yearly.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | YearlyListInstancePageOptions
+      | ((error: Error | null, item?: YearlyPage) => any),
+    callback?: (error: Error | null, item?: YearlyPage) => any
   ): Promise<YearlyPage> {
     if (typeof params === "function") {
       callback = params;
@@ -541,8 +488,8 @@ export function YearlyListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -448,28 +448,7 @@ export interface BrandRegistrationListInstance {
     params: BrandRegistrationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance>;
-  create(params: any, callback?: any): Promise<BrandRegistrationInstance>;
 
-  /**
-   * Streams BrandRegistrationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: BrandRegistrationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams BrandRegistrationInstance records from the API.
    *
@@ -486,53 +465,29 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BrandRegistrationListInstanceEachOptions,
+    params?:
+      | BrandRegistrationListInstanceEachOptions
+      | ((
+          item: BrandRegistrationInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: BrandRegistrationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any
-  ): Promise<BrandRegistrationPage>;
-  /**
-   * Retrieve a single target page of BrandRegistrationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
-  getPage(params?: any, callback?: any): Promise<BrandRegistrationPage>;
-  /**
-   * Lists BrandRegistrationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
-  ): Promise<BrandRegistrationInstance[]>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list.
    *
@@ -543,23 +498,11 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BrandRegistrationListInstanceOptions,
+    params?:
+      | BrandRegistrationListInstanceOptions
+      | ((error: Error | null, items: BrandRegistrationInstance[]) => any),
     callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
   ): Promise<BrandRegistrationInstance[]>;
-  list(params?: any, callback?: any): Promise<BrandRegistrationInstance[]>;
-  /**
-   * Retrieve a single page of BrandRegistrationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any
-  ): Promise<BrandRegistrationPage>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API.
    *
@@ -572,10 +515,11 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: BrandRegistrationListInstancePageOptions,
+    params?:
+      | BrandRegistrationListInstancePageOptions
+      | ((error: Error | null, items: BrandRegistrationPage) => any),
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
-  page(params?: any, callback?: any): Promise<BrandRegistrationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -611,8 +555,8 @@ export function BrandRegistrationListInstance(
   instance._uri = `/a2p/BrandRegistrations`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BrandRegistrationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -673,8 +617,10 @@ export function BrandRegistrationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BrandRegistrationListInstancePageOptions
+      | ((error: Error | null, item?: BrandRegistrationPage) => any),
+    callback?: (error: Error | null, item?: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -715,8 +661,8 @@ export function BrandRegistrationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

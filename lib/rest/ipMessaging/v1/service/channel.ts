@@ -151,10 +151,11 @@ export interface ChannelContext {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params: ChannelContextUpdateOptions,
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -439,10 +440,11 @@ export class ChannelInstance {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params: ChannelContextUpdateOptions,
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
     callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
+  ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -519,28 +521,12 @@ export interface ChannelListInstance {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   create(
-    params: ChannelListInstanceCreateOptions,
+    params?:
+      | ChannelListInstanceCreateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
-  create(params?: any, callback?: any): Promise<ChannelInstance>;
 
-  /**
-   * Streams ChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ChannelInstance records from the API.
    *
@@ -557,50 +543,23 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ChannelListInstanceEachOptions,
+    params?:
+      | ChannelListInstanceEachOptions
+      | ((item: ChannelInstance, done: (err?: Error) => void) => void),
     callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ChannelPage) => any
-  ): Promise<ChannelPage>;
-  /**
-   * Retrieve a single target page of ChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage>;
-  getPage(params?: any, callback?: any): Promise<ChannelPage>;
-  /**
-   * Lists ChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ChannelInstance[]) => any
-  ): Promise<ChannelInstance[]>;
   /**
    * Lists ChannelInstance records from the API as a list.
    *
@@ -611,23 +570,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ChannelListInstanceOptions,
+    params?:
+      | ChannelListInstanceOptions
+      | ((error: Error | null, items: ChannelInstance[]) => any),
     callback?: (error: Error | null, items: ChannelInstance[]) => any
   ): Promise<ChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<ChannelInstance[]>;
-  /**
-   * Retrieve a single page of ChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ChannelPage) => any
-  ): Promise<ChannelPage>;
   /**
    * Retrieve a single page of ChannelInstance records from the API.
    *
@@ -640,10 +587,11 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ChannelListInstancePageOptions,
+    params?:
+      | ChannelListInstancePageOptions
+      | ((error: Error | null, items: ChannelPage) => any),
     callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage>;
-  page(params?: any, callback?: any): Promise<ChannelPage>;
 
   /**
    * Provide a user-friendly representation
@@ -682,8 +630,10 @@ export function ChannelListInstance(
   instance._uri = `/Services/${serviceSid}/Channels`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | ChannelListInstanceCreateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
+    callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -730,8 +680,10 @@ export function ChannelListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ChannelListInstancePageOptions
+      | ((error: Error | null, item?: ChannelPage) => any),
+    callback?: (error: Error | null, item?: ChannelPage) => any
   ): Promise<ChannelPage> {
     if (typeof params === "function") {
       callback = params;
@@ -773,8 +725,8 @@ export function ChannelListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

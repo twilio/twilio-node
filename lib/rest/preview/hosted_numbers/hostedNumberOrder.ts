@@ -223,10 +223,11 @@ export interface HostedNumberOrderContext {
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
   update(
-    params: HostedNumberOrderContextUpdateOptions,
+    params?:
+      | HostedNumberOrderContextUpdateOptions
+      | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
-  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -563,10 +564,11 @@ export class HostedNumberOrderInstance {
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
   update(
-    params: HostedNumberOrderContextUpdateOptions,
+    params?:
+      | HostedNumberOrderContextUpdateOptions
+      | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
-  ): Promise<HostedNumberOrderInstance>;
-  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance> {
+  ): Promise<HostedNumberOrderInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -624,28 +626,7 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
-  create(params: any, callback?: any): Promise<HostedNumberOrderInstance>;
 
-  /**
-   * Streams HostedNumberOrderInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: HostedNumberOrderInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams HostedNumberOrderInstance records from the API.
    *
@@ -662,53 +643,29 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: HostedNumberOrderListInstanceEachOptions,
+    params?:
+      | HostedNumberOrderListInstanceEachOptions
+      | ((
+          item: HostedNumberOrderInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: HostedNumberOrderInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
-  ): Promise<HostedNumberOrderPage>;
-  /**
-   * Retrieve a single target page of HostedNumberOrderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
-  getPage(params?: any, callback?: any): Promise<HostedNumberOrderPage>;
-  /**
-   * Lists HostedNumberOrderInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
-  ): Promise<HostedNumberOrderInstance[]>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list.
    *
@@ -719,23 +676,11 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: HostedNumberOrderListInstanceOptions,
+    params?:
+      | HostedNumberOrderListInstanceOptions
+      | ((error: Error | null, items: HostedNumberOrderInstance[]) => any),
     callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
   ): Promise<HostedNumberOrderInstance[]>;
-  list(params?: any, callback?: any): Promise<HostedNumberOrderInstance[]>;
-  /**
-   * Retrieve a single page of HostedNumberOrderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
-  ): Promise<HostedNumberOrderPage>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
    *
@@ -748,10 +693,11 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: HostedNumberOrderListInstancePageOptions,
+    params?:
+      | HostedNumberOrderListInstancePageOptions
+      | ((error: Error | null, items: HostedNumberOrderPage) => any),
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
-  page(params?: any, callback?: any): Promise<HostedNumberOrderPage>;
 
   /**
    * Provide a user-friendly representation
@@ -787,8 +733,8 @@ export function HostedNumberOrderListInstance(
   instance._uri = `/HostedNumberOrders`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: HostedNumberOrderListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -864,8 +810,10 @@ export function HostedNumberOrderListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | HostedNumberOrderListInstancePageOptions
+      | ((error: Error | null, item?: HostedNumberOrderPage) => any),
+    callback?: (error: Error | null, item?: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     if (typeof params === "function") {
       callback = params;
@@ -915,8 +863,8 @@ export function HostedNumberOrderListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

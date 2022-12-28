@@ -139,7 +139,6 @@ export interface MediaProcessorContext {
     params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance>;
-  update(params: any, callback?: any): Promise<MediaProcessorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -371,8 +370,7 @@ export class MediaProcessorInstance {
   update(
     params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
-  ): Promise<MediaProcessorInstance>;
-  update(params: any, callback?: any): Promise<MediaProcessorInstance> {
+  ): Promise<MediaProcessorInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -419,28 +417,7 @@ export interface MediaProcessorListInstance {
     params: MediaProcessorListInstanceCreateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance>;
-  create(params: any, callback?: any): Promise<MediaProcessorInstance>;
 
-  /**
-   * Streams MediaProcessorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MediaProcessorInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams MediaProcessorInstance records from the API.
    *
@@ -457,53 +434,26 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MediaProcessorListInstanceEachOptions,
+    params?:
+      | MediaProcessorListInstanceEachOptions
+      | ((item: MediaProcessorInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: MediaProcessorInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MediaProcessorInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MediaProcessorPage) => any
-  ): Promise<MediaProcessorPage>;
-  /**
-   * Retrieve a single target page of MediaProcessorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage>;
-  getPage(params?: any, callback?: any): Promise<MediaProcessorPage>;
-  /**
-   * Lists MediaProcessorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
-  ): Promise<MediaProcessorInstance[]>;
   /**
    * Lists MediaProcessorInstance records from the API as a list.
    *
@@ -514,23 +464,11 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MediaProcessorListInstanceOptions,
+    params?:
+      | MediaProcessorListInstanceOptions
+      | ((error: Error | null, items: MediaProcessorInstance[]) => any),
     callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
   ): Promise<MediaProcessorInstance[]>;
-  list(params?: any, callback?: any): Promise<MediaProcessorInstance[]>;
-  /**
-   * Retrieve a single page of MediaProcessorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MediaProcessorPage) => any
-  ): Promise<MediaProcessorPage>;
   /**
    * Retrieve a single page of MediaProcessorInstance records from the API.
    *
@@ -543,10 +481,11 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MediaProcessorListInstancePageOptions,
+    params?:
+      | MediaProcessorListInstancePageOptions
+      | ((error: Error | null, items: MediaProcessorPage) => any),
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage>;
-  page(params?: any, callback?: any): Promise<MediaProcessorPage>;
 
   /**
    * Provide a user-friendly representation
@@ -579,8 +518,8 @@ export function MediaProcessorListInstance(
   instance._uri = `/MediaProcessors`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: MediaProcessorListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -638,8 +577,10 @@ export function MediaProcessorListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MediaProcessorListInstancePageOptions
+      | ((error: Error | null, item?: MediaProcessorPage) => any),
+    callback?: (error: Error | null, item?: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
     if (typeof params === "function") {
       callback = params;
@@ -682,8 +623,8 @@ export function MediaProcessorListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

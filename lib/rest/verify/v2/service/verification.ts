@@ -90,7 +90,6 @@ export interface VerificationContext {
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -342,8 +341,7 @@ export class VerificationInstance {
   update(
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
-  ): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance> {
+  ): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -393,7 +391,6 @@ export interface VerificationListInstance {
     params: VerificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
-  create(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -432,8 +429,8 @@ export function VerificationListInstance(
   instance._uri = `/Services/${serviceSid}/Verifications`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: VerificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

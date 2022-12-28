@@ -40,7 +40,6 @@ export interface RestoreAssistantListInstance {
     params: RestoreAssistantListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: RestoreAssistantInstance) => any
   ): Promise<RestoreAssistantInstance>;
-  update(params: any, callback?: any): Promise<RestoreAssistantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -69,8 +68,8 @@ export function RestoreAssistantListInstance(
   instance._uri = `/Assistants/Restore`;
 
   instance.update = function update(
-    params: any,
-    callback?: any
+    params: RestoreAssistantListInstanceUpdateOptions,
+    callback?: (error: Error | null, item?: RestoreAssistantInstance) => any
   ): Promise<RestoreAssistantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

@@ -47,10 +47,11 @@ export interface NotificationListInstance {
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   create(
-    params: NotificationListInstanceCreateOptions,
+    params?:
+      | NotificationListInstanceCreateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
-  create(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -97,8 +98,10 @@ export function NotificationListInstance(
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges/${challengeSid}/Notifications`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NotificationListInstanceCreateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
+    callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     if (typeof params === "function") {
       callback = params;

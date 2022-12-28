@@ -131,10 +131,11 @@ export interface RateLimitContext {
    * @returns { Promise } Resolves to processed RateLimitInstance
    */
   update(
-    params: RateLimitContextUpdateOptions,
+    params?:
+      | RateLimitContextUpdateOptions
+      | ((error: Error | null, item?: RateLimitInstance) => any),
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
-  update(params?: any, callback?: any): Promise<RateLimitInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -403,10 +404,11 @@ export class RateLimitInstance {
    * @returns { Promise } Resolves to processed RateLimitInstance
    */
   update(
-    params: RateLimitContextUpdateOptions,
+    params?:
+      | RateLimitContextUpdateOptions
+      | ((error: Error | null, item?: RateLimitInstance) => any),
     callback?: (error: Error | null, item?: RateLimitInstance) => any
-  ): Promise<RateLimitInstance>;
-  update(params?: any, callback?: any): Promise<RateLimitInstance> {
+  ): Promise<RateLimitInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -457,25 +459,7 @@ export interface RateLimitListInstance {
     params: RateLimitListInstanceCreateOptions,
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
-  create(params: any, callback?: any): Promise<RateLimitInstance>;
 
-  /**
-   * Streams RateLimitInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams RateLimitInstance records from the API.
    *
@@ -492,50 +476,23 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RateLimitListInstanceEachOptions,
+    params?:
+      | RateLimitListInstanceEachOptions
+      | ((item: RateLimitInstance, done: (err?: Error) => void) => void),
     callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RateLimitInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RateLimitPage) => any
-  ): Promise<RateLimitPage>;
-  /**
-   * Retrieve a single target page of RateLimitInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage>;
-  getPage(params?: any, callback?: any): Promise<RateLimitPage>;
-  /**
-   * Lists RateLimitInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RateLimitInstance[]) => any
-  ): Promise<RateLimitInstance[]>;
   /**
    * Lists RateLimitInstance records from the API as a list.
    *
@@ -546,23 +503,11 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RateLimitListInstanceOptions,
+    params?:
+      | RateLimitListInstanceOptions
+      | ((error: Error | null, items: RateLimitInstance[]) => any),
     callback?: (error: Error | null, items: RateLimitInstance[]) => any
   ): Promise<RateLimitInstance[]>;
-  list(params?: any, callback?: any): Promise<RateLimitInstance[]>;
-  /**
-   * Retrieve a single page of RateLimitInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RateLimitPage) => any
-  ): Promise<RateLimitPage>;
   /**
    * Retrieve a single page of RateLimitInstance records from the API.
    *
@@ -575,10 +520,11 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: RateLimitListInstancePageOptions,
+    params?:
+      | RateLimitListInstancePageOptions
+      | ((error: Error | null, items: RateLimitPage) => any),
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage>;
-  page(params?: any, callback?: any): Promise<RateLimitPage>;
 
   /**
    * Provide a user-friendly representation
@@ -617,8 +563,8 @@ export function RateLimitListInstance(
   instance._uri = `/Services/${serviceSid}/RateLimits`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: RateLimitListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -662,8 +608,10 @@ export function RateLimitListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RateLimitListInstancePageOptions
+      | ((error: Error | null, item?: RateLimitPage) => any),
+    callback?: (error: Error | null, item?: RateLimitPage) => any
   ): Promise<RateLimitPage> {
     if (typeof params === "function") {
       callback = params;
@@ -703,8 +651,8 @@ export function RateLimitListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

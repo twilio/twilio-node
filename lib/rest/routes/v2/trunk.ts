@@ -60,10 +60,11 @@ export interface TrunkContext {
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   update(
-    params: TrunkContextUpdateOptions,
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: TrunkInstance) => any),
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -274,10 +275,11 @@ export class TrunkInstance {
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   update(
-    params: TrunkContextUpdateOptions,
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: TrunkInstance) => any),
     callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance> {
+  ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
   }
 

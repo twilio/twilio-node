@@ -97,80 +97,33 @@ export interface ParticipantConversationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams ParticipantConversationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { ParticipantConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ParticipantConversationListInstanceEachOptions,
+    params?:
+      | ParticipantConversationListInstanceEachOptions
+      | ((
+          item: ParticipantConversationInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: ParticipantConversationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
-  /**
-   * Retrieve a single target page of ParticipantConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage>;
-  getPage(params?: any, callback?: any): Promise<ParticipantConversationPage>;
-  /**
-   * Lists ParticipantConversationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: ParticipantConversationInstance[]
-    ) => any
-  ): Promise<ParticipantConversationInstance[]>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list.
    *
@@ -181,29 +134,17 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ParticipantConversationListInstanceOptions,
+    params?:
+      | ParticipantConversationListInstanceOptions
+      | ((
+          error: Error | null,
+          items: ParticipantConversationInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: ParticipantConversationInstance[]
     ) => any
   ): Promise<ParticipantConversationInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<ParticipantConversationInstance[]>;
-  /**
-   * Retrieve a single page of ParticipantConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API.
    *
@@ -216,10 +157,11 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ParticipantConversationListInstancePageOptions,
+    params?:
+      | ParticipantConversationListInstancePageOptions
+      | ((error: Error | null, items: ParticipantConversationPage) => any),
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage>;
-  page(params?: any, callback?: any): Promise<ParticipantConversationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -250,8 +192,10 @@ export function ParticipantConversationListInstance(
   instance._uri = `/ParticipantConversations`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ParticipantConversationListInstancePageOptions
+      | ((error: Error | null, item?: ParticipantConversationPage) => any),
+    callback?: (error: Error | null, item?: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
     if (typeof params === "function") {
       callback = params;
@@ -298,8 +242,8 @@ export function ParticipantConversationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

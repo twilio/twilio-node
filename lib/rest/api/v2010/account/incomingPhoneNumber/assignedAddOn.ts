@@ -383,28 +383,7 @@ export interface AssignedAddOnListInstance {
     params: AssignedAddOnListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance>;
-  create(params: any, callback?: any): Promise<AssignedAddOnInstance>;
 
-  /**
-   * Streams AssignedAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AssignedAddOnInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams AssignedAddOnInstance records from the API.
    *
@@ -421,53 +400,26 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssignedAddOnListInstanceEachOptions,
+    params?:
+      | AssignedAddOnListInstanceEachOptions
+      | ((item: AssignedAddOnInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: AssignedAddOnInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssignedAddOnPage) => any
-  ): Promise<AssignedAddOnPage>;
-  /**
-   * Retrieve a single target page of AssignedAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage>;
-  getPage(params?: any, callback?: any): Promise<AssignedAddOnPage>;
-  /**
-   * Lists AssignedAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
-  ): Promise<AssignedAddOnInstance[]>;
   /**
    * Lists AssignedAddOnInstance records from the API as a list.
    *
@@ -478,23 +430,11 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssignedAddOnListInstanceOptions,
+    params?:
+      | AssignedAddOnListInstanceOptions
+      | ((error: Error | null, items: AssignedAddOnInstance[]) => any),
     callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
   ): Promise<AssignedAddOnInstance[]>;
-  list(params?: any, callback?: any): Promise<AssignedAddOnInstance[]>;
-  /**
-   * Retrieve a single page of AssignedAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssignedAddOnPage) => any
-  ): Promise<AssignedAddOnPage>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
    *
@@ -507,10 +447,11 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AssignedAddOnListInstancePageOptions,
+    params?:
+      | AssignedAddOnListInstancePageOptions
+      | ((error: Error | null, items: AssignedAddOnPage) => any),
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage>;
-  page(params?: any, callback?: any): Promise<AssignedAddOnPage>;
 
   /**
    * Provide a user-friendly representation
@@ -556,8 +497,8 @@ export function AssignedAddOnListInstance(
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AssignedAddOnListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -605,8 +546,10 @@ export function AssignedAddOnListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssignedAddOnListInstancePageOptions
+      | ((error: Error | null, item?: AssignedAddOnPage) => any),
+    callback?: (error: Error | null, item?: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage> {
     if (typeof params === "function") {
       callback = params;
@@ -647,8 +590,8 @@ export function AssignedAddOnListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

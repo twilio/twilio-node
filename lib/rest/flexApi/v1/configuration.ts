@@ -49,10 +49,11 @@ export interface ConfigurationContext {
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   fetch(
-    params: ConfigurationContextFetchOptions,
+    params?:
+      | ConfigurationContextFetchOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -427,10 +428,11 @@ export class ConfigurationInstance {
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   fetch(
-    params: ConfigurationContextFetchOptions,
+    params?:
+      | ConfigurationContextFetchOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
+  ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
   }
 

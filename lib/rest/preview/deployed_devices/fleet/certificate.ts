@@ -138,10 +138,11 @@ export interface CertificateContext {
    * @returns { Promise } Resolves to processed CertificateInstance
    */
   update(
-    params: CertificateContextUpdateOptions,
+    params?:
+      | CertificateContextUpdateOptions
+      | ((error: Error | null, item?: CertificateInstance) => any),
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance>;
-  update(params?: any, callback?: any): Promise<CertificateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -403,10 +404,11 @@ export class CertificateInstance {
    * @returns { Promise } Resolves to processed CertificateInstance
    */
   update(
-    params: CertificateContextUpdateOptions,
+    params?:
+      | CertificateContextUpdateOptions
+      | ((error: Error | null, item?: CertificateInstance) => any),
     callback?: (error: Error | null, item?: CertificateInstance) => any
-  ): Promise<CertificateInstance>;
-  update(params?: any, callback?: any): Promise<CertificateInstance> {
+  ): Promise<CertificateInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -450,25 +452,7 @@ export interface CertificateListInstance {
     params: CertificateListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance>;
-  create(params: any, callback?: any): Promise<CertificateInstance>;
 
-  /**
-   * Streams CertificateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams CertificateInstance records from the API.
    *
@@ -485,50 +469,23 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CertificateListInstanceEachOptions,
+    params?:
+      | CertificateListInstanceEachOptions
+      | ((item: CertificateInstance, done: (err?: Error) => void) => void),
     callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of CertificateInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CertificatePage) => any
-  ): Promise<CertificatePage>;
-  /**
-   * Retrieve a single target page of CertificateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage>;
-  getPage(params?: any, callback?: any): Promise<CertificatePage>;
-  /**
-   * Lists CertificateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CertificateInstance[]) => any
-  ): Promise<CertificateInstance[]>;
   /**
    * Lists CertificateInstance records from the API as a list.
    *
@@ -539,23 +496,11 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CertificateListInstanceOptions,
+    params?:
+      | CertificateListInstanceOptions
+      | ((error: Error | null, items: CertificateInstance[]) => any),
     callback?: (error: Error | null, items: CertificateInstance[]) => any
   ): Promise<CertificateInstance[]>;
-  list(params?: any, callback?: any): Promise<CertificateInstance[]>;
-  /**
-   * Retrieve a single page of CertificateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CertificatePage) => any
-  ): Promise<CertificatePage>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
    *
@@ -568,10 +513,11 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CertificateListInstancePageOptions,
+    params?:
+      | CertificateListInstancePageOptions
+      | ((error: Error | null, items: CertificatePage) => any),
     callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage>;
-  page(params?: any, callback?: any): Promise<CertificatePage>;
 
   /**
    * Provide a user-friendly representation
@@ -610,8 +556,8 @@ export function CertificateListInstance(
   instance._uri = `/Fleets/${fleetSid}/Certificates`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CertificateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -662,8 +608,10 @@ export function CertificateListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CertificateListInstancePageOptions
+      | ((error: Error | null, item?: CertificatePage) => any),
+    callback?: (error: Error | null, item?: CertificatePage) => any
   ): Promise<CertificatePage> {
     if (typeof params === "function") {
       callback = params;
@@ -706,8 +654,8 @@ export function CertificateListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

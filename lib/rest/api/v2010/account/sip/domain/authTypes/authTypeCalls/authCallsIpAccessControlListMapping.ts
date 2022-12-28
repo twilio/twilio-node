@@ -332,31 +332,7 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
       item?: AuthCallsIpAccessControlListMappingInstance
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<AuthCallsIpAccessControlListMappingInstance>;
 
-  /**
-   * Streams AuthCallsIpAccessControlListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AuthCallsIpAccessControlListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams AuthCallsIpAccessControlListMappingInstance records from the API.
    *
@@ -373,65 +349,32 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AuthCallsIpAccessControlListMappingListInstanceEachOptions,
+    params?:
+      | AuthCallsIpAccessControlListMappingListInstanceEachOptions
+      | ((
+          item: AuthCallsIpAccessControlListMappingInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: AuthCallsIpAccessControlListMappingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AuthCallsIpAccessControlListMappingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsIpAccessControlListMappingPage
-    ) => any
-  ): Promise<AuthCallsIpAccessControlListMappingPage>;
-  /**
-   * Retrieve a single target page of AuthCallsIpAccessControlListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: AuthCallsIpAccessControlListMappingPage
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<AuthCallsIpAccessControlListMappingPage>;
-  /**
-   * Lists AuthCallsIpAccessControlListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsIpAccessControlListMappingInstance[]
-    ) => any
-  ): Promise<AuthCallsIpAccessControlListMappingInstance[]>;
   /**
    * Lists AuthCallsIpAccessControlListMappingInstance records from the API as a list.
    *
@@ -442,32 +385,17 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AuthCallsIpAccessControlListMappingListInstanceOptions,
+    params?:
+      | AuthCallsIpAccessControlListMappingListInstanceOptions
+      | ((
+          error: Error | null,
+          items: AuthCallsIpAccessControlListMappingInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: AuthCallsIpAccessControlListMappingInstance[]
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<AuthCallsIpAccessControlListMappingInstance[]>;
-  /**
-   * Retrieve a single page of AuthCallsIpAccessControlListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsIpAccessControlListMappingPage
-    ) => any
-  ): Promise<AuthCallsIpAccessControlListMappingPage>;
   /**
    * Retrieve a single page of AuthCallsIpAccessControlListMappingInstance records from the API.
    *
@@ -480,15 +408,16 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AuthCallsIpAccessControlListMappingListInstancePageOptions,
+    params?:
+      | AuthCallsIpAccessControlListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: AuthCallsIpAccessControlListMappingPage
+        ) => any),
     callback?: (
       error: Error | null,
       items: AuthCallsIpAccessControlListMappingPage
     ) => any
-  ): Promise<AuthCallsIpAccessControlListMappingPage>;
-  page(
-    params?: any,
-    callback?: any
   ): Promise<AuthCallsIpAccessControlListMappingPage>;
 
   /**
@@ -543,8 +472,11 @@ export function AuthCallsIpAccessControlListMappingListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/IpAccessControlListMappings.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AuthCallsIpAccessControlListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsIpAccessControlListMappingInstance
+    ) => any
   ): Promise<AuthCallsIpAccessControlListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -592,8 +524,16 @@ export function AuthCallsIpAccessControlListMappingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AuthCallsIpAccessControlListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          item?: AuthCallsIpAccessControlListMappingPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsIpAccessControlListMappingPage
+    ) => any
   ): Promise<AuthCallsIpAccessControlListMappingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -638,8 +578,11 @@ export function AuthCallsIpAccessControlListMappingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: AuthCallsIpAccessControlListMappingPage
+    ) => any
   ): Promise<AuthCallsIpAccessControlListMappingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -147,7 +147,6 @@ export interface RecordingContext {
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
-  update(params: any, callback?: any): Promise<RecordingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -453,8 +452,7 @@ export class RecordingInstance {
   update(
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
-  update(params: any, callback?: any): Promise<RecordingInstance> {
+  ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -506,71 +504,27 @@ export interface RecordingListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { RecordingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RecordingListInstanceEachOptions,
+    params?:
+      | RecordingListInstanceEachOptions
+      | ((item: RecordingInstance, done: (err?: Error) => void) => void),
     callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage>;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage>;
-  getPage(params?: any, callback?: any): Promise<RecordingPage>;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RecordingInstance[]) => any
-  ): Promise<RecordingInstance[]>;
   /**
    * Lists RecordingInstance records from the API as a list.
    *
@@ -581,23 +535,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RecordingListInstanceOptions,
+    params?:
+      | RecordingListInstanceOptions
+      | ((error: Error | null, items: RecordingInstance[]) => any),
     callback?: (error: Error | null, items: RecordingInstance[]) => any
   ): Promise<RecordingInstance[]>;
-  list(params?: any, callback?: any): Promise<RecordingInstance[]>;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    *
@@ -610,10 +552,11 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: RecordingListInstancePageOptions,
+    params?:
+      | RecordingListInstancePageOptions
+      | ((error: Error | null, items: RecordingPage) => any),
     callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage>;
-  page(params?: any, callback?: any): Promise<RecordingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -658,8 +601,10 @@ export function RecordingListInstance(
   instance._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Recordings.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RecordingListInstancePageOptions
+      | ((error: Error | null, item?: RecordingPage) => any),
+    callback?: (error: Error | null, item?: RecordingPage) => any
   ): Promise<RecordingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -705,8 +650,8 @@ export function RecordingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

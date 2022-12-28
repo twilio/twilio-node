@@ -66,10 +66,11 @@ export interface WebhookContext {
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params: WebhookContextUpdateOptions,
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -274,10 +275,11 @@ export class WebhookInstance {
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params: WebhookContextUpdateOptions,
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
     callback?: (error: Error | null, item?: WebhookInstance) => any
-  ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+  ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
 

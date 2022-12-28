@@ -170,10 +170,11 @@ export interface TrustProductsContext {
    * @returns { Promise } Resolves to processed TrustProductsInstance
    */
   update(
-    params: TrustProductsContextUpdateOptions,
+    params?:
+      | TrustProductsContextUpdateOptions
+      | ((error: Error | null, item?: TrustProductsInstance) => any),
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
-  update(params?: any, callback?: any): Promise<TrustProductsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -459,10 +460,11 @@ export class TrustProductsInstance {
    * @returns { Promise } Resolves to processed TrustProductsInstance
    */
   update(
-    params: TrustProductsContextUpdateOptions,
+    params?:
+      | TrustProductsContextUpdateOptions
+      | ((error: Error | null, item?: TrustProductsInstance) => any),
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
-  update(params?: any, callback?: any): Promise<TrustProductsInstance> {
+  ): Promise<TrustProductsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -530,28 +532,7 @@ export interface TrustProductsListInstance {
     params: TrustProductsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
-  create(params: any, callback?: any): Promise<TrustProductsInstance>;
 
-  /**
-   * Streams TrustProductsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams TrustProductsInstance records from the API.
    *
@@ -568,53 +549,26 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TrustProductsListInstanceEachOptions,
+    params?:
+      | TrustProductsListInstanceEachOptions
+      | ((item: TrustProductsInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: TrustProductsInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TrustProductsInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
-  /**
-   * Retrieve a single target page of TrustProductsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage>;
-  getPage(params?: any, callback?: any): Promise<TrustProductsPage>;
-  /**
-   * Lists TrustProductsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
-  ): Promise<TrustProductsInstance[]>;
   /**
    * Lists TrustProductsInstance records from the API as a list.
    *
@@ -625,23 +579,11 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TrustProductsListInstanceOptions,
+    params?:
+      | TrustProductsListInstanceOptions
+      | ((error: Error | null, items: TrustProductsInstance[]) => any),
     callback?: (error: Error | null, items: TrustProductsInstance[]) => any
   ): Promise<TrustProductsInstance[]>;
-  list(params?: any, callback?: any): Promise<TrustProductsInstance[]>;
-  /**
-   * Retrieve a single page of TrustProductsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
   /**
    * Retrieve a single page of TrustProductsInstance records from the API.
    *
@@ -654,10 +596,11 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TrustProductsListInstancePageOptions,
+    params?:
+      | TrustProductsListInstancePageOptions
+      | ((error: Error | null, items: TrustProductsPage) => any),
     callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage>;
-  page(params?: any, callback?: any): Promise<TrustProductsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -690,8 +633,8 @@ export function TrustProductsListInstance(
   instance._uri = `/TrustProducts`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TrustProductsListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -745,8 +688,10 @@ export function TrustProductsListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TrustProductsListInstancePageOptions
+      | ((error: Error | null, item?: TrustProductsPage) => any),
+    callback?: (error: Error | null, item?: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
     if (typeof params === "function") {
       callback = params;
@@ -792,8 +737,8 @@ export function TrustProductsListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

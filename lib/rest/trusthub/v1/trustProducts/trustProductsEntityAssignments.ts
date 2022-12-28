@@ -325,31 +325,7 @@ export interface TrustProductsEntityAssignmentsListInstance {
       item?: TrustProductsEntityAssignmentsInstance
     ) => any
   ): Promise<TrustProductsEntityAssignmentsInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<TrustProductsEntityAssignmentsInstance>;
 
-  /**
-   * Streams TrustProductsEntityAssignmentsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TrustProductsEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -366,65 +342,32 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TrustProductsEntityAssignmentsListInstanceEachOptions,
+    params?:
+      | TrustProductsEntityAssignmentsListInstanceEachOptions
+      | ((
+          item: TrustProductsEntityAssignmentsInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: TrustProductsEntityAssignmentsInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TrustProductsEntityAssignmentsInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: TrustProductsEntityAssignmentsPage
-    ) => any
-  ): Promise<TrustProductsEntityAssignmentsPage>;
-  /**
-   * Retrieve a single target page of TrustProductsEntityAssignmentsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: TrustProductsEntityAssignmentsPage
     ) => any
   ): Promise<TrustProductsEntityAssignmentsPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<TrustProductsEntityAssignmentsPage>;
-  /**
-   * Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: TrustProductsEntityAssignmentsInstance[]
-    ) => any
-  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
   /**
    * Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
    *
@@ -435,32 +378,17 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TrustProductsEntityAssignmentsListInstanceOptions,
+    params?:
+      | TrustProductsEntityAssignmentsListInstanceOptions
+      | ((
+          error: Error | null,
+          items: TrustProductsEntityAssignmentsInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: TrustProductsEntityAssignmentsInstance[]
     ) => any
   ): Promise<TrustProductsEntityAssignmentsInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
-  /**
-   * Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: TrustProductsEntityAssignmentsPage
-    ) => any
-  ): Promise<TrustProductsEntityAssignmentsPage>;
   /**
    * Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
    *
@@ -473,15 +401,16 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TrustProductsEntityAssignmentsListInstancePageOptions,
+    params?:
+      | TrustProductsEntityAssignmentsListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: TrustProductsEntityAssignmentsPage
+        ) => any),
     callback?: (
       error: Error | null,
       items: TrustProductsEntityAssignmentsPage
     ) => any
-  ): Promise<TrustProductsEntityAssignmentsPage>;
-  page(
-    params?: any,
-    callback?: any
   ): Promise<TrustProductsEntityAssignmentsPage>;
 
   /**
@@ -529,8 +458,11 @@ export function TrustProductsEntityAssignmentsListInstance(
   instance._uri = `/TrustProducts/${trustProductSid}/EntityAssignments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TrustProductsEntityAssignmentsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsInstance
+    ) => any
   ): Promise<TrustProductsEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -572,8 +504,16 @@ export function TrustProductsEntityAssignmentsListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TrustProductsEntityAssignmentsListInstancePageOptions
+      | ((
+          error: Error | null,
+          item?: TrustProductsEntityAssignmentsPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsPage
+    ) => any
   ): Promise<TrustProductsEntityAssignmentsPage> {
     if (typeof params === "function") {
       callback = params;
@@ -618,8 +558,11 @@ export function TrustProductsEntityAssignmentsListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
   ): Promise<TrustProductsEntityAssignmentsPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

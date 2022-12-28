@@ -127,10 +127,11 @@ export interface ShortCodeContext {
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
   update(
-    params: ShortCodeContextUpdateOptions,
+    params?:
+      | ShortCodeContextUpdateOptions
+      | ((error: Error | null, item?: ShortCodeInstance) => any),
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance>;
-  update(params?: any, callback?: any): Promise<ShortCodeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -389,10 +390,11 @@ export class ShortCodeInstance {
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
   update(
-    params: ShortCodeContextUpdateOptions,
+    params?:
+      | ShortCodeContextUpdateOptions
+      | ((error: Error | null, item?: ShortCodeInstance) => any),
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
-  ): Promise<ShortCodeInstance>;
-  update(params?: any, callback?: any): Promise<ShortCodeInstance> {
+  ): Promise<ShortCodeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -437,25 +439,7 @@ export interface ShortCodeListInstance {
     params: ShortCodeListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance>;
-  create(params: any, callback?: any): Promise<ShortCodeInstance>;
 
-  /**
-   * Streams ShortCodeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ShortCodeInstance records from the API.
    *
@@ -472,50 +456,23 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ShortCodeListInstanceEachOptions,
+    params?:
+      | ShortCodeListInstanceEachOptions
+      | ((item: ShortCodeInstance, done: (err?: Error) => void) => void),
     callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ShortCodePage) => any
-  ): Promise<ShortCodePage>;
-  /**
-   * Retrieve a single target page of ShortCodeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage>;
-  getPage(params?: any, callback?: any): Promise<ShortCodePage>;
-  /**
-   * Lists ShortCodeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
-  ): Promise<ShortCodeInstance[]>;
   /**
    * Lists ShortCodeInstance records from the API as a list.
    *
@@ -526,23 +483,11 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ShortCodeListInstanceOptions,
+    params?:
+      | ShortCodeListInstanceOptions
+      | ((error: Error | null, items: ShortCodeInstance[]) => any),
     callback?: (error: Error | null, items: ShortCodeInstance[]) => any
   ): Promise<ShortCodeInstance[]>;
-  list(params?: any, callback?: any): Promise<ShortCodeInstance[]>;
-  /**
-   * Retrieve a single page of ShortCodeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ShortCodePage) => any
-  ): Promise<ShortCodePage>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
    *
@@ -555,10 +500,11 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ShortCodeListInstancePageOptions,
+    params?:
+      | ShortCodeListInstancePageOptions
+      | ((error: Error | null, items: ShortCodePage) => any),
     callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage>;
-  page(params?: any, callback?: any): Promise<ShortCodePage>;
 
   /**
    * Provide a user-friendly representation
@@ -597,8 +543,8 @@ export function ShortCodeListInstance(
   instance._uri = `/Services/${serviceSid}/ShortCodes`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ShortCodeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -640,8 +586,10 @@ export function ShortCodeListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ShortCodeListInstancePageOptions
+      | ((error: Error | null, item?: ShortCodePage) => any),
+    callback?: (error: Error | null, item?: ShortCodePage) => any
   ): Promise<ShortCodePage> {
     if (typeof params === "function") {
       callback = params;
@@ -681,8 +629,8 @@ export function ShortCodeListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -233,10 +233,11 @@ export interface BundleContext {
    * @returns { Promise } Resolves to processed BundleInstance
    */
   update(
-    params: BundleContextUpdateOptions,
+    params?:
+      | BundleContextUpdateOptions
+      | ((error: Error | null, item?: BundleInstance) => any),
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance>;
-  update(params?: any, callback?: any): Promise<BundleInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -519,10 +520,11 @@ export class BundleInstance {
    * @returns { Promise } Resolves to processed BundleInstance
    */
   update(
-    params: BundleContextUpdateOptions,
+    params?:
+      | BundleContextUpdateOptions
+      | ((error: Error | null, item?: BundleInstance) => any),
     callback?: (error: Error | null, item?: BundleInstance) => any
-  ): Promise<BundleInstance>;
-  update(params?: any, callback?: any): Promise<BundleInstance> {
+  ): Promise<BundleInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -597,25 +599,7 @@ export interface BundleListInstance {
     params: BundleListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance>;
-  create(params: any, callback?: any): Promise<BundleInstance>;
 
-  /**
-   * Streams BundleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BundleInstance records from the API.
    *
@@ -632,50 +616,23 @@ export interface BundleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BundleListInstanceEachOptions,
+    params?:
+      | BundleListInstanceEachOptions
+      | ((item: BundleInstance, done: (err?: Error) => void) => void),
     callback?: (item: BundleInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BundleInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BundlePage) => any
-  ): Promise<BundlePage>;
-  /**
-   * Retrieve a single target page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BundlePage) => any
   ): Promise<BundlePage>;
-  getPage(params?: any, callback?: any): Promise<BundlePage>;
-  /**
-   * Lists BundleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BundleInstance[]) => any
-  ): Promise<BundleInstance[]>;
   /**
    * Lists BundleInstance records from the API as a list.
    *
@@ -686,23 +643,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BundleListInstanceOptions,
+    params?:
+      | BundleListInstanceOptions
+      | ((error: Error | null, items: BundleInstance[]) => any),
     callback?: (error: Error | null, items: BundleInstance[]) => any
   ): Promise<BundleInstance[]>;
-  list(params?: any, callback?: any): Promise<BundleInstance[]>;
-  /**
-   * Retrieve a single page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BundlePage) => any
-  ): Promise<BundlePage>;
   /**
    * Retrieve a single page of BundleInstance records from the API.
    *
@@ -715,10 +660,11 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: BundleListInstancePageOptions,
+    params?:
+      | BundleListInstancePageOptions
+      | ((error: Error | null, items: BundlePage) => any),
     callback?: (error: Error | null, items: BundlePage) => any
   ): Promise<BundlePage>;
-  page(params?: any, callback?: any): Promise<BundlePage>;
 
   /**
    * Provide a user-friendly representation
@@ -748,8 +694,8 @@ export function BundleListInstance(version: V2): BundleListInstance {
   instance._uri = `/RegulatoryCompliance/Bundles`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BundleListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -805,8 +751,10 @@ export function BundleListInstance(version: V2): BundleListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BundleListInstancePageOptions
+      | ((error: Error | null, item?: BundlePage) => any),
+    callback?: (error: Error | null, item?: BundlePage) => any
   ): Promise<BundlePage> {
     if (typeof params === "function") {
       callback = params;
@@ -872,8 +820,8 @@ export function BundleListInstance(version: V2): BundleListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BundlePage) => any
   ): Promise<BundlePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

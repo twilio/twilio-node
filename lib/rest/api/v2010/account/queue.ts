@@ -133,10 +133,11 @@ export interface QueueContext {
    * @returns { Promise } Resolves to processed QueueInstance
    */
   update(
-    params: QueueContextUpdateOptions,
+    params?:
+      | QueueContextUpdateOptions
+      | ((error: Error | null, item?: QueueInstance) => any),
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance>;
-  update(params?: any, callback?: any): Promise<QueueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -406,10 +407,11 @@ export class QueueInstance {
    * @returns { Promise } Resolves to processed QueueInstance
    */
   update(
-    params: QueueContextUpdateOptions,
+    params?:
+      | QueueContextUpdateOptions
+      | ((error: Error | null, item?: QueueInstance) => any),
     callback?: (error: Error | null, item?: QueueInstance) => any
-  ): Promise<QueueInstance>;
-  update(params?: any, callback?: any): Promise<QueueInstance> {
+  ): Promise<QueueInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -460,25 +462,7 @@ export interface QueueListInstance {
     params: QueueListInstanceCreateOptions,
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance>;
-  create(params: any, callback?: any): Promise<QueueInstance>;
 
-  /**
-   * Streams QueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams QueueInstance records from the API.
    *
@@ -495,50 +479,23 @@ export interface QueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: QueueListInstanceEachOptions,
+    params?:
+      | QueueListInstanceEachOptions
+      | ((item: QueueInstance, done: (err?: Error) => void) => void),
     callback?: (item: QueueInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: QueuePage) => any
-  ): Promise<QueuePage>;
-  /**
-   * Retrieve a single target page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage>;
-  getPage(params?: any, callback?: any): Promise<QueuePage>;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: QueueInstance[]) => any
-  ): Promise<QueueInstance[]>;
   /**
    * Lists QueueInstance records from the API as a list.
    *
@@ -549,23 +506,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: QueueListInstanceOptions,
+    params?:
+      | QueueListInstanceOptions
+      | ((error: Error | null, items: QueueInstance[]) => any),
     callback?: (error: Error | null, items: QueueInstance[]) => any
   ): Promise<QueueInstance[]>;
-  list(params?: any, callback?: any): Promise<QueueInstance[]>;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: QueuePage) => any
-  ): Promise<QueuePage>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
    *
@@ -578,10 +523,11 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: QueueListInstancePageOptions,
+    params?:
+      | QueueListInstancePageOptions
+      | ((error: Error | null, items: QueuePage) => any),
     callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage>;
-  page(params?: any, callback?: any): Promise<QueuePage>;
 
   /**
    * Provide a user-friendly representation
@@ -620,8 +566,8 @@ export function QueueListInstance(
   instance._uri = `/Accounts/${accountSid}/Queues.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: QueueListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -663,8 +609,10 @@ export function QueueListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | QueueListInstancePageOptions
+      | ((error: Error | null, item?: QueuePage) => any),
+    callback?: (error: Error | null, item?: QueuePage) => any
   ): Promise<QueuePage> {
     if (typeof params === "function") {
       callback = params;
@@ -704,8 +652,8 @@ export function QueueListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

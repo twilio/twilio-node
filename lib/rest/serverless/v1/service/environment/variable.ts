@@ -130,10 +130,11 @@ export interface VariableContext {
    * @returns { Promise } Resolves to processed VariableInstance
    */
   update(
-    params: VariableContextUpdateOptions,
+    params?:
+      | VariableContextUpdateOptions
+      | ((error: Error | null, item?: VariableInstance) => any),
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance>;
-  update(params?: any, callback?: any): Promise<VariableInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -403,10 +404,11 @@ export class VariableInstance {
    * @returns { Promise } Resolves to processed VariableInstance
    */
   update(
-    params: VariableContextUpdateOptions,
+    params?:
+      | VariableContextUpdateOptions
+      | ((error: Error | null, item?: VariableInstance) => any),
     callback?: (error: Error | null, item?: VariableInstance) => any
-  ): Promise<VariableInstance>;
-  update(params?: any, callback?: any): Promise<VariableInstance> {
+  ): Promise<VariableInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -450,25 +452,7 @@ export interface VariableListInstance {
     params: VariableListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance>;
-  create(params: any, callback?: any): Promise<VariableInstance>;
 
-  /**
-   * Streams VariableInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams VariableInstance records from the API.
    *
@@ -485,50 +469,23 @@ export interface VariableListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: VariableListInstanceEachOptions,
+    params?:
+      | VariableListInstanceEachOptions
+      | ((item: VariableInstance, done: (err?: Error) => void) => void),
     callback?: (item: VariableInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of VariableInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: VariablePage) => any
-  ): Promise<VariablePage>;
-  /**
-   * Retrieve a single target page of VariableInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: VariablePage) => any
   ): Promise<VariablePage>;
-  getPage(params?: any, callback?: any): Promise<VariablePage>;
-  /**
-   * Lists VariableInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: VariableInstance[]) => any
-  ): Promise<VariableInstance[]>;
   /**
    * Lists VariableInstance records from the API as a list.
    *
@@ -539,23 +496,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: VariableListInstanceOptions,
+    params?:
+      | VariableListInstanceOptions
+      | ((error: Error | null, items: VariableInstance[]) => any),
     callback?: (error: Error | null, items: VariableInstance[]) => any
   ): Promise<VariableInstance[]>;
-  list(params?: any, callback?: any): Promise<VariableInstance[]>;
-  /**
-   * Retrieve a single page of VariableInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: VariablePage) => any
-  ): Promise<VariablePage>;
   /**
    * Retrieve a single page of VariableInstance records from the API.
    *
@@ -568,10 +513,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: VariableListInstancePageOptions,
+    params?:
+      | VariableListInstancePageOptions
+      | ((error: Error | null, items: VariablePage) => any),
     callback?: (error: Error | null, items: VariablePage) => any
   ): Promise<VariablePage>;
-  page(params?: any, callback?: any): Promise<VariablePage>;
 
   /**
    * Provide a user-friendly representation
@@ -616,8 +562,8 @@ export function VariableListInstance(
   instance._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Variables`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: VariableListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -666,8 +612,10 @@ export function VariableListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | VariableListInstancePageOptions
+      | ((error: Error | null, item?: VariablePage) => any),
+    callback?: (error: Error | null, item?: VariablePage) => any
   ): Promise<VariablePage> {
     if (typeof params === "function") {
       callback = params;
@@ -707,8 +655,8 @@ export function VariableListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: VariablePage) => any
   ): Promise<VariablePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

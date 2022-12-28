@@ -195,10 +195,11 @@ export interface ServiceContext {
    * @returns { Promise } Resolves to processed ServiceInstance
    */
   update(
-    params: ServiceContextUpdateOptions,
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ServiceInstance) => any),
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -638,10 +639,11 @@ export class ServiceInstance {
    * @returns { Promise } Resolves to processed ServiceInstance
    */
   update(
-    params: ServiceContextUpdateOptions,
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ServiceInstance) => any),
     callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance> {
+  ): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -727,25 +729,7 @@ export interface ServiceListInstance {
     params: ServiceListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>;
 
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -762,50 +746,23 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ServiceListInstanceEachOptions,
+    params?:
+      | ServiceListInstanceEachOptions
+      | ((item: ServiceInstance, done: (err?: Error) => void) => void),
     callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
-  getPage(params?: any, callback?: any): Promise<ServicePage>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -816,23 +773,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ServiceListInstanceOptions,
+    params?:
+      | ServiceListInstanceOptions
+      | ((error: Error | null, items: ServiceInstance[]) => any),
     callback?: (error: Error | null, items: ServiceInstance[]) => any
   ): Promise<ServiceInstance[]>;
-  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -845,10 +790,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ServiceListInstancePageOptions,
+    params?:
+      | ServiceListInstancePageOptions
+      | ((error: Error | null, items: ServicePage) => any),
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
-  page(params?: any, callback?: any): Promise<ServicePage>;
 
   /**
    * Provide a user-friendly representation
@@ -878,8 +824,8 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance._uri = `/Services`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -919,8 +865,10 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ServiceListInstancePageOptions
+      | ((error: Error | null, item?: ServicePage) => any),
+    callback?: (error: Error | null, item?: ServicePage) => any
   ): Promise<ServicePage> {
     if (typeof params === "function") {
       callback = params;
@@ -960,8 +908,8 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

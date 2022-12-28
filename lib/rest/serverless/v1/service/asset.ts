@@ -122,7 +122,6 @@ export interface AssetContext {
     params: AssetContextUpdateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance>;
-  update(params: any, callback?: any): Promise<AssetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -380,8 +379,7 @@ export class AssetInstance {
   update(
     params: AssetContextUpdateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance>;
-  update(params: any, callback?: any): Promise<AssetInstance> {
+  ): Promise<AssetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -431,25 +429,7 @@ export interface AssetListInstance {
     params: AssetListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance>;
-  create(params: any, callback?: any): Promise<AssetInstance>;
 
-  /**
-   * Streams AssetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AssetInstance records from the API.
    *
@@ -466,50 +446,23 @@ export interface AssetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssetListInstanceEachOptions,
+    params?:
+      | AssetListInstanceEachOptions
+      | ((item: AssetInstance, done: (err?: Error) => void) => void),
     callback?: (item: AssetInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AssetInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage>;
-  /**
-   * Retrieve a single target page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage>;
-  getPage(params?: any, callback?: any): Promise<AssetPage>;
-  /**
-   * Lists AssetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AssetInstance[]) => any
-  ): Promise<AssetInstance[]>;
   /**
    * Lists AssetInstance records from the API as a list.
    *
@@ -520,23 +473,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssetListInstanceOptions,
+    params?:
+      | AssetListInstanceOptions
+      | ((error: Error | null, items: AssetInstance[]) => any),
     callback?: (error: Error | null, items: AssetInstance[]) => any
   ): Promise<AssetInstance[]>;
-  list(params?: any, callback?: any): Promise<AssetInstance[]>;
-  /**
-   * Retrieve a single page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage>;
   /**
    * Retrieve a single page of AssetInstance records from the API.
    *
@@ -549,10 +490,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AssetListInstancePageOptions,
+    params?:
+      | AssetListInstancePageOptions
+      | ((error: Error | null, items: AssetPage) => any),
     callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage>;
-  page(params?: any, callback?: any): Promise<AssetPage>;
 
   /**
    * Provide a user-friendly representation
@@ -591,8 +533,8 @@ export function AssetListInstance(
   instance._uri = `/Services/${serviceSid}/Assets`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AssetListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -633,8 +575,10 @@ export function AssetListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssetListInstancePageOptions
+      | ((error: Error | null, item?: AssetPage) => any),
+    callback?: (error: Error | null, item?: AssetPage) => any
   ): Promise<AssetPage> {
     if (typeof params === "function") {
       callback = params;
@@ -674,8 +618,8 @@ export function AssetListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

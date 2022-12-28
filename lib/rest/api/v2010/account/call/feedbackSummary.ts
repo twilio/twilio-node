@@ -329,7 +329,6 @@ export interface FeedbackSummaryListInstance {
     params: FeedbackSummaryListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
   ): Promise<FeedbackSummaryInstance>;
-  create(params: any, callback?: any): Promise<FeedbackSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -369,8 +368,8 @@ export function FeedbackSummaryListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/FeedbackSummary.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FeedbackSummaryListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
   ): Promise<FeedbackSummaryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

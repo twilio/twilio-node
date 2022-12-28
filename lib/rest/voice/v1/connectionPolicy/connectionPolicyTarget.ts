@@ -151,13 +151,14 @@ export interface ConnectionPolicyTargetContext {
    * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
    */
   update(
-    params: ConnectionPolicyTargetContextUpdateOptions,
+    params?:
+      | ConnectionPolicyTargetContextUpdateOptions
+      | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
     callback?: (
       error: Error | null,
       item?: ConnectionPolicyTargetInstance
     ) => any
   ): Promise<ConnectionPolicyTargetInstance>;
-  update(params?: any, callback?: any): Promise<ConnectionPolicyTargetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -445,15 +446,13 @@ export class ConnectionPolicyTargetInstance {
    * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
    */
   update(
-    params: ConnectionPolicyTargetContextUpdateOptions,
+    params?:
+      | ConnectionPolicyTargetContextUpdateOptions
+      | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
     callback?: (
       error: Error | null,
       item?: ConnectionPolicyTargetInstance
     ) => any
-  ): Promise<ConnectionPolicyTargetInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<ConnectionPolicyTargetInstance> {
     return this._proxy.update(params, callback);
   }
@@ -503,28 +502,7 @@ export interface ConnectionPolicyTargetListInstance {
       item?: ConnectionPolicyTargetInstance
     ) => any
   ): Promise<ConnectionPolicyTargetInstance>;
-  create(params: any, callback?: any): Promise<ConnectionPolicyTargetInstance>;
 
-  /**
-   * Streams ConnectionPolicyTargetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ConnectionPolicyTargetInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams ConnectionPolicyTargetInstance records from the API.
    *
@@ -541,56 +519,29 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ConnectionPolicyTargetListInstanceEachOptions,
+    params?:
+      | ConnectionPolicyTargetListInstanceEachOptions
+      | ((
+          item: ConnectionPolicyTargetInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: ConnectionPolicyTargetInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ConnectionPolicyTargetInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
-  ): Promise<ConnectionPolicyTargetPage>;
-  /**
-   * Retrieve a single target page of ConnectionPolicyTargetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage>;
-  getPage(params?: any, callback?: any): Promise<ConnectionPolicyTargetPage>;
-  /**
-   * Lists ConnectionPolicyTargetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: ConnectionPolicyTargetInstance[]
-    ) => any
-  ): Promise<ConnectionPolicyTargetInstance[]>;
   /**
    * Lists ConnectionPolicyTargetInstance records from the API as a list.
    *
@@ -601,26 +552,14 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ConnectionPolicyTargetListInstanceOptions,
+    params?:
+      | ConnectionPolicyTargetListInstanceOptions
+      | ((error: Error | null, items: ConnectionPolicyTargetInstance[]) => any),
     callback?: (
       error: Error | null,
       items: ConnectionPolicyTargetInstance[]
     ) => any
   ): Promise<ConnectionPolicyTargetInstance[]>;
-  list(params?: any, callback?: any): Promise<ConnectionPolicyTargetInstance[]>;
-  /**
-   * Retrieve a single page of ConnectionPolicyTargetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
-  ): Promise<ConnectionPolicyTargetPage>;
   /**
    * Retrieve a single page of ConnectionPolicyTargetInstance records from the API.
    *
@@ -633,10 +572,11 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ConnectionPolicyTargetListInstancePageOptions,
+    params?:
+      | ConnectionPolicyTargetListInstancePageOptions
+      | ((error: Error | null, items: ConnectionPolicyTargetPage) => any),
     callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage>;
-  page(params?: any, callback?: any): Promise<ConnectionPolicyTargetPage>;
 
   /**
    * Provide a user-friendly representation
@@ -683,8 +623,11 @@ export function ConnectionPolicyTargetListInstance(
   instance._uri = `/ConnectionPolicies/${connectionPolicySid}/Targets`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ConnectionPolicyTargetListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ConnectionPolicyTargetInstance
+    ) => any
   ): Promise<ConnectionPolicyTargetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -732,8 +675,10 @@ export function ConnectionPolicyTargetListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ConnectionPolicyTargetListInstancePageOptions
+      | ((error: Error | null, item?: ConnectionPolicyTargetPage) => any),
+    callback?: (error: Error | null, item?: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage> {
     if (typeof params === "function") {
       callback = params;
@@ -778,8 +723,8 @@ export function ConnectionPolicyTargetListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

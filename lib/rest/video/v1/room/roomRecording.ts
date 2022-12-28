@@ -400,77 +400,30 @@ export interface RoomRecordingListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: RoomRecordingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams RoomRecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { RoomRecordingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RoomRecordingListInstanceEachOptions,
+    params?:
+      | RoomRecordingListInstanceEachOptions
+      | ((item: RoomRecordingInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: RoomRecordingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RoomRecordingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RoomRecordingPage) => any
-  ): Promise<RoomRecordingPage>;
-  /**
-   * Retrieve a single target page of RoomRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage>;
-  getPage(params?: any, callback?: any): Promise<RoomRecordingPage>;
-  /**
-   * Lists RoomRecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RoomRecordingInstance[]) => any
-  ): Promise<RoomRecordingInstance[]>;
   /**
    * Lists RoomRecordingInstance records from the API as a list.
    *
@@ -481,23 +434,11 @@ export interface RoomRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RoomRecordingListInstanceOptions,
+    params?:
+      | RoomRecordingListInstanceOptions
+      | ((error: Error | null, items: RoomRecordingInstance[]) => any),
     callback?: (error: Error | null, items: RoomRecordingInstance[]) => any
   ): Promise<RoomRecordingInstance[]>;
-  list(params?: any, callback?: any): Promise<RoomRecordingInstance[]>;
-  /**
-   * Retrieve a single page of RoomRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RoomRecordingPage) => any
-  ): Promise<RoomRecordingPage>;
   /**
    * Retrieve a single page of RoomRecordingInstance records from the API.
    *
@@ -510,10 +451,11 @@ export interface RoomRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: RoomRecordingListInstancePageOptions,
+    params?:
+      | RoomRecordingListInstancePageOptions
+      | ((error: Error | null, items: RoomRecordingPage) => any),
     callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage>;
-  page(params?: any, callback?: any): Promise<RoomRecordingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -553,8 +495,10 @@ export function RoomRecordingListInstance(
   instance._uri = `/Rooms/${roomSid}/Recordings`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RoomRecordingListInstancePageOptions
+      | ((error: Error | null, item?: RoomRecordingPage) => any),
+    callback?: (error: Error | null, item?: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -606,8 +550,8 @@ export function RoomRecordingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

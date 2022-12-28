@@ -62,7 +62,6 @@ export interface DomainCertsContext {
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
-  update(params: any, callback?: any): Promise<DomainCertsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -287,8 +286,7 @@ export class DomainCertsInstance {
   update(
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance>;
-  update(params: any, callback?: any): Promise<DomainCertsInstance> {
+  ): Promise<DomainCertsInstance> {
     return this._proxy.update(params, callback);
   }
 

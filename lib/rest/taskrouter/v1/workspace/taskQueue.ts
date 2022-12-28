@@ -180,10 +180,11 @@ export interface TaskQueueContext {
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
   update(
-    params: TaskQueueContextUpdateOptions,
+    params?:
+      | TaskQueueContextUpdateOptions
+      | ((error: Error | null, item?: TaskQueueInstance) => any),
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance>;
-  update(params?: any, callback?: any): Promise<TaskQueueInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -519,10 +520,11 @@ export class TaskQueueInstance {
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
   update(
-    params: TaskQueueContextUpdateOptions,
+    params?:
+      | TaskQueueContextUpdateOptions
+      | ((error: Error | null, item?: TaskQueueInstance) => any),
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
-  ): Promise<TaskQueueInstance>;
-  update(params?: any, callback?: any): Promise<TaskQueueInstance> {
+  ): Promise<TaskQueueInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -595,25 +597,7 @@ export interface TaskQueueListInstance {
     params: TaskQueueListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance>;
-  create(params: any, callback?: any): Promise<TaskQueueInstance>;
 
-  /**
-   * Streams TaskQueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams TaskQueueInstance records from the API.
    *
@@ -630,50 +614,23 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TaskQueueListInstanceEachOptions,
+    params?:
+      | TaskQueueListInstanceEachOptions
+      | ((item: TaskQueueInstance, done: (err?: Error) => void) => void),
     callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TaskQueueInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TaskQueuePage) => any
-  ): Promise<TaskQueuePage>;
-  /**
-   * Retrieve a single target page of TaskQueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage>;
-  getPage(params?: any, callback?: any): Promise<TaskQueuePage>;
-  /**
-   * Lists TaskQueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TaskQueueInstance[]) => any
-  ): Promise<TaskQueueInstance[]>;
   /**
    * Lists TaskQueueInstance records from the API as a list.
    *
@@ -684,23 +641,11 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TaskQueueListInstanceOptions,
+    params?:
+      | TaskQueueListInstanceOptions
+      | ((error: Error | null, items: TaskQueueInstance[]) => any),
     callback?: (error: Error | null, items: TaskQueueInstance[]) => any
   ): Promise<TaskQueueInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskQueueInstance[]>;
-  /**
-   * Retrieve a single page of TaskQueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TaskQueuePage) => any
-  ): Promise<TaskQueuePage>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
    *
@@ -713,10 +658,11 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TaskQueueListInstancePageOptions,
+    params?:
+      | TaskQueueListInstancePageOptions
+      | ((error: Error | null, items: TaskQueuePage) => any),
     callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage>;
-  page(params?: any, callback?: any): Promise<TaskQueuePage>;
 
   /**
    * Provide a user-friendly representation
@@ -769,8 +715,8 @@ export function TaskQueueListInstance(
   });
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TaskQueueListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -825,8 +771,10 @@ export function TaskQueueListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskQueueListInstancePageOptions
+      | ((error: Error | null, item?: TaskQueuePage) => any),
+    callback?: (error: Error | null, item?: TaskQueuePage) => any
   ): Promise<TaskQueuePage> {
     if (typeof params === "function") {
       callback = params;
@@ -873,8 +821,8 @@ export function TaskQueueListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

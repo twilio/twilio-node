@@ -307,80 +307,33 @@ export interface AuthorizedConnectAppListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AuthorizedConnectAppInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams AuthorizedConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AuthorizedConnectAppListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AuthorizedConnectAppListInstanceEachOptions,
+    params?:
+      | AuthorizedConnectAppListInstanceEachOptions
+      | ((
+          item: AuthorizedConnectAppInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: AuthorizedConnectAppInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
-  ): Promise<AuthorizedConnectAppPage>;
-  /**
-   * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage>;
-  getPage(params?: any, callback?: any): Promise<AuthorizedConnectAppPage>;
-  /**
-   * Lists AuthorizedConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AuthorizedConnectAppInstance[]
-    ) => any
-  ): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Lists AuthorizedConnectAppInstance records from the API as a list.
    *
@@ -391,26 +344,14 @@ export interface AuthorizedConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AuthorizedConnectAppListInstanceOptions,
+    params?:
+      | AuthorizedConnectAppListInstanceOptions
+      | ((error: Error | null, items: AuthorizedConnectAppInstance[]) => any),
     callback?: (
       error: Error | null,
       items: AuthorizedConnectAppInstance[]
     ) => any
   ): Promise<AuthorizedConnectAppInstance[]>;
-  list(params?: any, callback?: any): Promise<AuthorizedConnectAppInstance[]>;
-  /**
-   * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
-  ): Promise<AuthorizedConnectAppPage>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
    *
@@ -423,10 +364,11 @@ export interface AuthorizedConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AuthorizedConnectAppListInstancePageOptions,
+    params?:
+      | AuthorizedConnectAppListInstancePageOptions
+      | ((error: Error | null, items: AuthorizedConnectAppPage) => any),
     callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage>;
-  page(params?: any, callback?: any): Promise<AuthorizedConnectAppPage>;
 
   /**
    * Provide a user-friendly representation
@@ -473,8 +415,10 @@ export function AuthorizedConnectAppListInstance(
   instance._uri = `/Accounts/${accountSid}/AuthorizedConnectApps.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AuthorizedConnectAppListInstancePageOptions
+      | ((error: Error | null, item?: AuthorizedConnectAppPage) => any),
+    callback?: (error: Error | null, item?: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage> {
     if (typeof params === "function") {
       callback = params;
@@ -515,8 +459,8 @@ export function AuthorizedConnectAppListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

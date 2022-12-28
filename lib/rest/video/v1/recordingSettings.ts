@@ -50,7 +50,6 @@ export interface RecordingSettingsContext {
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance>;
 
   /**
    * Fetch a RecordingSettingsInstance
@@ -240,8 +239,7 @@ export class RecordingSettingsInstance {
   create(
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
-  ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+  ): Promise<RecordingSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 

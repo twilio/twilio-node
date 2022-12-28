@@ -62,10 +62,11 @@ export interface ExportConfigurationContext {
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
   update(
-    params: ExportConfigurationContextUpdateOptions,
+    params?:
+      | ExportConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -265,10 +266,11 @@ export class ExportConfigurationInstance {
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
   update(
-    params: ExportConfigurationContextUpdateOptions,
+    params?:
+      | ExportConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
-  ): Promise<ExportConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+  ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 

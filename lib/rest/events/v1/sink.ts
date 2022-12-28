@@ -144,7 +144,6 @@ export interface SinkContext {
     params: SinkContextUpdateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance>;
-  update(params: any, callback?: any): Promise<SinkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -377,8 +376,7 @@ export class SinkInstance {
   update(
     params: SinkContextUpdateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
-  ): Promise<SinkInstance>;
-  update(params: any, callback?: any): Promise<SinkInstance> {
+  ): Promise<SinkInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -436,25 +434,7 @@ export interface SinkListInstance {
     params: SinkListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance>;
-  create(params: any, callback?: any): Promise<SinkInstance>;
 
-  /**
-   * Streams SinkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SinkInstance records from the API.
    *
@@ -471,50 +451,23 @@ export interface SinkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SinkListInstanceEachOptions,
+    params?:
+      | SinkListInstanceEachOptions
+      | ((item: SinkInstance, done: (err?: Error) => void) => void),
     callback?: (item: SinkInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SinkInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SinkPage) => any
-  ): Promise<SinkPage>;
-  /**
-   * Retrieve a single target page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage>;
-  getPage(params?: any, callback?: any): Promise<SinkPage>;
-  /**
-   * Lists SinkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SinkInstance[]) => any
-  ): Promise<SinkInstance[]>;
   /**
    * Lists SinkInstance records from the API as a list.
    *
@@ -525,23 +478,11 @@ export interface SinkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SinkListInstanceOptions,
+    params?:
+      | SinkListInstanceOptions
+      | ((error: Error | null, items: SinkInstance[]) => any),
     callback?: (error: Error | null, items: SinkInstance[]) => any
   ): Promise<SinkInstance[]>;
-  list(params?: any, callback?: any): Promise<SinkInstance[]>;
-  /**
-   * Retrieve a single page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SinkPage) => any
-  ): Promise<SinkPage>;
   /**
    * Retrieve a single page of SinkInstance records from the API.
    *
@@ -554,10 +495,11 @@ export interface SinkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SinkListInstancePageOptions,
+    params?:
+      | SinkListInstancePageOptions
+      | ((error: Error | null, items: SinkPage) => any),
     callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage>;
-  page(params?: any, callback?: any): Promise<SinkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -587,8 +529,8 @@ export function SinkListInstance(version: V1): SinkListInstance {
   instance._uri = `/Sinks`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SinkListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -642,8 +584,10 @@ export function SinkListInstance(version: V1): SinkListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SinkListInstancePageOptions
+      | ((error: Error | null, item?: SinkPage) => any),
+    callback?: (error: Error | null, item?: SinkPage) => any
   ): Promise<SinkPage> {
     if (typeof params === "function") {
       callback = params;
@@ -686,8 +630,8 @@ export function SinkListInstance(version: V1): SinkListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

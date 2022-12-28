@@ -148,10 +148,11 @@ export interface RatePlanContext {
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   update(
-    params: RatePlanContextUpdateOptions,
+    params?:
+      | RatePlanContextUpdateOptions
+      | ((error: Error | null, item?: RatePlanInstance) => any),
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
-  update(params?: any, callback?: any): Promise<RatePlanInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -431,10 +432,11 @@ export class RatePlanInstance {
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   update(
-    params: RatePlanContextUpdateOptions,
+    params?:
+      | RatePlanContextUpdateOptions
+      | ((error: Error | null, item?: RatePlanInstance) => any),
     callback?: (error: Error | null, item?: RatePlanInstance) => any
-  ): Promise<RatePlanInstance>;
-  update(params?: any, callback?: any): Promise<RatePlanInstance> {
+  ): Promise<RatePlanInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -492,28 +494,12 @@ export interface RatePlanListInstance {
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   create(
-    params: RatePlanListInstanceCreateOptions,
+    params?:
+      | RatePlanListInstanceCreateOptions
+      | ((error: Error | null, item?: RatePlanInstance) => any),
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
-  create(params?: any, callback?: any): Promise<RatePlanInstance>;
 
-  /**
-   * Streams RatePlanInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -530,50 +516,23 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RatePlanListInstanceEachOptions,
+    params?:
+      | RatePlanListInstanceEachOptions
+      | ((item: RatePlanInstance, done: (err?: Error) => void) => void),
     callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RatePlanPage) => any
-  ): Promise<RatePlanPage>;
-  /**
-   * Retrieve a single target page of RatePlanInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage>;
-  getPage(params?: any, callback?: any): Promise<RatePlanPage>;
-  /**
-   * Lists RatePlanInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RatePlanInstance[]) => any
-  ): Promise<RatePlanInstance[]>;
   /**
    * Lists RatePlanInstance records from the API as a list.
    *
@@ -584,23 +543,11 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RatePlanListInstanceOptions,
+    params?:
+      | RatePlanListInstanceOptions
+      | ((error: Error | null, items: RatePlanInstance[]) => any),
     callback?: (error: Error | null, items: RatePlanInstance[]) => any
   ): Promise<RatePlanInstance[]>;
-  list(params?: any, callback?: any): Promise<RatePlanInstance[]>;
-  /**
-   * Retrieve a single page of RatePlanInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RatePlanPage) => any
-  ): Promise<RatePlanPage>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    *
@@ -613,10 +560,11 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: RatePlanListInstancePageOptions,
+    params?:
+      | RatePlanListInstancePageOptions
+      | ((error: Error | null, items: RatePlanPage) => any),
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage>;
-  page(params?: any, callback?: any): Promise<RatePlanPage>;
 
   /**
    * Provide a user-friendly representation
@@ -646,8 +594,10 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
   instance._uri = `/RatePlans`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | RatePlanListInstanceCreateOptions
+      | ((error: Error | null, item?: RatePlanInstance) => any),
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -710,8 +660,10 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RatePlanListInstancePageOptions
+      | ((error: Error | null, item?: RatePlanPage) => any),
+    callback?: (error: Error | null, item?: RatePlanPage) => any
   ): Promise<RatePlanPage> {
     if (typeof params === "function") {
       callback = params;
@@ -751,8 +703,8 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

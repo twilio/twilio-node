@@ -50,7 +50,6 @@ export interface CompositionSettingsContext {
     params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance>;
 
   /**
    * Fetch a CompositionSettingsInstance
@@ -242,8 +241,7 @@ export class CompositionSettingsInstance {
   create(
     params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
-  ): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
+  ): Promise<CompositionSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 

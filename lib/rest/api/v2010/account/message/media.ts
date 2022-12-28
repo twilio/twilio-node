@@ -341,71 +341,27 @@ export interface MediaListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams MediaInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { MediaListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MediaListInstanceEachOptions,
+    params?:
+      | MediaListInstanceEachOptions
+      | ((item: MediaInstance, done: (err?: Error) => void) => void),
     callback?: (item: MediaInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MediaInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage>;
-  /**
-   * Retrieve a single target page of MediaInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage>;
-  getPage(params?: any, callback?: any): Promise<MediaPage>;
-  /**
-   * Lists MediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MediaInstance[]) => any
-  ): Promise<MediaInstance[]>;
   /**
    * Lists MediaInstance records from the API as a list.
    *
@@ -416,23 +372,11 @@ export interface MediaListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MediaListInstanceOptions,
+    params?:
+      | MediaListInstanceOptions
+      | ((error: Error | null, items: MediaInstance[]) => any),
     callback?: (error: Error | null, items: MediaInstance[]) => any
   ): Promise<MediaInstance[]>;
-  list(params?: any, callback?: any): Promise<MediaInstance[]>;
-  /**
-   * Retrieve a single page of MediaInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage>;
   /**
    * Retrieve a single page of MediaInstance records from the API.
    *
@@ -445,10 +389,11 @@ export interface MediaListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MediaListInstancePageOptions,
+    params?:
+      | MediaListInstancePageOptions
+      | ((error: Error | null, items: MediaPage) => any),
     callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage>;
-  page(params?: any, callback?: any): Promise<MediaPage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function MediaListInstance(
   instance._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Media.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MediaListInstancePageOptions
+      | ((error: Error | null, item?: MediaPage) => any),
+    callback?: (error: Error | null, item?: MediaPage) => any
   ): Promise<MediaPage> {
     if (typeof params === "function") {
       callback = params;
@@ -544,8 +491,8 @@ export function MediaListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

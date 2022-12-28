@@ -58,10 +58,11 @@ export interface StyleSheetContext {
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
   update(
-    params: StyleSheetContextUpdateOptions,
+    params?:
+      | StyleSheetContextUpdateOptions
+      | ((error: Error | null, item?: StyleSheetInstance) => any),
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -243,10 +244,11 @@ export class StyleSheetInstance {
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
   update(
-    params: StyleSheetContextUpdateOptions,
+    params?:
+      | StyleSheetContextUpdateOptions
+      | ((error: Error | null, item?: StyleSheetInstance) => any),
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
-  ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+  ): Promise<StyleSheetInstance> {
     return this._proxy.update(params, callback);
   }
 

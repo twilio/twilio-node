@@ -325,25 +325,7 @@ export interface AlphaSenderListInstance {
     params: AlphaSenderListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AlphaSenderInstance) => any
   ): Promise<AlphaSenderInstance>;
-  create(params: any, callback?: any): Promise<AlphaSenderInstance>;
 
-  /**
-   * Streams AlphaSenderInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AlphaSenderInstance records from the API.
    *
@@ -360,50 +342,23 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AlphaSenderListInstanceEachOptions,
+    params?:
+      | AlphaSenderListInstanceEachOptions
+      | ((item: AlphaSenderInstance, done: (err?: Error) => void) => void),
     callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
-  ): Promise<AlphaSenderPage>;
-  /**
-   * Retrieve a single target page of AlphaSenderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage>;
-  getPage(params?: any, callback?: any): Promise<AlphaSenderPage>;
-  /**
-   * Lists AlphaSenderInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
-  ): Promise<AlphaSenderInstance[]>;
   /**
    * Lists AlphaSenderInstance records from the API as a list.
    *
@@ -414,23 +369,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AlphaSenderListInstanceOptions,
+    params?:
+      | AlphaSenderListInstanceOptions
+      | ((error: Error | null, items: AlphaSenderInstance[]) => any),
     callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
   ): Promise<AlphaSenderInstance[]>;
-  list(params?: any, callback?: any): Promise<AlphaSenderInstance[]>;
-  /**
-   * Retrieve a single page of AlphaSenderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
-  ): Promise<AlphaSenderPage>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
    *
@@ -443,10 +386,11 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AlphaSenderListInstancePageOptions,
+    params?:
+      | AlphaSenderListInstancePageOptions
+      | ((error: Error | null, items: AlphaSenderPage) => any),
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage>;
-  page(params?: any, callback?: any): Promise<AlphaSenderPage>;
 
   /**
    * Provide a user-friendly representation
@@ -485,8 +429,8 @@ export function AlphaSenderListInstance(
   instance._uri = `/Services/${serviceSid}/AlphaSenders`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AlphaSenderListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
   ): Promise<AlphaSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -528,8 +472,10 @@ export function AlphaSenderListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AlphaSenderListInstancePageOptions
+      | ((error: Error | null, item?: AlphaSenderPage) => any),
+    callback?: (error: Error | null, item?: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
     if (typeof params === "function") {
       callback = params;
@@ -570,8 +516,8 @@ export function AlphaSenderListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -53,10 +53,11 @@ export interface PhoneNumberContext {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   fetch(
-    params: PhoneNumberContextFetchOptions,
+    params?:
+      | PhoneNumberContextFetchOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
-  fetch(params?: any, callback?: any): Promise<PhoneNumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -231,10 +232,11 @@ export class PhoneNumberInstance {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   fetch(
-    params: PhoneNumberContextFetchOptions,
+    params?:
+      | PhoneNumberContextFetchOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  fetch(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+  ): Promise<PhoneNumberInstance> {
     return this._proxy.fetch(params, callback);
   }
 

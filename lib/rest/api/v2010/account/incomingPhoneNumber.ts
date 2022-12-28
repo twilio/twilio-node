@@ -268,10 +268,11 @@ export interface IncomingPhoneNumberContext {
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   update(
-    params: IncomingPhoneNumberContextUpdateOptions,
+    params?:
+      | IncomingPhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -753,10 +754,11 @@ export class IncomingPhoneNumberInstance {
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   update(
-    params: IncomingPhoneNumberContextUpdateOptions,
+    params?:
+      | IncomingPhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
-  ): Promise<IncomingPhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
+  ): Promise<IncomingPhoneNumberInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -843,31 +845,12 @@ export interface IncomingPhoneNumberListInstance {
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   create(
-    params: IncomingPhoneNumberListInstanceCreateOptions,
+    params?:
+      | IncomingPhoneNumberListInstanceCreateOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance>;
-  create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>;
 
-  /**
-   * Streams IncomingPhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: IncomingPhoneNumberInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *
@@ -884,56 +867,29 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IncomingPhoneNumberListInstanceEachOptions,
+    params?:
+      | IncomingPhoneNumberListInstanceEachOptions
+      | ((
+          item: IncomingPhoneNumberInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: IncomingPhoneNumberInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
-  ): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage>;
-  getPage(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: IncomingPhoneNumberInstance[]
-    ) => any
-  ): Promise<IncomingPhoneNumberInstance[]>;
   /**
    * Lists IncomingPhoneNumberInstance records from the API as a list.
    *
@@ -944,26 +900,14 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IncomingPhoneNumberListInstanceOptions,
+    params?:
+      | IncomingPhoneNumberListInstanceOptions
+      | ((error: Error | null, items: IncomingPhoneNumberInstance[]) => any),
     callback?: (
       error: Error | null,
       items: IncomingPhoneNumberInstance[]
     ) => any
   ): Promise<IncomingPhoneNumberInstance[]>;
-  list(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance[]>;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
-  ): Promise<IncomingPhoneNumberPage>;
   /**
    * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
    *
@@ -976,10 +920,11 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: IncomingPhoneNumberListInstancePageOptions,
+    params?:
+      | IncomingPhoneNumberListInstancePageOptions
+      | ((error: Error | null, items: IncomingPhoneNumberPage) => any),
     callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage>;
-  page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
 
   /**
    * Provide a user-friendly representation
@@ -1062,8 +1007,10 @@ export function IncomingPhoneNumberListInstance(
   });
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | IncomingPhoneNumberListInstanceCreateOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -1149,8 +1096,10 @@ export function IncomingPhoneNumberListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IncomingPhoneNumberListInstancePageOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberPage) => any),
+    callback?: (error: Error | null, item?: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage> {
     if (typeof params === "function") {
       callback = params;
@@ -1198,8 +1147,8 @@ export function IncomingPhoneNumberListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

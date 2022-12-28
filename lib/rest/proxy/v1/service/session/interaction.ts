@@ -423,71 +423,27 @@ export interface InteractionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams InteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { InteractionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InteractionListInstanceEachOptions,
+    params?:
+      | InteractionListInstanceEachOptions
+      | ((item: InteractionInstance, done: (err?: Error) => void) => void),
     callback?: (item: InteractionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of InteractionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InteractionPage) => any
-  ): Promise<InteractionPage>;
-  /**
-   * Retrieve a single target page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InteractionPage) => any
   ): Promise<InteractionPage>;
-  getPage(params?: any, callback?: any): Promise<InteractionPage>;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: InteractionInstance[]) => any
-  ): Promise<InteractionInstance[]>;
   /**
    * Lists InteractionInstance records from the API as a list.
    *
@@ -498,23 +454,11 @@ export interface InteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InteractionListInstanceOptions,
+    params?:
+      | InteractionListInstanceOptions
+      | ((error: Error | null, items: InteractionInstance[]) => any),
     callback?: (error: Error | null, items: InteractionInstance[]) => any
   ): Promise<InteractionInstance[]>;
-  list(params?: any, callback?: any): Promise<InteractionInstance[]>;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InteractionPage) => any
-  ): Promise<InteractionPage>;
   /**
    * Retrieve a single page of InteractionInstance records from the API.
    *
@@ -527,10 +471,11 @@ export interface InteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: InteractionListInstancePageOptions,
+    params?:
+      | InteractionListInstancePageOptions
+      | ((error: Error | null, items: InteractionPage) => any),
     callback?: (error: Error | null, items: InteractionPage) => any
   ): Promise<InteractionPage>;
-  page(params?: any, callback?: any): Promise<InteractionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -575,8 +520,10 @@ export function InteractionListInstance(
   instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InteractionListInstancePageOptions
+      | ((error: Error | null, item?: InteractionPage) => any),
+    callback?: (error: Error | null, item?: InteractionPage) => any
   ): Promise<InteractionPage> {
     if (typeof params === "function") {
       callback = params;
@@ -617,8 +564,8 @@ export function InteractionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionPage) => any
   ): Promise<InteractionPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

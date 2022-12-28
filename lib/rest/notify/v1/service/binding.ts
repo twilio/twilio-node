@@ -411,25 +411,7 @@ export interface BindingListInstance {
     params: BindingListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BindingInstance) => any
   ): Promise<BindingInstance>;
-  create(params: any, callback?: any): Promise<BindingInstance>;
 
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BindingInstance records from the API.
    *
@@ -446,50 +428,23 @@ export interface BindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BindingListInstanceEachOptions,
+    params?:
+      | BindingListInstanceEachOptions
+      | ((item: BindingInstance, done: (err?: Error) => void) => void),
     callback?: (item: BindingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  getPage(params?: any, callback?: any): Promise<BindingPage>;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BindingInstance[]) => any
-  ): Promise<BindingInstance[]>;
   /**
    * Lists BindingInstance records from the API as a list.
    *
@@ -500,23 +455,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BindingListInstanceOptions,
+    params?:
+      | BindingListInstanceOptions
+      | ((error: Error | null, items: BindingInstance[]) => any),
     callback?: (error: Error | null, items: BindingInstance[]) => any
   ): Promise<BindingInstance[]>;
-  list(params?: any, callback?: any): Promise<BindingInstance[]>;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    *
@@ -529,10 +472,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: BindingListInstancePageOptions,
+    params?:
+      | BindingListInstancePageOptions
+      | ((error: Error | null, items: BindingPage) => any),
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  page(params?: any, callback?: any): Promise<BindingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -571,8 +515,8 @@ export function BindingListInstance(
   instance._uri = `/Services/${serviceSid}/Bindings`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BindingListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BindingInstance) => any
   ): Promise<BindingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -634,8 +578,10 @@ export function BindingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BindingListInstancePageOptions
+      | ((error: Error | null, item?: BindingPage) => any),
+    callback?: (error: Error | null, item?: BindingPage) => any
   ): Promise<BindingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -683,8 +629,8 @@ export function BindingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

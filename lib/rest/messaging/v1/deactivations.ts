@@ -47,10 +47,11 @@ export interface DeactivationsContext {
    * @returns { Promise } Resolves to processed DeactivationsInstance
    */
   fetch(
-    params: DeactivationsContextFetchOptions,
+    params?:
+      | DeactivationsContextFetchOptions
+      | ((error: Error | null, item?: DeactivationsInstance) => any),
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance>;
-  fetch(params?: any, callback?: any): Promise<DeactivationsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -164,10 +165,11 @@ export class DeactivationsInstance {
    * @returns { Promise } Resolves to processed DeactivationsInstance
    */
   fetch(
-    params: DeactivationsContextFetchOptions,
+    params?:
+      | DeactivationsContextFetchOptions
+      | ((error: Error | null, item?: DeactivationsInstance) => any),
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
-  fetch(params?: any, callback?: any): Promise<DeactivationsInstance> {
+  ): Promise<DeactivationsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

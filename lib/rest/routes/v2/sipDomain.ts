@@ -60,10 +60,11 @@ export interface SipDomainContext {
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
   update(
-    params: SipDomainContextUpdateOptions,
+    params?:
+      | SipDomainContextUpdateOptions
+      | ((error: Error | null, item?: SipDomainInstance) => any),
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -250,10 +251,11 @@ export class SipDomainInstance {
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
   update(
-    params: SipDomainContextUpdateOptions,
+    params?:
+      | SipDomainContextUpdateOptions
+      | ((error: Error | null, item?: SipDomainInstance) => any),
     callback?: (error: Error | null, item?: SipDomainInstance) => any
-  ): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance> {
+  ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);
   }
 

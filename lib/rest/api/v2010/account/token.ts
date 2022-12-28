@@ -54,10 +54,11 @@ export interface TokenListInstance {
    * @returns { Promise } Resolves to processed TokenInstance
    */
   create(
-    params: TokenListInstanceCreateOptions,
+    params?:
+      | TokenListInstanceCreateOptions
+      | ((error: Error | null, item?: TokenInstance) => any),
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
-  create(params?: any, callback?: any): Promise<TokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -92,8 +93,10 @@ export function TokenListInstance(
   instance._uri = `/Accounts/${accountSid}/Tokens.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | TokenListInstanceCreateOptions
+      | ((error: Error | null, item?: TokenInstance) => any),
+    callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance> {
     if (typeof params === "function") {
       callback = params;

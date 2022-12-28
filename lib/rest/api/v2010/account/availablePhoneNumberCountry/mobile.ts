@@ -189,71 +189,27 @@ export interface MobileListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams MobileInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { MobileListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MobileListInstanceEachOptions,
+    params?:
+      | MobileListInstanceEachOptions
+      | ((item: MobileInstance, done: (err?: Error) => void) => void),
     callback?: (item: MobileInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
-  /**
-   * Retrieve a single target page of MobileInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage>;
-  getPage(params?: any, callback?: any): Promise<MobilePage>;
-  /**
-   * Lists MobileInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MobileInstance[]) => any
-  ): Promise<MobileInstance[]>;
   /**
    * Lists MobileInstance records from the API as a list.
    *
@@ -264,23 +220,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MobileListInstanceOptions,
+    params?:
+      | MobileListInstanceOptions
+      | ((error: Error | null, items: MobileInstance[]) => any),
     callback?: (error: Error | null, items: MobileInstance[]) => any
   ): Promise<MobileInstance[]>;
-  list(params?: any, callback?: any): Promise<MobileInstance[]>;
-  /**
-   * Retrieve a single page of MobileInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
    *
@@ -293,10 +237,11 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MobileListInstancePageOptions,
+    params?:
+      | MobileListInstancePageOptions
+      | ((error: Error | null, items: MobilePage) => any),
     callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage>;
-  page(params?: any, callback?: any): Promise<MobilePage>;
 
   /**
    * Provide a user-friendly representation
@@ -337,8 +282,10 @@ export function MobileListInstance(
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Mobile.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MobileListInstancePageOptions
+      | ((error: Error | null, item?: MobilePage) => any),
+    callback?: (error: Error | null, item?: MobilePage) => any
   ): Promise<MobilePage> {
     if (typeof params === "function") {
       callback = params;
@@ -415,8 +362,8 @@ export function MobileListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

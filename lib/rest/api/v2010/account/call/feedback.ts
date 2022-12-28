@@ -70,10 +70,11 @@ export interface FeedbackContext {
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   update(
-    params: FeedbackContextUpdateOptions,
+    params?:
+      | FeedbackContextUpdateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -284,10 +285,11 @@ export class FeedbackInstance {
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   update(
-    params: FeedbackContextUpdateOptions,
+    params?:
+      | FeedbackContextUpdateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
     callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance> {
+  ): Promise<FeedbackInstance> {
     return this._proxy.update(params, callback);
   }
 

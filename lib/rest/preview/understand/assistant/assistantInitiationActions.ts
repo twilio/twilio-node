@@ -64,15 +64,16 @@ export interface AssistantInitiationActionsContext {
    * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
    */
   update(
-    params: AssistantInitiationActionsContextUpdateOptions,
+    params?:
+      | AssistantInitiationActionsContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: AssistantInitiationActionsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: AssistantInitiationActionsInstance
     ) => any
-  ): Promise<AssistantInitiationActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantInitiationActionsInstance>;
 
   /**
@@ -261,15 +262,16 @@ export class AssistantInitiationActionsInstance {
    * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
    */
   update(
-    params: AssistantInitiationActionsContextUpdateOptions,
+    params?:
+      | AssistantInitiationActionsContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: AssistantInitiationActionsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       item?: AssistantInitiationActionsInstance
     ) => any
-  ): Promise<AssistantInitiationActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantInitiationActionsInstance> {
     return this._proxy.update(params, callback);
   }

@@ -413,25 +413,7 @@ export interface EnvironmentListInstance {
     params: EnvironmentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance>;
-  create(params: any, callback?: any): Promise<EnvironmentInstance>;
 
-  /**
-   * Streams EnvironmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EnvironmentInstance records from the API.
    *
@@ -448,50 +430,23 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EnvironmentListInstanceEachOptions,
+    params?:
+      | EnvironmentListInstanceEachOptions
+      | ((item: EnvironmentInstance, done: (err?: Error) => void) => void),
     callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EnvironmentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
-  /**
-   * Retrieve a single target page of EnvironmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
-  getPage(params?: any, callback?: any): Promise<EnvironmentPage>;
-  /**
-   * Lists EnvironmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
-  ): Promise<EnvironmentInstance[]>;
   /**
    * Lists EnvironmentInstance records from the API as a list.
    *
@@ -502,23 +457,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EnvironmentListInstanceOptions,
+    params?:
+      | EnvironmentListInstanceOptions
+      | ((error: Error | null, items: EnvironmentInstance[]) => any),
     callback?: (error: Error | null, items: EnvironmentInstance[]) => any
   ): Promise<EnvironmentInstance[]>;
-  list(params?: any, callback?: any): Promise<EnvironmentInstance[]>;
-  /**
-   * Retrieve a single page of EnvironmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
   /**
    * Retrieve a single page of EnvironmentInstance records from the API.
    *
@@ -531,10 +474,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: EnvironmentListInstancePageOptions,
+    params?:
+      | EnvironmentListInstancePageOptions
+      | ((error: Error | null, items: EnvironmentPage) => any),
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
-  page(params?: any, callback?: any): Promise<EnvironmentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -573,8 +517,8 @@ export function EnvironmentListInstance(
   instance._uri = `/Services/${serviceSid}/Environments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: EnvironmentListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -618,8 +562,10 @@ export function EnvironmentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EnvironmentListInstancePageOptions
+      | ((error: Error | null, item?: EnvironmentPage) => any),
+    callback?: (error: Error | null, item?: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
     if (typeof params === "function") {
       callback = params;
@@ -660,8 +606,8 @@ export function EnvironmentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

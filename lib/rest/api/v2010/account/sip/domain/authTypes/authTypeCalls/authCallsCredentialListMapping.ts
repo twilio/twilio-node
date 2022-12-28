@@ -331,31 +331,7 @@ export interface AuthCallsCredentialListMappingListInstance {
       item?: AuthCallsCredentialListMappingInstance
     ) => any
   ): Promise<AuthCallsCredentialListMappingInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<AuthCallsCredentialListMappingInstance>;
 
-  /**
-   * Streams AuthCallsCredentialListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AuthCallsCredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams AuthCallsCredentialListMappingInstance records from the API.
    *
@@ -372,65 +348,32 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AuthCallsCredentialListMappingListInstanceEachOptions,
+    params?:
+      | AuthCallsCredentialListMappingListInstanceEachOptions
+      | ((
+          item: AuthCallsCredentialListMappingInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AuthCallsCredentialListMappingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
-  ): Promise<AuthCallsCredentialListMappingPage>;
-  /**
-   * Retrieve a single target page of AuthCallsCredentialListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: AuthCallsCredentialListMappingPage
     ) => any
   ): Promise<AuthCallsCredentialListMappingPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<AuthCallsCredentialListMappingPage>;
-  /**
-   * Lists AuthCallsCredentialListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsCredentialListMappingInstance[]
-    ) => any
-  ): Promise<AuthCallsCredentialListMappingInstance[]>;
   /**
    * Lists AuthCallsCredentialListMappingInstance records from the API as a list.
    *
@@ -441,32 +384,17 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AuthCallsCredentialListMappingListInstanceOptions,
+    params?:
+      | AuthCallsCredentialListMappingListInstanceOptions
+      | ((
+          error: Error | null,
+          items: AuthCallsCredentialListMappingInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: AuthCallsCredentialListMappingInstance[]
     ) => any
   ): Promise<AuthCallsCredentialListMappingInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<AuthCallsCredentialListMappingInstance[]>;
-  /**
-   * Retrieve a single page of AuthCallsCredentialListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
-  ): Promise<AuthCallsCredentialListMappingPage>;
   /**
    * Retrieve a single page of AuthCallsCredentialListMappingInstance records from the API.
    *
@@ -479,15 +407,16 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AuthCallsCredentialListMappingListInstancePageOptions,
+    params?:
+      | AuthCallsCredentialListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: AuthCallsCredentialListMappingPage
+        ) => any),
     callback?: (
       error: Error | null,
       items: AuthCallsCredentialListMappingPage
     ) => any
-  ): Promise<AuthCallsCredentialListMappingPage>;
-  page(
-    params?: any,
-    callback?: any
   ): Promise<AuthCallsCredentialListMappingPage>;
 
   /**
@@ -542,8 +471,11 @@ export function AuthCallsCredentialListMappingListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/CredentialListMappings.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AuthCallsCredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsCredentialListMappingInstance
+    ) => any
   ): Promise<AuthCallsCredentialListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -591,8 +523,16 @@ export function AuthCallsCredentialListMappingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AuthCallsCredentialListMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          item?: AuthCallsCredentialListMappingPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsCredentialListMappingPage
+    ) => any
   ): Promise<AuthCallsCredentialListMappingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -637,8 +577,11 @@ export function AuthCallsCredentialListMappingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: AuthCallsCredentialListMappingPage
+    ) => any
   ): Promise<AuthCallsCredentialListMappingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

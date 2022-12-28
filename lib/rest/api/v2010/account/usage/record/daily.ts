@@ -351,71 +351,27 @@ export interface DailyListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams DailyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { DailyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DailyListInstanceEachOptions,
+    params?:
+      | DailyListInstanceEachOptions
+      | ((item: DailyInstance, done: (err?: Error) => void) => void),
     callback?: (item: DailyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DailyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DailyPage) => any
-  ): Promise<DailyPage>;
-  /**
-   * Retrieve a single target page of DailyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage>;
-  getPage(params?: any, callback?: any): Promise<DailyPage>;
-  /**
-   * Lists DailyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DailyInstance[]) => any
-  ): Promise<DailyInstance[]>;
   /**
    * Lists DailyInstance records from the API as a list.
    *
@@ -426,23 +382,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DailyListInstanceOptions,
+    params?:
+      | DailyListInstanceOptions
+      | ((error: Error | null, items: DailyInstance[]) => any),
     callback?: (error: Error | null, items: DailyInstance[]) => any
   ): Promise<DailyInstance[]>;
-  list(params?: any, callback?: any): Promise<DailyInstance[]>;
-  /**
-   * Retrieve a single page of DailyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DailyPage) => any
-  ): Promise<DailyPage>;
   /**
    * Retrieve a single page of DailyInstance records from the API.
    *
@@ -455,10 +399,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DailyListInstancePageOptions,
+    params?:
+      | DailyListInstancePageOptions
+      | ((error: Error | null, items: DailyPage) => any),
     callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage>;
-  page(params?: any, callback?: any): Promise<DailyPage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function DailyListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/Daily.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DailyListInstancePageOptions
+      | ((error: Error | null, item?: DailyPage) => any),
+    callback?: (error: Error | null, item?: DailyPage) => any
   ): Promise<DailyPage> {
     if (typeof params === "function") {
       callback = params;
@@ -541,8 +488,8 @@ export function DailyListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

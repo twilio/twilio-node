@@ -216,7 +216,6 @@ export interface InteractionListInstance {
     params: InteractionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance>;
-  create(params: any, callback?: any): Promise<InteractionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -246,8 +245,8 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
   instance._uri = `/Interactions`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: InteractionListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

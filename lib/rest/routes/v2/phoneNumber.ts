@@ -60,10 +60,11 @@ export interface PhoneNumberContext {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   update(
-    params: PhoneNumberContextUpdateOptions,
+    params?:
+      | PhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -274,10 +275,11 @@ export class PhoneNumberInstance {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   update(
-    params: PhoneNumberContextUpdateOptions,
+    params?:
+      | PhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+  ): Promise<PhoneNumberInstance> {
     return this._proxy.update(params, callback);
   }
 

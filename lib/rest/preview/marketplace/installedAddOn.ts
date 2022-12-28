@@ -140,10 +140,11 @@ export interface InstalledAddOnContext {
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
   update(
-    params: InstalledAddOnContextUpdateOptions,
+    params?:
+      | InstalledAddOnContextUpdateOptions
+      | ((error: Error | null, item?: InstalledAddOnInstance) => any),
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance>;
-  update(params?: any, callback?: any): Promise<InstalledAddOnInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -404,10 +405,11 @@ export class InstalledAddOnInstance {
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
   update(
-    params: InstalledAddOnContextUpdateOptions,
+    params?:
+      | InstalledAddOnContextUpdateOptions
+      | ((error: Error | null, item?: InstalledAddOnInstance) => any),
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
-  ): Promise<InstalledAddOnInstance>;
-  update(params?: any, callback?: any): Promise<InstalledAddOnInstance> {
+  ): Promise<InstalledAddOnInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -459,28 +461,7 @@ export interface InstalledAddOnListInstance {
     params: InstalledAddOnListInstanceCreateOptions,
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance>;
-  create(params: any, callback?: any): Promise<InstalledAddOnInstance>;
 
-  /**
-   * Streams InstalledAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: InstalledAddOnInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams InstalledAddOnInstance records from the API.
    *
@@ -497,53 +478,26 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InstalledAddOnListInstanceEachOptions,
+    params?:
+      | InstalledAddOnListInstanceEachOptions
+      | ((item: InstalledAddOnInstance, done: (err?: Error) => void) => void),
     callback?: (
       item: InstalledAddOnInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of InstalledAddOnInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InstalledAddOnPage) => any
-  ): Promise<InstalledAddOnPage>;
-  /**
-   * Retrieve a single target page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage>;
-  getPage(params?: any, callback?: any): Promise<InstalledAddOnPage>;
-  /**
-   * Lists InstalledAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
-  ): Promise<InstalledAddOnInstance[]>;
   /**
    * Lists InstalledAddOnInstance records from the API as a list.
    *
@@ -554,23 +508,11 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InstalledAddOnListInstanceOptions,
+    params?:
+      | InstalledAddOnListInstanceOptions
+      | ((error: Error | null, items: InstalledAddOnInstance[]) => any),
     callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
   ): Promise<InstalledAddOnInstance[]>;
-  list(params?: any, callback?: any): Promise<InstalledAddOnInstance[]>;
-  /**
-   * Retrieve a single page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InstalledAddOnPage) => any
-  ): Promise<InstalledAddOnPage>;
   /**
    * Retrieve a single page of InstalledAddOnInstance records from the API.
    *
@@ -583,10 +525,11 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: InstalledAddOnListInstancePageOptions,
+    params?:
+      | InstalledAddOnListInstancePageOptions
+      | ((error: Error | null, items: InstalledAddOnPage) => any),
     callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage>;
-  page(params?: any, callback?: any): Promise<InstalledAddOnPage>;
 
   /**
    * Provide a user-friendly representation
@@ -619,8 +562,8 @@ export function InstalledAddOnListInstance(
   instance._uri = `/InstalledAddOns`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: InstalledAddOnListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -679,8 +622,10 @@ export function InstalledAddOnListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InstalledAddOnListInstancePageOptions
+      | ((error: Error | null, item?: InstalledAddOnPage) => any),
+    callback?: (error: Error | null, item?: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage> {
     if (typeof params === "function") {
       callback = params;
@@ -721,8 +666,8 @@ export function InstalledAddOnListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

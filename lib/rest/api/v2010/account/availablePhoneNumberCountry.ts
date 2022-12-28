@@ -425,89 +425,36 @@ export interface AvailablePhoneNumberCountryListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AvailablePhoneNumberCountryInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams AvailablePhoneNumberCountryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AvailablePhoneNumberCountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AvailablePhoneNumberCountryListInstanceEachOptions,
+    params?:
+      | AvailablePhoneNumberCountryListInstanceEachOptions
+      | ((
+          item: AvailablePhoneNumberCountryInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: AvailablePhoneNumberCountryInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: AvailablePhoneNumberCountryPage
-    ) => any
-  ): Promise<AvailablePhoneNumberCountryPage>;
-  /**
-   * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: AvailablePhoneNumberCountryPage
     ) => any
   ): Promise<AvailablePhoneNumberCountryPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<AvailablePhoneNumberCountryPage>;
-  /**
-   * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AvailablePhoneNumberCountryInstance[]
-    ) => any
-  ): Promise<AvailablePhoneNumberCountryInstance[]>;
   /**
    * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
    *
@@ -518,32 +465,17 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AvailablePhoneNumberCountryListInstanceOptions,
+    params?:
+      | AvailablePhoneNumberCountryListInstanceOptions
+      | ((
+          error: Error | null,
+          items: AvailablePhoneNumberCountryInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: AvailablePhoneNumberCountryInstance[]
     ) => any
   ): Promise<AvailablePhoneNumberCountryInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<AvailablePhoneNumberCountryInstance[]>;
-  /**
-   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: AvailablePhoneNumberCountryPage
-    ) => any
-  ): Promise<AvailablePhoneNumberCountryPage>;
   /**
    * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
    *
@@ -556,13 +488,14 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AvailablePhoneNumberCountryListInstancePageOptions,
+    params?:
+      | AvailablePhoneNumberCountryListInstancePageOptions
+      | ((error: Error | null, items: AvailablePhoneNumberCountryPage) => any),
     callback?: (
       error: Error | null,
       items: AvailablePhoneNumberCountryPage
     ) => any
   ): Promise<AvailablePhoneNumberCountryPage>;
-  page(params?: any, callback?: any): Promise<AvailablePhoneNumberCountryPage>;
 
   /**
    * Provide a user-friendly representation
@@ -609,8 +542,13 @@ export function AvailablePhoneNumberCountryListInstance(
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AvailablePhoneNumberCountryListInstancePageOptions
+      | ((error: Error | null, item?: AvailablePhoneNumberCountryPage) => any),
+    callback?: (
+      error: Error | null,
+      item?: AvailablePhoneNumberCountryPage
+    ) => any
   ): Promise<AvailablePhoneNumberCountryPage> {
     if (typeof params === "function") {
       callback = params;
@@ -655,8 +593,11 @@ export function AvailablePhoneNumberCountryListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
   ): Promise<AvailablePhoneNumberCountryPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

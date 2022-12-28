@@ -47,10 +47,11 @@ export interface UserRolesContext {
    * @returns { Promise } Resolves to processed UserRolesInstance
    */
   fetch(
-    params: UserRolesContextFetchOptions,
+    params?:
+      | UserRolesContextFetchOptions
+      | ((error: Error | null, item?: UserRolesInstance) => any),
     callback?: (error: Error | null, item?: UserRolesInstance) => any
   ): Promise<UserRolesInstance>;
-  fetch(params?: any, callback?: any): Promise<UserRolesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -164,10 +165,11 @@ export class UserRolesInstance {
    * @returns { Promise } Resolves to processed UserRolesInstance
    */
   fetch(
-    params: UserRolesContextFetchOptions,
+    params?:
+      | UserRolesContextFetchOptions
+      | ((error: Error | null, item?: UserRolesInstance) => any),
     callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
-  fetch(params?: any, callback?: any): Promise<UserRolesInstance> {
+  ): Promise<UserRolesInstance> {
     return this._proxy.fetch(params, callback);
   }
 

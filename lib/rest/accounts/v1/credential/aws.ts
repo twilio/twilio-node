@@ -130,10 +130,11 @@ export interface AwsContext {
    * @returns { Promise } Resolves to processed AwsInstance
    */
   update(
-    params: AwsContextUpdateOptions,
+    params?:
+      | AwsContextUpdateOptions
+      | ((error: Error | null, item?: AwsInstance) => any),
     callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance>;
-  update(params?: any, callback?: any): Promise<AwsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -346,10 +347,11 @@ export class AwsInstance {
    * @returns { Promise } Resolves to processed AwsInstance
    */
   update(
-    params: AwsContextUpdateOptions,
+    params?:
+      | AwsContextUpdateOptions
+      | ((error: Error | null, item?: AwsInstance) => any),
     callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
-  update(params?: any, callback?: any): Promise<AwsInstance> {
+  ): Promise<AwsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -390,25 +392,7 @@ export interface AwsListInstance {
     params: AwsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance>;
-  create(params: any, callback?: any): Promise<AwsInstance>;
 
-  /**
-   * Streams AwsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AwsInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AwsInstance records from the API.
    *
@@ -425,50 +409,23 @@ export interface AwsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AwsListInstanceEachOptions,
+    params?:
+      | AwsListInstanceEachOptions
+      | ((item: AwsInstance, done: (err?: Error) => void) => void),
     callback?: (item: AwsInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of AwsInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage>;
-  /**
-   * Retrieve a single target page of AwsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AwsPage) => any
   ): Promise<AwsPage>;
-  getPage(params?: any, callback?: any): Promise<AwsPage>;
-  /**
-   * Lists AwsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AwsInstance[]) => any
-  ): Promise<AwsInstance[]>;
   /**
    * Lists AwsInstance records from the API as a list.
    *
@@ -479,23 +436,11 @@ export interface AwsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AwsListInstanceOptions,
+    params?:
+      | AwsListInstanceOptions
+      | ((error: Error | null, items: AwsInstance[]) => any),
     callback?: (error: Error | null, items: AwsInstance[]) => any
   ): Promise<AwsInstance[]>;
-  list(params?: any, callback?: any): Promise<AwsInstance[]>;
-  /**
-   * Retrieve a single page of AwsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage>;
   /**
    * Retrieve a single page of AwsInstance records from the API.
    *
@@ -508,10 +453,11 @@ export interface AwsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: AwsListInstancePageOptions,
+    params?:
+      | AwsListInstancePageOptions
+      | ((error: Error | null, items: AwsPage) => any),
     callback?: (error: Error | null, items: AwsPage) => any
   ): Promise<AwsPage>;
-  page(params?: any, callback?: any): Promise<AwsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -541,8 +487,8 @@ export function AwsListInstance(version: V1): AwsListInstance {
   instance._uri = `/Credentials/AWS`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AwsListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -583,8 +529,10 @@ export function AwsListInstance(version: V1): AwsListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AwsListInstancePageOptions
+      | ((error: Error | null, item?: AwsPage) => any),
+    callback?: (error: Error | null, item?: AwsPage) => any
   ): Promise<AwsPage> {
     if (typeof params === "function") {
       callback = params;
@@ -624,8 +572,8 @@ export function AwsListInstance(version: V1): AwsListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AwsPage) => any
   ): Promise<AwsPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

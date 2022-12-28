@@ -65,10 +65,11 @@ export interface ConfigurationContext {
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   update(
-    params: ConfigurationContextUpdateOptions,
+    params?:
+      | ConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -256,10 +257,11 @@ export class ConfigurationInstance {
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   update(
-    params: ConfigurationContextUpdateOptions,
+    params?:
+      | ConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
+  ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 

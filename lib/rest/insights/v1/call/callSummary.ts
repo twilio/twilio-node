@@ -70,10 +70,11 @@ export interface CallSummaryContext {
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
   fetch(
-    params: CallSummaryContextFetchOptions,
+    params?:
+      | CallSummaryContextFetchOptions
+      | ((error: Error | null, item?: CallSummaryInstance) => any),
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -266,10 +267,11 @@ export class CallSummaryInstance {
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
   fetch(
-    params: CallSummaryContextFetchOptions,
+    params?:
+      | CallSummaryContextFetchOptions
+      | ((error: Error | null, item?: CallSummaryInstance) => any),
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
+  ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);
   }
 

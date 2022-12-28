@@ -351,71 +351,27 @@ export interface ThisMonthListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams ThisMonthInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { ThisMonthListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ThisMonthListInstanceEachOptions,
+    params?:
+      | ThisMonthListInstanceEachOptions
+      | ((item: ThisMonthInstance, done: (err?: Error) => void) => void),
     callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ThisMonthPage) => any
-  ): Promise<ThisMonthPage>;
-  /**
-   * Retrieve a single target page of ThisMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ThisMonthPage) => any
   ): Promise<ThisMonthPage>;
-  getPage(params?: any, callback?: any): Promise<ThisMonthPage>;
-  /**
-   * Lists ThisMonthInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ThisMonthInstance[]) => any
-  ): Promise<ThisMonthInstance[]>;
   /**
    * Lists ThisMonthInstance records from the API as a list.
    *
@@ -426,23 +382,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ThisMonthListInstanceOptions,
+    params?:
+      | ThisMonthListInstanceOptions
+      | ((error: Error | null, items: ThisMonthInstance[]) => any),
     callback?: (error: Error | null, items: ThisMonthInstance[]) => any
   ): Promise<ThisMonthInstance[]>;
-  list(params?: any, callback?: any): Promise<ThisMonthInstance[]>;
-  /**
-   * Retrieve a single page of ThisMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ThisMonthPage) => any
-  ): Promise<ThisMonthPage>;
   /**
    * Retrieve a single page of ThisMonthInstance records from the API.
    *
@@ -455,10 +399,11 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ThisMonthListInstancePageOptions,
+    params?:
+      | ThisMonthListInstancePageOptions
+      | ((error: Error | null, items: ThisMonthPage) => any),
     callback?: (error: Error | null, items: ThisMonthPage) => any
   ): Promise<ThisMonthPage>;
-  page(params?: any, callback?: any): Promise<ThisMonthPage>;
 
   /**
    * Provide a user-friendly representation
@@ -493,8 +438,10 @@ export function ThisMonthListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/ThisMonth.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ThisMonthListInstancePageOptions
+      | ((error: Error | null, item?: ThisMonthPage) => any),
+    callback?: (error: Error | null, item?: ThisMonthPage) => any
   ): Promise<ThisMonthPage> {
     if (typeof params === "function") {
       callback = params;
@@ -541,8 +488,8 @@ export function ThisMonthListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ThisMonthPage) => any
   ): Promise<ThisMonthPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

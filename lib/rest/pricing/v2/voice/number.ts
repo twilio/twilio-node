@@ -62,10 +62,11 @@ export interface NumberContext {
    * @returns { Promise } Resolves to processed NumberInstance
    */
   fetch(
-    params: NumberContextFetchOptions,
+    params?:
+      | NumberContextFetchOptions
+      | ((error: Error | null, item?: NumberInstance) => any),
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
-  fetch(params?: any, callback?: any): Promise<NumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -236,10 +237,11 @@ export class NumberInstance {
    * @returns { Promise } Resolves to processed NumberInstance
    */
   fetch(
-    params: NumberContextFetchOptions,
+    params?:
+      | NumberContextFetchOptions
+      | ((error: Error | null, item?: NumberInstance) => any),
     callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
-  fetch(params?: any, callback?: any): Promise<NumberInstance> {
+  ): Promise<NumberInstance> {
     return this._proxy.fetch(params, callback);
   }
 

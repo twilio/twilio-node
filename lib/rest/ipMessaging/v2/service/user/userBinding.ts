@@ -330,71 +330,27 @@ export interface UserBindingListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams UserBindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { UserBindingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UserBindingListInstanceEachOptions,
+    params?:
+      | UserBindingListInstanceEachOptions
+      | ((item: UserBindingInstance, done: (err?: Error) => void) => void),
     callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UserBindingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UserBindingPage) => any
-  ): Promise<UserBindingPage>;
-  /**
-   * Retrieve a single target page of UserBindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
-  getPage(params?: any, callback?: any): Promise<UserBindingPage>;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UserBindingInstance[]) => any
-  ): Promise<UserBindingInstance[]>;
   /**
    * Lists UserBindingInstance records from the API as a list.
    *
@@ -405,23 +361,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UserBindingListInstanceOptions,
+    params?:
+      | UserBindingListInstanceOptions
+      | ((error: Error | null, items: UserBindingInstance[]) => any),
     callback?: (error: Error | null, items: UserBindingInstance[]) => any
   ): Promise<UserBindingInstance[]>;
-  list(params?: any, callback?: any): Promise<UserBindingInstance[]>;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UserBindingPage) => any
-  ): Promise<UserBindingPage>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
    *
@@ -434,10 +378,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: UserBindingListInstancePageOptions,
+    params?:
+      | UserBindingListInstancePageOptions
+      | ((error: Error | null, items: UserBindingPage) => any),
     callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
-  page(params?: any, callback?: any): Promise<UserBindingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -482,8 +427,10 @@ export function UserBindingListInstance(
   instance._uri = `/Services/${serviceSid}/Users/${userSid}/Bindings`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UserBindingListInstancePageOptions
+      | ((error: Error | null, item?: UserBindingPage) => any),
+    callback?: (error: Error | null, item?: UserBindingPage) => any
   ): Promise<UserBindingPage> {
     if (typeof params === "function") {
       callback = params;
@@ -526,8 +473,8 @@ export function UserBindingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

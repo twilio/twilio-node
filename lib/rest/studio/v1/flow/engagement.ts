@@ -393,25 +393,7 @@ export interface EngagementListInstance {
     params: EngagementListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EngagementInstance) => any
   ): Promise<EngagementInstance>;
-  create(params: any, callback?: any): Promise<EngagementInstance>;
 
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EngagementInstance records from the API.
    *
@@ -428,50 +410,23 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EngagementListInstanceEachOptions,
+    params?:
+      | EngagementListInstanceEachOptions
+      | ((item: EngagementInstance, done: (err?: Error) => void) => void),
     callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of EngagementInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EngagementPage) => any
-  ): Promise<EngagementPage>;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage>;
-  getPage(params?: any, callback?: any): Promise<EngagementPage>;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EngagementInstance[]) => any
-  ): Promise<EngagementInstance[]>;
   /**
    * Lists EngagementInstance records from the API as a list.
    *
@@ -482,23 +437,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EngagementListInstanceOptions,
+    params?:
+      | EngagementListInstanceOptions
+      | ((error: Error | null, items: EngagementInstance[]) => any),
     callback?: (error: Error | null, items: EngagementInstance[]) => any
   ): Promise<EngagementInstance[]>;
-  list(params?: any, callback?: any): Promise<EngagementInstance[]>;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EngagementPage) => any
-  ): Promise<EngagementPage>;
   /**
    * Retrieve a single page of EngagementInstance records from the API.
    *
@@ -511,10 +454,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: EngagementListInstancePageOptions,
+    params?:
+      | EngagementListInstancePageOptions
+      | ((error: Error | null, items: EngagementPage) => any),
     callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage>;
-  page(params?: any, callback?: any): Promise<EngagementPage>;
 
   /**
    * Provide a user-friendly representation
@@ -553,8 +497,8 @@ export function EngagementListInstance(
   instance._uri = `/Flows/${flowSid}/Engagements`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: EngagementListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: EngagementInstance) => any
   ): Promise<EngagementInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -604,8 +548,10 @@ export function EngagementListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EngagementListInstancePageOptions
+      | ((error: Error | null, item?: EngagementPage) => any),
+    callback?: (error: Error | null, item?: EngagementPage) => any
   ): Promise<EngagementPage> {
     if (typeof params === "function") {
       callback = params;
@@ -645,8 +591,8 @@ export function EngagementListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

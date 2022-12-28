@@ -47,10 +47,11 @@ export interface NewKeyListInstance {
    * @returns { Promise } Resolves to processed NewKeyInstance
    */
   create(
-    params: NewKeyListInstanceCreateOptions,
+    params?:
+      | NewKeyListInstanceCreateOptions
+      | ((error: Error | null, item?: NewKeyInstance) => any),
     callback?: (error: Error | null, item?: NewKeyInstance) => any
   ): Promise<NewKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -85,8 +86,10 @@ export function NewKeyListInstance(
   instance._uri = `/Accounts/${accountSid}/Keys.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NewKeyListInstanceCreateOptions
+      | ((error: Error | null, item?: NewKeyInstance) => any),
+    callback?: (error: Error | null, item?: NewKeyInstance) => any
   ): Promise<NewKeyInstance> {
     if (typeof params === "function") {
       callback = params;

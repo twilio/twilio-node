@@ -428,31 +428,12 @@ export interface MessageInteractionListInstance {
    * @returns { Promise } Resolves to processed MessageInteractionInstance
    */
   create(
-    params: MessageInteractionListInstanceCreateOptions,
+    params?:
+      | MessageInteractionListInstanceCreateOptions
+      | ((error: Error | null, item?: MessageInteractionInstance) => any),
     callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance>;
-  create(params?: any, callback?: any): Promise<MessageInteractionInstance>;
 
-  /**
-   * Streams MessageInteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MessageInteractionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams MessageInteractionInstance records from the API.
    *
@@ -469,53 +450,29 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MessageInteractionListInstanceEachOptions,
+    params?:
+      | MessageInteractionListInstanceEachOptions
+      | ((
+          item: MessageInteractionInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: MessageInteractionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of MessageInteractionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage>;
-  /**
-   * Retrieve a single target page of MessageInteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage>;
-  getPage(params?: any, callback?: any): Promise<MessageInteractionPage>;
-  /**
-   * Lists MessageInteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
-  ): Promise<MessageInteractionInstance[]>;
   /**
    * Lists MessageInteractionInstance records from the API as a list.
    *
@@ -526,23 +483,11 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MessageInteractionListInstanceOptions,
+    params?:
+      | MessageInteractionListInstanceOptions
+      | ((error: Error | null, items: MessageInteractionInstance[]) => any),
     callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
   ): Promise<MessageInteractionInstance[]>;
-  list(params?: any, callback?: any): Promise<MessageInteractionInstance[]>;
-  /**
-   * Retrieve a single page of MessageInteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
    *
@@ -555,10 +500,11 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: MessageInteractionListInstancePageOptions,
+    params?:
+      | MessageInteractionListInstancePageOptions
+      | ((error: Error | null, items: MessageInteractionPage) => any),
     callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage>;
-  page(params?: any, callback?: any): Promise<MessageInteractionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -619,8 +565,10 @@ export function MessageInteractionListInstance(
   instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageInteractionListInstanceCreateOptions
+      | ((error: Error | null, item?: MessageInteractionInstance) => any),
+    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance> {
     if (typeof params === "function") {
       callback = params;
@@ -665,8 +613,10 @@ export function MessageInteractionListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageInteractionListInstancePageOptions
+      | ((error: Error | null, item?: MessageInteractionPage) => any),
+    callback?: (error: Error | null, item?: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage> {
     if (typeof params === "function") {
       callback = params;
@@ -707,8 +657,8 @@ export function MessageInteractionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

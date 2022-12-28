@@ -344,71 +344,27 @@ export interface StepListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: StepInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams StepInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { StepListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: StepListInstanceEachOptions,
+    params?:
+      | StepListInstanceEachOptions
+      | ((item: StepInstance, done: (err?: Error) => void) => void),
     callback?: (item: StepInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of StepInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: StepPage) => any
-  ): Promise<StepPage>;
-  /**
-   * Retrieve a single target page of StepInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: StepPage) => any
   ): Promise<StepPage>;
-  getPage(params?: any, callback?: any): Promise<StepPage>;
-  /**
-   * Lists StepInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: StepInstance[]) => any
-  ): Promise<StepInstance[]>;
   /**
    * Lists StepInstance records from the API as a list.
    *
@@ -419,23 +375,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: StepListInstanceOptions,
+    params?:
+      | StepListInstanceOptions
+      | ((error: Error | null, items: StepInstance[]) => any),
     callback?: (error: Error | null, items: StepInstance[]) => any
   ): Promise<StepInstance[]>;
-  list(params?: any, callback?: any): Promise<StepInstance[]>;
-  /**
-   * Retrieve a single page of StepInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: StepPage) => any
-  ): Promise<StepPage>;
   /**
    * Retrieve a single page of StepInstance records from the API.
    *
@@ -448,10 +392,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: StepListInstancePageOptions,
+    params?:
+      | StepListInstancePageOptions
+      | ((error: Error | null, items: StepPage) => any),
     callback?: (error: Error | null, items: StepPage) => any
   ): Promise<StepPage>;
-  page(params?: any, callback?: any): Promise<StepPage>;
 
   /**
    * Provide a user-friendly representation
@@ -496,8 +441,10 @@ export function StepListInstance(
   instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | StepListInstancePageOptions
+      | ((error: Error | null, item?: StepPage) => any),
+    callback?: (error: Error | null, item?: StepPage) => any
   ): Promise<StepPage> {
     if (typeof params === "function") {
       callback = params;
@@ -537,8 +484,8 @@ export function StepListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: StepPage) => any
   ): Promise<StepPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

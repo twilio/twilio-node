@@ -80,71 +80,27 @@ export interface DataSessionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams DataSessionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { DataSessionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DataSessionListInstanceEachOptions,
+    params?:
+      | DataSessionListInstanceEachOptions
+      | ((item: DataSessionInstance, done: (err?: Error) => void) => void),
     callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
-  /**
-   * Retrieve a single target page of DataSessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage>;
-  getPage(params?: any, callback?: any): Promise<DataSessionPage>;
-  /**
-   * Lists DataSessionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
-  ): Promise<DataSessionInstance[]>;
   /**
    * Lists DataSessionInstance records from the API as a list.
    *
@@ -155,23 +111,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DataSessionListInstanceOptions,
+    params?:
+      | DataSessionListInstanceOptions
+      | ((error: Error | null, items: DataSessionInstance[]) => any),
     callback?: (error: Error | null, items: DataSessionInstance[]) => any
   ): Promise<DataSessionInstance[]>;
-  list(params?: any, callback?: any): Promise<DataSessionInstance[]>;
-  /**
-   * Retrieve a single page of DataSessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    *
@@ -184,10 +128,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DataSessionListInstancePageOptions,
+    params?:
+      | DataSessionListInstancePageOptions
+      | ((error: Error | null, items: DataSessionPage) => any),
     callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage>;
-  page(params?: any, callback?: any): Promise<DataSessionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -222,8 +167,10 @@ export function DataSessionListInstance(
   instance._uri = `/Sims/${simSid}/DataSessions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DataSessionListInstancePageOptions
+      | ((error: Error | null, item?: DataSessionPage) => any),
+    callback?: (error: Error | null, item?: DataSessionPage) => any
   ): Promise<DataSessionPage> {
     if (typeof params === "function") {
       callback = params;
@@ -264,8 +211,8 @@ export function DataSessionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

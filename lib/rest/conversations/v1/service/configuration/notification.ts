@@ -82,10 +82,11 @@ export interface NotificationContext {
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   update(
-    params: NotificationContextUpdateOptions,
+    params?:
+      | NotificationContextUpdateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
-  update(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -324,10 +325,11 @@ export class NotificationInstance {
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   update(
-    params: NotificationContextUpdateOptions,
+    params?:
+      | NotificationContextUpdateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
     callback?: (error: Error | null, item?: NotificationInstance) => any
-  ): Promise<NotificationInstance>;
-  update(params?: any, callback?: any): Promise<NotificationInstance> {
+  ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);
   }
 

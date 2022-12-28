@@ -140,10 +140,11 @@ export interface SampleContext {
    * @returns { Promise } Resolves to processed SampleInstance
    */
   update(
-    params: SampleContextUpdateOptions,
+    params?:
+      | SampleContextUpdateOptions
+      | ((error: Error | null, item?: SampleInstance) => any),
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance>;
-  update(params?: any, callback?: any): Promise<SampleInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -419,10 +420,11 @@ export class SampleInstance {
    * @returns { Promise } Resolves to processed SampleInstance
    */
   update(
-    params: SampleContextUpdateOptions,
+    params?:
+      | SampleContextUpdateOptions
+      | ((error: Error | null, item?: SampleInstance) => any),
     callback?: (error: Error | null, item?: SampleInstance) => any
-  ): Promise<SampleInstance>;
-  update(params?: any, callback?: any): Promise<SampleInstance> {
+  ): Promise<SampleInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -467,25 +469,7 @@ export interface SampleListInstance {
     params: SampleListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance>;
-  create(params: any, callback?: any): Promise<SampleInstance>;
 
-  /**
-   * Streams SampleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SampleInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SampleInstance records from the API.
    *
@@ -502,50 +486,23 @@ export interface SampleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SampleListInstanceEachOptions,
+    params?:
+      | SampleListInstanceEachOptions
+      | ((item: SampleInstance, done: (err?: Error) => void) => void),
     callback?: (item: SampleInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SampleInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SamplePage) => any
-  ): Promise<SamplePage>;
-  /**
-   * Retrieve a single target page of SampleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage>;
-  getPage(params?: any, callback?: any): Promise<SamplePage>;
-  /**
-   * Lists SampleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SampleInstance[]) => any
-  ): Promise<SampleInstance[]>;
   /**
    * Lists SampleInstance records from the API as a list.
    *
@@ -556,23 +513,11 @@ export interface SampleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SampleListInstanceOptions,
+    params?:
+      | SampleListInstanceOptions
+      | ((error: Error | null, items: SampleInstance[]) => any),
     callback?: (error: Error | null, items: SampleInstance[]) => any
   ): Promise<SampleInstance[]>;
-  list(params?: any, callback?: any): Promise<SampleInstance[]>;
-  /**
-   * Retrieve a single page of SampleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SamplePage) => any
-  ): Promise<SamplePage>;
   /**
    * Retrieve a single page of SampleInstance records from the API.
    *
@@ -585,10 +530,11 @@ export interface SampleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SampleListInstancePageOptions,
+    params?:
+      | SampleListInstancePageOptions
+      | ((error: Error | null, items: SamplePage) => any),
     callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage>;
-  page(params?: any, callback?: any): Promise<SamplePage>;
 
   /**
    * Provide a user-friendly representation
@@ -633,8 +579,8 @@ export function SampleListInstance(
   instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Samples`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SampleListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -685,8 +631,10 @@ export function SampleListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SampleListInstancePageOptions
+      | ((error: Error | null, item?: SamplePage) => any),
+    callback?: (error: Error | null, item?: SamplePage) => any
   ): Promise<SamplePage> {
     if (typeof params === "function") {
       callback = params;
@@ -727,8 +675,8 @@ export function SampleListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

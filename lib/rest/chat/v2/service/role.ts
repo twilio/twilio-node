@@ -125,7 +125,6 @@ export interface RoleContext {
     params: RoleContextUpdateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance>;
-  update(params: any, callback?: any): Promise<RoleInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -370,8 +369,7 @@ export class RoleInstance {
   update(
     params: RoleContextUpdateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
-  ): Promise<RoleInstance>;
-  update(params: any, callback?: any): Promise<RoleInstance> {
+  ): Promise<RoleInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -415,25 +413,7 @@ export interface RoleListInstance {
     params: RoleListInstanceCreateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance>;
-  create(params: any, callback?: any): Promise<RoleInstance>;
 
-  /**
-   * Streams RoleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RoleInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams RoleInstance records from the API.
    *
@@ -450,50 +430,23 @@ export interface RoleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RoleListInstanceEachOptions,
+    params?:
+      | RoleListInstanceEachOptions
+      | ((item: RoleInstance, done: (err?: Error) => void) => void),
     callback?: (item: RoleInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of RoleInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RolePage) => any
-  ): Promise<RolePage>;
-  /**
-   * Retrieve a single target page of RoleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage>;
-  getPage(params?: any, callback?: any): Promise<RolePage>;
-  /**
-   * Lists RoleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RoleInstance[]) => any
-  ): Promise<RoleInstance[]>;
   /**
    * Lists RoleInstance records from the API as a list.
    *
@@ -504,23 +457,11 @@ export interface RoleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RoleListInstanceOptions,
+    params?:
+      | RoleListInstanceOptions
+      | ((error: Error | null, items: RoleInstance[]) => any),
     callback?: (error: Error | null, items: RoleInstance[]) => any
   ): Promise<RoleInstance[]>;
-  list(params?: any, callback?: any): Promise<RoleInstance[]>;
-  /**
-   * Retrieve a single page of RoleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RolePage) => any
-  ): Promise<RolePage>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
    *
@@ -533,10 +474,11 @@ export interface RoleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: RoleListInstancePageOptions,
+    params?:
+      | RoleListInstancePageOptions
+      | ((error: Error | null, items: RolePage) => any),
     callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage>;
-  page(params?: any, callback?: any): Promise<RolePage>;
 
   /**
    * Provide a user-friendly representation
@@ -575,8 +517,8 @@ export function RoleListInstance(
   instance._uri = `/Services/${serviceSid}/Roles`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: RoleListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -629,8 +571,10 @@ export function RoleListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RoleListInstancePageOptions
+      | ((error: Error | null, item?: RolePage) => any),
+    callback?: (error: Error | null, item?: RolePage) => any
   ): Promise<RolePage> {
     if (typeof params === "function") {
       callback = params;
@@ -670,8 +614,8 @@ export function RoleListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

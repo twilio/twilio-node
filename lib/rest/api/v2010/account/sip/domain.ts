@@ -181,10 +181,11 @@ export interface DomainContext {
    * @returns { Promise } Resolves to processed DomainInstance
    */
   update(
-    params: DomainContextUpdateOptions,
+    params?:
+      | DomainContextUpdateOptions
+      | ((error: Error | null, item?: DomainInstance) => any),
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -596,10 +597,11 @@ export class DomainInstance {
    * @returns { Promise } Resolves to processed DomainInstance
    */
   update(
-    params: DomainContextUpdateOptions,
+    params?:
+      | DomainContextUpdateOptions
+      | ((error: Error | null, item?: DomainInstance) => any),
     callback?: (error: Error | null, item?: DomainInstance) => any
-  ): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance> {
+  ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -676,25 +678,7 @@ export interface DomainListInstance {
     params: DomainListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
-  create(params: any, callback?: any): Promise<DomainInstance>;
 
-  /**
-   * Streams DomainInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DomainInstance records from the API.
    *
@@ -711,50 +695,23 @@ export interface DomainListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DomainListInstanceEachOptions,
+    params?:
+      | DomainListInstanceEachOptions
+      | ((item: DomainInstance, done: (err?: Error) => void) => void),
     callback?: (item: DomainInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DomainPage) => any
-  ): Promise<DomainPage>;
-  /**
-   * Retrieve a single target page of DomainInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
-  getPage(params?: any, callback?: any): Promise<DomainPage>;
-  /**
-   * Lists DomainInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DomainInstance[]) => any
-  ): Promise<DomainInstance[]>;
   /**
    * Lists DomainInstance records from the API as a list.
    *
@@ -765,23 +722,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DomainListInstanceOptions,
+    params?:
+      | DomainListInstanceOptions
+      | ((error: Error | null, items: DomainInstance[]) => any),
     callback?: (error: Error | null, items: DomainInstance[]) => any
   ): Promise<DomainInstance[]>;
-  list(params?: any, callback?: any): Promise<DomainInstance[]>;
-  /**
-   * Retrieve a single page of DomainInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DomainPage) => any
-  ): Promise<DomainPage>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    *
@@ -794,10 +739,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: DomainListInstancePageOptions,
+    params?:
+      | DomainListInstancePageOptions
+      | ((error: Error | null, items: DomainPage) => any),
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
-  page(params?: any, callback?: any): Promise<DomainPage>;
 
   /**
    * Provide a user-friendly representation
@@ -836,8 +782,8 @@ export function DomainListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: DomainListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -900,8 +846,10 @@ export function DomainListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DomainListInstancePageOptions
+      | ((error: Error | null, item?: DomainPage) => any),
+    callback?: (error: Error | null, item?: DomainPage) => any
   ): Promise<DomainPage> {
     if (typeof params === "function") {
       callback = params;
@@ -941,8 +889,8 @@ export function DomainListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

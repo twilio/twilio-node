@@ -86,71 +86,27 @@ export interface TemplateListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams TemplateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { TemplateListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TemplateListInstanceEachOptions,
+    params?:
+      | TemplateListInstanceEachOptions
+      | ((item: TemplateInstance, done: (err?: Error) => void) => void),
     callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of TemplateInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage>;
-  /**
-   * Retrieve a single target page of TemplateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
-  getPage(params?: any, callback?: any): Promise<TemplatePage>;
-  /**
-   * Lists TemplateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TemplateInstance[]) => any
-  ): Promise<TemplateInstance[]>;
   /**
    * Lists TemplateInstance records from the API as a list.
    *
@@ -161,23 +117,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TemplateListInstanceOptions,
+    params?:
+      | TemplateListInstanceOptions
+      | ((error: Error | null, items: TemplateInstance[]) => any),
     callback?: (error: Error | null, items: TemplateInstance[]) => any
   ): Promise<TemplateInstance[]>;
-  list(params?: any, callback?: any): Promise<TemplateInstance[]>;
-  /**
-   * Retrieve a single page of TemplateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage>;
   /**
    * Retrieve a single page of TemplateInstance records from the API.
    *
@@ -190,10 +134,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: TemplateListInstancePageOptions,
+    params?:
+      | TemplateListInstancePageOptions
+      | ((error: Error | null, items: TemplatePage) => any),
     callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
-  page(params?: any, callback?: any): Promise<TemplatePage>;
 
   /**
    * Provide a user-friendly representation
@@ -219,8 +164,10 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
   instance._uri = `/Templates`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TemplateListInstancePageOptions
+      | ((error: Error | null, item?: TemplatePage) => any),
+    callback?: (error: Error | null, item?: TemplatePage) => any
   ): Promise<TemplatePage> {
     if (typeof params === "function") {
       callback = params;
@@ -262,8 +209,8 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

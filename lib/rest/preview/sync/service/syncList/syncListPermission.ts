@@ -117,7 +117,6 @@ export interface SyncListPermissionContext {
     params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
   ): Promise<SyncListPermissionInstance>;
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -391,8 +390,7 @@ export class SyncListPermissionInstance {
   update(
     params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
-  ): Promise<SyncListPermissionInstance>;
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance> {
+  ): Promise<SyncListPermissionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -435,77 +433,33 @@ export interface SyncListPermissionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams SyncListPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SyncListPermissionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SyncListPermissionListInstanceEachOptions,
+    params?:
+      | SyncListPermissionListInstanceEachOptions
+      | ((
+          item: SyncListPermissionInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: SyncListPermissionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of SyncListPermissionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
-  ): Promise<SyncListPermissionPage>;
-  /**
-   * Retrieve a single target page of SyncListPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage>;
-  getPage(params?: any, callback?: any): Promise<SyncListPermissionPage>;
-  /**
-   * Lists SyncListPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
-  ): Promise<SyncListPermissionInstance[]>;
   /**
    * Lists SyncListPermissionInstance records from the API as a list.
    *
@@ -516,23 +470,11 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SyncListPermissionListInstanceOptions,
+    params?:
+      | SyncListPermissionListInstanceOptions
+      | ((error: Error | null, items: SyncListPermissionInstance[]) => any),
     callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
   ): Promise<SyncListPermissionInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncListPermissionInstance[]>;
-  /**
-   * Retrieve a single page of SyncListPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
-  ): Promise<SyncListPermissionPage>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API.
    *
@@ -545,10 +487,11 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: SyncListPermissionListInstancePageOptions,
+    params?:
+      | SyncListPermissionListInstancePageOptions
+      | ((error: Error | null, items: SyncListPermissionPage) => any),
     callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage>;
-  page(params?: any, callback?: any): Promise<SyncListPermissionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -602,8 +545,10 @@ export function SyncListPermissionListInstance(
   instance._uri = `/Services/${serviceSid}/Lists/${listSid}/Permissions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SyncListPermissionListInstancePageOptions
+      | ((error: Error | null, item?: SyncListPermissionPage) => any),
+    callback?: (error: Error | null, item?: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage> {
     if (typeof params === "function") {
       callback = params;
@@ -644,8 +589,8 @@ export function SyncListPermissionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

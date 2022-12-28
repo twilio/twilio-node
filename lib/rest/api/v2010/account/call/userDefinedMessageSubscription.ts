@@ -228,10 +228,6 @@ export interface UserDefinedMessageSubscriptionListInstance {
       item?: UserDefinedMessageSubscriptionInstance
     ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<UserDefinedMessageSubscriptionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -285,8 +281,11 @@ export function UserDefinedMessageSubscriptionListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: UserDefinedMessageSubscriptionInstance
+    ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

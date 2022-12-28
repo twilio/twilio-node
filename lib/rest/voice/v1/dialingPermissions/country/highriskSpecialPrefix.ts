@@ -83,80 +83,33 @@ export interface HighriskSpecialPrefixListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: HighriskSpecialPrefixInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams HighriskSpecialPrefixInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { HighriskSpecialPrefixListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: HighriskSpecialPrefixListInstanceEachOptions,
+    params?:
+      | HighriskSpecialPrefixListInstanceEachOptions
+      | ((
+          item: HighriskSpecialPrefixInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: HighriskSpecialPrefixInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
-  /**
-   * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage>;
-  getPage(params?: any, callback?: any): Promise<HighriskSpecialPrefixPage>;
-  /**
-   * Lists HighriskSpecialPrefixInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: HighriskSpecialPrefixInstance[]
-    ) => any
-  ): Promise<HighriskSpecialPrefixInstance[]>;
   /**
    * Lists HighriskSpecialPrefixInstance records from the API as a list.
    *
@@ -167,26 +120,14 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: HighriskSpecialPrefixListInstanceOptions,
+    params?:
+      | HighriskSpecialPrefixListInstanceOptions
+      | ((error: Error | null, items: HighriskSpecialPrefixInstance[]) => any),
     callback?: (
       error: Error | null,
       items: HighriskSpecialPrefixInstance[]
     ) => any
   ): Promise<HighriskSpecialPrefixInstance[]>;
-  list(params?: any, callback?: any): Promise<HighriskSpecialPrefixInstance[]>;
-  /**
-   * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
   /**
    * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
    *
@@ -199,10 +140,11 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: HighriskSpecialPrefixListInstancePageOptions,
+    params?:
+      | HighriskSpecialPrefixListInstancePageOptions
+      | ((error: Error | null, items: HighriskSpecialPrefixPage) => any),
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage>;
-  page(params?: any, callback?: any): Promise<HighriskSpecialPrefixPage>;
 
   /**
    * Provide a user-friendly representation
@@ -240,8 +182,10 @@ export function HighriskSpecialPrefixListInstance(
   instance._uri = `/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | HighriskSpecialPrefixListInstancePageOptions
+      | ((error: Error | null, item?: HighriskSpecialPrefixPage) => any),
+    callback?: (error: Error | null, item?: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
     if (typeof params === "function") {
       callback = params;
@@ -282,8 +226,8 @@ export function HighriskSpecialPrefixListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -57,7 +57,6 @@ export interface DomainConfigContext {
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -269,8 +268,7 @@ export class DomainConfigInstance {
   update(
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
-  ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+  ): Promise<DomainConfigInstance> {
     return this._proxy.update(params, callback);
   }
 

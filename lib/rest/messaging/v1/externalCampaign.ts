@@ -42,7 +42,6 @@ export interface ExternalCampaignListInstance {
     params: ExternalCampaignListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance>;
-  create(params: any, callback?: any): Promise<ExternalCampaignInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,8 +70,8 @@ export function ExternalCampaignListInstance(
   instance._uri = `/Services/PreregisteredUsa2p`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ExternalCampaignListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

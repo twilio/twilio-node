@@ -329,31 +329,7 @@ export interface NetworkAccessProfileNetworkListInstance {
       item?: NetworkAccessProfileNetworkInstance
     ) => any
   ): Promise<NetworkAccessProfileNetworkInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<NetworkAccessProfileNetworkInstance>;
 
-  /**
-   * Streams NetworkAccessProfileNetworkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: NetworkAccessProfileNetworkInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams NetworkAccessProfileNetworkInstance records from the API.
    *
@@ -370,65 +346,32 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: NetworkAccessProfileNetworkListInstanceEachOptions,
+    params?:
+      | NetworkAccessProfileNetworkListInstanceEachOptions
+      | ((
+          item: NetworkAccessProfileNetworkInstance,
+          done: (err?: Error) => void
+        ) => void),
     callback?: (
       item: NetworkAccessProfileNetworkInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of NetworkAccessProfileNetworkInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (
-      error: Error | null,
-      items: NetworkAccessProfileNetworkPage
-    ) => any
-  ): Promise<NetworkAccessProfileNetworkPage>;
-  /**
-   * Retrieve a single target page of NetworkAccessProfileNetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileNetworkPage
     ) => any
   ): Promise<NetworkAccessProfileNetworkPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<NetworkAccessProfileNetworkPage>;
-  /**
-   * Lists NetworkAccessProfileNetworkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: NetworkAccessProfileNetworkInstance[]
-    ) => any
-  ): Promise<NetworkAccessProfileNetworkInstance[]>;
   /**
    * Lists NetworkAccessProfileNetworkInstance records from the API as a list.
    *
@@ -439,32 +382,17 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: NetworkAccessProfileNetworkListInstanceOptions,
+    params?:
+      | NetworkAccessProfileNetworkListInstanceOptions
+      | ((
+          error: Error | null,
+          items: NetworkAccessProfileNetworkInstance[]
+        ) => any),
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileNetworkInstance[]
     ) => any
   ): Promise<NetworkAccessProfileNetworkInstance[]>;
-  list(
-    params?: any,
-    callback?: any
-  ): Promise<NetworkAccessProfileNetworkInstance[]>;
-  /**
-   * Retrieve a single page of NetworkAccessProfileNetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (
-      error: Error | null,
-      items: NetworkAccessProfileNetworkPage
-    ) => any
-  ): Promise<NetworkAccessProfileNetworkPage>;
   /**
    * Retrieve a single page of NetworkAccessProfileNetworkInstance records from the API.
    *
@@ -477,13 +405,14 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: NetworkAccessProfileNetworkListInstancePageOptions,
+    params?:
+      | NetworkAccessProfileNetworkListInstancePageOptions
+      | ((error: Error | null, items: NetworkAccessProfileNetworkPage) => any),
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileNetworkPage
     ) => any
   ): Promise<NetworkAccessProfileNetworkPage>;
-  page(params?: any, callback?: any): Promise<NetworkAccessProfileNetworkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -530,8 +459,11 @@ export function NetworkAccessProfileNetworkListInstance(
   instance._uri = `/NetworkAccessProfiles/${networkAccessProfileSid}/Networks`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: NetworkAccessProfileNetworkListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: NetworkAccessProfileNetworkInstance
+    ) => any
   ): Promise<NetworkAccessProfileNetworkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -573,8 +505,13 @@ export function NetworkAccessProfileNetworkListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | NetworkAccessProfileNetworkListInstancePageOptions
+      | ((error: Error | null, item?: NetworkAccessProfileNetworkPage) => any),
+    callback?: (
+      error: Error | null,
+      item?: NetworkAccessProfileNetworkPage
+    ) => any
   ): Promise<NetworkAccessProfileNetworkPage> {
     if (typeof params === "function") {
       callback = params;
@@ -619,8 +556,11 @@ export function NetworkAccessProfileNetworkListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: NetworkAccessProfileNetworkPage
+    ) => any
   ): Promise<NetworkAccessProfileNetworkPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

@@ -139,10 +139,11 @@ export interface UserContext {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params: UserContextUpdateOptions,
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -404,10 +405,11 @@ export class UserInstance {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params: UserContextUpdateOptions,
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
     callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance> {
+  ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -463,25 +465,7 @@ export interface UserListInstance {
     params: UserListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  create(params: any, callback?: any): Promise<UserInstance>;
 
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams UserInstance records from the API.
    *
@@ -498,50 +482,23 @@ export interface UserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UserListInstanceEachOptions,
+    params?:
+      | UserListInstanceEachOptions
+      | ((item: UserInstance, done: (err?: Error) => void) => void),
     callback?: (item: UserInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of UserInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
-  getPage(params?: any, callback?: any): Promise<UserPage>;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UserInstance[]) => any
-  ): Promise<UserInstance[]>;
   /**
    * Lists UserInstance records from the API as a list.
    *
@@ -552,23 +509,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UserListInstanceOptions,
+    params?:
+      | UserListInstanceOptions
+      | ((error: Error | null, items: UserInstance[]) => any),
     callback?: (error: Error | null, items: UserInstance[]) => any
   ): Promise<UserInstance[]>;
-  list(params?: any, callback?: any): Promise<UserInstance[]>;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    *
@@ -581,10 +526,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: UserListInstancePageOptions,
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, items: UserPage) => any),
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
-  page(params?: any, callback?: any): Promise<UserPage>;
 
   /**
    * Provide a user-friendly representation
@@ -623,8 +569,8 @@ export function UserListInstance(
   instance._uri = `/Services/${serviceSid}/Users`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UserListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -667,8 +613,10 @@ export function UserListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, item?: UserPage) => any),
+    callback?: (error: Error | null, item?: UserPage) => any
   ): Promise<UserPage> {
     if (typeof params === "function") {
       callback = params;
@@ -708,8 +656,8 @@ export function UserListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",

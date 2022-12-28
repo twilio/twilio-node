@@ -47,10 +47,11 @@ export interface NewSigningKeyListInstance {
    * @returns { Promise } Resolves to processed NewSigningKeyInstance
    */
   create(
-    params: NewSigningKeyListInstanceCreateOptions,
+    params?:
+      | NewSigningKeyListInstanceCreateOptions
+      | ((error: Error | null, item?: NewSigningKeyInstance) => any),
     callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewSigningKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -85,8 +86,10 @@ export function NewSigningKeyListInstance(
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NewSigningKeyListInstanceCreateOptions
+      | ((error: Error | null, item?: NewSigningKeyInstance) => any),
+    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance> {
     if (typeof params === "function") {
       callback = params;

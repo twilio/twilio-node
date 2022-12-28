@@ -156,10 +156,11 @@ export interface ChallengeContext {
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
   update(
-    params: ChallengeContextUpdateOptions,
+    params?:
+      | ChallengeContextUpdateOptions
+      | ((error: Error | null, item?: ChallengeInstance) => any),
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
-  update(params?: any, callback?: any): Promise<ChallengeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -463,10 +464,11 @@ export class ChallengeInstance {
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
   update(
-    params: ChallengeContextUpdateOptions,
+    params?:
+      | ChallengeContextUpdateOptions
+      | ((error: Error | null, item?: ChallengeInstance) => any),
     callback?: (error: Error | null, item?: ChallengeInstance) => any
-  ): Promise<ChallengeInstance>;
-  update(params?: any, callback?: any): Promise<ChallengeInstance> {
+  ): Promise<ChallengeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -526,25 +528,7 @@ export interface ChallengeListInstance {
     params: ChallengeListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
-  create(params: any, callback?: any): Promise<ChallengeInstance>;
 
-  /**
-   * Streams ChallengeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ChallengeInstance records from the API.
    *
@@ -561,50 +545,23 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ChallengeListInstanceEachOptions,
+    params?:
+      | ChallengeListInstanceEachOptions
+      | ((item: ChallengeInstance, done: (err?: Error) => void) => void),
     callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
   /**
    * Retrieve a single target page of ChallengeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ChallengePage) => any
-  ): Promise<ChallengePage>;
-  /**
-   * Retrieve a single target page of ChallengeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
-  getPage(params?: any, callback?: any): Promise<ChallengePage>;
-  /**
-   * Lists ChallengeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ChallengeInstance[]) => any
-  ): Promise<ChallengeInstance[]>;
   /**
    * Lists ChallengeInstance records from the API as a list.
    *
@@ -615,23 +572,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ChallengeListInstanceOptions,
+    params?:
+      | ChallengeListInstanceOptions
+      | ((error: Error | null, items: ChallengeInstance[]) => any),
     callback?: (error: Error | null, items: ChallengeInstance[]) => any
   ): Promise<ChallengeInstance[]>;
-  list(params?: any, callback?: any): Promise<ChallengeInstance[]>;
-  /**
-   * Retrieve a single page of ChallengeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ChallengePage) => any
-  ): Promise<ChallengePage>;
   /**
    * Retrieve a single page of ChallengeInstance records from the API.
    *
@@ -644,10 +589,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: ChallengeListInstancePageOptions,
+    params?:
+      | ChallengeListInstancePageOptions
+      | ((error: Error | null, items: ChallengePage) => any),
     callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
-  page(params?: any, callback?: any): Promise<ChallengePage>;
 
   /**
    * Provide a user-friendly representation
@@ -692,8 +638,8 @@ export function ChallengeListInstance(
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Challenges`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ChallengeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -750,8 +696,10 @@ export function ChallengeListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ChallengeListInstancePageOptions
+      | ((error: Error | null, item?: ChallengePage) => any),
+    callback?: (error: Error | null, item?: ChallengePage) => any
   ): Promise<ChallengePage> {
     if (typeof params === "function") {
       callback = params;
@@ -795,8 +743,8 @@ export function ChallengeListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage> {
     let operationPromise = this._version._domain.twilio.request({
       method: "get",
