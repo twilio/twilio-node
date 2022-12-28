@@ -472,8 +472,8 @@ interface AccountPayload extends TwilioResponsePayload {
 
 interface AccountResource {
   auth_token?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   owner_account_sid?: string | null;
   sid?: string | null;
@@ -513,11 +513,11 @@ export class AccountInstance {
   /**
    * The date this account was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this account was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * A human readable description of this account
    */

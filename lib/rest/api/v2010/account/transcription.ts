@@ -180,8 +180,8 @@ interface TranscriptionPayload extends TwilioResponsePayload {
 interface TranscriptionResource {
   account_sid?: string | null;
   api_version?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   duration?: string | null;
   price?: number | null;
   price_unit?: string | null;
@@ -231,11 +231,11 @@ export class TranscriptionInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The duration of the transcribed audio in seconds.
    */

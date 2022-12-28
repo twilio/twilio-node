@@ -541,6 +541,7 @@ export class TriggerContextImpl implements TriggerContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type TriggerCallbackMethod =
   | "HEAD"
   | "GET"
@@ -559,9 +560,9 @@ interface TriggerResource {
   callback_method?: TriggerCallbackMethod;
   callback_url?: string | null;
   current_value?: string | null;
-  date_created?: string | null;
-  date_fired?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_fired?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   recurring?: UsageTriggerRecurring;
   sid?: string | null;
@@ -625,15 +626,15 @@ export class TriggerInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the trigger was last fired
    */
-  dateFired?: string | null;
+  dateFired?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the trigger
    */

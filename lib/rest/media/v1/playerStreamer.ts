@@ -255,6 +255,7 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type PlayerStreamerStatusCallbackMethod =
   | "HEAD"
   | "GET"

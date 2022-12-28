@@ -294,9 +294,9 @@ interface RecordingResource {
   api_version?: string | null;
   call_sid?: string | null;
   conference_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  start_time?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  start_time?: Date | null;
   duration?: string | null;
   sid?: string | null;
   price?: string | null;
@@ -360,15 +360,15 @@ export class RecordingInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The start time of the recording, given in RFC 2822 format
    */
-  startTime?: string | null;
+  startTime?: Date | null;
   /**
    * The length of the recording in seconds
    */

@@ -19,7 +19,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { DayListInstance } from "./export/day";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
-
 import { JobListInstance } from "./export/job";
 
 export interface ExportContext {

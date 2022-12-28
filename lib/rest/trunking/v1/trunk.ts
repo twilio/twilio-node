@@ -335,6 +335,7 @@ export class TrunkContextImpl implements TrunkContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type TrunkDisasterRecoveryMethod =
   | "HEAD"
   | "GET"

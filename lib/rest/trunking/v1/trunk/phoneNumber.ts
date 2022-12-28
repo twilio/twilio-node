@@ -180,6 +180,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type PhoneNumberSmsFallbackMethod =
   | "HEAD"
   | "GET"

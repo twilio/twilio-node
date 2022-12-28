@@ -20,11 +20,10 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
-
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
+import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
 
 type IncomingPhoneNumberAddressRequirement =
   | "none"
@@ -453,6 +452,7 @@ export class IncomingPhoneNumberContextImpl
     return inspect(this.toJSON(), options);
   }
 }
+
 export type IncomingPhoneNumberSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -500,8 +500,8 @@ interface IncomingPhoneNumberResource {
   api_version?: string | null;
   beta?: boolean | null;
   capabilities?: PhoneNumberCapabilities | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   identity_sid?: string | null;
   phone_number?: string | null;
@@ -599,11 +599,11 @@ export class IncomingPhoneNumberInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
