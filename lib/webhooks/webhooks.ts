@@ -303,8 +303,7 @@ export function validateExpressRequest(
   authToken: string,
   opts?: RequestValidatorOptions
 ): boolean {
-  const options = opts || {};
-  return validateIncomingRequest(request, authToken, options);
+  return validateIncomingRequest(request, authToken, opts);
 }
 
 /**
