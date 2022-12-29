@@ -125,16 +125,6 @@ export interface SubscriptionContext {
   /**
    * Update a SubscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscriptionInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SubscriptionInstance) => any
-  ): Promise<SubscriptionInstance>;
-  /**
-   * Update a SubscriptionInstance
-   *
    * @param { SubscriptionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -366,16 +356,6 @@ export class SubscriptionInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SubscriptionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscriptionInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SubscriptionInstance) => any
-  ): Promise<SubscriptionInstance>;
   /**
    * Update a SubscriptionInstance
    *

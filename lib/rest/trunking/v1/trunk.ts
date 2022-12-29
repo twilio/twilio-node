@@ -153,16 +153,6 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
-  /**
-   * Update a TrunkInstance
-   *
    * @param { TrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -493,16 +483,6 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
-  /**
-   * Update a TrunkInstance
-   *
    * @param { TrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -588,16 +568,6 @@ export interface TrunkListInstance {
   (sid: string): TrunkContext;
   get(sid: string): TrunkContext;
 
-  /**
-   * Create a TrunkInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
   /**
    * Create a TrunkInstance
    *

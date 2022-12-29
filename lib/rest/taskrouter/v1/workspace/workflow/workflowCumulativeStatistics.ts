@@ -39,19 +39,6 @@ export interface WorkflowCumulativeStatisticsContext {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowCumulativeStatisticsInstance>;
-  /**
-   * Fetch a WorkflowCumulativeStatisticsInstance
-   *
    * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -349,19 +336,6 @@ export class WorkflowCumulativeStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkflowCumulativeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowCumulativeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowCumulativeStatisticsInstance>;
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *

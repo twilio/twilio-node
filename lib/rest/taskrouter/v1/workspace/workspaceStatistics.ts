@@ -39,16 +39,6 @@ export interface WorkspaceStatisticsContext {
   /**
    * Fetch a WorkspaceStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
-  ): Promise<WorkspaceStatisticsInstance>;
-  /**
-   * Fetch a WorkspaceStatisticsInstance
-   *
    * @param { WorkspaceStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -206,16 +196,6 @@ export class WorkspaceStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkspaceStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkspaceStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
-  ): Promise<WorkspaceStatisticsInstance>;
   /**
    * Fetch a WorkspaceStatisticsInstance
    *

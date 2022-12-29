@@ -45,19 +45,6 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: AssistantFallbackActionsInstance
-    ) => any
-  ): Promise<AssistantFallbackActionsInstance>;
-  /**
-   * Update a AssistantFallbackActionsInstance
-   *
    * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -237,19 +224,6 @@ export class AssistantFallbackActionsInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AssistantFallbackActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: AssistantFallbackActionsInstance
-    ) => any
-  ): Promise<AssistantFallbackActionsInstance>;
   /**
    * Update a AssistantFallbackActionsInstance
    *

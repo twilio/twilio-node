@@ -135,16 +135,6 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncMapItemInstance
-   *
    * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -168,16 +158,6 @@ export interface SyncMapItemContext {
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance>;
 
-  /**
-   * Update a SyncMapItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
-  ): Promise<SyncMapItemInstance>;
   /**
    * Update a SyncMapItemInstance
    *
@@ -452,16 +432,6 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncMapItemInstance
-   *
    * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -489,16 +459,6 @@ export class SyncMapItemInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SyncMapItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
-  ): Promise<SyncMapItemInstance>;
   /**
    * Update a SyncMapItemInstance
    *

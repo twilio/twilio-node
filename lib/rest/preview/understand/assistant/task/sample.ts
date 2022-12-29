@@ -124,16 +124,6 @@ export interface SampleContext {
   /**
    * Update a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SampleInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SampleInstance) => any
-  ): Promise<SampleInstance>;
-  /**
-   * Update a SampleInstance
-   *
    * @param { SampleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -401,16 +391,6 @@ export class SampleInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SampleInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SampleInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SampleInstance) => any
-  ): Promise<SampleInstance>;
   /**
    * Update a SampleInstance
    *

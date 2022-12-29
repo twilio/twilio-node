@@ -39,16 +39,6 @@ export interface TaskQueueStatisticsContext {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
-  ): Promise<TaskQueueStatisticsInstance>;
-  /**
-   * Fetch a TaskQueueStatisticsInstance
-   *
    * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -224,16 +214,6 @@ export class TaskQueueStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a TaskQueueStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
-  ): Promise<TaskQueueStatisticsInstance>;
   /**
    * Fetch a TaskQueueStatisticsInstance
    *

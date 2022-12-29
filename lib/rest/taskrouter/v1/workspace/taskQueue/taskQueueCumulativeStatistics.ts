@@ -39,19 +39,6 @@ export interface TaskQueueCumulativeStatisticsContext {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance
-    ) => any
-  ): Promise<TaskQueueCumulativeStatisticsInstance>;
-  /**
-   * Fetch a TaskQueueCumulativeStatisticsInstance
-   *
    * @param { TaskQueueCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -348,19 +335,6 @@ export class TaskQueueCumulativeStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a TaskQueueCumulativeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance
-    ) => any
-  ): Promise<TaskQueueCumulativeStatisticsInstance>;
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *

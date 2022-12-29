@@ -411,16 +411,6 @@ export interface DocumentListInstance {
   /**
    * Create a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: DocumentInstance) => any
-  ): Promise<DocumentInstance>;
-  /**
-   * Create a DocumentInstance
-   *
    * @param { DocumentListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

@@ -166,16 +166,6 @@ export interface AccountContext {
   /**
    * Update a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AccountInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AccountInstance) => any
-  ): Promise<AccountInstance>;
-  /**
-   * Update a AccountInstance
-   *
    * @param { AccountContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -565,16 +555,6 @@ export class AccountInstance {
   /**
    * Update a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AccountInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AccountInstance) => any
-  ): Promise<AccountInstance>;
-  /**
-   * Update a AccountInstance
-   *
    * @param { AccountContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -786,16 +766,6 @@ export interface AccountListInstance {
   (sid: string): AccountContext;
   get(sid: string): AccountContext;
 
-  /**
-   * Create a AccountInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AccountInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: AccountInstance) => any
-  ): Promise<AccountInstance>;
   /**
    * Create a AccountInstance
    *

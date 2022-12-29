@@ -115,16 +115,6 @@ export interface RateLimitContext {
   /**
    * Update a RateLimitInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RateLimitInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RateLimitInstance) => any
-  ): Promise<RateLimitInstance>;
-  /**
-   * Update a RateLimitInstance
-   *
    * @param { RateLimitContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -385,16 +375,6 @@ export class RateLimitInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a RateLimitInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RateLimitInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RateLimitInstance) => any
-  ): Promise<RateLimitInstance>;
   /**
    * Update a RateLimitInstance
    *

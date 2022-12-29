@@ -116,16 +116,6 @@ export interface TaskChannelContext {
   /**
    * Update a TaskChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any
-  ): Promise<TaskChannelInstance>;
-  /**
-   * Update a TaskChannelInstance
-   *
    * @param { TaskChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -383,16 +373,6 @@ export class TaskChannelInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TaskChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any
-  ): Promise<TaskChannelInstance>;
   /**
    * Update a TaskChannelInstance
    *

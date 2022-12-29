@@ -44,16 +44,6 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
-  /**
-   * Update a TrunkInstance
-   *
    * @param { TrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -256,16 +246,6 @@ export class TrunkInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TrunkInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any
-  ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
    *

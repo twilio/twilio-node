@@ -31,16 +31,6 @@ export interface NewSigningKeyListInstance {
   /**
    * Create a NewSigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NewSigningKeyInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
-  ): Promise<NewSigningKeyInstance>;
-  /**
-   * Create a NewSigningKeyInstance
-   *
    * @param { NewSigningKeyListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

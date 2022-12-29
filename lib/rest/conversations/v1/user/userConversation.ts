@@ -112,16 +112,6 @@ export interface UserConversationContext {
   /**
    * Update a UserConversationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserConversationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserConversationInstance) => any
-  ): Promise<UserConversationInstance>;
-  /**
-   * Update a UserConversationInstance
-   *
    * @param { UserConversationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -431,16 +421,6 @@ export class UserConversationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a UserConversationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserConversationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserConversationInstance) => any
-  ): Promise<UserConversationInstance>;
   /**
    * Update a UserConversationInstance
    *

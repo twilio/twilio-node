@@ -50,16 +50,6 @@ export interface RecordingRulesListInstance {
   /**
    * Update a RecordingRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
-  ): Promise<RecordingRulesInstance>;
-  /**
-   * Update a RecordingRulesInstance
-   *
    * @param { RecordingRulesListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

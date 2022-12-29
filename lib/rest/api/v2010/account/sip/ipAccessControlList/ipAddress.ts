@@ -118,16 +118,6 @@ export interface IpAddressContext {
   /**
    * Update a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpAddressInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
-  ): Promise<IpAddressInstance>;
-  /**
-   * Update a IpAddressInstance
-   *
    * @param { IpAddressContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -397,16 +387,6 @@ export class IpAddressInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a IpAddressInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpAddressInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
-  ): Promise<IpAddressInstance>;
   /**
    * Update a IpAddressInstance
    *

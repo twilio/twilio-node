@@ -124,16 +124,6 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
-  /**
-   * Update a MessageInstance
-   *
    * @param { MessageContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -381,16 +371,6 @@ export class MessageInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a MessageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
    *

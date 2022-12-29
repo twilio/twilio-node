@@ -671,16 +671,6 @@ export interface SiprecListInstance {
   /**
    * Create a SiprecInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SiprecInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
-  /**
-   * Create a SiprecInstance
-   *
    * @param { SiprecListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

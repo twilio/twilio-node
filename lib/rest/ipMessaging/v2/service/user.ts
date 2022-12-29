@@ -131,16 +131,6 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
-  /**
-   * Update a UserInstance
-   *
    * @param { UserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -408,16 +398,6 @@ export class UserInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a UserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *

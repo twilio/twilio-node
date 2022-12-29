@@ -117,16 +117,6 @@ export interface QueueContext {
   /**
    * Update a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed QueueInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: QueueInstance) => any
-  ): Promise<QueueInstance>;
-  /**
-   * Update a QueueInstance
-   *
    * @param { QueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -388,16 +378,6 @@ export class QueueInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a QueueInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed QueueInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: QueueInstance) => any
-  ): Promise<QueueInstance>;
   /**
    * Update a QueueInstance
    *

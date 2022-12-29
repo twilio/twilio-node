@@ -92,16 +92,6 @@ export interface WorkerChannelContext {
   /**
    * Update a WorkerChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
-  ): Promise<WorkerChannelInstance>;
-  /**
-   * Update a WorkerChannelInstance
-   *
    * @param { WorkerChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -363,16 +353,6 @@ export class WorkerChannelInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a WorkerChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
-  ): Promise<WorkerChannelInstance>;
   /**
    * Update a WorkerChannelInstance
    *

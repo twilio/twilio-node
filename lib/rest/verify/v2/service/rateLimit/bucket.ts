@@ -114,16 +114,6 @@ export interface BucketContext {
   /**
    * Update a BucketInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BucketInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
-  /**
-   * Update a BucketInstance
-   *
    * @param { BucketContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -385,16 +375,6 @@ export class BucketInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a BucketInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BucketInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
    *

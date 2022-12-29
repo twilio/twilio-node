@@ -142,16 +142,6 @@ export interface ChannelContext {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ChannelInstance
-   *
    * @param { ChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -175,16 +165,6 @@ export interface ChannelContext {
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
 
-  /**
-   * Update a ChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
   /**
    * Update a ChannelInstance
    *
@@ -515,16 +495,6 @@ export class ChannelInstance {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ChannelInstance
-   *
    * @param { ChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -552,16 +522,6 @@ export class ChannelInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
   /**
    * Update a ChannelInstance
    *
@@ -640,16 +600,6 @@ export interface ChannelListInstance {
   (sid: string): ChannelContext;
   get(sid: string): ChannelContext;
 
-  /**
-   * Create a ChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
   /**
    * Create a ChannelInstance
    *

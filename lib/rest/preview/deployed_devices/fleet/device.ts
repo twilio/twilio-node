@@ -130,16 +130,6 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeviceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DeviceInstance) => any
-  ): Promise<DeviceInstance>;
-  /**
-   * Update a DeviceInstance
-   *
    * @param { DeviceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -419,16 +409,6 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeviceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DeviceInstance) => any
-  ): Promise<DeviceInstance>;
-  /**
-   * Update a DeviceInstance
-   *
    * @param { DeviceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -474,16 +454,6 @@ export interface DeviceListInstance {
   (sid: string): DeviceContext;
   get(sid: string): DeviceContext;
 
-  /**
-   * Create a DeviceInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeviceInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: DeviceInstance) => any
-  ): Promise<DeviceInstance>;
   /**
    * Create a DeviceInstance
    *

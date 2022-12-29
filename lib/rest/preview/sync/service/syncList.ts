@@ -344,16 +344,6 @@ export interface SyncListListInstance {
   /**
    * Create a SyncListInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SyncListInstance) => any
-  ): Promise<SyncListInstance>;
-  /**
-   * Create a SyncListInstance
-   *
    * @param { SyncListListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

@@ -223,16 +223,6 @@ export interface ReservationContext {
   /**
    * Update a ReservationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ReservationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ReservationInstance) => any
-  ): Promise<ReservationInstance>;
-  /**
-   * Update a ReservationInstance
-   *
    * @param { ReservationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -590,16 +580,6 @@ export class ReservationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ReservationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ReservationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ReservationInstance) => any
-  ): Promise<ReservationInstance>;
   /**
    * Update a ReservationInstance
    *

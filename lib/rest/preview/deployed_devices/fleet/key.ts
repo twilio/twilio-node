@@ -120,16 +120,6 @@ export interface KeyContext {
   /**
    * Update a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed KeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: KeyInstance) => any
-  ): Promise<KeyInstance>;
-  /**
-   * Update a KeyInstance
-   *
    * @param { KeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -386,16 +376,6 @@ export class KeyInstance {
   /**
    * Update a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed KeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: KeyInstance) => any
-  ): Promise<KeyInstance>;
-  /**
-   * Update a KeyInstance
-   *
    * @param { KeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -438,16 +418,6 @@ export interface KeyListInstance {
   (sid: string): KeyContext;
   get(sid: string): KeyContext;
 
-  /**
-   * Create a KeyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed KeyInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: KeyInstance) => any
-  ): Promise<KeyInstance>;
   /**
    * Create a KeyInstance
    *

@@ -114,16 +114,6 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpRecordInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
-  ): Promise<IpRecordInstance>;
-  /**
-   * Update a IpRecordInstance
-   *
    * @param { IpRecordContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -341,16 +331,6 @@ export class IpRecordInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a IpRecordInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpRecordInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
-  ): Promise<IpRecordInstance>;
   /**
    * Update a IpRecordInstance
    *

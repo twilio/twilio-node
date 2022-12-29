@@ -44,16 +44,6 @@ export interface SipDomainContext {
   /**
    * Update a SipDomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SipDomainInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any
-  ): Promise<SipDomainInstance>;
-  /**
-   * Update a SipDomainInstance
-   *
    * @param { SipDomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -232,16 +222,6 @@ export class SipDomainInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SipDomainInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SipDomainInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any
-  ): Promise<SipDomainInstance>;
   /**
    * Update a SipDomainInstance
    *

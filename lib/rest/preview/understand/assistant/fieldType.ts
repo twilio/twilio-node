@@ -117,16 +117,6 @@ export interface FieldTypeContext {
   /**
    * Update a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FieldTypeInstance) => any
-  ): Promise<FieldTypeInstance>;
-  /**
-   * Update a FieldTypeInstance
-   *
    * @param { FieldTypeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -387,16 +377,6 @@ export class FieldTypeInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a FieldTypeInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FieldTypeInstance) => any
-  ): Promise<FieldTypeInstance>;
   /**
    * Update a FieldTypeInstance
    *

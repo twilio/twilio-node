@@ -560,16 +560,6 @@ export interface RoomListInstance {
   /**
    * Create a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RoomInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: RoomInstance) => any
-  ): Promise<RoomInstance>;
-  /**
-   * Create a RoomInstance
-   *
    * @param { RoomListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

@@ -124,16 +124,6 @@ export interface InstalledAddOnContext {
   /**
    * Update a InstalledAddOnInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed InstalledAddOnInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
-  ): Promise<InstalledAddOnInstance>;
-  /**
-   * Update a InstalledAddOnInstance
-   *
    * @param { InstalledAddOnContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -386,16 +376,6 @@ export class InstalledAddOnInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a InstalledAddOnInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed InstalledAddOnInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
-  ): Promise<InstalledAddOnInstance>;
   /**
    * Update a InstalledAddOnInstance
    *

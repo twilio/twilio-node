@@ -291,16 +291,6 @@ export interface DeploymentListInstance {
   /**
    * Create a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeploymentInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
-  ): Promise<DeploymentInstance>;
-  /**
-   * Create a DeploymentInstance
-   *
    * @param { DeploymentListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

@@ -121,16 +121,6 @@ export interface SyncListItemContext {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncListItemInstance
-   *
    * @param { SyncListItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -383,16 +373,6 @@ export class SyncListItemInstance {
     return this._context;
   }
 
-  /**
-   * Remove a SyncListItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
   /**
    * Remove a SyncListItemInstance
    *

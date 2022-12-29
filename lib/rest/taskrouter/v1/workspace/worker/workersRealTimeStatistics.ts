@@ -31,19 +31,6 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
-  /**
-   * Fetch a WorkersRealTimeStatisticsInstance
-   *
    * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -204,19 +191,6 @@ export class WorkersRealTimeStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkersRealTimeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *

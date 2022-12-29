@@ -61,16 +61,6 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  /**
-   * Fetch a PhoneNumberInstance
-   *
    * @param { PhoneNumberContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -282,16 +272,6 @@ export class PhoneNumberInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a PhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
   /**
    * Fetch a PhoneNumberInstance
    *

@@ -155,16 +155,6 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
-  ): Promise<AssistantInstance>;
-  /**
-   * Update a AssistantInstance
-   *
    * @param { AssistantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -484,16 +474,6 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
-  ): Promise<AssistantInstance>;
-  /**
-   * Update a AssistantInstance
-   *
    * @param { AssistantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -595,16 +575,6 @@ export interface AssistantListInstance {
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
 
-  /**
-   * Create a AssistantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssistantInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
-  ): Promise<AssistantInstance>;
   /**
    * Create a AssistantInstance
    *

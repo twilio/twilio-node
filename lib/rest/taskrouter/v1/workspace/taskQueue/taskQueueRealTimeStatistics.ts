@@ -31,19 +31,6 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance
-    ) => any
-  ): Promise<TaskQueueRealTimeStatisticsInstance>;
-  /**
-   * Fetch a TaskQueueRealTimeStatisticsInstance
-   *
    * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -279,19 +266,6 @@ export class TaskQueueRealTimeStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a TaskQueueRealTimeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance
-    ) => any
-  ): Promise<TaskQueueRealTimeStatisticsInstance>;
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *

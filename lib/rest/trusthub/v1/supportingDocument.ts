@@ -127,16 +127,6 @@ export interface SupportingDocumentContext {
   /**
    * Update a SupportingDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SupportingDocumentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
-  /**
-   * Update a SupportingDocumentInstance
-   *
    * @param { SupportingDocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -379,16 +369,6 @@ export class SupportingDocumentInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SupportingDocumentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SupportingDocumentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
   /**
    * Update a SupportingDocumentInstance
    *

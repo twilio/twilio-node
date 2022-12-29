@@ -115,16 +115,6 @@ export interface SubscribedEventContext {
   /**
    * Update a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
-  ): Promise<SubscribedEventInstance>;
-  /**
-   * Update a SubscribedEventInstance
-   *
    * @param { SubscribedEventContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -348,16 +338,6 @@ export class SubscribedEventInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SubscribedEventInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
-  ): Promise<SubscribedEventInstance>;
   /**
    * Update a SubscribedEventInstance
    *

@@ -31,16 +31,6 @@ export interface UserRolesContext {
   /**
    * Fetch a UserRolesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserRolesInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
-  /**
-   * Fetch a UserRolesInstance
-   *
    * @param { UserRolesContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -146,16 +136,6 @@ export class UserRolesInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a UserRolesInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserRolesInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
   /**
    * Fetch a UserRolesInstance
    *

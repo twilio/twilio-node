@@ -33,16 +33,6 @@ export interface UsageContext {
   /**
    * Fetch a UsageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsageInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: UsageInstance) => any
-  ): Promise<UsageInstance>;
-  /**
-   * Fetch a UsageInstance
-   *
    * @param { UsageContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -181,16 +171,6 @@ export class UsageInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a UsageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsageInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: UsageInstance) => any
-  ): Promise<UsageInstance>;
   /**
    * Fetch a UsageInstance
    *

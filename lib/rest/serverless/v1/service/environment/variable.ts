@@ -114,16 +114,6 @@ export interface VariableContext {
   /**
    * Update a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed VariableInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: VariableInstance) => any
-  ): Promise<VariableInstance>;
-  /**
-   * Update a VariableInstance
-   *
    * @param { VariableContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -385,16 +375,6 @@ export class VariableInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a VariableInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed VariableInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: VariableInstance) => any
-  ): Promise<VariableInstance>;
   /**
    * Update a VariableInstance
    *

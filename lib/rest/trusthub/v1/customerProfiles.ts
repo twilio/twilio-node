@@ -157,16 +157,6 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
-  /**
-   * Update a CustomerProfilesInstance
-   *
    * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -455,16 +445,6 @@ export class CustomerProfilesInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a CustomerProfilesInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
-  ): Promise<CustomerProfilesInstance>;
   /**
    * Update a CustomerProfilesInstance
    *

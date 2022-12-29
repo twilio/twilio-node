@@ -318,16 +318,6 @@ export interface EsimProfileListInstance {
   /**
    * Create a EsimProfileInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
-  ): Promise<EsimProfileInstance>;
-  /**
-   * Create a EsimProfileInstance
-   *
    * @param { EsimProfileListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

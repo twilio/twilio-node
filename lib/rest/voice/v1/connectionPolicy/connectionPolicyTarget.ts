@@ -132,19 +132,6 @@ export interface ConnectionPolicyTargetContext {
   /**
    * Update a ConnectionPolicyTargetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
-  ): Promise<ConnectionPolicyTargetInstance>;
-  /**
-   * Update a ConnectionPolicyTargetInstance
-   *
    * @param { ConnectionPolicyTargetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -424,19 +411,6 @@ export class ConnectionPolicyTargetInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ConnectionPolicyTargetInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: ConnectionPolicyTargetInstance
-    ) => any
-  ): Promise<ConnectionPolicyTargetInstance>;
   /**
    * Update a ConnectionPolicyTargetInstance
    *

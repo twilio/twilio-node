@@ -144,16 +144,6 @@ export interface ConversationContext {
   /**
    * Remove a ConversationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ConversationInstance
-   *
    * @param { ConversationContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -177,16 +167,6 @@ export interface ConversationContext {
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
-  /**
-   * Update a ConversationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConversationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
    *
@@ -473,16 +453,6 @@ export class ConversationInstance {
   /**
    * Remove a ConversationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ConversationInstance
-   *
    * @param { ConversationContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -510,16 +480,6 @@ export class ConversationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ConversationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConversationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
    *
@@ -591,16 +551,6 @@ export interface ConversationListInstance {
   (sid: string): ConversationContext;
   get(sid: string): ConversationContext;
 
-  /**
-   * Create a ConversationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConversationInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
   /**
    * Create a ConversationInstance
    *

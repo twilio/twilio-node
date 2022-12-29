@@ -101,16 +101,6 @@ export interface SigningKeyContext {
   /**
    * Update a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
-  ): Promise<SigningKeyInstance>;
-  /**
-   * Update a SigningKeyInstance
-   *
    * @param { SigningKeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -316,16 +306,6 @@ export class SigningKeyInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SigningKeyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
-  ): Promise<SigningKeyInstance>;
   /**
    * Update a SigningKeyInstance
    *

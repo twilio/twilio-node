@@ -165,16 +165,6 @@ export interface DomainContext {
   /**
    * Update a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DomainInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DomainInstance) => any
-  ): Promise<DomainInstance>;
-  /**
-   * Update a DomainInstance
-   *
    * @param { DomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -578,16 +568,6 @@ export class DomainInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a DomainInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DomainInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DomainInstance) => any
-  ): Promise<DomainInstance>;
   /**
    * Update a DomainInstance
    *

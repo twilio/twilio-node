@@ -146,16 +146,6 @@ export interface ByocTrunkContext {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
-  ): Promise<ByocTrunkInstance>;
-  /**
-   * Update a ByocTrunkInstance
-   *
    * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -461,16 +451,6 @@ export class ByocTrunkInstance {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
-  ): Promise<ByocTrunkInstance>;
-  /**
-   * Update a ByocTrunkInstance
-   *
    * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -519,16 +499,6 @@ export interface ByocTrunkListInstance {
   (sid: string): ByocTrunkContext;
   get(sid: string): ByocTrunkContext;
 
-  /**
-   * Create a ByocTrunkInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
-  ): Promise<ByocTrunkInstance>;
   /**
    * Create a ByocTrunkInstance
    *

@@ -252,16 +252,6 @@ export interface IncomingPhoneNumberContext {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
-  ): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * Update a IncomingPhoneNumberInstance
-   *
    * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -738,16 +728,6 @@ export class IncomingPhoneNumberInstance {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
-  ): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * Update a IncomingPhoneNumberInstance
-   *
    * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -826,16 +806,6 @@ export interface IncomingPhoneNumberListInstance {
   mobile: MobileListInstance;
   tollFree: TollFreeListInstance;
 
-  /**
-   * Create a IncomingPhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
-  ): Promise<IncomingPhoneNumberInstance>;
   /**
    * Create a IncomingPhoneNumberInstance
    *

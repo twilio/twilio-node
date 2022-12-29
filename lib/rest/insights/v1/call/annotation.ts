@@ -64,16 +64,6 @@ export interface AnnotationContext {
   /**
    * Update a AnnotationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AnnotationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
-  ): Promise<AnnotationInstance>;
-  /**
-   * Update a AnnotationInstance
-   *
    * @param { AnnotationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -290,16 +280,6 @@ export class AnnotationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AnnotationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AnnotationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
-  ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
    *

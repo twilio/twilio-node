@@ -123,16 +123,6 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncMapItemInstance
-   *
    * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -385,16 +375,6 @@ export class SyncMapItemInstance {
     return this._context;
   }
 
-  /**
-   * Remove a SyncMapItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
   /**
    * Remove a SyncMapItemInstance
    *

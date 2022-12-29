@@ -207,16 +207,6 @@ export interface HostedNumberOrderContext {
   /**
    * Update a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
-  ): Promise<HostedNumberOrderInstance>;
-  /**
-   * Update a HostedNumberOrderInstance
-   *
    * @param { HostedNumberOrderContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -545,16 +535,6 @@ export class HostedNumberOrderInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a HostedNumberOrderInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
-  ): Promise<HostedNumberOrderInstance>;
   /**
    * Update a HostedNumberOrderInstance
    *

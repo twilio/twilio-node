@@ -132,16 +132,6 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a MessageInstance
-   *
    * @param { MessageContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -165,16 +155,6 @@ export interface MessageContext {
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
-  /**
-   * Update a MessageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
    *
@@ -489,16 +469,6 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a MessageInstance
-   *
    * @param { MessageContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -526,16 +496,6 @@ export class MessageInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a MessageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
    *
@@ -594,16 +554,6 @@ export interface MessageListInstance {
   (sid: string): MessageContext;
   get(sid: string): MessageContext;
 
-  /**
-   * Create a MessageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: MessageInstance) => any
-  ): Promise<MessageInstance>;
   /**
    * Create a MessageInstance
    *

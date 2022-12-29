@@ -161,16 +161,6 @@ export interface AddressConfigurationContext {
   /**
    * Update a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
-  ): Promise<AddressConfigurationInstance>;
-  /**
-   * Update a AddressConfigurationInstance
-   *
    * @param { AddressConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -431,16 +421,6 @@ export class AddressConfigurationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AddressConfigurationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
-  ): Promise<AddressConfigurationInstance>;
   /**
    * Update a AddressConfigurationInstance
    *

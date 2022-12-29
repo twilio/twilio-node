@@ -121,16 +121,6 @@ export interface SyncListContext {
   /**
    * Update a SyncListInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncListInstance) => any
-  ): Promise<SyncListInstance>;
-  /**
-   * Update a SyncListInstance
-   *
    * @param { SyncListContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -419,16 +409,6 @@ export class SyncListInstance {
   /**
    * Update a SyncListInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncListInstance) => any
-  ): Promise<SyncListInstance>;
-  /**
-   * Update a SyncListInstance
-   *
    * @param { SyncListContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -487,16 +467,6 @@ export interface SyncListListInstance {
   (sid: string): SyncListContext;
   get(sid: string): SyncListContext;
 
-  /**
-   * Create a SyncListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SyncListInstance) => any
-  ): Promise<SyncListInstance>;
   /**
    * Create a SyncListInstance
    *

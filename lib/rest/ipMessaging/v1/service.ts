@@ -223,16 +223,6 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
-  /**
-   * Update a ServiceInstance
-   *
    * @param { ServiceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -643,16 +633,6 @@ export class ServiceInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ServiceInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
    *

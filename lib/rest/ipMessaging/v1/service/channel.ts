@@ -135,16 +135,6 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
-  /**
-   * Update a ChannelInstance
-   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -424,16 +414,6 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
-  /**
-   * Update a ChannelInstance
-   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -502,16 +482,6 @@ export interface ChannelListInstance {
   (sid: string): ChannelContext;
   get(sid: string): ChannelContext;
 
-  /**
-   * Create a ChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ChannelInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ChannelInstance) => any
-  ): Promise<ChannelInstance>;
   /**
    * Create a ChannelInstance
    *

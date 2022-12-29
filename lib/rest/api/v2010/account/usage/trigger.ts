@@ -395,16 +395,6 @@ export interface TriggerContext {
   /**
    * Update a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TriggerInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TriggerInstance) => any
-  ): Promise<TriggerInstance>;
-  /**
-   * Update a TriggerInstance
-   *
    * @param { TriggerContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -697,16 +687,6 @@ export class TriggerInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TriggerInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TriggerInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TriggerInstance) => any
-  ): Promise<TriggerInstance>;
   /**
    * Update a TriggerInstance
    *

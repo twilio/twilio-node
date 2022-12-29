@@ -173,16 +173,6 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
-  /**
-   * Update a ServiceInstance
-   *
    * @param { ServiceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -527,16 +517,6 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
-  /**
-   * Update a ServiceInstance
-   *
    * @param { ServiceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -608,16 +588,6 @@ export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
-  /**
-   * Create a ServiceInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
-  ): Promise<ServiceInstance>;
   /**
    * Create a ServiceInstance
    *

@@ -46,16 +46,6 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NumberInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
-  /**
-   * Fetch a NumberInstance
-   *
    * @param { NumberContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -218,16 +208,6 @@ export class NumberInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a NumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NumberInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
   /**
    * Fetch a NumberInstance
    *

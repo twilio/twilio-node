@@ -131,16 +131,6 @@ export interface MemberContext {
   /**
    * Remove a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a MemberInstance
-   *
    * @param { MemberContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -164,16 +154,6 @@ export interface MemberContext {
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance>;
 
-  /**
-   * Update a MemberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MemberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
-  ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
    *
@@ -465,16 +445,6 @@ export class MemberInstance {
   /**
    * Remove a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a MemberInstance
-   *
    * @param { MemberContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -502,16 +472,6 @@ export class MemberInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a MemberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MemberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
-  ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
    *

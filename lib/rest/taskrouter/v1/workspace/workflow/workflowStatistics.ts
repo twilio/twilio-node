@@ -39,16 +39,6 @@ export interface WorkflowStatisticsContext {
   /**
    * Fetch a WorkflowStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
-  ): Promise<WorkflowStatisticsInstance>;
-  /**
-   * Fetch a WorkflowStatisticsInstance
-   *
    * @param { WorkflowStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -224,16 +214,6 @@ export class WorkflowStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkflowStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
-  ): Promise<WorkflowStatisticsInstance>;
   /**
    * Fetch a WorkflowStatisticsInstance
    *

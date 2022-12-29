@@ -149,19 +149,6 @@ export interface AuthorizationDocumentContext {
   /**
    * Update a AuthorizationDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: AuthorizationDocumentInstance
-    ) => any
-  ): Promise<AuthorizationDocumentInstance>;
-  /**
-   * Update a AuthorizationDocumentInstance
-   *
    * @param { AuthorizationDocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -391,19 +378,6 @@ export class AuthorizationDocumentInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AuthorizationDocumentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
-   */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: AuthorizationDocumentInstance
-    ) => any
-  ): Promise<AuthorizationDocumentInstance>;
   /**
    * Update a AuthorizationDocumentInstance
    *

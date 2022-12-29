@@ -141,16 +141,6 @@ export interface WorkflowContext {
   /**
    * Update a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
-  ): Promise<WorkflowInstance>;
-  /**
-   * Update a WorkflowInstance
-   *
    * @param { WorkflowContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -473,16 +463,6 @@ export class WorkflowInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a WorkflowInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
-  ): Promise<WorkflowInstance>;
   /**
    * Update a WorkflowInstance
    *

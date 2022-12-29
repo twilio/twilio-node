@@ -87,16 +87,6 @@ export interface BundleCopyListInstance {
   /**
    * Create a BundleCopyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BundleCopyInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: BundleCopyInstance) => any
-  ): Promise<BundleCopyInstance>;
-  /**
-   * Create a BundleCopyInstance
-   *
    * @param { BundleCopyListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

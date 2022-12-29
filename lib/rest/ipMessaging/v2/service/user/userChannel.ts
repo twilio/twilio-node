@@ -109,16 +109,6 @@ export interface UserChannelContext {
   /**
    * Update a UserChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserChannelInstance) => any
-  ): Promise<UserChannelInstance>;
-  /**
-   * Update a UserChannelInstance
-   *
    * @param { UserChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -373,16 +363,6 @@ export class UserChannelInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a UserChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserChannelInstance) => any
-  ): Promise<UserChannelInstance>;
   /**
    * Update a UserChannelInstance
    *

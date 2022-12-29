@@ -31,16 +31,6 @@ export interface UsAppToPersonUsecaseListInstance {
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
-  ): Promise<UsAppToPersonUsecaseInstance>;
-  /**
-   * Fetch a UsAppToPersonUsecaseInstance
-   *
    * @param { UsAppToPersonUsecaseListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

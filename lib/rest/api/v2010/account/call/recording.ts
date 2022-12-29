@@ -521,16 +521,6 @@ export interface RecordingListInstance {
   /**
    * Create a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
-  /**
-   * Create a RecordingInstance
-   *
    * @param { RecordingListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

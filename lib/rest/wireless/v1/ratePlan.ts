@@ -132,16 +132,6 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RatePlanInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RatePlanInstance) => any
-  ): Promise<RatePlanInstance>;
-  /**
-   * Update a RatePlanInstance
-   *
    * @param { RatePlanContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -416,16 +406,6 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RatePlanInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RatePlanInstance) => any
-  ): Promise<RatePlanInstance>;
-  /**
-   * Update a RatePlanInstance
-   *
    * @param { RatePlanContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -475,16 +455,6 @@ export interface RatePlanListInstance {
   (sid: string): RatePlanContext;
   get(sid: string): RatePlanContext;
 
-  /**
-   * Create a RatePlanInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RatePlanInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: RatePlanInstance) => any
-  ): Promise<RatePlanInstance>;
   /**
    * Create a RatePlanInstance
    *

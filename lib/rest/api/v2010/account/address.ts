@@ -165,16 +165,6 @@ export interface AddressContext {
   /**
    * Update a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AddressInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
-  /**
-   * Update a AddressInstance
-   *
    * @param { AddressContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -490,16 +480,6 @@ export class AddressInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AddressInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AddressInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
    *

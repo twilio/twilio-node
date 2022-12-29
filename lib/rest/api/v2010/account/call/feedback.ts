@@ -54,16 +54,6 @@ export interface FeedbackContext {
   /**
    * Update a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FeedbackInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
-  /**
-   * Update a FeedbackInstance
-   *
    * @param { FeedbackContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -266,16 +256,6 @@ export class FeedbackInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a FeedbackInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FeedbackInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
-  ): Promise<FeedbackInstance>;
   /**
    * Update a FeedbackInstance
    *

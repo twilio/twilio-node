@@ -344,16 +344,6 @@ export interface SyncMapListInstance {
   /**
    * Create a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SyncMapInstance) => any
-  ): Promise<SyncMapInstance>;
-  /**
-   * Create a SyncMapInstance
-   *
    * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

@@ -42,16 +42,6 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: StyleSheetInstance) => any
-  ): Promise<StyleSheetInstance>;
-  /**
-   * Update a StyleSheetInstance
-   *
    * @param { StyleSheetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -225,16 +215,6 @@ export class StyleSheetInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a StyleSheetInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: StyleSheetInstance) => any
-  ): Promise<StyleSheetInstance>;
   /**
    * Update a StyleSheetInstance
    *

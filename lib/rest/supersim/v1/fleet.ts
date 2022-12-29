@@ -135,16 +135,6 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FleetInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FleetInstance) => any
-  ): Promise<FleetInstance>;
-  /**
-   * Update a FleetInstance
-   *
    * @param { FleetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -400,16 +390,6 @@ export class FleetInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a FleetInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FleetInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FleetInstance) => any
-  ): Promise<FleetInstance>;
   /**
    * Update a FleetInstance
    *

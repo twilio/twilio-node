@@ -116,16 +116,6 @@ export interface UserContext {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a UserInstance
-   *
    * @param { UserContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -149,16 +139,6 @@ export interface UserContext {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
-  /**
-   * Update a UserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *
@@ -411,16 +391,6 @@ export class UserInstance {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a UserInstance
-   *
    * @param { UserContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -448,16 +418,6 @@ export class UserInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a UserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserInstance) => any
-  ): Promise<UserInstance>;
   /**
    * Update a UserInstance
    *

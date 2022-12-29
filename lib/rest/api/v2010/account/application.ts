@@ -172,16 +172,6 @@ export interface ApplicationContext {
   /**
    * Update a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ApplicationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
-  /**
-   * Update a ApplicationInstance
-   *
    * @param { ApplicationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -562,16 +552,6 @@ export class ApplicationInstance {
   /**
    * Update a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ApplicationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
-  /**
-   * Update a ApplicationInstance
-   *
    * @param { ApplicationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -625,16 +605,6 @@ export interface ApplicationListInstance {
   (sid: string): ApplicationContext;
   get(sid: string): ApplicationContext;
 
-  /**
-   * Create a ApplicationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ApplicationInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
-  ): Promise<ApplicationInstance>;
   /**
    * Create a ApplicationInstance
    *

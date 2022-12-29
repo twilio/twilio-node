@@ -180,16 +180,6 @@ export interface TaskContext {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a TaskInstance
-   *
    * @param { TaskContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -213,16 +203,6 @@ export interface TaskContext {
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
 
-  /**
-   * Update a TaskInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskInstance) => any
-  ): Promise<TaskInstance>;
   /**
    * Update a TaskInstance
    *
@@ -557,16 +537,6 @@ export class TaskInstance {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a TaskInstance
-   *
    * @param { TaskContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -594,16 +564,6 @@ export class TaskInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TaskInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskInstance) => any
-  ): Promise<TaskInstance>;
   /**
    * Update a TaskInstance
    *
@@ -668,16 +628,6 @@ export interface TaskListInstance {
   (sid: string): TaskContext;
   get(sid: string): TaskContext;
 
-  /**
-   * Create a TaskInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: TaskInstance) => any
-  ): Promise<TaskInstance>;
   /**
    * Create a TaskInstance
    *

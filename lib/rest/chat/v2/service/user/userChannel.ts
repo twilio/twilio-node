@@ -98,16 +98,6 @@ export interface UserChannelContext {
   /**
    * Remove a UserChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a UserChannelInstance
-   *
    * @param { UserChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -131,16 +121,6 @@ export interface UserChannelContext {
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance>;
 
-  /**
-   * Update a UserChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserChannelInstance) => any
-  ): Promise<UserChannelInstance>;
   /**
    * Update a UserChannelInstance
    *
@@ -417,16 +397,6 @@ export class UserChannelInstance {
   /**
    * Remove a UserChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a UserChannelInstance
-   *
    * @param { UserChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -454,16 +424,6 @@ export class UserChannelInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a UserChannelInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UserChannelInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: UserChannelInstance) => any
-  ): Promise<UserChannelInstance>;
   /**
    * Update a UserChannelInstance
    *

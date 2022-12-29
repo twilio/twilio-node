@@ -121,16 +121,6 @@ export interface DocumentContext {
   /**
    * Update a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DocumentInstance) => any
-  ): Promise<DocumentInstance>;
-  /**
-   * Update a DocumentInstance
-   *
    * @param { DocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -415,16 +405,6 @@ export class DocumentInstance {
   /**
    * Update a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DocumentInstance) => any
-  ): Promise<DocumentInstance>;
-  /**
-   * Update a DocumentInstance
-   *
    * @param { DocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -477,16 +457,6 @@ export interface DocumentListInstance {
   (sid: string): DocumentContext;
   get(sid: string): DocumentContext;
 
-  /**
-   * Create a DocumentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: DocumentInstance) => any
-  ): Promise<DocumentInstance>;
   /**
    * Create a DocumentInstance
    *

@@ -114,16 +114,6 @@ export interface PublicKeyContext {
   /**
    * Update a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
-  ): Promise<PublicKeyInstance>;
-  /**
-   * Update a PublicKeyInstance
-   *
    * @param { PublicKeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -333,16 +323,6 @@ export class PublicKeyInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a PublicKeyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
-  ): Promise<PublicKeyInstance>;
   /**
    * Update a PublicKeyInstance
    *

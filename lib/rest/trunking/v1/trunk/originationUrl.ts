@@ -129,16 +129,6 @@ export interface OriginationUrlContext {
   /**
    * Update a OriginationUrlInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OriginationUrlInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
-  ): Promise<OriginationUrlInstance>;
-  /**
-   * Update a OriginationUrlInstance
-   *
    * @param { OriginationUrlContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -403,16 +393,6 @@ export class OriginationUrlInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a OriginationUrlInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OriginationUrlInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
-  ): Promise<OriginationUrlInstance>;
   /**
    * Update a OriginationUrlInstance
    *

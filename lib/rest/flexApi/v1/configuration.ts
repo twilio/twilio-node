@@ -33,16 +33,6 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
-  /**
-   * Fetch a ConfigurationInstance
-   *
    * @param { ConfigurationContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -409,16 +399,6 @@ export class ConfigurationInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a ConfigurationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
    *

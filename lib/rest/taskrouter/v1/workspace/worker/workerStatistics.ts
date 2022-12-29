@@ -37,16 +37,6 @@ export interface WorkerStatisticsContext {
   /**
    * Fetch a WorkerStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
-  ): Promise<WorkerStatisticsInstance>;
-  /**
-   * Fetch a WorkerStatisticsInstance
-   *
    * @param { WorkerStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -208,16 +198,6 @@ export class WorkerStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkerStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
-  ): Promise<WorkerStatisticsInstance>;
   /**
    * Fetch a WorkerStatisticsInstance
    *

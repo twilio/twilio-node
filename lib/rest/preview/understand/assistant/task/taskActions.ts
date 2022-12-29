@@ -42,16 +42,6 @@ export interface TaskActionsContext {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskActionsInstance) => any
-  ): Promise<TaskActionsInstance>;
-  /**
-   * Update a TaskActionsInstance
-   *
    * @param { TaskActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -244,16 +234,6 @@ export class TaskActionsInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TaskActionsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskActionsInstance) => any
-  ): Promise<TaskActionsInstance>;
   /**
    * Update a TaskActionsInstance
    *

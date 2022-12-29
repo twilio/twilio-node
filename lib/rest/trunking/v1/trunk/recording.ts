@@ -53,16 +53,6 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
-  /**
-   * Update a RecordingInstance
-   *
    * @param { RecordingContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -221,16 +211,6 @@ export class RecordingInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a RecordingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RecordingInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
   /**
    * Update a RecordingInstance
    *

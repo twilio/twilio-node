@@ -66,16 +66,6 @@ export interface NotificationContext {
   /**
    * Update a NotificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NotificationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
-  ): Promise<NotificationInstance>;
-  /**
-   * Update a NotificationInstance
-   *
    * @param { NotificationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -306,16 +296,6 @@ export class NotificationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a NotificationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NotificationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
-  ): Promise<NotificationInstance>;
   /**
    * Update a NotificationInstance
    *

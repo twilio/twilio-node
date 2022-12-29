@@ -44,16 +44,6 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  /**
-   * Update a PhoneNumberInstance
-   *
    * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -256,16 +246,6 @@ export class PhoneNumberInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a PhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
   /**
    * Update a PhoneNumberInstance
    *

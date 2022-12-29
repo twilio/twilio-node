@@ -114,16 +114,6 @@ export interface AwsContext {
   /**
    * Update a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AwsInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
-  /**
-   * Update a AwsInstance
-   *
    * @param { AwsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -328,16 +318,6 @@ export class AwsInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a AwsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AwsInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
   /**
    * Update a AwsInstance
    *

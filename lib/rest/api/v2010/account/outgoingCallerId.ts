@@ -116,16 +116,6 @@ export interface OutgoingCallerIdContext {
   /**
    * Update a OutgoingCallerIdInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
-  ): Promise<OutgoingCallerIdInstance>;
-  /**
-   * Update a OutgoingCallerIdInstance
-   *
    * @param { OutgoingCallerIdContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -361,16 +351,6 @@ export class OutgoingCallerIdInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a OutgoingCallerIdInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
-  ): Promise<OutgoingCallerIdInstance>;
   /**
    * Update a OutgoingCallerIdInstance
    *

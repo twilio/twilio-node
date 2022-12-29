@@ -133,16 +133,6 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SessionInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SessionInstance) => any
-  ): Promise<SessionInstance>;
-  /**
-   * Update a SessionInstance
-   *
    * @param { SessionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -458,16 +448,6 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SessionInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SessionInstance) => any
-  ): Promise<SessionInstance>;
-  /**
-   * Update a SessionInstance
-   *
    * @param { SessionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -531,16 +511,6 @@ export interface SessionListInstance {
   (sid: string): SessionContext;
   get(sid: string): SessionContext;
 
-  /**
-   * Create a SessionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SessionInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SessionInstance) => any
-  ): Promise<SessionInstance>;
   /**
    * Create a SessionInstance
    *

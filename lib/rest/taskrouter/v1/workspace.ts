@@ -161,16 +161,6 @@ export interface WorkspaceContext {
   /**
    * Update a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
-  ): Promise<WorkspaceInstance>;
-  /**
-   * Update a WorkspaceInstance
-   *
    * @param { WorkspaceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -527,16 +517,6 @@ export class WorkspaceInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a WorkspaceInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
-  ): Promise<WorkspaceInstance>;
   /**
    * Update a WorkspaceInstance
    *

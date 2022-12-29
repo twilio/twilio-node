@@ -412,16 +412,6 @@ export interface MessageInteractionListInstance {
   /**
    * Create a MessageInteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInteractionInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance>;
-  /**
-   * Create a MessageInteractionInstance
-   *
    * @param { MessageInteractionListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

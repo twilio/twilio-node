@@ -119,16 +119,6 @@ export interface ModelBuildContext {
   /**
    * Update a ModelBuildInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ModelBuildInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ModelBuildInstance) => any
-  ): Promise<ModelBuildInstance>;
-  /**
-   * Update a ModelBuildInstance
-   *
    * @param { ModelBuildContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -380,16 +370,6 @@ export class ModelBuildInstance {
   /**
    * Update a ModelBuildInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ModelBuildInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ModelBuildInstance) => any
-  ): Promise<ModelBuildInstance>;
-  /**
-   * Update a ModelBuildInstance
-   *
    * @param { ModelBuildContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -433,16 +413,6 @@ export interface ModelBuildListInstance {
   (sid: string): ModelBuildContext;
   get(sid: string): ModelBuildContext;
 
-  /**
-   * Create a ModelBuildInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ModelBuildInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ModelBuildInstance) => any
-  ): Promise<ModelBuildInstance>;
   /**
    * Create a ModelBuildInstance
    *

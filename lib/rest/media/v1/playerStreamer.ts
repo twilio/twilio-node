@@ -426,16 +426,6 @@ export interface PlayerStreamerListInstance {
   /**
    * Create a PlayerStreamerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
-  ): Promise<PlayerStreamerInstance>;
-  /**
-   * Create a PlayerStreamerInstance
-   *
    * @param { PlayerStreamerListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

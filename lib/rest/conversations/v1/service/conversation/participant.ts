@@ -133,16 +133,6 @@ export interface ParticipantContext {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ParticipantInstance
-   *
    * @param { ParticipantContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -166,16 +156,6 @@ export interface ParticipantContext {
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
 
-  /**
-   * Update a ParticipantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ParticipantInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -476,16 +456,6 @@ export class ParticipantInstance {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a ParticipantInstance
-   *
    * @param { ParticipantContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -513,16 +483,6 @@ export class ParticipantInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ParticipantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ParticipantInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
   /**
    * Update a ParticipantInstance
    *
@@ -572,16 +532,6 @@ export interface ParticipantListInstance {
   (sid: string): ParticipantContext;
   get(sid: string): ParticipantContext;
 
-  /**
-   * Create a ParticipantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ParticipantInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
   /**
    * Create a ParticipantInstance
    *

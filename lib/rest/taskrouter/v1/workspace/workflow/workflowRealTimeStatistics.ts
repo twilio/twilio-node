@@ -31,19 +31,6 @@ export interface WorkflowRealTimeStatisticsContext {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
-  /**
-   * Fetch a WorkflowRealTimeStatisticsInstance
-   *
    * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -242,19 +229,6 @@ export class WorkflowRealTimeStatisticsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkflowRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *

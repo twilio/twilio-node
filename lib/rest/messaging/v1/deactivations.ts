@@ -31,16 +31,6 @@ export interface DeactivationsContext {
   /**
    * Fetch a DeactivationsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
-  /**
-   * Fetch a DeactivationsInstance
-   *
    * @param { DeactivationsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -146,16 +136,6 @@ export class DeactivationsInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a DeactivationsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
   /**
    * Fetch a DeactivationsInstance
    *

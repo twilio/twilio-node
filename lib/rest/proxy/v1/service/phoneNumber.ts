@@ -115,16 +115,6 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  /**
-   * Update a PhoneNumberInstance
-   *
    * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -390,16 +380,6 @@ export class PhoneNumberInstance {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  /**
-   * Update a PhoneNumberInstance
-   *
    * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -445,16 +425,6 @@ export interface PhoneNumberListInstance {
   (sid: string): PhoneNumberContext;
   get(sid: string): PhoneNumberContext;
 
-  /**
-   * Create a PhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
   /**
    * Create a PhoneNumberInstance
    *

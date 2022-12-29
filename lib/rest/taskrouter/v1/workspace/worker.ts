@@ -167,16 +167,6 @@ export interface WorkerContext {
   /**
    * Remove a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a WorkerInstance
-   *
    * @param { WorkerContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -200,16 +190,6 @@ export interface WorkerContext {
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
 
-  /**
-   * Update a WorkerInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
   /**
    * Update a WorkerInstance
    *
@@ -525,16 +505,6 @@ export class WorkerInstance {
   /**
    * Remove a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a WorkerInstance
-   *
    * @param { WorkerContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -562,16 +532,6 @@ export class WorkerInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a WorkerInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
   /**
    * Update a WorkerInstance
    *

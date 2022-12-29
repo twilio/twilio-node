@@ -368,16 +368,6 @@ export interface BuildListInstance {
   /**
    * Create a BuildInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BuildInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance>;
-  /**
-   * Create a BuildInstance
-   *
    * @param { BuildListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *

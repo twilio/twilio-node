@@ -133,16 +133,6 @@ export interface SyncListItemContext {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncListItemInstance
-   *
    * @param { SyncListItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -166,16 +156,6 @@ export interface SyncListItemContext {
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
-  /**
-   * Update a SyncListItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any
-  ): Promise<SyncListItemInstance>;
   /**
    * Update a SyncListItemInstance
    *
@@ -450,16 +430,6 @@ export class SyncListItemInstance {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
-  /**
-   * Remove a SyncListItemInstance
-   *
    * @param { SyncListItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -487,16 +457,6 @@ export class SyncListItemInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a SyncListItemInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any
-  ): Promise<SyncListItemInstance>;
   /**
    * Update a SyncListItemInstance
    *

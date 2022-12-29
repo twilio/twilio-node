@@ -164,16 +164,6 @@ export interface TaskQueueContext {
   /**
    * Update a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskQueueInstance) => any
-  ): Promise<TaskQueueInstance>;
-  /**
-   * Update a TaskQueueInstance
-   *
    * @param { TaskQueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -501,16 +491,6 @@ export class TaskQueueInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a TaskQueueInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: TaskQueueInstance) => any
-  ): Promise<TaskQueueInstance>;
   /**
    * Update a TaskQueueInstance
    *

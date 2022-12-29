@@ -122,16 +122,6 @@ export interface CertificateContext {
   /**
    * Update a CertificateInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CertificateInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CertificateInstance) => any
-  ): Promise<CertificateInstance>;
-  /**
-   * Update a CertificateInstance
-   *
    * @param { CertificateContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -385,16 +375,6 @@ export class CertificateInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a CertificateInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CertificateInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CertificateInstance) => any
-  ): Promise<CertificateInstance>;
   /**
    * Update a CertificateInstance
    *

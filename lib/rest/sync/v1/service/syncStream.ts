@@ -115,16 +115,6 @@ export interface SyncStreamContext {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any
-  ): Promise<SyncStreamInstance>;
-  /**
-   * Update a SyncStreamInstance
-   *
    * @param { SyncStreamContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -393,16 +383,6 @@ export class SyncStreamInstance {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any
-  ): Promise<SyncStreamInstance>;
-  /**
-   * Update a SyncStreamInstance
-   *
    * @param { SyncStreamContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -453,16 +433,6 @@ export interface SyncStreamListInstance {
   (sid: string): SyncStreamContext;
   get(sid: string): SyncStreamContext;
 
-  /**
-   * Create a SyncStreamInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any
-  ): Promise<SyncStreamInstance>;
   /**
    * Create a SyncStreamInstance
    *

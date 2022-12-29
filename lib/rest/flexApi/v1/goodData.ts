@@ -31,16 +31,6 @@ export interface GoodDataContext {
   /**
    * Create a GoodDataInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed GoodDataInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: GoodDataInstance) => any
-  ): Promise<GoodDataInstance>;
-  /**
-   * Create a GoodDataInstance
-   *
    * @param { GoodDataContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -167,16 +157,6 @@ export class GoodDataInstance {
     return this._context;
   }
 
-  /**
-   * Create a GoodDataInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed GoodDataInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: GoodDataInstance) => any
-  ): Promise<GoodDataInstance>;
   /**
    * Create a GoodDataInstance
    *

@@ -120,16 +120,6 @@ export interface MemberContext {
   /**
    * Update a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MemberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
-  ): Promise<MemberInstance>;
-  /**
-   * Update a MemberInstance
-   *
    * @param { MemberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -408,16 +398,6 @@ export class MemberInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a MemberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MemberInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: MemberInstance) => any
-  ): Promise<MemberInstance>;
   /**
    * Update a MemberInstance
    *

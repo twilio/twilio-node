@@ -112,16 +112,6 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
-  ): Promise<CredentialInstance>;
-  /**
-   * Update a CredentialInstance
-   *
    * @param { CredentialContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -370,16 +360,6 @@ export class CredentialInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a CredentialInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: CredentialInstance) => any
-  ): Promise<CredentialInstance>;
   /**
    * Update a CredentialInstance
    *

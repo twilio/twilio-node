@@ -158,16 +158,6 @@ export interface ConferenceContext {
   /**
    * Update a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConferenceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConferenceInstance) => any
-  ): Promise<ConferenceInstance>;
-  /**
-   * Update a ConferenceInstance
-   *
    * @param { ConferenceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -428,16 +418,6 @@ export class ConferenceInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ConferenceInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConferenceInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConferenceInstance) => any
-  ): Promise<ConferenceInstance>;
   /**
    * Update a ConferenceInstance
    *

@@ -116,16 +116,6 @@ export interface EndUserContext {
   /**
    * Update a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EndUserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: EndUserInstance) => any
-  ): Promise<EndUserInstance>;
-  /**
-   * Update a EndUserInstance
-   *
    * @param { EndUserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -345,16 +335,6 @@ export class EndUserInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a EndUserInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EndUserInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: EndUserInstance) => any
-  ): Promise<EndUserInstance>;
   /**
    * Update a EndUserInstance
    *

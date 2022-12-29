@@ -49,16 +49,6 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
-  /**
-   * Update a ConfigurationInstance
-   *
    * @param { ConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -238,16 +228,6 @@ export class ConfigurationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ConfigurationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *

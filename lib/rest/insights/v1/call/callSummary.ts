@@ -54,16 +54,6 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
-  /**
-   * Fetch a CallSummaryInstance
-   *
    * @param { CallSummaryContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -248,16 +238,6 @@ export class CallSummaryInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a CallSummaryInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
   /**
    * Fetch a CallSummaryInstance
    *

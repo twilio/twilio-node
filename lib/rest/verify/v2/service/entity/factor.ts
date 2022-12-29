@@ -123,16 +123,6 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FactorInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
-  /**
-   * Update a FactorInstance
-   *
    * @param { FactorContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -429,16 +419,6 @@ export class FactorInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a FactorInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FactorInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: FactorInstance) => any
-  ): Promise<FactorInstance>;
   /**
    * Update a FactorInstance
    *

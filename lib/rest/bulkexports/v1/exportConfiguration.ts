@@ -46,16 +46,6 @@ export interface ExportConfigurationContext {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
-  ): Promise<ExportConfigurationInstance>;
-  /**
-   * Update a ExportConfigurationInstance
-   *
    * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -247,16 +237,6 @@ export class ExportConfigurationInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ExportConfigurationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
-  ): Promise<ExportConfigurationInstance>;
   /**
    * Update a ExportConfigurationInstance
    *

@@ -114,16 +114,6 @@ export interface DeploymentContext {
   /**
    * Update a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeploymentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
-  ): Promise<DeploymentInstance>;
-  /**
-   * Update a DeploymentInstance
-   *
    * @param { DeploymentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -374,16 +364,6 @@ export class DeploymentInstance {
   /**
    * Update a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeploymentInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
-  ): Promise<DeploymentInstance>;
-  /**
-   * Update a DeploymentInstance
-   *
    * @param { DeploymentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -425,16 +405,6 @@ export interface DeploymentListInstance {
   (sid: string): DeploymentContext;
   get(sid: string): DeploymentContext;
 
-  /**
-   * Create a DeploymentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeploymentInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
-  ): Promise<DeploymentInstance>;
   /**
    * Create a DeploymentInstance
    *

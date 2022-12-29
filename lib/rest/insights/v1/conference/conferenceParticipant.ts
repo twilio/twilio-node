@@ -136,19 +136,6 @@ export interface ConferenceParticipantContext {
   /**
    * Fetch a ConferenceParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConferenceParticipantInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: ConferenceParticipantInstance
-    ) => any
-  ): Promise<ConferenceParticipantInstance>;
-  /**
-   * Fetch a ConferenceParticipantInstance
-   *
    * @param { ConferenceParticipantContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -434,19 +421,6 @@ export class ConferenceParticipantInstance {
     return this._context;
   }
 
-  /**
-   * Fetch a ConferenceParticipantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConferenceParticipantInstance
-   */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: ConferenceParticipantInstance
-    ) => any
-  ): Promise<ConferenceParticipantInstance>;
   /**
    * Fetch a ConferenceParticipantInstance
    *

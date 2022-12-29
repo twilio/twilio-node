@@ -116,16 +116,6 @@ export interface ConnectionPolicyContext {
   /**
    * Update a ConnectionPolicyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
-  ): Promise<ConnectionPolicyInstance>;
-  /**
-   * Update a ConnectionPolicyInstance
-   *
    * @param { ConnectionPolicyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -361,16 +351,6 @@ export class ConnectionPolicyInstance {
   /**
    * Update a ConnectionPolicyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
-  ): Promise<ConnectionPolicyInstance>;
-  /**
-   * Update a ConnectionPolicyInstance
-   *
    * @param { ConnectionPolicyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -418,16 +398,6 @@ export interface ConnectionPolicyListInstance {
   (sid: string): ConnectionPolicyContext;
   get(sid: string): ConnectionPolicyContext;
 
-  /**
-   * Create a ConnectionPolicyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
-  ): Promise<ConnectionPolicyInstance>;
   /**
    * Create a ConnectionPolicyInstance
    *

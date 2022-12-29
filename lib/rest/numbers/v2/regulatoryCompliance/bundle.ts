@@ -217,16 +217,6 @@ export interface BundleContext {
   /**
    * Update a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BundleInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: BundleInstance) => any
-  ): Promise<BundleInstance>;
-  /**
-   * Update a BundleInstance
-   *
    * @param { BundleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -501,16 +491,6 @@ export class BundleInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a BundleInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BundleInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: BundleInstance) => any
-  ): Promise<BundleInstance>;
   /**
    * Update a BundleInstance
    *

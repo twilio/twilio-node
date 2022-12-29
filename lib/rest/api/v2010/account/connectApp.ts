@@ -117,16 +117,6 @@ export interface ConnectAppContext {
   /**
    * Update a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any
-  ): Promise<ConnectAppInstance>;
-  /**
-   * Update a ConnectAppInstance
-   *
    * @param { ConnectAppContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
@@ -408,16 +398,6 @@ export class ConnectAppInstance {
     return this._proxy.fetch(callback);
   }
 
-  /**
-   * Update a ConnectAppInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
-   */
-  update(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any
-  ): Promise<ConnectAppInstance>;
   /**
    * Update a ConnectAppInstance
    *

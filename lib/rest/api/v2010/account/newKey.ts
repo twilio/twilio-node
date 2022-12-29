@@ -31,16 +31,6 @@ export interface NewKeyListInstance {
   /**
    * Create a NewKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed NewKeyInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: NewKeyInstance) => any
-  ): Promise<NewKeyInstance>;
-  /**
-   * Create a NewKeyInstance
-   *
    * @param { NewKeyListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
