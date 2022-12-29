@@ -30,7 +30,7 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
  * Options to pass to create a IpCommandInstance
  *
  * @property { string } sim The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
- * @property { string } payload The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
+ * @property { string } payload The payload to be delivered to the device.
  * @property { number } devicePort The device port to which the IP Command will be sent.
  * @property { IpCommandPayloadType } [payloadType]
  * @property { string } [callbackUrl] The URL we should call using the `callback_method` after we have sent the IP Command.
@@ -510,7 +510,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
