@@ -1,5 +1,3 @@
-"use strict";
-
 process.noDeprecation = true;
 
 import VoiceResponse from "../../../lib/twiml/VoiceResponse";

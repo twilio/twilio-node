@@ -1,5 +1,3 @@
-"use strict";
-
 export default class RestException extends Error {
   status: number;
   message: string;

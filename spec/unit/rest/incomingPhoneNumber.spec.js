@@ -1,5 +1,3 @@
-"use strict";
-
 import Holodeck from "../../integration/holodeck";
 import Response from "../../../lib/http/response";
 import Twilio from "../../../lib/";

@@ -1,5 +1,3 @@
-"use strict";
-
 import crypto from "crypto";
 import scmp from "scmp";
 import urllib from "url";

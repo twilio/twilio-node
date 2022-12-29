@@ -1,4 +1,3 @@
-"use strict";
 import nock from "nock";
 import Twilio from "../../../lib/";
 

@@ -1,5 +1,3 @@
-"use strict";
-
 import { HttpMethod } from "../interfaces";
 
 export interface RequestOptions<TData> {
