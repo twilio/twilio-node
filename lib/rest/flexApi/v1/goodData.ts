@@ -63,7 +63,10 @@ export class GoodDataContextImpl implements GoodDataContext {
 
   create(params?: any, callback?: any): Promise<GoodDataInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: GoodDataInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

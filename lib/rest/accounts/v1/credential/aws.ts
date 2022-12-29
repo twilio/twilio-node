@@ -185,7 +185,7 @@ export class AwsContextImpl implements AwsContext {
 
   update(params?: any, callback?: any): Promise<AwsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AwsInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -515,7 +515,7 @@ export function AwsListInstance(version: V1): AwsListInstance {
     callback?: (error: Error | null, item?: AwsPage) => any
   ): Promise<AwsPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AwsPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -484,7 +484,10 @@ export function MediaRecordingListInstance(
     callback?: (error: Error | null, item?: MediaRecordingPage) => any
   ): Promise<MediaRecordingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: MediaRecordingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

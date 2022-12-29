@@ -609,7 +609,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     callback?: (error: Error | null, item?: CompositionPage) => any
   ): Promise<CompositionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: CompositionPage) => any;
       params = {};
     } else {
       params = params || {};

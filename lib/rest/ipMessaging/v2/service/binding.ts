@@ -420,7 +420,7 @@ export function BindingListInstance(
     callback?: (error: Error | null, item?: BindingPage) => any
   ): Promise<BindingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BindingPage) => any;
       params = {};
     } else {
       params = params || {};

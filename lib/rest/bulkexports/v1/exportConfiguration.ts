@@ -109,7 +109,10 @@ export class ExportConfigurationContextImpl
 
   update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ExportConfigurationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -214,7 +214,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -268,7 +268,10 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
   update(params?: any, callback?: any): Promise<SyncMapItemInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SyncMapItemInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -688,7 +691,7 @@ export function SyncMapItemListInstance(
     callback?: (error: Error | null, item?: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SyncMapItemPage) => any;
       params = {};
     } else {
       params = params || {};

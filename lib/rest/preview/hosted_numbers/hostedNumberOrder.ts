@@ -282,7 +282,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
   update(params?: any, callback?: any): Promise<HostedNumberOrderInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: HostedNumberOrderInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -796,7 +799,10 @@ export function HostedNumberOrderListInstance(
     callback?: (error: Error | null, item?: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: HostedNumberOrderPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

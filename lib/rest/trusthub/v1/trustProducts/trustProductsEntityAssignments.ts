@@ -516,7 +516,10 @@ export function TrustProductsEntityAssignmentsListInstance(
     ) => any
   ): Promise<TrustProductsEntityAssignmentsPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TrustProductsEntityAssignmentsPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -194,7 +194,7 @@ export function MetricListInstance(
     callback?: (error: Error | null, item?: MetricPage) => any
   ): Promise<MetricPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MetricPage) => any;
       params = {};
     } else {
       params = params || {};

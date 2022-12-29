@@ -585,7 +585,7 @@ export function FunctionListInstance(
     callback?: (error: Error | null, item?: FunctionPage) => any
   ): Promise<FunctionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FunctionPage) => any;
       params = {};
     } else {
       params = params || {};

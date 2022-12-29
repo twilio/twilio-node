@@ -517,7 +517,10 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CustomerProfilesEntityAssignmentsPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

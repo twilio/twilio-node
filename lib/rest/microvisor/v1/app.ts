@@ -378,7 +378,7 @@ export function AppListInstance(version: V1): AppListInstance {
     callback?: (error: Error | null, item?: AppPage) => any
   ): Promise<AppPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AppPage) => any;
       params = {};
     } else {
       params = params || {};

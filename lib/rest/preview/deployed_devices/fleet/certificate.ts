@@ -207,7 +207,10 @@ export class CertificateContextImpl implements CertificateContext {
 
   update(params?: any, callback?: any): Promise<CertificateInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CertificateInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -594,7 +597,7 @@ export function CertificateListInstance(
     callback?: (error: Error | null, item?: CertificatePage) => any
   ): Promise<CertificatePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: CertificatePage) => any;
       params = {};
     } else {
       params = params || {};

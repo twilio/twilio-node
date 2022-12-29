@@ -430,7 +430,10 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
   ): Promise<EsimProfileInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: EsimProfileInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -473,7 +476,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     callback?: (error: Error | null, item?: EsimProfilePage) => any
   ): Promise<EsimProfilePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EsimProfilePage) => any;
       params = {};
     } else {
       params = params || {};

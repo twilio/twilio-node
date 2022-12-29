@@ -465,7 +465,7 @@ export function SyncMapListInstance(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SyncMapInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -510,7 +510,7 @@ export function SyncMapListInstance(
     callback?: (error: Error | null, item?: SyncMapPage) => any
   ): Promise<SyncMapPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SyncMapPage) => any;
       params = {};
     } else {
       params = params || {};

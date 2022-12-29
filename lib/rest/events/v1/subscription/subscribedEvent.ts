@@ -196,7 +196,10 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
 
   update(params?: any, callback?: any): Promise<SubscribedEventInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscribedEventInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -550,7 +553,10 @@ export function SubscribedEventListInstance(
     callback?: (error: Error | null, item?: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscribedEventPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

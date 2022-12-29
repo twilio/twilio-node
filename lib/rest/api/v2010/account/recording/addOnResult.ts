@@ -478,7 +478,7 @@ export function AddOnResultListInstance(
     callback?: (error: Error | null, item?: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AddOnResultPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -205,7 +205,10 @@ export class ActivityContextImpl implements ActivityContext {
 
   update(params?: any, callback?: any): Promise<ActivityInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ActivityInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -583,7 +586,7 @@ export function ActivityListInstance(
     callback?: (error: Error | null, item?: ActivityPage) => any
   ): Promise<ActivityPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ActivityPage) => any;
       params = {};
     } else {
       params = params || {};

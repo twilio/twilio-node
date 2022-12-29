@@ -223,7 +223,7 @@ export class FleetContextImpl implements FleetContext {
 
   update(params?: any, callback?: any): Promise<FleetInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FleetInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -568,7 +568,7 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FleetInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -608,7 +608,7 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
     callback?: (error: Error | null, item?: FleetPage) => any
   ): Promise<FleetPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FleetPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -541,7 +541,10 @@ export function InteractionChannelParticipantListInstance(
     ) => any
   ): Promise<InteractionChannelParticipantPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: InteractionChannelParticipantPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

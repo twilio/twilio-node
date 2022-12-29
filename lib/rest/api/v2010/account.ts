@@ -408,7 +408,7 @@ export class AccountContextImpl implements AccountContext {
 
   update(params?: any, callback?: any): Promise<AccountInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -881,7 +881,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -921,7 +921,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     callback?: (error: Error | null, item?: AccountPage) => any
   ): Promise<AccountPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountPage) => any;
       params = {};
     } else {
       params = params || {};

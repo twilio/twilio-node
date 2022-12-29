@@ -465,7 +465,10 @@ export function SyncListListInstance(
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SyncListInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -510,7 +513,7 @@ export function SyncListListInstance(
     callback?: (error: Error | null, item?: SyncListPage) => any
   ): Promise<SyncListPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SyncListPage) => any;
       params = {};
     } else {
       params = params || {};

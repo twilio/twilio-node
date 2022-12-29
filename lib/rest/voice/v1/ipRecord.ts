@@ -185,7 +185,10 @@ export class IpRecordContextImpl implements IpRecordContext {
 
   update(params?: any, callback?: any): Promise<IpRecordInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IpRecordInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -530,7 +533,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     callback?: (error: Error | null, item?: IpRecordPage) => any
   ): Promise<IpRecordPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: IpRecordPage) => any;
       params = {};
     } else {
       params = params || {};

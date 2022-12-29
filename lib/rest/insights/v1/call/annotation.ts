@@ -125,7 +125,10 @@ export class AnnotationContextImpl implements AnnotationContext {
 
   update(params?: any, callback?: any): Promise<AnnotationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AnnotationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

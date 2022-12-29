@@ -202,7 +202,10 @@ export function DependentPhoneNumberListInstance(
     callback?: (error: Error | null, item?: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DependentPhoneNumberPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

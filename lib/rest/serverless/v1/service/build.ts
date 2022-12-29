@@ -489,7 +489,7 @@ export function BuildListInstance(
     callback?: (error: Error | null, item?: BuildInstance) => any
   ): Promise<BuildInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BuildInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -538,7 +538,7 @@ export function BuildListInstance(
     callback?: (error: Error | null, item?: BuildPage) => any
   ): Promise<BuildPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BuildPage) => any;
       params = {};
     } else {
       params = params || {};

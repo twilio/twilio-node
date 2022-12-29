@@ -205,7 +205,10 @@ export class SubscriptionContextImpl implements SubscriptionContext {
 
   update(params?: any, callback?: any): Promise<SubscriptionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscriptionInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -572,7 +575,10 @@ export function SubscriptionListInstance(
     callback?: (error: Error | null, item?: SubscriptionPage) => any
   ): Promise<SubscriptionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscriptionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

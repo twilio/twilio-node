@@ -444,7 +444,7 @@ export function AllTimeListInstance(
     callback?: (error: Error | null, item?: AllTimePage) => any
   ): Promise<AllTimePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AllTimePage) => any;
       params = {};
     } else {
       params = params || {};

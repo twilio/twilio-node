@@ -581,7 +581,7 @@ export function AssetListInstance(
     callback?: (error: Error | null, item?: AssetPage) => any
   ): Promise<AssetPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AssetPage) => any;
       params = {};
     } else {
       params = params || {};

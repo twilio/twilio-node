@@ -408,7 +408,10 @@ export function PublishedTrackListInstance(
     callback?: (error: Error | null, item?: PublishedTrackPage) => any
   ): Promise<PublishedTrackPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: PublishedTrackPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

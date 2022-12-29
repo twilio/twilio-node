@@ -244,7 +244,10 @@ export function DependentHostedNumberOrderListInstance(
     ) => any
   ): Promise<DependentHostedNumberOrderPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DependentHostedNumberOrderPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

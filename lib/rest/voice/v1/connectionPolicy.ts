@@ -200,7 +200,10 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
   update(params?: any, callback?: any): Promise<ConnectionPolicyInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConnectionPolicyInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -520,7 +523,10 @@ export function ConnectionPolicyListInstance(
     callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
   ): Promise<ConnectionPolicyInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConnectionPolicyInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -560,7 +566,10 @@ export function ConnectionPolicyListInstance(
     callback?: (error: Error | null, item?: ConnectionPolicyPage) => any
   ): Promise<ConnectionPolicyPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConnectionPolicyPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

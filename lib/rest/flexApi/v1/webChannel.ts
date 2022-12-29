@@ -195,7 +195,10 @@ export class WebChannelContextImpl implements WebChannelContext {
 
   update(params?: any, callback?: any): Promise<WebChannelInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WebChannelInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -560,7 +563,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
     callback?: (error: Error | null, item?: WebChannelPage) => any
   ): Promise<WebChannelPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WebChannelPage) => any;
       params = {};
     } else {
       params = params || {};

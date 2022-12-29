@@ -440,7 +440,7 @@ export function LogListInstance(
     callback?: (error: Error | null, item?: LogPage) => any
   ): Promise<LogPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: LogPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -198,7 +198,7 @@ export class UserContextImpl implements UserContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -251,7 +251,7 @@ export class UserContextImpl implements UserContext {
 
   update(params?: any, callback?: any): Promise<UserInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: UserInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -675,7 +675,7 @@ export function UserListInstance(
     callback?: (error: Error | null, item?: UserPage) => any
   ): Promise<UserPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: UserPage) => any;
       params = {};
     } else {
       params = params || {};

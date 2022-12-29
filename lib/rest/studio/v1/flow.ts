@@ -427,7 +427,7 @@ export function FlowListInstance(version: V1): FlowListInstance {
     callback?: (error: Error | null, item?: FlowPage) => any
   ): Promise<FlowPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FlowPage) => any;
       params = {};
     } else {
       params = params || {};

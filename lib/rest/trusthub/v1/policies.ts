@@ -320,7 +320,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     callback?: (error: Error | null, item?: PoliciesPage) => any
   ): Promise<PoliciesPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: PoliciesPage) => any;
       params = {};
     } else {
       params = params || {};

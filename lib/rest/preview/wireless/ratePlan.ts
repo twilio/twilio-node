@@ -201,7 +201,10 @@ export class RatePlanContextImpl implements RatePlanContext {
 
   update(params?: any, callback?: any): Promise<RatePlanInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: RatePlanInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -512,7 +515,10 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: RatePlanInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -575,7 +581,7 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     callback?: (error: Error | null, item?: RatePlanPage) => any
   ): Promise<RatePlanPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RatePlanPage) => any;
       params = {};
     } else {
       params = params || {};

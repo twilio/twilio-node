@@ -542,7 +542,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
     callback?: (error: Error | null, item?: RolePage) => any
   ): Promise<RolePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RolePage) => any;
       params = {};
     } else {
       params = params || {};

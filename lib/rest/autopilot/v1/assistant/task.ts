@@ -261,7 +261,7 @@ export class TaskContextImpl implements TaskContext {
 
   update(params?: any, callback?: any): Promise<TaskInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TaskInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -680,7 +680,7 @@ export function TaskListInstance(
     callback?: (error: Error | null, item?: TaskPage) => any
   ): Promise<TaskPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TaskPage) => any;
       params = {};
     } else {
       params = params || {};

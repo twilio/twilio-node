@@ -224,7 +224,10 @@ export class AuthorizationDocumentContextImpl
 
   update(params?: any, callback?: any): Promise<AuthorizationDocumentInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AuthorizationDocumentInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -647,7 +650,10 @@ export function AuthorizationDocumentListInstance(
     callback?: (error: Error | null, item?: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AuthorizationDocumentPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

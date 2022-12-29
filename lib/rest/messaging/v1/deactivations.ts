@@ -63,7 +63,10 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
   fetch(params?: any, callback?: any): Promise<DeactivationsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DeactivationsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

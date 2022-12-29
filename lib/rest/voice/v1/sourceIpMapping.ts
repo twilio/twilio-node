@@ -539,7 +539,10 @@ export function SourceIpMappingListInstance(
     callback?: (error: Error | null, item?: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SourceIpMappingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

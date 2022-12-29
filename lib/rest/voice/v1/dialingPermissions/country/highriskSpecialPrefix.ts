@@ -188,7 +188,10 @@ export function HighriskSpecialPrefixListInstance(
     callback?: (error: Error | null, item?: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: HighriskSpecialPrefixPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

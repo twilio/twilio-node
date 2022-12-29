@@ -476,7 +476,10 @@ export function BrandVettingListInstance(
     callback?: (error: Error | null, item?: BrandVettingPage) => any
   ): Promise<BrandVettingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: BrandVettingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

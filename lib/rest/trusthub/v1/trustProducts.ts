@@ -256,7 +256,10 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
   update(params?: any, callback?: any): Promise<TrustProductsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TrustProductsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -674,7 +677,10 @@ export function TrustProductsListInstance(
     callback?: (error: Error | null, item?: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TrustProductsPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

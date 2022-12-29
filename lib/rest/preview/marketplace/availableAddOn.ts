@@ -377,7 +377,10 @@ export function AvailableAddOnListInstance(
     callback?: (error: Error | null, item?: AvailableAddOnPage) => any
   ): Promise<AvailableAddOnPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AvailableAddOnPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

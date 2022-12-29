@@ -92,7 +92,10 @@ export class CallSummaryContextImpl implements CallSummaryContext {
 
   fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CallSummaryInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

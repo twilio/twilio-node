@@ -444,7 +444,7 @@ export function ThisMonthListInstance(
     callback?: (error: Error | null, item?: ThisMonthPage) => any
   ): Promise<ThisMonthPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ThisMonthPage) => any;
       params = {};
     } else {
       params = params || {};

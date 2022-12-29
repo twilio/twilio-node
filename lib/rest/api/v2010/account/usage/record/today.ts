@@ -444,7 +444,7 @@ export function TodayListInstance(
     callback?: (error: Error | null, item?: TodayPage) => any
   ): Promise<TodayPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TodayPage) => any;
       params = {};
     } else {
       params = params || {};

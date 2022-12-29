@@ -188,7 +188,7 @@ export function EventListInstance(
     callback?: (error: Error | null, item?: EventPage) => any
   ): Promise<EventPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EventPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -216,7 +216,7 @@ export class MessageContextImpl implements MessageContext {
 
   update(params?: any, callback?: any): Promise<MessageInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MessageInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -634,7 +634,7 @@ export function MessageListInstance(
     callback?: (error: Error | null, item?: MessagePage) => any
   ): Promise<MessagePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MessagePage) => any;
       params = {};
     } else {
       params = params || {};

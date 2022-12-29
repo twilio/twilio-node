@@ -405,7 +405,7 @@ export function EvaluationListInstance(
     callback?: (error: Error | null, item?: EvaluationPage) => any
   ): Promise<EvaluationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EvaluationPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -210,7 +210,10 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
   update(params?: any, callback?: any): Promise<OriginationUrlInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: OriginationUrlInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -636,7 +639,10 @@ export function OriginationUrlListInstance(
     callback?: (error: Error | null, item?: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: OriginationUrlPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -444,7 +444,7 @@ export function YesterdayListInstance(
     callback?: (error: Error | null, item?: YesterdayPage) => any
   ): Promise<YesterdayPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: YesterdayPage) => any;
       params = {};
     } else {
       params = params || {};

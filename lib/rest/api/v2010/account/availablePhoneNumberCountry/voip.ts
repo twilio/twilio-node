@@ -288,7 +288,7 @@ export function VoipListInstance(
     callback?: (error: Error | null, item?: VoipPage) => any
   ): Promise<VoipPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: VoipPage) => any;
       params = {};
     } else {
       params = params || {};

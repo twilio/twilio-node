@@ -210,7 +210,10 @@ export class IpAddressContextImpl implements IpAddressContext {
 
   update(params?: any, callback?: any): Promise<IpAddressInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IpAddressInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -620,7 +623,7 @@ export function IpAddressListInstance(
     callback?: (error: Error | null, item?: IpAddressPage) => any
   ): Promise<IpAddressPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: IpAddressPage) => any;
       params = {};
     } else {
       params = params || {};

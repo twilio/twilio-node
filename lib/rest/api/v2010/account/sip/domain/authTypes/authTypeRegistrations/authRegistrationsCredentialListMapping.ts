@@ -542,7 +542,10 @@ export function AuthRegistrationsCredentialListMappingListInstance(
     ) => any
   ): Promise<AuthRegistrationsCredentialListMappingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AuthRegistrationsCredentialListMappingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

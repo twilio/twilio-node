@@ -206,7 +206,10 @@ export class VariableContextImpl implements VariableContext {
 
   update(params?: any, callback?: any): Promise<VariableInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: VariableInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -598,7 +601,7 @@ export function VariableListInstance(
     callback?: (error: Error | null, item?: VariablePage) => any
   ): Promise<VariablePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: VariablePage) => any;
       params = {};
     } else {
       params = params || {};

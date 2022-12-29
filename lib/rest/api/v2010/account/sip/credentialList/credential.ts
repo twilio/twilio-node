@@ -204,7 +204,10 @@ export class CredentialContextImpl implements CredentialContext {
 
   update(params?: any, callback?: any): Promise<CredentialInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CredentialInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -586,7 +589,7 @@ export function CredentialListInstance(
     callback?: (error: Error | null, item?: CredentialPage) => any
   ): Promise<CredentialPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: CredentialPage) => any;
       params = {};
     } else {
       params = params || {};

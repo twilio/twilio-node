@@ -404,7 +404,10 @@ export function FlowRevisionListInstance(
     callback?: (error: Error | null, item?: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: FlowRevisionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

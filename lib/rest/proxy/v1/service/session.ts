@@ -239,7 +239,7 @@ export class SessionContextImpl implements SessionContext {
 
   update(params?: any, callback?: any): Promise<SessionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -635,7 +635,7 @@ export function SessionListInstance(
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -689,7 +689,7 @@ export function SessionListInstance(
     callback?: (error: Error | null, item?: SessionPage) => any
   ): Promise<SessionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -488,7 +488,7 @@ export function ShortCodeListInstance(
     callback?: (error: Error | null, item?: ShortCodePage) => any
   ): Promise<ShortCodePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ShortCodePage) => any;
       params = {};
     } else {
       params = params || {};

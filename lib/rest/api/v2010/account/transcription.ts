@@ -452,7 +452,10 @@ export function TranscriptionListInstance(
     callback?: (error: Error | null, item?: TranscriptionPage) => any
   ): Promise<TranscriptionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TranscriptionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

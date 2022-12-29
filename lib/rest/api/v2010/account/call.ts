@@ -476,7 +476,7 @@ export class CallContextImpl implements CallContext {
 
   update(params?: any, callback?: any): Promise<CallInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: CallInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -1130,7 +1130,7 @@ export function CallListInstance(
     callback?: (error: Error | null, item?: CallPage) => any
   ): Promise<CallPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: CallPage) => any;
       params = {};
     } else {
       params = params || {};

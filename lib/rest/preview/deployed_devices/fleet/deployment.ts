@@ -199,7 +199,10 @@ export class DeploymentContextImpl implements DeploymentContext {
 
   update(params?: any, callback?: any): Promise<DeploymentInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DeploymentInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -529,7 +532,10 @@ export function DeploymentListInstance(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DeploymentInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -576,7 +582,7 @@ export function DeploymentListInstance(
     callback?: (error: Error | null, item?: DeploymentPage) => any
   ): Promise<DeploymentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: DeploymentPage) => any;
       params = {};
     } else {
       params = params || {};

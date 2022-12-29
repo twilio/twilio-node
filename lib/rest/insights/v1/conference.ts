@@ -563,7 +563,7 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
     callback?: (error: Error | null, item?: ConferencePage) => any
   ): Promise<ConferencePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ConferencePage) => any;
       params = {};
     } else {
       params = params || {};

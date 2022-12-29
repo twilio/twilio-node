@@ -782,7 +782,10 @@ export function TollfreeVerificationListInstance(
     callback?: (error: Error | null, item?: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TollfreeVerificationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

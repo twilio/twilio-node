@@ -185,7 +185,10 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
   update(params?: any, callback?: any): Promise<PublicKeyInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: PublicKeyInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -520,7 +523,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     callback?: (error: Error | null, item?: PublicKeyPage) => any
   ): Promise<PublicKeyPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: PublicKeyPage) => any;
       params = {};
     } else {
       params = params || {};

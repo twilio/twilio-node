@@ -85,7 +85,10 @@ export function UsAppToPersonUsecaseListInstance(
     callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: UsAppToPersonUsecaseInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

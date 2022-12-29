@@ -193,7 +193,7 @@ export function UsageRecordListInstance(
     callback?: (error: Error | null, item?: UsageRecordPage) => any
   ): Promise<UsageRecordPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: UsageRecordPage) => any;
       params = {};
     } else {
       params = params || {};

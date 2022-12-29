@@ -648,7 +648,10 @@ export function RecordingListInstance(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: RecordingInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -707,7 +710,7 @@ export function RecordingListInstance(
     callback?: (error: Error | null, item?: RecordingPage) => any
   ): Promise<RecordingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RecordingPage) => any;
       params = {};
     } else {
       params = params || {};

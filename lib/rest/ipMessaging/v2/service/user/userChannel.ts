@@ -201,7 +201,10 @@ export class UserChannelContextImpl implements UserChannelContext {
 
   update(params?: any, callback?: any): Promise<UserChannelInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: UserChannelInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -526,7 +529,7 @@ export function UserChannelListInstance(
     callback?: (error: Error | null, item?: UserChannelPage) => any
   ): Promise<UserChannelPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: UserChannelPage) => any;
       params = {};
     } else {
       params = params || {};

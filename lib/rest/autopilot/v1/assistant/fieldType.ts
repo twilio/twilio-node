@@ -211,7 +211,10 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
   update(params?: any, callback?: any): Promise<FieldTypeInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: FieldTypeInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -598,7 +601,7 @@ export function FieldTypeListInstance(
     callback?: (error: Error | null, item?: FieldTypePage) => any
   ): Promise<FieldTypePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FieldTypePage) => any;
       params = {};
     } else {
       params = params || {};

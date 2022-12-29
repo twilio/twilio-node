@@ -450,7 +450,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
     callback?: (error: Error | null, item?: SmsCommandPage) => any
   ): Promise<SmsCommandPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SmsCommandPage) => any;
       params = {};
     } else {
       params = params || {};

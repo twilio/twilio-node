@@ -182,7 +182,10 @@ export class SigningKeyContextImpl implements SigningKeyContext {
 
   update(params?: any, callback?: any): Promise<SigningKeyInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SigningKeyInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -455,7 +458,7 @@ export function SigningKeyListInstance(
     callback?: (error: Error | null, item?: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SigningKeyPage) => any;
       params = {};
     } else {
       params = params || {};

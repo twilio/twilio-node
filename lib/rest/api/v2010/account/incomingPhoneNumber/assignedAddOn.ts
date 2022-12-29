@@ -552,7 +552,10 @@ export function AssignedAddOnListInstance(
     callback?: (error: Error | null, item?: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AssignedAddOnPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

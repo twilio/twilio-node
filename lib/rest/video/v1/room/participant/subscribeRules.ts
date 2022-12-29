@@ -134,7 +134,10 @@ export function SubscribeRulesListInstance(
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscribeRulesInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -80,7 +80,10 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
 
   fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkerStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

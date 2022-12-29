@@ -212,7 +212,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -266,7 +266,10 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
   update(params?: any, callback?: any): Promise<SyncListItemInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SyncListItemInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -681,7 +684,10 @@ export function SyncListItemListInstance(
     callback?: (error: Error | null, item?: SyncListItemPage) => any
   ): Promise<SyncListItemPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SyncListItemPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

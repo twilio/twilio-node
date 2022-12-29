@@ -444,7 +444,7 @@ export function YearlyListInstance(
     callback?: (error: Error | null, item?: YearlyPage) => any
   ): Promise<YearlyPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: YearlyPage) => any;
       params = {};
     } else {
       params = params || {};

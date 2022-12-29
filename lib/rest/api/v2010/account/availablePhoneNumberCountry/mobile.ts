@@ -288,7 +288,7 @@ export function MobileListInstance(
     callback?: (error: Error | null, item?: MobilePage) => any
   ): Promise<MobilePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MobilePage) => any;
       params = {};
     } else {
       params = params || {};

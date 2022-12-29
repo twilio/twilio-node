@@ -551,7 +551,10 @@ export function AvailablePhoneNumberCountryListInstance(
     ) => any
   ): Promise<AvailablePhoneNumberCountryPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AvailablePhoneNumberCountryPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

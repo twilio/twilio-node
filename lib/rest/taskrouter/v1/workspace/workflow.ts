@@ -259,7 +259,10 @@ export class WorkflowContextImpl implements WorkflowContext {
 
   update(params?: any, callback?: any): Promise<WorkflowInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkflowInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -719,7 +722,7 @@ export function WorkflowListInstance(
     callback?: (error: Error | null, item?: WorkflowPage) => any
   ): Promise<WorkflowPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkflowPage) => any;
       params = {};
     } else {
       params = params || {};

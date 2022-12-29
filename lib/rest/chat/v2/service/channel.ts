@@ -260,7 +260,7 @@ export class ChannelContextImpl implements ChannelContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -313,7 +313,7 @@ export class ChannelContextImpl implements ChannelContext {
 
   update(params?: any, callback?: any): Promise<ChannelInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ChannelInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -724,7 +724,7 @@ export function ChannelListInstance(
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ChannelInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -782,7 +782,7 @@ export function ChannelListInstance(
     callback?: (error: Error | null, item?: ChannelPage) => any
   ): Promise<ChannelPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ChannelPage) => any;
       params = {};
     } else {
       params = params || {};

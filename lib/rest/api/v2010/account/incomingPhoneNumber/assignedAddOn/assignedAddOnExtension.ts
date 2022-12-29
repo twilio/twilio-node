@@ -452,7 +452,10 @@ export function AssignedAddOnExtensionListInstance(
     callback?: (error: Error | null, item?: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AssignedAddOnExtensionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

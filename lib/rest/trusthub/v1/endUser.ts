@@ -187,7 +187,7 @@ export class EndUserContextImpl implements EndUserContext {
 
   update(params?: any, callback?: any): Promise<EndUserInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EndUserInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -541,7 +541,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
     callback?: (error: Error | null, item?: EndUserPage) => any
   ): Promise<EndUserPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EndUserPage) => any;
       params = {};
     } else {
       params = params || {};

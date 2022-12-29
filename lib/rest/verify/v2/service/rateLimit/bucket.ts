@@ -206,7 +206,7 @@ export class BucketContextImpl implements BucketContext {
 
   update(params?: any, callback?: any): Promise<BucketInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BucketInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -598,7 +598,7 @@ export function BucketListInstance(
     callback?: (error: Error | null, item?: BucketPage) => any
   ): Promise<BucketPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BucketPage) => any;
       params = {};
     } else {
       params = params || {};

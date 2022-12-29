@@ -551,7 +551,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     callback?: (error: Error | null, item?: RoomPage) => any
   ): Promise<RoomPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RoomPage) => any;
       params = {};
     } else {
       params = params || {};

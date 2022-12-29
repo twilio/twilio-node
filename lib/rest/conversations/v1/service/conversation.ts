@@ -250,7 +250,7 @@ export class ConversationContextImpl implements ConversationContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -303,7 +303,10 @@ export class ConversationContextImpl implements ConversationContext {
 
   update(params?: any, callback?: any): Promise<ConversationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConversationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -709,7 +712,10 @@ export function ConversationListInstance(
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConversationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -771,7 +777,10 @@ export function ConversationListInstance(
     callback?: (error: Error | null, item?: ConversationPage) => any
   ): Promise<ConversationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConversationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

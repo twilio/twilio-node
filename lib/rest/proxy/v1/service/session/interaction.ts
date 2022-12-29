@@ -526,7 +526,7 @@ export function InteractionListInstance(
     callback?: (error: Error | null, item?: InteractionPage) => any
   ): Promise<InteractionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: InteractionPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -362,7 +362,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     callback?: (error: Error | null, item?: RegulationPage) => any
   ): Promise<RegulationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RegulationPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -316,7 +316,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
   update(params?: any, callback?: any): Promise<WorkspaceInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -801,7 +804,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     callback?: (error: Error | null, item?: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkspacePage) => any;
       params = {};
     } else {
       params = params || {};

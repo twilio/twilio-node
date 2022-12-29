@@ -490,7 +490,7 @@ export function PhoneNumberListInstance(
     callback?: (error: Error | null, item?: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: PhoneNumberPage) => any;
       params = {};
     } else {
       params = params || {};

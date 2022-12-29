@@ -88,7 +88,10 @@ export class WorkspaceCumulativeStatisticsContextImpl
     callback?: any
   ): Promise<WorkspaceCumulativeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceCumulativeStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

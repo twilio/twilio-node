@@ -75,7 +75,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
   fetch(params?: any, callback?: any): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: PhoneNumberInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

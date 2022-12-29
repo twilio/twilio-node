@@ -188,7 +188,10 @@ export class ConferenceParticipantContextImpl
 
   fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConferenceParticipantInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -613,7 +616,10 @@ export function ConferenceParticipantListInstance(
     callback?: (error: Error | null, item?: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConferenceParticipantPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

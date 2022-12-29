@@ -321,7 +321,7 @@ export class BundleContextImpl implements BundleContext {
 
   update(params?: any, callback?: any): Promise<BundleInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BundleInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -737,7 +737,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
     callback?: (error: Error | null, item?: BundlePage) => any
   ): Promise<BundlePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BundlePage) => any;
       params = {};
     } else {
       params = params || {};

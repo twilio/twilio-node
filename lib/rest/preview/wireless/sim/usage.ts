@@ -71,7 +71,7 @@ export class UsageContextImpl implements UsageContext {
 
   fetch(params?: any, callback?: any): Promise<UsageInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: UsageInstance) => any;
       params = {};
     } else {
       params = params || {};

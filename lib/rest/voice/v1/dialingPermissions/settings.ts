@@ -92,7 +92,10 @@ export class SettingsContextImpl implements SettingsContext {
 
   update(params?: any, callback?: any): Promise<SettingsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SettingsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

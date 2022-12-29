@@ -170,7 +170,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     callback?: (error: Error | null, item?: TemplatePage) => any
   ): Promise<TemplatePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TemplatePage) => any;
       params = {};
     } else {
       params = params || {};

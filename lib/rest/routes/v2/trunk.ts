@@ -105,7 +105,7 @@ export class TrunkContextImpl implements TrunkContext {
 
   update(params?: any, callback?: any): Promise<TrunkInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TrunkInstance) => any;
       params = {};
     } else {
       params = params || {};

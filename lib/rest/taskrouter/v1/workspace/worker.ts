@@ -273,7 +273,7 @@ export class WorkerContextImpl implements WorkerContext {
 
   remove(params?: any, callback?: any): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -326,7 +326,7 @@ export class WorkerContextImpl implements WorkerContext {
 
   update(params?: any, callback?: any): Promise<WorkerInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkerInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -818,7 +818,7 @@ export function WorkerListInstance(
     callback?: (error: Error | null, item?: WorkerPage) => any
   ): Promise<WorkerPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkerPage) => any;
       params = {};
     } else {
       params = params || {};

@@ -348,7 +348,10 @@ export class IncomingPhoneNumberContextImpl
 
   update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IncomingPhoneNumberInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -983,7 +986,10 @@ export function IncomingPhoneNumberListInstance(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IncomingPhoneNumberInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -1072,7 +1078,10 @@ export function IncomingPhoneNumberListInstance(
     callback?: (error: Error | null, item?: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IncomingPhoneNumberPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

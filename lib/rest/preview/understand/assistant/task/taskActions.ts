@@ -113,7 +113,10 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 
   update(params?: any, callback?: any): Promise<TaskActionsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TaskActionsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -86,7 +86,7 @@ export class NumberContextImpl implements NumberContext {
 
   fetch(params?: any, callback?: any): Promise<NumberInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: NumberInstance) => any;
       params = {};
     } else {
       params = params || {};

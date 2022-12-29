@@ -88,7 +88,10 @@ export class WorkflowStatisticsContextImpl
 
   fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkflowStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

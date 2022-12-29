@@ -590,7 +590,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
     callback?: (error: Error | null, item?: SinkPage) => any
   ): Promise<SinkPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SinkPage) => any;
       params = {};
     } else {
       params = params || {};

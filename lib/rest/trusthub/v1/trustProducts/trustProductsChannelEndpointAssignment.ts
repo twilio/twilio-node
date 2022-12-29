@@ -560,7 +560,10 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     ) => any
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TrustProductsChannelEndpointAssignmentPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

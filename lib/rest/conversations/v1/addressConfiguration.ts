@@ -238,7 +238,10 @@ export class AddressConfigurationContextImpl
 
   update(params?: any, callback?: any): Promise<AddressConfigurationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AddressConfigurationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -663,7 +666,10 @@ export function AddressConfigurationListInstance(
     callback?: (error: Error | null, item?: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AddressConfigurationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

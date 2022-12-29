@@ -198,7 +198,10 @@ export function ParticipantConversationListInstance(
     callback?: (error: Error | null, item?: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ParticipantConversationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

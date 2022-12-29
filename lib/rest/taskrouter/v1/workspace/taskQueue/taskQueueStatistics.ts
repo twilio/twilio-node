@@ -88,7 +88,10 @@ export class TaskQueueStatisticsContextImpl
 
   fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TaskQueueStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

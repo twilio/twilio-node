@@ -178,7 +178,10 @@ export function BillingPeriodListInstance(
     callback?: (error: Error | null, item?: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: BillingPeriodPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

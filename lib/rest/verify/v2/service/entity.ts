@@ -540,7 +540,7 @@ export function EntityListInstance(
     callback?: (error: Error | null, item?: EntityPage) => any
   ): Promise<EntityPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EntityPage) => any;
       params = {};
     } else {
       params = params || {};

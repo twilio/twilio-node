@@ -224,7 +224,10 @@ export function TaskQueuesStatisticsListInstance(
     callback?: (error: Error | null, item?: TaskQueuesStatisticsPage) => any
   ): Promise<TaskQueuesStatisticsPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TaskQueuesStatisticsPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

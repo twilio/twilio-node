@@ -79,7 +79,10 @@ export class WorkspaceStatisticsContextImpl
 
   fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -603,7 +603,10 @@ export function MessagingConfigurationListInstance(
     callback?: (error: Error | null, item?: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: MessagingConfigurationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

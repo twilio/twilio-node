@@ -447,7 +447,7 @@ export function StepListInstance(
     callback?: (error: Error | null, item?: StepPage) => any
   ): Promise<StepPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: StepPage) => any;
       params = {};
     } else {
       params = params || {};

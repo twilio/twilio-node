@@ -204,7 +204,10 @@ export class SupportingDocumentContextImpl
 
   update(params?: any, callback?: any): Promise<SupportingDocumentInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SupportingDocumentInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -589,7 +592,10 @@ export function SupportingDocumentListInstance(
     callback?: (error: Error | null, item?: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SupportingDocumentPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -419,7 +419,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     callback?: (error: Error | null, item?: ContentPage) => any
   ): Promise<ContentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ContentPage) => any;
       params = {};
     } else {
       params = params || {};

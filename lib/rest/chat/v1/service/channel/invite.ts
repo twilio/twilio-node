@@ -521,7 +521,7 @@ export function InviteListInstance(
     callback?: (error: Error | null, item?: InvitePage) => any
   ): Promise<InvitePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: InvitePage) => any;
       params = {};
     } else {
       params = params || {};

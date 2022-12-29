@@ -232,7 +232,10 @@ export class ChallengeContextImpl implements ChallengeContext {
 
   update(params?: any, callback?: any): Promise<ChallengeInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ChallengeInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -682,7 +685,7 @@ export function ChallengeListInstance(
     callback?: (error: Error | null, item?: ChallengePage) => any
   ): Promise<ChallengePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ChallengePage) => any;
       params = {};
     } else {
       params = params || {};

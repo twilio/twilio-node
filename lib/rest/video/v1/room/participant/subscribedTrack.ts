@@ -420,7 +420,10 @@ export function SubscribedTrackListInstance(
     callback?: (error: Error | null, item?: SubscribedTrackPage) => any
   ): Promise<SubscribedTrackPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SubscribedTrackPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

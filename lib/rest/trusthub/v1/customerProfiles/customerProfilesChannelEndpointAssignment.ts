@@ -560,7 +560,10 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CustomerProfilesChannelEndpointAssignmentPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

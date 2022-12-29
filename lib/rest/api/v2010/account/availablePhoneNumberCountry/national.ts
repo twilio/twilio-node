@@ -288,7 +288,7 @@ export function NationalListInstance(
     callback?: (error: Error | null, item?: NationalPage) => any
   ): Promise<NationalPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: NationalPage) => any;
       params = {};
     } else {
       params = params || {};

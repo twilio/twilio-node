@@ -266,7 +266,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
   update(params?: any, callback?: any): Promise<CustomerProfilesInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CustomerProfilesInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -689,7 +692,10 @@ export function CustomerProfilesListInstance(
     callback?: (error: Error | null, item?: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CustomerProfilesPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

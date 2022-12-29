@@ -103,7 +103,10 @@ export class DefaultsContextImpl implements DefaultsContext {
 
   update(params?: any, callback?: any): Promise<DefaultsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DefaultsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

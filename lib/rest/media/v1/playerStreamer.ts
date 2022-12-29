@@ -544,7 +544,10 @@ export function PlayerStreamerListInstance(
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
   ): Promise<PlayerStreamerInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: PlayerStreamerInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -590,7 +593,10 @@ export function PlayerStreamerListInstance(
     callback?: (error: Error | null, item?: PlayerStreamerPage) => any
   ): Promise<PlayerStreamerPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: PlayerStreamerPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

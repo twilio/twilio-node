@@ -432,7 +432,10 @@ export function DeliveryReceiptListInstance(
     callback?: (error: Error | null, item?: DeliveryReceiptPage) => any
   ): Promise<DeliveryReceiptPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DeliveryReceiptPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

@@ -561,7 +561,10 @@ export function MessageInteractionListInstance(
     callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: MessageInteractionInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -609,7 +612,10 @@ export function MessageInteractionListInstance(
     callback?: (error: Error | null, item?: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: MessageInteractionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

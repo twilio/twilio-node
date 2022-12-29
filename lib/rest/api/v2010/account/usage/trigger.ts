@@ -476,7 +476,7 @@ export class TriggerContextImpl implements TriggerContext {
 
   update(params?: any, callback?: any): Promise<TriggerInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TriggerInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -932,7 +932,7 @@ export function TriggerListInstance(
     callback?: (error: Error | null, item?: TriggerPage) => any
   ): Promise<TriggerPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TriggerPage) => any;
       params = {};
     } else {
       params = params || {};

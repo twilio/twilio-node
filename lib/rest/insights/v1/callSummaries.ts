@@ -308,7 +308,10 @@ export function CallSummariesListInstance(
     callback?: (error: Error | null, item?: CallSummariesPage) => any
   ): Promise<CallSummariesPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CallSummariesPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

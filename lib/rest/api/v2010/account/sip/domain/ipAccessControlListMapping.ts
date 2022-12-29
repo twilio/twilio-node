@@ -543,7 +543,10 @@ export function IpAccessControlListMappingListInstance(
     ) => any
   ): Promise<IpAccessControlListMappingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IpAccessControlListMappingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};

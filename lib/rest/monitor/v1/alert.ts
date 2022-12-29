@@ -450,7 +450,7 @@ export function AlertListInstance(version: V1): AlertListInstance {
     callback?: (error: Error | null, item?: AlertPage) => any
   ): Promise<AlertPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AlertPage) => any;
       params = {};
     } else {
       params = params || {};

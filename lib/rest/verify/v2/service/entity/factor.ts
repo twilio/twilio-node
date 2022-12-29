@@ -215,7 +215,7 @@ export class FactorContextImpl implements FactorContext {
 
   update(params?: any, callback?: any): Promise<FactorInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FactorInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -583,7 +583,7 @@ export function FactorListInstance(
     callback?: (error: Error | null, item?: FactorPage) => any
   ): Promise<FactorPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FactorPage) => any;
       params = {};
     } else {
       params = params || {};
