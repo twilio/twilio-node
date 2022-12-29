@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2022-12-28] Version 4.0.0-rc.4
+-------------------------------
+**Library - Chore**
+- [PR #849](https://github.com/twilio/twilio-node/pull/849): touch up request validator. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #847](https://github.com/twilio/twilio-node/pull/847): upgrade jsonwebtoken from 8.5.1 to 9.0.0. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #840](https://github.com/twilio/twilio-node/pull/840): Rewrite hand-crafted JS files into TS files. Thanks to [@Hunga1](https://github.com/Hunga1)!
+- [PR #841](https://github.com/twilio/twilio-node/pull/841): removed page namespace from imports and references. Thanks to [@Hunga1](https://github.com/Hunga1)!
+- [PR #838](https://github.com/twilio/twilio-node/pull/838): Convert TwiML to typescript. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Fix**
+- [PR #843](https://github.com/twilio/twilio-node/pull/843): correct many of the v2010 date property types. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #842](https://github.com/twilio/twilio-node/pull/842): resolve page payload types. Thanks to [@beebzz](https://github.com/beebzz)!
+
+
 [2022-12-14] Version 4.0.0-rc.3
 -------------------------------
 **Library - Fix**
