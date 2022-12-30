@@ -18,6 +18,15 @@ class FaxResponse extends TwiML {
     super();
     this._propertyName = "response";
   }
+  comment(comment?: string): XMLElement {
+    return this.response.comment(comment);
+  }
+  commentAfter(comment?: string): XMLElement {
+    return this.response.commentAfter(comment);
+  }
+  commentBefore(comment?: string): XMLElement {
+    return this.response.commentBefore(comment);
+  }
   /**
    * <Receive> TwiML Verb
    *
