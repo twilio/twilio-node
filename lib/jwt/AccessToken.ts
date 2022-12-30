@@ -3,7 +3,7 @@
 import jwt from "jsonwebtoken";
 
 export abstract class Grant<TOptions, TPayload, TKey> {
-  key: TKey;
+  key?: TKey;
   constructor(opts?: TOptions) {}
   abstract toPayload(): TPayload;
 }
@@ -353,7 +353,12 @@ export default class AccessToken implements AccessTokenOptions {
   region?: string;
   grants: Grant<any, any, any>[];
 
-  constructor(accountSid, keySid, secret, options?) {
+  constructor(
+    accountSid: string,
+    keySid: string,
+    secret: string,
+    options?: AccessTokenOptions
+  ) {
     if (!accountSid) {
       throw new Error("accountSid is required");
     }

@@ -185,11 +185,13 @@ export default class RequestClient {
       headers.Connection = "close";
     }
 
+    let auth = undefined;
+
     if (opts.username && opts.password) {
-      var b64Auth = Buffer.from(opts.username + ":" + opts.password).toString(
+      auth = Buffer.from(opts.username + ":" + opts.password).toString(
         "base64"
       );
-      headers.Authorization = "Basic " + b64Auth;
+      headers.Authorization = "Basic " + auth;
     }
 
     var options: AxiosRequestConfig = {
@@ -216,7 +218,7 @@ export default class RequestClient {
     var requestOptions: LastRequestOptions<TData> = {
       method: opts.method,
       url: opts.uri,
-      auth: b64Auth || null,
+      auth: auth,
       params: options.params,
       data: opts.data,
       headers: opts.headers,

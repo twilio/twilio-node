@@ -41,8 +41,8 @@ export default class Page<
   TResource,
   TInstance
 > {
-  nextPageUrl: string;
-  previousPageUrl: string;
+  nextPageUrl?: string;
+  previousPageUrl?: string;
   instances: TInstance[];
   _version: TVersion;
   _payload: TPayload;
@@ -149,7 +149,7 @@ export default class Page<
    * @param {object} payload - Payload response from the API
    * @return {object} instance of a resource
    */
-  getInstance(payload: any) {
+  getInstance(payload: any): TInstance {
     throw new Error(
       "Page.get_instance() must be implemented in the derived class"
     );
@@ -163,8 +163,8 @@ export default class Page<
    */
   loadInstances(resources: TResource[]): TInstance[] {
     let instances: TInstance[] = [];
-    Object.keys(resources).forEach((key) => {
-      instances[key] = this.getInstance(resources[key]);
+    resources.forEach((resource) => {
+      instances.push(this.getInstance(resource));
     });
     return instances;
   }
@@ -190,7 +190,7 @@ export default class Page<
     var nextPagePromise: Promise<
       Page<TVersion, TPayload, TResource, TInstance>
     > = reqPromise.then(
-      function (response) {
+      function (response: any) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
@@ -219,7 +219,7 @@ export default class Page<
     var prevPagePromise: Promise<
       Page<TVersion, TPayload, TResource, TInstance>
     > = reqPromise.then(
-      function (response) {
+      function (response: any) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
@@ -253,7 +253,7 @@ export default class Page<
    * @return {array} the page of records
    */
   loadPage(payload: TPayload): TResource[] {
-    if ("meta" in payload && "key" in payload.meta) {
+    if (payload.meta?.key) {
       return payload[payload.meta.key];
     }
 
@@ -275,7 +275,7 @@ export default class Page<
   }
 
   toJSON(): object {
-    let clone = {};
+    const clone: Record<string, any> = {};
     this.forOwn(this, (value, key) => {
       if (!key.startsWith("_") && typeof value !== "function") {
         clone[key] = value;
