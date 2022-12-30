@@ -18,13 +18,28 @@ class MessagingResponse extends TwiML {
     super();
     this._propertyName = "response";
   }
-  comment(comment?: string): XMLElement {
+  /**
+   * Comments in <Response>
+   *
+   * @param comment - XML Comment
+   */
+  comment(comment: string): XMLElement {
     return this.response.comment(comment);
   }
-  commentAfter(comment?: string): XMLElement {
+  /**
+   * Comments after <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentAfter(comment: string): XMLElement {
     return this.response.commentAfter(comment);
   }
-  commentBefore(comment?: string): XMLElement {
+  /**
+   * Comments before <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentBefore(comment: string): XMLElement {
     return this.response.commentBefore(comment);
   }
   /**
