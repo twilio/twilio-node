@@ -88,7 +88,7 @@ export class BaseTwilio {
     }
 
     if (!this.accountSid?.startsWith("AC")) {
-      const apiKeyMsg = this.accountSid.startsWith("SK")
+      const apiKeyMsg = this.accountSid?.startsWith("SK")
         ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
         : "";
 
