@@ -87,3 +87,24 @@ describe("streaming results", function () {
     done();
   });
 });
+
+describe("each method",  () => {
+  it("done should only be called once", async () => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID || "";
+    const token = process.env.TWILIO_AUTH_TOKEN || "";
+    const client = new Twilio(accountSid, token);
+    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+
+    client.api.v2010.accounts.each({
+      callback: (account, done) => {
+        done();
+      },
+      done: mockDone
+    });
+
+    // Sleep to allow async work to complete
+    await new Promise(r => setTimeout(r, 2000));
+
+    expect(mockDone.mock.calls.length).toBe(1);
+  });
+});
