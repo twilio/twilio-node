@@ -1,6 +1,13 @@
 "use strict";
+interface RestExceptionError {
+  status: number;
+  message: string;
+  code: number;
+  moreInfo: string;
+  details: object;
+}
 
-export default class RestException extends Error {
+export default class RestException extends Error implements RestExceptionError {
   status: number;
   message: string;
   code: number;
@@ -9,39 +16,28 @@ export default class RestException extends Error {
 
   constructor(response) {
     super("[HTTP " + response.statusCode + "] Failed to execute request");
-    const [body, bodyParseError] = parseResponseBody(response.body);
+    const isResponseBodyString = typeof response.body == "string";
+    const body = isResponseBodyString
+      ? parseResponseBody(response.body)
+      : response.body;
 
     this.status = response.statusCode;
-    if (body) {
+    if (body !== null) {
       this.message = body.message;
       this.code = body.code;
       this.moreInfo = body.more_info; /* jshint ignore:line */
       this.details = body.details;
     }
-    if (body === null) {
-      this.message = "Failed to parse response body";
-      this.code = 12100;
-      this.moreInfo = "https://www.twilio.com/docs/api/errors/12100";
-      this.details = { error: bodyParseError };
-    }
   }
 }
-/**
- * @param {serialized object | object} response_body
- * @desc returns a tuple containing the reponse_body in object form or null
- * and an json parse error.
- * @returns {[responseBody: object | null , err]} err is the json parse error
- */
-function parseResponseBody(response_body) {
-  let body = {};
-  let err = null;
+
+function parseResponseBody(response_body: string): RestExceptionError | null {
+  let body = null;
   try {
     body = JSON.parse(response_body);
   } catch (catchError) {
-    const isObject =
-      Object.prototype.toString.call(response_body) === "[object Object]";
-    body = isObject ? response_body : null;
-    err = catchError;
+    body = null;
   }
-  return [body, err];
+
+  return body;
 }

@@ -18,16 +18,15 @@ describe("exception gets created from string", function () {
   it("should test serialize from improper json string", function () {
     const response = {
       statusCode: 200,
-      body: '{message":test", "code:81022,"more_info": "https://www.twilio.com/docs/errors/12100"}',
+      body: '{message":test", "code:81022,"more_info": "https://www.twilio.com/docs/errors/81022"}',
     };
     const exception = new RestException(response);
     expect(exception.status).toEqual(200);
-    expect(exception.message).toEqual("Failed to parse response body");
-    expect(exception.code).toEqual(12100);
-    expect(exception.moreInfo).toEqual(
-      "https://www.twilio.com/docs/api/errors/12100"
+    expect(exception.message).toEqual(
+      `[HTTP ${response.statusCode}] Failed to execute request`
     );
-    expect(exception.details["error"] instanceof Error).toBe(true);
+    expect(exception.code).toEqual(undefined);
+    expect(exception.moreInfo).toEqual(undefined);
   });
 });
 
