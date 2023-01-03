@@ -88,7 +88,7 @@ describe("streaming results", function () {
   });
 });
 
-describe("done should only be called once in each",  () => {
+describe("done should only be called once in each", () => {
   let holodeck;
   let client;
   let body;
@@ -115,16 +115,18 @@ describe("done should only be called once in each",  () => {
     holodeck.mock(new Response(200, body));
     holodeck.mock(new Response(200, body));
     const mockDone = jest.fn(console.debug.bind(null, "done!"));
-    client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").incomingPhoneNumbers.each({
-      limit: 1,
-      callback: (account, done) => {
-        done();
-      },
-      done: mockDone
-    });
+    client.api.v2010
+      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      .incomingPhoneNumbers.each({
+        limit: 1,
+        callback: (account, done) => {
+          done();
+        },
+        done: mockDone,
+      });
 
     // Sleep to allow async work to complete
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 2000));
 
     expect(mockDone.mock.calls.length).toBe(1);
   });
@@ -133,18 +135,19 @@ describe("done should only be called once in each",  () => {
     holodeck.mock(new Response(200, body));
     holodeck.mock(new Response(200, body));
     const mockDone = jest.fn(console.debug.bind(null, "done!"));
-    client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").incomingPhoneNumbers.each({
-      limit: 1,
-      callback: (account, done) => {
-        console.log();
-      },
-      done: mockDone
-    });
+    client.api.v2010
+      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      .incomingPhoneNumbers.each({
+        limit: 1,
+        callback: (account, done) => {
+          console.log();
+        },
+        done: mockDone,
+      });
 
     // Sleep to allow async work to complete
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 2000));
 
     expect(mockDone.mock.calls.length).toBe(1);
   });
-
 });
