@@ -260,7 +260,6 @@ export default class Version {
       doneCalled = true;
     }
     function fetchNextPage(fn) {
-      // onComplete();
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
