@@ -115,7 +115,7 @@ export class BaseTwilio {
    */
   /* jshint ignore:end */
 
-  request(opts: RequestOpts) {
+  request(opts: RequestOpts): Promise<any> {
     opts = opts || {};
 
     if (!opts.method) {
