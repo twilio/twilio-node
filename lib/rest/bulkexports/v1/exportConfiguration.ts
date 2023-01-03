@@ -75,7 +75,7 @@ export interface ExportConfigurationContext {
 }
 
 export interface ExportConfigurationContextSolution {
-  resourceType?: string;
+  resourceType: string;
 }
 
 export class ExportConfigurationContextImpl
@@ -94,9 +94,10 @@ export class ExportConfigurationContextImpl
   }
 
   fetch(callback?: any): Promise<ExportConfigurationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -105,11 +106,11 @@ export class ExportConfigurationContextImpl
         new ExportConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.resourceType
+          instance._solution.resourceType
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -136,9 +137,10 @@ export class ExportConfigurationContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -149,11 +151,11 @@ export class ExportConfigurationContextImpl
         new ExportConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.resourceType
+          instance._solution.resourceType
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -292,7 +294,13 @@ export class ExportConfigurationInstance {
   }
 }
 
+export interface ExportConfigurationSolution {}
+
 export interface ExportConfigurationListInstance {
+  _version: V1;
+  _solution: ExportConfigurationSolution;
+  _uri: string;
+
   (resourceType: string): ExportConfigurationContext;
   get(resourceType: string): ExportConfigurationContext;
 
@@ -303,23 +311,11 @@ export interface ExportConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportConfigurationSolution {}
-
-interface ExportConfigurationListInstanceImpl
-  extends ExportConfigurationListInstance {}
-class ExportConfigurationListInstanceImpl
-  implements ExportConfigurationListInstance
-{
-  _version?: V1;
-  _solution?: ExportConfigurationSolution;
-  _uri?: string;
-}
-
 export function ExportConfigurationListInstance(
   version: V1
 ): ExportConfigurationListInstance {
   const instance = ((resourceType) =>
-    instance.get(resourceType)) as ExportConfigurationListInstanceImpl;
+    instance.get(resourceType)) as ExportConfigurationListInstance;
 
   instance.get = function get(resourceType): ExportConfigurationContext {
     return new ExportConfigurationContextImpl(version, resourceType);
@@ -330,14 +326,14 @@ export function ExportConfigurationListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

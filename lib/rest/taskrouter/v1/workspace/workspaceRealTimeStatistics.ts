@@ -69,7 +69,7 @@ export interface WorkspaceRealTimeStatisticsContext {
 }
 
 export interface WorkspaceRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkspaceRealTimeStatisticsContextImpl
@@ -105,9 +105,10 @@ export class WorkspaceRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -118,11 +119,11 @@ export class WorkspaceRealTimeStatisticsContextImpl
         new WorkspaceRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -295,7 +296,15 @@ export class WorkspaceRealTimeStatisticsInstance {
   }
 }
 
+export interface WorkspaceRealTimeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 export interface WorkspaceRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkspaceRealTimeStatisticsSolution;
+  _uri: string;
+
   (): WorkspaceRealTimeStatisticsContext;
   get(): WorkspaceRealTimeStatisticsContext;
 
@@ -304,20 +313,6 @@ export interface WorkspaceRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkspaceRealTimeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkspaceRealTimeStatisticsListInstanceImpl
-  extends WorkspaceRealTimeStatisticsListInstance {}
-class WorkspaceRealTimeStatisticsListInstanceImpl
-  implements WorkspaceRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkspaceRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkspaceRealTimeStatisticsListInstance(
@@ -329,7 +324,7 @@ export function WorkspaceRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkspaceRealTimeStatisticsListInstanceImpl;
+    instance.get()) as WorkspaceRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkspaceRealTimeStatisticsContext {
     return new WorkspaceRealTimeStatisticsContextImpl(version, workspaceSid);
@@ -340,14 +335,14 @@ export function WorkspaceRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

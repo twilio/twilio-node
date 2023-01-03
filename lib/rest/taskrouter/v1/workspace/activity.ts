@@ -153,8 +153,8 @@ export interface ActivityContext {
 }
 
 export interface ActivityContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class ActivityContextImpl implements ActivityContext {
@@ -175,13 +175,14 @@ export class ActivityContextImpl implements ActivityContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -189,9 +190,10 @@ export class ActivityContextImpl implements ActivityContext {
   }
 
   fetch(callback?: any): Promise<ActivityInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -200,12 +202,12 @@ export class ActivityContextImpl implements ActivityContext {
         new ActivityInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -228,9 +230,10 @@ export class ActivityContextImpl implements ActivityContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -241,12 +244,12 @@ export class ActivityContextImpl implements ActivityContext {
         new ActivityInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -427,7 +430,15 @@ export class ActivityInstance {
   }
 }
 
+export interface ActivitySolution {
+  workspaceSid?: string;
+}
+
 export interface ActivityListInstance {
+  _version: V1;
+  _solution: ActivitySolution;
+  _uri: string;
+
   (sid: string): ActivityContext;
   get(sid: string): ActivityContext;
 
@@ -573,17 +584,6 @@ export interface ActivityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ActivitySolution {
-  workspaceSid?: string;
-}
-
-interface ActivityListInstanceImpl extends ActivityListInstance {}
-class ActivityListInstanceImpl implements ActivityListInstance {
-  _version?: V1;
-  _solution?: ActivitySolution;
-  _uri?: string;
-}
-
 export function ActivityListInstance(
   version: V1,
   workspaceSid: string
@@ -592,7 +592,7 @@ export function ActivityListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ActivityListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ActivityListInstance;
 
   instance.get = function get(sid): ActivityContext {
     return new ActivityContextImpl(version, workspaceSid, sid);
@@ -628,7 +628,7 @@ export function ActivityListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -639,11 +639,11 @@ export function ActivityListInstance(
         new ActivityInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -676,17 +676,18 @@ export function ActivityListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ActivityPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ActivityPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -699,30 +700,28 @@ export function ActivityListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ActivityPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ActivityPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ActivityPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

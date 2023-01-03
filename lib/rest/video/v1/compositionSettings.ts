@@ -111,9 +111,10 @@ export class CompositionSettingsContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -123,7 +124,7 @@ export class CompositionSettingsContextImpl
       (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -131,9 +132,10 @@ export class CompositionSettingsContextImpl
   }
 
   fetch(callback?: any): Promise<CompositionSettingsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -141,7 +143,7 @@ export class CompositionSettingsContextImpl
       (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -283,7 +285,13 @@ export class CompositionSettingsInstance {
   }
 }
 
+export interface CompositionSettingsSolution {}
+
 export interface CompositionSettingsListInstance {
+  _version: V1;
+  _solution: CompositionSettingsSolution;
+  _uri: string;
+
   (): CompositionSettingsContext;
   get(): CompositionSettingsContext;
 
@@ -294,23 +302,10 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsSolution {}
-
-interface CompositionSettingsListInstanceImpl
-  extends CompositionSettingsListInstance {}
-class CompositionSettingsListInstanceImpl
-  implements CompositionSettingsListInstance
-{
-  _version?: V1;
-  _solution?: CompositionSettingsSolution;
-  _uri?: string;
-}
-
 export function CompositionSettingsListInstance(
   version: V1
 ): CompositionSettingsListInstance {
-  const instance = (() =>
-    instance.get()) as CompositionSettingsListInstanceImpl;
+  const instance = (() => instance.get()) as CompositionSettingsListInstance;
 
   instance.get = function get(): CompositionSettingsContext {
     return new CompositionSettingsContextImpl(version);
@@ -321,14 +316,14 @@ export function CompositionSettingsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

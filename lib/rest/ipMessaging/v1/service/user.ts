@@ -152,8 +152,8 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class UserContextImpl implements UserContext {
@@ -187,13 +187,14 @@ export class UserContextImpl implements UserContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -201,9 +202,10 @@ export class UserContextImpl implements UserContext {
   }
 
   fetch(callback?: any): Promise<UserInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -212,12 +214,12 @@ export class UserContextImpl implements UserContext {
         new UserInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +245,10 @@ export class UserContextImpl implements UserContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,12 +259,12 @@ export class UserContextImpl implements UserContext {
         new UserInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -447,7 +450,15 @@ export class UserInstance {
   }
 }
 
+export interface UserSolution {
+  serviceSid?: string;
+}
+
 export interface UserListInstance {
+  _version: V1;
+  _solution: UserSolution;
+  _uri: string;
+
   (sid: string): UserContext;
   get(sid: string): UserContext;
 
@@ -593,17 +604,6 @@ export interface UserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserSolution {
-  serviceSid?: string;
-}
-
-interface UserListInstanceImpl extends UserListInstance {}
-class UserListInstanceImpl implements UserListInstance {
-  _version?: V1;
-  _solution?: UserSolution;
-  _uri?: string;
-}
-
 export function UserListInstance(
   version: V1,
   serviceSid: string
@@ -612,7 +612,7 @@ export function UserListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as UserListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as UserListInstance;
 
   instance.get = function get(sid): UserContext {
     return new UserContextImpl(version, serviceSid, sid);
@@ -648,7 +648,7 @@ export function UserListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -656,10 +656,14 @@ export function UserListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserInstance(operationVersion, payload, this._solution.serviceSid)
+        new UserInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -688,17 +692,17 @@ export function UserListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UserPage(operationVersion, payload, this._solution)
+      (payload) => new UserPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -711,30 +715,27 @@ export function UserListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UserPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new UserPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

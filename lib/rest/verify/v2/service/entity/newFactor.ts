@@ -61,7 +61,16 @@ export interface NewFactorListInstanceCreateOptions {
   metadata?: any;
 }
 
+export interface NewFactorSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
 export interface NewFactorListInstance {
+  _version: V2;
+  _solution: NewFactorSolution;
+  _uri: string;
+
   /**
    * Create a NewFactorInstance
    *
@@ -83,18 +92,6 @@ export interface NewFactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NewFactorSolution {
-  serviceSid?: string;
-  identity?: string;
-}
-
-interface NewFactorListInstanceImpl extends NewFactorListInstance {}
-class NewFactorListInstanceImpl implements NewFactorListInstance {
-  _version?: V2;
-  _solution?: NewFactorSolution;
-  _uri?: string;
-}
-
 export function NewFactorListInstance(
   version: V2,
   serviceSid: string,
@@ -108,7 +105,7 @@ export function NewFactorListInstance(
     throw new Error("Parameter 'identity' is not valid.");
   }
 
-  const instance = {} as NewFactorListInstanceImpl;
+  const instance = {} as NewFactorListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, identity };
@@ -169,7 +166,7 @@ export function NewFactorListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -180,12 +177,12 @@ export function NewFactorListInstance(
         new NewFactorInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,14 +190,14 @@ export function NewFactorListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

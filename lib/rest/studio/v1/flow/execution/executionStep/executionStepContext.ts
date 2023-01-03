@@ -38,9 +38,9 @@ export interface ExecutionStepContextContext {
 }
 
 export interface ExecutionStepContextContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-  stepSid?: string;
+  flowSid: string;
+  executionSid: string;
+  stepSid: string;
 }
 
 export class ExecutionStepContextContextImpl
@@ -72,9 +72,10 @@ export class ExecutionStepContextContextImpl
   }
 
   fetch(callback?: any): Promise<ExecutionStepContextInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -83,13 +84,13 @@ export class ExecutionStepContextContextImpl
         new ExecutionStepContextInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.executionSid,
-          this._solution.stepSid
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.stepSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,7 +214,17 @@ export class ExecutionStepContextInstance {
   }
 }
 
+export interface ExecutionStepContextSolution {
+  flowSid?: string;
+  executionSid?: string;
+  stepSid?: string;
+}
+
 export interface ExecutionStepContextListInstance {
+  _version: V1;
+  _solution: ExecutionStepContextSolution;
+  _uri: string;
+
   (): ExecutionStepContextContext;
   get(): ExecutionStepContextContext;
 
@@ -222,22 +233,6 @@ export interface ExecutionStepContextListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ExecutionStepContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-  stepSid?: string;
-}
-
-interface ExecutionStepContextListInstanceImpl
-  extends ExecutionStepContextListInstance {}
-class ExecutionStepContextListInstanceImpl
-  implements ExecutionStepContextListInstance
-{
-  _version?: V1;
-  _solution?: ExecutionStepContextSolution;
-  _uri?: string;
 }
 
 export function ExecutionStepContextListInstance(
@@ -258,8 +253,7 @@ export function ExecutionStepContextListInstance(
     throw new Error("Parameter 'stepSid' is not valid.");
   }
 
-  const instance = (() =>
-    instance.get()) as ExecutionStepContextListInstanceImpl;
+  const instance = (() => instance.get()) as ExecutionStepContextListInstance;
 
   instance.get = function get(): ExecutionStepContextContext {
     return new ExecutionStepContextContextImpl(
@@ -275,14 +269,14 @@ export function ExecutionStepContextListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

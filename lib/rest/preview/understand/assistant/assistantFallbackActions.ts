@@ -83,7 +83,7 @@ export interface AssistantFallbackActionsContext {
 }
 
 export interface AssistantFallbackActionsContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class AssistantFallbackActionsContextImpl
@@ -102,9 +102,10 @@ export class AssistantFallbackActionsContextImpl
   }
 
   fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -113,11 +114,11 @@ export class AssistantFallbackActionsContextImpl
         new AssistantFallbackActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -143,9 +144,10 @@ export class AssistantFallbackActionsContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -156,11 +158,11 @@ export class AssistantFallbackActionsContextImpl
         new AssistantFallbackActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,7 +295,15 @@ export class AssistantFallbackActionsInstance {
   }
 }
 
+export interface AssistantFallbackActionsSolution {
+  assistantSid?: string;
+}
+
 export interface AssistantFallbackActionsListInstance {
+  _version: Understand;
+  _solution: AssistantFallbackActionsSolution;
+  _uri: string;
+
   (): AssistantFallbackActionsContext;
   get(): AssistantFallbackActionsContext;
 
@@ -302,20 +312,6 @@ export interface AssistantFallbackActionsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssistantFallbackActionsSolution {
-  assistantSid?: string;
-}
-
-interface AssistantFallbackActionsListInstanceImpl
-  extends AssistantFallbackActionsListInstance {}
-class AssistantFallbackActionsListInstanceImpl
-  implements AssistantFallbackActionsListInstance
-{
-  _version?: Understand;
-  _solution?: AssistantFallbackActionsSolution;
-  _uri?: string;
 }
 
 export function AssistantFallbackActionsListInstance(
@@ -327,7 +323,7 @@ export function AssistantFallbackActionsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as AssistantFallbackActionsListInstanceImpl;
+    instance.get()) as AssistantFallbackActionsListInstance;
 
   instance.get = function get(): AssistantFallbackActionsContext {
     return new AssistantFallbackActionsContextImpl(version, assistantSid);
@@ -338,14 +334,14 @@ export function AssistantFallbackActionsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -125,10 +125,10 @@ export interface MessageInteractionContext {
 }
 
 export interface MessageInteractionContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  participantSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  participantSid: string;
+  sid: string;
 }
 
 export class MessageInteractionContextImpl
@@ -165,9 +165,10 @@ export class MessageInteractionContextImpl
   }
 
   fetch(callback?: any): Promise<MessageInteractionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -176,14 +177,14 @@ export class MessageInteractionContextImpl
         new MessageInteractionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.participantSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.participantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -405,7 +406,17 @@ export class MessageInteractionInstance {
   }
 }
 
+export interface MessageInteractionSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+  participantSid?: string;
+}
+
 export interface MessageInteractionListInstance {
+  _version: V1;
+  _solution: MessageInteractionSolution;
+  _uri: string;
+
   (sid: string): MessageInteractionContext;
   get(sid: string): MessageInteractionContext;
 
@@ -567,22 +578,6 @@ export interface MessageInteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessageInteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  participantSid?: string;
-}
-
-interface MessageInteractionListInstanceImpl
-  extends MessageInteractionListInstance {}
-class MessageInteractionListInstanceImpl
-  implements MessageInteractionListInstance
-{
-  _version?: V1;
-  _solution?: MessageInteractionSolution;
-  _uri?: string;
-}
-
 export function MessageInteractionListInstance(
   version: V1,
   serviceSid: string,
@@ -602,7 +597,7 @@ export function MessageInteractionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as MessageInteractionListInstanceImpl;
+    instance.get(sid)) as MessageInteractionListInstance;
 
   instance.get = function get(sid): MessageInteractionContext {
     return new MessageInteractionContextImpl(
@@ -640,7 +635,7 @@ export function MessageInteractionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -651,13 +646,13 @@ export function MessageInteractionListInstance(
         new MessageInteractionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.participantSid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -686,7 +681,7 @@ export function MessageInteractionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -694,10 +689,14 @@ export function MessageInteractionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MessageInteractionPage(operationVersion, payload, this._solution)
+        new MessageInteractionPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -710,31 +709,32 @@ export function MessageInteractionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MessageInteractionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MessageInteractionPage(this._version, payload, this._solution)
+        new MessageInteractionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

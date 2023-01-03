@@ -144,8 +144,8 @@ export interface RateLimitContext {
 }
 
 export interface RateLimitContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class RateLimitContextImpl implements RateLimitContext {
@@ -179,13 +179,14 @@ export class RateLimitContextImpl implements RateLimitContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,9 +194,10 @@ export class RateLimitContextImpl implements RateLimitContext {
   }
 
   fetch(callback?: any): Promise<RateLimitInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -204,12 +206,12 @@ export class RateLimitContextImpl implements RateLimitContext {
         new RateLimitInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -232,9 +234,10 @@ export class RateLimitContextImpl implements RateLimitContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -245,12 +248,12 @@ export class RateLimitContextImpl implements RateLimitContext {
         new RateLimitInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -441,7 +444,15 @@ export class RateLimitInstance {
   }
 }
 
+export interface RateLimitSolution {
+  serviceSid?: string;
+}
+
 export interface RateLimitListInstance {
+  _version: V2;
+  _solution: RateLimitSolution;
+  _uri: string;
+
   (sid: string): RateLimitContext;
   get(sid: string): RateLimitContext;
 
@@ -587,17 +598,6 @@ export interface RateLimitListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RateLimitSolution {
-  serviceSid?: string;
-}
-
-interface RateLimitListInstanceImpl extends RateLimitListInstance {}
-class RateLimitListInstanceImpl implements RateLimitListInstance {
-  _version?: V2;
-  _solution?: RateLimitSolution;
-  _uri?: string;
-}
-
 export function RateLimitListInstance(
   version: V2,
   serviceSid: string
@@ -606,7 +606,7 @@ export function RateLimitListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as RateLimitListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RateLimitListInstance;
 
   instance.get = function get(sid): RateLimitContext {
     return new RateLimitContextImpl(version, serviceSid, sid);
@@ -639,7 +639,7 @@ export function RateLimitListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -650,11 +650,11 @@ export function RateLimitListInstance(
         new RateLimitInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -683,17 +683,18 @@ export function RateLimitListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RateLimitPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RateLimitPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -706,30 +707,28 @@ export function RateLimitListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<RateLimitPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RateLimitPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RateLimitPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

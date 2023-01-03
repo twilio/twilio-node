@@ -68,8 +68,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -108,9 +108,10 @@ export class ChannelContextImpl implements ChannelContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -121,12 +122,12 @@ export class ChannelContextImpl implements ChannelContext {
         new ChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -317,7 +318,13 @@ export class ChannelInstance {
   }
 }
 
+export interface ChannelSolution {}
+
 export interface ChannelListInstance {
+  _version: V3;
+  _solution: ChannelSolution;
+  _uri: string;
+
   (serviceSid: string, sid: string): ChannelContext;
   get(serviceSid: string, sid: string): ChannelContext;
 
@@ -328,18 +335,9 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChannelSolution {}
-
-interface ChannelListInstanceImpl extends ChannelListInstance {}
-class ChannelListInstanceImpl implements ChannelListInstance {
-  _version?: V3;
-  _solution?: ChannelSolution;
-  _uri?: string;
-}
-
 export function ChannelListInstance(version: V3): ChannelListInstance {
   const instance = ((serviceSid, sid) =>
-    instance.get(serviceSid, sid)) as ChannelListInstanceImpl;
+    instance.get(serviceSid, sid)) as ChannelListInstance;
 
   instance.get = function get(serviceSid, sid): ChannelContext {
     return new ChannelContextImpl(version, serviceSid, sid);
@@ -350,14 +348,14 @@ export function ChannelListInstance(version: V3): ChannelListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

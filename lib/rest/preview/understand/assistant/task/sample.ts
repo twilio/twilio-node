@@ -153,9 +153,9 @@ export interface SampleContext {
 }
 
 export interface SampleContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  assistantSid: string;
+  taskSid: string;
+  sid: string;
 }
 
 export class SampleContextImpl implements SampleContext {
@@ -185,13 +185,14 @@ export class SampleContextImpl implements SampleContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +200,10 @@ export class SampleContextImpl implements SampleContext {
   }
 
   fetch(callback?: any): Promise<SampleInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -210,13 +212,13 @@ export class SampleContextImpl implements SampleContext {
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -242,9 +244,10 @@ export class SampleContextImpl implements SampleContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -255,13 +258,13 @@ export class SampleContextImpl implements SampleContext {
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -451,7 +454,16 @@ export class SampleInstance {
   }
 }
 
+export interface SampleSolution {
+  assistantSid?: string;
+  taskSid?: string;
+}
+
 export interface SampleListInstance {
+  _version: Understand;
+  _solution: SampleSolution;
+  _uri: string;
+
   (sid: string): SampleContext;
   get(sid: string): SampleContext;
 
@@ -597,18 +609,6 @@ export interface SampleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SampleSolution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface SampleListInstanceImpl extends SampleListInstance {}
-class SampleListInstanceImpl implements SampleListInstance {
-  _version?: Understand;
-  _solution?: SampleSolution;
-  _uri?: string;
-}
-
 export function SampleListInstance(
   version: Understand,
   assistantSid: string,
@@ -622,7 +622,7 @@ export function SampleListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SampleListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SampleListInstance;
 
   instance.get = function get(sid): SampleContext {
     return new SampleContextImpl(version, assistantSid, taskSid, sid);
@@ -661,7 +661,7 @@ export function SampleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -672,12 +672,12 @@ export function SampleListInstance(
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -707,17 +707,17 @@ export function SampleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SamplePage(operationVersion, payload, this._solution)
+      (payload) => new SamplePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -730,30 +730,28 @@ export function SampleListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SamplePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SamplePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SamplePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

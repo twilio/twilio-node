@@ -132,8 +132,8 @@ export interface FunctionContext {
 }
 
 export interface FunctionContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class FunctionContextImpl implements FunctionContext {
@@ -167,13 +167,14 @@ export class FunctionContextImpl implements FunctionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,9 +182,10 @@ export class FunctionContextImpl implements FunctionContext {
   }
 
   fetch(callback?: any): Promise<FunctionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -192,12 +194,12 @@ export class FunctionContextImpl implements FunctionContext {
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -223,9 +225,10 @@ export class FunctionContextImpl implements FunctionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -236,12 +239,12 @@ export class FunctionContextImpl implements FunctionContext {
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -415,7 +418,15 @@ export class FunctionInstance {
   }
 }
 
+export interface FunctionSolution {
+  serviceSid?: string;
+}
+
 export interface FunctionListInstance {
+  _version: V1;
+  _solution: FunctionSolution;
+  _uri: string;
+
   (sid: string): FunctionContext;
   get(sid: string): FunctionContext;
 
@@ -561,17 +572,6 @@ export interface FunctionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FunctionSolution {
-  serviceSid?: string;
-}
-
-interface FunctionListInstanceImpl extends FunctionListInstance {}
-class FunctionListInstanceImpl implements FunctionListInstance {
-  _version?: V1;
-  _solution?: FunctionSolution;
-  _uri?: string;
-}
-
 export function FunctionListInstance(
   version: V1,
   serviceSid: string
@@ -580,7 +580,7 @@ export function FunctionListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FunctionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FunctionListInstance;
 
   instance.get = function get(sid): FunctionContext {
     return new FunctionContextImpl(version, serviceSid, sid);
@@ -614,7 +614,7 @@ export function FunctionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -625,11 +625,11 @@ export function FunctionListInstance(
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -658,17 +658,18 @@ export function FunctionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FunctionPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new FunctionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -681,30 +682,28 @@ export function FunctionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FunctionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FunctionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FunctionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

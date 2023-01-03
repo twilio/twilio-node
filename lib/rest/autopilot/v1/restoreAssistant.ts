@@ -27,7 +27,13 @@ export interface RestoreAssistantListInstanceUpdateOptions {
   assistant: string;
 }
 
+export interface RestoreAssistantSolution {}
+
 export interface RestoreAssistantListInstance {
+  _version: V1;
+  _solution: RestoreAssistantSolution;
+  _uri: string;
+
   /**
    * Update a RestoreAssistantInstance
    *
@@ -49,20 +55,10 @@ export interface RestoreAssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RestoreAssistantSolution {}
-
-interface RestoreAssistantListInstanceImpl
-  extends RestoreAssistantListInstance {}
-class RestoreAssistantListInstanceImpl implements RestoreAssistantListInstance {
-  _version?: V1;
-  _solution?: RestoreAssistantSolution;
-  _uri?: string;
-}
-
 export function RestoreAssistantListInstance(
   version: V1
 ): RestoreAssistantListInstance {
-  const instance = {} as RestoreAssistantListInstanceImpl;
+  const instance = {} as RestoreAssistantListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -89,7 +85,7 @@ export function RestoreAssistantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -99,7 +95,7 @@ export function RestoreAssistantListInstance(
       (payload) => new RestoreAssistantInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -107,14 +103,14 @@ export function RestoreAssistantListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

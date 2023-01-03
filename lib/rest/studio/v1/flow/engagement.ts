@@ -117,8 +117,8 @@ export interface EngagementContext {
 }
 
 export interface EngagementContextSolution {
-  flowSid?: string;
-  sid?: string;
+  flowSid: string;
+  sid: string;
 }
 
 export class EngagementContextImpl implements EngagementContext {
@@ -164,13 +164,14 @@ export class EngagementContextImpl implements EngagementContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -178,9 +179,10 @@ export class EngagementContextImpl implements EngagementContext {
   }
 
   fetch(callback?: any): Promise<EngagementInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -189,12 +191,12 @@ export class EngagementContextImpl implements EngagementContext {
         new EngagementInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -377,7 +379,15 @@ export class EngagementInstance {
   }
 }
 
+export interface EngagementSolution {
+  flowSid?: string;
+}
+
 export interface EngagementListInstance {
+  _version: V1;
+  _solution: EngagementSolution;
+  _uri: string;
+
   (sid: string): EngagementContext;
   get(sid: string): EngagementContext;
 
@@ -523,17 +533,6 @@ export interface EngagementListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EngagementSolution {
-  flowSid?: string;
-}
-
-interface EngagementListInstanceImpl extends EngagementListInstance {}
-class EngagementListInstanceImpl implements EngagementListInstance {
-  _version?: V1;
-  _solution?: EngagementSolution;
-  _uri?: string;
-}
-
 export function EngagementListInstance(
   version: V1,
   flowSid: string
@@ -542,7 +541,7 @@ export function EngagementListInstance(
     throw new Error("Parameter 'flowSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EngagementListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EngagementListInstance;
 
   instance.get = function get(sid): EngagementContext {
     return new EngagementContextImpl(version, flowSid, sid);
@@ -581,7 +580,7 @@ export function EngagementListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -592,11 +591,11 @@ export function EngagementListInstance(
         new EngagementInstance(
           operationVersion,
           payload,
-          this._solution.flowSid
+          instance._solution.flowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -625,17 +624,18 @@ export function EngagementListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EngagementPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EngagementPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -648,30 +648,28 @@ export function EngagementListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<EngagementPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EngagementPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EngagementPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

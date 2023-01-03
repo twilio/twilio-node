@@ -190,7 +190,7 @@ export interface WorkspaceContext {
 }
 
 export interface WorkspaceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class WorkspaceContextImpl implements WorkspaceContext {
@@ -291,13 +291,14 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -305,18 +306,19 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   fetch(callback?: any): Promise<WorkspaceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -351,9 +353,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -361,10 +364,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -652,7 +655,13 @@ export class WorkspaceInstance {
   }
 }
 
+export interface WorkspaceSolution {}
+
 export interface WorkspaceListInstance {
+  _version: V1;
+  _solution: WorkspaceSolution;
+  _uri: string;
+
   (sid: string): WorkspaceContext;
   get(sid: string): WorkspaceContext;
 
@@ -798,17 +807,8 @@ export interface WorkspaceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkspaceSolution {}
-
-interface WorkspaceListInstanceImpl extends WorkspaceListInstance {}
-class WorkspaceListInstanceImpl implements WorkspaceListInstance {
-  _version?: V1;
-  _solution?: WorkspaceSolution;
-  _uri?: string;
-}
-
 export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
-  const instance = ((sid) => instance.get(sid)) as WorkspaceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkspaceListInstance;
 
   instance.get = function get(sid): WorkspaceContext {
     return new WorkspaceContextImpl(version, sid);
@@ -851,7 +851,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -861,7 +861,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       (payload) => new WorkspaceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -892,17 +892,18 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkspacePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WorkspacePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -915,30 +916,28 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<WorkspacePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkspacePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkspacePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

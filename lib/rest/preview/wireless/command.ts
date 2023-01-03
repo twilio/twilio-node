@@ -131,7 +131,7 @@ export interface CommandContext {
 }
 
 export interface CommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CommandContextImpl implements CommandContext {
@@ -148,18 +148,19 @@ export class CommandContextImpl implements CommandContext {
   }
 
   fetch(callback?: any): Promise<CommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CommandInstance(operationVersion, payload, this._solution.sid)
+        new CommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -280,7 +281,13 @@ export class CommandInstance {
   }
 }
 
+export interface CommandSolution {}
+
 export interface CommandListInstance {
+  _version: Wireless;
+  _solution: CommandSolution;
+  _uri: string;
+
   (sid: string): CommandContext;
   get(sid: string): CommandContext;
 
@@ -426,17 +433,8 @@ export interface CommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CommandSolution {}
-
-interface CommandListInstanceImpl extends CommandListInstance {}
-class CommandListInstanceImpl implements CommandListInstance {
-  _version?: Wireless;
-  _solution?: CommandSolution;
-  _uri?: string;
-}
-
 export function CommandListInstance(version: Wireless): CommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as CommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CommandListInstance;
 
   instance.get = function get(sid): CommandContext {
     return new CommandContextImpl(version, sid);
@@ -477,7 +475,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -487,7 +485,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
       (payload) => new CommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -521,17 +519,18 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,30 +543,28 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -92,8 +92,8 @@ export interface AuthorizedConnectAppContext {
 }
 
 export interface AuthorizedConnectAppContextSolution {
-  accountSid?: string;
-  connectAppSid?: string;
+  accountSid: string;
+  connectAppSid: string;
 }
 
 export class AuthorizedConnectAppContextImpl
@@ -120,9 +120,10 @@ export class AuthorizedConnectAppContextImpl
   }
 
   fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -131,12 +132,12 @@ export class AuthorizedConnectAppContextImpl
         new AuthorizedConnectAppInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.connectAppSid
+          instance._solution.accountSid,
+          instance._solution.connectAppSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -291,7 +292,15 @@ export class AuthorizedConnectAppInstance {
   }
 }
 
+export interface AuthorizedConnectAppSolution {
+  accountSid?: string;
+}
+
 export interface AuthorizedConnectAppListInstance {
+  _version: V2010;
+  _solution: AuthorizedConnectAppSolution;
+  _uri: string;
+
   (connectAppSid: string): AuthorizedConnectAppContext;
   get(connectAppSid: string): AuthorizedConnectAppContext;
 
@@ -435,20 +444,6 @@ export interface AuthorizedConnectAppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthorizedConnectAppSolution {
-  accountSid?: string;
-}
-
-interface AuthorizedConnectAppListInstanceImpl
-  extends AuthorizedConnectAppListInstance {}
-class AuthorizedConnectAppListInstanceImpl
-  implements AuthorizedConnectAppListInstance
-{
-  _version?: V2010;
-  _solution?: AuthorizedConnectAppSolution;
-  _uri?: string;
-}
-
 export function AuthorizedConnectAppListInstance(
   version: V2010,
   accountSid: string
@@ -458,7 +453,7 @@ export function AuthorizedConnectAppListInstance(
   }
 
   const instance = ((connectAppSid) =>
-    instance.get(connectAppSid)) as AuthorizedConnectAppListInstanceImpl;
+    instance.get(connectAppSid)) as AuthorizedConnectAppListInstance;
 
   instance.get = function get(connectAppSid): AuthorizedConnectAppContext {
     return new AuthorizedConnectAppContextImpl(
@@ -494,7 +489,7 @@ export function AuthorizedConnectAppListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -502,10 +497,14 @@ export function AuthorizedConnectAppListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AuthorizedConnectAppPage(operationVersion, payload, this._solution)
+        new AuthorizedConnectAppPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -518,31 +517,32 @@ export function AuthorizedConnectAppListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthorizedConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AuthorizedConnectAppPage(this._version, payload, this._solution)
+        new AuthorizedConnectAppPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

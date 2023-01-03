@@ -176,7 +176,16 @@ export interface SharedCostListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface SharedCostSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 export interface SharedCostListInstance {
+  _version: V2010;
+  _solution: SharedCostSolution;
+  _uri: string;
+
   /**
    * Streams SharedCostInstance records from the API.
    *
@@ -305,18 +314,6 @@ export interface SharedCostListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SharedCostSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
-interface SharedCostListInstanceImpl extends SharedCostListInstance {}
-class SharedCostListInstanceImpl implements SharedCostListInstance {
-  _version?: V2010;
-  _solution?: SharedCostSolution;
-  _uri?: string;
-}
-
 export function SharedCostListInstance(
   version: V2010,
   accountSid: string,
@@ -330,7 +327,7 @@ export function SharedCostListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as SharedCostListInstanceImpl;
+  const instance = {} as SharedCostListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
@@ -395,17 +392,18 @@ export function SharedCostListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SharedCostPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SharedCostPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -418,30 +416,28 @@ export function SharedCostListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SharedCostPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SharedCostPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SharedCostPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

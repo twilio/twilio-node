@@ -186,7 +186,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -237,13 +237,14 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -251,9 +252,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   }
 
   fetch(callback?: any): Promise<CustomerProfilesInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -262,11 +264,11 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,9 +295,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -306,11 +309,11 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -528,7 +531,13 @@ export class CustomerProfilesInstance {
   }
 }
 
+export interface CustomerProfilesSolution {}
+
 export interface CustomerProfilesListInstance {
+  _version: V1;
+  _solution: CustomerProfilesSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesContext;
   get(sid: string): CustomerProfilesContext;
 
@@ -680,21 +689,10 @@ export interface CustomerProfilesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesSolution {}
-
-interface CustomerProfilesListInstanceImpl
-  extends CustomerProfilesListInstance {}
-class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
-  _version?: V1;
-  _solution?: CustomerProfilesSolution;
-  _uri?: string;
-}
-
 export function CustomerProfilesListInstance(
   version: V1
 ): CustomerProfilesListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as CustomerProfilesListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstance;
 
   instance.get = function get(sid): CustomerProfilesContext {
     return new CustomerProfilesContextImpl(version, sid);
@@ -742,7 +740,7 @@ export function CustomerProfilesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -752,7 +750,7 @@ export function CustomerProfilesListInstance(
       (payload) => new CustomerProfilesInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -786,7 +784,7 @@ export function CustomerProfilesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -794,10 +792,10 @@ export function CustomerProfilesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(operationVersion, payload, this._solution)
+        new CustomerProfilesPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -810,31 +808,28 @@ export function CustomerProfilesListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CustomerProfilesPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(this._version, payload, this._solution)
+        new CustomerProfilesPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

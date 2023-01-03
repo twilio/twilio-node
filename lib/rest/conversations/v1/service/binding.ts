@@ -112,8 +112,8 @@ export interface BindingContext {
 }
 
 export interface BindingContextSolution {
-  chatServiceSid?: string;
-  sid?: string;
+  chatServiceSid: string;
+  sid: string;
 }
 
 export class BindingContextImpl implements BindingContext {
@@ -134,13 +134,14 @@ export class BindingContextImpl implements BindingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,9 +149,10 @@ export class BindingContextImpl implements BindingContext {
   }
 
   fetch(callback?: any): Promise<BindingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -159,12 +161,12 @@ export class BindingContextImpl implements BindingContext {
         new BindingInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.sid
+          instance._solution.chatServiceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -333,7 +335,15 @@ export class BindingInstance {
   }
 }
 
+export interface BindingSolution {
+  chatServiceSid?: string;
+}
+
 export interface BindingListInstance {
+  _version: V1;
+  _solution: BindingSolution;
+  _uri: string;
+
   (sid: string): BindingContext;
   get(sid: string): BindingContext;
 
@@ -465,17 +475,6 @@ export interface BindingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BindingSolution {
-  chatServiceSid?: string;
-}
-
-interface BindingListInstanceImpl extends BindingListInstance {}
-class BindingListInstanceImpl implements BindingListInstance {
-  _version?: V1;
-  _solution?: BindingSolution;
-  _uri?: string;
-}
-
 export function BindingListInstance(
   version: V1,
   chatServiceSid: string
@@ -484,7 +483,7 @@ export function BindingListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as BindingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as BindingListInstance;
 
   instance.get = function get(sid): BindingContext {
     return new BindingContextImpl(version, chatServiceSid, sid);
@@ -520,17 +519,18 @@ export function BindingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BindingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new BindingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -543,30 +543,28 @@ export function BindingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BindingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BindingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BindingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

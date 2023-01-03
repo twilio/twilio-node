@@ -73,7 +73,7 @@ export interface SipDomainContext {
 }
 
 export interface SipDomainContextSolution {
-  sipDomain?: string;
+  sipDomain: string;
 }
 
 export class SipDomainContextImpl implements SipDomainContext {
@@ -90,9 +90,10 @@ export class SipDomainContextImpl implements SipDomainContext {
   }
 
   fetch(callback?: any): Promise<SipDomainInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -101,11 +102,11 @@ export class SipDomainContextImpl implements SipDomainContext {
         new SipDomainInstance(
           operationVersion,
           payload,
-          this._solution.sipDomain
+          instance._solution.sipDomain
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +131,10 @@ export class SipDomainContextImpl implements SipDomainContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -143,11 +145,11 @@ export class SipDomainContextImpl implements SipDomainContext {
         new SipDomainInstance(
           operationVersion,
           payload,
-          this._solution.sipDomain
+          instance._solution.sipDomain
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -280,7 +282,13 @@ export class SipDomainInstance {
   }
 }
 
+export interface SipDomainSolution {}
+
 export interface SipDomainListInstance {
+  _version: V2;
+  _solution: SipDomainSolution;
+  _uri: string;
+
   (sipDomain: string): SipDomainContext;
   get(sipDomain: string): SipDomainContext;
 
@@ -291,18 +299,9 @@ export interface SipDomainListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SipDomainSolution {}
-
-interface SipDomainListInstanceImpl extends SipDomainListInstance {}
-class SipDomainListInstanceImpl implements SipDomainListInstance {
-  _version?: V2;
-  _solution?: SipDomainSolution;
-  _uri?: string;
-}
-
 export function SipDomainListInstance(version: V2): SipDomainListInstance {
   const instance = ((sipDomain) =>
-    instance.get(sipDomain)) as SipDomainListInstanceImpl;
+    instance.get(sipDomain)) as SipDomainListInstance;
 
   instance.get = function get(sipDomain): SipDomainContext {
     return new SipDomainContextImpl(version, sipDomain);
@@ -313,14 +312,14 @@ export function SipDomainListInstance(version: V2): SipDomainListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

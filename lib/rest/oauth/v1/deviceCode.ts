@@ -31,7 +31,13 @@ export interface DeviceCodeListInstanceCreateOptions {
   audiences?: Array<string>;
 }
 
+export interface DeviceCodeSolution {}
+
 export interface DeviceCodeListInstance {
+  _version: V1;
+  _solution: DeviceCodeSolution;
+  _uri: string;
+
   /**
    * Create a DeviceCodeInstance
    *
@@ -53,17 +59,8 @@ export interface DeviceCodeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeviceCodeSolution {}
-
-interface DeviceCodeListInstanceImpl extends DeviceCodeListInstance {}
-class DeviceCodeListInstanceImpl implements DeviceCodeListInstance {
-  _version?: V1;
-  _solution?: DeviceCodeSolution;
-  _uri?: string;
-}
-
 export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
-  const instance = {} as DeviceCodeListInstanceImpl;
+  const instance = {} as DeviceCodeListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -98,7 +95,7 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -108,7 +105,7 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
       (payload) => new DeviceCodeInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -116,14 +113,14 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

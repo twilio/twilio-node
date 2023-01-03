@@ -140,8 +140,8 @@ export interface MessagingConfigurationContext {
 }
 
 export interface MessagingConfigurationContextSolution {
-  serviceSid?: string;
-  country?: string;
+  serviceSid: string;
+  country: string;
 }
 
 export class MessagingConfigurationContextImpl
@@ -164,13 +164,14 @@ export class MessagingConfigurationContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -178,9 +179,10 @@ export class MessagingConfigurationContextImpl
   }
 
   fetch(callback?: any): Promise<MessagingConfigurationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -189,12 +191,12 @@ export class MessagingConfigurationContextImpl
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.country
+          instance._solution.serviceSid,
+          instance._solution.country
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -222,9 +224,10 @@ export class MessagingConfigurationContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -235,12 +238,12 @@ export class MessagingConfigurationContextImpl
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.country
+          instance._solution.serviceSid,
+          instance._solution.country
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -406,7 +409,15 @@ export class MessagingConfigurationInstance {
   }
 }
 
+export interface MessagingConfigurationSolution {
+  serviceSid?: string;
+}
+
 export interface MessagingConfigurationListInstance {
+  _version: V2;
+  _solution: MessagingConfigurationSolution;
+  _uri: string;
+
   (country: string): MessagingConfigurationContext;
   get(country: string): MessagingConfigurationContext;
 
@@ -567,20 +578,6 @@ export interface MessagingConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessagingConfigurationSolution {
-  serviceSid?: string;
-}
-
-interface MessagingConfigurationListInstanceImpl
-  extends MessagingConfigurationListInstance {}
-class MessagingConfigurationListInstanceImpl
-  implements MessagingConfigurationListInstance
-{
-  _version?: V2;
-  _solution?: MessagingConfigurationSolution;
-  _uri?: string;
-}
-
 export function MessagingConfigurationListInstance(
   version: V2,
   serviceSid: string
@@ -590,7 +587,7 @@ export function MessagingConfigurationListInstance(
   }
 
   const instance = ((country) =>
-    instance.get(country)) as MessagingConfigurationListInstanceImpl;
+    instance.get(country)) as MessagingConfigurationListInstance;
 
   instance.get = function get(country): MessagingConfigurationContext {
     return new MessagingConfigurationContextImpl(version, serviceSid, country);
@@ -632,7 +629,7 @@ export function MessagingConfigurationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -643,11 +640,11 @@ export function MessagingConfigurationListInstance(
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -676,7 +673,7 @@ export function MessagingConfigurationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -687,11 +684,11 @@ export function MessagingConfigurationListInstance(
         new MessagingConfigurationPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -704,31 +701,32 @@ export function MessagingConfigurationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MessagingConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MessagingConfigurationPage(this._version, payload, this._solution)
+        new MessagingConfigurationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

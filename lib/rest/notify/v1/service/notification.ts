@@ -63,7 +63,15 @@ export interface NotificationListInstanceCreateOptions {
   tag?: Array<string>;
 }
 
+export interface NotificationSolution {
+  serviceSid?: string;
+}
+
 export interface NotificationListInstance {
+  _version: V1;
+  _solution: NotificationSolution;
+  _uri: string;
+
   /**
    * Create a NotificationInstance
    *
@@ -95,17 +103,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  serviceSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V1,
   serviceSid: string
@@ -114,7 +111,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = {} as NotificationListInstanceImpl;
+  const instance = {} as NotificationListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid };
@@ -169,7 +166,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -180,11 +177,11 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -192,14 +189,14 @@ export function NotificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -182,7 +182,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -207,18 +207,19 @@ export class SimContextImpl implements SimContext {
   }
 
   fetch(callback?: any): Promise<SimInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -267,9 +268,10 @@ export class SimContextImpl implements SimContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -277,10 +279,10 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -500,7 +502,13 @@ export class SimInstance {
   }
 }
 
+export interface SimSolution {}
+
 export interface SimListInstance {
+  _version: Wireless;
+  _solution: SimSolution;
+  _uri: string;
+
   (sid: string): SimContext;
   get(sid: string): SimContext;
 
@@ -632,17 +640,8 @@ export interface SimListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SimSolution {}
-
-interface SimListInstanceImpl extends SimListInstance {}
-class SimListInstanceImpl implements SimListInstance {
-  _version?: Wireless;
-  _solution?: SimSolution;
-  _uri?: string;
-}
-
 export function SimListInstance(version: Wireless): SimListInstance {
-  const instance = ((sid) => instance.get(sid)) as SimListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SimListInstance;
 
   instance.get = function get(sid): SimContext {
     return new SimContextImpl(version, sid);
@@ -680,17 +679,17 @@ export function SimListInstance(version: Wireless): SimListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SimPage(operationVersion, payload, this._solution)
+      (payload) => new SimPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -703,30 +702,27 @@ export function SimListInstance(version: Wireless): SimListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<SimPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SimPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new SimPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

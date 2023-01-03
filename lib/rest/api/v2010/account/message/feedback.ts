@@ -29,7 +29,16 @@ export interface FeedbackListInstanceCreateOptions {
   outcome?: MessageFeedbackOutcome;
 }
 
+export interface FeedbackSolution {
+  accountSid?: string;
+  messageSid?: string;
+}
+
 export interface FeedbackListInstance {
+  _version: V2010;
+  _solution: FeedbackSolution;
+  _uri: string;
+
   /**
    * Create a FeedbackInstance
    *
@@ -61,18 +70,6 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FeedbackSolution {
-  accountSid?: string;
-  messageSid?: string;
-}
-
-interface FeedbackListInstanceImpl extends FeedbackListInstance {}
-class FeedbackListInstanceImpl implements FeedbackListInstance {
-  _version?: V2010;
-  _solution?: FeedbackSolution;
-  _uri?: string;
-}
-
 export function FeedbackListInstance(
   version: V2010,
   accountSid: string,
@@ -86,7 +83,7 @@ export function FeedbackListInstance(
     throw new Error("Parameter 'messageSid' is not valid.");
   }
 
-  const instance = {} as FeedbackListInstanceImpl;
+  const instance = {} as FeedbackListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, messageSid };
@@ -112,7 +109,7 @@ export function FeedbackListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -123,12 +120,12 @@ export function FeedbackListInstance(
         new FeedbackInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.messageSid
+          instance._solution.accountSid,
+          instance._solution.messageSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -136,14 +133,14 @@ export function FeedbackListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

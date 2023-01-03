@@ -116,9 +116,9 @@ export interface MediaContext {
 }
 
 export interface MediaContextSolution {
-  accountSid?: string;
-  messageSid?: string;
-  sid?: string;
+  accountSid: string;
+  messageSid: string;
+  sid: string;
 }
 
 export class MediaContextImpl implements MediaContext {
@@ -148,13 +148,14 @@ export class MediaContextImpl implements MediaContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,9 +163,10 @@ export class MediaContextImpl implements MediaContext {
   }
 
   fetch(callback?: any): Promise<MediaInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -173,13 +175,13 @@ export class MediaContextImpl implements MediaContext {
         new MediaInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.messageSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.messageSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -325,7 +327,16 @@ export class MediaInstance {
   }
 }
 
+export interface MediaSolution {
+  accountSid?: string;
+  messageSid?: string;
+}
+
 export interface MediaListInstance {
+  _version: V2010;
+  _solution: MediaSolution;
+  _uri: string;
+
   (sid: string): MediaContext;
   get(sid: string): MediaContext;
 
@@ -457,18 +468,6 @@ export interface MediaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaSolution {
-  accountSid?: string;
-  messageSid?: string;
-}
-
-interface MediaListInstanceImpl extends MediaListInstance {}
-class MediaListInstanceImpl implements MediaListInstance {
-  _version?: V2010;
-  _solution?: MediaSolution;
-  _uri?: string;
-}
-
 export function MediaListInstance(
   version: V2010,
   accountSid: string,
@@ -482,7 +481,7 @@ export function MediaListInstance(
     throw new Error("Parameter 'messageSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as MediaListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MediaListInstance;
 
   instance.get = function get(sid): MediaContext {
     return new MediaContextImpl(version, accountSid, messageSid, sid);
@@ -524,17 +523,17 @@ export function MediaListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MediaPage(operationVersion, payload, this._solution)
+      (payload) => new MediaPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -547,30 +546,27 @@ export function MediaListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MediaPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MediaPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new MediaPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

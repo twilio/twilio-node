@@ -82,9 +82,10 @@ export class SettingsContextImpl implements SettingsContext {
   }
 
   fetch(callback?: any): Promise<SettingsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -92,7 +93,7 @@ export class SettingsContextImpl implements SettingsContext {
       (payload) => new SettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -117,9 +118,10 @@ export class SettingsContextImpl implements SettingsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -129,7 +131,7 @@ export class SettingsContextImpl implements SettingsContext {
       (payload) => new SettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -239,7 +241,13 @@ export class SettingsInstance {
   }
 }
 
+export interface SettingsSolution {}
+
 export interface SettingsListInstance {
+  _version: V1;
+  _solution: SettingsSolution;
+  _uri: string;
+
   (): SettingsContext;
   get(): SettingsContext;
 
@@ -250,17 +258,8 @@ export interface SettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsSolution {}
-
-interface SettingsListInstanceImpl extends SettingsListInstance {}
-class SettingsListInstanceImpl implements SettingsListInstance {
-  _version?: V1;
-  _solution?: SettingsSolution;
-  _uri?: string;
-}
-
 export function SettingsListInstance(version: V1): SettingsListInstance {
-  const instance = (() => instance.get()) as SettingsListInstanceImpl;
+  const instance = (() => instance.get()) as SettingsListInstance;
 
   instance.get = function get(): SettingsContext {
     return new SettingsContextImpl(version);
@@ -271,14 +270,14 @@ export function SettingsListInstance(version: V1): SettingsListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

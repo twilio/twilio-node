@@ -132,8 +132,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -167,13 +167,14 @@ export class AssetContextImpl implements AssetContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,9 +182,10 @@ export class AssetContextImpl implements AssetContext {
   }
 
   fetch(callback?: any): Promise<AssetInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -192,12 +194,12 @@ export class AssetContextImpl implements AssetContext {
         new AssetInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -223,9 +225,10 @@ export class AssetContextImpl implements AssetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -236,12 +239,12 @@ export class AssetContextImpl implements AssetContext {
         new AssetInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -415,7 +418,15 @@ export class AssetInstance {
   }
 }
 
+export interface AssetSolution {
+  serviceSid?: string;
+}
+
 export interface AssetListInstance {
+  _version: V1;
+  _solution: AssetSolution;
+  _uri: string;
+
   (sid: string): AssetContext;
   get(sid: string): AssetContext;
 
@@ -561,17 +572,6 @@ export interface AssetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssetSolution {
-  serviceSid?: string;
-}
-
-interface AssetListInstanceImpl extends AssetListInstance {}
-class AssetListInstanceImpl implements AssetListInstance {
-  _version?: V1;
-  _solution?: AssetSolution;
-  _uri?: string;
-}
-
 export function AssetListInstance(
   version: V1,
   serviceSid: string
@@ -580,7 +580,7 @@ export function AssetListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AssetListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssetListInstance;
 
   instance.get = function get(sid): AssetContext {
     return new AssetContextImpl(version, serviceSid, sid);
@@ -614,7 +614,7 @@ export function AssetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -622,10 +622,14 @@ export function AssetListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssetInstance(operationVersion, payload, this._solution.serviceSid)
+        new AssetInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -654,17 +658,17 @@ export function AssetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssetPage(operationVersion, payload, this._solution)
+      (payload) => new AssetPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -677,30 +681,27 @@ export function AssetListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssetPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssetPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new AssetPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

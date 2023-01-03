@@ -112,8 +112,8 @@ export interface CustomerProfilesEntityAssignmentsContext {
 }
 
 export interface CustomerProfilesEntityAssignmentsContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
+  customerProfileSid: string;
+  sid: string;
 }
 
 export class CustomerProfilesEntityAssignmentsContextImpl
@@ -136,13 +136,14 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,9 +151,10 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   }
 
   fetch(callback?: any): Promise<CustomerProfilesEntityAssignmentsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,12 +163,12 @@ export class CustomerProfilesEntityAssignmentsContextImpl
         new CustomerProfilesEntityAssignmentsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid,
-          this._solution.sid
+          instance._solution.customerProfileSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -307,7 +309,15 @@ export class CustomerProfilesEntityAssignmentsInstance {
   }
 }
 
+export interface CustomerProfilesEntityAssignmentsSolution {
+  customerProfileSid?: string;
+}
+
 export interface CustomerProfilesEntityAssignmentsListInstance {
+  _version: V1;
+  _solution: CustomerProfilesEntityAssignmentsSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesEntityAssignmentsContext;
   get(sid: string): CustomerProfilesEntityAssignmentsContext;
 
@@ -492,20 +502,6 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesEntityAssignmentsSolution {
-  customerProfileSid?: string;
-}
-
-interface CustomerProfilesEntityAssignmentsListInstanceImpl
-  extends CustomerProfilesEntityAssignmentsListInstance {}
-class CustomerProfilesEntityAssignmentsListInstanceImpl
-  implements CustomerProfilesEntityAssignmentsListInstance
-{
-  _version?: V1;
-  _solution?: CustomerProfilesEntityAssignmentsSolution;
-  _uri?: string;
-}
-
 export function CustomerProfilesEntityAssignmentsListInstance(
   version: V1,
   customerProfileSid: string
@@ -515,7 +511,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as CustomerProfilesEntityAssignmentsListInstanceImpl;
+    instance.get(sid)) as CustomerProfilesEntityAssignmentsListInstance;
 
   instance.get = function get(sid): CustomerProfilesEntityAssignmentsContext {
     return new CustomerProfilesEntityAssignmentsContextImpl(
@@ -550,7 +546,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -561,11 +557,11 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid
+          instance._solution.customerProfileSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -594,7 +590,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -605,11 +601,11 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -622,35 +618,32 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new CustomerProfilesEntityAssignmentsPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

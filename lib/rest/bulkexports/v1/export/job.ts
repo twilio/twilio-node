@@ -49,7 +49,7 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  jobSid?: string;
+  jobSid: string;
 }
 
 export class JobContextImpl implements JobContext {
@@ -66,13 +66,14 @@ export class JobContextImpl implements JobContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -80,18 +81,19 @@ export class JobContextImpl implements JobContext {
   }
 
   fetch(callback?: any): Promise<JobInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new JobInstance(operationVersion, payload, this._solution.jobSid)
+        new JobInstance(operationVersion, payload, instance._solution.jobSid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -255,7 +257,13 @@ export class JobInstance {
   }
 }
 
+export interface JobSolution {}
+
 export interface JobListInstance {
+  _version: V1;
+  _solution: JobSolution;
+  _uri: string;
+
   (jobSid: string): JobContext;
   get(jobSid: string): JobContext;
 
@@ -266,17 +274,8 @@ export interface JobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface JobSolution {}
-
-interface JobListInstanceImpl extends JobListInstance {}
-class JobListInstanceImpl implements JobListInstance {
-  _version?: V1;
-  _solution?: JobSolution;
-  _uri?: string;
-}
-
 export function JobListInstance(version: V1): JobListInstance {
-  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstanceImpl;
+  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstance;
 
   instance.get = function get(jobSid): JobContext {
     return new JobContextImpl(version, jobSid);
@@ -287,14 +286,14 @@ export function JobListInstance(version: V1): JobListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

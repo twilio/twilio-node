@@ -183,7 +183,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -225,18 +225,19 @@ export class RoomContextImpl implements RoomContext {
   }
 
   fetch(callback?: any): Promise<RoomInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -259,9 +260,10 @@ export class RoomContextImpl implements RoomContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -269,10 +271,10 @@ export class RoomContextImpl implements RoomContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -555,7 +557,13 @@ export class RoomInstance {
   }
 }
 
+export interface RoomSolution {}
+
 export interface RoomListInstance {
+  _version: V1;
+  _solution: RoomSolution;
+  _uri: string;
+
   (sid: string): RoomContext;
   get(sid: string): RoomContext;
 
@@ -711,17 +719,8 @@ export interface RoomListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoomSolution {}
-
-interface RoomListInstanceImpl extends RoomListInstance {}
-class RoomListInstanceImpl implements RoomListInstance {
-  _version?: V1;
-  _solution?: RoomSolution;
-  _uri?: string;
-}
-
 export function RoomListInstance(version: V1): RoomListInstance {
-  const instance = ((sid) => instance.get(sid)) as RoomListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RoomListInstance;
 
   instance.get = function get(sid): RoomContext {
     return new RoomContextImpl(version, sid);
@@ -781,7 +780,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -791,7 +790,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       (payload) => new RoomInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -831,17 +830,17 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RoomPage(operationVersion, payload, this._solution)
+      (payload) => new RoomPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -854,30 +853,27 @@ export function RoomListInstance(version: V1): RoomListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<RoomPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RoomPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new RoomPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

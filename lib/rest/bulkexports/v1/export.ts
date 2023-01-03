@@ -44,7 +44,7 @@ export interface ExportContext {
 }
 
 export interface ExportContextSolution {
-  resourceType?: string;
+  resourceType: string;
 }
 
 export class ExportContextImpl implements ExportContext {
@@ -77,9 +77,10 @@ export class ExportContextImpl implements ExportContext {
   }
 
   fetch(callback?: any): Promise<ExportInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -88,11 +89,11 @@ export class ExportContextImpl implements ExportContext {
         new ExportInstance(
           operationVersion,
           payload,
-          this._solution.resourceType
+          instance._solution.resourceType
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -202,10 +203,17 @@ export class ExportInstance {
   }
 }
 
+export interface ExportSolution {}
+
 export interface ExportListInstance {
+  _version: V1;
+  _solution: ExportSolution;
+  _uri: string;
+
   (resourceType: string): ExportContext;
   get(resourceType: string): ExportContext;
 
+  _jobs?: JobListInstance;
   jobs: JobListInstance;
 
   /**
@@ -215,20 +223,9 @@ export interface ExportListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportSolution {}
-
-interface ExportListInstanceImpl extends ExportListInstance {}
-class ExportListInstanceImpl implements ExportListInstance {
-  _version?: V1;
-  _solution?: ExportSolution;
-  _uri?: string;
-
-  _jobs?: JobListInstance;
-}
-
 export function ExportListInstance(version: V1): ExportListInstance {
   const instance = ((resourceType) =>
-    instance.get(resourceType)) as ExportListInstanceImpl;
+    instance.get(resourceType)) as ExportListInstance;
 
   instance.get = function get(resourceType): ExportContext {
     return new ExportContextImpl(version, resourceType);
@@ -240,22 +237,22 @@ export function ExportListInstance(version: V1): ExportListInstance {
 
   Object.defineProperty(instance, "jobs", {
     get: function jobs() {
-      if (!this._jobs) {
-        this._jobs = JobListInstance(this._version);
+      if (!instance._jobs) {
+        instance._jobs = JobListInstance(instance._version);
       }
-      return this._jobs;
+      return instance._jobs;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -159,8 +159,8 @@ export interface DeviceContext {
 }
 
 export interface DeviceContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  fleetSid: string;
+  sid: string;
 }
 
 export class DeviceContextImpl implements DeviceContext {
@@ -185,13 +185,14 @@ export class DeviceContextImpl implements DeviceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +200,10 @@ export class DeviceContextImpl implements DeviceContext {
   }
 
   fetch(callback?: any): Promise<DeviceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -210,12 +212,12 @@ export class DeviceContextImpl implements DeviceContext {
         new DeviceInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +245,10 @@ export class DeviceContextImpl implements DeviceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,12 +259,12 @@ export class DeviceContextImpl implements DeviceContext {
         new DeviceInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -468,7 +471,15 @@ export class DeviceInstance {
   }
 }
 
+export interface DeviceSolution {
+  fleetSid?: string;
+}
+
 export interface DeviceListInstance {
+  _version: DeployedDevices;
+  _solution: DeviceSolution;
+  _uri: string;
+
   (sid: string): DeviceContext;
   get(sid: string): DeviceContext;
 
@@ -624,17 +635,6 @@ export interface DeviceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeviceSolution {
-  fleetSid?: string;
-}
-
-interface DeviceListInstanceImpl extends DeviceListInstance {}
-class DeviceListInstanceImpl implements DeviceListInstance {
-  _version?: DeployedDevices;
-  _solution?: DeviceSolution;
-  _uri?: string;
-}
-
 export function DeviceListInstance(
   version: DeployedDevices,
   fleetSid: string
@@ -643,7 +643,7 @@ export function DeviceListInstance(
     throw new Error("Parameter 'fleetSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DeviceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeviceListInstance;
 
   instance.get = function get(sid): DeviceContext {
     return new DeviceContextImpl(version, fleetSid, sid);
@@ -681,7 +681,7 @@ export function DeviceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -689,10 +689,14 @@ export function DeviceListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DeviceInstance(operationVersion, payload, this._solution.fleetSid)
+        new DeviceInstance(
+          operationVersion,
+          payload,
+          instance._solution.fleetSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -723,17 +727,17 @@ export function DeviceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DevicePage(operationVersion, payload, this._solution)
+      (payload) => new DevicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -746,30 +750,28 @@ export function DeviceListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DevicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DevicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DevicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

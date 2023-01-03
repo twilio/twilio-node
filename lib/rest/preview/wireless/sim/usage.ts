@@ -62,7 +62,7 @@ export interface UsageContext {
 }
 
 export interface UsageContextSolution {
-  simSid?: string;
+  simSid: string;
 }
 
 export class UsageContextImpl implements UsageContext {
@@ -93,9 +93,10 @@ export class UsageContextImpl implements UsageContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -103,10 +104,10 @@ export class UsageContextImpl implements UsageContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageInstance(operationVersion, payload, this._solution.simSid)
+        new UsageInstance(operationVersion, payload, instance._solution.simSid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -230,7 +231,15 @@ export class UsageInstance {
   }
 }
 
+export interface UsageSolution {
+  simSid?: string;
+}
+
 export interface UsageListInstance {
+  _version: Wireless;
+  _solution: UsageSolution;
+  _uri: string;
+
   (): UsageContext;
   get(): UsageContext;
 
@@ -241,17 +250,6 @@ export interface UsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageSolution {
-  simSid?: string;
-}
-
-interface UsageListInstanceImpl extends UsageListInstance {}
-class UsageListInstanceImpl implements UsageListInstance {
-  _version?: Wireless;
-  _solution?: UsageSolution;
-  _uri?: string;
-}
-
 export function UsageListInstance(
   version: Wireless,
   simSid: string
@@ -260,7 +258,7 @@ export function UsageListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as UsageListInstanceImpl;
+  const instance = (() => instance.get()) as UsageListInstance;
 
   instance.get = function get(): UsageContext {
     return new UsageContextImpl(version, simSid);
@@ -271,14 +269,14 @@ export function UsageListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -27,7 +27,16 @@ export interface StreamMessageListInstanceCreateOptions {
   data: any;
 }
 
+export interface StreamMessageSolution {
+  serviceSid?: string;
+  streamSid?: string;
+}
+
 export interface StreamMessageListInstance {
+  _version: V1;
+  _solution: StreamMessageSolution;
+  _uri: string;
+
   /**
    * Create a StreamMessageInstance
    *
@@ -49,18 +58,6 @@ export interface StreamMessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StreamMessageSolution {
-  serviceSid?: string;
-  streamSid?: string;
-}
-
-interface StreamMessageListInstanceImpl extends StreamMessageListInstance {}
-class StreamMessageListInstanceImpl implements StreamMessageListInstance {
-  _version?: V1;
-  _solution?: StreamMessageSolution;
-  _uri?: string;
-}
-
 export function StreamMessageListInstance(
   version: V1,
   serviceSid: string,
@@ -74,7 +71,7 @@ export function StreamMessageListInstance(
     throw new Error("Parameter 'streamSid' is not valid.");
   }
 
-  const instance = {} as StreamMessageListInstanceImpl;
+  const instance = {} as StreamMessageListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, streamSid };
@@ -101,7 +98,7 @@ export function StreamMessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -112,12 +109,12 @@ export function StreamMessageListInstance(
         new StreamMessageInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.streamSid
+          instance._solution.serviceSid,
+          instance._solution.streamSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -125,14 +122,14 @@ export function StreamMessageListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

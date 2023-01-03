@@ -49,9 +49,10 @@ export class AssessmentsContextImpl implements AssessmentsContext {
   }
 
   create(callback?: any): Promise<AssessmentsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -59,7 +60,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
       (payload) => new AssessmentsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -135,7 +136,13 @@ export class AssessmentsInstance {
   }
 }
 
+export interface AssessmentsSolution {}
+
 export interface AssessmentsListInstance {
+  _version: V1;
+  _solution: AssessmentsSolution;
+  _uri: string;
+
   (): AssessmentsContext;
   get(): AssessmentsContext;
 
@@ -146,17 +153,8 @@ export interface AssessmentsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssessmentsSolution {}
-
-interface AssessmentsListInstanceImpl extends AssessmentsListInstance {}
-class AssessmentsListInstanceImpl implements AssessmentsListInstance {
-  _version?: V1;
-  _solution?: AssessmentsSolution;
-  _uri?: string;
-}
-
 export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
-  const instance = (() => instance.get()) as AssessmentsListInstanceImpl;
+  const instance = (() => instance.get()) as AssessmentsListInstance;
 
   instance.get = function get(): AssessmentsContext {
     return new AssessmentsContextImpl(version);
@@ -167,14 +165,14 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

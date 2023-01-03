@@ -123,7 +123,7 @@ export interface SmsCommandContext {
 }
 
 export interface SmsCommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SmsCommandContextImpl implements SmsCommandContext {
@@ -140,18 +140,23 @@ export class SmsCommandContextImpl implements SmsCommandContext {
   }
 
   fetch(callback?: any): Promise<SmsCommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SmsCommandInstance(operationVersion, payload, this._solution.sid)
+        new SmsCommandInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -285,7 +290,13 @@ export class SmsCommandInstance {
   }
 }
 
+export interface SmsCommandSolution {}
+
 export interface SmsCommandListInstance {
+  _version: V1;
+  _solution: SmsCommandSolution;
+  _uri: string;
+
   (sid: string): SmsCommandContext;
   get(sid: string): SmsCommandContext;
 
@@ -431,17 +442,8 @@ export interface SmsCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SmsCommandSolution {}
-
-interface SmsCommandListInstanceImpl extends SmsCommandListInstance {}
-class SmsCommandListInstanceImpl implements SmsCommandListInstance {
-  _version?: V1;
-  _solution?: SmsCommandSolution;
-  _uri?: string;
-}
-
 export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as SmsCommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SmsCommandListInstance;
 
   instance.get = function get(sid): SmsCommandContext {
     return new SmsCommandContextImpl(version, sid);
@@ -482,7 +484,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -492,7 +494,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       (payload) => new SmsCommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -525,17 +527,18 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SmsCommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SmsCommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -548,30 +551,28 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<SmsCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SmsCommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SmsCommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

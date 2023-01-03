@@ -72,7 +72,7 @@ export interface DomainCertsContext {
 }
 
 export interface DomainCertsContextSolution {
-  domainSid?: string;
+  domainSid: string;
 }
 
 export class DomainCertsContextImpl implements DomainCertsContext {
@@ -89,13 +89,14 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -103,9 +104,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   }
 
   fetch(callback?: any): Promise<DomainCertsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -114,11 +116,11 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         new DomainCertsInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -141,9 +143,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -154,11 +157,11 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         new DomainCertsInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -315,7 +318,13 @@ export class DomainCertsInstance {
   }
 }
 
+export interface DomainCertsSolution {}
+
 export interface DomainCertsListInstance {
+  _version: V1;
+  _solution: DomainCertsSolution;
+  _uri: string;
+
   (domainSid: string): DomainCertsContext;
   get(domainSid: string): DomainCertsContext;
 
@@ -326,18 +335,9 @@ export interface DomainCertsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DomainCertsSolution {}
-
-interface DomainCertsListInstanceImpl extends DomainCertsListInstance {}
-class DomainCertsListInstanceImpl implements DomainCertsListInstance {
-  _version?: V1;
-  _solution?: DomainCertsSolution;
-  _uri?: string;
-}
-
 export function DomainCertsListInstance(version: V1): DomainCertsListInstance {
   const instance = ((domainSid) =>
-    instance.get(domainSid)) as DomainCertsListInstanceImpl;
+    instance.get(domainSid)) as DomainCertsListInstance;
 
   instance.get = function get(domainSid): DomainCertsContext {
     return new DomainCertsContextImpl(version, domainSid);
@@ -348,14 +348,14 @@ export function DomainCertsListInstance(version: V1): DomainCertsListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

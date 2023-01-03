@@ -77,8 +77,8 @@ export interface TaskQueueCumulativeStatisticsContext {
 }
 
 export interface TaskQueueCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export class TaskQueueCumulativeStatisticsContextImpl
@@ -129,9 +129,10 @@ export class TaskQueueCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -142,12 +143,12 @@ export class TaskQueueCumulativeStatisticsContextImpl
         new TaskQueueCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskQueueSid
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -419,7 +420,16 @@ export class TaskQueueCumulativeStatisticsInstance {
   }
 }
 
+export interface TaskQueueCumulativeStatisticsSolution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
+}
+
 export interface TaskQueueCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueueCumulativeStatisticsSolution;
+  _uri: string;
+
   (): TaskQueueCumulativeStatisticsContext;
   get(): TaskQueueCumulativeStatisticsContext;
 
@@ -428,21 +438,6 @@ export interface TaskQueueCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskQueueCumulativeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
-}
-
-interface TaskQueueCumulativeStatisticsListInstanceImpl
-  extends TaskQueueCumulativeStatisticsListInstance {}
-class TaskQueueCumulativeStatisticsListInstanceImpl
-  implements TaskQueueCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueueCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskQueueCumulativeStatisticsListInstance(
@@ -459,7 +454,7 @@ export function TaskQueueCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as TaskQueueCumulativeStatisticsListInstanceImpl;
+    instance.get()) as TaskQueueCumulativeStatisticsListInstance;
 
   instance.get = function get(): TaskQueueCumulativeStatisticsContext {
     return new TaskQueueCumulativeStatisticsContextImpl(
@@ -474,14 +469,14 @@ export function TaskQueueCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

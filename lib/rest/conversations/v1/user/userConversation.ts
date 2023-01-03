@@ -141,8 +141,8 @@ export interface UserConversationContext {
 }
 
 export interface UserConversationContextSolution {
-  userSid?: string;
-  conversationSid?: string;
+  userSid: string;
+  conversationSid: string;
 }
 
 export class UserConversationContextImpl implements UserConversationContext {
@@ -167,13 +167,14 @@ export class UserConversationContextImpl implements UserConversationContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,9 +182,10 @@ export class UserConversationContextImpl implements UserConversationContext {
   }
 
   fetch(callback?: any): Promise<UserConversationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -192,12 +194,12 @@ export class UserConversationContextImpl implements UserConversationContext {
         new UserConversationInstance(
           operationVersion,
           payload,
-          this._solution.userSid,
-          this._solution.conversationSid
+          instance._solution.userSid,
+          instance._solution.conversationSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -226,9 +228,10 @@ export class UserConversationContextImpl implements UserConversationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -239,12 +242,12 @@ export class UserConversationContextImpl implements UserConversationContext {
         new UserConversationInstance(
           operationVersion,
           payload,
-          this._solution.userSid,
-          this._solution.conversationSid
+          instance._solution.userSid,
+          instance._solution.conversationSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -489,7 +492,15 @@ export class UserConversationInstance {
   }
 }
 
+export interface UserConversationSolution {
+  userSid?: string;
+}
+
 export interface UserConversationListInstance {
+  _version: V1;
+  _solution: UserConversationSolution;
+  _uri: string;
+
   (conversationSid: string): UserConversationContext;
   get(conversationSid: string): UserConversationContext;
 
@@ -627,18 +638,6 @@ export interface UserConversationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserConversationSolution {
-  userSid?: string;
-}
-
-interface UserConversationListInstanceImpl
-  extends UserConversationListInstance {}
-class UserConversationListInstanceImpl implements UserConversationListInstance {
-  _version?: V1;
-  _solution?: UserConversationSolution;
-  _uri?: string;
-}
-
 export function UserConversationListInstance(
   version: V1,
   userSid: string
@@ -648,7 +647,7 @@ export function UserConversationListInstance(
   }
 
   const instance = ((conversationSid) =>
-    instance.get(conversationSid)) as UserConversationListInstanceImpl;
+    instance.get(conversationSid)) as UserConversationListInstance;
 
   instance.get = function get(conversationSid): UserConversationContext {
     return new UserConversationContextImpl(version, userSid, conversationSid);
@@ -680,7 +679,7 @@ export function UserConversationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -688,10 +687,10 @@ export function UserConversationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserConversationPage(operationVersion, payload, this._solution)
+        new UserConversationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -704,31 +703,28 @@ export function UserConversationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UserConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new UserConversationPage(this._version, payload, this._solution)
+        new UserConversationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

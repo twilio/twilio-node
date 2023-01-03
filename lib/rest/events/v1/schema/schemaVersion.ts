@@ -87,8 +87,8 @@ export interface SchemaVersionContext {
 }
 
 export interface SchemaVersionContextSolution {
-  id?: string;
-  schemaVersion?: number;
+  id: string;
+  schemaVersion: number;
 }
 
 export class SchemaVersionContextImpl implements SchemaVersionContext {
@@ -109,9 +109,10 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   }
 
   fetch(callback?: any): Promise<SchemaVersionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -120,12 +121,12 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
         new SchemaVersionInstance(
           operationVersion,
           payload,
-          this._solution.id,
-          this._solution.schemaVersion
+          instance._solution.id,
+          instance._solution.schemaVersion
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -239,7 +240,15 @@ export class SchemaVersionInstance {
   }
 }
 
+export interface SchemaVersionSolution {
+  id?: string;
+}
+
 export interface SchemaVersionListInstance {
+  _version: V1;
+  _solution: SchemaVersionSolution;
+  _uri: string;
+
   (schemaVersion: number): SchemaVersionContext;
   get(schemaVersion: number): SchemaVersionContext;
 
@@ -377,17 +386,6 @@ export interface SchemaVersionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SchemaVersionSolution {
-  id?: string;
-}
-
-interface SchemaVersionListInstanceImpl extends SchemaVersionListInstance {}
-class SchemaVersionListInstanceImpl implements SchemaVersionListInstance {
-  _version?: V1;
-  _solution?: SchemaVersionSolution;
-  _uri?: string;
-}
-
 export function SchemaVersionListInstance(
   version: V1,
   id: string
@@ -397,7 +395,7 @@ export function SchemaVersionListInstance(
   }
 
   const instance = ((schemaVersion) =>
-    instance.get(schemaVersion)) as SchemaVersionListInstanceImpl;
+    instance.get(schemaVersion)) as SchemaVersionListInstance;
 
   instance.get = function get(schemaVersion): SchemaVersionContext {
     return new SchemaVersionContextImpl(version, id, schemaVersion);
@@ -429,7 +427,7 @@ export function SchemaVersionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -437,10 +435,10 @@ export function SchemaVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SchemaVersionPage(operationVersion, payload, this._solution)
+        new SchemaVersionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -453,30 +451,28 @@ export function SchemaVersionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SchemaVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SchemaVersionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SchemaVersionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

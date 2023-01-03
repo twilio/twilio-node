@@ -338,7 +338,15 @@ export interface TodayListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface TodaySolution {
+  accountSid?: string;
+}
+
 export interface TodayListInstance {
+  _version: V2010;
+  _solution: TodaySolution;
+  _uri: string;
+
   /**
    * Streams TodayInstance records from the API.
    *
@@ -467,17 +475,6 @@ export interface TodayListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TodaySolution {
-  accountSid?: string;
-}
-
-interface TodayListInstanceImpl extends TodayListInstance {}
-class TodayListInstanceImpl implements TodayListInstance {
-  _version?: V2010;
-  _solution?: TodaySolution;
-  _uri?: string;
-}
-
 export function TodayListInstance(
   version: V2010,
   accountSid: string
@@ -486,7 +483,7 @@ export function TodayListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as TodayListInstanceImpl;
+  const instance = {} as TodayListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -521,17 +518,17 @@ export function TodayListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TodayPage(operationVersion, payload, this._solution)
+      (payload) => new TodayPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,30 +541,27 @@ export function TodayListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TodayPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TodayPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new TodayPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

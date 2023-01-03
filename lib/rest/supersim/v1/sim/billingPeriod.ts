@@ -69,7 +69,15 @@ export interface BillingPeriodListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface BillingPeriodSolution {
+  simSid?: string;
+}
+
 export interface BillingPeriodListInstance {
+  _version: V1;
+  _solution: BillingPeriodSolution;
+  _uri: string;
+
   /**
    * Streams BillingPeriodInstance records from the API.
    *
@@ -204,17 +212,6 @@ export interface BillingPeriodListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BillingPeriodSolution {
-  simSid?: string;
-}
-
-interface BillingPeriodListInstanceImpl extends BillingPeriodListInstance {}
-class BillingPeriodListInstanceImpl implements BillingPeriodListInstance {
-  _version?: V1;
-  _solution?: BillingPeriodSolution;
-  _uri?: string;
-}
-
 export function BillingPeriodListInstance(
   version: V1,
   simSid: string
@@ -223,7 +220,7 @@ export function BillingPeriodListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as BillingPeriodListInstanceImpl;
+  const instance = {} as BillingPeriodListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
@@ -251,7 +248,7 @@ export function BillingPeriodListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -259,10 +256,10 @@ export function BillingPeriodListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BillingPeriodPage(operationVersion, payload, this._solution)
+        new BillingPeriodPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -275,30 +272,28 @@ export function BillingPeriodListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BillingPeriodPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BillingPeriodPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BillingPeriodPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -84,7 +84,13 @@ export interface ParticipantConversationListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface ParticipantConversationSolution {}
+
 export interface ParticipantConversationListInstance {
+  _version: V1;
+  _solution: ParticipantConversationSolution;
+  _uri: string;
+
   /**
    * Streams ParticipantConversationInstance records from the API.
    *
@@ -228,22 +234,10 @@ export interface ParticipantConversationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ParticipantConversationSolution {}
-
-interface ParticipantConversationListInstanceImpl
-  extends ParticipantConversationListInstance {}
-class ParticipantConversationListInstanceImpl
-  implements ParticipantConversationListInstance
-{
-  _version?: V1;
-  _solution?: ParticipantConversationSolution;
-  _uri?: string;
-}
-
 export function ParticipantConversationListInstance(
   version: V1
 ): ParticipantConversationListInstance {
-  const instance = {} as ParticipantConversationListInstanceImpl;
+  const instance = {} as ParticipantConversationListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -273,7 +267,7 @@ export function ParticipantConversationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -284,11 +278,11 @@ export function ParticipantConversationListInstance(
         new ParticipantConversationPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -301,31 +295,32 @@ export function ParticipantConversationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ParticipantConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ParticipantConversationPage(this._version, payload, this._solution)
+        new ParticipantConversationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

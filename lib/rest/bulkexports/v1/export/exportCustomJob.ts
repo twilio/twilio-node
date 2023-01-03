@@ -88,7 +88,15 @@ export interface ExportCustomJobListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface ExportCustomJobSolution {
+  resourceType?: string;
+}
+
 export interface ExportCustomJobListInstance {
+  _version: V1;
+  _solution: ExportCustomJobSolution;
+  _uri: string;
+
   /**
    * Create a ExportCustomJobInstance
    *
@@ -237,17 +245,6 @@ export interface ExportCustomJobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportCustomJobSolution {
-  resourceType?: string;
-}
-
-interface ExportCustomJobListInstanceImpl extends ExportCustomJobListInstance {}
-class ExportCustomJobListInstanceImpl implements ExportCustomJobListInstance {
-  _version?: V1;
-  _solution?: ExportCustomJobSolution;
-  _uri?: string;
-}
-
 export function ExportCustomJobListInstance(
   version: V1,
   resourceType: string
@@ -256,7 +253,7 @@ export function ExportCustomJobListInstance(
     throw new Error("Parameter 'resourceType' is not valid.");
   }
 
-  const instance = {} as ExportCustomJobListInstanceImpl;
+  const instance = {} as ExportCustomJobListInstance;
 
   instance._version = version;
   instance._solution = { resourceType };
@@ -303,7 +300,7 @@ export function ExportCustomJobListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -314,11 +311,11 @@ export function ExportCustomJobListInstance(
         new ExportCustomJobInstance(
           operationVersion,
           payload,
-          this._solution.resourceType
+          instance._solution.resourceType
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -347,7 +344,7 @@ export function ExportCustomJobListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -355,10 +352,10 @@ export function ExportCustomJobListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(operationVersion, payload, this._solution)
+        new ExportCustomJobPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -371,31 +368,28 @@ export function ExportCustomJobListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ExportCustomJobPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(this._version, payload, this._solution)
+        new ExportCustomJobPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

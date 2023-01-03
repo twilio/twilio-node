@@ -111,8 +111,8 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
@@ -133,9 +133,10 @@ export class NotificationContextImpl implements NotificationContext {
   }
 
   fetch(callback?: any): Promise<NotificationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -144,12 +145,12 @@ export class NotificationContextImpl implements NotificationContext {
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -358,7 +359,15 @@ export class NotificationInstance {
   }
 }
 
+export interface NotificationSolution {
+  accountSid?: string;
+}
+
 export interface NotificationListInstance {
+  _version: V2010;
+  _solution: NotificationSolution;
+  _uri: string;
+
   (sid: string): NotificationContext;
   get(sid: string): NotificationContext;
 
@@ -490,17 +499,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  accountSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V2010;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V2010,
   accountSid: string
@@ -509,7 +507,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as NotificationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as NotificationListInstance;
 
   instance.get = function get(sid): NotificationContext {
     return new NotificationContextImpl(version, accountSid, sid);
@@ -548,7 +546,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -556,10 +554,10 @@ export function NotificationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NotificationPage(operationVersion, payload, this._solution)
+        new NotificationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -572,30 +570,28 @@ export function NotificationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<NotificationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new NotificationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new NotificationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

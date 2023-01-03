@@ -267,8 +267,18 @@ type UsageRecordCategory =
   | "wireless-usage-sms"
   | "wireless-usage-voice";
 
+export interface UsageSolution {
+  accountSid?: string;
+}
+
 export interface UsageListInstance {
+  _version: V2010;
+  _solution: UsageSolution;
+  _uri: string;
+
+  _records?: RecordListInstance;
   records: RecordListInstance;
+  _triggers?: TriggerListInstance;
   triggers: TriggerListInstance;
 
   /**
@@ -276,20 +286,6 @@ export interface UsageListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UsageSolution {
-  accountSid?: string;
-}
-
-interface UsageListInstanceImpl extends UsageListInstance {}
-class UsageListInstanceImpl implements UsageListInstance {
-  _version?: V2010;
-  _solution?: UsageSolution;
-  _uri?: string;
-
-  _records?: RecordListInstance;
-  _triggers?: TriggerListInstance;
 }
 
 export function UsageListInstance(
@@ -300,7 +296,7 @@ export function UsageListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as UsageListInstanceImpl;
+  const instance = {} as UsageListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -308,37 +304,37 @@ export function UsageListInstance(
 
   Object.defineProperty(instance, "records", {
     get: function records() {
-      if (!this._records) {
-        this._records = RecordListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._records) {
+        instance._records = RecordListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._records;
+      return instance._records;
     },
   });
 
   Object.defineProperty(instance, "triggers", {
     get: function triggers() {
-      if (!this._triggers) {
-        this._triggers = TriggerListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._triggers) {
+        instance._triggers = TriggerListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._triggers;
+      return instance._triggers;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

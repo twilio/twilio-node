@@ -118,8 +118,8 @@ export interface InstalledAddOnExtensionContext {
 }
 
 export interface InstalledAddOnExtensionContextSolution {
-  installedAddOnSid?: string;
-  sid?: string;
+  installedAddOnSid: string;
+  sid: string;
 }
 
 export class InstalledAddOnExtensionContextImpl
@@ -146,9 +146,10 @@ export class InstalledAddOnExtensionContextImpl
   }
 
   fetch(callback?: any): Promise<InstalledAddOnExtensionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -157,12 +158,12 @@ export class InstalledAddOnExtensionContextImpl
         new InstalledAddOnExtensionInstance(
           operationVersion,
           payload,
-          this._solution.installedAddOnSid,
-          this._solution.sid
+          instance._solution.installedAddOnSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -188,9 +189,10 @@ export class InstalledAddOnExtensionContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -201,12 +203,12 @@ export class InstalledAddOnExtensionContextImpl
         new InstalledAddOnExtensionInstance(
           operationVersion,
           payload,
-          this._solution.installedAddOnSid,
-          this._solution.sid
+          instance._solution.installedAddOnSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -362,7 +364,15 @@ export class InstalledAddOnExtensionInstance {
   }
 }
 
+export interface InstalledAddOnExtensionSolution {
+  installedAddOnSid?: string;
+}
+
 export interface InstalledAddOnExtensionListInstance {
+  _version: Marketplace;
+  _solution: InstalledAddOnExtensionSolution;
+  _uri: string;
+
   (sid: string): InstalledAddOnExtensionContext;
   get(sid: string): InstalledAddOnExtensionContext;
 
@@ -509,20 +519,6 @@ export interface InstalledAddOnExtensionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InstalledAddOnExtensionSolution {
-  installedAddOnSid?: string;
-}
-
-interface InstalledAddOnExtensionListInstanceImpl
-  extends InstalledAddOnExtensionListInstance {}
-class InstalledAddOnExtensionListInstanceImpl
-  implements InstalledAddOnExtensionListInstance
-{
-  _version?: Marketplace;
-  _solution?: InstalledAddOnExtensionSolution;
-  _uri?: string;
-}
-
 export function InstalledAddOnExtensionListInstance(
   version: Marketplace,
   installedAddOnSid: string
@@ -532,7 +528,7 @@ export function InstalledAddOnExtensionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as InstalledAddOnExtensionListInstanceImpl;
+    instance.get(sid)) as InstalledAddOnExtensionListInstance;
 
   instance.get = function get(sid): InstalledAddOnExtensionContext {
     return new InstalledAddOnExtensionContextImpl(
@@ -568,7 +564,7 @@ export function InstalledAddOnExtensionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -579,11 +575,11 @@ export function InstalledAddOnExtensionListInstance(
         new InstalledAddOnExtensionPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -596,31 +592,32 @@ export function InstalledAddOnExtensionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InstalledAddOnExtensionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new InstalledAddOnExtensionPage(this._version, payload, this._solution)
+        new InstalledAddOnExtensionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

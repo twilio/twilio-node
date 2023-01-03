@@ -40,8 +40,8 @@ export interface AnonymizeContext {
 }
 
 export interface AnonymizeContextSolution {
-  roomSid?: string;
-  sid?: string;
+  roomSid: string;
+  sid: string;
 }
 
 export class AnonymizeContextImpl implements AnonymizeContext {
@@ -62,9 +62,10 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   }
 
   update(callback?: any): Promise<AnonymizeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -73,12 +74,12 @@ export class AnonymizeContextImpl implements AnonymizeContext {
         new AnonymizeInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.sid
+          instance._solution.roomSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -232,7 +233,16 @@ export class AnonymizeInstance {
   }
 }
 
+export interface AnonymizeSolution {
+  roomSid?: string;
+  sid?: string;
+}
+
 export interface AnonymizeListInstance {
+  _version: V1;
+  _solution: AnonymizeSolution;
+  _uri: string;
+
   (): AnonymizeContext;
   get(): AnonymizeContext;
 
@@ -241,18 +251,6 @@ export interface AnonymizeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AnonymizeSolution {
-  roomSid?: string;
-  sid?: string;
-}
-
-interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
-class AnonymizeListInstanceImpl implements AnonymizeListInstance {
-  _version?: V1;
-  _solution?: AnonymizeSolution;
-  _uri?: string;
 }
 
 export function AnonymizeListInstance(
@@ -268,7 +266,7 @@ export function AnonymizeListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
+  const instance = (() => instance.get()) as AnonymizeListInstance;
 
   instance.get = function get(): AnonymizeContext {
     return new AnonymizeContextImpl(version, roomSid, sid);
@@ -279,14 +277,14 @@ export function AnonymizeListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -155,7 +155,7 @@ export interface CompositionContext {
 }
 
 export interface CompositionContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CompositionContextImpl implements CompositionContext {
@@ -172,13 +172,14 @@ export class CompositionContextImpl implements CompositionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,18 +187,23 @@ export class CompositionContextImpl implements CompositionContext {
   }
 
   fetch(callback?: any): Promise<CompositionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionInstance(operationVersion, payload, this._solution.sid)
+        new CompositionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -436,7 +442,13 @@ export class CompositionInstance {
   }
 }
 
+export interface CompositionSolution {}
+
 export interface CompositionListInstance {
+  _version: V1;
+  _solution: CompositionSolution;
+  _uri: string;
+
   (sid: string): CompositionContext;
   get(sid: string): CompositionContext;
 
@@ -582,17 +594,8 @@ export interface CompositionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSolution {}
-
-interface CompositionListInstanceImpl extends CompositionListInstance {}
-class CompositionListInstanceImpl implements CompositionListInstance {
-  _version?: V1;
-  _solution?: CompositionSolution;
-  _uri?: string;
-}
-
 export function CompositionListInstance(version: V1): CompositionListInstance {
-  const instance = ((sid) => instance.get(sid)) as CompositionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CompositionListInstance;
 
   instance.get = function get(sid): CompositionContext {
     return new CompositionContextImpl(version, sid);
@@ -641,7 +644,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -651,7 +654,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       (payload) => new CompositionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -690,7 +693,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -698,10 +701,10 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionPage(operationVersion, payload, this._solution)
+        new CompositionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -714,30 +717,28 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CompositionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CompositionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CompositionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

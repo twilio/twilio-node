@@ -144,8 +144,8 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -166,13 +166,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -180,9 +181,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   fetch(callback?: any): Promise<PhoneNumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -191,12 +193,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -219,9 +221,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -232,12 +235,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -439,7 +442,15 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {
+  serviceSid?: string;
+}
+
 export interface PhoneNumberListInstance {
+  _version: V1;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (sid: string): PhoneNumberContext;
   get(sid: string): PhoneNumberContext;
 
@@ -595,17 +606,6 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {
-  serviceSid?: string;
-}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V1;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(
   version: V1,
   serviceSid: string
@@ -614,7 +614,7 @@ export function PhoneNumberListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstance;
 
   instance.get = function get(sid): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, serviceSid, sid);
@@ -648,7 +648,7 @@ export function PhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -659,11 +659,11 @@ export function PhoneNumberListInstance(
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -692,7 +692,7 @@ export function PhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -700,10 +700,10 @@ export function PhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberPage(operationVersion, payload, this._solution)
+        new PhoneNumberPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -716,30 +716,28 @@ export function PhoneNumberListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new PhoneNumberPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PhoneNumberPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

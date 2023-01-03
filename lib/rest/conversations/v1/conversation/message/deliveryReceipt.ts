@@ -97,9 +97,9 @@ export interface DeliveryReceiptContext {
 }
 
 export interface DeliveryReceiptContextSolution {
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
+  conversationSid: string;
+  messageSid: string;
+  sid: string;
 }
 
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
@@ -129,9 +129,10 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   }
 
   fetch(callback?: any): Promise<DeliveryReceiptInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -140,13 +141,13 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
         new DeliveryReceiptInstance(
           operationVersion,
           payload,
-          this._solution.conversationSid,
-          this._solution.messageSid,
-          this._solution.sid
+          instance._solution.conversationSid,
+          instance._solution.messageSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -304,7 +305,16 @@ export class DeliveryReceiptInstance {
   }
 }
 
+export interface DeliveryReceiptSolution {
+  conversationSid?: string;
+  messageSid?: string;
+}
+
 export interface DeliveryReceiptListInstance {
+  _version: V1;
+  _solution: DeliveryReceiptSolution;
+  _uri: string;
+
   (sid: string): DeliveryReceiptContext;
   get(sid: string): DeliveryReceiptContext;
 
@@ -442,18 +452,6 @@ export interface DeliveryReceiptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeliveryReceiptSolution {
-  conversationSid?: string;
-  messageSid?: string;
-}
-
-interface DeliveryReceiptListInstanceImpl extends DeliveryReceiptListInstance {}
-class DeliveryReceiptListInstanceImpl implements DeliveryReceiptListInstance {
-  _version?: V1;
-  _solution?: DeliveryReceiptSolution;
-  _uri?: string;
-}
-
 export function DeliveryReceiptListInstance(
   version: V1,
   conversationSid: string,
@@ -467,8 +465,7 @@ export function DeliveryReceiptListInstance(
     throw new Error("Parameter 'messageSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as DeliveryReceiptListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeliveryReceiptListInstance;
 
   instance.get = function get(sid): DeliveryReceiptContext {
     return new DeliveryReceiptContextImpl(
@@ -505,7 +502,7 @@ export function DeliveryReceiptListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -513,10 +510,10 @@ export function DeliveryReceiptListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DeliveryReceiptPage(operationVersion, payload, this._solution)
+        new DeliveryReceiptPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -529,31 +526,28 @@ export function DeliveryReceiptListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DeliveryReceiptPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new DeliveryReceiptPage(this._version, payload, this._solution)
+        new DeliveryReceiptPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

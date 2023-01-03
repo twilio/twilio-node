@@ -424,8 +424,8 @@ export interface TriggerContext {
 }
 
 export interface TriggerContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class TriggerContextImpl implements TriggerContext {
@@ -446,13 +446,14 @@ export class TriggerContextImpl implements TriggerContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -460,9 +461,10 @@ export class TriggerContextImpl implements TriggerContext {
   }
 
   fetch(callback?: any): Promise<TriggerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -471,12 +473,12 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -503,9 +505,10 @@ export class TriggerContextImpl implements TriggerContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -516,12 +519,12 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -753,7 +756,15 @@ export class TriggerInstance {
   }
 }
 
+export interface TriggerSolution {
+  accountSid?: string;
+}
+
 export interface TriggerListInstance {
+  _version: V2010;
+  _solution: TriggerSolution;
+  _uri: string;
+
   (sid: string): TriggerContext;
   get(sid: string): TriggerContext;
 
@@ -899,17 +910,6 @@ export interface TriggerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TriggerSolution {
-  accountSid?: string;
-}
-
-interface TriggerListInstanceImpl extends TriggerListInstance {}
-class TriggerListInstanceImpl implements TriggerListInstance {
-  _version?: V2010;
-  _solution?: TriggerSolution;
-  _uri?: string;
-}
-
 export function TriggerListInstance(
   version: V2010,
   accountSid: string
@@ -918,7 +918,7 @@ export function TriggerListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as TriggerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TriggerListInstance;
 
   instance.get = function get(sid): TriggerContext {
     return new TriggerContextImpl(version, accountSid, sid);
@@ -977,7 +977,7 @@ export function TriggerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -988,11 +988,11 @@ export function TriggerListInstance(
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1027,17 +1027,18 @@ export function TriggerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TriggerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1050,30 +1051,28 @@ export function TriggerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TriggerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TriggerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

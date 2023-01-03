@@ -95,7 +95,7 @@ export interface NotificationContext {
 }
 
 export interface NotificationContextSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export class NotificationContextImpl implements NotificationContext {
@@ -112,9 +112,10 @@ export class NotificationContextImpl implements NotificationContext {
   }
 
   fetch(callback?: any): Promise<NotificationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -123,11 +124,11 @@ export class NotificationContextImpl implements NotificationContext {
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,9 +187,10 @@ export class NotificationContextImpl implements NotificationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -199,11 +201,11 @@ export class NotificationContextImpl implements NotificationContext {
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -353,7 +355,15 @@ export class NotificationInstance {
   }
 }
 
+export interface NotificationSolution {
+  chatServiceSid?: string;
+}
+
 export interface NotificationListInstance {
+  _version: V1;
+  _solution: NotificationSolution;
+  _uri: string;
+
   (): NotificationContext;
   get(): NotificationContext;
 
@@ -364,17 +374,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  chatServiceSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V1,
   chatServiceSid: string
@@ -383,7 +382,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as NotificationListInstanceImpl;
+  const instance = (() => instance.get()) as NotificationListInstance;
 
   instance.get = function get(): NotificationContext {
     return new NotificationContextImpl(version, chatServiceSid);
@@ -394,14 +393,14 @@ export function NotificationListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

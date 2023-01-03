@@ -52,7 +52,7 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -78,18 +78,23 @@ export class InteractionContextImpl implements InteractionContext {
   }
 
   fetch(callback?: any): Promise<InteractionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InteractionInstance(operationVersion, payload, this._solution.sid)
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -200,7 +205,13 @@ export class InteractionInstance {
   }
 }
 
+export interface InteractionSolution {}
+
 export interface InteractionListInstance {
+  _version: V1;
+  _solution: InteractionSolution;
+  _uri: string;
+
   (sid: string): InteractionContext;
   get(sid: string): InteractionContext;
 
@@ -225,17 +236,8 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionSolution {}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-}
-
 export function InteractionListInstance(version: V1): InteractionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
   instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, sid);
@@ -272,7 +274,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -282,7 +284,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       (payload) => new InteractionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -290,14 +292,14 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

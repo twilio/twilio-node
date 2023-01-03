@@ -55,7 +55,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  number?: string;
+  number: string;
 }
 
 export class NumberContextImpl implements NumberContext {
@@ -72,18 +72,19 @@ export class NumberContextImpl implements NumberContext {
   }
 
   fetch(callback?: any): Promise<NumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NumberInstance(operationVersion, payload, this._solution.number)
+        new NumberInstance(operationVersion, payload, instance._solution.number)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -201,7 +202,13 @@ export class NumberInstance {
   }
 }
 
+export interface NumberSolution {}
+
 export interface NumberListInstance {
+  _version: V1;
+  _solution: NumberSolution;
+  _uri: string;
+
   (number: string): NumberContext;
   get(number: string): NumberContext;
 
@@ -212,17 +219,8 @@ export interface NumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NumberSolution {}
-
-interface NumberListInstanceImpl extends NumberListInstance {}
-class NumberListInstanceImpl implements NumberListInstance {
-  _version?: V1;
-  _solution?: NumberSolution;
-  _uri?: string;
-}
-
 export function NumberListInstance(version: V1): NumberListInstance {
-  const instance = ((number) => instance.get(number)) as NumberListInstanceImpl;
+  const instance = ((number) => instance.get(number)) as NumberListInstance;
 
   instance.get = function get(number): NumberContext {
     return new NumberContextImpl(version, number);
@@ -233,14 +231,14 @@ export function NumberListInstance(version: V1): NumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

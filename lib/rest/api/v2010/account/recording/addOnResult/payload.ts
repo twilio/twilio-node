@@ -98,10 +98,10 @@ export interface PayloadContext {
 }
 
 export interface PayloadContextSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-  sid?: string;
+  accountSid: string;
+  referenceSid: string;
+  addOnResultSid: string;
+  sid: string;
 }
 
 export class PayloadContextImpl implements PayloadContext {
@@ -136,13 +136,14 @@ export class PayloadContextImpl implements PayloadContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,9 +151,10 @@ export class PayloadContextImpl implements PayloadContext {
   }
 
   fetch(callback?: any): Promise<PayloadInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,14 +163,14 @@ export class PayloadContextImpl implements PayloadContext {
         new PayloadInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.referenceSid,
-          this._solution.addOnResultSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.referenceSid,
+          instance._solution.addOnResultSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -349,7 +351,17 @@ export class PayloadInstance {
   }
 }
 
+export interface PayloadSolution {
+  accountSid?: string;
+  referenceSid?: string;
+  addOnResultSid?: string;
+}
+
 export interface PayloadListInstance {
+  _version: V2010;
+  _solution: PayloadSolution;
+  _uri: string;
+
   (sid: string): PayloadContext;
   get(sid: string): PayloadContext;
 
@@ -481,19 +493,6 @@ export interface PayloadListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PayloadSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-}
-
-interface PayloadListInstanceImpl extends PayloadListInstance {}
-class PayloadListInstanceImpl implements PayloadListInstance {
-  _version?: V2010;
-  _solution?: PayloadSolution;
-  _uri?: string;
-}
-
 export function PayloadListInstance(
   version: V2010,
   accountSid: string,
@@ -512,7 +511,7 @@ export function PayloadListInstance(
     throw new Error("Parameter 'addOnResultSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PayloadListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PayloadListInstance;
 
   instance.get = function get(sid): PayloadContext {
     return new PayloadContextImpl(
@@ -550,17 +549,18 @@ export function PayloadListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PayloadPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new PayloadPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -573,30 +573,28 @@ export function PayloadListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PayloadPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new PayloadPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PayloadPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -36,7 +36,16 @@ export interface SubscribeRulesListInstanceUpdateOptions {
   rules?: any;
 }
 
+export interface SubscribeRulesSolution {
+  roomSid?: string;
+  participantSid?: string;
+}
+
 export interface SubscribeRulesListInstance {
+  _version: V1;
+  _solution: SubscribeRulesSolution;
+  _uri: string;
+
   /**
    * Fetch a SubscribeRulesInstance
    *
@@ -79,18 +88,6 @@ export interface SubscribeRulesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SubscribeRulesSolution {
-  roomSid?: string;
-  participantSid?: string;
-}
-
-interface SubscribeRulesListInstanceImpl extends SubscribeRulesListInstance {}
-class SubscribeRulesListInstanceImpl implements SubscribeRulesListInstance {
-  _version?: V1;
-  _solution?: SubscribeRulesSolution;
-  _uri?: string;
-}
-
 export function SubscribeRulesListInstance(
   version: V1,
   roomSid: string,
@@ -104,7 +101,7 @@ export function SubscribeRulesListInstance(
     throw new Error("Parameter 'participantSid' is not valid.");
   }
 
-  const instance = {} as SubscribeRulesListInstanceImpl;
+  const instance = {} as SubscribeRulesListInstance;
 
   instance._version = version;
   instance._solution = { roomSid, participantSid };
@@ -115,7 +112,7 @@ export function SubscribeRulesListInstance(
   ): Promise<SubscribeRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -124,12 +121,12 @@ export function SubscribeRulesListInstance(
         new SubscribeRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid
+          instance._solution.roomSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,7 +154,7 @@ export function SubscribeRulesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -168,12 +165,12 @@ export function SubscribeRulesListInstance(
         new SubscribeRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid
+          instance._solution.roomSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,14 +178,14 @@ export function SubscribeRulesListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

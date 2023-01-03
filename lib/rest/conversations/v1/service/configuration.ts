@@ -79,7 +79,7 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
@@ -96,9 +96,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 
   fetch(callback?: any): Promise<ConfigurationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -107,11 +108,11 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -143,9 +144,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -156,11 +158,11 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -314,11 +316,21 @@ export class ConfigurationInstance {
   }
 }
 
+export interface ConfigurationSolution {
+  chatServiceSid?: string;
+}
+
 export interface ConfigurationListInstance {
+  _version: V1;
+  _solution: ConfigurationSolution;
+  _uri: string;
+
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
+  _notifications?: NotificationListInstance;
   notifications: NotificationListInstance;
+  _webhooks?: WebhookListInstance;
   webhooks: WebhookListInstance;
 
   /**
@@ -326,20 +338,6 @@ export interface ConfigurationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ConfigurationSolution {
-  chatServiceSid?: string;
-}
-
-interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
-class ConfigurationListInstanceImpl implements ConfigurationListInstance {
-  _version?: V1;
-  _solution?: ConfigurationSolution;
-  _uri?: string;
-
-  _notifications?: NotificationListInstance;
-  _webhooks?: WebhookListInstance;
 }
 
 export function ConfigurationListInstance(
@@ -350,7 +348,7 @@ export function ConfigurationListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
+  const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version, chatServiceSid);
@@ -362,37 +360,37 @@ export function ConfigurationListInstance(
 
   Object.defineProperty(instance, "notifications", {
     get: function notifications() {
-      if (!this._notifications) {
-        this._notifications = NotificationListInstance(
-          this._version,
-          this._solution.chatServiceSid
+      if (!instance._notifications) {
+        instance._notifications = NotificationListInstance(
+          instance._version,
+          instance._solution.chatServiceSid
         );
       }
-      return this._notifications;
+      return instance._notifications;
     },
   });
 
   Object.defineProperty(instance, "webhooks", {
     get: function webhooks() {
-      if (!this._webhooks) {
-        this._webhooks = WebhookListInstance(
-          this._version,
-          this._solution.chatServiceSid
+      if (!instance._webhooks) {
+        instance._webhooks = WebhookListInstance(
+          instance._version,
+          instance._solution.chatServiceSid
         );
       }
-      return this._webhooks;
+      return instance._webhooks;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

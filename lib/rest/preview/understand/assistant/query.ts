@@ -167,8 +167,8 @@ export interface QueryContext {
 }
 
 export interface QueryContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class QueryContextImpl implements QueryContext {
@@ -193,13 +193,14 @@ export class QueryContextImpl implements QueryContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -207,9 +208,10 @@ export class QueryContextImpl implements QueryContext {
   }
 
   fetch(callback?: any): Promise<QueryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -218,12 +220,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -247,9 +249,10 @@ export class QueryContextImpl implements QueryContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -260,12 +263,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -474,7 +477,15 @@ export class QueryInstance {
   }
 }
 
+export interface QuerySolution {
+  assistantSid?: string;
+}
+
 export interface QueryListInstance {
+  _version: Understand;
+  _solution: QuerySolution;
+  _uri: string;
+
   (sid: string): QueryContext;
   get(sid: string): QueryContext;
 
@@ -620,17 +631,6 @@ export interface QueryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface QuerySolution {
-  assistantSid?: string;
-}
-
-interface QueryListInstanceImpl extends QueryListInstance {}
-class QueryListInstanceImpl implements QueryListInstance {
-  _version?: Understand;
-  _solution?: QuerySolution;
-  _uri?: string;
-}
-
 export function QueryListInstance(
   version: Understand,
   assistantSid: string
@@ -639,7 +639,7 @@ export function QueryListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as QueryListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as QueryListInstance;
 
   instance.get = function get(sid): QueryContext {
     return new QueryContextImpl(version, assistantSid, sid);
@@ -680,7 +680,7 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -691,11 +691,11 @@ export function QueryListInstance(
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -728,17 +728,17 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryPage(operationVersion, payload, this._solution)
+      (payload) => new QueryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -751,30 +751,27 @@ export function QueryListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<QueryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new QueryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new QueryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

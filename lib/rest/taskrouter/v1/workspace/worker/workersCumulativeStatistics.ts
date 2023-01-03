@@ -75,7 +75,7 @@ export interface WorkersCumulativeStatisticsContext {
 }
 
 export interface WorkersCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersCumulativeStatisticsContextImpl
@@ -116,9 +116,10 @@ export class WorkersCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -129,11 +130,11 @@ export class WorkersCumulativeStatisticsContextImpl
         new WorkersCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -330,7 +331,15 @@ export class WorkersCumulativeStatisticsInstance {
   }
 }
 
+export interface WorkersCumulativeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 export interface WorkersCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersCumulativeStatisticsSolution;
+  _uri: string;
+
   (): WorkersCumulativeStatisticsContext;
   get(): WorkersCumulativeStatisticsContext;
 
@@ -339,20 +348,6 @@ export interface WorkersCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkersCumulativeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersCumulativeStatisticsListInstanceImpl
-  extends WorkersCumulativeStatisticsListInstance {}
-class WorkersCumulativeStatisticsListInstanceImpl
-  implements WorkersCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkersCumulativeStatisticsListInstance(
@@ -364,7 +359,7 @@ export function WorkersCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkersCumulativeStatisticsListInstanceImpl;
+    instance.get()) as WorkersCumulativeStatisticsListInstance;
 
   instance.get = function get(): WorkersCumulativeStatisticsContext {
     return new WorkersCumulativeStatisticsContextImpl(version, workspaceSid);
@@ -375,14 +370,14 @@ export function WorkersCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -93,7 +93,7 @@ export interface EventTypeContext {
 }
 
 export interface EventTypeContextSolution {
-  type?: string;
+  type: string;
 }
 
 export class EventTypeContextImpl implements EventTypeContext {
@@ -110,18 +110,23 @@ export class EventTypeContextImpl implements EventTypeContext {
   }
 
   fetch(callback?: any): Promise<EventTypeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EventTypeInstance(operationVersion, payload, this._solution.type)
+        new EventTypeInstance(
+          operationVersion,
+          payload,
+          instance._solution.type
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -244,7 +249,13 @@ export class EventTypeInstance {
   }
 }
 
+export interface EventTypeSolution {}
+
 export interface EventTypeListInstance {
+  _version: V1;
+  _solution: EventTypeSolution;
+  _uri: string;
+
   (type: string): EventTypeContext;
   get(type: string): EventTypeContext;
 
@@ -376,17 +387,8 @@ export interface EventTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EventTypeSolution {}
-
-interface EventTypeListInstanceImpl extends EventTypeListInstance {}
-class EventTypeListInstanceImpl implements EventTypeListInstance {
-  _version?: V1;
-  _solution?: EventTypeSolution;
-  _uri?: string;
-}
-
 export function EventTypeListInstance(version: V1): EventTypeListInstance {
-  const instance = ((type) => instance.get(type)) as EventTypeListInstanceImpl;
+  const instance = ((type) => instance.get(type)) as EventTypeListInstance;
 
   instance.get = function get(type): EventTypeContext {
     return new EventTypeContextImpl(version, type);
@@ -419,17 +421,18 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EventTypePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EventTypePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -442,30 +445,28 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<EventTypePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventTypePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EventTypePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

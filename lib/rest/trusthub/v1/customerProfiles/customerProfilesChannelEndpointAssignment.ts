@@ -126,8 +126,8 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
 }
 
 export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
+  customerProfileSid: string;
+  sid: string;
 }
 
 export class CustomerProfilesChannelEndpointAssignmentContextImpl
@@ -150,13 +150,14 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,9 +167,10 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   fetch(
     callback?: any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,12 +179,12 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
         new CustomerProfilesChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid,
-          this._solution.sid
+          instance._solution.customerProfileSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -330,7 +332,15 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   }
 }
 
+export interface CustomerProfilesChannelEndpointAssignmentSolution {
+  customerProfileSid?: string;
+}
+
 export interface CustomerProfilesChannelEndpointAssignmentListInstance {
+  _version: V1;
+  _solution: CustomerProfilesChannelEndpointAssignmentSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesChannelEndpointAssignmentContext;
   get(sid: string): CustomerProfilesChannelEndpointAssignmentContext;
 
@@ -515,20 +525,6 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesChannelEndpointAssignmentSolution {
-  customerProfileSid?: string;
-}
-
-interface CustomerProfilesChannelEndpointAssignmentListInstanceImpl
-  extends CustomerProfilesChannelEndpointAssignmentListInstance {}
-class CustomerProfilesChannelEndpointAssignmentListInstanceImpl
-  implements CustomerProfilesChannelEndpointAssignmentListInstance
-{
-  _version?: V1;
-  _solution?: CustomerProfilesChannelEndpointAssignmentSolution;
-  _uri?: string;
-}
-
 export function CustomerProfilesChannelEndpointAssignmentListInstance(
   version: V1,
   customerProfileSid: string
@@ -538,9 +534,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(
-      sid
-    )) as CustomerProfilesChannelEndpointAssignmentListInstanceImpl;
+    instance.get(sid)) as CustomerProfilesChannelEndpointAssignmentListInstance;
 
   instance.get = function get(
     sid
@@ -593,7 +587,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -604,11 +598,11 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
         new CustomerProfilesChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid
+          instance._solution.customerProfileSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -641,7 +635,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -652,11 +646,11 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
         new CustomerProfilesChannelEndpointAssignmentPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -669,35 +663,32 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new CustomerProfilesChannelEndpointAssignmentPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

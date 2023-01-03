@@ -154,7 +154,7 @@ export interface SinkContext {
 }
 
 export interface SinkContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SinkContextImpl implements SinkContext {
@@ -187,13 +187,14 @@ export class SinkContextImpl implements SinkContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -201,18 +202,19 @@ export class SinkContextImpl implements SinkContext {
   }
 
   fetch(callback?: any): Promise<SinkInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SinkInstance(operationVersion, payload, this._solution.sid)
+        new SinkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -235,9 +237,10 @@ export class SinkContextImpl implements SinkContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -245,10 +248,10 @@ export class SinkContextImpl implements SinkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SinkInstance(operationVersion, payload, this._solution.sid)
+        new SinkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -420,7 +423,13 @@ export class SinkInstance {
   }
 }
 
+export interface SinkSolution {}
+
 export interface SinkListInstance {
+  _version: V1;
+  _solution: SinkSolution;
+  _uri: string;
+
   (sid: string): SinkContext;
   get(sid: string): SinkContext;
 
@@ -566,17 +575,8 @@ export interface SinkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SinkSolution {}
-
-interface SinkListInstanceImpl extends SinkListInstance {}
-class SinkListInstanceImpl implements SinkListInstance {
-  _version?: V1;
-  _solution?: SinkSolution;
-  _uri?: string;
-}
-
 export function SinkListInstance(version: V1): SinkListInstance {
-  const instance = ((sid) => instance.get(sid)) as SinkListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SinkListInstance;
 
   instance.get = function get(sid): SinkContext {
     return new SinkContextImpl(version, sid);
@@ -624,7 +624,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -634,7 +634,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
       (payload) => new SinkInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -666,17 +666,17 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SinkPage(operationVersion, payload, this._solution)
+      (payload) => new SinkPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -689,30 +689,27 @@ export function SinkListInstance(version: V1): SinkListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<SinkPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SinkPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new SinkPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

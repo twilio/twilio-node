@@ -83,8 +83,8 @@ export interface FeedbackContext {
 }
 
 export interface FeedbackContextSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export class FeedbackContextImpl implements FeedbackContext {
@@ -105,9 +105,10 @@ export class FeedbackContextImpl implements FeedbackContext {
   }
 
   fetch(callback?: any): Promise<FeedbackInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -116,12 +117,12 @@ export class FeedbackContextImpl implements FeedbackContext {
         new FeedbackInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -146,9 +147,10 @@ export class FeedbackContextImpl implements FeedbackContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -159,12 +161,12 @@ export class FeedbackContextImpl implements FeedbackContext {
         new FeedbackInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -312,7 +314,16 @@ export class FeedbackInstance {
   }
 }
 
+export interface FeedbackSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 export interface FeedbackListInstance {
+  _version: V2010;
+  _solution: FeedbackSolution;
+  _uri: string;
+
   (): FeedbackContext;
   get(): FeedbackContext;
 
@@ -321,18 +332,6 @@ export interface FeedbackListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FeedbackSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface FeedbackListInstanceImpl extends FeedbackListInstance {}
-class FeedbackListInstanceImpl implements FeedbackListInstance {
-  _version?: V2010;
-  _solution?: FeedbackSolution;
-  _uri?: string;
 }
 
 export function FeedbackListInstance(
@@ -348,7 +347,7 @@ export function FeedbackListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as FeedbackListInstanceImpl;
+  const instance = (() => instance.get()) as FeedbackListInstance;
 
   instance.get = function get(): FeedbackContext {
     return new FeedbackContextImpl(version, accountSid, callSid);
@@ -359,14 +358,14 @@ export function FeedbackListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

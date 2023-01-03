@@ -109,9 +109,10 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -121,7 +122,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       (payload) => new RecordingSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -129,9 +130,10 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
   }
 
   fetch(callback?: any): Promise<RecordingSettingsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -139,7 +141,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       (payload) => new RecordingSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -281,7 +283,13 @@ export class RecordingSettingsInstance {
   }
 }
 
+export interface RecordingSettingsSolution {}
+
 export interface RecordingSettingsListInstance {
+  _version: V1;
+  _solution: RecordingSettingsSolution;
+  _uri: string;
+
   (): RecordingSettingsContext;
   get(): RecordingSettingsContext;
 
@@ -292,22 +300,10 @@ export interface RecordingSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSettingsSolution {}
-
-interface RecordingSettingsListInstanceImpl
-  extends RecordingSettingsListInstance {}
-class RecordingSettingsListInstanceImpl
-  implements RecordingSettingsListInstance
-{
-  _version?: V1;
-  _solution?: RecordingSettingsSolution;
-  _uri?: string;
-}
-
 export function RecordingSettingsListInstance(
   version: V1
 ): RecordingSettingsListInstance {
-  const instance = (() => instance.get()) as RecordingSettingsListInstanceImpl;
+  const instance = (() => instance.get()) as RecordingSettingsListInstance;
 
   instance.get = function get(): RecordingSettingsContext {
     return new RecordingSettingsContextImpl(version);
@@ -318,14 +314,14 @@ export function RecordingSettingsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

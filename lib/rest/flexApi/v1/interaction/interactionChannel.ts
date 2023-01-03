@@ -133,8 +133,8 @@ export interface InteractionChannelContext {
 }
 
 export interface InteractionChannelContextSolution {
-  interactionSid?: string;
-  sid?: string;
+  interactionSid: string;
+  sid: string;
 }
 
 export class InteractionChannelContextImpl
@@ -182,9 +182,10 @@ export class InteractionChannelContextImpl
   }
 
   fetch(callback?: any): Promise<InteractionChannelInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -193,12 +194,12 @@ export class InteractionChannelContextImpl
         new InteractionChannelInstance(
           operationVersion,
           payload,
-          this._solution.interactionSid,
-          this._solution.sid
+          instance._solution.interactionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -223,9 +224,10 @@ export class InteractionChannelContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -236,12 +238,12 @@ export class InteractionChannelContextImpl
         new InteractionChannelInstance(
           operationVersion,
           payload,
-          this._solution.interactionSid,
-          this._solution.sid
+          instance._solution.interactionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -397,7 +399,15 @@ export class InteractionChannelInstance {
   }
 }
 
+export interface InteractionChannelSolution {
+  interactionSid?: string;
+}
+
 export interface InteractionChannelListInstance {
+  _version: V1;
+  _solution: InteractionChannelSolution;
+  _uri: string;
+
   (sid: string): InteractionChannelContext;
   get(sid: string): InteractionChannelContext;
 
@@ -535,20 +545,6 @@ export interface InteractionChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionChannelSolution {
-  interactionSid?: string;
-}
-
-interface InteractionChannelListInstanceImpl
-  extends InteractionChannelListInstance {}
-class InteractionChannelListInstanceImpl
-  implements InteractionChannelListInstance
-{
-  _version?: V1;
-  _solution?: InteractionChannelSolution;
-  _uri?: string;
-}
-
 export function InteractionChannelListInstance(
   version: V1,
   interactionSid: string
@@ -558,7 +554,7 @@ export function InteractionChannelListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as InteractionChannelListInstanceImpl;
+    instance.get(sid)) as InteractionChannelListInstance;
 
   instance.get = function get(sid): InteractionChannelContext {
     return new InteractionChannelContextImpl(version, interactionSid, sid);
@@ -590,7 +586,7 @@ export function InteractionChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -598,10 +594,14 @@ export function InteractionChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InteractionChannelPage(operationVersion, payload, this._solution)
+        new InteractionChannelPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -614,31 +614,32 @@ export function InteractionChannelListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InteractionChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new InteractionChannelPage(this._version, payload, this._solution)
+        new InteractionChannelPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

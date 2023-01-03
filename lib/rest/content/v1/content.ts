@@ -101,7 +101,7 @@ export interface ContentContext {
 }
 
 export interface ContentContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ContentContextImpl implements ContentContext {
@@ -127,13 +127,14 @@ export class ContentContextImpl implements ContentContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -141,18 +142,19 @@ export class ContentContextImpl implements ContentContext {
   }
 
   fetch(callback?: any): Promise<ContentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentInstance(operationVersion, payload, this._solution.sid)
+        new ContentInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -315,7 +317,13 @@ export class ContentInstance {
   }
 }
 
+export interface ContentSolution {}
+
 export interface ContentListInstance {
+  _version: V1;
+  _solution: ContentSolution;
+  _uri: string;
+
   (sid: string): ContentContext;
   get(sid: string): ContentContext;
 
@@ -447,17 +455,8 @@ export interface ContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ContentSolution {}
-
-interface ContentListInstanceImpl extends ContentListInstance {}
-class ContentListInstanceImpl implements ContentListInstance {
-  _version?: V1;
-  _solution?: ContentSolution;
-  _uri?: string;
-}
-
 export function ContentListInstance(version: V1): ContentListInstance {
-  const instance = ((sid) => instance.get(sid)) as ContentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ContentListInstance;
 
   instance.get = function get(sid): ContentContext {
     return new ContentContextImpl(version, sid);
@@ -489,17 +488,18 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ContentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ContentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -512,30 +512,28 @@ export function ContentListInstance(version: V1): ContentListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<ContentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ContentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ContentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

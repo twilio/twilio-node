@@ -88,7 +88,13 @@ export interface SettingsUpdateListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface SettingsUpdateSolution {}
+
 export interface SettingsUpdateListInstance {
+  _version: V1;
+  _solution: SettingsUpdateSolution;
+  _uri: string;
+
   /**
    * Streams SettingsUpdateInstance records from the API.
    *
@@ -223,19 +229,10 @@ export interface SettingsUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsUpdateSolution {}
-
-interface SettingsUpdateListInstanceImpl extends SettingsUpdateListInstance {}
-class SettingsUpdateListInstanceImpl implements SettingsUpdateListInstance {
-  _version?: V1;
-  _solution?: SettingsUpdateSolution;
-  _uri?: string;
-}
-
 export function SettingsUpdateListInstance(
   version: V1
 ): SettingsUpdateListInstance {
-  const instance = {} as SettingsUpdateListInstanceImpl;
+  const instance = {} as SettingsUpdateListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -265,7 +262,7 @@ export function SettingsUpdateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -273,10 +270,10 @@ export function SettingsUpdateListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(operationVersion, payload, this._solution)
+        new SettingsUpdatePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -289,31 +286,28 @@ export function SettingsUpdateListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SettingsUpdatePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(this._version, payload, this._solution)
+        new SettingsUpdatePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

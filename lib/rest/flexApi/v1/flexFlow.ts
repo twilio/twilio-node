@@ -219,7 +219,7 @@ export interface FlexFlowContext {
 }
 
 export interface FlexFlowContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class FlexFlowContextImpl implements FlexFlowContext {
@@ -236,13 +236,14 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -250,18 +251,19 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   }
 
   fetch(callback?: any): Promise<FlexFlowInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FlexFlowInstance(operationVersion, payload, this._solution.sid)
+        new FlexFlowInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -318,9 +320,10 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -328,10 +331,10 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FlexFlowInstance(operationVersion, payload, this._solution.sid)
+        new FlexFlowInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -535,7 +538,13 @@ export class FlexFlowInstance {
   }
 }
 
+export interface FlexFlowSolution {}
+
 export interface FlexFlowListInstance {
+  _version: V1;
+  _solution: FlexFlowSolution;
+  _uri: string;
+
   (sid: string): FlexFlowContext;
   get(sid: string): FlexFlowContext;
 
@@ -681,17 +690,8 @@ export interface FlexFlowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlexFlowSolution {}
-
-interface FlexFlowListInstanceImpl extends FlexFlowListInstance {}
-class FlexFlowListInstanceImpl implements FlexFlowListInstance {
-  _version?: V1;
-  _solution?: FlexFlowSolution;
-  _uri?: string;
-}
-
 export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
-  const instance = ((sid) => instance.get(sid)) as FlexFlowListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FlexFlowListInstance;
 
   instance.get = function get(sid): FlexFlowContext {
     return new FlexFlowContextImpl(version, sid);
@@ -772,7 +772,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -782,7 +782,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       (payload) => new FlexFlowInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -813,17 +813,18 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FlexFlowPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new FlexFlowPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -836,30 +837,28 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<FlexFlowPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FlexFlowPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FlexFlowPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

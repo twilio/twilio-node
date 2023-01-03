@@ -169,9 +169,9 @@ export interface ChallengeContext {
 }
 
 export interface ChallengeContextSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
+  serviceSid: string;
+  identity: string;
+  sid: string;
 }
 
 export class ChallengeContextImpl implements ChallengeContext {
@@ -215,9 +215,10 @@ export class ChallengeContextImpl implements ChallengeContext {
   }
 
   fetch(callback?: any): Promise<ChallengeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -226,13 +227,13 @@ export class ChallengeContextImpl implements ChallengeContext {
         new ChallengeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -257,9 +258,10 @@ export class ChallengeContextImpl implements ChallengeContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -270,13 +272,13 @@ export class ChallengeContextImpl implements ChallengeContext {
         new ChallengeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -510,7 +512,16 @@ export class ChallengeInstance {
   }
 }
 
+export interface ChallengeSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
 export interface ChallengeListInstance {
+  _version: V2;
+  _solution: ChallengeSolution;
+  _uri: string;
+
   (sid: string): ChallengeContext;
   get(sid: string): ChallengeContext;
 
@@ -656,18 +667,6 @@ export interface ChallengeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChallengeSolution {
-  serviceSid?: string;
-  identity?: string;
-}
-
-interface ChallengeListInstanceImpl extends ChallengeListInstance {}
-class ChallengeListInstanceImpl implements ChallengeListInstance {
-  _version?: V2;
-  _solution?: ChallengeSolution;
-  _uri?: string;
-}
-
 export function ChallengeListInstance(
   version: V2,
   serviceSid: string,
@@ -681,7 +680,7 @@ export function ChallengeListInstance(
     throw new Error("Parameter 'identity' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ChallengeListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ChallengeListInstance;
 
   instance.get = function get(sid): ChallengeContext {
     return new ChallengeContextImpl(version, serviceSid, identity, sid);
@@ -726,7 +725,7 @@ export function ChallengeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -737,12 +736,12 @@ export function ChallengeListInstance(
         new ChallengeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -775,17 +774,18 @@ export function ChallengeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ChallengePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ChallengePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -798,30 +798,28 @@ export function ChallengeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ChallengePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ChallengePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ChallengePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

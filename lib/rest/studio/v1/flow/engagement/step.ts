@@ -90,9 +90,9 @@ export interface StepContext {
 }
 
 export interface StepContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  sid?: string;
+  flowSid: string;
+  engagementSid: string;
+  sid: string;
 }
 
 export class StepContextImpl implements StepContext {
@@ -136,9 +136,10 @@ export class StepContextImpl implements StepContext {
   }
 
   fetch(callback?: any): Promise<StepInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -147,13 +148,13 @@ export class StepContextImpl implements StepContext {
         new StepInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.engagementSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -328,7 +329,16 @@ export class StepInstance {
   }
 }
 
+export interface StepSolution {
+  flowSid?: string;
+  engagementSid?: string;
+}
+
 export interface StepListInstance {
+  _version: V1;
+  _solution: StepSolution;
+  _uri: string;
+
   (sid: string): StepContext;
   get(sid: string): StepContext;
 
@@ -460,18 +470,6 @@ export interface StepListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StepSolution {
-  flowSid?: string;
-  engagementSid?: string;
-}
-
-interface StepListInstanceImpl extends StepListInstance {}
-class StepListInstanceImpl implements StepListInstance {
-  _version?: V1;
-  _solution?: StepSolution;
-  _uri?: string;
-}
-
 export function StepListInstance(
   version: V1,
   flowSid: string,
@@ -485,7 +483,7 @@ export function StepListInstance(
     throw new Error("Parameter 'engagementSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as StepListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as StepListInstance;
 
   instance.get = function get(sid): StepContext {
     return new StepContextImpl(version, flowSid, engagementSid, sid);
@@ -517,17 +515,17 @@ export function StepListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new StepPage(operationVersion, payload, this._solution)
+      (payload) => new StepPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -540,30 +538,27 @@ export function StepListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<StepPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new StepPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new StepPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

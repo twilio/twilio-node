@@ -114,9 +114,9 @@ export interface PaymentContext {
 }
 
 export interface PaymentContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class PaymentContextImpl implements PaymentContext {
@@ -179,9 +179,10 @@ export class PaymentContextImpl implements PaymentContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -192,13 +193,13 @@ export class PaymentContextImpl implements PaymentContext {
         new PaymentInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -325,7 +326,16 @@ export class PaymentInstance {
   }
 }
 
+export interface PaymentSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 export interface PaymentListInstance {
+  _version: V2010;
+  _solution: PaymentSolution;
+  _uri: string;
+
   (sid: string): PaymentContext;
   get(sid: string): PaymentContext;
 
@@ -350,18 +360,6 @@ export interface PaymentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PaymentSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface PaymentListInstanceImpl extends PaymentListInstance {}
-class PaymentListInstanceImpl implements PaymentListInstance {
-  _version?: V2010;
-  _solution?: PaymentSolution;
-  _uri?: string;
-}
-
 export function PaymentListInstance(
   version: V2010,
   accountSid: string,
@@ -375,7 +373,7 @@ export function PaymentListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PaymentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PaymentListInstance;
 
   instance.get = function get(sid): PaymentContext {
     return new PaymentContextImpl(version, accountSid, callSid, sid);
@@ -447,7 +445,7 @@ export function PaymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -458,12 +456,12 @@ export function PaymentListInstance(
         new PaymentInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -471,14 +469,14 @@ export function PaymentListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

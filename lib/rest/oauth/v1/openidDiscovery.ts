@@ -49,9 +49,10 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
   }
 
   fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -59,7 +60,7 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
       (payload) => new OpenidDiscoveryInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -218,7 +219,13 @@ export class OpenidDiscoveryInstance {
   }
 }
 
+export interface OpenidDiscoverySolution {}
+
 export interface OpenidDiscoveryListInstance {
+  _version: V1;
+  _solution: OpenidDiscoverySolution;
+  _uri: string;
+
   (): OpenidDiscoveryContext;
   get(): OpenidDiscoveryContext;
 
@@ -229,19 +236,10 @@ export interface OpenidDiscoveryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OpenidDiscoverySolution {}
-
-interface OpenidDiscoveryListInstanceImpl extends OpenidDiscoveryListInstance {}
-class OpenidDiscoveryListInstanceImpl implements OpenidDiscoveryListInstance {
-  _version?: V1;
-  _solution?: OpenidDiscoverySolution;
-  _uri?: string;
-}
-
 export function OpenidDiscoveryListInstance(
   version: V1
 ): OpenidDiscoveryListInstance {
-  const instance = (() => instance.get()) as OpenidDiscoveryListInstanceImpl;
+  const instance = (() => instance.get()) as OpenidDiscoveryListInstance;
 
   instance.get = function get(): OpenidDiscoveryContext {
     return new OpenidDiscoveryContextImpl(version);
@@ -252,14 +250,14 @@ export function OpenidDiscoveryListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -149,7 +149,7 @@ export interface MediaProcessorContext {
 }
 
 export interface MediaProcessorContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class MediaProcessorContextImpl implements MediaProcessorContext {
@@ -166,9 +166,10 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
   }
 
   fetch(callback?: any): Promise<MediaProcessorInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,11 +178,11 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
         new MediaProcessorInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -204,9 +205,10 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -217,11 +219,11 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
         new MediaProcessorInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -403,7 +405,13 @@ export class MediaProcessorInstance {
   }
 }
 
+export interface MediaProcessorSolution {}
+
 export interface MediaProcessorListInstance {
+  _version: V1;
+  _solution: MediaProcessorSolution;
+  _uri: string;
+
   (sid: string): MediaProcessorContext;
   get(sid: string): MediaProcessorContext;
 
@@ -555,20 +563,10 @@ export interface MediaProcessorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaProcessorSolution {}
-
-interface MediaProcessorListInstanceImpl extends MediaProcessorListInstance {}
-class MediaProcessorListInstanceImpl implements MediaProcessorListInstance {
-  _version?: V1;
-  _solution?: MediaProcessorSolution;
-  _uri?: string;
-}
-
 export function MediaProcessorListInstance(
   version: V1
 ): MediaProcessorListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as MediaProcessorListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MediaProcessorListInstance;
 
   instance.get = function get(sid): MediaProcessorContext {
     return new MediaProcessorContextImpl(version, sid);
@@ -620,7 +618,7 @@ export function MediaProcessorListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -630,7 +628,7 @@ export function MediaProcessorListInstance(
       (payload) => new MediaProcessorInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -661,7 +659,7 @@ export function MediaProcessorListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -669,10 +667,10 @@ export function MediaProcessorListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MediaProcessorPage(operationVersion, payload, this._solution)
+        new MediaProcessorPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -685,31 +683,28 @@ export function MediaProcessorListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MediaProcessorPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MediaProcessorPage(this._version, payload, this._solution)
+        new MediaProcessorPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

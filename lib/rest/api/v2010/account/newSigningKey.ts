@@ -27,7 +27,15 @@ export interface NewSigningKeyListInstanceCreateOptions {
   friendlyName?: string;
 }
 
+export interface NewSigningKeySolution {
+  accountSid?: string;
+}
+
 export interface NewSigningKeyListInstance {
+  _version: V2010;
+  _solution: NewSigningKeySolution;
+  _uri: string;
+
   /**
    * Create a NewSigningKeyInstance
    *
@@ -59,17 +67,6 @@ export interface NewSigningKeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NewSigningKeySolution {
-  accountSid?: string;
-}
-
-interface NewSigningKeyListInstanceImpl extends NewSigningKeyListInstance {}
-class NewSigningKeyListInstanceImpl implements NewSigningKeyListInstance {
-  _version?: V2010;
-  _solution?: NewSigningKeySolution;
-  _uri?: string;
-}
-
 export function NewSigningKeyListInstance(
   version: V2010,
   accountSid: string
@@ -78,7 +75,7 @@ export function NewSigningKeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as NewSigningKeyListInstanceImpl;
+  const instance = {} as NewSigningKeyListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -105,7 +102,7 @@ export function NewSigningKeyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -116,11 +113,11 @@ export function NewSigningKeyListInstance(
         new NewSigningKeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -128,14 +125,14 @@ export function NewSigningKeyListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

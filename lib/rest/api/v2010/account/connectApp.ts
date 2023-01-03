@@ -146,8 +146,8 @@ export interface ConnectAppContext {
 }
 
 export interface ConnectAppContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ConnectAppContextImpl implements ConnectAppContext {
@@ -168,13 +168,14 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -182,9 +183,10 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   }
 
   fetch(callback?: any): Promise<ConnectAppInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -193,12 +195,12 @@ export class ConnectAppContextImpl implements ConnectAppContext {
         new ConnectAppInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -235,9 +237,10 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -248,12 +251,12 @@ export class ConnectAppContextImpl implements ConnectAppContext {
         new ConnectAppInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -459,7 +462,15 @@ export class ConnectAppInstance {
   }
 }
 
+export interface ConnectAppSolution {
+  accountSid?: string;
+}
+
 export interface ConnectAppListInstance {
+  _version: V2010;
+  _solution: ConnectAppSolution;
+  _uri: string;
+
   (sid: string): ConnectAppContext;
   get(sid: string): ConnectAppContext;
 
@@ -591,17 +602,6 @@ export interface ConnectAppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConnectAppSolution {
-  accountSid?: string;
-}
-
-interface ConnectAppListInstanceImpl extends ConnectAppListInstance {}
-class ConnectAppListInstanceImpl implements ConnectAppListInstance {
-  _version?: V2010;
-  _solution?: ConnectAppSolution;
-  _uri?: string;
-}
-
 export function ConnectAppListInstance(
   version: V2010,
   accountSid: string
@@ -610,7 +610,7 @@ export function ConnectAppListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ConnectAppListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ConnectAppListInstance;
 
   instance.get = function get(sid): ConnectAppContext {
     return new ConnectAppContextImpl(version, accountSid, sid);
@@ -642,17 +642,18 @@ export function ConnectAppListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConnectAppPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ConnectAppPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -665,30 +666,28 @@ export function ConnectAppListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConnectAppPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ConnectAppPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

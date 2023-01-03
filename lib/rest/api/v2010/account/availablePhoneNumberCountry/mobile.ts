@@ -176,7 +176,16 @@ export interface MobileListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface MobileSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 export interface MobileListInstance {
+  _version: V2010;
+  _solution: MobileSolution;
+  _uri: string;
+
   /**
    * Streams MobileInstance records from the API.
    *
@@ -305,18 +314,6 @@ export interface MobileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MobileSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
-interface MobileListInstanceImpl extends MobileListInstance {}
-class MobileListInstanceImpl implements MobileListInstance {
-  _version?: V2010;
-  _solution?: MobileSolution;
-  _uri?: string;
-}
-
 export function MobileListInstance(
   version: V2010,
   accountSid: string,
@@ -330,7 +327,7 @@ export function MobileListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as MobileListInstanceImpl;
+  const instance = {} as MobileListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
@@ -395,17 +392,17 @@ export function MobileListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MobilePage(operationVersion, payload, this._solution)
+      (payload) => new MobilePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -418,30 +415,28 @@ export function MobileListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MobilePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MobilePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MobilePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

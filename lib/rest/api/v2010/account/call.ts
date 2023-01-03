@@ -315,8 +315,8 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -446,13 +446,14 @@ export class CallContextImpl implements CallContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -460,9 +461,10 @@ export class CallContextImpl implements CallContext {
   }
 
   fetch(callback?: any): Promise<CallInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -471,12 +473,12 @@ export class CallContextImpl implements CallContext {
         new CallInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -511,9 +513,10 @@ export class CallContextImpl implements CallContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -524,12 +527,12 @@ export class CallContextImpl implements CallContext {
         new CallInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -892,10 +895,19 @@ export class CallInstance {
   }
 }
 
+export interface CallSolution {
+  accountSid?: string;
+}
+
 export interface CallListInstance {
+  _version: V2010;
+  _solution: CallSolution;
+  _uri: string;
+
   (sid: string): CallContext;
   get(sid: string): CallContext;
 
+  _feedbackSummaries?: FeedbackSummaryListInstance;
   feedbackSummaries: FeedbackSummaryListInstance;
 
   /**
@@ -1040,19 +1052,6 @@ export interface CallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallSolution {
-  accountSid?: string;
-}
-
-interface CallListInstanceImpl extends CallListInstance {}
-class CallListInstanceImpl implements CallListInstance {
-  _version?: V2010;
-  _solution?: CallSolution;
-  _uri?: string;
-
-  _feedbackSummaries?: FeedbackSummaryListInstance;
-}
-
 export function CallListInstance(
   version: V2010,
   accountSid: string
@@ -1061,7 +1060,7 @@ export function CallListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CallListInstance;
 
   instance.get = function get(sid): CallContext {
     return new CallContextImpl(version, accountSid, sid);
@@ -1073,13 +1072,13 @@ export function CallListInstance(
 
   Object.defineProperty(instance, "feedbackSummaries", {
     get: function feedbackSummaries() {
-      if (!this._feedbackSummaries) {
-        this._feedbackSummaries = FeedbackSummaryListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._feedbackSummaries) {
+        instance._feedbackSummaries = FeedbackSummaryListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._feedbackSummaries;
+      return instance._feedbackSummaries;
     },
   });
 
@@ -1179,7 +1178,7 @@ export function CallListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -1187,10 +1186,14 @@ export function CallListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallInstance(operationVersion, payload, this._solution.accountSid)
+        new CallInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1236,17 +1239,17 @@ export function CallListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CallPage(operationVersion, payload, this._solution)
+      (payload) => new CallPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1259,30 +1262,27 @@ export function CallListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CallPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CallPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new CallPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

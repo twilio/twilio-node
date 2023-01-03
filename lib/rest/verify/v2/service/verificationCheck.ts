@@ -37,7 +37,15 @@ export interface VerificationCheckListInstanceCreateOptions {
   payee?: string;
 }
 
+export interface VerificationCheckSolution {
+  serviceSid?: string;
+}
+
 export interface VerificationCheckListInstance {
+  _version: V2;
+  _solution: VerificationCheckSolution;
+  _uri: string;
+
   /**
    * Create a VerificationCheckInstance
    *
@@ -69,20 +77,6 @@ export interface VerificationCheckListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationCheckSolution {
-  serviceSid?: string;
-}
-
-interface VerificationCheckListInstanceImpl
-  extends VerificationCheckListInstance {}
-class VerificationCheckListInstanceImpl
-  implements VerificationCheckListInstance
-{
-  _version?: V2;
-  _solution?: VerificationCheckSolution;
-  _uri?: string;
-}
-
 export function VerificationCheckListInstance(
   version: V2,
   serviceSid: string
@@ -91,7 +85,7 @@ export function VerificationCheckListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = {} as VerificationCheckListInstanceImpl;
+  const instance = {} as VerificationCheckListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid };
@@ -122,7 +116,7 @@ export function VerificationCheckListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -133,11 +127,11 @@ export function VerificationCheckListInstance(
         new VerificationCheckInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -145,14 +139,14 @@ export function VerificationCheckListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

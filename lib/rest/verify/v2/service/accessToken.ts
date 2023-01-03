@@ -55,8 +55,8 @@ export interface AccessTokenContext {
 }
 
 export interface AccessTokenContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class AccessTokenContextImpl implements AccessTokenContext {
@@ -77,9 +77,10 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   }
 
   fetch(callback?: any): Promise<AccessTokenInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -88,12 +89,12 @@ export class AccessTokenContextImpl implements AccessTokenContext {
         new AccessTokenInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -240,7 +241,15 @@ export class AccessTokenInstance {
   }
 }
 
+export interface AccessTokenSolution {
+  serviceSid?: string;
+}
+
 export interface AccessTokenListInstance {
+  _version: V2;
+  _solution: AccessTokenSolution;
+  _uri: string;
+
   (sid: string): AccessTokenContext;
   get(sid: string): AccessTokenContext;
 
@@ -265,17 +274,6 @@ export interface AccessTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AccessTokenSolution {
-  serviceSid?: string;
-}
-
-interface AccessTokenListInstanceImpl extends AccessTokenListInstance {}
-class AccessTokenListInstanceImpl implements AccessTokenListInstance {
-  _version?: V2;
-  _solution?: AccessTokenSolution;
-  _uri?: string;
-}
-
 export function AccessTokenListInstance(
   version: V2,
   serviceSid: string
@@ -284,7 +282,7 @@ export function AccessTokenListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AccessTokenListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AccessTokenListInstance;
 
   instance.get = function get(sid): AccessTokenContext {
     return new AccessTokenContextImpl(version, serviceSid, sid);
@@ -324,7 +322,7 @@ export function AccessTokenListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -335,11 +333,11 @@ export function AccessTokenListInstance(
         new AccessTokenInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -347,14 +345,14 @@ export function AccessTokenListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

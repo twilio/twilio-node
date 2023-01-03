@@ -77,8 +77,8 @@ export interface WorkflowCumulativeStatisticsContext {
 }
 
 export interface WorkflowCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export class WorkflowCumulativeStatisticsContextImpl
@@ -129,9 +129,10 @@ export class WorkflowCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -142,12 +143,12 @@ export class WorkflowCumulativeStatisticsContextImpl
         new WorkflowCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workflowSid
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -420,7 +421,16 @@ export class WorkflowCumulativeStatisticsInstance {
   }
 }
 
+export interface WorkflowCumulativeStatisticsSolution {
+  workspaceSid?: string;
+  workflowSid?: string;
+}
+
 export interface WorkflowCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkflowCumulativeStatisticsSolution;
+  _uri: string;
+
   (): WorkflowCumulativeStatisticsContext;
   get(): WorkflowCumulativeStatisticsContext;
 
@@ -429,21 +439,6 @@ export interface WorkflowCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkflowCumulativeStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
-}
-
-interface WorkflowCumulativeStatisticsListInstanceImpl
-  extends WorkflowCumulativeStatisticsListInstance {}
-class WorkflowCumulativeStatisticsListInstanceImpl
-  implements WorkflowCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkflowCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkflowCumulativeStatisticsListInstance(
@@ -460,7 +455,7 @@ export function WorkflowCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkflowCumulativeStatisticsListInstanceImpl;
+    instance.get()) as WorkflowCumulativeStatisticsListInstance;
 
   instance.get = function get(): WorkflowCumulativeStatisticsContext {
     return new WorkflowCumulativeStatisticsContextImpl(
@@ -475,14 +470,14 @@ export function WorkflowCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -126,8 +126,8 @@ export interface TrustProductsChannelEndpointAssignmentContext {
 }
 
 export interface TrustProductsChannelEndpointAssignmentContextSolution {
-  trustProductSid?: string;
-  sid?: string;
+  trustProductSid: string;
+  sid: string;
 }
 
 export class TrustProductsChannelEndpointAssignmentContextImpl
@@ -150,13 +150,14 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,9 +167,10 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   fetch(
     callback?: any
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,12 +179,12 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
         new TrustProductsChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.trustProductSid,
-          this._solution.sid
+          instance._solution.trustProductSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -330,7 +332,15 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   }
 }
 
+export interface TrustProductsChannelEndpointAssignmentSolution {
+  trustProductSid?: string;
+}
+
 export interface TrustProductsChannelEndpointAssignmentListInstance {
+  _version: V1;
+  _solution: TrustProductsChannelEndpointAssignmentSolution;
+  _uri: string;
+
   (sid: string): TrustProductsChannelEndpointAssignmentContext;
   get(sid: string): TrustProductsChannelEndpointAssignmentContext;
 
@@ -515,20 +525,6 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrustProductsChannelEndpointAssignmentSolution {
-  trustProductSid?: string;
-}
-
-interface TrustProductsChannelEndpointAssignmentListInstanceImpl
-  extends TrustProductsChannelEndpointAssignmentListInstance {}
-class TrustProductsChannelEndpointAssignmentListInstanceImpl
-  implements TrustProductsChannelEndpointAssignmentListInstance
-{
-  _version?: V1;
-  _solution?: TrustProductsChannelEndpointAssignmentSolution;
-  _uri?: string;
-}
-
 export function TrustProductsChannelEndpointAssignmentListInstance(
   version: V1,
   trustProductSid: string
@@ -538,9 +534,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(
-      sid
-    )) as TrustProductsChannelEndpointAssignmentListInstanceImpl;
+    instance.get(sid)) as TrustProductsChannelEndpointAssignmentListInstance;
 
   instance.get = function get(
     sid
@@ -593,7 +587,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -604,11 +598,11 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         new TrustProductsChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.trustProductSid
+          instance._solution.trustProductSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -641,7 +635,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -652,11 +646,11 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
         new TrustProductsChannelEndpointAssignmentPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -669,35 +663,32 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new TrustProductsChannelEndpointAssignmentPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

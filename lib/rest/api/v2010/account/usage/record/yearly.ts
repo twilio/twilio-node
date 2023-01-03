@@ -338,7 +338,15 @@ export interface YearlyListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface YearlySolution {
+  accountSid?: string;
+}
+
 export interface YearlyListInstance {
+  _version: V2010;
+  _solution: YearlySolution;
+  _uri: string;
+
   /**
    * Streams YearlyInstance records from the API.
    *
@@ -467,17 +475,6 @@ export interface YearlyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface YearlySolution {
-  accountSid?: string;
-}
-
-interface YearlyListInstanceImpl extends YearlyListInstance {}
-class YearlyListInstanceImpl implements YearlyListInstance {
-  _version?: V2010;
-  _solution?: YearlySolution;
-  _uri?: string;
-}
-
 export function YearlyListInstance(
   version: V2010,
   accountSid: string
@@ -486,7 +483,7 @@ export function YearlyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as YearlyListInstanceImpl;
+  const instance = {} as YearlyListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -521,17 +518,17 @@ export function YearlyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new YearlyPage(operationVersion, payload, this._solution)
+      (payload) => new YearlyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,30 +541,28 @@ export function YearlyListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<YearlyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new YearlyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new YearlyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

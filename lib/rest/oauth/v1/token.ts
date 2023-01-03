@@ -41,7 +41,13 @@ export interface TokenListInstanceCreateOptions {
   deviceId?: string;
 }
 
+export interface TokenSolution {}
+
 export interface TokenListInstance {
+  _version: V1;
+  _solution: TokenSolution;
+  _uri: string;
+
   /**
    * Create a TokenInstance
    *
@@ -63,17 +69,8 @@ export interface TokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TokenSolution {}
-
-interface TokenListInstanceImpl extends TokenListInstance {}
-class TokenListInstanceImpl implements TokenListInstance {
-  _version?: V1;
-  _solution?: TokenSolution;
-  _uri?: string;
-}
-
 export function TokenListInstance(version: V1): TokenListInstance {
-  const instance = {} as TokenListInstanceImpl;
+  const instance = {} as TokenListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -116,7 +113,7 @@ export function TokenListInstance(version: V1): TokenListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -126,7 +123,7 @@ export function TokenListInstance(version: V1): TokenListInstance {
       (payload) => new TokenInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -134,14 +131,14 @@ export function TokenListInstance(version: V1): TokenListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -114,7 +114,15 @@ export interface DependentHostedNumberOrderListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface DependentHostedNumberOrderSolution {
+  signingDocumentSid?: string;
+}
+
 export interface DependentHostedNumberOrderListInstance {
+  _version: HostedNumbers;
+  _solution: DependentHostedNumberOrderSolution;
+  _uri: string;
+
   /**
    * Streams DependentHostedNumberOrderInstance records from the API.
    *
@@ -273,20 +281,6 @@ export interface DependentHostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DependentHostedNumberOrderSolution {
-  signingDocumentSid?: string;
-}
-
-interface DependentHostedNumberOrderListInstanceImpl
-  extends DependentHostedNumberOrderListInstance {}
-class DependentHostedNumberOrderListInstanceImpl
-  implements DependentHostedNumberOrderListInstance
-{
-  _version?: HostedNumbers;
-  _solution?: DependentHostedNumberOrderSolution;
-  _uri?: string;
-}
-
 export function DependentHostedNumberOrderListInstance(
   version: HostedNumbers,
   signingDocumentSid: string
@@ -295,7 +289,7 @@ export function DependentHostedNumberOrderListInstance(
     throw new Error("Parameter 'signingDocumentSid' is not valid.");
   }
 
-  const instance = {} as DependentHostedNumberOrderListInstanceImpl;
+  const instance = {} as DependentHostedNumberOrderListInstance;
 
   instance._version = version;
   instance._solution = { signingDocumentSid };
@@ -332,7 +326,7 @@ export function DependentHostedNumberOrderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -343,11 +337,11 @@ export function DependentHostedNumberOrderListInstance(
         new DependentHostedNumberOrderPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -360,35 +354,32 @@ export function DependentHostedNumberOrderListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DependentHostedNumberOrderPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new DependentHostedNumberOrderPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

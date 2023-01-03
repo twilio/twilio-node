@@ -146,8 +146,8 @@ export interface FieldTypeContext {
 }
 
 export interface FieldTypeContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class FieldTypeContextImpl implements FieldTypeContext {
@@ -185,13 +185,14 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +200,10 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   }
 
   fetch(callback?: any): Promise<FieldTypeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -210,12 +212,12 @@ export class FieldTypeContextImpl implements FieldTypeContext {
         new FieldTypeInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -240,9 +242,10 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -253,12 +256,12 @@ export class FieldTypeContextImpl implements FieldTypeContext {
         new FieldTypeInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -443,7 +446,15 @@ export class FieldTypeInstance {
   }
 }
 
+export interface FieldTypeSolution {
+  assistantSid?: string;
+}
+
 export interface FieldTypeListInstance {
+  _version: Understand;
+  _solution: FieldTypeSolution;
+  _uri: string;
+
   (sid: string): FieldTypeContext;
   get(sid: string): FieldTypeContext;
 
@@ -589,17 +600,6 @@ export interface FieldTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FieldTypeSolution {
-  assistantSid?: string;
-}
-
-interface FieldTypeListInstanceImpl extends FieldTypeListInstance {}
-class FieldTypeListInstanceImpl implements FieldTypeListInstance {
-  _version?: Understand;
-  _solution?: FieldTypeSolution;
-  _uri?: string;
-}
-
 export function FieldTypeListInstance(
   version: Understand,
   assistantSid: string
@@ -608,7 +608,7 @@ export function FieldTypeListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FieldTypeListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FieldTypeListInstance;
 
   instance.get = function get(sid): FieldTypeContext {
     return new FieldTypeContextImpl(version, assistantSid, sid);
@@ -641,7 +641,7 @@ export function FieldTypeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -652,11 +652,11 @@ export function FieldTypeListInstance(
         new FieldTypeInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -685,17 +685,18 @@ export function FieldTypeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FieldTypePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new FieldTypePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -708,30 +709,28 @@ export function FieldTypeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FieldTypePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FieldTypePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FieldTypePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

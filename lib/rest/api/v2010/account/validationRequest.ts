@@ -37,7 +37,15 @@ export interface ValidationRequestListInstanceCreateOptions {
   statusCallbackMethod?: string;
 }
 
+export interface ValidationRequestSolution {
+  accountSid?: string;
+}
+
 export interface ValidationRequestListInstance {
+  _version: V2010;
+  _solution: ValidationRequestSolution;
+  _uri: string;
+
   /**
    * Create a ValidationRequestInstance
    *
@@ -59,20 +67,6 @@ export interface ValidationRequestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ValidationRequestSolution {
-  accountSid?: string;
-}
-
-interface ValidationRequestListInstanceImpl
-  extends ValidationRequestListInstance {}
-class ValidationRequestListInstanceImpl
-  implements ValidationRequestListInstance
-{
-  _version?: V2010;
-  _solution?: ValidationRequestSolution;
-  _uri?: string;
-}
-
 export function ValidationRequestListInstance(
   version: V2010,
   accountSid: string
@@ -81,7 +75,7 @@ export function ValidationRequestListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as ValidationRequestListInstanceImpl;
+  const instance = {} as ValidationRequestListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -118,7 +112,7 @@ export function ValidationRequestListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -129,11 +123,11 @@ export function ValidationRequestListInstance(
         new ValidationRequestInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -141,14 +135,14 @@ export function ValidationRequestListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

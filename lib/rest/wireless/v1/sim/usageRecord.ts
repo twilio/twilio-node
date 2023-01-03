@@ -87,7 +87,15 @@ export interface UsageRecordListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface UsageRecordSolution {
+  simSid?: string;
+}
+
 export interface UsageRecordListInstance {
+  _version: V1;
+  _solution: UsageRecordSolution;
+  _uri: string;
+
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -216,17 +224,6 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageRecordSolution {
-  simSid?: string;
-}
-
-interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
-class UsageRecordListInstanceImpl implements UsageRecordListInstance {
-  _version?: V1;
-  _solution?: UsageRecordSolution;
-  _uri?: string;
-}
-
 export function UsageRecordListInstance(
   version: V1,
   simSid: string
@@ -235,7 +232,7 @@ export function UsageRecordListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as UsageRecordListInstanceImpl;
+  const instance = {} as UsageRecordListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
@@ -269,7 +266,7 @@ export function UsageRecordListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -277,10 +274,10 @@ export function UsageRecordListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(operationVersion, payload, this._solution)
+        new UsageRecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,30 +290,28 @@ export function UsageRecordListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsageRecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsageRecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

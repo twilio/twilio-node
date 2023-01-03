@@ -182,7 +182,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -240,13 +240,14 @@ export class TrunkContextImpl implements TrunkContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -254,18 +255,19 @@ export class TrunkContextImpl implements TrunkContext {
   }
 
   fetch(callback?: any): Promise<TrunkInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrunkInstance(operationVersion, payload, this._solution.sid)
+        new TrunkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -302,9 +304,10 @@ export class TrunkContextImpl implements TrunkContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -312,10 +315,10 @@ export class TrunkContextImpl implements TrunkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrunkInstance(operationVersion, payload, this._solution.sid)
+        new TrunkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -582,7 +585,13 @@ export class TrunkInstance {
   }
 }
 
+export interface TrunkSolution {}
+
 export interface TrunkListInstance {
+  _version: V1;
+  _solution: TrunkSolution;
+  _uri: string;
+
   (sid: string): TrunkContext;
   get(sid: string): TrunkContext;
 
@@ -738,17 +747,8 @@ export interface TrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrunkSolution {}
-
-interface TrunkListInstanceImpl extends TrunkListInstance {}
-class TrunkListInstanceImpl implements TrunkListInstance {
-  _version?: V1;
-  _solution?: TrunkSolution;
-  _uri?: string;
-}
-
 export function TrunkListInstance(version: V1): TrunkListInstance {
-  const instance = ((sid) => instance.get(sid)) as TrunkListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TrunkListInstance;
 
   instance.get = function get(sid): TrunkContext {
     return new TrunkContextImpl(version, sid);
@@ -793,7 +793,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -803,7 +803,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
       (payload) => new TrunkInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -832,17 +832,17 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TrunkPage(operationVersion, payload, this._solution)
+      (payload) => new TrunkPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -855,30 +855,27 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<TrunkPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TrunkPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new TrunkPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

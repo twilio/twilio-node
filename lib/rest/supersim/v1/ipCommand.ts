@@ -135,7 +135,7 @@ export interface IpCommandContext {
 }
 
 export interface IpCommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class IpCommandContextImpl implements IpCommandContext {
@@ -152,18 +152,19 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 
   fetch(callback?: any): Promise<IpCommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpCommandInstance(operationVersion, payload, this._solution.sid)
+        new IpCommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -322,7 +323,13 @@ export class IpCommandInstance {
   }
 }
 
+export interface IpCommandSolution {}
+
 export interface IpCommandListInstance {
+  _version: V1;
+  _solution: IpCommandSolution;
+  _uri: string;
+
   (sid: string): IpCommandContext;
   get(sid: string): IpCommandContext;
 
@@ -468,17 +475,8 @@ export interface IpCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpCommandSolution {}
-
-interface IpCommandListInstanceImpl extends IpCommandListInstance {}
-class IpCommandListInstanceImpl implements IpCommandListInstance {
-  _version?: V1;
-  _solution?: IpCommandSolution;
-  _uri?: string;
-}
-
 export function IpCommandListInstance(version: V1): IpCommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as IpCommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpCommandListInstance;
 
   instance.get = function get(sid): IpCommandContext {
     return new IpCommandContextImpl(version, sid);
@@ -527,7 +525,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -537,7 +535,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       (payload) => new IpCommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -571,17 +569,18 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpCommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -594,30 +593,28 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<IpCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpCommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -143,9 +143,9 @@ export interface VariableContext {
 }
 
 export interface VariableContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  serviceSid: string;
+  environmentSid: string;
+  sid: string;
 }
 
 export class VariableContextImpl implements VariableContext {
@@ -175,13 +175,14 @@ export class VariableContextImpl implements VariableContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -189,9 +190,10 @@ export class VariableContextImpl implements VariableContext {
   }
 
   fetch(callback?: any): Promise<VariableInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -200,13 +202,13 @@ export class VariableContextImpl implements VariableContext {
         new VariableInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -229,9 +231,10 @@ export class VariableContextImpl implements VariableContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -242,13 +245,13 @@ export class VariableContextImpl implements VariableContext {
         new VariableInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -434,7 +437,16 @@ export class VariableInstance {
   }
 }
 
+export interface VariableSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+}
+
 export interface VariableListInstance {
+  _version: V1;
+  _solution: VariableSolution;
+  _uri: string;
+
   (sid: string): VariableContext;
   get(sid: string): VariableContext;
 
@@ -580,18 +592,6 @@ export interface VariableListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VariableSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-}
-
-interface VariableListInstanceImpl extends VariableListInstance {}
-class VariableListInstanceImpl implements VariableListInstance {
-  _version?: V1;
-  _solution?: VariableSolution;
-  _uri?: string;
-}
-
 export function VariableListInstance(
   version: V1,
   serviceSid: string,
@@ -605,7 +605,7 @@ export function VariableListInstance(
     throw new Error("Parameter 'environmentSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as VariableListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as VariableListInstance;
 
   instance.get = function get(sid): VariableContext {
     return new VariableContextImpl(version, serviceSid, environmentSid, sid);
@@ -642,7 +642,7 @@ export function VariableListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -653,12 +653,12 @@ export function VariableListInstance(
         new VariableInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -687,17 +687,18 @@ export function VariableListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new VariablePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new VariablePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -710,30 +711,28 @@ export function VariableListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<VariablePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new VariablePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new VariablePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -87,8 +87,8 @@ export interface DayContext {
 }
 
 export interface DayContextSolution {
-  resourceType?: string;
-  day?: string;
+  resourceType: string;
+  day: string;
 }
 
 export class DayContextImpl implements DayContext {
@@ -109,9 +109,10 @@ export class DayContextImpl implements DayContext {
   }
 
   fetch(callback?: any): Promise<DayInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -120,12 +121,12 @@ export class DayContextImpl implements DayContext {
         new DayInstance(
           operationVersion,
           payload,
-          this._solution.resourceType,
-          this._solution.day
+          instance._solution.resourceType,
+          instance._solution.day
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -246,7 +247,15 @@ export class DayInstance {
   }
 }
 
+export interface DaySolution {
+  resourceType?: string;
+}
+
 export interface DayListInstance {
+  _version: V1;
+  _solution: DaySolution;
+  _uri: string;
+
   (day: string): DayContext;
   get(day: string): DayContext;
 
@@ -378,17 +387,6 @@ export interface DayListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DaySolution {
-  resourceType?: string;
-}
-
-interface DayListInstanceImpl extends DayListInstance {}
-class DayListInstanceImpl implements DayListInstance {
-  _version?: V1;
-  _solution?: DaySolution;
-  _uri?: string;
-}
-
 export function DayListInstance(
   version: V1,
   resourceType: string
@@ -397,7 +395,7 @@ export function DayListInstance(
     throw new Error("Parameter 'resourceType' is not valid.");
   }
 
-  const instance = ((day) => instance.get(day)) as DayListInstanceImpl;
+  const instance = ((day) => instance.get(day)) as DayListInstance;
 
   instance.get = function get(day): DayContext {
     return new DayContextImpl(version, resourceType, day);
@@ -429,17 +427,17 @@ export function DayListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DayPage(operationVersion, payload, this._solution)
+      (payload) => new DayPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -452,30 +450,27 @@ export function DayListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DayPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DayPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new DayPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

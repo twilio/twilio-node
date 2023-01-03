@@ -40,7 +40,7 @@ export interface FormContext {
 }
 
 export interface FormContextSolution {
-  formType?: FormFormTypes;
+  formType: FormFormTypes;
 }
 
 export class FormContextImpl implements FormContext {
@@ -57,18 +57,19 @@ export class FormContextImpl implements FormContext {
   }
 
   fetch(callback?: any): Promise<FormInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FormInstance(operationVersion, payload, this._solution.formType)
+        new FormInstance(operationVersion, payload, instance._solution.formType)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -168,7 +169,13 @@ export class FormInstance {
   }
 }
 
+export interface FormSolution {}
+
 export interface FormListInstance {
+  _version: V2;
+  _solution: FormSolution;
+  _uri: string;
+
   (formType: FormFormTypes): FormContext;
   get(formType: FormFormTypes): FormContext;
 
@@ -179,18 +186,8 @@ export interface FormListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FormSolution {}
-
-interface FormListInstanceImpl extends FormListInstance {}
-class FormListInstanceImpl implements FormListInstance {
-  _version?: V2;
-  _solution?: FormSolution;
-  _uri?: string;
-}
-
 export function FormListInstance(version: V2): FormListInstance {
-  const instance = ((formType) =>
-    instance.get(formType)) as FormListInstanceImpl;
+  const instance = ((formType) => instance.get(formType)) as FormListInstance;
 
   instance.get = function get(formType): FormContext {
     return new FormContextImpl(version, formType);
@@ -201,14 +198,14 @@ export function FormListInstance(version: V2): FormListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

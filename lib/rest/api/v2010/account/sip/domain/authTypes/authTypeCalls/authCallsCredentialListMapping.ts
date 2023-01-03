@@ -112,9 +112,9 @@ export interface AuthCallsCredentialListMappingContext {
 }
 
 export interface AuthCallsCredentialListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class AuthCallsCredentialListMappingContextImpl
@@ -146,13 +146,14 @@ export class AuthCallsCredentialListMappingContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -160,9 +161,10 @@ export class AuthCallsCredentialListMappingContextImpl
   }
 
   fetch(callback?: any): Promise<AuthCallsCredentialListMappingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -171,13 +173,13 @@ export class AuthCallsCredentialListMappingContextImpl
         new AuthCallsCredentialListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -312,7 +314,16 @@ export class AuthCallsCredentialListMappingInstance {
   }
 }
 
+export interface AuthCallsCredentialListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 export interface AuthCallsCredentialListMappingListInstance {
+  _version: V2010;
+  _solution: AuthCallsCredentialListMappingSolution;
+  _uri: string;
+
   (sid: string): AuthCallsCredentialListMappingContext;
   get(sid: string): AuthCallsCredentialListMappingContext;
 
@@ -497,21 +508,6 @@ export interface AuthCallsCredentialListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthCallsCredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface AuthCallsCredentialListMappingListInstanceImpl
-  extends AuthCallsCredentialListMappingListInstance {}
-class AuthCallsCredentialListMappingListInstanceImpl
-  implements AuthCallsCredentialListMappingListInstance
-{
-  _version?: V2010;
-  _solution?: AuthCallsCredentialListMappingSolution;
-  _uri?: string;
-}
-
 export function AuthCallsCredentialListMappingListInstance(
   version: V2010,
   accountSid: string,
@@ -526,7 +522,7 @@ export function AuthCallsCredentialListMappingListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as AuthCallsCredentialListMappingListInstanceImpl;
+    instance.get(sid)) as AuthCallsCredentialListMappingListInstance;
 
   instance.get = function get(sid): AuthCallsCredentialListMappingContext {
     return new AuthCallsCredentialListMappingContextImpl(
@@ -567,7 +563,7 @@ export function AuthCallsCredentialListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -578,12 +574,12 @@ export function AuthCallsCredentialListMappingListInstance(
         new AuthCallsCredentialListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid
+          instance._solution.accountSid,
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -612,7 +608,7 @@ export function AuthCallsCredentialListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -623,11 +619,11 @@ export function AuthCallsCredentialListMappingListInstance(
         new AuthCallsCredentialListMappingPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -640,35 +636,32 @@ export function AuthCallsCredentialListMappingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthCallsCredentialListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new AuthCallsCredentialListMappingPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

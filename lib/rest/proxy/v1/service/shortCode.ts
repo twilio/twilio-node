@@ -140,8 +140,8 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
@@ -162,13 +162,14 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -176,9 +177,10 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 
   fetch(callback?: any): Promise<ShortCodeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -187,12 +189,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         new ShortCodeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -215,9 +217,10 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -228,12 +231,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         new ShortCodeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -421,7 +424,15 @@ export class ShortCodeInstance {
   }
 }
 
+export interface ShortCodeSolution {
+  serviceSid?: string;
+}
+
 export interface ShortCodeListInstance {
+  _version: V1;
+  _solution: ShortCodeSolution;
+  _uri: string;
+
   (sid: string): ShortCodeContext;
   get(sid: string): ShortCodeContext;
 
@@ -567,17 +578,6 @@ export interface ShortCodeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ShortCodeSolution {
-  serviceSid?: string;
-}
-
-interface ShortCodeListInstanceImpl extends ShortCodeListInstance {}
-class ShortCodeListInstanceImpl implements ShortCodeListInstance {
-  _version?: V1;
-  _solution?: ShortCodeSolution;
-  _uri?: string;
-}
-
 export function ShortCodeListInstance(
   version: V1,
   serviceSid: string
@@ -586,7 +586,7 @@ export function ShortCodeListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ShortCodeListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ShortCodeListInstance;
 
   instance.get = function get(sid): ShortCodeContext {
     return new ShortCodeContextImpl(version, serviceSid, sid);
@@ -617,7 +617,7 @@ export function ShortCodeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -628,11 +628,11 @@ export function ShortCodeListInstance(
         new ShortCodeInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -661,17 +661,18 @@ export function ShortCodeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ShortCodePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ShortCodePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -684,30 +685,28 @@ export function ShortCodeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ShortCodePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ShortCodePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ShortCodePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

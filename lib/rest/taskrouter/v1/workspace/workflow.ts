@@ -170,8 +170,8 @@ export interface WorkflowContext {
 }
 
 export interface WorkflowContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class WorkflowContextImpl implements WorkflowContext {
@@ -229,13 +229,14 @@ export class WorkflowContextImpl implements WorkflowContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +244,10 @@ export class WorkflowContextImpl implements WorkflowContext {
   }
 
   fetch(callback?: any): Promise<WorkflowInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -254,12 +256,12 @@ export class WorkflowContextImpl implements WorkflowContext {
         new WorkflowInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,9 +295,10 @@ export class WorkflowContextImpl implements WorkflowContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -306,12 +309,12 @@ export class WorkflowContextImpl implements WorkflowContext {
         new WorkflowInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -547,7 +550,15 @@ export class WorkflowInstance {
   }
 }
 
+export interface WorkflowSolution {
+  workspaceSid?: string;
+}
+
 export interface WorkflowListInstance {
+  _version: V1;
+  _solution: WorkflowSolution;
+  _uri: string;
+
   (sid: string): WorkflowContext;
   get(sid: string): WorkflowContext;
 
@@ -693,17 +704,6 @@ export interface WorkflowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkflowSolution {
-  workspaceSid?: string;
-}
-
-interface WorkflowListInstanceImpl extends WorkflowListInstance {}
-class WorkflowListInstanceImpl implements WorkflowListInstance {
-  _version?: V1;
-  _solution?: WorkflowSolution;
-  _uri?: string;
-}
-
 export function WorkflowListInstance(
   version: V1,
   workspaceSid: string
@@ -712,7 +712,7 @@ export function WorkflowListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WorkflowListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkflowListInstance;
 
   instance.get = function get(sid): WorkflowContext {
     return new WorkflowContextImpl(version, workspaceSid, sid);
@@ -764,7 +764,7 @@ export function WorkflowListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -775,11 +775,11 @@ export function WorkflowListInstance(
         new WorkflowInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -810,17 +810,18 @@ export function WorkflowListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkflowPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WorkflowPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -833,30 +834,28 @@ export function WorkflowListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WorkflowPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkflowPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkflowPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

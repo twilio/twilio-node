@@ -127,9 +127,9 @@ export interface DocumentPermissionContext {
 }
 
 export interface DocumentPermissionContextSolution {
-  serviceSid?: string;
-  documentSid?: string;
-  identity?: string;
+  serviceSid: string;
+  documentSid: string;
+  identity: string;
 }
 
 export class DocumentPermissionContextImpl
@@ -161,13 +161,14 @@ export class DocumentPermissionContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,9 +176,10 @@ export class DocumentPermissionContextImpl
   }
 
   fetch(callback?: any): Promise<DocumentPermissionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,13 +188,13 @@ export class DocumentPermissionContextImpl
         new DocumentPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.documentSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -227,9 +229,10 @@ export class DocumentPermissionContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -240,13 +243,13 @@ export class DocumentPermissionContextImpl
         new DocumentPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.documentSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -419,7 +422,16 @@ export class DocumentPermissionInstance {
   }
 }
 
+export interface DocumentPermissionSolution {
+  serviceSid?: string;
+  documentSid?: string;
+}
+
 export interface DocumentPermissionListInstance {
+  _version: V1;
+  _solution: DocumentPermissionSolution;
+  _uri: string;
+
   (identity: string): DocumentPermissionContext;
   get(identity: string): DocumentPermissionContext;
 
@@ -557,21 +569,6 @@ export interface DocumentPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DocumentPermissionSolution {
-  serviceSid?: string;
-  documentSid?: string;
-}
-
-interface DocumentPermissionListInstanceImpl
-  extends DocumentPermissionListInstance {}
-class DocumentPermissionListInstanceImpl
-  implements DocumentPermissionListInstance
-{
-  _version?: V1;
-  _solution?: DocumentPermissionSolution;
-  _uri?: string;
-}
-
 export function DocumentPermissionListInstance(
   version: V1,
   serviceSid: string,
@@ -586,7 +583,7 @@ export function DocumentPermissionListInstance(
   }
 
   const instance = ((identity) =>
-    instance.get(identity)) as DocumentPermissionListInstanceImpl;
+    instance.get(identity)) as DocumentPermissionListInstance;
 
   instance.get = function get(identity): DocumentPermissionContext {
     return new DocumentPermissionContextImpl(
@@ -623,7 +620,7 @@ export function DocumentPermissionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -631,10 +628,14 @@ export function DocumentPermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DocumentPermissionPage(operationVersion, payload, this._solution)
+        new DocumentPermissionPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -647,31 +648,32 @@ export function DocumentPermissionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DocumentPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new DocumentPermissionPage(this._version, payload, this._solution)
+        new DocumentPermissionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

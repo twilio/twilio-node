@@ -346,14 +346,30 @@ export interface RecordListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface RecordSolution {
+  accountSid?: string;
+}
+
 export interface RecordListInstance {
+  _version: V2010;
+  _solution: RecordSolution;
+  _uri: string;
+
+  _allTime?: AllTimeListInstance;
   allTime: AllTimeListInstance;
+  _daily?: DailyListInstance;
   daily: DailyListInstance;
+  _lastMonth?: LastMonthListInstance;
   lastMonth: LastMonthListInstance;
+  _monthly?: MonthlyListInstance;
   monthly: MonthlyListInstance;
+  _thisMonth?: ThisMonthListInstance;
   thisMonth: ThisMonthListInstance;
+  _today?: TodayListInstance;
   today: TodayListInstance;
+  _yearly?: YearlyListInstance;
   yearly: YearlyListInstance;
+  _yesterday?: YesterdayListInstance;
   yesterday: YesterdayListInstance;
 
   /**
@@ -484,26 +500,6 @@ export interface RecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordSolution {
-  accountSid?: string;
-}
-
-interface RecordListInstanceImpl extends RecordListInstance {}
-class RecordListInstanceImpl implements RecordListInstance {
-  _version?: V2010;
-  _solution?: RecordSolution;
-  _uri?: string;
-
-  _allTime?: AllTimeListInstance;
-  _daily?: DailyListInstance;
-  _lastMonth?: LastMonthListInstance;
-  _monthly?: MonthlyListInstance;
-  _thisMonth?: ThisMonthListInstance;
-  _today?: TodayListInstance;
-  _yearly?: YearlyListInstance;
-  _yesterday?: YesterdayListInstance;
-}
-
 export function RecordListInstance(
   version: V2010,
   accountSid: string
@@ -512,7 +508,7 @@ export function RecordListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as RecordListInstanceImpl;
+  const instance = {} as RecordListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -520,97 +516,97 @@ export function RecordListInstance(
 
   Object.defineProperty(instance, "allTime", {
     get: function allTime() {
-      if (!this._allTime) {
-        this._allTime = AllTimeListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._allTime) {
+        instance._allTime = AllTimeListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._allTime;
+      return instance._allTime;
     },
   });
 
   Object.defineProperty(instance, "daily", {
     get: function daily() {
-      if (!this._daily) {
-        this._daily = DailyListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._daily) {
+        instance._daily = DailyListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._daily;
+      return instance._daily;
     },
   });
 
   Object.defineProperty(instance, "lastMonth", {
     get: function lastMonth() {
-      if (!this._lastMonth) {
-        this._lastMonth = LastMonthListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._lastMonth) {
+        instance._lastMonth = LastMonthListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._lastMonth;
+      return instance._lastMonth;
     },
   });
 
   Object.defineProperty(instance, "monthly", {
     get: function monthly() {
-      if (!this._monthly) {
-        this._monthly = MonthlyListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._monthly) {
+        instance._monthly = MonthlyListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._monthly;
+      return instance._monthly;
     },
   });
 
   Object.defineProperty(instance, "thisMonth", {
     get: function thisMonth() {
-      if (!this._thisMonth) {
-        this._thisMonth = ThisMonthListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._thisMonth) {
+        instance._thisMonth = ThisMonthListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._thisMonth;
+      return instance._thisMonth;
     },
   });
 
   Object.defineProperty(instance, "today", {
     get: function today() {
-      if (!this._today) {
-        this._today = TodayListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._today) {
+        instance._today = TodayListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._today;
+      return instance._today;
     },
   });
 
   Object.defineProperty(instance, "yearly", {
     get: function yearly() {
-      if (!this._yearly) {
-        this._yearly = YearlyListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._yearly) {
+        instance._yearly = YearlyListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._yearly;
+      return instance._yearly;
     },
   });
 
   Object.defineProperty(instance, "yesterday", {
     get: function yesterday() {
-      if (!this._yesterday) {
-        this._yesterday = YesterdayListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._yesterday) {
+        instance._yesterday = YesterdayListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._yesterday;
+      return instance._yesterday;
     },
   });
 
@@ -643,17 +639,17 @@ export function RecordListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordPage(operationVersion, payload, this._solution)
+      (payload) => new RecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -666,30 +662,28 @@ export function RecordListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<RecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

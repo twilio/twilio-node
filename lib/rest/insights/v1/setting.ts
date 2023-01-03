@@ -122,9 +122,10 @@ export class SettingContextImpl implements SettingContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -134,7 +135,7 @@ export class SettingContextImpl implements SettingContext {
       (payload) => new SettingInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -161,9 +162,10 @@ export class SettingContextImpl implements SettingContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -173,7 +175,7 @@ export class SettingContextImpl implements SettingContext {
       (payload) => new SettingInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -297,7 +299,13 @@ export class SettingInstance {
   }
 }
 
+export interface SettingSolution {}
+
 export interface SettingListInstance {
+  _version: V1;
+  _solution: SettingSolution;
+  _uri: string;
+
   (): SettingContext;
   get(): SettingContext;
 
@@ -308,17 +316,8 @@ export interface SettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingSolution {}
-
-interface SettingListInstanceImpl extends SettingListInstance {}
-class SettingListInstanceImpl implements SettingListInstance {
-  _version?: V1;
-  _solution?: SettingSolution;
-  _uri?: string;
-}
-
 export function SettingListInstance(version: V1): SettingListInstance {
-  const instance = (() => instance.get()) as SettingListInstanceImpl;
+  const instance = (() => instance.get()) as SettingListInstance;
 
   instance.get = function get(): SettingContext {
     return new SettingContextImpl(version);
@@ -329,14 +328,14 @@ export function SettingListInstance(version: V1): SettingListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

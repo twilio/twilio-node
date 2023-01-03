@@ -41,9 +41,9 @@ export interface FunctionVersionContentContext {
 }
 
 export interface FunctionVersionContentContextSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  functionSid: string;
+  sid: string;
 }
 
 export class FunctionVersionContentContextImpl
@@ -75,9 +75,10 @@ export class FunctionVersionContentContextImpl
   }
 
   fetch(callback?: any): Promise<FunctionVersionContentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -86,13 +87,13 @@ export class FunctionVersionContentContextImpl
         new FunctionVersionContentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.functionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.functionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -217,7 +218,17 @@ export class FunctionVersionContentInstance {
   }
 }
 
+export interface FunctionVersionContentSolution {
+  serviceSid?: string;
+  functionSid?: string;
+  sid?: string;
+}
+
 export interface FunctionVersionContentListInstance {
+  _version: V1;
+  _solution: FunctionVersionContentSolution;
+  _uri: string;
+
   (): FunctionVersionContentContext;
   get(): FunctionVersionContentContext;
 
@@ -226,22 +237,6 @@ export interface FunctionVersionContentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FunctionVersionContentSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
-}
-
-interface FunctionVersionContentListInstanceImpl
-  extends FunctionVersionContentListInstance {}
-class FunctionVersionContentListInstanceImpl
-  implements FunctionVersionContentListInstance
-{
-  _version?: V1;
-  _solution?: FunctionVersionContentSolution;
-  _uri?: string;
 }
 
 export function FunctionVersionContentListInstance(
@@ -262,8 +257,7 @@ export function FunctionVersionContentListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() =>
-    instance.get()) as FunctionVersionContentListInstanceImpl;
+  const instance = (() => instance.get()) as FunctionVersionContentListInstance;
 
   instance.get = function get(): FunctionVersionContentContext {
     return new FunctionVersionContentContextImpl(
@@ -279,14 +273,14 @@ export function FunctionVersionContentListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

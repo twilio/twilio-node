@@ -145,7 +145,7 @@ export interface ConnectionPolicyContext {
 }
 
 export interface ConnectionPolicyContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
@@ -171,13 +171,14 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -185,9 +186,10 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   }
 
   fetch(callback?: any): Promise<ConnectionPolicyInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -196,11 +198,11 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
         new ConnectionPolicyInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -223,9 +225,10 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -236,11 +239,11 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
         new ConnectionPolicyInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -412,7 +415,13 @@ export class ConnectionPolicyInstance {
   }
 }
 
+export interface ConnectionPolicySolution {}
+
 export interface ConnectionPolicyListInstance {
+  _version: V1;
+  _solution: ConnectionPolicySolution;
+  _uri: string;
+
   (sid: string): ConnectionPolicyContext;
   get(sid: string): ConnectionPolicyContext;
 
@@ -574,21 +583,10 @@ export interface ConnectionPolicyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConnectionPolicySolution {}
-
-interface ConnectionPolicyListInstanceImpl
-  extends ConnectionPolicyListInstance {}
-class ConnectionPolicyListInstanceImpl implements ConnectionPolicyListInstance {
-  _version?: V1;
-  _solution?: ConnectionPolicySolution;
-  _uri?: string;
-}
-
 export function ConnectionPolicyListInstance(
   version: V1
 ): ConnectionPolicyListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as ConnectionPolicyListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ConnectionPolicyListInstance;
 
   instance.get = function get(sid): ConnectionPolicyContext {
     return new ConnectionPolicyContextImpl(version, sid);
@@ -619,7 +617,7 @@ export function ConnectionPolicyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -629,7 +627,7 @@ export function ConnectionPolicyListInstance(
       (payload) => new ConnectionPolicyInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -658,7 +656,7 @@ export function ConnectionPolicyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -666,10 +664,10 @@ export function ConnectionPolicyListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ConnectionPolicyPage(operationVersion, payload, this._solution)
+        new ConnectionPolicyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -682,31 +680,28 @@ export function ConnectionPolicyListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ConnectionPolicyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ConnectionPolicyPage(this._version, payload, this._solution)
+        new ConnectionPolicyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -131,7 +131,7 @@ export interface MediaRecordingContext {
 }
 
 export interface MediaRecordingContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class MediaRecordingContextImpl implements MediaRecordingContext {
@@ -148,13 +148,14 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,9 +163,10 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 
   fetch(callback?: any): Promise<MediaRecordingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -173,11 +175,11 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
         new MediaRecordingInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -374,7 +376,13 @@ export class MediaRecordingInstance {
   }
 }
 
+export interface MediaRecordingSolution {}
+
 export interface MediaRecordingListInstance {
+  _version: V1;
+  _solution: MediaRecordingSolution;
+  _uri: string;
+
   (sid: string): MediaRecordingContext;
   get(sid: string): MediaRecordingContext;
 
@@ -512,20 +520,10 @@ export interface MediaRecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaRecordingSolution {}
-
-interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
-class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
-  _version?: V1;
-  _solution?: MediaRecordingSolution;
-  _uri?: string;
-}
-
 export function MediaRecordingListInstance(
   version: V1
 ): MediaRecordingListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as MediaRecordingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MediaRecordingListInstance;
 
   instance.get = function get(sid): MediaRecordingContext {
     return new MediaRecordingContextImpl(version, sid);
@@ -563,7 +561,7 @@ export function MediaRecordingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -571,10 +569,10 @@ export function MediaRecordingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MediaRecordingPage(operationVersion, payload, this._solution)
+        new MediaRecordingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -587,31 +585,28 @@ export function MediaRecordingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MediaRecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MediaRecordingPage(this._version, payload, this._solution)
+        new MediaRecordingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -144,8 +144,8 @@ export interface SubscribedEventContext {
 }
 
 export interface SubscribedEventContextSolution {
-  subscriptionSid?: string;
-  type?: string;
+  subscriptionSid: string;
+  type: string;
 }
 
 export class SubscribedEventContextImpl implements SubscribedEventContext {
@@ -166,13 +166,14 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -180,9 +181,10 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   }
 
   fetch(callback?: any): Promise<SubscribedEventInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -191,12 +193,12 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         new SubscribedEventInstance(
           operationVersion,
           payload,
-          this._solution.subscriptionSid,
-          this._solution.type
+          instance._solution.subscriptionSid,
+          instance._solution.type
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -219,9 +221,10 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -232,12 +235,12 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         new SubscribedEventInstance(
           operationVersion,
           payload,
-          this._solution.subscriptionSid,
-          this._solution.type
+          instance._solution.subscriptionSid,
+          instance._solution.type
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -393,7 +396,15 @@ export class SubscribedEventInstance {
   }
 }
 
+export interface SubscribedEventSolution {
+  subscriptionSid?: string;
+}
+
 export interface SubscribedEventListInstance {
+  _version: V1;
+  _solution: SubscribedEventSolution;
+  _uri: string;
+
   (type: string): SubscribedEventContext;
   get(type: string): SubscribedEventContext;
 
@@ -545,17 +556,6 @@ export interface SubscribedEventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SubscribedEventSolution {
-  subscriptionSid?: string;
-}
-
-interface SubscribedEventListInstanceImpl extends SubscribedEventListInstance {}
-class SubscribedEventListInstanceImpl implements SubscribedEventListInstance {
-  _version?: V1;
-  _solution?: SubscribedEventSolution;
-  _uri?: string;
-}
-
 export function SubscribedEventListInstance(
   version: V1,
   subscriptionSid: string
@@ -565,7 +565,7 @@ export function SubscribedEventListInstance(
   }
 
   const instance = ((type) =>
-    instance.get(type)) as SubscribedEventListInstanceImpl;
+    instance.get(type)) as SubscribedEventListInstance;
 
   instance.get = function get(type): SubscribedEventContext {
     return new SubscribedEventContextImpl(version, subscriptionSid, type);
@@ -598,7 +598,7 @@ export function SubscribedEventListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -609,11 +609,11 @@ export function SubscribedEventListInstance(
         new SubscribedEventInstance(
           operationVersion,
           payload,
-          this._solution.subscriptionSid
+          instance._solution.subscriptionSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -642,7 +642,7 @@ export function SubscribedEventListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -650,10 +650,10 @@ export function SubscribedEventListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SubscribedEventPage(operationVersion, payload, this._solution)
+        new SubscribedEventPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -666,31 +666,28 @@ export function SubscribedEventListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SubscribedEventPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SubscribedEventPage(this._version, payload, this._solution)
+        new SubscribedEventPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -72,8 +72,8 @@ export interface FeedbackSummaryContext {
 }
 
 export interface FeedbackSummaryContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
@@ -94,13 +94,14 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -108,9 +109,10 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   }
 
   fetch(callback?: any): Promise<FeedbackSummaryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -119,12 +121,12 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
         new FeedbackSummaryInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -313,7 +315,15 @@ export class FeedbackSummaryInstance {
   }
 }
 
+export interface FeedbackSummarySolution {
+  accountSid?: string;
+}
+
 export interface FeedbackSummaryListInstance {
+  _version: V2010;
+  _solution: FeedbackSummarySolution;
+  _uri: string;
+
   (sid: string): FeedbackSummaryContext;
   get(sid: string): FeedbackSummaryContext;
 
@@ -338,17 +348,6 @@ export interface FeedbackSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FeedbackSummarySolution {
-  accountSid?: string;
-}
-
-interface FeedbackSummaryListInstanceImpl extends FeedbackSummaryListInstance {}
-class FeedbackSummaryListInstanceImpl implements FeedbackSummaryListInstance {
-  _version?: V2010;
-  _solution?: FeedbackSummarySolution;
-  _uri?: string;
-}
-
 export function FeedbackSummaryListInstance(
   version: V2010,
   accountSid: string
@@ -357,8 +356,7 @@ export function FeedbackSummaryListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as FeedbackSummaryListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FeedbackSummaryListInstance;
 
   instance.get = function get(sid): FeedbackSummaryContext {
     return new FeedbackSummaryContextImpl(version, accountSid, sid);
@@ -401,7 +399,7 @@ export function FeedbackSummaryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -412,11 +410,11 @@ export function FeedbackSummaryListInstance(
         new FeedbackSummaryInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -424,14 +422,14 @@ export function FeedbackSummaryListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

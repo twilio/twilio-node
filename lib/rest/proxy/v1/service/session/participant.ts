@@ -115,9 +115,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -161,13 +161,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,9 +176,10 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,13 +188,13 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -387,7 +389,16 @@ export class ParticipantInstance {
   }
 }
 
+export interface ParticipantSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+}
+
 export interface ParticipantListInstance {
+  _version: V1;
+  _solution: ParticipantSolution;
+  _uri: string;
+
   (sid: string): ParticipantContext;
   get(sid: string): ParticipantContext;
 
@@ -533,18 +544,6 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ParticipantSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V1;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-}
-
 export function ParticipantListInstance(
   version: V1,
   serviceSid: string,
@@ -558,7 +557,7 @@ export function ParticipantListInstance(
     throw new Error("Parameter 'sessionSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ParticipantListInstance;
 
   instance.get = function get(sid): ParticipantContext {
     return new ParticipantContextImpl(version, serviceSid, sessionSid, sid);
@@ -595,7 +594,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -606,12 +605,12 @@ export function ParticipantListInstance(
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -640,7 +639,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -648,10 +647,10 @@ export function ParticipantListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ParticipantPage(operationVersion, payload, this._solution)
+        new ParticipantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -664,30 +663,28 @@ export function ParticipantListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

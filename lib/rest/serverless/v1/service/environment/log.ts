@@ -107,9 +107,9 @@ export interface LogContext {
 }
 
 export interface LogContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  serviceSid: string;
+  environmentSid: string;
+  sid: string;
 }
 
 export class LogContextImpl implements LogContext {
@@ -139,9 +139,10 @@ export class LogContextImpl implements LogContext {
   }
 
   fetch(callback?: any): Promise<LogInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -150,13 +151,13 @@ export class LogContextImpl implements LogContext {
         new LogInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -321,7 +322,16 @@ export class LogInstance {
   }
 }
 
+export interface LogSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+}
+
 export interface LogListInstance {
+  _version: V1;
+  _solution: LogSolution;
+  _uri: string;
+
   (sid: string): LogContext;
   get(sid: string): LogContext;
 
@@ -453,18 +463,6 @@ export interface LogListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface LogSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-}
-
-interface LogListInstanceImpl extends LogListInstance {}
-class LogListInstanceImpl implements LogListInstance {
-  _version?: V1;
-  _solution?: LogSolution;
-  _uri?: string;
-}
-
 export function LogListInstance(
   version: V1,
   serviceSid: string,
@@ -478,7 +476,7 @@ export function LogListInstance(
     throw new Error("Parameter 'environmentSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as LogListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as LogListInstance;
 
   instance.get = function get(sid): LogContext {
     return new LogContextImpl(version, serviceSid, environmentSid, sid);
@@ -516,17 +514,17 @@ export function LogListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LogPage(operationVersion, payload, this._solution)
+      (payload) => new LogPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -539,30 +537,27 @@ export function LogListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<LogPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new LogPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new LogPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -109,9 +109,9 @@ export interface AssignedAddOnContext {
 }
 
 export interface AssignedAddOnContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  sid?: string;
+  accountSid: string;
+  resourceSid: string;
+  sid: string;
 }
 
 export class AssignedAddOnContextImpl implements AssignedAddOnContext {
@@ -155,13 +155,14 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,9 +170,10 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 
   fetch(callback?: any): Promise<AssignedAddOnInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -180,13 +182,13 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
         new AssignedAddOnInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.resourceSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.resourceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -367,7 +369,16 @@ export class AssignedAddOnInstance {
   }
 }
 
+export interface AssignedAddOnSolution {
+  accountSid?: string;
+  resourceSid?: string;
+}
+
 export interface AssignedAddOnListInstance {
+  _version: V2010;
+  _solution: AssignedAddOnSolution;
+  _uri: string;
+
   (sid: string): AssignedAddOnContext;
   get(sid: string): AssignedAddOnContext;
 
@@ -519,18 +530,6 @@ export interface AssignedAddOnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssignedAddOnSolution {
-  accountSid?: string;
-  resourceSid?: string;
-}
-
-interface AssignedAddOnListInstanceImpl extends AssignedAddOnListInstance {}
-class AssignedAddOnListInstanceImpl implements AssignedAddOnListInstance {
-  _version?: V2010;
-  _solution?: AssignedAddOnSolution;
-  _uri?: string;
-}
-
 export function AssignedAddOnListInstance(
   version: V2010,
   accountSid: string,
@@ -544,8 +543,7 @@ export function AssignedAddOnListInstance(
     throw new Error("Parameter 'resourceSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as AssignedAddOnListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssignedAddOnListInstance;
 
   instance.get = function get(sid): AssignedAddOnContext {
     return new AssignedAddOnContextImpl(version, accountSid, resourceSid, sid);
@@ -581,7 +579,7 @@ export function AssignedAddOnListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -592,12 +590,12 @@ export function AssignedAddOnListInstance(
         new AssignedAddOnInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.resourceSid
+          instance._solution.accountSid,
+          instance._solution.resourceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -626,7 +624,7 @@ export function AssignedAddOnListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -634,10 +632,10 @@ export function AssignedAddOnListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssignedAddOnPage(operationVersion, payload, this._solution)
+        new AssignedAddOnPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -650,30 +648,28 @@ export function AssignedAddOnListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssignedAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssignedAddOnPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssignedAddOnPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

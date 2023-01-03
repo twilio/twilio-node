@@ -35,7 +35,15 @@ export interface RecordingRulesListInstanceUpdateOptions {
   rules?: any;
 }
 
+export interface RecordingRulesSolution {
+  roomSid?: string;
+}
+
 export interface RecordingRulesListInstance {
+  _version: V1;
+  _solution: RecordingRulesSolution;
+  _uri: string;
+
   /**
    * Fetch a RecordingRulesInstance
    *
@@ -78,17 +86,6 @@ export interface RecordingRulesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingRulesSolution {
-  roomSid?: string;
-}
-
-interface RecordingRulesListInstanceImpl extends RecordingRulesListInstance {}
-class RecordingRulesListInstanceImpl implements RecordingRulesListInstance {
-  _version?: V1;
-  _solution?: RecordingRulesSolution;
-  _uri?: string;
-}
-
 export function RecordingRulesListInstance(
   version: V1,
   roomSid: string
@@ -97,7 +94,7 @@ export function RecordingRulesListInstance(
     throw new Error("Parameter 'roomSid' is not valid.");
   }
 
-  const instance = {} as RecordingRulesListInstanceImpl;
+  const instance = {} as RecordingRulesListInstance;
 
   instance._version = version;
   instance._solution = { roomSid };
@@ -108,7 +105,7 @@ export function RecordingRulesListInstance(
   ): Promise<RecordingRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -117,11 +114,11 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid
+          instance._solution.roomSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -149,7 +146,7 @@ export function RecordingRulesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -160,11 +157,11 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid
+          instance._solution.roomSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -172,14 +169,14 @@ export function RecordingRulesListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

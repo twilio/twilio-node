@@ -93,8 +93,8 @@ export interface AvailableAddOnExtensionContext {
 }
 
 export interface AvailableAddOnExtensionContextSolution {
-  availableAddOnSid?: string;
-  sid?: string;
+  availableAddOnSid: string;
+  sid: string;
 }
 
 export class AvailableAddOnExtensionContextImpl
@@ -121,9 +121,10 @@ export class AvailableAddOnExtensionContextImpl
   }
 
   fetch(callback?: any): Promise<AvailableAddOnExtensionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -132,12 +133,12 @@ export class AvailableAddOnExtensionContextImpl
         new AvailableAddOnExtensionInstance(
           operationVersion,
           payload,
-          this._solution.availableAddOnSid,
-          this._solution.sid
+          instance._solution.availableAddOnSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -264,7 +265,15 @@ export class AvailableAddOnExtensionInstance {
   }
 }
 
+export interface AvailableAddOnExtensionSolution {
+  availableAddOnSid?: string;
+}
+
 export interface AvailableAddOnExtensionListInstance {
+  _version: Marketplace;
+  _solution: AvailableAddOnExtensionSolution;
+  _uri: string;
+
   (sid: string): AvailableAddOnExtensionContext;
   get(sid: string): AvailableAddOnExtensionContext;
 
@@ -411,20 +420,6 @@ export interface AvailableAddOnExtensionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AvailableAddOnExtensionSolution {
-  availableAddOnSid?: string;
-}
-
-interface AvailableAddOnExtensionListInstanceImpl
-  extends AvailableAddOnExtensionListInstance {}
-class AvailableAddOnExtensionListInstanceImpl
-  implements AvailableAddOnExtensionListInstance
-{
-  _version?: Marketplace;
-  _solution?: AvailableAddOnExtensionSolution;
-  _uri?: string;
-}
-
 export function AvailableAddOnExtensionListInstance(
   version: Marketplace,
   availableAddOnSid: string
@@ -434,7 +429,7 @@ export function AvailableAddOnExtensionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as AvailableAddOnExtensionListInstanceImpl;
+    instance.get(sid)) as AvailableAddOnExtensionListInstance;
 
   instance.get = function get(sid): AvailableAddOnExtensionContext {
     return new AvailableAddOnExtensionContextImpl(
@@ -470,7 +465,7 @@ export function AvailableAddOnExtensionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -481,11 +476,11 @@ export function AvailableAddOnExtensionListInstance(
         new AvailableAddOnExtensionPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -498,31 +493,32 @@ export function AvailableAddOnExtensionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AvailableAddOnExtensionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AvailableAddOnExtensionPage(this._version, payload, this._solution)
+        new AvailableAddOnExtensionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

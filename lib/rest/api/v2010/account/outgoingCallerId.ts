@@ -145,8 +145,8 @@ export interface OutgoingCallerIdContext {
 }
 
 export interface OutgoingCallerIdContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
@@ -167,13 +167,14 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,9 +182,10 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 
   fetch(callback?: any): Promise<OutgoingCallerIdInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -192,12 +194,12 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         new OutgoingCallerIdInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -220,9 +222,10 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -233,12 +236,12 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
         new OutgoingCallerIdInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -408,7 +411,15 @@ export class OutgoingCallerIdInstance {
   }
 }
 
+export interface OutgoingCallerIdSolution {
+  accountSid?: string;
+}
+
 export interface OutgoingCallerIdListInstance {
+  _version: V2010;
+  _solution: OutgoingCallerIdSolution;
+  _uri: string;
+
   (sid: string): OutgoingCallerIdContext;
   get(sid: string): OutgoingCallerIdContext;
 
@@ -546,18 +557,6 @@ export interface OutgoingCallerIdListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OutgoingCallerIdSolution {
-  accountSid?: string;
-}
-
-interface OutgoingCallerIdListInstanceImpl
-  extends OutgoingCallerIdListInstance {}
-class OutgoingCallerIdListInstanceImpl implements OutgoingCallerIdListInstance {
-  _version?: V2010;
-  _solution?: OutgoingCallerIdSolution;
-  _uri?: string;
-}
-
 export function OutgoingCallerIdListInstance(
   version: V2010,
   accountSid: string
@@ -566,8 +565,7 @@ export function OutgoingCallerIdListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as OutgoingCallerIdListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as OutgoingCallerIdListInstance;
 
   instance.get = function get(sid): OutgoingCallerIdContext {
     return new OutgoingCallerIdContextImpl(version, accountSid, sid);
@@ -603,7 +601,7 @@ export function OutgoingCallerIdListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -611,10 +609,10 @@ export function OutgoingCallerIdListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OutgoingCallerIdPage(operationVersion, payload, this._solution)
+        new OutgoingCallerIdPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -627,31 +625,28 @@ export function OutgoingCallerIdListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<OutgoingCallerIdPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new OutgoingCallerIdPage(this._version, payload, this._solution)
+        new OutgoingCallerIdPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

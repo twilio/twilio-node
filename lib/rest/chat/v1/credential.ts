@@ -163,7 +163,7 @@ export interface CredentialContext {
 }
 
 export interface CredentialContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CredentialContextImpl implements CredentialContext {
@@ -180,13 +180,14 @@ export class CredentialContextImpl implements CredentialContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -194,18 +195,23 @@ export class CredentialContextImpl implements CredentialContext {
   }
 
   fetch(callback?: any): Promise<CredentialInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CredentialInstance(operationVersion, payload, this._solution.sid)
+        new CredentialInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -236,9 +242,10 @@ export class CredentialContextImpl implements CredentialContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -246,10 +253,14 @@ export class CredentialContextImpl implements CredentialContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CredentialInstance(operationVersion, payload, this._solution.sid)
+        new CredentialInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -418,7 +429,13 @@ export class CredentialInstance {
   }
 }
 
+export interface CredentialSolution {}
+
 export interface CredentialListInstance {
+  _version: V1;
+  _solution: CredentialSolution;
+  _uri: string;
+
   (sid: string): CredentialContext;
   get(sid: string): CredentialContext;
 
@@ -564,17 +581,8 @@ export interface CredentialListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CredentialSolution {}
-
-interface CredentialListInstanceImpl extends CredentialListInstance {}
-class CredentialListInstanceImpl implements CredentialListInstance {
-  _version?: V1;
-  _solution?: CredentialSolution;
-  _uri?: string;
-}
-
 export function CredentialListInstance(version: V1): CredentialListInstance {
-  const instance = ((sid) => instance.get(sid)) as CredentialListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CredentialListInstance;
 
   instance.get = function get(sid): CredentialContext {
     return new CredentialContextImpl(version, sid);
@@ -615,7 +623,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -625,7 +633,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       (payload) => new CredentialInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -654,17 +662,18 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CredentialPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CredentialPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -677,30 +686,28 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CredentialPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CredentialPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CredentialPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

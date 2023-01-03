@@ -121,9 +121,9 @@ export interface WorkerChannelContext {
 }
 
 export interface WorkerChannelContextSolution {
-  workspaceSid?: string;
-  workerSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  workerSid: string;
+  sid: string;
 }
 
 export class WorkerChannelContextImpl implements WorkerChannelContext {
@@ -153,9 +153,10 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   }
 
   fetch(callback?: any): Promise<WorkerChannelInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -164,13 +165,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         new WorkerChannelInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workerSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -194,9 +195,10 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -207,13 +209,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
         new WorkerChannelInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workerSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.workerSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -416,7 +418,16 @@ export class WorkerChannelInstance {
   }
 }
 
+export interface WorkerChannelSolution {
+  workspaceSid?: string;
+  workerSid?: string;
+}
+
 export interface WorkerChannelListInstance {
+  _version: V1;
+  _solution: WorkerChannelSolution;
+  _uri: string;
+
   (sid: string): WorkerChannelContext;
   get(sid: string): WorkerChannelContext;
 
@@ -554,18 +565,6 @@ export interface WorkerChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkerChannelSolution {
-  workspaceSid?: string;
-  workerSid?: string;
-}
-
-interface WorkerChannelListInstanceImpl extends WorkerChannelListInstance {}
-class WorkerChannelListInstanceImpl implements WorkerChannelListInstance {
-  _version?: V1;
-  _solution?: WorkerChannelSolution;
-  _uri?: string;
-}
-
 export function WorkerChannelListInstance(
   version: V1,
   workspaceSid: string,
@@ -579,8 +578,7 @@ export function WorkerChannelListInstance(
     throw new Error("Parameter 'workerSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as WorkerChannelListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkerChannelListInstance;
 
   instance.get = function get(sid): WorkerChannelContext {
     return new WorkerChannelContextImpl(version, workspaceSid, workerSid, sid);
@@ -612,7 +610,7 @@ export function WorkerChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -620,10 +618,10 @@ export function WorkerChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkerChannelPage(operationVersion, payload, this._solution)
+        new WorkerChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -636,30 +634,28 @@ export function WorkerChannelListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WorkerChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkerChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkerChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

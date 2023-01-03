@@ -135,8 +135,8 @@ export interface IpAccessControlListContext {
 }
 
 export interface IpAccessControlListContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class IpAccessControlListContextImpl
@@ -172,13 +172,14 @@ export class IpAccessControlListContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,9 +187,10 @@ export class IpAccessControlListContextImpl
   }
 
   fetch(callback?: any): Promise<IpAccessControlListInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -197,12 +199,12 @@ export class IpAccessControlListContextImpl
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -228,9 +230,10 @@ export class IpAccessControlListContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -241,12 +244,12 @@ export class IpAccessControlListContextImpl
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -413,7 +416,15 @@ export class IpAccessControlListInstance {
   }
 }
 
+export interface IpAccessControlListSolution {
+  accountSid?: string;
+}
+
 export interface IpAccessControlListListInstance {
+  _version: V2010;
+  _solution: IpAccessControlListSolution;
+  _uri: string;
+
   (sid: string): IpAccessControlListContext;
   get(sid: string): IpAccessControlListContext;
 
@@ -571,20 +582,6 @@ export interface IpAccessControlListListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpAccessControlListSolution {
-  accountSid?: string;
-}
-
-interface IpAccessControlListListInstanceImpl
-  extends IpAccessControlListListInstance {}
-class IpAccessControlListListInstanceImpl
-  implements IpAccessControlListListInstance
-{
-  _version?: V2010;
-  _solution?: IpAccessControlListSolution;
-  _uri?: string;
-}
-
 export function IpAccessControlListListInstance(
   version: V2010,
   accountSid: string
@@ -594,7 +591,7 @@ export function IpAccessControlListListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IpAccessControlListListInstanceImpl;
+    instance.get(sid)) as IpAccessControlListListInstance;
 
   instance.get = function get(sid): IpAccessControlListContext {
     return new IpAccessControlListContextImpl(version, accountSid, sid);
@@ -628,7 +625,7 @@ export function IpAccessControlListListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -639,11 +636,11 @@ export function IpAccessControlListListInstance(
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -672,7 +669,7 @@ export function IpAccessControlListListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -680,10 +677,14 @@ export function IpAccessControlListListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpAccessControlListPage(operationVersion, payload, this._solution)
+        new IpAccessControlListPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -696,31 +697,32 @@ export function IpAccessControlListListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IpAccessControlListPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new IpAccessControlListPage(this._version, payload, this._solution)
+        new IpAccessControlListPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -27,7 +27,13 @@ export interface BulkCountryUpdateListInstanceCreateOptions {
   updateRequest: string;
 }
 
+export interface BulkCountryUpdateSolution {}
+
 export interface BulkCountryUpdateListInstance {
+  _version: V1;
+  _solution: BulkCountryUpdateSolution;
+  _uri: string;
+
   /**
    * Create a BulkCountryUpdateInstance
    *
@@ -49,22 +55,10 @@ export interface BulkCountryUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BulkCountryUpdateSolution {}
-
-interface BulkCountryUpdateListInstanceImpl
-  extends BulkCountryUpdateListInstance {}
-class BulkCountryUpdateListInstanceImpl
-  implements BulkCountryUpdateListInstance
-{
-  _version?: V1;
-  _solution?: BulkCountryUpdateSolution;
-  _uri?: string;
-}
-
 export function BulkCountryUpdateListInstance(
   version: V1
 ): BulkCountryUpdateListInstance {
-  const instance = {} as BulkCountryUpdateListInstanceImpl;
+  const instance = {} as BulkCountryUpdateListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -96,7 +90,7 @@ export function BulkCountryUpdateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -106,7 +100,7 @@ export function BulkCountryUpdateListInstance(
       (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -114,14 +108,14 @@ export function BulkCountryUpdateListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

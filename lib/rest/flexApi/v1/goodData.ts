@@ -83,9 +83,10 @@ export class GoodDataContextImpl implements GoodDataContext {
     const headers: any = {};
     if (params["token"] !== undefined) headers["Token"] = params["token"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -95,7 +96,7 @@ export class GoodDataContextImpl implements GoodDataContext {
       (payload) => new GoodDataInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -212,7 +213,13 @@ export class GoodDataInstance {
   }
 }
 
+export interface GoodDataSolution {}
+
 export interface GoodDataListInstance {
+  _version: V1;
+  _solution: GoodDataSolution;
+  _uri: string;
+
   (): GoodDataContext;
   get(): GoodDataContext;
 
@@ -223,17 +230,8 @@ export interface GoodDataListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface GoodDataSolution {}
-
-interface GoodDataListInstanceImpl extends GoodDataListInstance {}
-class GoodDataListInstanceImpl implements GoodDataListInstance {
-  _version?: V1;
-  _solution?: GoodDataSolution;
-  _uri?: string;
-}
-
 export function GoodDataListInstance(version: V1): GoodDataListInstance {
-  const instance = (() => instance.get()) as GoodDataListInstanceImpl;
+  const instance = (() => instance.get()) as GoodDataListInstance;
 
   instance.get = function get(): GoodDataContext {
     return new GoodDataContextImpl(version);
@@ -244,14 +242,14 @@ export function GoodDataListInstance(version: V1): GoodDataListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

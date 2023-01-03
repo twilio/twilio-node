@@ -115,8 +115,8 @@ export interface EnvironmentContext {
 }
 
 export interface EnvironmentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class EnvironmentContextImpl implements EnvironmentContext {
@@ -174,13 +174,14 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -188,9 +189,10 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   }
 
   fetch(callback?: any): Promise<EnvironmentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -199,12 +201,12 @@ export class EnvironmentContextImpl implements EnvironmentContext {
         new EnvironmentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -397,7 +399,15 @@ export class EnvironmentInstance {
   }
 }
 
+export interface EnvironmentSolution {
+  serviceSid?: string;
+}
+
 export interface EnvironmentListInstance {
+  _version: V1;
+  _solution: EnvironmentSolution;
+  _uri: string;
+
   (sid: string): EnvironmentContext;
   get(sid: string): EnvironmentContext;
 
@@ -543,17 +553,6 @@ export interface EnvironmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EnvironmentSolution {
-  serviceSid?: string;
-}
-
-interface EnvironmentListInstanceImpl extends EnvironmentListInstance {}
-class EnvironmentListInstanceImpl implements EnvironmentListInstance {
-  _version?: V1;
-  _solution?: EnvironmentSolution;
-  _uri?: string;
-}
-
 export function EnvironmentListInstance(
   version: V1,
   serviceSid: string
@@ -562,7 +561,7 @@ export function EnvironmentListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EnvironmentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EnvironmentListInstance;
 
   instance.get = function get(sid): EnvironmentContext {
     return new EnvironmentContextImpl(version, serviceSid, sid);
@@ -595,7 +594,7 @@ export function EnvironmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -606,11 +605,11 @@ export function EnvironmentListInstance(
         new EnvironmentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -639,7 +638,7 @@ export function EnvironmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -647,10 +646,10 @@ export function EnvironmentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EnvironmentPage(operationVersion, payload, this._solution)
+        new EnvironmentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -663,30 +662,28 @@ export function EnvironmentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<EnvironmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EnvironmentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EnvironmentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

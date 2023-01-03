@@ -183,7 +183,7 @@ export interface TrustProductsContext {
 }
 
 export interface TrustProductsContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TrustProductsContextImpl implements TrustProductsContext {
@@ -231,13 +231,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -245,18 +246,23 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   }
 
   fetch(callback?: any): Promise<TrustProductsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsInstance(operationVersion, payload, this._solution.sid)
+        new TrustProductsInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -283,9 +289,10 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -293,10 +300,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsInstance(operationVersion, payload, this._solution.sid)
+        new TrustProductsInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -514,7 +525,13 @@ export class TrustProductsInstance {
   }
 }
 
+export interface TrustProductsSolution {}
+
 export interface TrustProductsListInstance {
+  _version: V1;
+  _solution: TrustProductsSolution;
+  _uri: string;
+
   (sid: string): TrustProductsContext;
   get(sid: string): TrustProductsContext;
 
@@ -666,20 +683,10 @@ export interface TrustProductsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrustProductsSolution {}
-
-interface TrustProductsListInstanceImpl extends TrustProductsListInstance {}
-class TrustProductsListInstanceImpl implements TrustProductsListInstance {
-  _version?: V1;
-  _solution?: TrustProductsSolution;
-  _uri?: string;
-}
-
 export function TrustProductsListInstance(
   version: V1
 ): TrustProductsListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as TrustProductsListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TrustProductsListInstance;
 
   instance.get = function get(sid): TrustProductsContext {
     return new TrustProductsContextImpl(version, sid);
@@ -727,7 +734,7 @@ export function TrustProductsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -737,7 +744,7 @@ export function TrustProductsListInstance(
       (payload) => new TrustProductsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -771,7 +778,7 @@ export function TrustProductsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -779,10 +786,10 @@ export function TrustProductsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsPage(operationVersion, payload, this._solution)
+        new TrustProductsPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -795,30 +802,28 @@ export function TrustProductsListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TrustProductsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TrustProductsPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

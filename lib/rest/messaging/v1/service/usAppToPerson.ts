@@ -130,8 +130,8 @@ export interface UsAppToPersonContext {
 }
 
 export interface UsAppToPersonContextSolution {
-  messagingServiceSid?: string;
-  sid?: string;
+  messagingServiceSid: string;
+  sid: string;
 }
 
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
@@ -156,13 +156,14 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -170,9 +171,10 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   fetch(callback?: any): Promise<UsAppToPersonInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -181,12 +183,12 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid,
-          this._solution.sid
+          instance._solution.messagingServiceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -449,7 +451,15 @@ export class UsAppToPersonInstance {
   }
 }
 
+export interface UsAppToPersonSolution {
+  messagingServiceSid?: string;
+}
+
 export interface UsAppToPersonListInstance {
+  _version: V1;
+  _solution: UsAppToPersonSolution;
+  _uri: string;
+
   (sid: string): UsAppToPersonContext;
   get(sid: string): UsAppToPersonContext;
 
@@ -601,17 +611,6 @@ export interface UsAppToPersonListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
-}
-
-interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
-class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
-  _version?: V1;
-  _solution?: UsAppToPersonSolution;
-  _uri?: string;
-}
-
 export function UsAppToPersonListInstance(
   version: V1,
   messagingServiceSid: string
@@ -620,8 +619,7 @@ export function UsAppToPersonListInstance(
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as UsAppToPersonListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstance;
 
   instance.get = function get(sid): UsAppToPersonContext {
     return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
@@ -728,7 +726,7 @@ export function UsAppToPersonListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -739,11 +737,11 @@ export function UsAppToPersonListInstance(
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid
+          instance._solution.messagingServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -772,7 +770,7 @@ export function UsAppToPersonListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -780,10 +778,10 @@ export function UsAppToPersonListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsAppToPersonPage(operationVersion, payload, this._solution)
+        new UsAppToPersonPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -796,30 +794,28 @@ export function UsAppToPersonListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UsAppToPersonPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsAppToPersonPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsAppToPersonPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

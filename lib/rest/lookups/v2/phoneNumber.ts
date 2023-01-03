@@ -90,7 +90,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -139,9 +139,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -152,11 +153,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -335,7 +336,13 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {}
+
 export interface PhoneNumberListInstance {
+  _version: V2;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (phoneNumber: string): PhoneNumberContext;
   get(phoneNumber: string): PhoneNumberContext;
 
@@ -346,18 +353,9 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V2;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
+    instance.get(phoneNumber)) as PhoneNumberListInstance;
 
   instance.get = function get(phoneNumber): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, phoneNumber);
@@ -368,14 +366,14 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

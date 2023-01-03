@@ -62,9 +62,10 @@ export class SecondaryAuthTokenContextImpl
   }
 
   create(callback?: any): Promise<SecondaryAuthTokenInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -72,7 +73,7 @@ export class SecondaryAuthTokenContextImpl
       (payload) => new SecondaryAuthTokenInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -80,13 +81,14 @@ export class SecondaryAuthTokenContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -204,7 +206,13 @@ export class SecondaryAuthTokenInstance {
   }
 }
 
+export interface SecondaryAuthTokenSolution {}
+
 export interface SecondaryAuthTokenListInstance {
+  _version: V1;
+  _solution: SecondaryAuthTokenSolution;
+  _uri: string;
+
   (): SecondaryAuthTokenContext;
   get(): SecondaryAuthTokenContext;
 
@@ -215,22 +223,10 @@ export interface SecondaryAuthTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SecondaryAuthTokenSolution {}
-
-interface SecondaryAuthTokenListInstanceImpl
-  extends SecondaryAuthTokenListInstance {}
-class SecondaryAuthTokenListInstanceImpl
-  implements SecondaryAuthTokenListInstance
-{
-  _version?: V1;
-  _solution?: SecondaryAuthTokenSolution;
-  _uri?: string;
-}
-
 export function SecondaryAuthTokenListInstance(
   version: V1
 ): SecondaryAuthTokenListInstance {
-  const instance = (() => instance.get()) as SecondaryAuthTokenListInstanceImpl;
+  const instance = (() => instance.get()) as SecondaryAuthTokenListInstance;
 
   instance.get = function get(): SecondaryAuthTokenContext {
     return new SecondaryAuthTokenContextImpl(version);
@@ -241,14 +237,14 @@ export function SecondaryAuthTokenListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

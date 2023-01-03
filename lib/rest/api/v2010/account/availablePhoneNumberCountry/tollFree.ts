@@ -176,7 +176,16 @@ export interface TollFreeListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface TollFreeSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 export interface TollFreeListInstance {
+  _version: V2010;
+  _solution: TollFreeSolution;
+  _uri: string;
+
   /**
    * Streams TollFreeInstance records from the API.
    *
@@ -305,18 +314,6 @@ export interface TollFreeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TollFreeSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
-interface TollFreeListInstanceImpl extends TollFreeListInstance {}
-class TollFreeListInstanceImpl implements TollFreeListInstance {
-  _version?: V2010;
-  _solution?: TollFreeSolution;
-  _uri?: string;
-}
-
 export function TollFreeListInstance(
   version: V2010,
   accountSid: string,
@@ -330,7 +327,7 @@ export function TollFreeListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as TollFreeListInstanceImpl;
+  const instance = {} as TollFreeListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
@@ -395,17 +392,18 @@ export function TollFreeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TollFreePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TollFreePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -418,30 +416,28 @@ export function TollFreeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TollFreePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TollFreePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TollFreePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

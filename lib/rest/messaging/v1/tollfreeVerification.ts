@@ -165,7 +165,7 @@ export interface TollfreeVerificationContext {
 }
 
 export interface TollfreeVerificationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TollfreeVerificationContextImpl
@@ -184,9 +184,10 @@ export class TollfreeVerificationContextImpl
   }
 
   fetch(callback?: any): Promise<TollfreeVerificationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -195,11 +196,11 @@ export class TollfreeVerificationContextImpl
         new TollfreeVerificationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -487,7 +488,13 @@ export class TollfreeVerificationInstance {
   }
 }
 
+export interface TollfreeVerificationSolution {}
+
 export interface TollfreeVerificationListInstance {
+  _version: V1;
+  _solution: TollfreeVerificationSolution;
+  _uri: string;
+
   (sid: string): TollfreeVerificationContext;
   get(sid: string): TollfreeVerificationContext;
 
@@ -645,23 +652,11 @@ export interface TollfreeVerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TollfreeVerificationSolution {}
-
-interface TollfreeVerificationListInstanceImpl
-  extends TollfreeVerificationListInstance {}
-class TollfreeVerificationListInstanceImpl
-  implements TollfreeVerificationListInstance
-{
-  _version?: V1;
-  _solution?: TollfreeVerificationSolution;
-  _uri?: string;
-}
-
 export function TollfreeVerificationListInstance(
   version: V1
 ): TollfreeVerificationListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as TollfreeVerificationListInstanceImpl;
+    instance.get(sid)) as TollfreeVerificationListInstance;
 
   instance.get = function get(sid): TollfreeVerificationContext {
     return new TollfreeVerificationContextImpl(version, sid);
@@ -817,7 +812,7 @@ export function TollfreeVerificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -827,7 +822,7 @@ export function TollfreeVerificationListInstance(
       (payload) => new TollfreeVerificationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -859,7 +854,7 @@ export function TollfreeVerificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -867,10 +862,14 @@ export function TollfreeVerificationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TollfreeVerificationPage(operationVersion, payload, this._solution)
+        new TollfreeVerificationPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -883,31 +882,32 @@ export function TollfreeVerificationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TollfreeVerificationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new TollfreeVerificationPage(this._version, payload, this._solution)
+        new TollfreeVerificationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

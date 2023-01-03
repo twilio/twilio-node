@@ -469,9 +469,9 @@ export interface SiprecContext {
 }
 
 export interface SiprecContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class SiprecContextImpl implements SiprecContext {
@@ -516,9 +516,10 @@ export class SiprecContextImpl implements SiprecContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -529,13 +530,13 @@ export class SiprecContextImpl implements SiprecContext {
         new SiprecInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -666,7 +667,16 @@ export class SiprecInstance {
   }
 }
 
+export interface SiprecSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 export interface SiprecListInstance {
+  _version: V2010;
+  _solution: SiprecSolution;
+  _uri: string;
+
   (sid: string): SiprecContext;
   get(sid: string): SiprecContext;
 
@@ -701,18 +711,6 @@ export interface SiprecListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SiprecSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface SiprecListInstanceImpl extends SiprecListInstance {}
-class SiprecListInstanceImpl implements SiprecListInstance {
-  _version?: V2010;
-  _solution?: SiprecSolution;
-  _uri?: string;
-}
-
 export function SiprecListInstance(
   version: V2010,
   accountSid: string,
@@ -726,7 +724,7 @@ export function SiprecListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SiprecListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SiprecListInstance;
 
   instance.get = function get(sid): SiprecContext {
     return new SiprecContextImpl(version, accountSid, callSid, sid);
@@ -1159,7 +1157,7 @@ export function SiprecListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -1170,12 +1168,12 @@ export function SiprecListInstance(
         new SiprecInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1183,14 +1181,14 @@ export function SiprecListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

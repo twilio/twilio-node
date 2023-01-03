@@ -123,9 +123,9 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -155,13 +155,14 @@ export class InteractionContextImpl implements InteractionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,9 +170,10 @@ export class InteractionContextImpl implements InteractionContext {
   }
 
   fetch(callback?: any): Promise<InteractionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -180,13 +182,13 @@ export class InteractionContextImpl implements InteractionContext {
         new InteractionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -407,7 +409,16 @@ export class InteractionInstance {
   }
 }
 
+export interface InteractionSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+}
+
 export interface InteractionListInstance {
+  _version: V1;
+  _solution: InteractionSolution;
+  _uri: string;
+
   (sid: string): InteractionContext;
   get(sid: string): InteractionContext;
 
@@ -539,18 +550,6 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-}
-
 export function InteractionListInstance(
   version: V1,
   serviceSid: string,
@@ -564,7 +563,7 @@ export function InteractionListInstance(
     throw new Error("Parameter 'sessionSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
   instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, serviceSid, sessionSid, sid);
@@ -596,7 +595,7 @@ export function InteractionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -604,10 +603,10 @@ export function InteractionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InteractionPage(operationVersion, payload, this._solution)
+        new InteractionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -620,30 +619,28 @@ export function InteractionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InteractionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InteractionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InteractionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

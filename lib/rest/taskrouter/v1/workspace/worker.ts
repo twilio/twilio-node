@@ -231,8 +231,8 @@ export interface WorkerContext {
 }
 
 export interface WorkerContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class WorkerContextImpl implements WorkerContext {
@@ -303,15 +303,16 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -319,9 +320,10 @@ export class WorkerContextImpl implements WorkerContext {
   }
 
   fetch(callback?: any): Promise<WorkerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -330,12 +332,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -368,9 +370,10 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -381,12 +384,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -634,12 +637,23 @@ export class WorkerInstance {
   }
 }
 
+export interface WorkerSolution {
+  workspaceSid?: string;
+}
+
 export interface WorkerListInstance {
+  _version: V1;
+  _solution: WorkerSolution;
+  _uri: string;
+
   (sid: string): WorkerContext;
   get(sid: string): WorkerContext;
 
+  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
   cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
   realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  _statistics?: WorkersStatisticsListInstance;
   statistics: WorkersStatisticsListInstance;
 
   /**
@@ -784,21 +798,6 @@ export interface WorkerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkerSolution {
-  workspaceSid?: string;
-}
-
-interface WorkerListInstanceImpl extends WorkerListInstance {}
-class WorkerListInstanceImpl implements WorkerListInstance {
-  _version?: V1;
-  _solution?: WorkerSolution;
-  _uri?: string;
-
-  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
-  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
-  _statistics?: WorkersStatisticsListInstance;
-}
-
 export function WorkerListInstance(
   version: V1,
   workspaceSid: string
@@ -807,7 +806,7 @@ export function WorkerListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkerListInstance;
 
   instance.get = function get(sid): WorkerContext {
     return new WorkerContextImpl(version, workspaceSid, sid);
@@ -819,37 +818,38 @@ export function WorkerListInstance(
 
   Object.defineProperty(instance, "cumulativeStatistics", {
     get: function cumulativeStatistics() {
-      if (!this._cumulativeStatistics) {
-        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
-        );
+      if (!instance._cumulativeStatistics) {
+        instance._cumulativeStatistics =
+          WorkersCumulativeStatisticsListInstance(
+            instance._version,
+            instance._solution.workspaceSid
+          );
       }
-      return this._cumulativeStatistics;
+      return instance._cumulativeStatistics;
     },
   });
 
   Object.defineProperty(instance, "realTimeStatistics", {
     get: function realTimeStatistics() {
-      if (!this._realTimeStatistics) {
-        this._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._realTimeStatistics) {
+        instance._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._realTimeStatistics;
+      return instance._realTimeStatistics;
     },
   });
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = WorkersStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._statistics) {
+        instance._statistics = WorkersStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._statistics;
+      return instance._statistics;
     },
   });
 
@@ -881,7 +881,7 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -892,11 +892,11 @@ export function WorkerListInstance(
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -940,17 +940,17 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(operationVersion, payload, this._solution)
+      (payload) => new WorkerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -963,30 +963,28 @@ export function WorkerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WorkerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

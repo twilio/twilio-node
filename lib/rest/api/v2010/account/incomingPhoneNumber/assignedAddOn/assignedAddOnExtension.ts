@@ -93,10 +93,10 @@ export interface AssignedAddOnExtensionContext {
 }
 
 export interface AssignedAddOnExtensionContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-  sid?: string;
+  accountSid: string;
+  resourceSid: string;
+  assignedAddOnSid: string;
+  sid: string;
 }
 
 export class AssignedAddOnExtensionContextImpl
@@ -133,9 +133,10 @@ export class AssignedAddOnExtensionContextImpl
   }
 
   fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -144,14 +145,14 @@ export class AssignedAddOnExtensionContextImpl
         new AssignedAddOnExtensionInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.resourceSid,
-          this._solution.assignedAddOnSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.resourceSid,
+          instance._solution.assignedAddOnSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -308,7 +309,17 @@ export class AssignedAddOnExtensionInstance {
   }
 }
 
+export interface AssignedAddOnExtensionSolution {
+  accountSid?: string;
+  resourceSid?: string;
+  assignedAddOnSid?: string;
+}
+
 export interface AssignedAddOnExtensionListInstance {
+  _version: V2010;
+  _solution: AssignedAddOnExtensionSolution;
+  _uri: string;
+
   (sid: string): AssignedAddOnExtensionContext;
   get(sid: string): AssignedAddOnExtensionContext;
 
@@ -452,22 +463,6 @@ export interface AssignedAddOnExtensionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssignedAddOnExtensionSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-}
-
-interface AssignedAddOnExtensionListInstanceImpl
-  extends AssignedAddOnExtensionListInstance {}
-class AssignedAddOnExtensionListInstanceImpl
-  implements AssignedAddOnExtensionListInstance
-{
-  _version?: V2010;
-  _solution?: AssignedAddOnExtensionSolution;
-  _uri?: string;
-}
-
 export function AssignedAddOnExtensionListInstance(
   version: V2010,
   accountSid: string,
@@ -487,7 +482,7 @@ export function AssignedAddOnExtensionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as AssignedAddOnExtensionListInstanceImpl;
+    instance.get(sid)) as AssignedAddOnExtensionListInstance;
 
   instance.get = function get(sid): AssignedAddOnExtensionContext {
     return new AssignedAddOnExtensionContextImpl(
@@ -525,7 +520,7 @@ export function AssignedAddOnExtensionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -536,11 +531,11 @@ export function AssignedAddOnExtensionListInstance(
         new AssignedAddOnExtensionPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -553,31 +548,32 @@ export function AssignedAddOnExtensionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssignedAddOnExtensionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AssignedAddOnExtensionPage(this._version, payload, this._solution)
+        new AssignedAddOnExtensionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

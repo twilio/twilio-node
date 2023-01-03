@@ -38,8 +38,8 @@ export interface ExecutionContextContext {
 }
 
 export interface ExecutionContextContextSolution {
-  flowSid?: string;
-  executionSid?: string;
+  flowSid: string;
+  executionSid: string;
 }
 
 export class ExecutionContextContextImpl implements ExecutionContextContext {
@@ -60,9 +60,10 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 
   fetch(callback?: any): Promise<ExecutionContextInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -71,12 +72,12 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
         new ExecutionContextInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.executionSid
+          instance._solution.flowSid,
+          instance._solution.executionSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,7 +192,16 @@ export class ExecutionContextInstance {
   }
 }
 
+export interface ExecutionContextSolution {
+  flowSid?: string;
+  executionSid?: string;
+}
+
 export interface ExecutionContextListInstance {
+  _version: V1;
+  _solution: ExecutionContextSolution;
+  _uri: string;
+
   (): ExecutionContextContext;
   get(): ExecutionContextContext;
 
@@ -200,19 +210,6 @@ export interface ExecutionContextListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ExecutionContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-}
-
-interface ExecutionContextListInstanceImpl
-  extends ExecutionContextListInstance {}
-class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
-  _version?: V1;
-  _solution?: ExecutionContextSolution;
-  _uri?: string;
 }
 
 export function ExecutionContextListInstance(
@@ -228,7 +225,7 @@ export function ExecutionContextListInstance(
     throw new Error("Parameter 'executionSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
+  const instance = (() => instance.get()) as ExecutionContextListInstance;
 
   instance.get = function get(): ExecutionContextContext {
     return new ExecutionContextContextImpl(version, flowSid, executionSid);
@@ -239,14 +236,14 @@ export function ExecutionContextListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

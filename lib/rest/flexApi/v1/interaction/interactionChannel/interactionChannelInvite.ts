@@ -78,7 +78,16 @@ export interface InteractionChannelInviteListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface InteractionChannelInviteSolution {
+  interactionSid?: string;
+  channelSid?: string;
+}
+
 export interface InteractionChannelInviteListInstance {
+  _version: V1;
+  _solution: InteractionChannelInviteSolution;
+  _uri: string;
+
   /**
    * Create a InteractionChannelInviteInstance
    *
@@ -242,21 +251,6 @@ export interface InteractionChannelInviteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionChannelInviteSolution {
-  interactionSid?: string;
-  channelSid?: string;
-}
-
-interface InteractionChannelInviteListInstanceImpl
-  extends InteractionChannelInviteListInstance {}
-class InteractionChannelInviteListInstanceImpl
-  implements InteractionChannelInviteListInstance
-{
-  _version?: V1;
-  _solution?: InteractionChannelInviteSolution;
-  _uri?: string;
-}
-
 export function InteractionChannelInviteListInstance(
   version: V1,
   interactionSid: string,
@@ -270,7 +264,7 @@ export function InteractionChannelInviteListInstance(
     throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = {} as InteractionChannelInviteListInstanceImpl;
+  const instance = {} as InteractionChannelInviteListInstance;
 
   instance._version = version;
   instance._solution = { interactionSid, channelSid };
@@ -297,7 +291,7 @@ export function InteractionChannelInviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -308,12 +302,12 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInviteInstance(
           operationVersion,
           payload,
-          this._solution.interactionSid,
-          this._solution.channelSid
+          instance._solution.interactionSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -342,7 +336,7 @@ export function InteractionChannelInviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -353,11 +347,11 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInvitePage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -370,31 +364,32 @@ export function InteractionChannelInviteListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InteractionChannelInvitePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new InteractionChannelInvitePage(this._version, payload, this._solution)
+        new InteractionChannelInvitePage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

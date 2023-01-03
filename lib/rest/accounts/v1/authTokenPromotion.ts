@@ -51,9 +51,10 @@ export class AuthTokenPromotionContextImpl
   }
 
   update(callback?: any): Promise<AuthTokenPromotionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -61,7 +62,7 @@ export class AuthTokenPromotionContextImpl
       (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,7 +167,13 @@ export class AuthTokenPromotionInstance {
   }
 }
 
+export interface AuthTokenPromotionSolution {}
+
 export interface AuthTokenPromotionListInstance {
+  _version: V1;
+  _solution: AuthTokenPromotionSolution;
+  _uri: string;
+
   (): AuthTokenPromotionContext;
   get(): AuthTokenPromotionContext;
 
@@ -177,22 +184,10 @@ export interface AuthTokenPromotionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthTokenPromotionSolution {}
-
-interface AuthTokenPromotionListInstanceImpl
-  extends AuthTokenPromotionListInstance {}
-class AuthTokenPromotionListInstanceImpl
-  implements AuthTokenPromotionListInstance
-{
-  _version?: V1;
-  _solution?: AuthTokenPromotionSolution;
-  _uri?: string;
-}
-
 export function AuthTokenPromotionListInstance(
   version: V1
 ): AuthTokenPromotionListInstance {
-  const instance = (() => instance.get()) as AuthTokenPromotionListInstanceImpl;
+  const instance = (() => instance.get()) as AuthTokenPromotionListInstance;
 
   instance.get = function get(): AuthTokenPromotionContext {
     return new AuthTokenPromotionContextImpl(version);
@@ -203,14 +198,14 @@ export function AuthTokenPromotionListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

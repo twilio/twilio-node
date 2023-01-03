@@ -51,9 +51,9 @@ export interface UserDefinedMessageSubscriptionContext {
 }
 
 export interface UserDefinedMessageSubscriptionContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class UserDefinedMessageSubscriptionContextImpl
@@ -85,13 +85,14 @@ export class UserDefinedMessageSubscriptionContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -209,7 +210,16 @@ export class UserDefinedMessageSubscriptionInstance {
   }
 }
 
+export interface UserDefinedMessageSubscriptionSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 export interface UserDefinedMessageSubscriptionListInstance {
+  _version: V2010;
+  _solution: UserDefinedMessageSubscriptionSolution;
+  _uri: string;
+
   (sid: string): UserDefinedMessageSubscriptionContext;
   get(sid: string): UserDefinedMessageSubscriptionContext;
 
@@ -240,21 +250,6 @@ export interface UserDefinedMessageSubscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserDefinedMessageSubscriptionSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface UserDefinedMessageSubscriptionListInstanceImpl
-  extends UserDefinedMessageSubscriptionListInstance {}
-class UserDefinedMessageSubscriptionListInstanceImpl
-  implements UserDefinedMessageSubscriptionListInstance
-{
-  _version?: V2010;
-  _solution?: UserDefinedMessageSubscriptionSolution;
-  _uri?: string;
-}
-
 export function UserDefinedMessageSubscriptionListInstance(
   version: V2010,
   accountSid: string,
@@ -269,7 +264,7 @@ export function UserDefinedMessageSubscriptionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as UserDefinedMessageSubscriptionListInstanceImpl;
+    instance.get(sid)) as UserDefinedMessageSubscriptionListInstance;
 
   instance.get = function get(sid): UserDefinedMessageSubscriptionContext {
     return new UserDefinedMessageSubscriptionContextImpl(
@@ -308,7 +303,7 @@ export function UserDefinedMessageSubscriptionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -319,12 +314,12 @@ export function UserDefinedMessageSubscriptionListInstance(
         new UserDefinedMessageSubscriptionInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -332,14 +327,14 @@ export function UserDefinedMessageSubscriptionListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

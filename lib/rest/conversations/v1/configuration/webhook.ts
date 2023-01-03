@@ -94,9 +94,10 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   fetch(callback?: any): Promise<WebhookInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -104,7 +105,7 @@ export class WebhookContextImpl implements WebhookContext {
       (payload) => new WebhookInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -133,9 +134,10 @@ export class WebhookContextImpl implements WebhookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -145,7 +147,7 @@ export class WebhookContextImpl implements WebhookContext {
       (payload) => new WebhookInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -283,7 +285,13 @@ export class WebhookInstance {
   }
 }
 
+export interface WebhookSolution {}
+
 export interface WebhookListInstance {
+  _version: V1;
+  _solution: WebhookSolution;
+  _uri: string;
+
   (): WebhookContext;
   get(): WebhookContext;
 
@@ -294,17 +302,8 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebhookSolution {}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V1;
-  _solution?: WebhookSolution;
-  _uri?: string;
-}
-
 export function WebhookListInstance(version: V1): WebhookListInstance {
-  const instance = (() => instance.get()) as WebhookListInstanceImpl;
+  const instance = (() => instance.get()) as WebhookListInstance;
 
   instance.get = function get(): WebhookContext {
     return new WebhookContextImpl(version);
@@ -315,14 +314,14 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -70,7 +70,15 @@ export interface HighriskSpecialPrefixListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface HighriskSpecialPrefixSolution {
+  isoCode?: string;
+}
+
 export interface HighriskSpecialPrefixListInstance {
+  _version: V1;
+  _solution: HighriskSpecialPrefixSolution;
+  _uri: string;
+
   /**
    * Streams HighriskSpecialPrefixInstance records from the API.
    *
@@ -211,20 +219,6 @@ export interface HighriskSpecialPrefixListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface HighriskSpecialPrefixSolution {
-  isoCode?: string;
-}
-
-interface HighriskSpecialPrefixListInstanceImpl
-  extends HighriskSpecialPrefixListInstance {}
-class HighriskSpecialPrefixListInstanceImpl
-  implements HighriskSpecialPrefixListInstance
-{
-  _version?: V1;
-  _solution?: HighriskSpecialPrefixSolution;
-  _uri?: string;
-}
-
 export function HighriskSpecialPrefixListInstance(
   version: V1,
   isoCode: string
@@ -233,7 +227,7 @@ export function HighriskSpecialPrefixListInstance(
     throw new Error("Parameter 'isoCode' is not valid.");
   }
 
-  const instance = {} as HighriskSpecialPrefixListInstanceImpl;
+  const instance = {} as HighriskSpecialPrefixListInstance;
 
   instance._version = version;
   instance._solution = { isoCode };
@@ -261,7 +255,7 @@ export function HighriskSpecialPrefixListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -269,10 +263,14 @@ export function HighriskSpecialPrefixListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(operationVersion, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -285,31 +283,32 @@ export function HighriskSpecialPrefixListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<HighriskSpecialPrefixPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(this._version, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -87,9 +87,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -99,7 +100,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -494,7 +495,13 @@ export class ConfigurationInstance {
   }
 }
 
+export interface ConfigurationSolution {}
+
 export interface ConfigurationListInstance {
+  _version: V1;
+  _solution: ConfigurationSolution;
+  _uri: string;
+
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
@@ -505,19 +512,10 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationSolution {}
-
-interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
-class ConfigurationListInstanceImpl implements ConfigurationListInstance {
-  _version?: V1;
-  _solution?: ConfigurationSolution;
-  _uri?: string;
-}
-
 export function ConfigurationListInstance(
   version: V1
 ): ConfigurationListInstance {
-  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
+  const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
@@ -528,14 +526,14 @@ export function ConfigurationListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

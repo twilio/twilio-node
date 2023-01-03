@@ -163,9 +163,9 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  sid?: string;
+  chatServiceSid: string;
+  conversationSid: string;
+  sid: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -195,13 +195,14 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -209,9 +210,10 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   fetch(callback?: any): Promise<WebhookInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -220,13 +222,13 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.conversationSid,
-          this._solution.sid
+          instance._solution.chatServiceSid,
+          instance._solution.conversationSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -263,9 +265,10 @@ export class WebhookContextImpl implements WebhookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -276,13 +279,13 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.conversationSid,
-          this._solution.sid
+          instance._solution.chatServiceSid,
+          instance._solution.conversationSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -468,7 +471,16 @@ export class WebhookInstance {
   }
 }
 
+export interface WebhookSolution {
+  chatServiceSid?: string;
+  conversationSid?: string;
+}
+
 export interface WebhookListInstance {
+  _version: V1;
+  _solution: WebhookSolution;
+  _uri: string;
+
   (sid: string): WebhookContext;
   get(sid: string): WebhookContext;
 
@@ -614,18 +626,6 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebhookSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V1;
-  _solution?: WebhookSolution;
-  _uri?: string;
-}
-
 export function WebhookListInstance(
   version: V1,
   chatServiceSid: string,
@@ -639,7 +639,7 @@ export function WebhookListInstance(
     throw new Error("Parameter 'conversationSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WebhookListInstance;
 
   instance.get = function get(sid): WebhookContext {
     return new WebhookContextImpl(
@@ -693,7 +693,7 @@ export function WebhookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -704,12 +704,12 @@ export function WebhookListInstance(
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.conversationSid
+          instance._solution.chatServiceSid,
+          instance._solution.conversationSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -738,17 +738,18 @@ export function WebhookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WebhookPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -761,30 +762,28 @@ export function WebhookListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WebhookPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -127,9 +127,10 @@ export class VerificationAttemptsSummaryContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -140,7 +141,7 @@ export class VerificationAttemptsSummaryContextImpl
         new VerificationAttemptsSummaryInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -269,7 +270,13 @@ export class VerificationAttemptsSummaryInstance {
   }
 }
 
+export interface VerificationAttemptsSummarySolution {}
+
 export interface VerificationAttemptsSummaryListInstance {
+  _version: V2;
+  _solution: VerificationAttemptsSummarySolution;
+  _uri: string;
+
   (): VerificationAttemptsSummaryContext;
   get(): VerificationAttemptsSummaryContext;
 
@@ -280,23 +287,11 @@ export interface VerificationAttemptsSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationAttemptsSummarySolution {}
-
-interface VerificationAttemptsSummaryListInstanceImpl
-  extends VerificationAttemptsSummaryListInstance {}
-class VerificationAttemptsSummaryListInstanceImpl
-  implements VerificationAttemptsSummaryListInstance
-{
-  _version?: V2;
-  _solution?: VerificationAttemptsSummarySolution;
-  _uri?: string;
-}
-
 export function VerificationAttemptsSummaryListInstance(
   version: V2
 ): VerificationAttemptsSummaryListInstance {
   const instance = (() =>
-    instance.get()) as VerificationAttemptsSummaryListInstanceImpl;
+    instance.get()) as VerificationAttemptsSummaryListInstance;
 
   instance.get = function get(): VerificationAttemptsSummaryContext {
     return new VerificationAttemptsSummaryContextImpl(version);
@@ -307,14 +302,14 @@ export function VerificationAttemptsSummaryListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

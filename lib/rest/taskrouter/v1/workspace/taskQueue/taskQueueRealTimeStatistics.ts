@@ -69,8 +69,8 @@ export interface TaskQueueRealTimeStatisticsContext {
 }
 
 export interface TaskQueueRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export class TaskQueueRealTimeStatisticsContextImpl
@@ -114,9 +114,10 @@ export class TaskQueueRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -127,12 +128,12 @@ export class TaskQueueRealTimeStatisticsContextImpl
         new TaskQueueRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskQueueSid
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -342,7 +343,16 @@ export class TaskQueueRealTimeStatisticsInstance {
   }
 }
 
+export interface TaskQueueRealTimeStatisticsSolution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
+}
+
 export interface TaskQueueRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueueRealTimeStatisticsSolution;
+  _uri: string;
+
   (): TaskQueueRealTimeStatisticsContext;
   get(): TaskQueueRealTimeStatisticsContext;
 
@@ -351,21 +361,6 @@ export interface TaskQueueRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskQueueRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
-}
-
-interface TaskQueueRealTimeStatisticsListInstanceImpl
-  extends TaskQueueRealTimeStatisticsListInstance {}
-class TaskQueueRealTimeStatisticsListInstanceImpl
-  implements TaskQueueRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueueRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskQueueRealTimeStatisticsListInstance(
@@ -382,7 +377,7 @@ export function TaskQueueRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as TaskQueueRealTimeStatisticsListInstanceImpl;
+    instance.get()) as TaskQueueRealTimeStatisticsListInstance;
 
   instance.get = function get(): TaskQueueRealTimeStatisticsContext {
     return new TaskQueueRealTimeStatisticsContextImpl(
@@ -397,14 +392,14 @@ export function TaskQueueRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

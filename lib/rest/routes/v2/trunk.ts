@@ -73,7 +73,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  sipTrunkDomain?: string;
+  sipTrunkDomain: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -90,9 +90,10 @@ export class TrunkContextImpl implements TrunkContext {
   }
 
   fetch(callback?: any): Promise<TrunkInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -101,11 +102,11 @@ export class TrunkContextImpl implements TrunkContext {
         new TrunkInstance(
           operationVersion,
           payload,
-          this._solution.sipTrunkDomain
+          instance._solution.sipTrunkDomain
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +131,10 @@ export class TrunkContextImpl implements TrunkContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -143,11 +145,11 @@ export class TrunkContextImpl implements TrunkContext {
         new TrunkInstance(
           operationVersion,
           payload,
-          this._solution.sipTrunkDomain
+          instance._solution.sipTrunkDomain
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -304,7 +306,13 @@ export class TrunkInstance {
   }
 }
 
+export interface TrunkSolution {}
+
 export interface TrunkListInstance {
+  _version: V2;
+  _solution: TrunkSolution;
+  _uri: string;
+
   (sipTrunkDomain: string): TrunkContext;
   get(sipTrunkDomain: string): TrunkContext;
 
@@ -315,18 +323,9 @@ export interface TrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrunkSolution {}
-
-interface TrunkListInstanceImpl extends TrunkListInstance {}
-class TrunkListInstanceImpl implements TrunkListInstance {
-  _version?: V2;
-  _solution?: TrunkSolution;
-  _uri?: string;
-}
-
 export function TrunkListInstance(version: V2): TrunkListInstance {
   const instance = ((sipTrunkDomain) =>
-    instance.get(sipTrunkDomain)) as TrunkListInstanceImpl;
+    instance.get(sipTrunkDomain)) as TrunkListInstance;
 
   instance.get = function get(sipTrunkDomain): TrunkContext {
     return new TrunkContextImpl(version, sipTrunkDomain);
@@ -337,14 +336,14 @@ export function TrunkListInstance(version: V2): TrunkListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

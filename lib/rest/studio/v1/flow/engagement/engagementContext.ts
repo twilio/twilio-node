@@ -38,8 +38,8 @@ export interface EngagementContextContext {
 }
 
 export interface EngagementContextContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
+  flowSid: string;
+  engagementSid: string;
 }
 
 export class EngagementContextContextImpl implements EngagementContextContext {
@@ -60,9 +60,10 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   }
 
   fetch(callback?: any): Promise<EngagementContextInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -71,12 +72,12 @@ export class EngagementContextContextImpl implements EngagementContextContext {
         new EngagementContextInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.engagementSid
+          instance._solution.flowSid,
+          instance._solution.engagementSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,7 +192,16 @@ export class EngagementContextInstance {
   }
 }
 
+export interface EngagementContextSolution {
+  flowSid?: string;
+  engagementSid?: string;
+}
+
 export interface EngagementContextListInstance {
+  _version: V1;
+  _solution: EngagementContextSolution;
+  _uri: string;
+
   (): EngagementContextContext;
   get(): EngagementContextContext;
 
@@ -200,21 +210,6 @@ export interface EngagementContextListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface EngagementContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-}
-
-interface EngagementContextListInstanceImpl
-  extends EngagementContextListInstance {}
-class EngagementContextListInstanceImpl
-  implements EngagementContextListInstance
-{
-  _version?: V1;
-  _solution?: EngagementContextSolution;
-  _uri?: string;
 }
 
 export function EngagementContextListInstance(
@@ -230,7 +225,7 @@ export function EngagementContextListInstance(
     throw new Error("Parameter 'engagementSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as EngagementContextListInstanceImpl;
+  const instance = (() => instance.get()) as EngagementContextListInstance;
 
   instance.get = function get(): EngagementContextContext {
     return new EngagementContextContextImpl(version, flowSid, engagementSid);
@@ -241,14 +236,14 @@ export function EngagementContextListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

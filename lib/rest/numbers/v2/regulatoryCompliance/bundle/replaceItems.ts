@@ -35,7 +35,15 @@ export interface ReplaceItemsListInstanceCreateOptions {
   fromBundleSid: string;
 }
 
+export interface ReplaceItemsSolution {
+  bundleSid?: string;
+}
+
 export interface ReplaceItemsListInstance {
+  _version: V2;
+  _solution: ReplaceItemsSolution;
+  _uri: string;
+
   /**
    * Create a ReplaceItemsInstance
    *
@@ -57,17 +65,6 @@ export interface ReplaceItemsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ReplaceItemsSolution {
-  bundleSid?: string;
-}
-
-interface ReplaceItemsListInstanceImpl extends ReplaceItemsListInstance {}
-class ReplaceItemsListInstanceImpl implements ReplaceItemsListInstance {
-  _version?: V2;
-  _solution?: ReplaceItemsSolution;
-  _uri?: string;
-}
-
 export function ReplaceItemsListInstance(
   version: V2,
   bundleSid: string
@@ -76,7 +73,7 @@ export function ReplaceItemsListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = {} as ReplaceItemsListInstanceImpl;
+  const instance = {} as ReplaceItemsListInstance;
 
   instance._version = version;
   instance._solution = { bundleSid };
@@ -108,7 +105,7 @@ export function ReplaceItemsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -119,11 +116,11 @@ export function ReplaceItemsListInstance(
         new ReplaceItemsInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -131,14 +128,14 @@ export function ReplaceItemsListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

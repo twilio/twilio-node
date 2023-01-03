@@ -92,9 +92,9 @@ export interface SubscribedTrackContext {
 }
 
 export interface SubscribedTrackContextSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
+  roomSid: string;
+  participantSid: string;
+  sid: string;
 }
 
 export class SubscribedTrackContextImpl implements SubscribedTrackContext {
@@ -124,9 +124,10 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
   }
 
   fetch(callback?: any): Promise<SubscribedTrackInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -135,13 +136,13 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
         new SubscribedTrackInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid,
-          this._solution.sid
+          instance._solution.roomSid,
+          instance._solution.participantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -292,7 +293,16 @@ export class SubscribedTrackInstance {
   }
 }
 
+export interface SubscribedTrackSolution {
+  roomSid?: string;
+  participantSid?: string;
+}
+
 export interface SubscribedTrackListInstance {
+  _version: V1;
+  _solution: SubscribedTrackSolution;
+  _uri: string;
+
   (sid: string): SubscribedTrackContext;
   get(sid: string): SubscribedTrackContext;
 
@@ -430,18 +440,6 @@ export interface SubscribedTrackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SubscribedTrackSolution {
-  roomSid?: string;
-  participantSid?: string;
-}
-
-interface SubscribedTrackListInstanceImpl extends SubscribedTrackListInstance {}
-class SubscribedTrackListInstanceImpl implements SubscribedTrackListInstance {
-  _version?: V1;
-  _solution?: SubscribedTrackSolution;
-  _uri?: string;
-}
-
 export function SubscribedTrackListInstance(
   version: V1,
   roomSid: string,
@@ -455,8 +453,7 @@ export function SubscribedTrackListInstance(
     throw new Error("Parameter 'participantSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as SubscribedTrackListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SubscribedTrackListInstance;
 
   instance.get = function get(sid): SubscribedTrackContext {
     return new SubscribedTrackContextImpl(
@@ -493,7 +490,7 @@ export function SubscribedTrackListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -501,10 +498,10 @@ export function SubscribedTrackListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SubscribedTrackPage(operationVersion, payload, this._solution)
+        new SubscribedTrackPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -517,31 +514,28 @@ export function SubscribedTrackListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SubscribedTrackPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SubscribedTrackPage(this._version, payload, this._solution)
+        new SubscribedTrackPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

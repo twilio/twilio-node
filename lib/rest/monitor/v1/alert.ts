@@ -105,7 +105,7 @@ export interface AlertContext {
 }
 
 export interface AlertContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AlertContextImpl implements AlertContext {
@@ -122,18 +122,19 @@ export class AlertContextImpl implements AlertContext {
   }
 
   fetch(callback?: any): Promise<AlertInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AlertInstance(operationVersion, payload, this._solution.sid)
+        new AlertInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -346,7 +347,13 @@ export class AlertInstance {
   }
 }
 
+export interface AlertSolution {}
+
 export interface AlertListInstance {
+  _version: V1;
+  _solution: AlertSolution;
+  _uri: string;
+
   (sid: string): AlertContext;
   get(sid: string): AlertContext;
 
@@ -478,17 +485,8 @@ export interface AlertListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AlertSolution {}
-
-interface AlertListInstanceImpl extends AlertListInstance {}
-class AlertListInstanceImpl implements AlertListInstance {
-  _version?: V1;
-  _solution?: AlertSolution;
-  _uri?: string;
-}
-
 export function AlertListInstance(version: V1): AlertListInstance {
-  const instance = ((sid) => instance.get(sid)) as AlertListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AlertListInstance;
 
   instance.get = function get(sid): AlertContext {
     return new AlertContextImpl(version, sid);
@@ -525,17 +523,17 @@ export function AlertListInstance(version: V1): AlertListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AlertPage(operationVersion, payload, this._solution)
+      (payload) => new AlertPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -548,30 +546,27 @@ export function AlertListInstance(version: V1): AlertListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<AlertPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AlertPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new AlertPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

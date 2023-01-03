@@ -67,7 +67,7 @@ export interface DomainConfigContext {
 }
 
 export interface DomainConfigContextSolution {
-  domainSid?: string;
+  domainSid: string;
 }
 
 export class DomainConfigContextImpl implements DomainConfigContext {
@@ -84,9 +84,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   }
 
   fetch(callback?: any): Promise<DomainConfigInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -95,11 +96,11 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -136,9 +137,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -149,11 +151,11 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -297,7 +299,13 @@ export class DomainConfigInstance {
   }
 }
 
+export interface DomainConfigSolution {}
+
 export interface DomainConfigListInstance {
+  _version: V1;
+  _solution: DomainConfigSolution;
+  _uri: string;
+
   (domainSid: string): DomainConfigContext;
   get(domainSid: string): DomainConfigContext;
 
@@ -308,20 +316,11 @@ export interface DomainConfigListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DomainConfigSolution {}
-
-interface DomainConfigListInstanceImpl extends DomainConfigListInstance {}
-class DomainConfigListInstanceImpl implements DomainConfigListInstance {
-  _version?: V1;
-  _solution?: DomainConfigSolution;
-  _uri?: string;
-}
-
 export function DomainConfigListInstance(
   version: V1
 ): DomainConfigListInstance {
   const instance = ((domainSid) =>
-    instance.get(domainSid)) as DomainConfigListInstanceImpl;
+    instance.get(domainSid)) as DomainConfigListInstance;
 
   instance.get = function get(domainSid): DomainConfigContext {
     return new DomainConfigContextImpl(version, domainSid);
@@ -332,14 +331,14 @@ export function DomainConfigListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -156,7 +156,7 @@ export interface SupportingDocumentContext {
 }
 
 export interface SupportingDocumentContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SupportingDocumentContextImpl
@@ -175,13 +175,14 @@ export class SupportingDocumentContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -189,9 +190,10 @@ export class SupportingDocumentContextImpl
   }
 
   fetch(callback?: any): Promise<SupportingDocumentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -200,11 +202,11 @@ export class SupportingDocumentContextImpl
         new SupportingDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -229,9 +231,10 @@ export class SupportingDocumentContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -242,11 +245,11 @@ export class SupportingDocumentContextImpl
         new SupportingDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -436,7 +439,13 @@ export class SupportingDocumentInstance {
   }
 }
 
+export interface SupportingDocumentSolution {}
+
 export interface SupportingDocumentListInstance {
+  _version: V2;
+  _solution: SupportingDocumentSolution;
+  _uri: string;
+
   (sid: string): SupportingDocumentContext;
   get(sid: string): SupportingDocumentContext;
 
@@ -588,23 +597,11 @@ export interface SupportingDocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SupportingDocumentSolution {}
-
-interface SupportingDocumentListInstanceImpl
-  extends SupportingDocumentListInstance {}
-class SupportingDocumentListInstanceImpl
-  implements SupportingDocumentListInstance
-{
-  _version?: V2;
-  _solution?: SupportingDocumentSolution;
-  _uri?: string;
-}
-
 export function SupportingDocumentListInstance(
   version: V2
 ): SupportingDocumentListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as SupportingDocumentListInstanceImpl;
+    instance.get(sid)) as SupportingDocumentListInstance;
 
   instance.get = function get(sid): SupportingDocumentContext {
     return new SupportingDocumentContextImpl(version, sid);
@@ -646,7 +643,7 @@ export function SupportingDocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -656,7 +653,7 @@ export function SupportingDocumentListInstance(
       (payload) => new SupportingDocumentInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -685,7 +682,7 @@ export function SupportingDocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -693,10 +690,14 @@ export function SupportingDocumentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SupportingDocumentPage(operationVersion, payload, this._solution)
+        new SupportingDocumentPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -709,31 +710,32 @@ export function SupportingDocumentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SupportingDocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SupportingDocumentPage(this._version, payload, this._solution)
+        new SupportingDocumentPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

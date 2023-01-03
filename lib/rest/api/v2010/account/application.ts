@@ -201,8 +201,8 @@ export interface ApplicationContext {
 }
 
 export interface ApplicationContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ApplicationContextImpl implements ApplicationContext {
@@ -223,13 +223,14 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -237,9 +238,10 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   fetch(callback?: any): Promise<ApplicationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -248,12 +250,12 @@ export class ApplicationContextImpl implements ApplicationContext {
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -304,9 +306,10 @@ export class ApplicationContextImpl implements ApplicationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -317,12 +320,12 @@ export class ApplicationContextImpl implements ApplicationContext {
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -619,7 +622,15 @@ export class ApplicationInstance {
   }
 }
 
+export interface ApplicationSolution {
+  accountSid?: string;
+}
+
 export interface ApplicationListInstance {
+  _version: V2010;
+  _solution: ApplicationSolution;
+  _uri: string;
+
   (sid: string): ApplicationContext;
   get(sid: string): ApplicationContext;
 
@@ -775,17 +786,6 @@ export interface ApplicationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ApplicationSolution {
-  accountSid?: string;
-}
-
-interface ApplicationListInstanceImpl extends ApplicationListInstance {}
-class ApplicationListInstanceImpl implements ApplicationListInstance {
-  _version?: V2010;
-  _solution?: ApplicationSolution;
-  _uri?: string;
-}
-
 export function ApplicationListInstance(
   version: V2010,
   accountSid: string
@@ -794,7 +794,7 @@ export function ApplicationListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ApplicationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ApplicationListInstance;
 
   instance.get = function get(sid): ApplicationContext {
     return new ApplicationContextImpl(version, accountSid, sid);
@@ -853,7 +853,7 @@ export function ApplicationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -864,11 +864,11 @@ export function ApplicationListInstance(
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -899,7 +899,7 @@ export function ApplicationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -907,10 +907,10 @@ export function ApplicationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(operationVersion, payload, this._solution)
+        new ApplicationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -923,30 +923,28 @@ export function ApplicationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ApplicationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ApplicationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ApplicationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

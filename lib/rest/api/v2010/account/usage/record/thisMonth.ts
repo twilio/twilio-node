@@ -338,7 +338,15 @@ export interface ThisMonthListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface ThisMonthSolution {
+  accountSid?: string;
+}
+
 export interface ThisMonthListInstance {
+  _version: V2010;
+  _solution: ThisMonthSolution;
+  _uri: string;
+
   /**
    * Streams ThisMonthInstance records from the API.
    *
@@ -467,17 +475,6 @@ export interface ThisMonthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ThisMonthSolution {
-  accountSid?: string;
-}
-
-interface ThisMonthListInstanceImpl extends ThisMonthListInstance {}
-class ThisMonthListInstanceImpl implements ThisMonthListInstance {
-  _version?: V2010;
-  _solution?: ThisMonthSolution;
-  _uri?: string;
-}
-
 export function ThisMonthListInstance(
   version: V2010,
   accountSid: string
@@ -486,7 +483,7 @@ export function ThisMonthListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as ThisMonthListInstanceImpl;
+  const instance = {} as ThisMonthListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -521,17 +518,18 @@ export function ThisMonthListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ThisMonthPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ThisMonthPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,30 +542,28 @@ export function ThisMonthListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ThisMonthPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ThisMonthPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ThisMonthPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

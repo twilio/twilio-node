@@ -135,8 +135,8 @@ export interface RoleContext {
 }
 
 export interface RoleContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class RoleContextImpl implements RoleContext {
@@ -157,13 +157,14 @@ export class RoleContextImpl implements RoleContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -171,9 +172,10 @@ export class RoleContextImpl implements RoleContext {
   }
 
   fetch(callback?: any): Promise<RoleInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -182,12 +184,12 @@ export class RoleContextImpl implements RoleContext {
         new RoleInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -210,9 +212,10 @@ export class RoleContextImpl implements RoleContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -223,12 +226,12 @@ export class RoleContextImpl implements RoleContext {
         new RoleInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -375,7 +378,15 @@ export class RoleInstance {
   }
 }
 
+export interface RoleSolution {
+  serviceSid?: string;
+}
+
 export interface RoleListInstance {
+  _version: V1;
+  _solution: RoleSolution;
+  _uri: string;
+
   (sid: string): RoleContext;
   get(sid: string): RoleContext;
 
@@ -521,17 +532,6 @@ export interface RoleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoleSolution {
-  serviceSid?: string;
-}
-
-interface RoleListInstanceImpl extends RoleListInstance {}
-class RoleListInstanceImpl implements RoleListInstance {
-  _version?: V1;
-  _solution?: RoleSolution;
-  _uri?: string;
-}
-
 export function RoleListInstance(
   version: V1,
   serviceSid: string
@@ -540,7 +540,7 @@ export function RoleListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as RoleListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RoleListInstance;
 
   instance.get = function get(sid): RoleContext {
     return new RoleContextImpl(version, serviceSid, sid);
@@ -586,7 +586,7 @@ export function RoleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -594,10 +594,14 @@ export function RoleListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoleInstance(operationVersion, payload, this._solution.serviceSid)
+        new RoleInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -626,17 +630,17 @@ export function RoleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RolePage(operationVersion, payload, this._solution)
+      (payload) => new RolePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -649,30 +653,27 @@ export function RoleListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<RolePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RolePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new RolePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

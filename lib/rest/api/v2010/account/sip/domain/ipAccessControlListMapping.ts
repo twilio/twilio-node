@@ -112,9 +112,9 @@ export interface IpAccessControlListMappingContext {
 }
 
 export interface IpAccessControlListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class IpAccessControlListMappingContextImpl
@@ -146,13 +146,14 @@ export class IpAccessControlListMappingContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -160,9 +161,10 @@ export class IpAccessControlListMappingContextImpl
   }
 
   fetch(callback?: any): Promise<IpAccessControlListMappingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -171,13 +173,13 @@ export class IpAccessControlListMappingContextImpl
         new IpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -326,7 +328,16 @@ export class IpAccessControlListMappingInstance {
   }
 }
 
+export interface IpAccessControlListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 export interface IpAccessControlListMappingListInstance {
+  _version: V2010;
+  _solution: IpAccessControlListMappingSolution;
+  _uri: string;
+
   (sid: string): IpAccessControlListMappingContext;
   get(sid: string): IpAccessControlListMappingContext;
 
@@ -508,21 +519,6 @@ export interface IpAccessControlListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface IpAccessControlListMappingListInstanceImpl
-  extends IpAccessControlListMappingListInstance {}
-class IpAccessControlListMappingListInstanceImpl
-  implements IpAccessControlListMappingListInstance
-{
-  _version?: V2010;
-  _solution?: IpAccessControlListMappingSolution;
-  _uri?: string;
-}
-
 export function IpAccessControlListMappingListInstance(
   version: V2010,
   accountSid: string,
@@ -537,7 +533,7 @@ export function IpAccessControlListMappingListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IpAccessControlListMappingListInstanceImpl;
+    instance.get(sid)) as IpAccessControlListMappingListInstance;
 
   instance.get = function get(sid): IpAccessControlListMappingContext {
     return new IpAccessControlListMappingContextImpl(
@@ -578,7 +574,7 @@ export function IpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -589,12 +585,12 @@ export function IpAccessControlListMappingListInstance(
         new IpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid
+          instance._solution.accountSid,
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -623,7 +619,7 @@ export function IpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -634,11 +630,11 @@ export function IpAccessControlListMappingListInstance(
         new IpAccessControlListMappingPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -651,35 +647,32 @@ export function IpAccessControlListMappingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IpAccessControlListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new IpAccessControlListMappingPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

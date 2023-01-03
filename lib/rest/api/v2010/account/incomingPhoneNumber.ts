@@ -281,8 +281,8 @@ export interface IncomingPhoneNumberContext {
 }
 
 export interface IncomingPhoneNumberContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class IncomingPhoneNumberContextImpl
@@ -318,13 +318,14 @@ export class IncomingPhoneNumberContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -332,9 +333,10 @@ export class IncomingPhoneNumberContextImpl
   }
 
   fetch(callback?: any): Promise<IncomingPhoneNumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -343,12 +345,12 @@ export class IncomingPhoneNumberContextImpl
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -414,9 +416,10 @@ export class IncomingPhoneNumberContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -427,12 +430,12 @@ export class IncomingPhoneNumberContextImpl
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -816,12 +819,23 @@ export class IncomingPhoneNumberInstance {
   }
 }
 
+export interface IncomingPhoneNumberSolution {
+  accountSid?: string;
+}
+
 export interface IncomingPhoneNumberListInstance {
+  _version: V2010;
+  _solution: IncomingPhoneNumberSolution;
+  _uri: string;
+
   (sid: string): IncomingPhoneNumberContext;
   get(sid: string): IncomingPhoneNumberContext;
 
+  _local?: LocalListInstance;
   local: LocalListInstance;
+  _mobile?: MobileListInstance;
   mobile: MobileListInstance;
+  _tollFree?: TollFreeListInstance;
   tollFree: TollFreeListInstance;
 
   /**
@@ -988,24 +1002,6 @@ export interface IncomingPhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IncomingPhoneNumberSolution {
-  accountSid?: string;
-}
-
-interface IncomingPhoneNumberListInstanceImpl
-  extends IncomingPhoneNumberListInstance {}
-class IncomingPhoneNumberListInstanceImpl
-  implements IncomingPhoneNumberListInstance
-{
-  _version?: V2010;
-  _solution?: IncomingPhoneNumberSolution;
-  _uri?: string;
-
-  _local?: LocalListInstance;
-  _mobile?: MobileListInstance;
-  _tollFree?: TollFreeListInstance;
-}
-
 export function IncomingPhoneNumberListInstance(
   version: V2010,
   accountSid: string
@@ -1015,7 +1011,7 @@ export function IncomingPhoneNumberListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
+    instance.get(sid)) as IncomingPhoneNumberListInstance;
 
   instance.get = function get(sid): IncomingPhoneNumberContext {
     return new IncomingPhoneNumberContextImpl(version, accountSid, sid);
@@ -1027,37 +1023,37 @@ export function IncomingPhoneNumberListInstance(
 
   Object.defineProperty(instance, "local", {
     get: function local() {
-      if (!this._local) {
-        this._local = LocalListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._local) {
+        instance._local = LocalListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._local;
+      return instance._local;
     },
   });
 
   Object.defineProperty(instance, "mobile", {
     get: function mobile() {
-      if (!this._mobile) {
-        this._mobile = MobileListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._mobile) {
+        instance._mobile = MobileListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._mobile;
+      return instance._mobile;
     },
   });
 
   Object.defineProperty(instance, "tollFree", {
     get: function tollFree() {
-      if (!this._tollFree) {
-        this._tollFree = TollFreeListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._tollFree) {
+        instance._tollFree = TollFreeListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._tollFree;
+      return instance._tollFree;
     },
   });
 
@@ -1126,7 +1122,7 @@ export function IncomingPhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -1137,11 +1133,11 @@ export function IncomingPhoneNumberListInstance(
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1177,7 +1173,7 @@ export function IncomingPhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -1185,10 +1181,14 @@ export function IncomingPhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IncomingPhoneNumberPage(operationVersion, payload, this._solution)
+        new IncomingPhoneNumberPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1201,31 +1201,32 @@ export function IncomingPhoneNumberListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IncomingPhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new IncomingPhoneNumberPage(this._version, payload, this._solution)
+        new IncomingPhoneNumberPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

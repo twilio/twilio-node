@@ -89,8 +89,8 @@ export interface EvaluationContext {
 }
 
 export interface EvaluationContextSolution {
-  bundleSid?: string;
-  sid?: string;
+  bundleSid: string;
+  sid: string;
 }
 
 export class EvaluationContextImpl implements EvaluationContext {
@@ -111,9 +111,10 @@ export class EvaluationContextImpl implements EvaluationContext {
   }
 
   fetch(callback?: any): Promise<EvaluationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -122,12 +123,12 @@ export class EvaluationContextImpl implements EvaluationContext {
         new EvaluationInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid,
-          this._solution.sid
+          instance._solution.bundleSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -256,7 +257,15 @@ export class EvaluationInstance {
   }
 }
 
+export interface EvaluationSolution {
+  bundleSid?: string;
+}
+
 export interface EvaluationListInstance {
+  _version: V2;
+  _solution: EvaluationSolution;
+  _uri: string;
+
   (sid: string): EvaluationContext;
   get(sid: string): EvaluationContext;
 
@@ -399,17 +408,6 @@ export interface EvaluationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EvaluationSolution {
-  bundleSid?: string;
-}
-
-interface EvaluationListInstanceImpl extends EvaluationListInstance {}
-class EvaluationListInstanceImpl implements EvaluationListInstance {
-  _version?: V2;
-  _solution?: EvaluationSolution;
-  _uri?: string;
-}
-
 export function EvaluationListInstance(
   version: V2,
   bundleSid: string
@@ -418,7 +416,7 @@ export function EvaluationListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EvaluationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EvaluationListInstance;
 
   instance.get = function get(sid): EvaluationContext {
     return new EvaluationContextImpl(version, bundleSid, sid);
@@ -433,7 +431,7 @@ export function EvaluationListInstance(
   ): Promise<EvaluationInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -442,11 +440,11 @@ export function EvaluationListInstance(
         new EvaluationInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -475,17 +473,18 @@ export function EvaluationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EvaluationPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EvaluationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -498,30 +497,28 @@ export function EvaluationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<EvaluationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EvaluationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EvaluationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

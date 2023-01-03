@@ -152,8 +152,8 @@ export interface ExecutionContext {
 }
 
 export interface ExecutionContextSolution {
-  flowSid?: string;
-  sid?: string;
+  flowSid: string;
+  sid: string;
 }
 
 export class ExecutionContextImpl implements ExecutionContext {
@@ -199,13 +199,14 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,9 +214,10 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 
   fetch(callback?: any): Promise<ExecutionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -224,12 +226,12 @@ export class ExecutionContextImpl implements ExecutionContext {
         new ExecutionInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -252,9 +254,10 @@ export class ExecutionContextImpl implements ExecutionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -265,12 +268,12 @@ export class ExecutionContextImpl implements ExecutionContext {
         new ExecutionInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -462,7 +465,15 @@ export class ExecutionInstance {
   }
 }
 
+export interface ExecutionSolution {
+  flowSid?: string;
+}
+
 export interface ExecutionListInstance {
+  _version: V2;
+  _solution: ExecutionSolution;
+  _uri: string;
+
   (sid: string): ExecutionContext;
   get(sid: string): ExecutionContext;
 
@@ -608,17 +619,6 @@ export interface ExecutionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExecutionSolution {
-  flowSid?: string;
-}
-
-interface ExecutionListInstanceImpl extends ExecutionListInstance {}
-class ExecutionListInstanceImpl implements ExecutionListInstance {
-  _version?: V2;
-  _solution?: ExecutionSolution;
-  _uri?: string;
-}
-
 export function ExecutionListInstance(
   version: V2,
   flowSid: string
@@ -627,7 +627,7 @@ export function ExecutionListInstance(
     throw new Error("Parameter 'flowSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ExecutionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ExecutionListInstance;
 
   instance.get = function get(sid): ExecutionContext {
     return new ExecutionContextImpl(version, flowSid, sid);
@@ -666,7 +666,7 @@ export function ExecutionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -674,10 +674,14 @@ export function ExecutionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExecutionInstance(operationVersion, payload, this._solution.flowSid)
+        new ExecutionInstance(
+          operationVersion,
+          payload,
+          instance._solution.flowSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -714,17 +718,18 @@ export function ExecutionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ExecutionPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ExecutionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -737,30 +742,28 @@ export function ExecutionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ExecutionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ExecutionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ExecutionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

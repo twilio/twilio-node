@@ -92,9 +92,9 @@ export interface PublishedTrackContext {
 }
 
 export interface PublishedTrackContextSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
+  roomSid: string;
+  participantSid: string;
+  sid: string;
 }
 
 export class PublishedTrackContextImpl implements PublishedTrackContext {
@@ -124,9 +124,10 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
   }
 
   fetch(callback?: any): Promise<PublishedTrackInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -135,13 +136,13 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
         new PublishedTrackInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid,
-          this._solution.sid
+          instance._solution.roomSid,
+          instance._solution.participantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -285,7 +286,16 @@ export class PublishedTrackInstance {
   }
 }
 
+export interface PublishedTrackSolution {
+  roomSid?: string;
+  participantSid?: string;
+}
+
 export interface PublishedTrackListInstance {
+  _version: V1;
+  _solution: PublishedTrackSolution;
+  _uri: string;
+
   (sid: string): PublishedTrackContext;
   get(sid: string): PublishedTrackContext;
 
@@ -423,18 +433,6 @@ export interface PublishedTrackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PublishedTrackSolution {
-  roomSid?: string;
-  participantSid?: string;
-}
-
-interface PublishedTrackListInstanceImpl extends PublishedTrackListInstance {}
-class PublishedTrackListInstanceImpl implements PublishedTrackListInstance {
-  _version?: V1;
-  _solution?: PublishedTrackSolution;
-  _uri?: string;
-}
-
 export function PublishedTrackListInstance(
   version: V1,
   roomSid: string,
@@ -448,8 +446,7 @@ export function PublishedTrackListInstance(
     throw new Error("Parameter 'participantSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as PublishedTrackListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PublishedTrackListInstance;
 
   instance.get = function get(sid): PublishedTrackContext {
     return new PublishedTrackContextImpl(version, roomSid, participantSid, sid);
@@ -481,7 +478,7 @@ export function PublishedTrackListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -489,10 +486,10 @@ export function PublishedTrackListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PublishedTrackPage(operationVersion, payload, this._solution)
+        new PublishedTrackPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -505,31 +502,28 @@ export function PublishedTrackListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PublishedTrackPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new PublishedTrackPage(this._version, payload, this._solution)
+        new PublishedTrackPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

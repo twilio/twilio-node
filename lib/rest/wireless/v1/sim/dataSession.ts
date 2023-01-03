@@ -67,7 +67,15 @@ export interface DataSessionListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface DataSessionSolution {
+  simSid?: string;
+}
+
 export interface DataSessionListInstance {
+  _version: V1;
+  _solution: DataSessionSolution;
+  _uri: string;
+
   /**
    * Streams DataSessionInstance records from the API.
    *
@@ -196,17 +204,6 @@ export interface DataSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DataSessionSolution {
-  simSid?: string;
-}
-
-interface DataSessionListInstanceImpl extends DataSessionListInstance {}
-class DataSessionListInstanceImpl implements DataSessionListInstance {
-  _version?: V1;
-  _solution?: DataSessionSolution;
-  _uri?: string;
-}
-
 export function DataSessionListInstance(
   version: V1,
   simSid: string
@@ -215,7 +212,7 @@ export function DataSessionListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as DataSessionListInstanceImpl;
+  const instance = {} as DataSessionListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
@@ -243,7 +240,7 @@ export function DataSessionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -251,10 +248,10 @@ export function DataSessionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DataSessionPage(operationVersion, payload, this._solution)
+        new DataSessionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -267,30 +264,28 @@ export function DataSessionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DataSessionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DataSessionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DataSessionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

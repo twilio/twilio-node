@@ -33,7 +33,13 @@ export interface WebChannelsListInstanceCreateOptions {
   preEngagementData?: string;
 }
 
+export interface WebChannelsSolution {}
+
 export interface WebChannelsListInstance {
+  _version: V2;
+  _solution: WebChannelsSolution;
+  _uri: string;
+
   /**
    * Create a WebChannelsInstance
    *
@@ -55,17 +61,8 @@ export interface WebChannelsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebChannelsSolution {}
-
-interface WebChannelsListInstanceImpl extends WebChannelsListInstance {}
-class WebChannelsListInstanceImpl implements WebChannelsListInstance {
-  _version?: V2;
-  _solution?: WebChannelsSolution;
-  _uri?: string;
-}
-
 export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
-  const instance = {} as WebChannelsListInstanceImpl;
+  const instance = {} as WebChannelsListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -98,7 +95,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -108,7 +105,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
       (payload) => new WebChannelsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -116,14 +113,14 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

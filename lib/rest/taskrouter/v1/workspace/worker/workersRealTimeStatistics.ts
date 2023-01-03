@@ -69,7 +69,7 @@ export interface WorkersRealTimeStatisticsContext {
 }
 
 export interface WorkersRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersRealTimeStatisticsContextImpl
@@ -105,9 +105,10 @@ export class WorkersRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -118,11 +119,11 @@ export class WorkersRealTimeStatisticsContextImpl
         new WorkersRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -258,7 +259,15 @@ export class WorkersRealTimeStatisticsInstance {
   }
 }
 
+export interface WorkersRealTimeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 export interface WorkersRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersRealTimeStatisticsSolution;
+  _uri: string;
+
   (): WorkersRealTimeStatisticsContext;
   get(): WorkersRealTimeStatisticsContext;
 
@@ -267,20 +276,6 @@ export interface WorkersRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkersRealTimeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersRealTimeStatisticsListInstanceImpl
-  extends WorkersRealTimeStatisticsListInstance {}
-class WorkersRealTimeStatisticsListInstanceImpl
-  implements WorkersRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkersRealTimeStatisticsListInstance(
@@ -292,7 +287,7 @@ export function WorkersRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkersRealTimeStatisticsListInstanceImpl;
+    instance.get()) as WorkersRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkersRealTimeStatisticsContext {
     return new WorkersRealTimeStatisticsContextImpl(version, workspaceSid);
@@ -303,14 +298,14 @@ export function WorkersRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
