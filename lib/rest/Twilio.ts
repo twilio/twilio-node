@@ -10,6 +10,65 @@
  */
 
 import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
+import Accounts from "./Accounts";
+import Api from "./Api";
+import Autopilot from "./Autopilot";
+import Bulkexports from "./Bulkexports";
+import Chat from "./Chat";
+import Content from "./Content";
+import Conversations from "./Conversations";
+import Events from "./Events";
+import FlexApi from "./FlexApi";
+import FrontlineApi from "./FrontlineApi";
+import Insights from "./Insights";
+import IpMessaging from "./IpMessaging";
+import Lookups from "./Lookups";
+import Media from "./Media";
+import Messaging from "./Messaging";
+import Microvisor from "./Microvisor";
+import Monitor from "./Monitor";
+import Notify from "./Notify";
+import Numbers from "./Numbers";
+import Oauth from "./Oauth";
+import Preview from "./Preview";
+import Pricing from "./Pricing";
+import Proxy from "./Proxy";
+import Routes from "./Routes";
+import Serverless from "./Serverless";
+import Studio from "./Studio";
+import Supersim from "./Supersim";
+import Sync from "./Sync";
+import Taskrouter from "./Taskrouter";
+import Trunking from "./Trunking";
+import Trusthub from "./Trusthub";
+import Verify from "./Verify";
+import Video from "./Video";
+import Voice from "./Voice";
+import Wireless from "./Wireless";
+import { AddressListInstance } from "./api/v2010/account/address";
+import { ApplicationListInstance } from "./api/v2010/account/application";
+import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
+import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry";
+import { BalanceListInstance } from "./api/v2010/account/balance";
+import { CallListInstance } from "./api/v2010/account/call";
+import { ConferenceListInstance } from "./api/v2010/account/conference";
+import { ConnectAppListInstance } from "./api/v2010/account/connectApp";
+import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber";
+import { KeyListInstance } from "./api/v2010/account/key";
+import { MessageListInstance } from "./api/v2010/account/message";
+import { NewKeyListInstance } from "./api/v2010/account/newKey";
+import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey";
+import { NotificationListInstance } from "./api/v2010/account/notification";
+import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId";
+import { QueueListInstance } from "./api/v2010/account/queue";
+import { RecordingListInstance } from "./api/v2010/account/recording";
+import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
+import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
+import { SipListInstance } from "./api/v2010/account/sip";
+import { TokenListInstance } from "./api/v2010/account/token";
+import { TranscriptionListInstance } from "./api/v2010/account/transcription";
+import { UsageListInstance } from "./api/v2010/account/usage";
+import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest";
 
 /* jshint ignore:start */
 /**
@@ -87,41 +146,41 @@ import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
 /* jshint ignore:end */
 
 class Twilio extends BaseTwilio {
-  _accounts: any;
-  _api: any;
-  _autopilot: any;
-  _bulkexports: any;
-  _chat: any;
-  _content: any;
-  _conversations: any;
-  _events: any;
-  _flexApi: any;
-  _frontlineApi: any;
-  _insights: any;
-  _ipMessaging: any;
-  _lookups: any;
-  _media: any;
-  _messaging: any;
-  _microvisor: any;
-  _monitor: any;
-  _notify: any;
-  _numbers: any;
-  _oauth: any;
-  _preview: any;
-  _pricing: any;
-  _proxy: any;
-  _routes: any;
-  _serverless: any;
-  _studio: any;
-  _supersim: any;
-  _sync: any;
-  _taskrouter: any;
-  _trunking: any;
-  _trusthub: any;
-  _verify: any;
-  _video: any;
-  _voice: any;
-  _wireless: any;
+  _accounts: Accounts;
+  _api: Api;
+  _autopilot: Autopilot;
+  _bulkexports: Bulkexports;
+  _chat: Chat;
+  _content: Content;
+  _conversations: Conversations;
+  _events: Events;
+  _flexApi: FlexApi;
+  _frontlineApi: FrontlineApi;
+  _insights: Insights;
+  _ipMessaging: IpMessaging;
+  _lookups: Lookups;
+  _media: Media;
+  _messaging: Messaging;
+  _microvisor: Microvisor;
+  _monitor: Monitor;
+  _notify: Notify;
+  _numbers: Numbers;
+  _oauth: Oauth;
+  _preview: Preview;
+  _pricing: Pricing;
+  _proxy: Proxy;
+  _routes: Routes;
+  _serverless: Serverless;
+  _studio: Studio;
+  _supersim: Supersim;
+  _sync: Sync;
+  _taskrouter: Taskrouter;
+  _trunking: Trunking;
+  _trusthub: Trusthub;
+  _verify: Verify;
+  _video: Video;
+  _voice: Voice;
+  _wireless: Wireless;
 
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     super(username, password, opts);
@@ -166,245 +225,245 @@ class Twilio extends BaseTwilio {
   }
 
   //Domains
-  get accounts() {
+  get accounts(): Accounts {
     if (!this._accounts) {
       const Accounts = require("./Accounts"); /* jshint ignore:line */
       this._accounts = new Accounts(this);
     }
     return this._accounts;
   }
-  get api() {
+  get api(): Api {
     if (!this._api) {
       const Api = require("./Api"); /* jshint ignore:line */
       this._api = new Api(this);
     }
     return this._api;
   }
-  get autopilot() {
+  get autopilot(): Autopilot {
     if (!this._autopilot) {
       const Autopilot = require("./Autopilot"); /* jshint ignore:line */
       this._autopilot = new Autopilot(this);
     }
     return this._autopilot;
   }
-  get bulkexports() {
+  get bulkexports(): Bulkexports {
     if (!this._bulkexports) {
       const Bulkexports = require("./Bulkexports"); /* jshint ignore:line */
       this._bulkexports = new Bulkexports(this);
     }
     return this._bulkexports;
   }
-  get chat() {
+  get chat(): Chat {
     if (!this._chat) {
       const Chat = require("./Chat"); /* jshint ignore:line */
       this._chat = new Chat(this);
     }
     return this._chat;
   }
-  get content() {
+  get content(): Content {
     if (!this._content) {
       const Content = require("./Content"); /* jshint ignore:line */
       this._content = new Content(this);
     }
     return this._content;
   }
-  get conversations() {
+  get conversations(): Conversations {
     if (!this._conversations) {
       const Conversations = require("./Conversations"); /* jshint ignore:line */
       this._conversations = new Conversations(this);
     }
     return this._conversations;
   }
-  get events() {
+  get events(): Events {
     if (!this._events) {
       const Events = require("./Events"); /* jshint ignore:line */
       this._events = new Events(this);
     }
     return this._events;
   }
-  get flexApi() {
+  get flexApi(): FlexApi {
     if (!this._flexApi) {
       const FlexApi = require("./FlexApi"); /* jshint ignore:line */
       this._flexApi = new FlexApi(this);
     }
     return this._flexApi;
   }
-  get frontlineApi() {
+  get frontlineApi(): FrontlineApi {
     if (!this._frontlineApi) {
       const FrontlineApi = require("./FrontlineApi"); /* jshint ignore:line */
       this._frontlineApi = new FrontlineApi(this);
     }
     return this._frontlineApi;
   }
-  get insights() {
+  get insights(): Insights {
     if (!this._insights) {
       const Insights = require("./Insights"); /* jshint ignore:line */
       this._insights = new Insights(this);
     }
     return this._insights;
   }
-  get ipMessaging() {
+  get ipMessaging(): IpMessaging {
     if (!this._ipMessaging) {
       const IpMessaging = require("./IpMessaging"); /* jshint ignore:line */
       this._ipMessaging = new IpMessaging(this);
     }
     return this._ipMessaging;
   }
-  get lookups() {
+  get lookups(): Lookups {
     if (!this._lookups) {
       const Lookups = require("./Lookups"); /* jshint ignore:line */
       this._lookups = new Lookups(this);
     }
     return this._lookups;
   }
-  get media() {
+  get media(): Media {
     if (!this._media) {
       const Media = require("./Media"); /* jshint ignore:line */
       this._media = new Media(this);
     }
     return this._media;
   }
-  get messaging() {
+  get messaging(): Messaging {
     if (!this._messaging) {
       const Messaging = require("./Messaging"); /* jshint ignore:line */
       this._messaging = new Messaging(this);
     }
     return this._messaging;
   }
-  get microvisor() {
+  get microvisor(): Microvisor {
     if (!this._microvisor) {
       const Microvisor = require("./Microvisor"); /* jshint ignore:line */
       this._microvisor = new Microvisor(this);
     }
     return this._microvisor;
   }
-  get monitor() {
+  get monitor(): Monitor {
     if (!this._monitor) {
       const Monitor = require("./Monitor"); /* jshint ignore:line */
       this._monitor = new Monitor(this);
     }
     return this._monitor;
   }
-  get notify() {
+  get notify(): Notify {
     if (!this._notify) {
       const Notify = require("./Notify"); /* jshint ignore:line */
       this._notify = new Notify(this);
     }
     return this._notify;
   }
-  get numbers() {
+  get numbers(): Numbers {
     if (!this._numbers) {
       const Numbers = require("./Numbers"); /* jshint ignore:line */
       this._numbers = new Numbers(this);
     }
     return this._numbers;
   }
-  get oauth() {
+  get oauth(): Oauth {
     if (!this._oauth) {
       const Oauth = require("./Oauth"); /* jshint ignore:line */
       this._oauth = new Oauth(this);
     }
     return this._oauth;
   }
-  get preview() {
+  get preview(): Preview {
     if (!this._preview) {
       const Preview = require("./Preview"); /* jshint ignore:line */
       this._preview = new Preview(this);
     }
     return this._preview;
   }
-  get pricing() {
+  get pricing(): Pricing {
     if (!this._pricing) {
       const Pricing = require("./Pricing"); /* jshint ignore:line */
       this._pricing = new Pricing(this);
     }
     return this._pricing;
   }
-  get proxy() {
+  get proxy(): Proxy {
     if (!this._proxy) {
       const Proxy = require("./Proxy"); /* jshint ignore:line */
       this._proxy = new Proxy(this);
     }
     return this._proxy;
   }
-  get routes() {
+  get routes(): Routes {
     if (!this._routes) {
       const Routes = require("./Routes"); /* jshint ignore:line */
       this._routes = new Routes(this);
     }
     return this._routes;
   }
-  get serverless() {
+  get serverless(): Serverless {
     if (!this._serverless) {
       const Serverless = require("./Serverless"); /* jshint ignore:line */
       this._serverless = new Serverless(this);
     }
     return this._serverless;
   }
-  get studio() {
+  get studio(): Studio {
     if (!this._studio) {
       const Studio = require("./Studio"); /* jshint ignore:line */
       this._studio = new Studio(this);
     }
     return this._studio;
   }
-  get supersim() {
+  get supersim(): Supersim {
     if (!this._supersim) {
       const Supersim = require("./Supersim"); /* jshint ignore:line */
       this._supersim = new Supersim(this);
     }
     return this._supersim;
   }
-  get sync() {
+  get sync(): Sync {
     if (!this._sync) {
       const Sync = require("./Sync"); /* jshint ignore:line */
       this._sync = new Sync(this);
     }
     return this._sync;
   }
-  get taskrouter() {
+  get taskrouter(): Taskrouter {
     if (!this._taskrouter) {
       const Taskrouter = require("./Taskrouter"); /* jshint ignore:line */
       this._taskrouter = new Taskrouter(this);
     }
     return this._taskrouter;
   }
-  get trunking() {
+  get trunking(): Trunking {
     if (!this._trunking) {
       const Trunking = require("./Trunking"); /* jshint ignore:line */
       this._trunking = new Trunking(this);
     }
     return this._trunking;
   }
-  get trusthub() {
+  get trusthub(): Trusthub {
     if (!this._trusthub) {
       const Trusthub = require("./Trusthub"); /* jshint ignore:line */
       this._trusthub = new Trusthub(this);
     }
     return this._trusthub;
   }
-  get verify() {
+  get verify(): Verify {
     if (!this._verify) {
       const Verify = require("./Verify"); /* jshint ignore:line */
       this._verify = new Verify(this);
     }
     return this._verify;
   }
-  get video() {
+  get video(): Video {
     if (!this._video) {
       const Video = require("./Video"); /* jshint ignore:line */
       this._video = new Video(this);
     }
     return this._video;
   }
-  get voice() {
+  get voice(): Voice {
     if (!this._voice) {
       const Voice = require("./Voice"); /* jshint ignore:line */
       this._voice = new Voice(this);
     }
     return this._voice;
   }
-  get wireless() {
+  get wireless(): Wireless {
     if (!this._wireless) {
       const Wireless = require("./Wireless"); /* jshint ignore:line */
       this._wireless = new Wireless(this);
@@ -412,76 +471,76 @@ class Twilio extends BaseTwilio {
     return this._wireless;
   }
 
-  get addresses() {
+  get addresses(): AddressListInstance {
     return this.api.v2010.account.addresses;
   }
-  get applications() {
+  get applications(): ApplicationListInstance {
     return this.api.v2010.account.applications;
   }
-  get authorizedConnectApps() {
+  get authorizedConnectApps(): AuthorizedConnectAppListInstance {
     return this.api.v2010.account.authorizedConnectApps;
   }
-  get availablePhoneNumbers() {
+  get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
     return this.api.v2010.account.availablePhoneNumbers;
   }
-  get balance() {
+  get balance(): BalanceListInstance {
     return this.api.v2010.account.balance;
   }
-  get calls() {
+  get calls(): CallListInstance {
     return this.api.v2010.account.calls;
   }
-  get conferences() {
+  get conferences(): ConferenceListInstance {
     return this.api.v2010.account.conferences;
   }
-  get connectApps() {
+  get connectApps(): ConnectAppListInstance {
     return this.api.v2010.account.connectApps;
   }
-  get incomingPhoneNumbers() {
+  get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
     return this.api.v2010.account.incomingPhoneNumbers;
   }
-  get keys() {
+  get keys(): KeyListInstance {
     return this.api.v2010.account.keys;
   }
-  get messages() {
+  get messages(): MessageListInstance {
     return this.api.v2010.account.messages;
   }
-  get newKeys() {
+  get newKeys(): NewKeyListInstance {
     return this.api.v2010.account.newKeys;
   }
-  get newSigningKeys() {
+  get newSigningKeys(): NewSigningKeyListInstance {
     return this.api.v2010.account.newSigningKeys;
   }
-  get notifications() {
+  get notifications(): NotificationListInstance {
     return this.api.v2010.account.notifications;
   }
-  get outgoingCallerIds() {
+  get outgoingCallerIds(): OutgoingCallerIdListInstance {
     return this.api.v2010.account.outgoingCallerIds;
   }
-  get queues() {
+  get queues(): QueueListInstance {
     return this.api.v2010.account.queues;
   }
-  get recordings() {
+  get recordings(): RecordingListInstance {
     return this.api.v2010.account.recordings;
   }
-  get shortCodes() {
+  get shortCodes(): ShortCodeListInstance {
     return this.api.v2010.account.shortCodes;
   }
-  get signingKeys() {
+  get signingKeys(): SigningKeyListInstance {
     return this.api.v2010.account.signingKeys;
   }
-  get sip() {
+  get sip(): SipListInstance {
     return this.api.v2010.account.sip;
   }
-  get tokens() {
+  get tokens(): TokenListInstance {
     return this.api.v2010.account.tokens;
   }
-  get transcriptions() {
+  get transcriptions(): TranscriptionListInstance {
     return this.api.v2010.account.transcriptions;
   }
-  get usage() {
+  get usage(): UsageListInstance {
     return this.api.v2010.account.usage;
   }
-  get validationRequests() {
+  get validationRequests(): ValidationRequestListInstance {
     return this.api.v2010.account.validationRequests;
   }
 }
