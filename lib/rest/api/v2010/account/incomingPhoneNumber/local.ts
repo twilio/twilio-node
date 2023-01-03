@@ -19,7 +19,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
 
 type IncomingPhoneNumberLocalAddressRequirement =
   | "none"
@@ -528,7 +528,9 @@ export type LocalVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface LocalPayload extends LocalResource, TwilioResponsePayload {}
+interface LocalPayload extends TwilioResponsePayload {
+  incoming_phone_numbers: LocalResource[];
+}
 
 interface LocalResource {
   account_sid?: string | null;
@@ -537,8 +539,8 @@ interface LocalResource {
   api_version?: string | null;
   beta?: boolean | null;
   capabilities?: PhoneNumberCapabilities | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   identity_sid?: string | null;
   phone_number?: string | null;
@@ -570,7 +572,7 @@ interface LocalResource {
 export class LocalInstance {
   constructor(
     protected _version: V2010,
-    payload: LocalPayload,
+    payload: LocalResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -630,11 +632,11 @@ export class LocalInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -803,7 +805,7 @@ export class LocalPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LocalPayload): LocalInstance {
+  getInstance(payload: LocalResource): LocalInstance {
     return new LocalInstance(this._version, payload, this._solution.accountSid);
   }
 

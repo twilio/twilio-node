@@ -323,6 +323,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type CompositionHookStatusCallbackMethod =
   | "HEAD"
   | "GET"
@@ -331,9 +332,9 @@ export type CompositionHookStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface CompositionHookPayload
-  extends CompositionHookResource,
-    TwilioResponsePayload {}
+interface CompositionHookPayload extends TwilioResponsePayload {
+  composition_hooks: CompositionHookResource[];
+}
 
 interface CompositionHookResource {
   account_sid?: string | null;
@@ -359,7 +360,7 @@ export class CompositionHookInstance {
 
   constructor(
     protected _version: V1,
-    payload: CompositionHookPayload,
+    payload: CompositionHookResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -868,7 +869,7 @@ export class CompositionHookPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CompositionHookPayload): CompositionHookInstance {
+  getInstance(payload: CompositionHookResource): CompositionHookInstance {
     return new CompositionHookInstance(this._version, payload);
   }
 

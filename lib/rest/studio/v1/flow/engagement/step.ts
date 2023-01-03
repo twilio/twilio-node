@@ -174,7 +174,9 @@ export class StepContextImpl implements StepContext {
   }
 }
 
-interface StepPayload extends StepResource, TwilioResponsePayload {}
+interface StepPayload extends TwilioResponsePayload {
+  steps: StepResource[];
+}
 
 interface StepResource {
   sid?: string | null;
@@ -197,7 +199,7 @@ export class StepInstance {
 
   constructor(
     protected _version: V1,
-    payload: StepPayload,
+    payload: StepResource,
     flowSid: string,
     engagementSid: string,
     sid?: string
@@ -589,7 +591,7 @@ export class StepPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: StepPayload): StepInstance {
+  getInstance(payload: StepResource): StepInstance {
     return new StepInstance(
       this._version,
       payload,

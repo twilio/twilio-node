@@ -259,14 +259,14 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 }
 
-interface OutgoingCallerIdPayload
-  extends OutgoingCallerIdResource,
-    TwilioResponsePayload {}
+interface OutgoingCallerIdPayload extends TwilioResponsePayload {
+  outgoing_caller_ids: OutgoingCallerIdResource[];
+}
 
 interface OutgoingCallerIdResource {
   sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   account_sid?: string | null;
   phone_number?: string | null;
@@ -279,7 +279,7 @@ export class OutgoingCallerIdInstance {
 
   constructor(
     protected _version: V2010,
-    payload: OutgoingCallerIdPayload,
+    payload: OutgoingCallerIdResource,
     accountSid: string,
     sid?: string
   ) {
@@ -301,11 +301,11 @@ export class OutgoingCallerIdInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -683,7 +683,7 @@ export class OutgoingCallerIdPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
+  getInstance(payload: OutgoingCallerIdResource): OutgoingCallerIdInstance {
     return new OutgoingCallerIdInstance(
       this._version,
       payload,

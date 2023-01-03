@@ -127,7 +127,7 @@ export class ExecutionStepContextInstance {
 
   constructor(
     protected _version: V1,
-    payload: ExecutionStepContextPayload,
+    payload: ExecutionStepContextResource,
     flowSid: string,
     executionSid: string,
     stepSid: string

@@ -243,9 +243,9 @@ export class NetworkAccessProfileContextImpl
   }
 }
 
-interface NetworkAccessProfilePayload
-  extends NetworkAccessProfileResource,
-    TwilioResponsePayload {}
+interface NetworkAccessProfilePayload extends TwilioResponsePayload {
+  network_access_profiles: NetworkAccessProfileResource[];
+}
 
 interface NetworkAccessProfileResource {
   sid?: string | null;
@@ -263,7 +263,7 @@ export class NetworkAccessProfileInstance {
 
   constructor(
     protected _version: V1,
-    payload: NetworkAccessProfilePayload,
+    payload: NetworkAccessProfileResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -715,7 +715,7 @@ export class NetworkAccessProfilePage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: NetworkAccessProfilePayload
+    payload: NetworkAccessProfileResource
   ): NetworkAccessProfileInstance {
     return new NetworkAccessProfileInstance(this._version, payload);
   }

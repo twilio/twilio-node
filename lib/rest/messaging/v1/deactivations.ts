@@ -128,7 +128,7 @@ export class DeactivationsInstance {
   protected _solution: DeactivationsContextSolution;
   protected _context?: DeactivationsContext;
 
-  constructor(protected _version: V1, payload: DeactivationsPayload) {
+  constructor(protected _version: V1, payload: DeactivationsResource) {
     this.redirectTo = payload.redirect_to;
 
     this._solution = {};

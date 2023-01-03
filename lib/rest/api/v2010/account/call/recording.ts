@@ -304,16 +304,18 @@ export class RecordingContextImpl implements RecordingContext {
   }
 }
 
-interface RecordingPayload extends RecordingResource, TwilioResponsePayload {}
+interface RecordingPayload extends TwilioResponsePayload {
+  recordings: RecordingResource[];
+}
 
 interface RecordingResource {
   account_sid?: string | null;
   api_version?: string | null;
   call_sid?: string | null;
   conference_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  start_time?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  start_time?: Date | null;
   duration?: string | null;
   sid?: string | null;
   price?: number | null;
@@ -333,7 +335,7 @@ export class RecordingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: RecordingPayload,
+    payload: RecordingResource,
     accountSid: string,
     callSid: string,
     sid?: string
@@ -379,15 +381,15 @@ export class RecordingInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The start time of the recording, given in RFC 2822 format
    */
-  startTime?: string | null;
+  startTime?: Date | null;
   /**
    * The length of the recording in seconds
    */
@@ -868,7 +870,7 @@ export class RecordingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingPayload): RecordingInstance {
+  getInstance(payload: RecordingResource): RecordingInstance {
     return new RecordingInstance(
       this._version,
       payload,

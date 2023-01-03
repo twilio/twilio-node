@@ -267,9 +267,9 @@ export class SyncListPermissionContextImpl
   }
 }
 
-interface SyncListPermissionPayload
-  extends SyncListPermissionResource,
-    TwilioResponsePayload {}
+interface SyncListPermissionPayload extends TwilioResponsePayload {
+  permissions: SyncListPermissionResource[];
+}
 
 interface SyncListPermissionResource {
   account_sid?: string | null;
@@ -288,7 +288,7 @@ export class SyncListPermissionInstance {
 
   constructor(
     protected _version: V1,
-    payload: SyncListPermissionPayload,
+    payload: SyncListPermissionResource,
     serviceSid: string,
     listSid: string,
     identity?: string
@@ -703,7 +703,7 @@ export class SyncListPermissionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance {
+  getInstance(payload: SyncListPermissionResource): SyncListPermissionInstance {
     return new SyncListPermissionInstance(
       this._version,
       payload,

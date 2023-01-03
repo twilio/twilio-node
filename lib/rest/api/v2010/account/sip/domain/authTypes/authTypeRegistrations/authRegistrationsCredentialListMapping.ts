@@ -201,13 +201,14 @@ export class AuthRegistrationsCredentialListMappingContextImpl
 }
 
 interface AuthRegistrationsCredentialListMappingPayload
-  extends AuthRegistrationsCredentialListMappingResource,
-    TwilioResponsePayload {}
+  extends TwilioResponsePayload {
+  contents: AuthRegistrationsCredentialListMappingResource[];
+}
 
 interface AuthRegistrationsCredentialListMappingResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   sid?: string | null;
 }
@@ -218,7 +219,7 @@ export class AuthRegistrationsCredentialListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthRegistrationsCredentialListMappingPayload,
+    payload: AuthRegistrationsCredentialListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -239,11 +240,11 @@ export class AuthRegistrationsCredentialListMappingInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -707,7 +708,7 @@ export class AuthRegistrationsCredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthRegistrationsCredentialListMappingPayload
+    payload: AuthRegistrationsCredentialListMappingResource
   ): AuthRegistrationsCredentialListMappingInstance {
     return new AuthRegistrationsCredentialListMappingInstance(
       this._version,

@@ -277,7 +277,9 @@ export class IpAddressContextImpl implements IpAddressContext {
   }
 }
 
-interface IpAddressPayload extends IpAddressResource, TwilioResponsePayload {}
+interface IpAddressPayload extends TwilioResponsePayload {
+  ip_addresses: IpAddressResource[];
+}
 
 interface IpAddressResource {
   sid?: string | null;
@@ -286,8 +288,8 @@ interface IpAddressResource {
   ip_address?: string | null;
   cidr_prefix_length?: number | null;
   ip_access_control_list_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   uri?: string | null;
 }
 
@@ -297,7 +299,7 @@ export class IpAddressInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IpAddressPayload,
+    payload: IpAddressResource,
     accountSid: string,
     ipAccessControlListSid: string,
     sid?: string
@@ -346,11 +348,11 @@ export class IpAddressInstance {
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
@@ -785,7 +787,7 @@ export class IpAddressPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpAddressPayload): IpAddressInstance {
+  getInstance(payload: IpAddressResource): IpAddressInstance {
     return new IpAddressInstance(
       this._version,
       payload,

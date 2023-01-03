@@ -95,7 +95,7 @@ export class UserInfoInstance {
   protected _solution: UserInfoContextSolution;
   protected _context?: UserInfoContext;
 
-  constructor(protected _version: V1, payload: UserInfoPayload) {
+  constructor(protected _version: V1, payload: UserInfoResource) {
     this.userSid = payload.user_sid;
     this.firstName = payload.first_name;
     this.lastName = payload.last_name;

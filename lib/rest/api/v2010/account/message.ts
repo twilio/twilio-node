@@ -386,7 +386,9 @@ export class MessageContextImpl implements MessageContext {
   }
 }
 
-interface MessagePayload extends MessageResource, TwilioResponsePayload {}
+interface MessagePayload extends TwilioResponsePayload {
+  messages: MessageResource[];
+}
 
 interface MessageResource {
   body?: string | null;
@@ -394,7 +396,7 @@ interface MessageResource {
   direction?: MessageDirection;
   from?: string | null;
   to?: string | null;
-  date_updated?: string | null;
+  date_updated?: Date | null;
   price?: string | null;
   error_message?: string | null;
   uri?: string | null;
@@ -403,8 +405,8 @@ interface MessageResource {
   status?: MessageStatus;
   messaging_service_sid?: string | null;
   sid?: string | null;
-  date_sent?: string | null;
-  date_created?: string | null;
+  date_sent?: Date | null;
+  date_created?: Date | null;
   error_code?: number | null;
   price_unit?: string | null;
   api_version?: string | null;
@@ -417,7 +419,7 @@ export class MessageInstance {
 
   constructor(
     protected _version: V2010,
-    payload: MessagePayload,
+    payload: MessageResource,
     accountSid: string,
     sid?: string
   ) {
@@ -465,7 +467,7 @@ export class MessageInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The amount billed for the message
    */
@@ -498,11 +500,11 @@ export class MessageInstance {
   /**
    * The RFC 2822 date and time in GMT when the message was sent
    */
-  dateSent?: string | null;
+  dateSent?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The error code associated with the message
    */
@@ -999,7 +1001,7 @@ export class MessagePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessagePayload): MessageInstance {
+  getInstance(payload: MessageResource): MessageInstance {
     return new MessageInstance(
       this._version,
       payload,

@@ -173,7 +173,9 @@ export class ContentContextImpl implements ContentContext {
   }
 }
 
-interface ContentPayload extends ContentResource, TwilioResponsePayload {}
+interface ContentPayload extends TwilioResponsePayload {
+  contents: ContentResource[];
+}
 
 interface ContentResource {
   date_created?: Date | null;
@@ -192,7 +194,7 @@ export class ContentInstance {
   protected _solution: ContentContextSolution;
   protected _context?: ContentContext;
 
-  constructor(protected _version: V1, payload: ContentPayload, sid?: string) {
+  constructor(protected _version: V1, payload: ContentResource, sid?: string) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;
@@ -565,7 +567,7 @@ export class ContentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ContentPayload): ContentInstance {
+  getInstance(payload: ContentResource): ContentInstance {
     return new ContentInstance(this._version, payload);
   }
 

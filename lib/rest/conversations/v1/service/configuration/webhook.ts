@@ -195,7 +195,7 @@ export class WebhookInstance {
 
   constructor(
     protected _version: V1,
-    payload: WebhookPayload,
+    payload: WebhookResource,
     chatServiceSid: string
   ) {
     this.accountSid = payload.account_sid;

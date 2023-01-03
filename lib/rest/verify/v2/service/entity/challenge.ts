@@ -297,7 +297,9 @@ export class ChallengeContextImpl implements ChallengeContext {
   }
 }
 
-interface ChallengePayload extends ChallengeResource, TwilioResponsePayload {}
+interface ChallengePayload extends TwilioResponsePayload {
+  challenges: ChallengeResource[];
+}
 
 interface ChallengeResource {
   sid?: string | null;
@@ -326,7 +328,7 @@ export class ChallengeInstance {
 
   constructor(
     protected _version: V2,
-    payload: ChallengePayload,
+    payload: ChallengeResource,
     serviceSid: string,
     identity: string,
     sid?: string
@@ -851,7 +853,7 @@ export class ChallengePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ChallengePayload): ChallengeInstance {
+  getInstance(payload: ChallengeResource): ChallengeInstance {
     return new ChallengeInstance(
       this._version,
       payload,

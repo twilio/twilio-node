@@ -184,7 +184,7 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserPayload, sid?: string) {
+  constructor(protected _version: V1, payload: UserResource, sid?: string) {
     this.sid = payload.sid;
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;

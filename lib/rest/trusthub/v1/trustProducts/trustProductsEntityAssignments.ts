@@ -187,9 +187,9 @@ export class TrustProductsEntityAssignmentsContextImpl
   }
 }
 
-interface TrustProductsEntityAssignmentsPayload
-  extends TrustProductsEntityAssignmentsResource,
-    TwilioResponsePayload {}
+interface TrustProductsEntityAssignmentsPayload extends TwilioResponsePayload {
+  results: TrustProductsEntityAssignmentsResource[];
+}
 
 interface TrustProductsEntityAssignmentsResource {
   sid?: string | null;
@@ -206,7 +206,7 @@ export class TrustProductsEntityAssignmentsInstance {
 
   constructor(
     protected _version: V1,
-    payload: TrustProductsEntityAssignmentsPayload,
+    payload: TrustProductsEntityAssignmentsResource,
     trustProductSid: string,
     sid?: string
   ) {
@@ -682,7 +682,7 @@ export class TrustProductsEntityAssignmentsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TrustProductsEntityAssignmentsPayload
+    payload: TrustProductsEntityAssignmentsResource
   ): TrustProductsEntityAssignmentsInstance {
     return new TrustProductsEntityAssignmentsInstance(
       this._version,

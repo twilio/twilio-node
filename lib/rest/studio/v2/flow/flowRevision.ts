@@ -148,9 +148,9 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
   }
 }
 
-interface FlowRevisionPayload
-  extends FlowRevisionResource,
-    TwilioResponsePayload {}
+interface FlowRevisionPayload extends TwilioResponsePayload {
+  revisions: FlowRevisionResource[];
+}
 
 interface FlowRevisionResource {
   sid?: string | null;
@@ -173,7 +173,7 @@ export class FlowRevisionInstance {
 
   constructor(
     protected _version: V2,
-    payload: FlowRevisionPayload,
+    payload: FlowRevisionResource,
     sid: string,
     revision?: string
   ) {
@@ -190,7 +190,7 @@ export class FlowRevisionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid, revision: revision || this.revision };
+    this._solution = { sid, revision: revision || this.revision.toString() };
   }
 
   /**
@@ -553,7 +553,7 @@ export class FlowRevisionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FlowRevisionPayload): FlowRevisionInstance {
+  getInstance(payload: FlowRevisionResource): FlowRevisionInstance {
     return new FlowRevisionInstance(this._version, payload, this._solution.sid);
   }
 

@@ -187,7 +187,7 @@ export class TrunkInstance {
 
   constructor(
     protected _version: V2,
-    payload: TrunkPayload,
+    payload: TrunkResource,
     sipTrunkDomain?: string
   ) {
     this.sipTrunkDomain = payload.sip_trunk_domain;

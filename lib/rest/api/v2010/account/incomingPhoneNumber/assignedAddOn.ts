@@ -207,9 +207,9 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 }
 
-interface AssignedAddOnPayload
-  extends AssignedAddOnResource,
-    TwilioResponsePayload {}
+interface AssignedAddOnPayload extends TwilioResponsePayload {
+  assigned_add_ons: AssignedAddOnResource[];
+}
 
 interface AssignedAddOnResource {
   sid?: string | null;
@@ -219,8 +219,8 @@ interface AssignedAddOnResource {
   description?: string | null;
   configuration?: any | null;
   unique_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   uri?: string | null;
   subresource_uris?: object | null;
 }
@@ -231,7 +231,7 @@ export class AssignedAddOnInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AssignedAddOnPayload,
+    payload: AssignedAddOnResource,
     accountSid: string,
     resourceSid: string,
     sid?: string
@@ -282,11 +282,11 @@ export class AssignedAddOnInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
@@ -705,7 +705,7 @@ export class AssignedAddOnPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance {
+  getInstance(payload: AssignedAddOnResource): AssignedAddOnInstance {
     return new AssignedAddOnInstance(
       this._version,
       payload,

@@ -179,7 +179,7 @@ export class TaskQueueRealTimeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: TaskQueueRealTimeStatisticsPayload,
+    payload: TaskQueueRealTimeStatisticsResource,
     workspaceSid: string,
     taskQueueSid: string
   ) {

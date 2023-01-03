@@ -30,7 +30,7 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
  * Options to pass to create a IpCommandInstance
  *
  * @property { string } sim The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
- * @property { string } payload The payload to be delivered to the device.
+ * @property { string } payload The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
  * @property { number } devicePort The device port to which the IP Command will be sent.
  * @property { IpCommandPayloadType } [payloadType]
  * @property { string } [callbackUrl] The URL we should call using the `callback_method` after we have sent the IP Command.
@@ -184,7 +184,9 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 }
 
-interface IpCommandPayload extends IpCommandResource, TwilioResponsePayload {}
+interface IpCommandPayload extends TwilioResponsePayload {
+  ip_commands: IpCommandResource[];
+}
 
 interface IpCommandResource {
   sid?: string | null;
@@ -206,7 +208,11 @@ export class IpCommandInstance {
   protected _solution: IpCommandContextSolution;
   protected _context?: IpCommandContext;
 
-  constructor(protected _version: V1, payload: IpCommandPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: IpCommandResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
@@ -643,7 +649,7 @@ export class IpCommandPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpCommandPayload): IpCommandInstance {
+  getInstance(payload: IpCommandResource): IpCommandInstance {
     return new IpCommandInstance(this._version, payload);
   }
 

@@ -172,9 +172,9 @@ export class AssignedAddOnExtensionContextImpl
   }
 }
 
-interface AssignedAddOnExtensionPayload
-  extends AssignedAddOnExtensionResource,
-    TwilioResponsePayload {}
+interface AssignedAddOnExtensionPayload extends TwilioResponsePayload {
+  extensions: AssignedAddOnExtensionResource[];
+}
 
 interface AssignedAddOnExtensionResource {
   sid?: string | null;
@@ -194,7 +194,7 @@ export class AssignedAddOnExtensionInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AssignedAddOnExtensionPayload,
+    payload: AssignedAddOnExtensionResource,
     accountSid: string,
     resourceSid: string,
     assignedAddOnSid: string,
@@ -610,7 +610,7 @@ export class AssignedAddOnExtensionPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AssignedAddOnExtensionPayload
+    payload: AssignedAddOnExtensionResource
   ): AssignedAddOnExtensionInstance {
     return new AssignedAddOnExtensionInstance(
       this._version,

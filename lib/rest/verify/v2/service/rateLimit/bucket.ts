@@ -269,7 +269,9 @@ export class BucketContextImpl implements BucketContext {
   }
 }
 
-interface BucketPayload extends BucketResource, TwilioResponsePayload {}
+interface BucketPayload extends TwilioResponsePayload {
+  buckets: BucketResource[];
+}
 
 interface BucketResource {
   sid?: string | null;
@@ -289,7 +291,7 @@ export class BucketInstance {
 
   constructor(
     protected _version: V2,
-    payload: BucketPayload,
+    payload: BucketResource,
     serviceSid: string,
     rateLimitSid: string,
     sid?: string
@@ -763,7 +765,7 @@ export class BucketPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BucketPayload): BucketInstance {
+  getInstance(payload: BucketResource): BucketInstance {
     return new BucketInstance(
       this._version,
       payload,

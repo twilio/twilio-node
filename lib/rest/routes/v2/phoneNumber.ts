@@ -187,7 +187,7 @@ export class PhoneNumberInstance {
 
   constructor(
     protected _version: V2,
-    payload: PhoneNumberPayload,
+    payload: PhoneNumberResource,
     phoneNumber?: string
   ) {
     this.phoneNumber = payload.phone_number;

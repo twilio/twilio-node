@@ -205,7 +205,9 @@ export class BuildContextImpl implements BuildContext {
   }
 }
 
-interface BuildPayload extends BuildResource, TwilioResponsePayload {}
+interface BuildPayload extends TwilioResponsePayload {
+  builds: BuildResource[];
+}
 
 interface BuildResource {
   sid?: string | null;
@@ -228,7 +230,7 @@ export class BuildInstance {
 
   constructor(
     protected _version: V1,
-    payload: BuildPayload,
+    payload: BuildResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -691,7 +693,7 @@ export class BuildPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance {
+  getInstance(payload: BuildResource): BuildInstance {
     return new BuildInstance(this._version, payload, this._solution.serviceSid);
   }
 

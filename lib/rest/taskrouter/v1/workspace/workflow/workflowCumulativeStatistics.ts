@@ -202,7 +202,7 @@ export class WorkflowCumulativeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkflowCumulativeStatisticsPayload,
+    payload: WorkflowCumulativeStatisticsResource,
     workspaceSid: string,
     workflowSid: string
   ) {

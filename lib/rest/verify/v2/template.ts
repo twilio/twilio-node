@@ -294,7 +294,9 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
   return instance;
 }
 
-interface TemplatePayload extends TemplateResource, TwilioResponsePayload {}
+interface TemplatePayload extends TwilioResponsePayload {
+  templates: TemplateResource[];
+}
 
 interface TemplateResource {
   sid?: string | null;
@@ -305,7 +307,7 @@ interface TemplateResource {
 }
 
 export class TemplateInstance {
-  constructor(protected _version: V2, payload: TemplatePayload) {
+  constructor(protected _version: V2, payload: TemplateResource) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -380,7 +382,7 @@ export class TemplatePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TemplatePayload): TemplateInstance {
+  getInstance(payload: TemplateResource): TemplateInstance {
     return new TemplateInstance(this._version, payload);
   }
 

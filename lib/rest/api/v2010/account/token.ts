@@ -147,8 +147,8 @@ interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   ice_servers?: Array<ApiV2010AccountTokenIceServers> | null;
   password?: string | null;
   ttl?: string | null;
@@ -158,7 +158,7 @@ interface TokenResource {
 export class TokenInstance {
   constructor(
     protected _version: V2010,
-    payload: TokenPayload,
+    payload: TokenResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -177,11 +177,11 @@ export class TokenInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * An array representing the ephemeral credentials
    */

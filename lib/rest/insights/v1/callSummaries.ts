@@ -465,9 +465,9 @@ export function CallSummariesListInstance(
   return instance;
 }
 
-interface CallSummariesPayload
-  extends CallSummariesResource,
-    TwilioResponsePayload {}
+interface CallSummariesPayload extends TwilioResponsePayload {
+  call_summaries: CallSummariesResource[];
+}
 
 interface CallSummariesResource {
   account_sid?: string | null;
@@ -495,7 +495,7 @@ interface CallSummariesResource {
 }
 
 export class CallSummariesInstance {
-  constructor(protected _version: V1, payload: CallSummariesPayload) {
+  constructor(protected _version: V1, payload: CallSummariesResource) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.answeredBy = payload.answered_by;
@@ -606,7 +606,7 @@ export class CallSummariesPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CallSummariesPayload): CallSummariesInstance {
+  getInstance(payload: CallSummariesResource): CallSummariesInstance {
     return new CallSummariesInstance(this._version, payload);
   }
 

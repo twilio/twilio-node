@@ -273,7 +273,9 @@ export class CredentialContextImpl implements CredentialContext {
   }
 }
 
-interface CredentialPayload extends CredentialResource, TwilioResponsePayload {}
+interface CredentialPayload extends TwilioResponsePayload {
+  credentials: CredentialResource[];
+}
 
 interface CredentialResource {
   sid?: string | null;
@@ -292,7 +294,7 @@ export class CredentialInstance {
 
   constructor(
     protected _version: V1,
-    payload: CredentialPayload,
+    payload: CredentialResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -733,7 +735,7 @@ export class CredentialPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialPayload): CredentialInstance {
+  getInstance(payload: CredentialResource): CredentialInstance {
     return new CredentialInstance(this._version, payload);
   }
 

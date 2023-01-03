@@ -141,7 +141,7 @@ interface DeviceCodeResource {
 }
 
 export class DeviceCodeInstance {
-  constructor(protected _version: V1, payload: DeviceCodePayload) {
+  constructor(protected _version: V1, payload: DeviceCodeResource) {
     this.deviceCode = payload.device_code;
     this.userCode = payload.user_code;
     this.verificationUri = payload.verification_uri;

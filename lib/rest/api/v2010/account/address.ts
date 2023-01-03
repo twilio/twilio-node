@@ -334,14 +334,16 @@ export class AddressContextImpl implements AddressContext {
   }
 }
 
-interface AddressPayload extends AddressResource, TwilioResponsePayload {}
+interface AddressPayload extends TwilioResponsePayload {
+  addresses: AddressResource[];
+}
 
 interface AddressResource {
   account_sid?: string | null;
   city?: string | null;
   customer_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   iso_country?: string | null;
   postal_code?: string | null;
@@ -361,7 +363,7 @@ export class AddressInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AddressPayload,
+    payload: AddressResource,
     accountSid: string,
     sid?: string
   ) {
@@ -400,11 +402,11 @@ export class AddressInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -916,7 +918,7 @@ export class AddressPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AddressPayload): AddressInstance {
+  getInstance(payload: AddressResource): AddressInstance {
     return new AddressInstance(
       this._version,
       payload,

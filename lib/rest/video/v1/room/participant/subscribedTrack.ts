@@ -162,9 +162,9 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
   }
 }
 
-interface SubscribedTrackPayload
-  extends SubscribedTrackResource,
-    TwilioResponsePayload {}
+interface SubscribedTrackPayload extends TwilioResponsePayload {
+  subscribed_tracks: SubscribedTrackResource[];
+}
 
 interface SubscribedTrackResource {
   sid?: string | null;
@@ -185,7 +185,7 @@ export class SubscribedTrackInstance {
 
   constructor(
     protected _version: V1,
-    payload: SubscribedTrackPayload,
+    payload: SubscribedTrackResource,
     roomSid: string,
     participantSid: string,
     sid?: string
@@ -573,7 +573,7 @@ export class SubscribedTrackPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance {
+  getInstance(payload: SubscribedTrackResource): SubscribedTrackInstance {
     return new SubscribedTrackInstance(
       this._version,
       payload,

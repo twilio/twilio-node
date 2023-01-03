@@ -202,7 +202,7 @@ export class TaskQueueCumulativeStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: TaskQueueCumulativeStatisticsPayload,
+    payload: TaskQueueCumulativeStatisticsResource,
     workspaceSid: string,
     taskQueueSid: string
   ) {

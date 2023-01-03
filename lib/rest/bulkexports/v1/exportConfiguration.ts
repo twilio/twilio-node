@@ -190,7 +190,7 @@ export class ExportConfigurationInstance {
 
   constructor(
     protected _version: V1,
-    payload: ExportConfigurationPayload,
+    payload: ExportConfigurationResource,
     resourceType?: string
   ) {
     this.enabled = payload.enabled;

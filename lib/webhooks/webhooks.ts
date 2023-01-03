@@ -67,7 +67,7 @@ export interface WebhookOptions {
  * @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
  * @returns {string} - URL with standard port number included
  */
-function buildUrlWithStandardPort(parsedUrl: Url): string {
+function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
   let url = "";
   const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
 
@@ -88,7 +88,7 @@ function buildUrlWithStandardPort(parsedUrl: Url): string {
  server
  @returns {string} - URL with port
  */
-function addPort(parsedUrl: Url): string {
+function addPort(parsedUrl: Url<string>): string {
   if (!parsedUrl.port) {
     return buildUrlWithStandardPort(parsedUrl);
   }
@@ -102,7 +102,7 @@ function addPort(parsedUrl: Url): string {
  server
  @returns {string} - URL without port
  */
-function removePort(parsedUrl: Url): string {
+function removePort(parsedUrl: Url<string>): string {
   parsedUrl.set("port", "");
   return parsedUrl.toString();
 }
@@ -245,17 +245,17 @@ export function validateRequestWithBody(
 }
 
 /**
- Utility function to validate an incoming request is indeed from Twilio (for use with express).
+ Utility function to validate an incoming request is indeed from Twilio.
  adapted from https://github.com/crabasa/twiliosig
 
- @param {object} request - An expressjs request object (http://expressjs.com/api.html#req.params)
+ @param {object} request - A request object (based on Express implementation http://expressjs.com/api.html#req.params)
  @param {string} authToken - The auth token, as seen in the Twilio portal
  @param {object} opts - options for request validation:
     - url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
     - host: manually specify the host name used by Twilio in a number's webhook config
     - protocol: manually specify the protocol used by Twilio in a number's webhook config
  */
-export function validateExpressRequest(
+export function validateIncomingRequest(
   request: Request,
   authToken: string,
   opts?: RequestValidatorOptions
@@ -296,6 +296,14 @@ export function validateExpressRequest(
       request.body || {}
     );
   }
+}
+
+export function validateExpressRequest(
+  request: Request,
+  authToken: string,
+  opts?: RequestValidatorOptions
+): boolean {
+  return validateIncomingRequest(request, authToken, opts);
 }
 
 /**

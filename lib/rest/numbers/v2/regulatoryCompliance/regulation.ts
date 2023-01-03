@@ -156,7 +156,9 @@ export class RegulationContextImpl implements RegulationContext {
   }
 }
 
-interface RegulationPayload extends RegulationResource, TwilioResponsePayload {}
+interface RegulationPayload extends TwilioResponsePayload {
+  results: RegulationResource[];
+}
 
 interface RegulationResource {
   sid?: string | null;
@@ -174,7 +176,7 @@ export class RegulationInstance {
 
   constructor(
     protected _version: V2,
-    payload: RegulationPayload,
+    payload: RegulationResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -514,7 +516,7 @@ export class RegulationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RegulationPayload): RegulationInstance {
+  getInstance(payload: RegulationResource): RegulationInstance {
     return new RegulationInstance(this._version, payload);
   }
 

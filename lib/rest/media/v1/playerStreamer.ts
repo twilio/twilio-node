@@ -255,6 +255,7 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type PlayerStreamerStatusCallbackMethod =
   | "HEAD"
   | "GET"
@@ -263,9 +264,9 @@ export type PlayerStreamerStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface PlayerStreamerPayload
-  extends PlayerStreamerResource,
-    TwilioResponsePayload {}
+interface PlayerStreamerPayload extends TwilioResponsePayload {
+  player_streamers: PlayerStreamerResource[];
+}
 
 interface PlayerStreamerResource {
   account_sid?: string | null;
@@ -288,7 +289,7 @@ export class PlayerStreamerInstance {
 
   constructor(
     protected _version: V1,
-    payload: PlayerStreamerPayload,
+    payload: PlayerStreamerResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -753,7 +754,7 @@ export class PlayerStreamerPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PlayerStreamerPayload): PlayerStreamerInstance {
+  getInstance(payload: PlayerStreamerResource): PlayerStreamerInstance {
     return new PlayerStreamerInstance(this._version, payload);
   }
 

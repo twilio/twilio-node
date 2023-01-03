@@ -369,6 +369,7 @@ export class DomainContextImpl implements DomainContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type DomainVoiceFallbackMethod =
   | "HEAD"
   | "GET"
@@ -391,14 +392,16 @@ export type DomainVoiceStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DomainPayload extends DomainResource, TwilioResponsePayload {}
+interface DomainPayload extends TwilioResponsePayload {
+  domains: DomainResource[];
+}
 
 interface DomainResource {
   account_sid?: string | null;
   api_version?: string | null;
   auth_type?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   domain_name?: string | null;
   friendly_name?: string | null;
   sid?: string | null;
@@ -423,7 +426,7 @@ export class DomainInstance {
 
   constructor(
     protected _version: V2010,
-    payload: DomainPayload,
+    payload: DomainResource,
     accountSid: string,
     sid?: string
   ) {
@@ -467,11 +470,11 @@ export class DomainInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The unique address on Twilio to route SIP traffic
    */
@@ -996,7 +999,7 @@ export class DomainPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DomainPayload): DomainInstance {
+  getInstance(payload: DomainResource): DomainInstance {
     return new DomainInstance(
       this._version,
       payload,

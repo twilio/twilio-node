@@ -137,7 +137,7 @@ interface WebChannelsResource {
 }
 
 export class WebChannelsInstance {
-  constructor(protected _version: V2, payload: WebChannelsPayload) {
+  constructor(protected _version: V2, payload: WebChannelsResource) {
     this.conversationSid = payload.conversation_sid;
     this.identity = payload.identity;
   }

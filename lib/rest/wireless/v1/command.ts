@@ -213,7 +213,9 @@ export class CommandContextImpl implements CommandContext {
   }
 }
 
-interface CommandPayload extends CommandResource, TwilioResponsePayload {}
+interface CommandPayload extends TwilioResponsePayload {
+  commands: CommandResource[];
+}
 
 interface CommandResource {
   sid?: string | null;
@@ -234,7 +236,7 @@ export class CommandInstance {
   protected _solution: CommandContextSolution;
   protected _context?: CommandContext;
 
-  constructor(protected _version: V1, payload: CommandPayload, sid?: string) {
+  constructor(protected _version: V1, payload: CommandResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
@@ -671,7 +673,7 @@ export class CommandPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CommandPayload): CommandInstance {
+  getInstance(payload: CommandResource): CommandInstance {
     return new CommandInstance(this._version, payload);
   }
 

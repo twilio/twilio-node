@@ -425,9 +425,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload
-  extends ParticipantResource,
-    TwilioResponsePayload {}
+interface ParticipantPayload extends TwilioResponsePayload {
+  participants: ParticipantResource[];
+}
 
 interface ParticipantResource {
   account_sid?: string | null;
@@ -436,8 +436,8 @@ interface ParticipantResource {
   call_sid_to_coach?: string | null;
   coaching?: boolean | null;
   conference_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   end_conference_on_exit?: boolean | null;
   muted?: boolean | null;
   hold?: boolean | null;
@@ -452,7 +452,7 @@ export class ParticipantInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ParticipantPayload,
+    payload: ParticipantResource,
     accountSid: string,
     conferenceSid: string,
     callSid?: string
@@ -506,11 +506,11 @@ export class ParticipantInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Whether the conference ends when the participant leaves
    */
@@ -1074,7 +1074,7 @@ export class ParticipantPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance {
+  getInstance(payload: ParticipantResource): ParticipantInstance {
     return new ParticipantInstance(
       this._version,
       payload,

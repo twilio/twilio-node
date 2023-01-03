@@ -359,7 +359,9 @@ export class MessageContextImpl implements MessageContext {
   }
 }
 
-interface MessagePayload extends MessageResource, TwilioResponsePayload {}
+interface MessagePayload extends TwilioResponsePayload {
+  messages: MessageResource[];
+}
 
 interface MessageResource {
   account_sid?: string | null;
@@ -385,7 +387,7 @@ export class MessageInstance {
 
   constructor(
     protected _version: V1,
-    payload: MessagePayload,
+    payload: MessageResource,
     chatServiceSid: string,
     conversationSid: string,
     sid?: string
@@ -934,7 +936,7 @@ export class MessagePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessagePayload): MessageInstance {
+  getInstance(payload: MessageResource): MessageInstance {
     return new MessageInstance(
       this._version,
       payload,

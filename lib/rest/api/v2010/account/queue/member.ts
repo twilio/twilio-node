@@ -224,11 +224,13 @@ export class MemberContextImpl implements MemberContext {
   }
 }
 
-interface MemberPayload extends MemberResource, TwilioResponsePayload {}
+interface MemberPayload extends TwilioResponsePayload {
+  queue_members: MemberResource[];
+}
 
 interface MemberResource {
   call_sid?: string | null;
-  date_enqueued?: string | null;
+  date_enqueued?: Date | null;
   position?: number | null;
   uri?: string | null;
   wait_time?: number | null;
@@ -241,7 +243,7 @@ export class MemberInstance {
 
   constructor(
     protected _version: V2010,
-    payload: MemberPayload,
+    payload: MemberResource,
     accountSid: string,
     queueSid: string,
     callSid?: string
@@ -263,7 +265,7 @@ export class MemberInstance {
   /**
    * The date the member was enqueued
    */
-  dateEnqueued?: string | null;
+  dateEnqueued?: Date | null;
   /**
    * This member\'s current position in the queue.
    */
@@ -611,7 +613,7 @@ export class MemberPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MemberPayload): MemberInstance {
+  getInstance(payload: MemberResource): MemberInstance {
     return new MemberInstance(
       this._version,
       payload,

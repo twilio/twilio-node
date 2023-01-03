@@ -315,9 +315,9 @@ export function HighriskSpecialPrefixListInstance(
   return instance;
 }
 
-interface HighriskSpecialPrefixPayload
-  extends HighriskSpecialPrefixResource,
-    TwilioResponsePayload {}
+interface HighriskSpecialPrefixPayload extends TwilioResponsePayload {
+  content: HighriskSpecialPrefixResource[];
+}
 
 interface HighriskSpecialPrefixResource {
   prefix?: string | null;
@@ -326,7 +326,7 @@ interface HighriskSpecialPrefixResource {
 export class HighriskSpecialPrefixInstance {
   constructor(
     protected _version: V1,
-    payload: HighriskSpecialPrefixPayload,
+    payload: HighriskSpecialPrefixResource,
     isoCode: string
   ) {
     this.prefix = payload.prefix;
@@ -380,7 +380,7 @@ export class HighriskSpecialPrefixPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: HighriskSpecialPrefixPayload
+    payload: HighriskSpecialPrefixResource
   ): HighriskSpecialPrefixInstance {
     return new HighriskSpecialPrefixInstance(
       this._version,

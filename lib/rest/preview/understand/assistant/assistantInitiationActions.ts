@@ -197,7 +197,7 @@ export class AssistantInitiationActionsInstance {
 
   constructor(
     protected _version: Understand,
-    payload: AssistantInitiationActionsPayload,
+    payload: AssistantInitiationActionsResource,
     assistantSid: string
   ) {
     this.accountSid = payload.account_sid;

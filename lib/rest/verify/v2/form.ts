@@ -104,7 +104,7 @@ export class FormInstance {
 
   constructor(
     protected _version: V2,
-    payload: FormPayload,
+    payload: FormResource,
     formType?: FormFormTypes
   ) {
     this.formType = payload.form_type;

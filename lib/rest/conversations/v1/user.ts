@@ -308,7 +308,9 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-interface UserPayload extends UserResource, TwilioResponsePayload {}
+interface UserPayload extends TwilioResponsePayload {
+  users: UserResource[];
+}
 
 interface UserResource {
   sid?: string | null;
@@ -330,7 +332,7 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserPayload, sid?: string) {
+  constructor(protected _version: V1, payload: UserResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -811,7 +813,7 @@ export class UserPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserPayload): UserInstance {
+  getInstance(payload: UserResource): UserInstance {
     return new UserInstance(this._version, payload);
   }
 

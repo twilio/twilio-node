@@ -199,13 +199,14 @@ export class AuthCallsIpAccessControlListMappingContextImpl
 }
 
 interface AuthCallsIpAccessControlListMappingPayload
-  extends AuthCallsIpAccessControlListMappingResource,
-    TwilioResponsePayload {}
+  extends TwilioResponsePayload {
+  contents: AuthCallsIpAccessControlListMappingResource[];
+}
 
 interface AuthCallsIpAccessControlListMappingResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   sid?: string | null;
 }
@@ -216,7 +217,7 @@ export class AuthCallsIpAccessControlListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthCallsIpAccessControlListMappingPayload,
+    payload: AuthCallsIpAccessControlListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -237,11 +238,11 @@ export class AuthCallsIpAccessControlListMappingInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -701,7 +702,7 @@ export class AuthCallsIpAccessControlListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthCallsIpAccessControlListMappingPayload
+    payload: AuthCallsIpAccessControlListMappingResource
   ): AuthCallsIpAccessControlListMappingInstance {
     return new AuthCallsIpAccessControlListMappingInstance(
       this._version,

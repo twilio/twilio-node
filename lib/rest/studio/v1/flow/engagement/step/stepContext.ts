@@ -125,7 +125,7 @@ export class StepContextInstance {
 
   constructor(
     protected _version: V1,
-    payload: StepContextPayload,
+    payload: StepContextResource,
     flowSid: string,
     engagementSid: string,
     stepSid: string

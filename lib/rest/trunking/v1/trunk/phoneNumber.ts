@@ -180,6 +180,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type PhoneNumberSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -216,9 +217,9 @@ export type PhoneNumberVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface PhoneNumberPayload
-  extends PhoneNumberResource,
-    TwilioResponsePayload {}
+interface PhoneNumberPayload extends TwilioResponsePayload {
+  phone_numbers: PhoneNumberResource[];
+}
 
 interface PhoneNumberResource {
   account_sid?: string | null;
@@ -255,7 +256,7 @@ export class PhoneNumberInstance {
 
   constructor(
     protected _version: V1,
-    payload: PhoneNumberPayload,
+    payload: PhoneNumberResource,
     trunkSid: string,
     sid?: string
   ) {
@@ -793,7 +794,7 @@ export class PhoneNumberPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance {
+  getInstance(payload: PhoneNumberResource): PhoneNumberInstance {
     return new PhoneNumberInstance(
       this._version,
       payload,

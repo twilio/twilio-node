@@ -244,13 +244,15 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   }
 }
 
-interface SigningKeyPayload extends SigningKeyResource, TwilioResponsePayload {}
+interface SigningKeyPayload extends TwilioResponsePayload {
+  signing_keys: SigningKeyResource[];
+}
 
 interface SigningKeyResource {
   sid?: string | null;
   friendly_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class SigningKeyInstance {
@@ -259,7 +261,7 @@ export class SigningKeyInstance {
 
   constructor(
     protected _version: V2010,
-    payload: SigningKeyPayload,
+    payload: SigningKeyResource,
     accountSid: string,
     sid?: string
   ) {
@@ -273,8 +275,8 @@ export class SigningKeyInstance {
 
   sid?: string | null;
   friendlyName?: string | null;
-  dateCreated?: string | null;
-  dateUpdated?: string | null;
+  dateCreated?: Date | null;
+  dateUpdated?: Date | null;
 
   private get _proxy(): SigningKeyContext {
     this._context =
@@ -619,7 +621,7 @@ export class SigningKeyPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SigningKeyPayload): SigningKeyInstance {
+  getInstance(payload: SigningKeyResource): SigningKeyInstance {
     return new SigningKeyInstance(
       this._version,
       payload,

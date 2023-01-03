@@ -298,9 +298,9 @@ export function SimIpAddressListInstance(
   return instance;
 }
 
-interface SimIpAddressPayload
-  extends SimIpAddressResource,
-    TwilioResponsePayload {}
+interface SimIpAddressPayload extends TwilioResponsePayload {
+  ip_addresses: SimIpAddressResource[];
+}
 
 interface SimIpAddressResource {
   ip_address?: string | null;
@@ -310,7 +310,7 @@ interface SimIpAddressResource {
 export class SimIpAddressInstance {
   constructor(
     protected _version: V1,
-    payload: SimIpAddressPayload,
+    payload: SimIpAddressResource,
     simSid: string
   ) {
     this.ipAddress = payload.ip_address;
@@ -366,7 +366,7 @@ export class SimIpAddressPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SimIpAddressPayload): SimIpAddressInstance {
+  getInstance(payload: SimIpAddressResource): SimIpAddressInstance {
     return new SimIpAddressInstance(
       this._version,
       payload,

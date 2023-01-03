@@ -466,12 +466,14 @@ export class AccountContextImpl implements AccountContext {
   }
 }
 
-interface AccountPayload extends AccountResource, TwilioResponsePayload {}
+interface AccountPayload extends TwilioResponsePayload {
+  accounts: AccountResource[];
+}
 
 interface AccountResource {
   auth_token?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   owner_account_sid?: string | null;
   sid?: string | null;
@@ -487,7 +489,7 @@ export class AccountInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AccountPayload,
+    payload: AccountResource,
     sid?: string
   ) {
     this.authToken = payload.auth_token;
@@ -511,11 +513,11 @@ export class AccountInstance {
   /**
    * The date this account was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this account was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * A human readable description of this account
    */
@@ -1095,7 +1097,7 @@ export class AccountPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AccountPayload): AccountInstance {
+  getInstance(payload: AccountResource): AccountInstance {
     return new AccountInstance(this._version, payload);
   }
 

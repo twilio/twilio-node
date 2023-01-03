@@ -198,7 +198,9 @@ export class InviteContextImpl implements InviteContext {
   }
 }
 
-interface InvitePayload extends InviteResource, TwilioResponsePayload {}
+interface InvitePayload extends TwilioResponsePayload {
+  invites: InviteResource[];
+}
 
 interface InviteResource {
   sid?: string | null;
@@ -219,7 +221,7 @@ export class InviteInstance {
 
   constructor(
     protected _version: V2,
-    payload: InvitePayload,
+    payload: InviteResource,
     serviceSid: string,
     channelSid: string,
     sid?: string
@@ -670,7 +672,7 @@ export class InvitePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InvitePayload): InviteInstance {
+  getInstance(payload: InviteResource): InviteInstance {
     return new InviteInstance(
       this._version,
       payload,

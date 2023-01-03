@@ -295,7 +295,9 @@ export class FactorContextImpl implements FactorContext {
   }
 }
 
-interface FactorPayload extends FactorResource, TwilioResponsePayload {}
+interface FactorPayload extends TwilioResponsePayload {
+  factors: FactorResource[];
+}
 
 interface FactorResource {
   sid?: string | null;
@@ -319,7 +321,7 @@ export class FactorInstance {
 
   constructor(
     protected _version: V2,
-    payload: FactorPayload,
+    payload: FactorResource,
     serviceSid: string,
     identity: string,
     sid?: string
@@ -747,7 +749,7 @@ export class FactorPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FactorPayload): FactorInstance {
+  getInstance(payload: FactorResource): FactorInstance {
     return new FactorInstance(
       this._version,
       payload,

@@ -228,7 +228,7 @@ interface NewFactorResource {
 export class NewFactorInstance {
   constructor(
     protected _version: V2,
-    payload: NewFactorPayload,
+    payload: NewFactorResource,
     serviceSid: string,
     identity: string
   ) {

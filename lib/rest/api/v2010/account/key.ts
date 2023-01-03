@@ -244,13 +244,15 @@ export class KeyContextImpl implements KeyContext {
   }
 }
 
-interface KeyPayload extends KeyResource, TwilioResponsePayload {}
+interface KeyPayload extends TwilioResponsePayload {
+  keys: KeyResource[];
+}
 
 interface KeyResource {
   sid?: string | null;
   friendly_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
 }
 
 export class KeyInstance {
@@ -259,7 +261,7 @@ export class KeyInstance {
 
   constructor(
     protected _version: V2010,
-    payload: KeyPayload,
+    payload: KeyResource,
     accountSid: string,
     sid?: string
   ) {
@@ -282,11 +284,11 @@ export class KeyInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
 
   private get _proxy(): KeyContext {
     this._context =
@@ -626,7 +628,7 @@ export class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: KeyPayload): KeyInstance {
+  getInstance(payload: KeyResource): KeyInstance {
     return new KeyInstance(this._version, payload, this._solution.accountSid);
   }
 

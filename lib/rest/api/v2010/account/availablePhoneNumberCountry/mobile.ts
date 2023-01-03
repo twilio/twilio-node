@@ -19,7 +19,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
 
 /**
  * Options to pass to each
@@ -447,7 +447,9 @@ export function MobileListInstance(
   return instance;
 }
 
-interface MobilePayload extends MobileResource, TwilioResponsePayload {}
+interface MobilePayload extends TwilioResponsePayload {
+  available_phone_numbers: MobileResource[];
+}
 
 interface MobileResource {
   friendly_name?: string | null;
@@ -468,7 +470,7 @@ interface MobileResource {
 export class MobileInstance {
   constructor(
     protected _version: V2010,
-    payload: MobilePayload,
+    payload: MobileResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -591,7 +593,7 @@ export class MobilePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MobilePayload): MobileInstance {
+  getInstance(payload: MobileResource): MobileInstance {
     return new MobileInstance(
       this._version,
       payload,

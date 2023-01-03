@@ -174,9 +174,9 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   }
 }
 
-interface ExecutionStepPayload
-  extends ExecutionStepResource,
-    TwilioResponsePayload {}
+interface ExecutionStepPayload extends TwilioResponsePayload {
+  steps: ExecutionStepResource[];
+}
 
 interface ExecutionStepResource {
   sid?: string | null;
@@ -199,7 +199,7 @@ export class ExecutionStepInstance {
 
   constructor(
     protected _version: V1,
-    payload: ExecutionStepPayload,
+    payload: ExecutionStepResource,
     flowSid: string,
     executionSid: string,
     sid?: string
@@ -603,7 +603,7 @@ export class ExecutionStepPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ExecutionStepPayload): ExecutionStepInstance {
+  getInstance(payload: ExecutionStepResource): ExecutionStepInstance {
     return new ExecutionStepInstance(
       this._version,
       payload,

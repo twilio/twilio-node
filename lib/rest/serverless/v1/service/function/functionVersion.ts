@@ -179,9 +179,9 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
   }
 }
 
-interface FunctionVersionPayload
-  extends FunctionVersionResource,
-    TwilioResponsePayload {}
+interface FunctionVersionPayload extends TwilioResponsePayload {
+  function_versions: FunctionVersionResource[];
+}
 
 interface FunctionVersionResource {
   sid?: string | null;
@@ -201,7 +201,7 @@ export class FunctionVersionInstance {
 
   constructor(
     protected _version: V1,
-    payload: FunctionVersionPayload,
+    payload: FunctionVersionResource,
     serviceSid: string,
     functionSid: string,
     sid?: string
@@ -587,7 +587,7 @@ export class FunctionVersionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FunctionVersionPayload): FunctionVersionInstance {
+  getInstance(payload: FunctionVersionResource): FunctionVersionInstance {
     return new FunctionVersionInstance(
       this._version,
       payload,

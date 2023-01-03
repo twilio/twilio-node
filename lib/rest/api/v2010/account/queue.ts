@@ -274,17 +274,19 @@ export class QueueContextImpl implements QueueContext {
   }
 }
 
-interface QueuePayload extends QueueResource, TwilioResponsePayload {}
+interface QueuePayload extends TwilioResponsePayload {
+  queues: QueueResource[];
+}
 
 interface QueueResource {
-  date_updated?: string | null;
+  date_updated?: Date | null;
   current_size?: number | null;
   friendly_name?: string | null;
   uri?: string | null;
   account_sid?: string | null;
   average_wait_time?: number | null;
   sid?: string | null;
-  date_created?: string | null;
+  date_created?: Date | null;
   max_size?: number | null;
 }
 
@@ -294,7 +296,7 @@ export class QueueInstance {
 
   constructor(
     protected _version: V2010,
-    payload: QueuePayload,
+    payload: QueueResource,
     accountSid: string,
     sid?: string
   ) {
@@ -314,7 +316,7 @@ export class QueueInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The number of calls currently in the queue.
    */
@@ -342,7 +344,7 @@ export class QueueInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The max number of calls allowed in the queue
    */
@@ -760,7 +762,7 @@ export class QueuePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: QueuePayload): QueueInstance {
+  getInstance(payload: QueueResource): QueueInstance {
     return new QueueInstance(this._version, payload, this._solution.accountSid);
   }
 

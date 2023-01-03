@@ -267,16 +267,16 @@ export class IpAccessControlListContextImpl
   }
 }
 
-interface IpAccessControlListPayload
-  extends IpAccessControlListResource,
-    TwilioResponsePayload {}
+interface IpAccessControlListPayload extends TwilioResponsePayload {
+  ip_access_control_lists: IpAccessControlListResource[];
+}
 
 interface IpAccessControlListResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   subresource_uris?: object | null;
   uri?: string | null;
 }
@@ -287,7 +287,7 @@ export class IpAccessControlListInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IpAccessControlListPayload,
+    payload: IpAccessControlListResource,
     accountSid: string,
     sid?: string
   ) {
@@ -317,11 +317,11 @@ export class IpAccessControlListInstance {
   /**
    * The date this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The IP addresses associated with this resource.
    */
@@ -753,7 +753,7 @@ export class IpAccessControlListPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: IpAccessControlListPayload
+    payload: IpAccessControlListResource
   ): IpAccessControlListInstance {
     return new IpAccessControlListInstance(
       this._version,

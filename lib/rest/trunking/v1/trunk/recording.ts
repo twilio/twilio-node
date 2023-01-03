@@ -188,7 +188,7 @@ export class RecordingInstance {
 
   constructor(
     protected _version: V1,
-    payload: RecordingPayload,
+    payload: RecordingResource,
     trunkSid: string
   ) {
     this.mode = payload.mode;

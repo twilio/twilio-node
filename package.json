@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "4.0.0-rc.3",
+  "version": "4.0.0-rc.4",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -23,7 +23,7 @@
     "axios": "^0.26.1",
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "qs": "^6.9.4",
     "scmp": "^2.1.0",
     "url-parse": "^1.5.9",
@@ -33,7 +33,10 @@
     "@babel/preset-env": "7.18.2",
     "@babel/preset-typescript": "7.17.12",
     "@types/jest": "^27.5.2",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/node": "9.6.57",
+    "@types/qs": "^6.9.7",
+    "@types/url-parse": "^1.4.8",
     "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^7.28.0",
     "express": "^4.17.1",
@@ -55,7 +58,7 @@
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
     "prepublish": "npm run build",
-    "build": "tsc || true && cp package.json dist/",
+    "build": "tsc && cp package.json dist/",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "jsdoc": "jsdoc -r lib -d docs",

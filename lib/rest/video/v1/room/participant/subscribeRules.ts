@@ -207,7 +207,7 @@ interface SubscribeRulesResource {
 export class SubscribeRulesInstance {
   constructor(
     protected _version: V1,
-    payload: SubscribeRulesPayload,
+    payload: SubscribeRulesResource,
     roomSid: string,
     participantSid: string
   ) {

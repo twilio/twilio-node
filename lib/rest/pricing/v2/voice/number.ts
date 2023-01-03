@@ -163,7 +163,7 @@ export class NumberInstance {
 
   constructor(
     protected _version: V2,
-    payload: NumberPayload,
+    payload: NumberResource,
     destinationNumber?: string
   ) {
     this.destinationNumber = payload.destination_number;

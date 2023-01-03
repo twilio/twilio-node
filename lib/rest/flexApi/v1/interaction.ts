@@ -126,7 +126,7 @@ export class InteractionInstance {
 
   constructor(
     protected _version: V1,
-    payload: InteractionPayload,
+    payload: InteractionResource,
     sid?: string
   ) {
     this.sid = payload.sid;

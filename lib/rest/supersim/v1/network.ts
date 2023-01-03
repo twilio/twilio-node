@@ -154,7 +154,9 @@ export class NetworkContextImpl implements NetworkContext {
   }
 }
 
-interface NetworkPayload extends NetworkResource, TwilioResponsePayload {}
+interface NetworkPayload extends TwilioResponsePayload {
+  networks: NetworkResource[];
+}
 
 interface NetworkResource {
   sid?: string | null;
@@ -168,7 +170,7 @@ export class NetworkInstance {
   protected _solution: NetworkContextSolution;
   protected _context?: NetworkContext;
 
-  constructor(protected _version: V1, payload: NetworkPayload, sid?: string) {
+  constructor(protected _version: V1, payload: NetworkResource, sid?: string) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.url = payload.url;
@@ -495,7 +497,7 @@ export class NetworkPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: NetworkPayload): NetworkInstance {
+  getInstance(payload: NetworkResource): NetworkInstance {
     return new NetworkInstance(this._version, payload);
   }
 

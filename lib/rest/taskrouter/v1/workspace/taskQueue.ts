@@ -22,7 +22,6 @@ import { isValidPathParam } from "../../../../base/utility";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
-
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
 type TaskQueueTaskOrder = "FIFO" | "LIFO";
@@ -355,7 +354,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   }
 }
 
-interface TaskQueuePayload extends TaskQueueResource, TwilioResponsePayload {}
+interface TaskQueuePayload extends TwilioResponsePayload {
+  task_queues: TaskQueueResource[];
+}
 
 interface TaskQueueResource {
   account_sid?: string | null;
@@ -381,7 +382,7 @@ export class TaskQueueInstance {
 
   constructor(
     protected _version: V1,
-    payload: TaskQueuePayload,
+    payload: TaskQueueResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -930,7 +931,7 @@ export class TaskQueuePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskQueuePayload): TaskQueueInstance {
+  getInstance(payload: TaskQueueResource): TaskQueueInstance {
     return new TaskQueueInstance(
       this._version,
       payload,

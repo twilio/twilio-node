@@ -225,9 +225,9 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 }
 
-interface BrandRegistrationPayload
-  extends BrandRegistrationResource,
-    TwilioResponsePayload {}
+interface BrandRegistrationPayload extends TwilioResponsePayload {
+  data: BrandRegistrationResource[];
+}
 
 interface BrandRegistrationResource {
   sid?: string | null;
@@ -258,7 +258,7 @@ export class BrandRegistrationInstance {
 
   constructor(
     protected _version: V1,
-    payload: BrandRegistrationPayload,
+    payload: BrandRegistrationResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -774,7 +774,7 @@ export class BrandRegistrationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance {
+  getInstance(payload: BrandRegistrationResource): BrandRegistrationInstance {
     return new BrandRegistrationInstance(this._version, payload);
   }
 

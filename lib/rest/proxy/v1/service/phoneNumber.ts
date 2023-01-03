@@ -19,7 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
 
 /**
  * Options to pass to update a PhoneNumberInstance
@@ -258,9 +258,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 }
 
-interface PhoneNumberPayload
-  extends PhoneNumberResource,
-    TwilioResponsePayload {}
+interface PhoneNumberPayload extends TwilioResponsePayload {
+  phone_numbers: PhoneNumberResource[];
+}
 
 interface PhoneNumberResource {
   sid?: string | null;
@@ -283,7 +283,7 @@ export class PhoneNumberInstance {
 
   constructor(
     protected _version: V1,
-    payload: PhoneNumberPayload,
+    payload: PhoneNumberResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -771,7 +771,7 @@ export class PhoneNumberPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance {
+  getInstance(payload: PhoneNumberResource): PhoneNumberInstance {
     return new PhoneNumberInstance(
       this._version,
       payload,

@@ -173,9 +173,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
-interface ParticipantPayload
-  extends ParticipantResource,
-    TwilioResponsePayload {}
+interface ParticipantPayload extends TwilioResponsePayload {
+  participants: ParticipantResource[];
+}
 
 interface ParticipantResource {
   participant_sid?: string | null;
@@ -203,7 +203,7 @@ export class ParticipantInstance {
 
   constructor(
     protected _version: V1,
-    payload: ParticipantPayload,
+    payload: ParticipantResource,
     roomSid: string,
     participantSid?: string
   ) {
@@ -610,7 +610,7 @@ export class ParticipantPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance {
+  getInstance(payload: ParticipantResource): ParticipantInstance {
     return new ParticipantInstance(
       this._version,
       payload,

@@ -204,8 +204,9 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
 }
 
 interface TrustProductsChannelEndpointAssignmentPayload
-  extends TrustProductsChannelEndpointAssignmentResource,
-    TwilioResponsePayload {}
+  extends TwilioResponsePayload {
+  results: TrustProductsChannelEndpointAssignmentResource[];
+}
 
 interface TrustProductsChannelEndpointAssignmentResource {
   sid?: string | null;
@@ -223,7 +224,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
 
   constructor(
     protected _version: V1,
-    payload: TrustProductsChannelEndpointAssignmentPayload,
+    payload: TrustProductsChannelEndpointAssignmentResource,
     trustProductSid: string,
     sid?: string
   ) {
@@ -729,7 +730,7 @@ export class TrustProductsChannelEndpointAssignmentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TrustProductsChannelEndpointAssignmentPayload
+    payload: TrustProductsChannelEndpointAssignmentResource
   ): TrustProductsChannelEndpointAssignmentInstance {
     return new TrustProductsChannelEndpointAssignmentInstance(
       this._version,

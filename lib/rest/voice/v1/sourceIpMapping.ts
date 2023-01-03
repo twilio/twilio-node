@@ -244,9 +244,9 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
   }
 }
 
-interface SourceIpMappingPayload
-  extends SourceIpMappingResource,
-    TwilioResponsePayload {}
+interface SourceIpMappingPayload extends TwilioResponsePayload {
+  source_ip_mappings: SourceIpMappingResource[];
+}
 
 interface SourceIpMappingResource {
   sid?: string | null;
@@ -263,7 +263,7 @@ export class SourceIpMappingInstance {
 
   constructor(
     protected _version: V1,
-    payload: SourceIpMappingPayload,
+    payload: SourceIpMappingResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -695,7 +695,7 @@ export class SourceIpMappingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SourceIpMappingPayload): SourceIpMappingInstance {
+  getInstance(payload: SourceIpMappingResource): SourceIpMappingInstance {
     return new SourceIpMappingInstance(this._version, payload);
   }
 

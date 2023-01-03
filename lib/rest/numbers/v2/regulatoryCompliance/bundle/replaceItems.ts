@@ -162,7 +162,7 @@ interface ReplaceItemsResource {
 export class ReplaceItemsInstance {
   constructor(
     protected _version: V2,
-    payload: ReplaceItemsPayload,
+    payload: ReplaceItemsResource,
     bundleSid: string
   ) {
     this.sid = payload.sid;

@@ -19,7 +19,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
 
 /**
  * Options to pass to each
@@ -447,7 +447,9 @@ export function LocalListInstance(
   return instance;
 }
 
-interface LocalPayload extends LocalResource, TwilioResponsePayload {}
+interface LocalPayload extends TwilioResponsePayload {
+  available_phone_numbers: LocalResource[];
+}
 
 interface LocalResource {
   friendly_name?: string | null;
@@ -468,7 +470,7 @@ interface LocalResource {
 export class LocalInstance {
   constructor(
     protected _version: V2010,
-    payload: LocalPayload,
+    payload: LocalResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -591,7 +593,7 @@ export class LocalPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LocalPayload): LocalInstance {
+  getInstance(payload: LocalResource): LocalInstance {
     return new LocalInstance(
       this._version,
       payload,

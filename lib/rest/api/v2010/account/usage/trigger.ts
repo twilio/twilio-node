@@ -541,6 +541,7 @@ export class TriggerContextImpl implements TriggerContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type TriggerCallbackMethod =
   | "HEAD"
   | "GET"
@@ -549,7 +550,9 @@ export type TriggerCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface TriggerPayload extends TriggerResource, TwilioResponsePayload {}
+interface TriggerPayload extends TwilioResponsePayload {
+  usage_triggers: TriggerResource[];
+}
 
 interface TriggerResource {
   account_sid?: string | null;
@@ -557,9 +560,9 @@ interface TriggerResource {
   callback_method?: TriggerCallbackMethod;
   callback_url?: string | null;
   current_value?: string | null;
-  date_created?: string | null;
-  date_fired?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_fired?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   recurring?: UsageTriggerRecurring;
   sid?: string | null;
@@ -576,7 +579,7 @@ export class TriggerInstance {
 
   constructor(
     protected _version: V2010,
-    payload: TriggerPayload,
+    payload: TriggerResource,
     accountSid: string,
     sid?: string
   ) {
@@ -623,15 +626,15 @@ export class TriggerInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the trigger was last fired
    */
-  dateFired?: string | null;
+  dateFired?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the trigger
    */
@@ -1102,7 +1105,7 @@ export class TriggerPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TriggerPayload): TriggerInstance {
+  getInstance(payload: TriggerResource): TriggerInstance {
     return new TriggerInstance(
       this._version,
       payload,

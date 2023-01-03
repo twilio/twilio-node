@@ -189,8 +189,8 @@ interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   issues?: Array<CallFeedbackIssues> | null;
   quality_score?: number | null;
   sid?: string | null;
@@ -202,7 +202,7 @@ export class FeedbackInstance {
 
   constructor(
     protected _version: V2010,
-    payload: FeedbackPayload,
+    payload: FeedbackResource,
     accountSid: string,
     callSid: string
   ) {
@@ -223,11 +223,11 @@ export class FeedbackInstance {
   /**
    * The date this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Issues experienced during the call
    */

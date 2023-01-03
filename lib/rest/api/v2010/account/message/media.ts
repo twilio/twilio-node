@@ -200,13 +200,15 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
-interface MediaPayload extends MediaResource, TwilioResponsePayload {}
+interface MediaPayload extends TwilioResponsePayload {
+  media_list: MediaResource[];
+}
 
 interface MediaResource {
   account_sid?: string | null;
   content_type?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   parent_sid?: string | null;
   sid?: string | null;
   uri?: string | null;
@@ -218,7 +220,7 @@ export class MediaInstance {
 
   constructor(
     protected _version: V2010,
-    payload: MediaPayload,
+    payload: MediaResource,
     accountSid: string,
     messageSid: string,
     sid?: string
@@ -245,11 +247,11 @@ export class MediaInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The SID of the resource that created the media
    */
@@ -600,7 +602,7 @@ export class MediaPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MediaPayload): MediaInstance {
+  getInstance(payload: MediaResource): MediaInstance {
     return new MediaInstance(
       this._version,
       payload,

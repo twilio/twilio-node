@@ -292,7 +292,9 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-interface ServicePayload extends ServiceResource, TwilioResponsePayload {}
+interface ServicePayload extends TwilioResponsePayload {
+  services: ServiceResource[];
+}
 
 interface ServiceResource {
   sid?: string | null;
@@ -312,7 +314,7 @@ export class ServiceInstance {
   protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
-  constructor(protected _version: V1, payload: ServicePayload, sid?: string) {
+  constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -803,7 +805,7 @@ export class ServicePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance {
+  getInstance(payload: ServiceResource): ServiceInstance {
     return new ServiceInstance(this._version, payload);
   }
 

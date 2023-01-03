@@ -17,7 +17,6 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-
 import { NotificationListInstance } from "./configuration/notification";
 import { WebhookListInstance } from "./configuration/webhook";
 
@@ -200,7 +199,7 @@ export class ConfigurationInstance {
 
   constructor(
     protected _version: V1,
-    payload: ConfigurationPayload,
+    payload: ConfigurationResource,
     chatServiceSid: string
   ) {
     this.chatServiceSid = payload.chat_service_sid;

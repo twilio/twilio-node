@@ -300,6 +300,7 @@ export class SimContextImpl implements SimContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type SimSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -323,7 +324,9 @@ export type SimVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface SimPayload extends SimResource, TwilioResponsePayload {}
+interface SimPayload extends TwilioResponsePayload {
+  sims: SimResource[];
+}
 
 interface SimResource {
   sid?: string | null;
@@ -354,7 +357,11 @@ export class SimInstance {
   protected _solution: SimContextSolution;
   protected _context?: SimContext;
 
-  constructor(protected _version: Wireless, payload: SimPayload, sid?: string) {
+  constructor(
+    protected _version: Wireless,
+    payload: SimResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -751,7 +758,7 @@ export class SimPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SimPayload): SimInstance {
+  getInstance(payload: SimResource): SimInstance {
     return new SimInstance(this._version, payload);
   }
 

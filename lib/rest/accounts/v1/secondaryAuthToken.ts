@@ -121,7 +121,7 @@ export class SecondaryAuthTokenInstance {
   protected _solution: SecondaryAuthTokenContextSolution;
   protected _context?: SecondaryAuthTokenContext;
 
-  constructor(protected _version: V1, payload: SecondaryAuthTokenPayload) {
+  constructor(protected _version: V1, payload: SecondaryAuthTokenResource) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

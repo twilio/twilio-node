@@ -342,6 +342,7 @@ export class ApplicationContextImpl implements ApplicationContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ApplicationSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -378,15 +379,15 @@ export type ApplicationVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface ApplicationPayload
-  extends ApplicationResource,
-    TwilioResponsePayload {}
+interface ApplicationPayload extends TwilioResponsePayload {
+  applications: ApplicationResource[];
+}
 
 interface ApplicationResource {
   account_sid?: string | null;
   api_version?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   message_status_callback?: string | null;
   sid?: string | null;
@@ -411,7 +412,7 @@ export class ApplicationInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ApplicationPayload,
+    payload: ApplicationResource,
     accountSid: string,
     sid?: string
   ) {
@@ -450,11 +451,11 @@ export class ApplicationInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -977,7 +978,7 @@ export class ApplicationPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ApplicationPayload): ApplicationInstance {
+  getInstance(payload: ApplicationResource): ApplicationInstance {
     return new ApplicationInstance(
       this._version,
       payload,

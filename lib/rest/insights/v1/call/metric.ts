@@ -319,7 +319,9 @@ export function MetricListInstance(
   return instance;
 }
 
-interface MetricPayload extends MetricResource, TwilioResponsePayload {}
+interface MetricPayload extends TwilioResponsePayload {
+  metrics: MetricResource[];
+}
 
 interface MetricResource {
   timestamp?: string | null;
@@ -334,7 +336,11 @@ interface MetricResource {
 }
 
 export class MetricInstance {
-  constructor(protected _version: V1, payload: MetricPayload, callSid: string) {
+  constructor(
+    protected _version: V1,
+    payload: MetricResource,
+    callSid: string
+  ) {
     this.timestamp = payload.timestamp;
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
@@ -406,7 +412,7 @@ export class MetricPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MetricPayload): MetricInstance {
+  getInstance(payload: MetricResource): MetricInstance {
     return new MetricInstance(this._version, payload, this._solution.callSid);
   }
 

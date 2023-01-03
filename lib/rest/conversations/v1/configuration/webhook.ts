@@ -182,7 +182,7 @@ export class WebhookInstance {
   protected _solution: WebhookContextSolution;
   protected _context?: WebhookContext;
 
-  constructor(protected _version: V1, payload: WebhookPayload) {
+  constructor(protected _version: V1, payload: WebhookResource) {
     this.accountSid = payload.account_sid;
     this.method = payload.method;
     this.filters = payload.filters;

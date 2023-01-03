@@ -573,7 +573,9 @@ export function TodayListInstance(
   return instance;
 }
 
-interface TodayPayload extends TodayResource, TwilioResponsePayload {}
+interface TodayPayload extends TwilioResponsePayload {
+  usage_records: TodayResource[];
+}
 
 interface TodayResource {
   account_sid?: string | null;
@@ -596,7 +598,7 @@ interface TodayResource {
 export class TodayInstance {
   constructor(
     protected _version: V2010,
-    payload: TodayPayload,
+    payload: TodayResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -730,7 +732,7 @@ export class TodayPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TodayPayload): TodayInstance {
+  getInstance(payload: TodayResource): TodayInstance {
     return new TodayInstance(this._version, payload, this._solution.accountSid);
   }
 

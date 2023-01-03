@@ -174,7 +174,7 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V1, payload: ConfigurationPayload) {
+  constructor(protected _version: V1, payload: ConfigurationResource) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

@@ -266,15 +266,17 @@ export class CredentialContextImpl implements CredentialContext {
   }
 }
 
-interface CredentialPayload extends CredentialResource, TwilioResponsePayload {}
+interface CredentialPayload extends TwilioResponsePayload {
+  credentials: CredentialResource[];
+}
 
 interface CredentialResource {
   sid?: string | null;
   account_sid?: string | null;
   credential_list_sid?: string | null;
   username?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   uri?: string | null;
 }
 
@@ -284,7 +286,7 @@ export class CredentialInstance {
 
   constructor(
     protected _version: V2010,
-    payload: CredentialPayload,
+    payload: CredentialResource,
     accountSid: string,
     credentialListSid: string,
     sid?: string
@@ -319,11 +321,11 @@ export class CredentialInstance {
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
@@ -751,7 +753,7 @@ export class CredentialPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialPayload): CredentialInstance {
+  getInstance(payload: CredentialResource): CredentialInstance {
     return new CredentialInstance(
       this._version,
       payload,

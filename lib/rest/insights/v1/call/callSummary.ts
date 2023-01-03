@@ -186,7 +186,7 @@ export class CallSummaryInstance {
 
   constructor(
     protected _version: V1,
-    payload: CallSummaryPayload,
+    payload: CallSummaryResource,
     callSid: string
   ) {
     this.accountSid = payload.account_sid;

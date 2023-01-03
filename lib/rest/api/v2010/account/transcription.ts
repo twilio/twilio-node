@@ -173,15 +173,15 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 }
 
-interface TranscriptionPayload
-  extends TranscriptionResource,
-    TwilioResponsePayload {}
+interface TranscriptionPayload extends TwilioResponsePayload {
+  transcriptions: TranscriptionResource[];
+}
 
 interface TranscriptionResource {
   account_sid?: string | null;
   api_version?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   duration?: string | null;
   price?: number | null;
   price_unit?: string | null;
@@ -199,7 +199,7 @@ export class TranscriptionInstance {
 
   constructor(
     protected _version: V2010,
-    payload: TranscriptionPayload,
+    payload: TranscriptionResource,
     accountSid: string,
     sid?: string
   ) {
@@ -231,11 +231,11 @@ export class TranscriptionInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The duration of the transcribed audio in seconds.
    */
@@ -604,7 +604,7 @@ export class TranscriptionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TranscriptionPayload): TranscriptionInstance {
+  getInstance(payload: TranscriptionResource): TranscriptionInstance {
     return new TranscriptionInstance(
       this._version,
       payload,

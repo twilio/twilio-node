@@ -564,7 +564,7 @@ interface SiprecResource {
   call_sid?: string | null;
   name?: string | null;
   status?: SiprecStatus;
-  date_updated?: string | null;
+  date_updated?: Date | null;
   uri?: string | null;
 }
 
@@ -574,7 +574,7 @@ export class SiprecInstance {
 
   constructor(
     protected _version: V2010,
-    payload: SiprecPayload,
+    payload: SiprecResource,
     accountSid: string,
     callSid: string,
     sid?: string
@@ -610,7 +610,7 @@ export class SiprecInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */

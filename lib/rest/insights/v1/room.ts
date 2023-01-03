@@ -212,6 +212,7 @@ export class RoomContextImpl implements RoomContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type RoomStatusCallbackMethod =
   | "HEAD"
   | "GET"
@@ -220,7 +221,9 @@ export type RoomStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface RoomPayload extends RoomResource, TwilioResponsePayload {}
+interface RoomPayload extends TwilioResponsePayload {
+  rooms: RoomResource[];
+}
 
 interface RoomResource {
   account_sid?: string | null;
@@ -255,7 +258,7 @@ export class RoomInstance {
   protected _solution: RoomContextSolution;
   protected _context?: RoomContext;
 
-  constructor(protected _version: V1, payload: RoomPayload, roomSid?: string) {
+  constructor(protected _version: V1, payload: RoomResource, roomSid?: string) {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
     this.roomName = payload.room_name;
@@ -703,7 +706,7 @@ export class RoomPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RoomPayload): RoomInstance {
+  getInstance(payload: RoomResource): RoomInstance {
     return new RoomInstance(this._version, payload);
   }
 

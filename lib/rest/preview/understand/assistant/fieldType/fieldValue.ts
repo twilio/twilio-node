@@ -200,7 +200,9 @@ export class FieldValueContextImpl implements FieldValueContext {
   }
 }
 
-interface FieldValuePayload extends FieldValueResource, TwilioResponsePayload {}
+interface FieldValuePayload extends TwilioResponsePayload {
+  field_values: FieldValueResource[];
+}
 
 interface FieldValueResource {
   account_sid?: string | null;
@@ -221,7 +223,7 @@ export class FieldValueInstance {
 
   constructor(
     protected _version: Understand,
-    payload: FieldValuePayload,
+    payload: FieldValueResource,
     assistantSid: string,
     fieldTypeSid: string,
     sid?: string
@@ -675,7 +677,7 @@ export class FieldValuePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FieldValuePayload): FieldValueInstance {
+  getInstance(payload: FieldValueResource): FieldValueInstance {
     return new FieldValueInstance(
       this._version,
       payload,

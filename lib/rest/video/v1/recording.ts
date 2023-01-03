@@ -204,6 +204,7 @@ export class RecordingContextImpl implements RecordingContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type RecordingStatusCallbackMethod =
   | "HEAD"
   | "GET"
@@ -212,7 +213,9 @@ export type RecordingStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface RecordingPayload extends RecordingResource, TwilioResponsePayload {}
+interface RecordingPayload extends TwilioResponsePayload {
+  recordings: RecordingResource[];
+}
 
 interface RecordingResource {
   account_sid?: string | null;
@@ -239,7 +242,11 @@ export class RecordingInstance {
   protected _solution: RecordingContextSolution;
   protected _context?: RecordingContext;
 
-  constructor(protected _version: V1, payload: RecordingPayload, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: RecordingResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -656,7 +663,7 @@ export class RecordingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingPayload): RecordingInstance {
+  getInstance(payload: RecordingResource): RecordingInstance {
     return new RecordingInstance(this._version, payload);
   }
 

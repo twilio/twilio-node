@@ -364,9 +364,9 @@ export type DependentPhoneNumberStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface DependentPhoneNumberPayload
-  extends DependentPhoneNumberResource,
-    TwilioResponsePayload {}
+interface DependentPhoneNumberPayload extends TwilioResponsePayload {
+  dependent_phone_numbers: DependentPhoneNumberResource[];
+}
 
 interface DependentPhoneNumberResource {
   sid?: string | null;
@@ -378,8 +378,8 @@ interface DependentPhoneNumberResource {
   voice_fallback_method?: DependentPhoneNumberVoiceFallbackMethod;
   voice_fallback_url?: string | null;
   voice_caller_id_lookup?: boolean | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   sms_fallback_method?: DependentPhoneNumberSmsFallbackMethod;
   sms_fallback_url?: string | null;
   sms_method?: DependentPhoneNumberSmsMethod;
@@ -400,7 +400,7 @@ interface DependentPhoneNumberResource {
 export class DependentPhoneNumberInstance {
   constructor(
     protected _version: V2010,
-    payload: DependentPhoneNumberPayload,
+    payload: DependentPhoneNumberResource,
     accountSid: string,
     addressSid: string
   ) {
@@ -471,11 +471,11 @@ export class DependentPhoneNumberInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The HTTP method used with sms_fallback_url
    */
@@ -599,7 +599,7 @@ export class DependentPhoneNumberPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DependentPhoneNumberPayload
+    payload: DependentPhoneNumberResource
   ): DependentPhoneNumberInstance {
     return new DependentPhoneNumberInstance(
       this._version,

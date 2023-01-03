@@ -146,9 +146,9 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   }
 }
 
-interface SchemaVersionPayload
-  extends SchemaVersionResource,
-    TwilioResponsePayload {}
+interface SchemaVersionPayload extends TwilioResponsePayload {
+  schema_versions: SchemaVersionResource[];
+}
 
 interface SchemaVersionResource {
   id?: string | null;
@@ -164,7 +164,7 @@ export class SchemaVersionInstance {
 
   constructor(
     protected _version: V1,
-    payload: SchemaVersionPayload,
+    payload: SchemaVersionResource,
     id: string,
     schemaVersion?: number
   ) {
@@ -508,7 +508,7 @@ export class SchemaVersionPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SchemaVersionPayload): SchemaVersionInstance {
+  getInstance(payload: SchemaVersionResource): SchemaVersionInstance {
     return new SchemaVersionInstance(this._version, payload, this._solution.id);
   }
 

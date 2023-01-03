@@ -180,7 +180,9 @@ export class CommandContextImpl implements CommandContext {
   }
 }
 
-interface CommandPayload extends CommandResource, TwilioResponsePayload {}
+interface CommandPayload extends TwilioResponsePayload {
+  commands: CommandResource[];
+}
 
 interface CommandResource {
   sid?: string | null;
@@ -202,7 +204,7 @@ export class CommandInstance {
 
   constructor(
     protected _version: Wireless,
-    payload: CommandPayload,
+    payload: CommandResource,
     sid?: string
   ) {
     this.sid = payload.sid;
@@ -597,7 +599,7 @@ export class CommandPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CommandPayload): CommandInstance {
+  getInstance(payload: CommandResource): CommandInstance {
     return new CommandInstance(this._version, payload);
   }
 

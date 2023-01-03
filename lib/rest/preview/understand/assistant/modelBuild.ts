@@ -266,7 +266,9 @@ export class ModelBuildContextImpl implements ModelBuildContext {
   }
 }
 
-interface ModelBuildPayload extends ModelBuildResource, TwilioResponsePayload {}
+interface ModelBuildPayload extends TwilioResponsePayload {
+  model_builds: ModelBuildResource[];
+}
 
 interface ModelBuildResource {
   account_sid?: string | null;
@@ -287,7 +289,7 @@ export class ModelBuildInstance {
 
   constructor(
     protected _version: Understand,
-    payload: ModelBuildPayload,
+    payload: ModelBuildResource,
     assistantSid: string,
     sid?: string
   ) {
@@ -755,7 +757,7 @@ export class ModelBuildPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ModelBuildPayload): ModelBuildInstance {
+  getInstance(payload: ModelBuildResource): ModelBuildInstance {
     return new ModelBuildInstance(
       this._version,
       payload,

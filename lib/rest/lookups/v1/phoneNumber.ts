@@ -162,7 +162,7 @@ export class PhoneNumberInstance {
 
   constructor(
     protected _version: V1,
-    payload: PhoneNumberPayload,
+    payload: PhoneNumberResource,
     phoneNumber?: string
   ) {
     this.callerName = payload.caller_name;

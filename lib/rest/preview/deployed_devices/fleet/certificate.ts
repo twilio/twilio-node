@@ -271,9 +271,9 @@ export class CertificateContextImpl implements CertificateContext {
   }
 }
 
-interface CertificatePayload
-  extends CertificateResource,
-    TwilioResponsePayload {}
+interface CertificatePayload extends TwilioResponsePayload {
+  certificates: CertificateResource[];
+}
 
 interface CertificateResource {
   sid?: string | null;
@@ -293,7 +293,7 @@ export class CertificateInstance {
 
   constructor(
     protected _version: DeployedDevices,
-    payload: CertificatePayload,
+    payload: CertificateResource,
     fleetSid: string,
     sid?: string
   ) {
@@ -764,7 +764,7 @@ export class CertificatePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CertificatePayload): CertificateInstance {
+  getInstance(payload: CertificateResource): CertificateInstance {
     return new CertificateInstance(
       this._version,
       payload,

@@ -382,7 +382,9 @@ export class BundleContextImpl implements BundleContext {
   }
 }
 
-interface BundlePayload extends BundleResource, TwilioResponsePayload {}
+interface BundlePayload extends TwilioResponsePayload {
+  results: BundleResource[];
+}
 
 interface BundleResource {
   sid?: string | null;
@@ -403,7 +405,7 @@ export class BundleInstance {
   protected _solution: BundleContextSolution;
   protected _context?: BundleContext;
 
-  constructor(protected _version: V2, payload: BundlePayload, sid?: string) {
+  constructor(protected _version: V2, payload: BundleResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
@@ -928,7 +930,7 @@ export class BundlePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BundlePayload): BundleInstance {
+  getInstance(payload: BundleResource): BundleInstance {
     return new BundleInstance(this._version, payload);
   }
 

@@ -295,9 +295,9 @@ export class ConnectionPolicyTargetContextImpl
   }
 }
 
-interface ConnectionPolicyTargetPayload
-  extends ConnectionPolicyTargetResource,
-    TwilioResponsePayload {}
+interface ConnectionPolicyTargetPayload extends TwilioResponsePayload {
+  targets: ConnectionPolicyTargetResource[];
+}
 
 interface ConnectionPolicyTargetResource {
   account_sid?: string | null;
@@ -319,7 +319,7 @@ export class ConnectionPolicyTargetInstance {
 
   constructor(
     protected _version: V1,
-    payload: ConnectionPolicyTargetPayload,
+    payload: ConnectionPolicyTargetResource,
     connectionPolicySid: string,
     sid?: string
   ) {
@@ -838,7 +838,7 @@ export class ConnectionPolicyTargetPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: ConnectionPolicyTargetPayload
+    payload: ConnectionPolicyTargetResource
   ): ConnectionPolicyTargetInstance {
     return new ConnectionPolicyTargetInstance(
       this._version,

@@ -267,7 +267,9 @@ export class ActivityContextImpl implements ActivityContext {
   }
 }
 
-interface ActivityPayload extends ActivityResource, TwilioResponsePayload {}
+interface ActivityPayload extends TwilioResponsePayload {
+  activities: ActivityResource[];
+}
 
 interface ActivityResource {
   account_sid?: string | null;
@@ -287,7 +289,7 @@ export class ActivityInstance {
 
   constructor(
     protected _version: V1,
-    payload: ActivityPayload,
+    payload: ActivityResource,
     workspaceSid: string,
     sid?: string
   ) {
@@ -752,7 +754,7 @@ export class ActivityPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ActivityPayload): ActivityInstance {
+  getInstance(payload: ActivityResource): ActivityInstance {
     return new ActivityInstance(
       this._version,
       payload,

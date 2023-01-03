@@ -187,7 +187,9 @@ export class ChannelContextImpl implements ChannelContext {
   }
 }
 
-interface ChannelPayload extends ChannelResource, TwilioResponsePayload {}
+interface ChannelPayload extends TwilioResponsePayload {
+  flex_chat_channels: ChannelResource[];
+}
 
 interface ChannelResource {
   account_sid?: string | null;
@@ -204,7 +206,7 @@ export class ChannelInstance {
   protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
-  constructor(protected _version: V1, payload: ChannelPayload, sid?: string) {
+  constructor(protected _version: V1, payload: ChannelResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.flexFlowSid = payload.flex_flow_sid;
     this.sid = payload.sid;
@@ -648,7 +650,7 @@ export class ChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ChannelPayload): ChannelInstance {
+  getInstance(payload: ChannelResource): ChannelInstance {
     return new ChannelInstance(this._version, payload);
   }
 

@@ -135,7 +135,7 @@ export class AccessTokenInstance {
 
   constructor(
     protected _version: V2,
-    payload: AccessTokenPayload,
+    payload: AccessTokenResource,
     serviceSid: string,
     sid?: string
   ) {

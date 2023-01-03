@@ -280,7 +280,9 @@ export class DocumentContextImpl implements DocumentContext {
   }
 }
 
-interface DocumentPayload extends DocumentResource, TwilioResponsePayload {}
+interface DocumentPayload extends TwilioResponsePayload {
+  documents: DocumentResource[];
+}
 
 interface DocumentResource {
   sid?: string | null;
@@ -303,7 +305,7 @@ export class DocumentInstance {
 
   constructor(
     protected _version: V1,
-    payload: DocumentPayload,
+    payload: DocumentResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -800,7 +802,7 @@ export class DocumentPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DocumentPayload): DocumentInstance {
+  getInstance(payload: DocumentResource): DocumentInstance {
     return new DocumentInstance(
       this._version,
       payload,

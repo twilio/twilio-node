@@ -197,6 +197,7 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type MediaRecordingStatusCallbackMethod =
   | "HEAD"
   | "GET"
@@ -205,9 +206,9 @@ export type MediaRecordingStatusCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface MediaRecordingPayload
-  extends MediaRecordingResource,
-    TwilioResponsePayload {}
+interface MediaRecordingPayload extends TwilioResponsePayload {
+  media_recordings: MediaRecordingResource[];
+}
 
 interface MediaRecordingResource {
   account_sid?: string | null;
@@ -233,7 +234,7 @@ export class MediaRecordingInstance {
 
   constructor(
     protected _version: V1,
-    payload: MediaRecordingPayload,
+    payload: MediaRecordingResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -642,7 +643,7 @@ export class MediaRecordingPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MediaRecordingPayload): MediaRecordingInstance {
+  getInstance(payload: MediaRecordingResource): MediaRecordingInstance {
     return new MediaRecordingInstance(this._version, payload);
   }
 

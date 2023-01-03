@@ -29,9 +29,13 @@ interface TwilioSDK extends Function {
     FaxResponse: typeof FaxResponse;
   };
   RequestClient: typeof RequestClient;
+  validateBody: typeof webhooks.validateBody;
   validateRequest: typeof webhooks.validateRequest;
   validateRequestWithBody: typeof webhooks.validateRequestWithBody;
   validateExpressRequest: typeof webhooks.validateExpressRequest;
+  validateIncomingRequest: typeof webhooks.validateIncomingRequest;
+  getExpectedBodyHash: typeof webhooks.getExpectedBodyHash;
+  getExpectedTwilioSignature: typeof webhooks.getExpectedTwilioSignature;
   webhook: typeof webhooks.webhook;
 }
 
@@ -90,9 +94,13 @@ Object.defineProperty(initializer.twiml, "FaxResponse", {
 });
 
 // Setup webhook helper functionality
+initializer.validateBody = webhooks.validateBody;
 initializer.validateRequest = webhooks.validateRequest;
 initializer.validateRequestWithBody = webhooks.validateRequestWithBody;
+initializer.validateIncomingRequest = webhooks.validateIncomingRequest;
 initializer.validateExpressRequest = webhooks.validateExpressRequest;
+initializer.getExpectedBodyHash = webhooks.getExpectedBodyHash;
+initializer.getExpectedTwilioSignature = webhooks.getExpectedTwilioSignature;
 initializer.webhook = webhooks.webhook;
 
 // Public module interface is a function, which passes through to RestClient constructor

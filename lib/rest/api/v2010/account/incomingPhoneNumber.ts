@@ -20,11 +20,10 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
-
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
+import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
 
 type IncomingPhoneNumberAddressRequirement =
   | "none"
@@ -453,6 +452,7 @@ export class IncomingPhoneNumberContextImpl
     return inspect(this.toJSON(), options);
   }
 }
+
 export type IncomingPhoneNumberSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -489,9 +489,9 @@ export type IncomingPhoneNumberVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface IncomingPhoneNumberPayload
-  extends IncomingPhoneNumberResource,
-    TwilioResponsePayload {}
+interface IncomingPhoneNumberPayload extends TwilioResponsePayload {
+  incoming_phone_numbers: IncomingPhoneNumberResource[];
+}
 
 interface IncomingPhoneNumberResource {
   account_sid?: string | null;
@@ -500,8 +500,8 @@ interface IncomingPhoneNumberResource {
   api_version?: string | null;
   beta?: boolean | null;
   capabilities?: PhoneNumberCapabilities | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   identity_sid?: string | null;
   phone_number?: string | null;
@@ -536,7 +536,7 @@ export class IncomingPhoneNumberInstance {
 
   constructor(
     protected _version: V2010,
-    payload: IncomingPhoneNumberPayload,
+    payload: IncomingPhoneNumberResource,
     accountSid: string,
     sid?: string
   ) {
@@ -599,11 +599,11 @@ export class IncomingPhoneNumberInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -1258,7 +1258,7 @@ export class IncomingPhoneNumberPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: IncomingPhoneNumberPayload
+    payload: IncomingPhoneNumberResource
   ): IncomingPhoneNumberInstance {
     return new IncomingPhoneNumberInstance(
       this._version,

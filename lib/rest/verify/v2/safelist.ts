@@ -139,7 +139,7 @@ export class SafelistInstance {
 
   constructor(
     protected _version: V2,
-    payload: SafelistPayload,
+    payload: SafelistResource,
     phoneNumber?: string
   ) {
     this.sid = payload.sid;

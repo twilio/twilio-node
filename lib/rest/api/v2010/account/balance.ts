@@ -110,7 +110,7 @@ interface BalanceResource {
 export class BalanceInstance {
   constructor(
     protected _version: V2010,
-    payload: BalancePayload,
+    payload: BalanceResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;

@@ -254,7 +254,9 @@ export class WebChannelContextImpl implements WebChannelContext {
   }
 }
 
-interface WebChannelPayload extends WebChannelResource, TwilioResponsePayload {}
+interface WebChannelPayload extends TwilioResponsePayload {
+  flex_chat_channels: WebChannelResource[];
+}
 
 interface WebChannelResource {
   account_sid?: string | null;
@@ -271,7 +273,7 @@ export class WebChannelInstance {
 
   constructor(
     protected _version: V1,
-    payload: WebChannelPayload,
+    payload: WebChannelResource,
     sid?: string
   ) {
     this.accountSid = payload.account_sid;
@@ -725,7 +727,7 @@ export class WebChannelPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WebChannelPayload): WebChannelInstance {
+  getInstance(payload: WebChannelResource): WebChannelInstance {
     return new WebChannelInstance(this._version, payload);
   }
 

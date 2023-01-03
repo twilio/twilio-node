@@ -151,13 +151,13 @@ interface UserDefinedMessageResource {
   account_sid?: string | null;
   call_sid?: string | null;
   sid?: string | null;
-  date_created?: string | null;
+  date_created?: Date | null;
 }
 
 export class UserDefinedMessageInstance {
   constructor(
     protected _version: V2010,
-    payload: UserDefinedMessagePayload,
+    payload: UserDefinedMessageResource,
     accountSid: string,
     callSid: string
   ) {
@@ -182,7 +182,7 @@ export class UserDefinedMessageInstance {
   /**
    * The date this User Defined Message was created.
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
 
   /**
    * Provide a user-friendly representation

@@ -19,7 +19,7 @@ import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
 
 type DependentHostedNumberOrderStatus =
   | "received"
@@ -394,9 +394,9 @@ export function DependentHostedNumberOrderListInstance(
   return instance;
 }
 
-interface DependentHostedNumberOrderPayload
-  extends DependentHostedNumberOrderResource,
-    TwilioResponsePayload {}
+interface DependentHostedNumberOrderPayload extends TwilioResponsePayload {
+  items: DependentHostedNumberOrderResource[];
+}
 
 interface DependentHostedNumberOrderResource {
   sid?: string | null;
@@ -426,7 +426,7 @@ interface DependentHostedNumberOrderResource {
 export class DependentHostedNumberOrderInstance {
   constructor(
     protected _version: HostedNumbers,
-    payload: DependentHostedNumberOrderPayload,
+    payload: DependentHostedNumberOrderResource,
     signingDocumentSid: string
   ) {
     this.sid = payload.sid;
@@ -599,7 +599,7 @@ export class DependentHostedNumberOrderPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DependentHostedNumberOrderPayload
+    payload: DependentHostedNumberOrderResource
   ): DependentHostedNumberOrderInstance {
     return new DependentHostedNumberOrderInstance(
       this._version,

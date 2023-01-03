@@ -249,6 +249,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ShortCodeSmsFallbackMethod =
   | "HEAD"
   | "GET"
@@ -264,13 +265,15 @@ export type ShortCodeSmsMethod =
   | "PUT"
   | "DELETE";
 
-interface ShortCodePayload extends ShortCodeResource, TwilioResponsePayload {}
+interface ShortCodePayload extends TwilioResponsePayload {
+  short_codes: ShortCodeResource[];
+}
 
 interface ShortCodeResource {
   account_sid?: string | null;
   api_version?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   short_code?: string | null;
   sid?: string | null;
@@ -287,7 +290,7 @@ export class ShortCodeInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ShortCodePayload,
+    payload: ShortCodeResource,
     accountSid: string,
     sid?: string
   ) {
@@ -318,11 +321,11 @@ export class ShortCodeInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * A string that you assigned to describe this resource
    */
@@ -698,7 +701,7 @@ export class ShortCodePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance {
+  getInstance(payload: ShortCodeResource): ShortCodeInstance {
     return new ShortCodeInstance(
       this._version,
       payload,

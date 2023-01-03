@@ -573,7 +573,9 @@ export function LastMonthListInstance(
   return instance;
 }
 
-interface LastMonthPayload extends LastMonthResource, TwilioResponsePayload {}
+interface LastMonthPayload extends TwilioResponsePayload {
+  usage_records: LastMonthResource[];
+}
 
 interface LastMonthResource {
   account_sid?: string | null;
@@ -596,7 +598,7 @@ interface LastMonthResource {
 export class LastMonthInstance {
   constructor(
     protected _version: V2010,
-    payload: LastMonthPayload,
+    payload: LastMonthResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -730,7 +732,7 @@ export class LastMonthPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LastMonthPayload): LastMonthInstance {
+  getInstance(payload: LastMonthResource): LastMonthInstance {
     return new LastMonthInstance(
       this._version,
       payload,

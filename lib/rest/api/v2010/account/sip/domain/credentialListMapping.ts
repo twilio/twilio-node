@@ -198,14 +198,14 @@ export class CredentialListMappingContextImpl
   }
 }
 
-interface CredentialListMappingPayload
-  extends CredentialListMappingResource,
-    TwilioResponsePayload {}
+interface CredentialListMappingPayload extends TwilioResponsePayload {
+  credential_list_mappings: CredentialListMappingResource[];
+}
 
 interface CredentialListMappingResource {
   account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   domain_sid?: string | null;
   friendly_name?: string | null;
   sid?: string | null;
@@ -218,7 +218,7 @@ export class CredentialListMappingInstance {
 
   constructor(
     protected _version: V2010,
-    payload: CredentialListMappingPayload,
+    payload: CredentialListMappingResource,
     accountSid: string,
     domainSid: string,
     sid?: string
@@ -241,11 +241,11 @@ export class CredentialListMappingInstance {
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The unique string that identifies the SipDomain resource.
    */
@@ -683,7 +683,7 @@ export class CredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CredentialListMappingPayload
+    payload: CredentialListMappingResource
   ): CredentialListMappingInstance {
     return new CredentialListMappingInstance(
       this._version,

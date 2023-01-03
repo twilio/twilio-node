@@ -157,9 +157,9 @@ export class AuthorizedConnectAppContextImpl
   }
 }
 
-interface AuthorizedConnectAppPayload
-  extends AuthorizedConnectAppResource,
-    TwilioResponsePayload {}
+interface AuthorizedConnectAppPayload extends TwilioResponsePayload {
+  authorized_connect_apps: AuthorizedConnectAppResource[];
+}
 
 interface AuthorizedConnectAppResource {
   account_sid?: string | null;
@@ -168,8 +168,8 @@ interface AuthorizedConnectAppResource {
   connect_app_friendly_name?: string | null;
   connect_app_homepage_url?: string | null;
   connect_app_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   permissions?: Array<AuthorizedConnectAppPermission> | null;
   uri?: string | null;
 }
@@ -180,7 +180,7 @@ export class AuthorizedConnectAppInstance {
 
   constructor(
     protected _version: V2010,
-    payload: AuthorizedConnectAppPayload,
+    payload: AuthorizedConnectAppResource,
     accountSid: string,
     connectAppSid?: string
   ) {
@@ -228,11 +228,11 @@ export class AuthorizedConnectAppInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * Permissions authorized to the app
    */
@@ -575,7 +575,7 @@ export class AuthorizedConnectAppPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthorizedConnectAppPayload
+    payload: AuthorizedConnectAppResource
   ): AuthorizedConnectAppInstance {
     return new AuthorizedConnectAppInstance(
       this._version,

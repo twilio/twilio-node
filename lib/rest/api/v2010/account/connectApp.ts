@@ -273,6 +273,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 export type ConnectAppDeauthorizeCallbackMethod =
   | "HEAD"
   | "GET"
@@ -281,7 +282,9 @@ export type ConnectAppDeauthorizeCallbackMethod =
   | "PUT"
   | "DELETE";
 
-interface ConnectAppPayload extends ConnectAppResource, TwilioResponsePayload {}
+interface ConnectAppPayload extends TwilioResponsePayload {
+  connect_apps: ConnectAppResource[];
+}
 
 interface ConnectAppResource {
   account_sid?: string | null;
@@ -303,7 +306,7 @@ export class ConnectAppInstance {
 
   constructor(
     protected _version: V2010,
-    payload: ConnectAppPayload,
+    payload: ConnectAppResource,
     accountSid: string,
     sid?: string
   ) {
@@ -717,7 +720,7 @@ export class ConnectAppPage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ConnectAppPayload): ConnectAppInstance {
+  getInstance(payload: ConnectAppResource): ConnectAppInstance {
     return new ConnectAppInstance(
       this._version,
       payload,

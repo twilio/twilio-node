@@ -249,7 +249,9 @@ export class RoleContextImpl implements RoleContext {
   }
 }
 
-interface RolePayload extends RoleResource, TwilioResponsePayload {}
+interface RolePayload extends TwilioResponsePayload {
+  roles: RoleResource[];
+}
 
 interface RoleResource {
   sid?: string | null;
@@ -269,7 +271,7 @@ export class RoleInstance {
 
   constructor(
     protected _version: V2,
-    payload: RolePayload,
+    payload: RoleResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -698,7 +700,7 @@ export class RolePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RolePayload): RoleInstance {
+  getInstance(payload: RoleResource): RoleInstance {
     return new RoleInstance(this._version, payload, this._solution.serviceSid);
   }
 

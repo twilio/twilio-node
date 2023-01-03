@@ -173,7 +173,7 @@ export class WorkflowStatisticsInstance {
 
   constructor(
     protected _version: V1,
-    payload: WorkflowStatisticsPayload,
+    payload: WorkflowStatisticsResource,
     workspaceSid: string,
     workflowSid: string
   ) {

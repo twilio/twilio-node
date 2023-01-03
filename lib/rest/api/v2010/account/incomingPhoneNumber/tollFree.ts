@@ -19,7 +19,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
 
 type IncomingPhoneNumberTollFreeAddressRequirement =
   | "none"
@@ -532,7 +532,9 @@ export type TollFreeVoiceMethod =
   | "PUT"
   | "DELETE";
 
-interface TollFreePayload extends TollFreeResource, TwilioResponsePayload {}
+interface TollFreePayload extends TwilioResponsePayload {
+  incoming_phone_numbers: TollFreeResource[];
+}
 
 interface TollFreeResource {
   account_sid?: string | null;
@@ -541,8 +543,8 @@ interface TollFreeResource {
   api_version?: string | null;
   beta?: boolean | null;
   capabilities?: PhoneNumberCapabilities | null;
-  date_created?: string | null;
-  date_updated?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
   friendly_name?: string | null;
   identity_sid?: string | null;
   phone_number?: string | null;
@@ -574,7 +576,7 @@ interface TollFreeResource {
 export class TollFreeInstance {
   constructor(
     protected _version: V2010,
-    payload: TollFreePayload,
+    payload: TollFreeResource,
     accountSid: string
   ) {
     this.accountSid = payload.account_sid;
@@ -634,11 +636,11 @@ export class TollFreeInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: string | null;
+  dateCreated?: Date | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: string | null;
+  dateUpdated?: Date | null;
   /**
    * The string that you assigned to describe the resource
    */
@@ -807,7 +809,7 @@ export class TollFreePage extends Page<
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TollFreePayload): TollFreeInstance {
+  getInstance(payload: TollFreeResource): TollFreeInstance {
     return new TollFreeInstance(
       this._version,
       payload,

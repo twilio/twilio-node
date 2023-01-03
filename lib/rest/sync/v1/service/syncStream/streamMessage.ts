@@ -148,7 +148,7 @@ interface StreamMessageResource {
 export class StreamMessageInstance {
   constructor(
     protected _version: V1,
-    payload: StreamMessagePayload,
+    payload: StreamMessageResource,
     serviceSid: string,
     streamSid: string
   ) {
