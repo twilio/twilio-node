@@ -1,7 +1,11 @@
+"use strict";
+
 import Version from "../../../lib/base/Version";
 import Holodeck from "../../integration/holodeck";
 import Response from "../../../lib/http/response";
 import Twilio from "../../../lib";
+
+
 
 describe("fetch method", function () {
   it("should not throw an exception on 3xx status code", function (done) {
@@ -88,14 +92,35 @@ describe("streaming results", function () {
   });
 });
 
-describe("each method",  () => {
-  it("done should only be called once", async () => {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID || "";
-    const token = process.env.TWILIO_AUTH_TOKEN || "";
-    const client = new Twilio(accountSid, token);
+describe("done should only be called once in each",  () => {
+  let holodeck;
+  let client;
+  let body;
+  beforeEach(function () {
+    holodeck = new Holodeck();
+    client = new Twilio("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AUTHTOKEN", {
+      httpClient: holodeck,
+    });
+    body = {
+      end: 0,
+      first_page_uri:
+        "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
+      incoming_phone_numbers: [{}],
+      next_page_uri:
+        "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=1",
+      page: 0,
+      page_size: 1,
+      previous_page_uri: null,
+      start: 0,
+      uri: "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
+    };
+  });
+  it("done is explicitly called", async () => {
+    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
     const mockDone = jest.fn(console.debug.bind(null, "done!"));
-
-    client.api.v2010.accounts.each({
+    client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").incomingPhoneNumbers.each({
+      limit: 1,
       callback: (account, done) => {
         done();
       },
@@ -107,4 +132,23 @@ describe("each method",  () => {
 
     expect(mockDone.mock.calls.length).toBe(1);
   });
+
+  it("done is not explicitly called", async () => {
+    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
+    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+    client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").incomingPhoneNumbers.each({
+      limit: 1,
+      callback: (account, done) => {
+        console.log();
+      },
+      done: mockDone
+    });
+
+    // Sleep to allow async work to complete
+    await new Promise(r => setTimeout(r, 2000));
+
+    expect(mockDone.mock.calls.length).toBe(1);
+  });
+
 });
