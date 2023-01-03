@@ -121,7 +121,9 @@ export class AlertContextImpl implements AlertContext {
     this._uri = `/Alerts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AlertInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AlertInstance) => any
+  ): Promise<AlertInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -366,9 +368,10 @@ export interface AlertListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AlertListInstanceEachOptions
-      | ((item: AlertInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AlertListInstanceEachOptions,
     callback?: (item: AlertInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -393,9 +396,10 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AlertListInstanceOptions
-      | ((error: Error | null, items: AlertInstance[]) => any),
+    callback?: (error: Error | null, items: AlertInstance[]) => any
+  ): Promise<AlertInstance[]>;
+  list(
+    params: AlertListInstanceOptions,
     callback?: (error: Error | null, items: AlertInstance[]) => any
   ): Promise<AlertInstance[]>;
   /**
@@ -410,9 +414,10 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AlertListInstancePageOptions
-      | ((error: Error | null, items: AlertPage) => any),
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
+  page(
+    params: AlertListInstancePageOptions,
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage>;
 

@@ -223,7 +223,9 @@ export class RoomContextImpl implements RoomContext {
     return this._recordings;
   }
 
-  fetch(callback?: any): Promise<RoomInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -242,7 +244,12 @@ export class RoomContextImpl implements RoomContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<RoomInstance> {
+  update(
+    params:
+      | RoomContextUpdateOptions
+      | ((error: Error | null, item?: RoomInstance) => any),
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -560,15 +567,23 @@ export interface RoomListInstance {
   /**
    * Create a RoomInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RoomInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance>;
+  /**
+   * Create a RoomInstance
+   *
    * @param { RoomListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RoomInstance
    */
   create(
-    params?:
-      | RoomListInstanceCreateOptions
-      | ((error: Error | null, item?: RoomInstance) => any),
+    params: RoomListInstanceCreateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
 
@@ -588,9 +603,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RoomListInstanceEachOptions
-      | ((item: RoomInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RoomListInstanceEachOptions,
     callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -615,9 +631,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RoomListInstanceOptions
-      | ((error: Error | null, items: RoomInstance[]) => any),
+    callback?: (error: Error | null, items: RoomInstance[]) => any
+  ): Promise<RoomInstance[]>;
+  list(
+    params: RoomListInstanceOptions,
     callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
   /**
@@ -632,9 +649,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RoomListInstancePageOptions
-      | ((error: Error | null, items: RoomPage) => any),
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
+  page(
+    params: RoomListInstancePageOptions,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
 

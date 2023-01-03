@@ -132,7 +132,12 @@ export class AssignedAddOnExtensionContextImpl
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${assignedAddOnSid}/Extensions/${sid}.json`;
   }
 
-  fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssignedAddOnExtensionInstance
+    ) => any
+  ): Promise<AssignedAddOnExtensionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -328,12 +333,13 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AssignedAddOnExtensionListInstanceEachOptions
-      | ((
-          item: AssignedAddOnExtensionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AssignedAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AssignedAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AssignedAddOnExtensionInstance,
       done: (err?: Error) => void
@@ -361,9 +367,13 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AssignedAddOnExtensionListInstanceOptions
-      | ((error: Error | null, items: AssignedAddOnExtensionInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: AssignedAddOnExtensionInstance[]
+    ) => any
+  ): Promise<AssignedAddOnExtensionInstance[]>;
+  list(
+    params: AssignedAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AssignedAddOnExtensionInstance[]
@@ -381,9 +391,10 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AssignedAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, items: AssignedAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+  ): Promise<AssignedAddOnExtensionPage>;
+  page(
+    params: AssignedAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage>;
 

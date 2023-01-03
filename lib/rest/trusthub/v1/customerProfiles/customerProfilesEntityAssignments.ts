@@ -135,7 +135,9 @@ export class CustomerProfilesEntityAssignmentsContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/EntityAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -149,7 +151,12 @@ export class CustomerProfilesEntityAssignmentsContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CustomerProfilesEntityAssignmentsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesEntityAssignmentsInstance
+    ) => any
+  ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -343,12 +350,13 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CustomerProfilesEntityAssignmentsListInstanceEachOptions
-      | ((
-          item: CustomerProfilesEntityAssignmentsInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: CustomerProfilesEntityAssignmentsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CustomerProfilesEntityAssignmentsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
       done: (err?: Error) => void
@@ -379,12 +387,13 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CustomerProfilesEntityAssignmentsListInstanceOptions
-      | ((
-          error: Error | null,
-          items: CustomerProfilesEntityAssignmentsInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsInstance[]
+    ) => any
+  ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
+  list(
+    params: CustomerProfilesEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEntityAssignmentsInstance[]
@@ -402,12 +411,13 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CustomerProfilesEntityAssignmentsListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: CustomerProfilesEntityAssignmentsPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsPage
+    ) => any
+  ): Promise<CustomerProfilesEntityAssignmentsPage>;
+  page(
+    params: CustomerProfilesEntityAssignmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEntityAssignmentsPage

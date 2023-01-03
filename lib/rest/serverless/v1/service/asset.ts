@@ -165,7 +165,9 @@ export class AssetContextImpl implements AssetContext {
     return this._assetVersions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +181,9 @@ export class AssetContextImpl implements AssetContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AssetInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -203,7 +207,12 @@ export class AssetContextImpl implements AssetContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<AssetInstance> {
+  update(
+    params:
+      | AssetContextUpdateOptions
+      | ((error: Error | null, item?: AssetInstance) => any),
+    callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -446,9 +455,10 @@ export interface AssetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AssetListInstanceEachOptions
-      | ((item: AssetInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AssetListInstanceEachOptions,
     callback?: (item: AssetInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -473,9 +483,10 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AssetListInstanceOptions
-      | ((error: Error | null, items: AssetInstance[]) => any),
+    callback?: (error: Error | null, items: AssetInstance[]) => any
+  ): Promise<AssetInstance[]>;
+  list(
+    params: AssetListInstanceOptions,
     callback?: (error: Error | null, items: AssetInstance[]) => any
   ): Promise<AssetInstance[]>;
   /**
@@ -490,9 +501,10 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AssetListInstancePageOptions
-      | ((error: Error | null, items: AssetPage) => any),
+    callback?: (error: Error | null, items: AssetPage) => any
+  ): Promise<AssetPage>;
+  page(
+    params: AssetListInstancePageOptions,
     callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage>;
 

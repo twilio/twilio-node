@@ -143,15 +143,23 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ServiceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  /**
+   * Update a ServiceInstance
+   *
    * @param { ServiceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
   update(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
+    params: ServiceContextUpdateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
 
@@ -211,7 +219,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._syncStreams;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -225,7 +235,9 @@ export class ServiceContextImpl implements ServiceContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ServiceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -244,7 +256,12 @@ export class ServiceContextImpl implements ServiceContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ServiceInstance> {
+  update(
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ServiceInstance) => any),
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: ServiceInstance) => any;
       params = {};
@@ -459,9 +476,7 @@ export class ServiceInstance {
    * @returns { Promise } Resolves to processed ServiceInstance
    */
   update(
-    params?:
-      | ServiceContextUpdateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
+    params?: ServiceContextUpdateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
@@ -531,15 +546,23 @@ export interface ServiceListInstance {
   /**
    * Create a ServiceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ServiceInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance>;
+  /**
+   * Create a ServiceInstance
+   *
    * @param { ServiceListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ServiceInstance
    */
   create(
-    params?:
-      | ServiceListInstanceCreateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
+    params: ServiceListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
 
@@ -559,9 +582,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ServiceListInstanceEachOptions
-      | ((item: ServiceInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ServiceListInstanceEachOptions,
     callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -586,9 +610,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ServiceListInstanceOptions
-      | ((error: Error | null, items: ServiceInstance[]) => any),
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
+  list(
+    params: ServiceListInstanceOptions,
     callback?: (error: Error | null, items: ServiceInstance[]) => any
   ): Promise<ServiceInstance[]>;
   /**
@@ -603,9 +628,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
+  page(
+    params: ServiceListInstancePageOptions,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
 

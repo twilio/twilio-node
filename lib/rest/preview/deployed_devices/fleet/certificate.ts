@@ -122,15 +122,23 @@ export interface CertificateContext {
   /**
    * Update a CertificateInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CertificateInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+  /**
+   * Update a CertificateInstance
+   *
    * @param { CertificateContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
   update(
-    params?:
-      | CertificateContextUpdateOptions
-      | ((error: Error | null, item?: CertificateInstance) => any),
+    params: CertificateContextUpdateOptions,
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance>;
 
@@ -167,7 +175,9 @@ export class CertificateContextImpl implements CertificateContext {
     this._uri = `/Fleets/${fleetSid}/Certificates/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -181,7 +191,9 @@ export class CertificateContextImpl implements CertificateContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CertificateInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -205,7 +217,12 @@ export class CertificateContextImpl implements CertificateContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<CertificateInstance> {
+  update(
+    params?:
+      | CertificateContextUpdateOptions
+      | ((error: Error | null, item?: CertificateInstance) => any),
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -387,9 +404,7 @@ export class CertificateInstance {
    * @returns { Promise } Resolves to processed CertificateInstance
    */
   update(
-    params?:
-      | CertificateContextUpdateOptions
-      | ((error: Error | null, item?: CertificateInstance) => any),
+    params?: CertificateContextUpdateOptions,
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance> {
     return this._proxy.update(params, callback);
@@ -452,9 +467,10 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CertificateListInstanceEachOptions
-      | ((item: CertificateInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CertificateListInstanceEachOptions,
     callback?: (item: CertificateInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -479,9 +495,10 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CertificateListInstanceOptions
-      | ((error: Error | null, items: CertificateInstance[]) => any),
+    callback?: (error: Error | null, items: CertificateInstance[]) => any
+  ): Promise<CertificateInstance[]>;
+  list(
+    params: CertificateListInstanceOptions,
     callback?: (error: Error | null, items: CertificateInstance[]) => any
   ): Promise<CertificateInstance[]>;
   /**
@@ -496,9 +513,10 @@ export interface CertificateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CertificateListInstancePageOptions
-      | ((error: Error | null, items: CertificatePage) => any),
+    callback?: (error: Error | null, items: CertificatePage) => any
+  ): Promise<CertificatePage>;
+  page(
+    params: CertificateListInstancePageOptions,
     callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage>;
 

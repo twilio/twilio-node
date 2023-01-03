@@ -372,9 +372,10 @@ export interface RecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RecordListInstanceEachOptions
-      | ((item: RecordInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RecordListInstanceEachOptions,
     callback?: (item: RecordInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -399,9 +400,10 @@ export interface RecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RecordListInstanceOptions
-      | ((error: Error | null, items: RecordInstance[]) => any),
+    callback?: (error: Error | null, items: RecordInstance[]) => any
+  ): Promise<RecordInstance[]>;
+  list(
+    params: RecordListInstanceOptions,
     callback?: (error: Error | null, items: RecordInstance[]) => any
   ): Promise<RecordInstance[]>;
   /**
@@ -416,9 +418,10 @@ export interface RecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RecordListInstancePageOptions
-      | ((error: Error | null, items: RecordPage) => any),
+    callback?: (error: Error | null, items: RecordPage) => any
+  ): Promise<RecordPage>;
+  page(
+    params: RecordListInstancePageOptions,
     callback?: (error: Error | null, items: RecordPage) => any
   ): Promise<RecordPage>;
 

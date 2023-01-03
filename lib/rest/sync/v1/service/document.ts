@@ -121,15 +121,23 @@ export interface DocumentContext {
   /**
    * Update a DocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DocumentInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance>;
+  /**
+   * Update a DocumentInstance
+   *
    * @param { DocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DocumentInstance
    */
   update(
-    params?:
-      | DocumentContextUpdateOptions
-      | ((error: Error | null, item?: DocumentInstance) => any),
+    params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
 
@@ -175,7 +183,9 @@ export class DocumentContextImpl implements DocumentContext {
     return this._documentPermissions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -189,7 +199,9 @@ export class DocumentContextImpl implements DocumentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DocumentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -213,7 +225,12 @@ export class DocumentContextImpl implements DocumentContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DocumentInstance> {
+  update(
+    params?:
+      | DocumentContextUpdateOptions
+      | ((error: Error | null, item?: DocumentInstance) => any),
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -414,9 +431,7 @@ export class DocumentInstance {
    * @returns { Promise } Resolves to processed DocumentInstance
    */
   update(
-    params?:
-      | DocumentContextUpdateOptions
-      | ((error: Error | null, item?: DocumentInstance) => any),
+    params?: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);
@@ -463,15 +478,23 @@ export interface DocumentListInstance {
   /**
    * Create a DocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DocumentInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance>;
+  /**
+   * Create a DocumentInstance
+   *
    * @param { DocumentListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DocumentInstance
    */
   create(
-    params?:
-      | DocumentListInstanceCreateOptions
-      | ((error: Error | null, item?: DocumentInstance) => any),
+    params: DocumentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
 
@@ -491,9 +514,10 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DocumentListInstanceEachOptions
-      | ((item: DocumentInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DocumentListInstanceEachOptions,
     callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -518,9 +542,10 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DocumentListInstanceOptions
-      | ((error: Error | null, items: DocumentInstance[]) => any),
+    callback?: (error: Error | null, items: DocumentInstance[]) => any
+  ): Promise<DocumentInstance[]>;
+  list(
+    params: DocumentListInstanceOptions,
     callback?: (error: Error | null, items: DocumentInstance[]) => any
   ): Promise<DocumentInstance[]>;
   /**
@@ -535,9 +560,10 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DocumentListInstancePageOptions
-      | ((error: Error | null, items: DocumentPage) => any),
+    callback?: (error: Error | null, items: DocumentPage) => any
+  ): Promise<DocumentPage>;
+  page(
+    params: DocumentListInstancePageOptions,
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage>;
 

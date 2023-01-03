@@ -136,15 +136,26 @@ export interface ConferenceParticipantContext {
   /**
    * Fetch a ConferenceParticipantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConferenceParticipantInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance>;
+  /**
+   * Fetch a ConferenceParticipantInstance
+   *
    * @param { ConferenceParticipantContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
   fetch(
-    params?:
-      | ConferenceParticipantContextFetchOptions
-      | ((error: Error | null, item?: ConferenceParticipantInstance) => any),
+    params: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: ConferenceParticipantInstance
@@ -186,7 +197,15 @@ export class ConferenceParticipantContextImpl
     this._uri = `/Conferences/${conferenceSid}/Participants/${participantSid}`;
   }
 
-  fetch(params?: any, callback?: any): Promise<ConferenceParticipantInstance> {
+  fetch(
+    params?:
+      | ConferenceParticipantContextFetchOptions
+      | ((error: Error | null, item?: ConferenceParticipantInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: ConferenceParticipantInstance
+    ) => any
+  ): Promise<ConferenceParticipantInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -433,9 +452,7 @@ export class ConferenceParticipantInstance {
    * @returns { Promise } Resolves to processed ConferenceParticipantInstance
    */
   fetch(
-    params?:
-      | ConferenceParticipantContextFetchOptions
-      | ((error: Error | null, item?: ConferenceParticipantInstance) => any),
+    params?: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: ConferenceParticipantInstance
@@ -506,12 +523,13 @@ export interface ConferenceParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ConferenceParticipantListInstanceEachOptions
-      | ((
-          item: ConferenceParticipantInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: ConferenceParticipantInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ConferenceParticipantListInstanceEachOptions,
     callback?: (
       item: ConferenceParticipantInstance,
       done: (err?: Error) => void
@@ -539,9 +557,13 @@ export interface ConferenceParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ConferenceParticipantListInstanceOptions
-      | ((error: Error | null, items: ConferenceParticipantInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: ConferenceParticipantInstance[]
+    ) => any
+  ): Promise<ConferenceParticipantInstance[]>;
+  list(
+    params: ConferenceParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
       items: ConferenceParticipantInstance[]
@@ -559,9 +581,10 @@ export interface ConferenceParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ConferenceParticipantListInstancePageOptions
-      | ((error: Error | null, items: ConferenceParticipantPage) => any),
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
+  ): Promise<ConferenceParticipantPage>;
+  page(
+    params: ConferenceParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage>;
 

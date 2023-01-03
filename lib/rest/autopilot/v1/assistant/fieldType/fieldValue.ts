@@ -147,7 +147,9 @@ export class FieldValueContextImpl implements FieldValueContext {
     this._uri = `/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -161,7 +163,9 @@ export class FieldValueContextImpl implements FieldValueContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FieldValueInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FieldValueInstance) => any
+  ): Promise<FieldValueInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -379,9 +383,10 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FieldValueListInstanceEachOptions
-      | ((item: FieldValueInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FieldValueListInstanceEachOptions,
     callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -406,9 +411,10 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FieldValueListInstanceOptions
-      | ((error: Error | null, items: FieldValueInstance[]) => any),
+    callback?: (error: Error | null, items: FieldValueInstance[]) => any
+  ): Promise<FieldValueInstance[]>;
+  list(
+    params: FieldValueListInstanceOptions,
     callback?: (error: Error | null, items: FieldValueInstance[]) => any
   ): Promise<FieldValueInstance[]>;
   /**
@@ -423,9 +429,10 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FieldValueListInstancePageOptions
-      | ((error: Error | null, items: FieldValuePage) => any),
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
+  page(
+    params: FieldValueListInstancePageOptions,
     callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage>;
 

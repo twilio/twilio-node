@@ -151,7 +151,9 @@ export class CountryContextImpl implements CountryContext {
     return this._highriskSpecialPrefixes;
   }
 
-  fetch(callback?: any): Promise<CountryInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CountryInstance) => any
+  ): Promise<CountryInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -332,9 +334,10 @@ export interface CountryListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CountryListInstanceEachOptions
-      | ((item: CountryInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CountryListInstanceEachOptions,
     callback?: (item: CountryInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -359,9 +362,10 @@ export interface CountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CountryListInstanceOptions
-      | ((error: Error | null, items: CountryInstance[]) => any),
+    callback?: (error: Error | null, items: CountryInstance[]) => any
+  ): Promise<CountryInstance[]>;
+  list(
+    params: CountryListInstanceOptions,
     callback?: (error: Error | null, items: CountryInstance[]) => any
   ): Promise<CountryInstance[]>;
   /**
@@ -376,9 +380,10 @@ export interface CountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CountryListInstancePageOptions
-      | ((error: Error | null, items: CountryPage) => any),
+    callback?: (error: Error | null, items: CountryPage) => any
+  ): Promise<CountryPage>;
+  page(
+    params: CountryListInstancePageOptions,
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage>;
 

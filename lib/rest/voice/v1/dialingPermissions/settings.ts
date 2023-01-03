@@ -42,15 +42,23 @@ export interface SettingsContext {
   /**
    * Update a SettingsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
+  /**
+   * Update a SettingsInstance
+   *
    * @param { SettingsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
   update(
-    params?:
-      | SettingsContextUpdateOptions
-      | ((error: Error | null, item?: SettingsInstance) => any),
+    params: SettingsContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
 
@@ -72,7 +80,9 @@ export class SettingsContextImpl implements SettingsContext {
     this._uri = `/Settings`;
   }
 
-  fetch(callback?: any): Promise<SettingsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -90,7 +100,12 @@ export class SettingsContextImpl implements SettingsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SettingsInstance> {
+  update(
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: SettingsInstance) => any),
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -199,9 +214,7 @@ export class SettingsInstance {
    * @returns { Promise } Resolves to processed SettingsInstance
    */
   update(
-    params?:
-      | SettingsContextUpdateOptions
-      | ((error: Error | null, item?: SettingsInstance) => any),
+    params?: SettingsContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);

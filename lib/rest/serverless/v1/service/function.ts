@@ -165,7 +165,9 @@ export class FunctionContextImpl implements FunctionContext {
     return this._functionVersions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +181,9 @@ export class FunctionContextImpl implements FunctionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FunctionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FunctionInstance) => any
+  ): Promise<FunctionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -203,7 +207,12 @@ export class FunctionContextImpl implements FunctionContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<FunctionInstance> {
+  update(
+    params:
+      | FunctionContextUpdateOptions
+      | ((error: Error | null, item?: FunctionInstance) => any),
+    callback?: (error: Error | null, item?: FunctionInstance) => any
+  ): Promise<FunctionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -446,9 +455,10 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FunctionListInstanceEachOptions
-      | ((item: FunctionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FunctionListInstanceEachOptions,
     callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -473,9 +483,10 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FunctionListInstanceOptions
-      | ((error: Error | null, items: FunctionInstance[]) => any),
+    callback?: (error: Error | null, items: FunctionInstance[]) => any
+  ): Promise<FunctionInstance[]>;
+  list(
+    params: FunctionListInstanceOptions,
     callback?: (error: Error | null, items: FunctionInstance[]) => any
   ): Promise<FunctionInstance[]>;
   /**
@@ -490,9 +501,10 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FunctionListInstancePageOptions
-      | ((error: Error | null, items: FunctionPage) => any),
+    callback?: (error: Error | null, items: FunctionPage) => any
+  ): Promise<FunctionPage>;
+  page(
+    params: FunctionListInstancePageOptions,
     callback?: (error: Error | null, items: FunctionPage) => any
   ): Promise<FunctionPage>;
 

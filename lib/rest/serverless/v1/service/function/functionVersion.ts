@@ -140,7 +140,9 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
     return this._functionVersionContent;
   }
 
-  fetch(callback?: any): Promise<FunctionVersionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FunctionVersionInstance) => any
+  ): Promise<FunctionVersionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -326,9 +328,13 @@ export interface FunctionVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FunctionVersionListInstanceEachOptions
-      | ((item: FunctionVersionInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: FunctionVersionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: FunctionVersionListInstanceEachOptions,
     callback?: (
       item: FunctionVersionInstance,
       done: (err?: Error) => void
@@ -356,9 +362,10 @@ export interface FunctionVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FunctionVersionListInstanceOptions
-      | ((error: Error | null, items: FunctionVersionInstance[]) => any),
+    callback?: (error: Error | null, items: FunctionVersionInstance[]) => any
+  ): Promise<FunctionVersionInstance[]>;
+  list(
+    params: FunctionVersionListInstanceOptions,
     callback?: (error: Error | null, items: FunctionVersionInstance[]) => any
   ): Promise<FunctionVersionInstance[]>;
   /**
@@ -373,9 +380,10 @@ export interface FunctionVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FunctionVersionListInstancePageOptions
-      | ((error: Error | null, items: FunctionVersionPage) => any),
+    callback?: (error: Error | null, items: FunctionVersionPage) => any
+  ): Promise<FunctionVersionPage>;
+  page(
+    params: FunctionVersionListInstancePageOptions,
     callback?: (error: Error | null, items: FunctionVersionPage) => any
   ): Promise<FunctionVersionPage>;
 

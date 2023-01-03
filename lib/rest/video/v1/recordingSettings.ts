@@ -80,7 +80,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     this._uri = `/RecordingSettings/Default`;
   }
 
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+  create(
+    params:
+      | RecordingSettingsContextCreateOptions
+      | ((error: Error | null, item?: RecordingSettingsInstance) => any),
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -127,7 +132,9 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RecordingSettingsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

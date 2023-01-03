@@ -114,15 +114,23 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpRecordInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance>;
+  /**
+   * Update a IpRecordInstance
+   *
    * @param { IpRecordContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IpRecordInstance
    */
   update(
-    params?:
-      | IpRecordContextUpdateOptions
-      | ((error: Error | null, item?: IpRecordInstance) => any),
+    params: IpRecordContextUpdateOptions,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance>;
 
@@ -150,7 +158,9 @@ export class IpRecordContextImpl implements IpRecordContext {
     this._uri = `/IpRecords/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +174,9 @@ export class IpRecordContextImpl implements IpRecordContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpRecordInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -183,7 +195,12 @@ export class IpRecordContextImpl implements IpRecordContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IpRecordInstance> {
+  update(
+    params?:
+      | IpRecordContextUpdateOptions
+      | ((error: Error | null, item?: IpRecordInstance) => any),
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -343,9 +360,7 @@ export class IpRecordInstance {
    * @returns { Promise } Resolves to processed IpRecordInstance
    */
   update(
-    params?:
-      | IpRecordContextUpdateOptions
-      | ((error: Error | null, item?: IpRecordInstance) => any),
+    params?: IpRecordContextUpdateOptions,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     return this._proxy.update(params, callback);
@@ -407,9 +422,10 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IpRecordListInstanceEachOptions
-      | ((item: IpRecordInstance, done: (err?: Error) => void) => void),
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: IpRecordListInstanceEachOptions,
     callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -434,9 +450,10 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IpRecordListInstanceOptions
-      | ((error: Error | null, items: IpRecordInstance[]) => any),
+    callback?: (error: Error | null, items: IpRecordInstance[]) => any
+  ): Promise<IpRecordInstance[]>;
+  list(
+    params: IpRecordListInstanceOptions,
     callback?: (error: Error | null, items: IpRecordInstance[]) => any
   ): Promise<IpRecordInstance[]>;
   /**
@@ -451,9 +468,10 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IpRecordListInstancePageOptions
-      | ((error: Error | null, items: IpRecordPage) => any),
+    callback?: (error: Error | null, items: IpRecordPage) => any
+  ): Promise<IpRecordPage>;
+  page(
+    params: IpRecordListInstancePageOptions,
     callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage>;
 

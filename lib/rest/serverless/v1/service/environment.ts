@@ -173,7 +173,9 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return this._variables;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -187,7 +189,9 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EnvironmentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
+  ): Promise<EnvironmentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -430,9 +434,10 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EnvironmentListInstanceEachOptions
-      | ((item: EnvironmentInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EnvironmentListInstanceEachOptions,
     callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -457,9 +462,10 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EnvironmentListInstanceOptions
-      | ((error: Error | null, items: EnvironmentInstance[]) => any),
+    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
+  ): Promise<EnvironmentInstance[]>;
+  list(
+    params: EnvironmentListInstanceOptions,
     callback?: (error: Error | null, items: EnvironmentInstance[]) => any
   ): Promise<EnvironmentInstance[]>;
   /**
@@ -474,9 +480,10 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EnvironmentListInstancePageOptions
-      | ((error: Error | null, items: EnvironmentPage) => any),
+    callback?: (error: Error | null, items: EnvironmentPage) => any
+  ): Promise<EnvironmentPage>;
+  page(
+    params: EnvironmentListInstancePageOptions,
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
 

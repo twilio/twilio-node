@@ -38,15 +38,23 @@ export interface TokenListInstance {
   /**
    * Create a TokenInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TokenInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: TokenInstance) => any
+  ): Promise<TokenInstance>;
+  /**
+   * Create a TokenInstance
+   *
    * @param { TokenListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TokenInstance
    */
   create(
-    params?:
-      | TokenListInstanceCreateOptions
-      | ((error: Error | null, item?: TokenInstance) => any),
+    params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
 

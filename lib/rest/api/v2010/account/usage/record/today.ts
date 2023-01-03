@@ -355,9 +355,10 @@ export interface TodayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TodayListInstanceEachOptions
-      | ((item: TodayInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TodayInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TodayListInstanceEachOptions,
     callback?: (item: TodayInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TodayListInstanceOptions
-      | ((error: Error | null, items: TodayInstance[]) => any),
+    callback?: (error: Error | null, items: TodayInstance[]) => any
+  ): Promise<TodayInstance[]>;
+  list(
+    params: TodayListInstanceOptions,
     callback?: (error: Error | null, items: TodayInstance[]) => any
   ): Promise<TodayInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface TodayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TodayListInstancePageOptions
-      | ((error: Error | null, items: TodayPage) => any),
+    callback?: (error: Error | null, items: TodayPage) => any
+  ): Promise<TodayPage>;
+  page(
+    params: TodayListInstancePageOptions,
     callback?: (error: Error | null, items: TodayPage) => any
   ): Promise<TodayPage>;
 

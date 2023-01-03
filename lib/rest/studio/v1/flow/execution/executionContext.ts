@@ -59,7 +59,9 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
   }
 
-  fetch(callback?: any): Promise<ExecutionContextInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
+  ): Promise<ExecutionContextInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

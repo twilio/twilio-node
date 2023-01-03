@@ -95,12 +95,13 @@ export interface DependentPhoneNumberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DependentPhoneNumberListInstanceEachOptions
-      | ((
-          item: DependentPhoneNumberInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: DependentPhoneNumberInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: DependentPhoneNumberListInstanceEachOptions,
     callback?: (
       item: DependentPhoneNumberInstance,
       done: (err?: Error) => void
@@ -128,9 +129,13 @@ export interface DependentPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DependentPhoneNumberListInstanceOptions
-      | ((error: Error | null, items: DependentPhoneNumberInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: DependentPhoneNumberInstance[]
+    ) => any
+  ): Promise<DependentPhoneNumberInstance[]>;
+  list(
+    params: DependentPhoneNumberListInstanceOptions,
     callback?: (
       error: Error | null,
       items: DependentPhoneNumberInstance[]
@@ -148,9 +153,10 @@ export interface DependentPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DependentPhoneNumberListInstancePageOptions
-      | ((error: Error | null, items: DependentPhoneNumberPage) => any),
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
+  ): Promise<DependentPhoneNumberPage>;
+  page(
+    params: DependentPhoneNumberListInstancePageOptions,
     callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage>;
 

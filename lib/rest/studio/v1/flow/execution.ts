@@ -197,7 +197,9 @@ export class ExecutionContextImpl implements ExecutionContext {
     return this._steps;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -211,7 +213,9 @@ export class ExecutionContextImpl implements ExecutionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ExecutionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionInstance) => any
+  ): Promise<ExecutionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -235,7 +239,12 @@ export class ExecutionContextImpl implements ExecutionContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<ExecutionInstance> {
+  update(
+    params:
+      | ExecutionContextUpdateOptions
+      | ((error: Error | null, item?: ExecutionInstance) => any),
+    callback?: (error: Error | null, item?: ExecutionInstance) => any
+  ): Promise<ExecutionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -500,9 +509,10 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ExecutionListInstanceEachOptions
-      | ((item: ExecutionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ExecutionListInstanceEachOptions,
     callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -527,9 +537,10 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ExecutionListInstanceOptions
-      | ((error: Error | null, items: ExecutionInstance[]) => any),
+    callback?: (error: Error | null, items: ExecutionInstance[]) => any
+  ): Promise<ExecutionInstance[]>;
+  list(
+    params: ExecutionListInstanceOptions,
     callback?: (error: Error | null, items: ExecutionInstance[]) => any
   ): Promise<ExecutionInstance[]>;
   /**
@@ -544,9 +555,10 @@ export interface ExecutionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ExecutionListInstancePageOptions
-      | ((error: Error | null, items: ExecutionPage) => any),
+    callback?: (error: Error | null, items: ExecutionPage) => any
+  ): Promise<ExecutionPage>;
+  page(
+    params: ExecutionListInstancePageOptions,
     callback?: (error: Error | null, items: ExecutionPage) => any
   ): Promise<ExecutionPage>;
 

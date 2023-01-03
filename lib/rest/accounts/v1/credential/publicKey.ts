@@ -114,15 +114,23 @@ export interface PublicKeyContext {
   /**
    * Update a PublicKeyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PublicKeyInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance>;
+  /**
+   * Update a PublicKeyInstance
+   *
    * @param { PublicKeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PublicKeyInstance
    */
   update(
-    params?:
-      | PublicKeyContextUpdateOptions
-      | ((error: Error | null, item?: PublicKeyInstance) => any),
+    params: PublicKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance>;
 
@@ -150,7 +158,9 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     this._uri = `/Credentials/PublicKeys/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +174,9 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PublicKeyInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -183,7 +195,12 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<PublicKeyInstance> {
+  update(
+    params?:
+      | PublicKeyContextUpdateOptions
+      | ((error: Error | null, item?: PublicKeyInstance) => any),
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -335,9 +352,7 @@ export class PublicKeyInstance {
    * @returns { Promise } Resolves to processed PublicKeyInstance
    */
   update(
-    params?:
-      | PublicKeyContextUpdateOptions
-      | ((error: Error | null, item?: PublicKeyInstance) => any),
+    params?: PublicKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance> {
     return this._proxy.update(params, callback);
@@ -397,9 +412,10 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PublicKeyListInstanceEachOptions
-      | ((item: PublicKeyInstance, done: (err?: Error) => void) => void),
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: PublicKeyListInstanceEachOptions,
     callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -424,9 +440,10 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PublicKeyListInstanceOptions
-      | ((error: Error | null, items: PublicKeyInstance[]) => any),
+    callback?: (error: Error | null, items: PublicKeyInstance[]) => any
+  ): Promise<PublicKeyInstance[]>;
+  list(
+    params: PublicKeyListInstanceOptions,
     callback?: (error: Error | null, items: PublicKeyInstance[]) => any
   ): Promise<PublicKeyInstance[]>;
   /**
@@ -441,9 +458,10 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PublicKeyListInstancePageOptions
-      | ((error: Error | null, items: PublicKeyPage) => any),
+    callback?: (error: Error | null, items: PublicKeyPage) => any
+  ): Promise<PublicKeyPage>;
+  page(
+    params: PublicKeyListInstancePageOptions,
     callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage>;
 

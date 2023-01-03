@@ -130,15 +130,23 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RatePlanInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  /**
+   * Update a RatePlanInstance
+   *
    * @param { RatePlanContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   update(
-    params?:
-      | RatePlanContextUpdateOptions
-      | ((error: Error | null, item?: RatePlanInstance) => any),
+    params: RatePlanContextUpdateOptions,
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
 
@@ -166,7 +174,9 @@ export class RatePlanContextImpl implements RatePlanContext {
     this._uri = `/RatePlans/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -180,7 +190,9 @@ export class RatePlanContextImpl implements RatePlanContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RatePlanInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -199,7 +211,12 @@ export class RatePlanContextImpl implements RatePlanContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<RatePlanInstance> {
+  update(
+    params?:
+      | RatePlanContextUpdateOptions
+      | ((error: Error | null, item?: RatePlanInstance) => any),
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -359,9 +376,7 @@ export class RatePlanInstance {
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   update(
-    params?:
-      | RatePlanContextUpdateOptions
-      | ((error: Error | null, item?: RatePlanInstance) => any),
+    params?: RatePlanContextUpdateOptions,
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     return this._proxy.update(params, callback);
@@ -403,15 +418,23 @@ export interface RatePlanListInstance {
   /**
    * Create a RatePlanInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RatePlanInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  /**
+   * Create a RatePlanInstance
+   *
    * @param { RatePlanListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   create(
-    params?:
-      | RatePlanListInstanceCreateOptions
-      | ((error: Error | null, item?: RatePlanInstance) => any),
+    params: RatePlanListInstanceCreateOptions,
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance>;
 
@@ -431,9 +454,10 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RatePlanListInstanceEachOptions
-      | ((item: RatePlanInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RatePlanListInstanceEachOptions,
     callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -458,9 +482,10 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RatePlanListInstanceOptions
-      | ((error: Error | null, items: RatePlanInstance[]) => any),
+    callback?: (error: Error | null, items: RatePlanInstance[]) => any
+  ): Promise<RatePlanInstance[]>;
+  list(
+    params: RatePlanListInstanceOptions,
     callback?: (error: Error | null, items: RatePlanInstance[]) => any
   ): Promise<RatePlanInstance[]>;
   /**
@@ -475,9 +500,10 @@ export interface RatePlanListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RatePlanListInstancePageOptions
-      | ((error: Error | null, items: RatePlanPage) => any),
+    callback?: (error: Error | null, items: RatePlanPage) => any
+  ): Promise<RatePlanPage>;
+  page(
+    params: RatePlanListInstancePageOptions,
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage>;
 

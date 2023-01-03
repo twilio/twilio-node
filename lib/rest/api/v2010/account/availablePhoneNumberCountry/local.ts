@@ -193,9 +193,10 @@ export interface LocalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | LocalListInstanceEachOptions
-      | ((item: LocalInstance, done: (err?: Error) => void) => void),
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: LocalListInstanceEachOptions,
     callback?: (item: LocalInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -220,9 +221,10 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | LocalListInstanceOptions
-      | ((error: Error | null, items: LocalInstance[]) => any),
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
+  list(
+    params: LocalListInstanceOptions,
     callback?: (error: Error | null, items: LocalInstance[]) => any
   ): Promise<LocalInstance[]>;
   /**
@@ -237,9 +239,10 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | LocalListInstancePageOptions
-      | ((error: Error | null, items: LocalPage) => any),
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
+  page(
+    params: LocalListInstancePageOptions,
     callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage>;
 

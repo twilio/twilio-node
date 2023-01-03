@@ -193,9 +193,10 @@ export interface VoipListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | VoipListInstanceEachOptions
-      | ((item: VoipInstance, done: (err?: Error) => void) => void),
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: VoipListInstanceEachOptions,
     callback?: (item: VoipInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -220,9 +221,10 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | VoipListInstanceOptions
-      | ((error: Error | null, items: VoipInstance[]) => any),
+    callback?: (error: Error | null, items: VoipInstance[]) => any
+  ): Promise<VoipInstance[]>;
+  list(
+    params: VoipListInstanceOptions,
     callback?: (error: Error | null, items: VoipInstance[]) => any
   ): Promise<VoipInstance[]>;
   /**
@@ -237,9 +239,10 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | VoipListInstancePageOptions
-      | ((error: Error | null, items: VoipPage) => any),
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage>;
+  page(
+    params: VoipListInstancePageOptions,
     callback?: (error: Error | null, items: VoipPage) => any
   ): Promise<VoipPage>;
 

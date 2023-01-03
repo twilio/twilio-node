@@ -132,7 +132,9 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Accounts/${accountSid}/Notifications/${sid}.json`;
   }
 
-  fetch(callback?: any): Promise<NotificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -378,9 +380,10 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | NotificationListInstanceEachOptions
-      | ((item: NotificationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: NotificationListInstanceEachOptions,
     callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -405,9 +408,10 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | NotificationListInstanceOptions
-      | ((error: Error | null, items: NotificationInstance[]) => any),
+    callback?: (error: Error | null, items: NotificationInstance[]) => any
+  ): Promise<NotificationInstance[]>;
+  list(
+    params: NotificationListInstanceOptions,
     callback?: (error: Error | null, items: NotificationInstance[]) => any
   ): Promise<NotificationInstance[]>;
   /**
@@ -422,9 +426,10 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | NotificationListInstancePageOptions
-      | ((error: Error | null, items: NotificationPage) => any),
+    callback?: (error: Error | null, items: NotificationPage) => any
+  ): Promise<NotificationPage>;
+  page(
+    params: NotificationListInstancePageOptions,
     callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage>;
 

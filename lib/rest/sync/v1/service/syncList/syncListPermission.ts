@@ -159,7 +159,9 @@ export class SyncListPermissionContextImpl
     this._uri = `/Services/${serviceSid}/Lists/${listSid}/Permissions/${identity}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -173,7 +175,9 @@ export class SyncListPermissionContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncListPermissionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -198,7 +202,12 @@ export class SyncListPermissionContextImpl
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance> {
+  update(
+    params:
+      | SyncListPermissionContextUpdateOptions
+      | ((error: Error | null, item?: SyncListPermissionInstance) => any),
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -437,12 +446,13 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncListPermissionListInstanceEachOptions
-      | ((
-          item: SyncListPermissionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: SyncListPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SyncListPermissionListInstanceEachOptions,
     callback?: (
       item: SyncListPermissionInstance,
       done: (err?: Error) => void
@@ -470,9 +480,10 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncListPermissionListInstanceOptions
-      | ((error: Error | null, items: SyncListPermissionInstance[]) => any),
+    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
+  ): Promise<SyncListPermissionInstance[]>;
+  list(
+    params: SyncListPermissionListInstanceOptions,
     callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
   ): Promise<SyncListPermissionInstance[]>;
   /**
@@ -487,9 +498,10 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncListPermissionListInstancePageOptions
-      | ((error: Error | null, items: SyncListPermissionPage) => any),
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+  ): Promise<SyncListPermissionPage>;
+  page(
+    params: SyncListPermissionListInstancePageOptions,
     callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage>;
 

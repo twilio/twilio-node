@@ -185,7 +185,9 @@ export class SinkContextImpl implements SinkContext {
     return this._sinkValidate;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -199,7 +201,9 @@ export class SinkContextImpl implements SinkContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SinkInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -218,7 +222,12 @@ export class SinkContextImpl implements SinkContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SinkInstance> {
+  update(
+    params:
+      | SinkContextUpdateOptions
+      | ((error: Error | null, item?: SinkInstance) => any),
+    callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -451,9 +460,10 @@ export interface SinkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SinkListInstanceEachOptions
-      | ((item: SinkInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SinkInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SinkListInstanceEachOptions,
     callback?: (item: SinkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -478,9 +488,10 @@ export interface SinkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SinkListInstanceOptions
-      | ((error: Error | null, items: SinkInstance[]) => any),
+    callback?: (error: Error | null, items: SinkInstance[]) => any
+  ): Promise<SinkInstance[]>;
+  list(
+    params: SinkListInstanceOptions,
     callback?: (error: Error | null, items: SinkInstance[]) => any
   ): Promise<SinkInstance[]>;
   /**
@@ -495,9 +506,10 @@ export interface SinkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SinkListInstancePageOptions
-      | ((error: Error | null, items: SinkPage) => any),
+    callback?: (error: Error | null, items: SinkPage) => any
+  ): Promise<SinkPage>;
+  page(
+    params: SinkListInstancePageOptions,
     callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage>;
 

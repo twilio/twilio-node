@@ -180,7 +180,9 @@ export class RoomContextImpl implements RoomContext {
     return this._participants;
   }
 
-  fetch(callback?: any): Promise<RoomInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -467,9 +469,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RoomListInstanceEachOptions
-      | ((item: RoomInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RoomListInstanceEachOptions,
     callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -494,9 +497,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RoomListInstanceOptions
-      | ((error: Error | null, items: RoomInstance[]) => any),
+    callback?: (error: Error | null, items: RoomInstance[]) => any
+  ): Promise<RoomInstance[]>;
+  list(
+    params: RoomListInstanceOptions,
     callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
   /**
@@ -511,9 +515,10 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RoomListInstancePageOptions
-      | ((error: Error | null, items: RoomPage) => any),
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
+  page(
+    params: RoomListInstancePageOptions,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
 

@@ -165,15 +165,23 @@ export interface DomainContext {
   /**
    * Update a DomainInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DomainInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+  /**
+   * Update a DomainInstance
+   *
    * @param { DomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
   update(
-    params?:
-      | DomainContextUpdateOptions
-      | ((error: Error | null, item?: DomainInstance) => any),
+    params: DomainContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
 
@@ -243,7 +251,9 @@ export class DomainContextImpl implements DomainContext {
     return this._ipAccessControlListMappings;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -257,7 +267,9 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DomainInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -281,7 +293,12 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DomainInstance> {
+  update(
+    params?:
+      | DomainContextUpdateOptions
+      | ((error: Error | null, item?: DomainInstance) => any),
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: DomainInstance) => any;
       params = {};
@@ -577,9 +594,7 @@ export class DomainInstance {
    * @returns { Promise } Resolves to processed DomainInstance
    */
   update(
-    params?:
-      | DomainContextUpdateOptions
-      | ((error: Error | null, item?: DomainInstance) => any),
+    params?: DomainContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
@@ -675,9 +690,10 @@ export interface DomainListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DomainListInstanceEachOptions
-      | ((item: DomainInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DomainListInstanceEachOptions,
     callback?: (item: DomainInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -702,9 +718,10 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DomainListInstanceOptions
-      | ((error: Error | null, items: DomainInstance[]) => any),
+    callback?: (error: Error | null, items: DomainInstance[]) => any
+  ): Promise<DomainInstance[]>;
+  list(
+    params: DomainListInstanceOptions,
     callback?: (error: Error | null, items: DomainInstance[]) => any
   ): Promise<DomainInstance[]>;
   /**
@@ -719,9 +736,10 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DomainListInstancePageOptions
-      | ((error: Error | null, items: DomainPage) => any),
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
+  page(
+    params: DomainListInstancePageOptions,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
 

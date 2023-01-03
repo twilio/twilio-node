@@ -123,7 +123,9 @@ export class RegulationContextImpl implements RegulationContext {
     this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<RegulationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -278,9 +280,10 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RegulationListInstanceEachOptions
-      | ((item: RegulationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RegulationListInstanceEachOptions,
     callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -305,9 +308,10 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RegulationListInstanceOptions
-      | ((error: Error | null, items: RegulationInstance[]) => any),
+    callback?: (error: Error | null, items: RegulationInstance[]) => any
+  ): Promise<RegulationInstance[]>;
+  list(
+    params: RegulationListInstanceOptions,
     callback?: (error: Error | null, items: RegulationInstance[]) => any
   ): Promise<RegulationInstance[]>;
   /**
@@ -322,9 +326,10 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RegulationListInstancePageOptions
-      | ((error: Error | null, items: RegulationPage) => any),
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
+  page(
+    params: RegulationListInstancePageOptions,
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage>;
 

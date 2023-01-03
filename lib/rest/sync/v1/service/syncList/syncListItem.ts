@@ -133,15 +133,23 @@ export interface SyncListItemContext {
   /**
    * Remove a SyncListItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SyncListItemInstance
+   *
    * @param { SyncListItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   remove(
-    params?:
-      | SyncListItemContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params: SyncListItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -159,15 +167,23 @@ export interface SyncListItemContext {
   /**
    * Update a SyncListItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListItemInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+  ): Promise<SyncListItemInstance>;
+  /**
+   * Update a SyncListItemInstance
+   *
    * @param { SyncListItemContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   update(
-    params?:
-      | SyncListItemContextUpdateOptions
-      | ((error: Error | null, item?: SyncListItemInstance) => any),
+    params: SyncListItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
@@ -210,7 +226,12 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     this._uri = `/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | SyncListItemContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
@@ -239,7 +260,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncListItemInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+  ): Promise<SyncListItemInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -264,7 +287,12 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SyncListItemInstance> {
+  update(
+    params?:
+      | SyncListItemContextUpdateOptions
+      | ((error: Error | null, item?: SyncListItemInstance) => any),
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+  ): Promise<SyncListItemInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -439,9 +467,7 @@ export class SyncListItemInstance {
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   remove(
-    params?:
-      | SyncListItemContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params?: SyncListItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -469,9 +495,7 @@ export class SyncListItemInstance {
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   update(
-    params?:
-      | SyncListItemContextUpdateOptions
-      | ((error: Error | null, item?: SyncListItemInstance) => any),
+    params?: SyncListItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     return this._proxy.update(params, callback);
@@ -536,9 +560,10 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncListItemListInstanceEachOptions
-      | ((item: SyncListItemInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SyncListItemListInstanceEachOptions,
     callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -563,9 +588,10 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncListItemListInstanceOptions
-      | ((error: Error | null, items: SyncListItemInstance[]) => any),
+    callback?: (error: Error | null, items: SyncListItemInstance[]) => any
+  ): Promise<SyncListItemInstance[]>;
+  list(
+    params: SyncListItemListInstanceOptions,
     callback?: (error: Error | null, items: SyncListItemInstance[]) => any
   ): Promise<SyncListItemInstance[]>;
   /**
@@ -580,9 +606,10 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncListItemListInstancePageOptions
-      | ((error: Error | null, items: SyncListItemPage) => any),
+    callback?: (error: Error | null, items: SyncListItemPage) => any
+  ): Promise<SyncListItemPage>;
+  page(
+    params: SyncListItemListInstancePageOptions,
     callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage>;
 

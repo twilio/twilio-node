@@ -87,12 +87,13 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | HighriskSpecialPrefixListInstanceEachOptions
-      | ((
-          item: HighriskSpecialPrefixInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: HighriskSpecialPrefixInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: HighriskSpecialPrefixListInstanceEachOptions,
     callback?: (
       item: HighriskSpecialPrefixInstance,
       done: (err?: Error) => void
@@ -120,9 +121,13 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | HighriskSpecialPrefixListInstanceOptions
-      | ((error: Error | null, items: HighriskSpecialPrefixInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: HighriskSpecialPrefixInstance[]
+    ) => any
+  ): Promise<HighriskSpecialPrefixInstance[]>;
+  list(
+    params: HighriskSpecialPrefixListInstanceOptions,
     callback?: (
       error: Error | null,
       items: HighriskSpecialPrefixInstance[]
@@ -140,9 +145,10 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | HighriskSpecialPrefixListInstancePageOptions
-      | ((error: Error | null, items: HighriskSpecialPrefixPage) => any),
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
+  ): Promise<HighriskSpecialPrefixPage>;
+  page(
+    params: HighriskSpecialPrefixListInstancePageOptions,
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage>;
 

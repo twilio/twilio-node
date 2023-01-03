@@ -139,7 +139,9 @@ export class NetworkAccessProfileNetworkContextImpl
     this._uri = `/NetworkAccessProfiles/${networkAccessProfileSid}/Networks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -153,7 +155,12 @@ export class NetworkAccessProfileNetworkContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<NetworkAccessProfileNetworkInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: NetworkAccessProfileNetworkInstance
+    ) => any
+  ): Promise<NetworkAccessProfileNetworkInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -346,12 +353,13 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | NetworkAccessProfileNetworkListInstanceEachOptions
-      | ((
-          item: NetworkAccessProfileNetworkInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: NetworkAccessProfileNetworkInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: NetworkAccessProfileNetworkListInstanceEachOptions,
     callback?: (
       item: NetworkAccessProfileNetworkInstance,
       done: (err?: Error) => void
@@ -382,12 +390,13 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | NetworkAccessProfileNetworkListInstanceOptions
-      | ((
-          error: Error | null,
-          items: NetworkAccessProfileNetworkInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: NetworkAccessProfileNetworkInstance[]
+    ) => any
+  ): Promise<NetworkAccessProfileNetworkInstance[]>;
+  list(
+    params: NetworkAccessProfileNetworkListInstanceOptions,
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileNetworkInstance[]
@@ -405,9 +414,13 @@ export interface NetworkAccessProfileNetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | NetworkAccessProfileNetworkListInstancePageOptions
-      | ((error: Error | null, items: NetworkAccessProfileNetworkPage) => any),
+    callback?: (
+      error: Error | null,
+      items: NetworkAccessProfileNetworkPage
+    ) => any
+  ): Promise<NetworkAccessProfileNetworkPage>;
+  page(
+    params: NetworkAccessProfileNetworkListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileNetworkPage

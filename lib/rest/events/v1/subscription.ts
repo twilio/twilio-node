@@ -125,15 +125,23 @@ export interface SubscriptionContext {
   /**
    * Update a SubscriptionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscriptionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+  /**
+   * Update a SubscriptionInstance
+   *
    * @param { SubscriptionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
   update(
-    params?:
-      | SubscriptionContextUpdateOptions
-      | ((error: Error | null, item?: SubscriptionInstance) => any),
+    params: SubscriptionContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance>;
 
@@ -170,7 +178,9 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     return this._subscribedEvents;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -184,7 +194,9 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SubscriptionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -203,7 +215,12 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SubscriptionInstance> {
+  update(
+    params?:
+      | SubscriptionContextUpdateOptions
+      | ((error: Error | null, item?: SubscriptionInstance) => any),
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -368,9 +385,7 @@ export class SubscriptionInstance {
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
   update(
-    params?:
-      | SubscriptionContextUpdateOptions
-      | ((error: Error | null, item?: SubscriptionInstance) => any),
+    params?: SubscriptionContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
     return this._proxy.update(params, callback);
@@ -439,9 +454,10 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SubscriptionListInstanceEachOptions
-      | ((item: SubscriptionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SubscriptionListInstanceEachOptions,
     callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -466,9 +482,10 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SubscriptionListInstanceOptions
-      | ((error: Error | null, items: SubscriptionInstance[]) => any),
+    callback?: (error: Error | null, items: SubscriptionInstance[]) => any
+  ): Promise<SubscriptionInstance[]>;
+  list(
+    params: SubscriptionListInstanceOptions,
     callback?: (error: Error | null, items: SubscriptionInstance[]) => any
   ): Promise<SubscriptionInstance[]>;
   /**
@@ -483,9 +500,10 @@ export interface SubscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SubscriptionListInstancePageOptions
-      | ((error: Error | null, items: SubscriptionPage) => any),
+    callback?: (error: Error | null, items: SubscriptionPage) => any
+  ): Promise<SubscriptionPage>;
+  page(
+    params: SubscriptionListInstancePageOptions,
     callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage>;
 

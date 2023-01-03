@@ -42,15 +42,23 @@ export interface TaskActionsContext {
   /**
    * Update a TaskActionsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskActionsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance>;
+  /**
+   * Update a TaskActionsInstance
+   *
    * @param { TaskActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
   update(
-    params?:
-      | TaskActionsContextUpdateOptions
-      | ((error: Error | null, item?: TaskActionsInstance) => any),
+    params: TaskActionsContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance>;
 
@@ -83,7 +91,9 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
   }
 
-  fetch(callback?: any): Promise<TaskActionsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -107,7 +117,12 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
+  update(
+    params?:
+      | TaskActionsContextUpdateOptions
+      | ((error: Error | null, item?: TaskActionsInstance) => any),
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -248,9 +263,7 @@ export class TaskActionsInstance {
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
   update(
-    params?:
-      | TaskActionsContextUpdateOptions
-      | ((error: Error | null, item?: TaskActionsInstance) => any),
+    params?: TaskActionsContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance> {
     return this._proxy.update(params, callback);

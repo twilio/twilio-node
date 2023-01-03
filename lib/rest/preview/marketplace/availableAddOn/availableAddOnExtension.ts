@@ -120,7 +120,12 @@ export class AvailableAddOnExtensionContextImpl
     this._uri = `/AvailableAddOns/${availableAddOnSid}/Extensions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AvailableAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AvailableAddOnExtensionInstance
+    ) => any
+  ): Promise<AvailableAddOnExtensionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -284,12 +289,13 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AvailableAddOnExtensionListInstanceEachOptions
-      | ((
-          item: AvailableAddOnExtensionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AvailableAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AvailableAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AvailableAddOnExtensionInstance,
       done: (err?: Error) => void
@@ -317,12 +323,13 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AvailableAddOnExtensionListInstanceOptions
-      | ((
-          error: Error | null,
-          items: AvailableAddOnExtensionInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AvailableAddOnExtensionInstance[]
+    ) => any
+  ): Promise<AvailableAddOnExtensionInstance[]>;
+  list(
+    params: AvailableAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AvailableAddOnExtensionInstance[]
@@ -340,9 +347,10 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AvailableAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, items: AvailableAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+  ): Promise<AvailableAddOnExtensionPage>;
+  page(
+    params: AvailableAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage>;
 

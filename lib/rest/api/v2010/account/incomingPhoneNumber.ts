@@ -252,15 +252,23 @@ export interface IncomingPhoneNumberContext {
   /**
    * Update a IncomingPhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * Update a IncomingPhoneNumberInstance
+   *
    * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   update(
-    params?:
-      | IncomingPhoneNumberContextUpdateOptions
-      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
+    params: IncomingPhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance>;
 
@@ -308,7 +316,9 @@ export class IncomingPhoneNumberContextImpl
     return this._assignedAddOns;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -322,7 +332,9 @@ export class IncomingPhoneNumberContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IncomingPhoneNumberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -346,7 +358,12 @@ export class IncomingPhoneNumberContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
+  update(
+    params?:
+      | IncomingPhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -737,9 +754,7 @@ export class IncomingPhoneNumberInstance {
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   update(
-    params?:
-      | IncomingPhoneNumberContextUpdateOptions
-      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
+    params?: IncomingPhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     return this._proxy.update(params, callback);
@@ -812,15 +827,23 @@ export interface IncomingPhoneNumberListInstance {
   /**
    * Create a IncomingPhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * Create a IncomingPhoneNumberInstance
+   *
    * @param { IncomingPhoneNumberListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   create(
-    params?:
-      | IncomingPhoneNumberListInstanceCreateOptions
-      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
+    params: IncomingPhoneNumberListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance>;
 
@@ -840,12 +863,13 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IncomingPhoneNumberListInstanceEachOptions
-      | ((
-          item: IncomingPhoneNumberInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: IncomingPhoneNumberInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: IncomingPhoneNumberListInstanceEachOptions,
     callback?: (
       item: IncomingPhoneNumberInstance,
       done: (err?: Error) => void
@@ -873,9 +897,13 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IncomingPhoneNumberListInstanceOptions
-      | ((error: Error | null, items: IncomingPhoneNumberInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: IncomingPhoneNumberInstance[]
+    ) => any
+  ): Promise<IncomingPhoneNumberInstance[]>;
+  list(
+    params: IncomingPhoneNumberListInstanceOptions,
     callback?: (
       error: Error | null,
       items: IncomingPhoneNumberInstance[]
@@ -893,9 +921,10 @@ export interface IncomingPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IncomingPhoneNumberListInstancePageOptions
-      | ((error: Error | null, items: IncomingPhoneNumberPage) => any),
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
+  ): Promise<IncomingPhoneNumberPage>;
+  page(
+    params: IncomingPhoneNumberListInstancePageOptions,
     callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage>;
 

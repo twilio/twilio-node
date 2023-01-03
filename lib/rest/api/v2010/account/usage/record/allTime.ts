@@ -355,9 +355,10 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AllTimeListInstanceEachOptions
-      | ((item: AllTimeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AllTimeListInstanceEachOptions,
     callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AllTimeListInstanceOptions
-      | ((error: Error | null, items: AllTimeInstance[]) => any),
+    callback?: (error: Error | null, items: AllTimeInstance[]) => any
+  ): Promise<AllTimeInstance[]>;
+  list(
+    params: AllTimeListInstanceOptions,
     callback?: (error: Error | null, items: AllTimeInstance[]) => any
   ): Promise<AllTimeInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface AllTimeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AllTimeListInstancePageOptions
-      | ((error: Error | null, items: AllTimePage) => any),
+    callback?: (error: Error | null, items: AllTimePage) => any
+  ): Promise<AllTimePage>;
+  page(
+    params: AllTimeListInstancePageOptions,
     callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage>;
 

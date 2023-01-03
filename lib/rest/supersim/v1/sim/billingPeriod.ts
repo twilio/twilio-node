@@ -86,9 +86,13 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BillingPeriodListInstanceEachOptions
-      | ((item: BillingPeriodInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: BillingPeriodInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: BillingPeriodListInstanceEachOptions,
     callback?: (
       item: BillingPeriodInstance,
       done: (err?: Error) => void
@@ -116,9 +120,10 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BillingPeriodListInstanceOptions
-      | ((error: Error | null, items: BillingPeriodInstance[]) => any),
+    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
+  ): Promise<BillingPeriodInstance[]>;
+  list(
+    params: BillingPeriodListInstanceOptions,
     callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
   ): Promise<BillingPeriodInstance[]>;
   /**
@@ -133,9 +138,10 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BillingPeriodListInstancePageOptions
-      | ((error: Error | null, items: BillingPeriodPage) => any),
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
+  page(
+    params: BillingPeriodListInstancePageOptions,
     callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage>;
 

@@ -54,15 +54,23 @@ export interface FeedbackContext {
   /**
    * Update a FeedbackInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FeedbackInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  /**
+   * Update a FeedbackInstance
+   *
    * @param { FeedbackContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   update(
-    params?:
-      | FeedbackContextUpdateOptions
-      | ((error: Error | null, item?: FeedbackInstance) => any),
+    params: FeedbackContextUpdateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
 
@@ -95,7 +103,9 @@ export class FeedbackContextImpl implements FeedbackContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
   }
 
-  fetch(callback?: any): Promise<FeedbackInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -119,7 +129,12 @@ export class FeedbackContextImpl implements FeedbackContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FeedbackInstance> {
+  update(
+    params?:
+      | FeedbackContextUpdateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -268,9 +283,7 @@ export class FeedbackInstance {
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   update(
-    params?:
-      | FeedbackContextUpdateOptions
-      | ((error: Error | null, item?: FeedbackInstance) => any),
+    params?: FeedbackContextUpdateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     return this._proxy.update(params, callback);

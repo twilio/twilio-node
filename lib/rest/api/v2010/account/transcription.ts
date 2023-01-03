@@ -121,7 +121,9 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     this._uri = `/Accounts/${accountSid}/Transcriptions/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -135,7 +137,9 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TranscriptionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+  ): Promise<TranscriptionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -355,9 +359,13 @@ export interface TranscriptionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TranscriptionListInstanceEachOptions
-      | ((item: TranscriptionInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: TranscriptionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TranscriptionListInstanceEachOptions,
     callback?: (
       item: TranscriptionInstance,
       done: (err?: Error) => void
@@ -385,9 +393,10 @@ export interface TranscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TranscriptionListInstanceOptions
-      | ((error: Error | null, items: TranscriptionInstance[]) => any),
+    callback?: (error: Error | null, items: TranscriptionInstance[]) => any
+  ): Promise<TranscriptionInstance[]>;
+  list(
+    params: TranscriptionListInstanceOptions,
     callback?: (error: Error | null, items: TranscriptionInstance[]) => any
   ): Promise<TranscriptionInstance[]>;
   /**
@@ -402,9 +411,10 @@ export interface TranscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TranscriptionListInstancePageOptions
-      | ((error: Error | null, items: TranscriptionPage) => any),
+    callback?: (error: Error | null, items: TranscriptionPage) => any
+  ): Promise<TranscriptionPage>;
+  page(
+    params: TranscriptionListInstancePageOptions,
     callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage>;
 

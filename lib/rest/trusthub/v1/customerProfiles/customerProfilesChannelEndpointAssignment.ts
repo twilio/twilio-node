@@ -149,7 +149,9 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +166,10 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   }
 
   fetch(
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
@@ -366,12 +371,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions
-      | ((
-          item: CustomerProfilesChannelEndpointAssignmentInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
       done: (err?: Error) => void
@@ -402,12 +408,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CustomerProfilesChannelEndpointAssignmentListInstanceOptions
-      | ((
-          error: Error | null,
-          items: CustomerProfilesChannelEndpointAssignmentInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentInstance[]
+    ) => any
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
+  list(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesChannelEndpointAssignmentInstance[]
@@ -425,12 +432,13 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: CustomerProfilesChannelEndpointAssignmentPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage
+    ) => any
+  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+  page(
+    params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesChannelEndpointAssignmentPage

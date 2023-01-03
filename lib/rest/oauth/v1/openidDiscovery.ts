@@ -48,7 +48,9 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
     this._uri = `/.well-known/openid-configuration`;
   }
 
-  fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any
+  ): Promise<OpenidDiscoveryInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

@@ -125,15 +125,23 @@ export interface ParticipantContext {
   /**
    * Update a ParticipantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ParticipantInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  /**
+   * Update a ParticipantInstance
+   *
    * @param { ParticipantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
   update(
-    params?:
-      | ParticipantContextUpdateOptions
-      | ((error: Error | null, item?: ParticipantInstance) => any),
+    params: ParticipantContextUpdateOptions,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
 
@@ -215,7 +223,9 @@ export class ParticipantContextImpl implements ParticipantContext {
     return this._subscribedTracks;
   }
 
-  fetch(callback?: any): Promise<ParticipantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -239,7 +249,12 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ParticipantInstance> {
+  update(
+    params?:
+      | ParticipantContextUpdateOptions
+      | ((error: Error | null, item?: ParticipantInstance) => any),
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -420,9 +435,7 @@ export class ParticipantInstance {
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
   update(
-    params?:
-      | ParticipantContextUpdateOptions
-      | ((error: Error | null, item?: ParticipantInstance) => any),
+    params?: ParticipantContextUpdateOptions,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
@@ -503,9 +516,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ParticipantListInstanceEachOptions
-      | ((item: ParticipantInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ParticipantListInstanceEachOptions,
     callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -530,9 +544,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ParticipantListInstanceOptions
-      | ((error: Error | null, items: ParticipantInstance[]) => any),
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
+  list(
+    params: ParticipantListInstanceOptions,
     callback?: (error: Error | null, items: ParticipantInstance[]) => any
   ): Promise<ParticipantInstance[]>;
   /**
@@ -547,9 +562,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ParticipantPage) => any),
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
+  page(
+    params: ParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
 

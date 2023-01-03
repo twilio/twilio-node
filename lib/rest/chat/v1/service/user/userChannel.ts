@@ -86,9 +86,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UserChannelListInstanceEachOptions
-      | ((item: UserChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UserChannelListInstanceEachOptions,
     callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -113,9 +114,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UserChannelListInstanceOptions
-      | ((error: Error | null, items: UserChannelInstance[]) => any),
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+  ): Promise<UserChannelInstance[]>;
+  list(
+    params: UserChannelListInstanceOptions,
     callback?: (error: Error | null, items: UserChannelInstance[]) => any
   ): Promise<UserChannelInstance[]>;
   /**
@@ -130,9 +132,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UserChannelListInstancePageOptions
-      | ((error: Error | null, items: UserChannelPage) => any),
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
+  page(
+    params: UserChannelListInstancePageOptions,
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage>;
 

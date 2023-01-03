@@ -39,15 +39,23 @@ export interface WorkflowStatisticsContext {
   /**
    * Fetch a WorkflowStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance>;
+  /**
+   * Fetch a WorkflowStatisticsInstance
+   *
    * @param { WorkflowStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowStatisticsContextFetchOptions
-      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
+    params: WorkflowStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance>;
 
@@ -86,7 +94,12 @@ export class WorkflowStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
+  fetch(
+    params?:
+      | WorkflowStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -226,9 +239,7 @@ export class WorkflowStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowStatisticsContextFetchOptions
-      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
+    params?: WorkflowStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance> {
     return this._proxy.fetch(params, callback);

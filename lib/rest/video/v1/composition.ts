@@ -171,7 +171,9 @@ export class CompositionContextImpl implements CompositionContext {
     this._uri = `/Compositions/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -185,7 +187,9 @@ export class CompositionContextImpl implements CompositionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CompositionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionInstance) => any
+  ): Promise<CompositionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -469,9 +473,10 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CompositionListInstanceEachOptions
-      | ((item: CompositionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CompositionListInstanceEachOptions,
     callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -496,9 +501,10 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CompositionListInstanceOptions
-      | ((error: Error | null, items: CompositionInstance[]) => any),
+    callback?: (error: Error | null, items: CompositionInstance[]) => any
+  ): Promise<CompositionInstance[]>;
+  list(
+    params: CompositionListInstanceOptions,
     callback?: (error: Error | null, items: CompositionInstance[]) => any
   ): Promise<CompositionInstance[]>;
   /**
@@ -513,9 +519,10 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CompositionListInstancePageOptions
-      | ((error: Error | null, items: CompositionPage) => any),
+    callback?: (error: Error | null, items: CompositionPage) => any
+  ): Promise<CompositionPage>;
+  page(
+    params: CompositionListInstancePageOptions,
     callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage>;
 

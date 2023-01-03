@@ -66,15 +66,23 @@ export interface NotificationContext {
   /**
    * Update a NotificationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+  /**
+   * Update a NotificationInstance
+   *
    * @param { NotificationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   update(
-    params?:
-      | NotificationContextUpdateOptions
-      | ((error: Error | null, item?: NotificationInstance) => any),
+    params: NotificationContextUpdateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
 
@@ -102,7 +110,9 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
   }
 
-  fetch(callback?: any): Promise<NotificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -125,7 +135,12 @@ export class NotificationContextImpl implements NotificationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<NotificationInstance> {
+  update(
+    params?:
+      | NotificationContextUpdateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -308,9 +323,7 @@ export class NotificationInstance {
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   update(
-    params?:
-      | NotificationContextUpdateOptions
-      | ((error: Error | null, item?: NotificationInstance) => any),
+    params?: NotificationContextUpdateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);

@@ -174,7 +174,9 @@ export class EventContextImpl implements EventContext {
     this._uri = `/Workspaces/${workspaceSid}/Events/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EventInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any
+  ): Promise<EventInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -412,9 +414,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EventListInstanceEachOptions
-      | ((item: EventInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EventListInstanceEachOptions,
     callback?: (item: EventInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -439,9 +442,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EventListInstanceOptions
-      | ((error: Error | null, items: EventInstance[]) => any),
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
+  list(
+    params: EventListInstanceOptions,
     callback?: (error: Error | null, items: EventInstance[]) => any
   ): Promise<EventInstance[]>;
   /**
@@ -456,9 +460,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EventListInstancePageOptions
-      | ((error: Error | null, items: EventPage) => any),
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
+  page(
+    params: EventListInstancePageOptions,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
 

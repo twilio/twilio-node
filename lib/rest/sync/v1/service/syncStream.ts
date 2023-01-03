@@ -115,15 +115,23 @@ export interface SyncStreamContext {
   /**
    * Update a SyncStreamInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncStreamInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance>;
+  /**
+   * Update a SyncStreamInstance
+   *
    * @param { SyncStreamContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncStreamInstance
    */
   update(
-    params?:
-      | SyncStreamContextUpdateOptions
-      | ((error: Error | null, item?: SyncStreamInstance) => any),
+    params: SyncStreamContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
@@ -169,7 +177,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return this._streamMessages;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -183,7 +193,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncStreamInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -207,7 +219,12 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SyncStreamInstance> {
+  update(
+    params?:
+      | SyncStreamContextUpdateOptions
+      | ((error: Error | null, item?: SyncStreamInstance) => any),
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -392,9 +409,7 @@ export class SyncStreamInstance {
    * @returns { Promise } Resolves to processed SyncStreamInstance
    */
   update(
-    params?:
-      | SyncStreamContextUpdateOptions
-      | ((error: Error | null, item?: SyncStreamInstance) => any),
+    params?: SyncStreamContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     return this._proxy.update(params, callback);
@@ -439,15 +454,23 @@ export interface SyncStreamListInstance {
   /**
    * Create a SyncStreamInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncStreamInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance>;
+  /**
+   * Create a SyncStreamInstance
+   *
    * @param { SyncStreamListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncStreamInstance
    */
   create(
-    params?:
-      | SyncStreamListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncStreamInstance) => any),
+    params: SyncStreamListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
@@ -467,9 +490,10 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncStreamListInstanceEachOptions
-      | ((item: SyncStreamInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SyncStreamListInstanceEachOptions,
     callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -494,9 +518,10 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncStreamListInstanceOptions
-      | ((error: Error | null, items: SyncStreamInstance[]) => any),
+    callback?: (error: Error | null, items: SyncStreamInstance[]) => any
+  ): Promise<SyncStreamInstance[]>;
+  list(
+    params: SyncStreamListInstanceOptions,
     callback?: (error: Error | null, items: SyncStreamInstance[]) => any
   ): Promise<SyncStreamInstance[]>;
   /**
@@ -511,9 +536,10 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncStreamListInstancePageOptions
-      | ((error: Error | null, items: SyncStreamPage) => any),
+    callback?: (error: Error | null, items: SyncStreamPage) => any
+  ): Promise<SyncStreamPage>;
+  page(
+    params: SyncStreamListInstancePageOptions,
     callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
 

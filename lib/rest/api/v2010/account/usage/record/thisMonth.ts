@@ -355,9 +355,10 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ThisMonthListInstanceEachOptions
-      | ((item: ThisMonthInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ThisMonthListInstanceEachOptions,
     callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ThisMonthListInstanceOptions
-      | ((error: Error | null, items: ThisMonthInstance[]) => any),
+    callback?: (error: Error | null, items: ThisMonthInstance[]) => any
+  ): Promise<ThisMonthInstance[]>;
+  list(
+    params: ThisMonthListInstanceOptions,
     callback?: (error: Error | null, items: ThisMonthInstance[]) => any
   ): Promise<ThisMonthInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface ThisMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ThisMonthListInstancePageOptions
-      | ((error: Error | null, items: ThisMonthPage) => any),
+    callback?: (error: Error | null, items: ThisMonthPage) => any
+  ): Promise<ThisMonthPage>;
+  page(
+    params: ThisMonthListInstancePageOptions,
     callback?: (error: Error | null, items: ThisMonthPage) => any
   ): Promise<ThisMonthPage>;
 

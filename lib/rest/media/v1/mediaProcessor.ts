@@ -164,7 +164,9 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     this._uri = `/MediaProcessors/${sid}`;
   }
 
-  fetch(callback?: any): Promise<MediaProcessorInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -187,7 +189,12 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<MediaProcessorInstance> {
+  update(
+    params:
+      | MediaProcessorContextUpdateOptions
+      | ((error: Error | null, item?: MediaProcessorInstance) => any),
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -434,9 +441,13 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MediaProcessorListInstanceEachOptions
-      | ((item: MediaProcessorInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: MediaProcessorInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: MediaProcessorListInstanceEachOptions,
     callback?: (
       item: MediaProcessorInstance,
       done: (err?: Error) => void
@@ -464,9 +475,10 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MediaProcessorListInstanceOptions
-      | ((error: Error | null, items: MediaProcessorInstance[]) => any),
+    callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
+  ): Promise<MediaProcessorInstance[]>;
+  list(
+    params: MediaProcessorListInstanceOptions,
     callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
   ): Promise<MediaProcessorInstance[]>;
   /**
@@ -481,9 +493,10 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MediaProcessorListInstancePageOptions
-      | ((error: Error | null, items: MediaProcessorPage) => any),
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
+  ): Promise<MediaProcessorPage>;
+  page(
+    params: MediaProcessorListInstancePageOptions,
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage>;
 

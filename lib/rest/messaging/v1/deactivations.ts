@@ -31,15 +31,23 @@ export interface DeactivationsContext {
   /**
    * Fetch a DeactivationsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeactivationsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+  ): Promise<DeactivationsInstance>;
+  /**
+   * Fetch a DeactivationsInstance
+   *
    * @param { DeactivationsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeactivationsInstance
    */
   fetch(
-    params?:
-      | DeactivationsContextFetchOptions
-      | ((error: Error | null, item?: DeactivationsInstance) => any),
+    params: DeactivationsContextFetchOptions,
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance>;
 
@@ -61,7 +69,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     this._uri = `/Deactivations`;
   }
 
-  fetch(params?: any, callback?: any): Promise<DeactivationsInstance> {
+  fetch(
+    params?:
+      | DeactivationsContextFetchOptions
+      | ((error: Error | null, item?: DeactivationsInstance) => any),
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+  ): Promise<DeactivationsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -148,9 +161,7 @@ export class DeactivationsInstance {
    * @returns { Promise } Resolves to processed DeactivationsInstance
    */
   fetch(
-    params?:
-      | DeactivationsContextFetchOptions
-      | ((error: Error | null, item?: DeactivationsInstance) => any),
+    params?: DeactivationsContextFetchOptions,
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance> {
     return this._proxy.fetch(params, callback);

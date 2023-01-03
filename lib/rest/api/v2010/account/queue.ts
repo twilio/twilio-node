@@ -117,15 +117,23 @@ export interface QueueContext {
   /**
    * Update a QueueInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed QueueInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+  /**
+   * Update a QueueInstance
+   *
    * @param { QueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
   update(
-    params?:
-      | QueueContextUpdateOptions
-      | ((error: Error | null, item?: QueueInstance) => any),
+    params: QueueContextUpdateOptions,
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance>;
 
@@ -171,7 +179,9 @@ export class QueueContextImpl implements QueueContext {
     return this._members;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -185,7 +195,9 @@ export class QueueContextImpl implements QueueContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<QueueInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -209,7 +221,12 @@ export class QueueContextImpl implements QueueContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<QueueInstance> {
+  update(
+    params?:
+      | QueueContextUpdateOptions
+      | ((error: Error | null, item?: QueueInstance) => any),
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: QueueInstance) => any;
       params = {};
@@ -387,9 +404,7 @@ export class QueueInstance {
    * @returns { Promise } Resolves to processed QueueInstance
    */
   update(
-    params?:
-      | QueueContextUpdateOptions
-      | ((error: Error | null, item?: QueueInstance) => any),
+    params?: QueueContextUpdateOptions,
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance> {
     return this._proxy.update(params, callback);
@@ -459,9 +474,10 @@ export interface QueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | QueueListInstanceEachOptions
-      | ((item: QueueInstance, done: (err?: Error) => void) => void),
+    callback?: (item: QueueInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: QueueListInstanceEachOptions,
     callback?: (item: QueueInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -486,9 +502,10 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | QueueListInstanceOptions
-      | ((error: Error | null, items: QueueInstance[]) => any),
+    callback?: (error: Error | null, items: QueueInstance[]) => any
+  ): Promise<QueueInstance[]>;
+  list(
+    params: QueueListInstanceOptions,
     callback?: (error: Error | null, items: QueueInstance[]) => any
   ): Promise<QueueInstance[]>;
   /**
@@ -503,9 +520,10 @@ export interface QueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | QueueListInstancePageOptions
-      | ((error: Error | null, items: QueuePage) => any),
+    callback?: (error: Error | null, items: QueuePage) => any
+  ): Promise<QueuePage>;
+  page(
+    params: QueueListInstancePageOptions,
     callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage>;
 

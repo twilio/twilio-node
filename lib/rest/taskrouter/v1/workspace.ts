@@ -161,15 +161,23 @@ export interface WorkspaceContext {
   /**
    * Update a WorkspaceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+  /**
+   * Update a WorkspaceInstance
+   *
    * @param { WorkspaceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
   update(
-    params?:
-      | WorkspaceContextUpdateOptions
-      | ((error: Error | null, item?: WorkspaceInstance) => any),
+    params: WorkspaceContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
 
@@ -281,7 +289,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -295,7 +305,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkspaceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -314,7 +326,12 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkspaceInstance> {
+  update(
+    params?:
+      | WorkspaceContextUpdateOptions
+      | ((error: Error | null, item?: WorkspaceInstance) => any),
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -529,9 +546,7 @@ export class WorkspaceInstance {
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
   update(
-    params?:
-      | WorkspaceContextUpdateOptions
-      | ((error: Error | null, item?: WorkspaceInstance) => any),
+    params?: WorkspaceContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);
@@ -670,9 +685,10 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WorkspaceListInstanceEachOptions
-      | ((item: WorkspaceInstance, done: (err?: Error) => void) => void),
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: WorkspaceListInstanceEachOptions,
     callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -697,9 +713,10 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WorkspaceListInstanceOptions
-      | ((error: Error | null, items: WorkspaceInstance[]) => any),
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+  ): Promise<WorkspaceInstance[]>;
+  list(
+    params: WorkspaceListInstanceOptions,
     callback?: (error: Error | null, items: WorkspaceInstance[]) => any
   ): Promise<WorkspaceInstance[]>;
   /**
@@ -714,9 +731,10 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WorkspaceListInstancePageOptions
-      | ((error: Error | null, items: WorkspacePage) => any),
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
+  page(
+    params: WorkspaceListInstancePageOptions,
     callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage>;
 

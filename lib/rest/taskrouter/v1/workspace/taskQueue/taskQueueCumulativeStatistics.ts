@@ -39,18 +39,26 @@ export interface TaskQueueCumulativeStatisticsContext {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueCumulativeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance
+   *
    * @param { TaskQueueCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: TaskQueueCumulativeStatisticsInstance
-        ) => any),
+    params: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: TaskQueueCumulativeStatisticsInstance
@@ -93,8 +101,16 @@ export class TaskQueueCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskQueueCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -347,12 +363,7 @@ export class TaskQueueCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: TaskQueueCumulativeStatisticsInstance
-        ) => any),
+    params?: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: TaskQueueCumulativeStatisticsInstance

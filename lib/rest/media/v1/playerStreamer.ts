@@ -178,7 +178,9 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     return this._playbackGrant;
   }
 
-  fetch(callback?: any): Promise<PlayerStreamerInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
+  ): Promise<PlayerStreamerInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -201,7 +203,12 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<PlayerStreamerInstance> {
+  update(
+    params:
+      | PlayerStreamerContextUpdateOptions
+      | ((error: Error | null, item?: PlayerStreamerInstance) => any),
+    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
+  ): Promise<PlayerStreamerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -426,15 +433,23 @@ export interface PlayerStreamerListInstance {
   /**
    * Create a PlayerStreamerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
+  ): Promise<PlayerStreamerInstance>;
+  /**
+   * Create a PlayerStreamerInstance
+   *
    * @param { PlayerStreamerListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PlayerStreamerInstance
    */
   create(
-    params?:
-      | PlayerStreamerListInstanceCreateOptions
-      | ((error: Error | null, item?: PlayerStreamerInstance) => any),
+    params: PlayerStreamerListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
   ): Promise<PlayerStreamerInstance>;
 
@@ -454,9 +469,13 @@ export interface PlayerStreamerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PlayerStreamerListInstanceEachOptions
-      | ((item: PlayerStreamerInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: PlayerStreamerInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: PlayerStreamerListInstanceEachOptions,
     callback?: (
       item: PlayerStreamerInstance,
       done: (err?: Error) => void
@@ -484,9 +503,10 @@ export interface PlayerStreamerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PlayerStreamerListInstanceOptions
-      | ((error: Error | null, items: PlayerStreamerInstance[]) => any),
+    callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any
+  ): Promise<PlayerStreamerInstance[]>;
+  list(
+    params: PlayerStreamerListInstanceOptions,
     callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any
   ): Promise<PlayerStreamerInstance[]>;
   /**
@@ -501,9 +521,10 @@ export interface PlayerStreamerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PlayerStreamerListInstancePageOptions
-      | ((error: Error | null, items: PlayerStreamerPage) => any),
+    callback?: (error: Error | null, items: PlayerStreamerPage) => any
+  ): Promise<PlayerStreamerPage>;
+  page(
+    params: PlayerStreamerListInstancePageOptions,
     callback?: (error: Error | null, items: PlayerStreamerPage) => any
   ): Promise<PlayerStreamerPage>;
 

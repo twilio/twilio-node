@@ -135,7 +135,9 @@ export class PayloadContextImpl implements PayloadContext {
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -149,7 +151,9 @@ export class PayloadContextImpl implements PayloadContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PayloadInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PayloadInstance) => any
+  ): Promise<PayloadInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -369,9 +373,10 @@ export interface PayloadListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PayloadListInstanceEachOptions
-      | ((item: PayloadInstance, done: (err?: Error) => void) => void),
+    callback?: (item: PayloadInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: PayloadListInstanceEachOptions,
     callback?: (item: PayloadInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -396,9 +401,10 @@ export interface PayloadListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PayloadListInstanceOptions
-      | ((error: Error | null, items: PayloadInstance[]) => any),
+    callback?: (error: Error | null, items: PayloadInstance[]) => any
+  ): Promise<PayloadInstance[]>;
+  list(
+    params: PayloadListInstanceOptions,
     callback?: (error: Error | null, items: PayloadInstance[]) => any
   ): Promise<PayloadInstance[]>;
   /**
@@ -413,9 +419,10 @@ export interface PayloadListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PayloadListInstancePageOptions
-      | ((error: Error | null, items: PayloadPage) => any),
+    callback?: (error: Error | null, items: PayloadPage) => any
+  ): Promise<PayloadPage>;
+  page(
+    params: PayloadListInstancePageOptions,
     callback?: (error: Error | null, items: PayloadPage) => any
   ): Promise<PayloadPage>;
 

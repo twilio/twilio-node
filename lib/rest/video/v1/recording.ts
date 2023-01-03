@@ -158,7 +158,9 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Recordings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -172,7 +174,9 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RecordingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -416,9 +420,10 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RecordingListInstanceEachOptions
-      | ((item: RecordingInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RecordingListInstanceEachOptions,
     callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -443,9 +448,10 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RecordingListInstanceOptions
-      | ((error: Error | null, items: RecordingInstance[]) => any),
+    callback?: (error: Error | null, items: RecordingInstance[]) => any
+  ): Promise<RecordingInstance[]>;
+  list(
+    params: RecordingListInstanceOptions,
     callback?: (error: Error | null, items: RecordingInstance[]) => any
   ): Promise<RecordingInstance[]>;
   /**
@@ -460,9 +466,10 @@ export interface RecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RecordingListInstancePageOptions
-      | ((error: Error | null, items: RecordingPage) => any),
+    callback?: (error: Error | null, items: RecordingPage) => any
+  ): Promise<RecordingPage>;
+  page(
+    params: RecordingListInstancePageOptions,
     callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage>;
 

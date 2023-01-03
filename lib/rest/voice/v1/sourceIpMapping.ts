@@ -149,7 +149,9 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     this._uri = `/SourceIpMappings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -163,7 +165,9 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SourceIpMappingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -186,7 +190,12 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SourceIpMappingInstance> {
+  update(
+    params:
+      | SourceIpMappingContextUpdateOptions
+      | ((error: Error | null, item?: SourceIpMappingInstance) => any),
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -402,9 +411,13 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SourceIpMappingListInstanceEachOptions
-      | ((item: SourceIpMappingInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: SourceIpMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SourceIpMappingListInstanceEachOptions,
     callback?: (
       item: SourceIpMappingInstance,
       done: (err?: Error) => void
@@ -432,9 +445,10 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SourceIpMappingListInstanceOptions
-      | ((error: Error | null, items: SourceIpMappingInstance[]) => any),
+    callback?: (error: Error | null, items: SourceIpMappingInstance[]) => any
+  ): Promise<SourceIpMappingInstance[]>;
+  list(
+    params: SourceIpMappingListInstanceOptions,
     callback?: (error: Error | null, items: SourceIpMappingInstance[]) => any
   ): Promise<SourceIpMappingInstance[]>;
   /**
@@ -449,9 +463,10 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SourceIpMappingListInstancePageOptions
-      | ((error: Error | null, items: SourceIpMappingPage) => any),
+    callback?: (error: Error | null, items: SourceIpMappingPage) => any
+  ): Promise<SourceIpMappingPage>;
+  page(
+    params: SourceIpMappingListInstancePageOptions,
     callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage>;
 

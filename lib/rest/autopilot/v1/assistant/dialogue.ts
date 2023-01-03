@@ -59,7 +59,9 @@ export class DialogueContextImpl implements DialogueContext {
     this._uri = `/Assistants/${assistantSid}/Dialogues/${sid}`;
   }
 
-  fetch(callback?: any): Promise<DialogueInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DialogueInstance) => any
+  ): Promise<DialogueInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

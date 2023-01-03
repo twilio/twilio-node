@@ -145,7 +145,9 @@ export class CredentialListMappingContextImpl
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -159,7 +161,12 @@ export class CredentialListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CredentialListMappingInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
+  ): Promise<CredentialListMappingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -362,12 +369,13 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CredentialListMappingListInstanceEachOptions
-      | ((
-          item: CredentialListMappingInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CredentialListMappingListInstanceEachOptions,
     callback?: (
       item: CredentialListMappingInstance,
       done: (err?: Error) => void
@@ -395,9 +403,13 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CredentialListMappingListInstanceOptions
-      | ((error: Error | null, items: CredentialListMappingInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: CredentialListMappingInstance[]
+    ) => any
+  ): Promise<CredentialListMappingInstance[]>;
+  list(
+    params: CredentialListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CredentialListMappingInstance[]
@@ -415,9 +427,10 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CredentialListMappingListInstancePageOptions
-      | ((error: Error | null, items: CredentialListMappingPage) => any),
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
+  page(
+    params: CredentialListMappingListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage>;
 

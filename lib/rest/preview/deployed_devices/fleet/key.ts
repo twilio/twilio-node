@@ -120,15 +120,23 @@ export interface KeyContext {
   /**
    * Update a KeyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed KeyInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  /**
+   * Update a KeyInstance
+   *
    * @param { KeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
   update(
-    params?:
-      | KeyContextUpdateOptions
-      | ((error: Error | null, item?: KeyInstance) => any),
+    params: KeyContextUpdateOptions,
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
 
@@ -165,7 +173,9 @@ export class KeyContextImpl implements KeyContext {
     this._uri = `/Fleets/${fleetSid}/Keys/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +189,9 @@ export class KeyContextImpl implements KeyContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<KeyInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -203,7 +215,12 @@ export class KeyContextImpl implements KeyContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<KeyInstance> {
+  update(
+    params?:
+      | KeyContextUpdateOptions
+      | ((error: Error | null, item?: KeyInstance) => any),
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: KeyInstance) => any;
       params = {};
@@ -382,9 +399,7 @@ export class KeyInstance {
    * @returns { Promise } Resolves to processed KeyInstance
    */
   update(
-    params?:
-      | KeyContextUpdateOptions
-      | ((error: Error | null, item?: KeyInstance) => any),
+    params?: KeyContextUpdateOptions,
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     return this._proxy.update(params, callback);
@@ -421,15 +436,23 @@ export interface KeyListInstance {
   /**
    * Create a KeyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed KeyInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  /**
+   * Create a KeyInstance
+   *
    * @param { KeyListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
   create(
-    params?:
-      | KeyListInstanceCreateOptions
-      | ((error: Error | null, item?: KeyInstance) => any),
+    params: KeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
 
@@ -449,9 +472,10 @@ export interface KeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | KeyListInstanceEachOptions
-      | ((item: KeyInstance, done: (err?: Error) => void) => void),
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: KeyListInstanceEachOptions,
     callback?: (item: KeyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -476,9 +500,10 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | KeyListInstanceOptions
-      | ((error: Error | null, items: KeyInstance[]) => any),
+    callback?: (error: Error | null, items: KeyInstance[]) => any
+  ): Promise<KeyInstance[]>;
+  list(
+    params: KeyListInstanceOptions,
     callback?: (error: Error | null, items: KeyInstance[]) => any
   ): Promise<KeyInstance[]>;
   /**
@@ -493,9 +518,10 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | KeyListInstancePageOptions
-      | ((error: Error | null, items: KeyPage) => any),
+    callback?: (error: Error | null, items: KeyPage) => any
+  ): Promise<KeyPage>;
+  page(
+    params: KeyListInstancePageOptions,
     callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage>;
 

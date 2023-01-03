@@ -74,7 +74,9 @@ export class SafelistContextImpl implements SafelistContext {
     this._uri = `/SafeList/Numbers/${phoneNumber}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -88,7 +90,9 @@ export class SafelistContextImpl implements SafelistContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SafelistInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SafelistInstance) => any
+  ): Promise<SafelistInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

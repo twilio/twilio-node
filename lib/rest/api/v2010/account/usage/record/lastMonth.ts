@@ -355,9 +355,10 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | LastMonthListInstanceEachOptions
-      | ((item: LastMonthInstance, done: (err?: Error) => void) => void),
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: LastMonthListInstanceEachOptions,
     callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | LastMonthListInstanceOptions
-      | ((error: Error | null, items: LastMonthInstance[]) => any),
+    callback?: (error: Error | null, items: LastMonthInstance[]) => any
+  ): Promise<LastMonthInstance[]>;
+  list(
+    params: LastMonthListInstanceOptions,
     callback?: (error: Error | null, items: LastMonthInstance[]) => any
   ): Promise<LastMonthInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | LastMonthListInstancePageOptions
-      | ((error: Error | null, items: LastMonthPage) => any),
+    callback?: (error: Error | null, items: LastMonthPage) => any
+  ): Promise<LastMonthPage>;
+  page(
+    params: LastMonthListInstancePageOptions,
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
 

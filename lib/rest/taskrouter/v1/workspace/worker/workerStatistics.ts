@@ -37,15 +37,23 @@ export interface WorkerStatisticsContext {
   /**
    * Fetch a WorkerStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance>;
+  /**
+   * Fetch a WorkerStatisticsInstance
+   *
    * @param { WorkerStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkerStatisticsContextFetchOptions
-      | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
+    params: WorkerStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance>;
 
@@ -78,7 +86,12 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance> {
+  fetch(
+    params?:
+      | WorkerStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -210,9 +223,7 @@ export class WorkerStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkerStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkerStatisticsContextFetchOptions
-      | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
+    params?: WorkerStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance> {
     return this._proxy.fetch(params, callback);

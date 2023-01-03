@@ -103,7 +103,9 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
     this._uri = `/RegulatoryCompliance/EndUserTypes/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EndUserTypeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+  ): Promise<EndUserTypeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -247,9 +249,10 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EndUserTypeListInstanceEachOptions
-      | ((item: EndUserTypeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EndUserTypeListInstanceEachOptions,
     callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -274,9 +277,10 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EndUserTypeListInstanceOptions
-      | ((error: Error | null, items: EndUserTypeInstance[]) => any),
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+  ): Promise<EndUserTypeInstance[]>;
+  list(
+    params: EndUserTypeListInstanceOptions,
     callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
   ): Promise<EndUserTypeInstance[]>;
   /**
@@ -291,9 +295,10 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EndUserTypeListInstancePageOptions
-      | ((error: Error | null, items: EndUserTypePage) => any),
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
+  page(
+    params: EndUserTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage>;
 

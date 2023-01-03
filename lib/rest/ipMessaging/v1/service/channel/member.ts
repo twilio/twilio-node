@@ -120,15 +120,23 @@ export interface MemberContext {
   /**
    * Update a MemberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MemberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  /**
+   * Update a MemberInstance
+   *
    * @param { MemberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
   update(
-    params?:
-      | MemberContextUpdateOptions
-      | ((error: Error | null, item?: MemberInstance) => any),
+    params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance>;
 
@@ -171,7 +179,9 @@ export class MemberContextImpl implements MemberContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -185,7 +195,9 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MemberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -210,7 +222,12 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<MemberInstance> {
+  update(
+    params?:
+      | MemberContextUpdateOptions
+      | ((error: Error | null, item?: MemberInstance) => any),
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: MemberInstance) => any;
       params = {};
@@ -374,9 +391,7 @@ export class MemberInstance {
    * @returns { Promise } Resolves to processed MemberInstance
    */
   update(
-    params?:
-      | MemberContextUpdateOptions
-      | ((error: Error | null, item?: MemberInstance) => any),
+    params?: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
@@ -441,9 +456,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MemberListInstanceEachOptions
-      | ((item: MemberInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MemberListInstanceEachOptions,
     callback?: (item: MemberInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -468,9 +484,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MemberListInstanceOptions
-      | ((error: Error | null, items: MemberInstance[]) => any),
+    callback?: (error: Error | null, items: MemberInstance[]) => any
+  ): Promise<MemberInstance[]>;
+  list(
+    params: MemberListInstanceOptions,
     callback?: (error: Error | null, items: MemberInstance[]) => any
   ): Promise<MemberInstance[]>;
   /**
@@ -485,9 +502,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MemberListInstancePageOptions
-      | ((error: Error | null, items: MemberPage) => any),
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
+  page(
+    params: MemberListInstancePageOptions,
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage>;
 

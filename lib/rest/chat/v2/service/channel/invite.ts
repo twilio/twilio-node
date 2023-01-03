@@ -145,7 +145,9 @@ export class InviteContextImpl implements InviteContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Invites/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -159,7 +161,9 @@ export class InviteContextImpl implements InviteContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<InviteInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: InviteInstance) => any
+  ): Promise<InviteInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -377,9 +381,10 @@ export interface InviteListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InviteListInstanceEachOptions
-      | ((item: InviteInstance, done: (err?: Error) => void) => void),
+    callback?: (item: InviteInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: InviteListInstanceEachOptions,
     callback?: (item: InviteInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -404,9 +409,10 @@ export interface InviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InviteListInstanceOptions
-      | ((error: Error | null, items: InviteInstance[]) => any),
+    callback?: (error: Error | null, items: InviteInstance[]) => any
+  ): Promise<InviteInstance[]>;
+  list(
+    params: InviteListInstanceOptions,
     callback?: (error: Error | null, items: InviteInstance[]) => any
   ): Promise<InviteInstance[]>;
   /**
@@ -421,9 +427,10 @@ export interface InviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InviteListInstancePageOptions
-      | ((error: Error | null, items: InvitePage) => any),
+    callback?: (error: Error | null, items: InvitePage) => any
+  ): Promise<InvitePage>;
+  page(
+    params: InviteListInstancePageOptions,
     callback?: (error: Error | null, items: InvitePage) => any
   ): Promise<InvitePage>;
 

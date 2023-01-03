@@ -141,7 +141,9 @@ export class EsimProfileContextImpl implements EsimProfileContext {
     this._uri = `/ESimProfiles/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EsimProfileInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -318,15 +320,23 @@ export interface EsimProfileListInstance {
   /**
    * Create a EsimProfileInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EsimProfileInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+  ): Promise<EsimProfileInstance>;
+  /**
+   * Create a EsimProfileInstance
+   *
    * @param { EsimProfileListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed EsimProfileInstance
    */
   create(
-    params?:
-      | EsimProfileListInstanceCreateOptions
-      | ((error: Error | null, item?: EsimProfileInstance) => any),
+    params: EsimProfileListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
   ): Promise<EsimProfileInstance>;
 
@@ -346,9 +356,10 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EsimProfileListInstanceEachOptions
-      | ((item: EsimProfileInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EsimProfileListInstanceEachOptions,
     callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -373,9 +384,10 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EsimProfileListInstanceOptions
-      | ((error: Error | null, items: EsimProfileInstance[]) => any),
+    callback?: (error: Error | null, items: EsimProfileInstance[]) => any
+  ): Promise<EsimProfileInstance[]>;
+  list(
+    params: EsimProfileListInstanceOptions,
     callback?: (error: Error | null, items: EsimProfileInstance[]) => any
   ): Promise<EsimProfileInstance[]>;
   /**
@@ -390,9 +402,10 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EsimProfileListInstancePageOptions
-      | ((error: Error | null, items: EsimProfilePage) => any),
+    callback?: (error: Error | null, items: EsimProfilePage) => any
+  ): Promise<EsimProfilePage>;
+  page(
+    params: EsimProfileListInstancePageOptions,
     callback?: (error: Error | null, items: EsimProfilePage) => any
   ): Promise<EsimProfilePage>;
 

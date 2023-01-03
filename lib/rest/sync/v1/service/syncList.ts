@@ -121,15 +121,23 @@ export interface SyncListContext {
   /**
    * Update a SyncListInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
+  /**
+   * Update a SyncListInstance
+   *
    * @param { SyncListContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
   update(
-    params?:
-      | SyncListContextUpdateOptions
-      | ((error: Error | null, item?: SyncListInstance) => any),
+    params: SyncListContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance>;
 
@@ -187,7 +195,9 @@ export class SyncListContextImpl implements SyncListContext {
     return this._syncListPermissions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -201,7 +211,9 @@ export class SyncListContextImpl implements SyncListContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncListInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -225,7 +237,12 @@ export class SyncListContextImpl implements SyncListContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SyncListInstance> {
+  update(
+    params?:
+      | SyncListContextUpdateOptions
+      | ((error: Error | null, item?: SyncListInstance) => any),
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -418,9 +435,7 @@ export class SyncListInstance {
    * @returns { Promise } Resolves to processed SyncListInstance
    */
   update(
-    params?:
-      | SyncListContextUpdateOptions
-      | ((error: Error | null, item?: SyncListInstance) => any),
+    params?: SyncListContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     return this._proxy.update(params, callback);
@@ -473,15 +488,23 @@ export interface SyncListListInstance {
   /**
    * Create a SyncListInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
+  /**
+   * Create a SyncListInstance
+   *
    * @param { SyncListListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
   create(
-    params?:
-      | SyncListListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncListInstance) => any),
+    params: SyncListListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance>;
 
@@ -501,9 +524,10 @@ export interface SyncListListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncListListInstanceEachOptions
-      | ((item: SyncListInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SyncListInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SyncListListInstanceEachOptions,
     callback?: (item: SyncListInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -528,9 +552,10 @@ export interface SyncListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncListListInstanceOptions
-      | ((error: Error | null, items: SyncListInstance[]) => any),
+    callback?: (error: Error | null, items: SyncListInstance[]) => any
+  ): Promise<SyncListInstance[]>;
+  list(
+    params: SyncListListInstanceOptions,
     callback?: (error: Error | null, items: SyncListInstance[]) => any
   ): Promise<SyncListInstance[]>;
   /**
@@ -545,9 +570,10 @@ export interface SyncListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncListListInstancePageOptions
-      | ((error: Error | null, items: SyncListPage) => any),
+    callback?: (error: Error | null, items: SyncListPage) => any
+  ): Promise<SyncListPage>;
+  page(
+    params: SyncListListInstancePageOptions,
     callback?: (error: Error | null, items: SyncListPage) => any
   ): Promise<SyncListPage>;
 

@@ -146,15 +146,23 @@ export interface ByocTrunkContext {
   /**
    * Update a ByocTrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance>;
+  /**
+   * Update a ByocTrunkInstance
+   *
    * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   update(
-    params?:
-      | ByocTrunkContextUpdateOptions
-      | ((error: Error | null, item?: ByocTrunkInstance) => any),
+    params: ByocTrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance>;
 
@@ -182,7 +190,9 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     this._uri = `/ByocTrunks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -196,7 +206,9 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ByocTrunkInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -215,7 +227,12 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ByocTrunkInstance> {
+  update(
+    params?:
+      | ByocTrunkContextUpdateOptions
+      | ((error: Error | null, item?: ByocTrunkInstance) => any),
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -460,9 +477,7 @@ export class ByocTrunkInstance {
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   update(
-    params?:
-      | ByocTrunkContextUpdateOptions
-      | ((error: Error | null, item?: ByocTrunkInstance) => any),
+    params?: ByocTrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     return this._proxy.update(params, callback);
@@ -505,15 +520,23 @@ export interface ByocTrunkListInstance {
   /**
    * Create a ByocTrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance>;
+  /**
+   * Create a ByocTrunkInstance
+   *
    * @param { ByocTrunkListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   create(
-    params?:
-      | ByocTrunkListInstanceCreateOptions
-      | ((error: Error | null, item?: ByocTrunkInstance) => any),
+    params: ByocTrunkListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance>;
 
@@ -533,9 +556,10 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ByocTrunkListInstanceEachOptions
-      | ((item: ByocTrunkInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ByocTrunkListInstanceEachOptions,
     callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -560,9 +584,10 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ByocTrunkListInstanceOptions
-      | ((error: Error | null, items: ByocTrunkInstance[]) => any),
+    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
+  ): Promise<ByocTrunkInstance[]>;
+  list(
+    params: ByocTrunkListInstanceOptions,
     callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
   ): Promise<ByocTrunkInstance[]>;
   /**
@@ -577,9 +602,10 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ByocTrunkListInstancePageOptions
-      | ((error: Error | null, items: ByocTrunkPage) => any),
+    callback?: (error: Error | null, items: ByocTrunkPage) => any
+  ): Promise<ByocTrunkPage>;
+  page(
+    params: ByocTrunkListInstancePageOptions,
     callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage>;
 

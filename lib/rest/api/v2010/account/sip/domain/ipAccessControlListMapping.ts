@@ -145,7 +145,9 @@ export class IpAccessControlListMappingContextImpl
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/IpAccessControlListMappings/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -159,7 +161,12 @@ export class IpAccessControlListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAccessControlListMappingInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: IpAccessControlListMappingInstance
+    ) => any
+  ): Promise<IpAccessControlListMappingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -362,12 +369,13 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IpAccessControlListMappingListInstanceEachOptions
-      | ((
-          item: IpAccessControlListMappingInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: IpAccessControlListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: IpAccessControlListMappingListInstanceEachOptions,
     callback?: (
       item: IpAccessControlListMappingInstance,
       done: (err?: Error) => void
@@ -398,12 +406,13 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IpAccessControlListMappingListInstanceOptions
-      | ((
-          error: Error | null,
-          items: IpAccessControlListMappingInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: IpAccessControlListMappingInstance[]
+    ) => any
+  ): Promise<IpAccessControlListMappingInstance[]>;
+  list(
+    params: IpAccessControlListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
       items: IpAccessControlListMappingInstance[]
@@ -421,9 +430,13 @@ export interface IpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IpAccessControlListMappingListInstancePageOptions
-      | ((error: Error | null, items: IpAccessControlListMappingPage) => any),
+    callback?: (
+      error: Error | null,
+      items: IpAccessControlListMappingPage
+    ) => any
+  ): Promise<IpAccessControlListMappingPage>;
+  page(
+    params: IpAccessControlListMappingListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: IpAccessControlListMappingPage

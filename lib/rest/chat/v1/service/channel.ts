@@ -135,15 +135,23 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  /**
+   * Update a ChannelInstance
+   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?:
-      | ChannelContextUpdateOptions
-      | ((error: Error | null, item?: ChannelInstance) => any),
+    params: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
 
@@ -213,7 +221,9 @@ export class ChannelContextImpl implements ChannelContext {
     return this._messages;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -227,7 +237,9 @@ export class ChannelContextImpl implements ChannelContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -251,7 +263,12 @@ export class ChannelContextImpl implements ChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
+  update(
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: ChannelInstance) => any;
       params = {};
@@ -459,9 +476,7 @@ export class ChannelInstance {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?:
-      | ChannelContextUpdateOptions
-      | ((error: Error | null, item?: ChannelInstance) => any),
+    params?: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
@@ -524,15 +539,23 @@ export interface ChannelListInstance {
   /**
    * Create a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChannelInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  /**
+   * Create a ChannelInstance
+   *
    * @param { ChannelListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   create(
-    params?:
-      | ChannelListInstanceCreateOptions
-      | ((error: Error | null, item?: ChannelInstance) => any),
+    params: ChannelListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
 
@@ -552,9 +575,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ChannelListInstanceEachOptions
-      | ((item: ChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ChannelListInstanceEachOptions,
     callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -579,9 +603,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ChannelListInstanceOptions
-      | ((error: Error | null, items: ChannelInstance[]) => any),
+    callback?: (error: Error | null, items: ChannelInstance[]) => any
+  ): Promise<ChannelInstance[]>;
+  list(
+    params: ChannelListInstanceOptions,
     callback?: (error: Error | null, items: ChannelInstance[]) => any
   ): Promise<ChannelInstance[]>;
   /**
@@ -596,9 +621,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ChannelListInstancePageOptions
-      | ((error: Error | null, items: ChannelPage) => any),
+    callback?: (error: Error | null, items: ChannelPage) => any
+  ): Promise<ChannelPage>;
+  page(
+    params: ChannelListInstancePageOptions,
     callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage>;
 

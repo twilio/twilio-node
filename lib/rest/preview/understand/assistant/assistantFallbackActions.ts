@@ -45,15 +45,26 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
+  ): Promise<AssistantFallbackActionsInstance>;
+  /**
+   * Update a AssistantFallbackActionsInstance
+   *
    * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
   update(
-    params?:
-      | AssistantFallbackActionsContextUpdateOptions
-      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
+    params: AssistantFallbackActionsContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AssistantFallbackActionsInstance
@@ -86,7 +97,12 @@ export class AssistantFallbackActionsContextImpl
     this._uri = `/Assistants/${assistantSid}/FallbackActions`;
   }
 
-  fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
+  ): Promise<AssistantFallbackActionsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -110,8 +126,13 @@ export class AssistantFallbackActionsContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantFallbackActionsContextUpdateOptions
+      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
   ): Promise<AssistantFallbackActionsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -236,9 +257,7 @@ export class AssistantFallbackActionsInstance {
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
   update(
-    params?:
-      | AssistantFallbackActionsContextUpdateOptions
-      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
+    params?: AssistantFallbackActionsContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AssistantFallbackActionsInstance

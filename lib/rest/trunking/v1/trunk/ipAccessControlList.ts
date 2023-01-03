@@ -132,7 +132,9 @@ export class IpAccessControlListContextImpl
     this._uri = `/Trunks/${trunkSid}/IpAccessControlLists/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -146,7 +148,9 @@ export class IpAccessControlListContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAccessControlListInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+  ): Promise<IpAccessControlListInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -340,12 +344,13 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IpAccessControlListListInstanceEachOptions
-      | ((
-          item: IpAccessControlListInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: IpAccessControlListInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: IpAccessControlListListInstanceEachOptions,
     callback?: (
       item: IpAccessControlListInstance,
       done: (err?: Error) => void
@@ -373,9 +378,13 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IpAccessControlListListInstanceOptions
-      | ((error: Error | null, items: IpAccessControlListInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: IpAccessControlListInstance[]
+    ) => any
+  ): Promise<IpAccessControlListInstance[]>;
+  list(
+    params: IpAccessControlListListInstanceOptions,
     callback?: (
       error: Error | null,
       items: IpAccessControlListInstance[]
@@ -393,9 +402,10 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IpAccessControlListListInstancePageOptions
-      | ((error: Error | null, items: IpAccessControlListPage) => any),
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+  ): Promise<IpAccessControlListPage>;
+  page(
+    params: IpAccessControlListListInstancePageOptions,
     callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage>;
 

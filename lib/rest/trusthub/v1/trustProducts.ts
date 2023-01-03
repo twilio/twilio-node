@@ -154,15 +154,23 @@ export interface TrustProductsContext {
   /**
    * Update a TrustProductsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrustProductsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance>;
+  /**
+   * Update a TrustProductsInstance
+   *
    * @param { TrustProductsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TrustProductsInstance
    */
   update(
-    params?:
-      | TrustProductsContextUpdateOptions
-      | ((error: Error | null, item?: TrustProductsInstance) => any),
+    params: TrustProductsContextUpdateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
 
@@ -221,7 +229,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     return this._trustProductsEvaluations;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -235,7 +245,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TrustProductsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -254,7 +266,12 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TrustProductsInstance> {
+  update(
+    params?:
+      | TrustProductsContextUpdateOptions
+      | ((error: Error | null, item?: TrustProductsInstance) => any),
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -443,9 +460,7 @@ export class TrustProductsInstance {
    * @returns { Promise } Resolves to processed TrustProductsInstance
    */
   update(
-    params?:
-      | TrustProductsContextUpdateOptions
-      | ((error: Error | null, item?: TrustProductsInstance) => any),
+    params?: TrustProductsContextUpdateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     return this._proxy.update(params, callback);
@@ -532,9 +547,13 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TrustProductsListInstanceEachOptions
-      | ((item: TrustProductsInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: TrustProductsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TrustProductsListInstanceEachOptions,
     callback?: (
       item: TrustProductsInstance,
       done: (err?: Error) => void
@@ -562,9 +581,10 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TrustProductsListInstanceOptions
-      | ((error: Error | null, items: TrustProductsInstance[]) => any),
+    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
+  ): Promise<TrustProductsInstance[]>;
+  list(
+    params: TrustProductsListInstanceOptions,
     callback?: (error: Error | null, items: TrustProductsInstance[]) => any
   ): Promise<TrustProductsInstance[]>;
   /**
@@ -579,9 +599,10 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TrustProductsListInstancePageOptions
-      | ((error: Error | null, items: TrustProductsPage) => any),
+    callback?: (error: Error | null, items: TrustProductsPage) => any
+  ): Promise<TrustProductsPage>;
+  page(
+    params: TrustProductsListInstancePageOptions,
     callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage>;
 

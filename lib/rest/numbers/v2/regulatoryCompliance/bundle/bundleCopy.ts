@@ -87,15 +87,23 @@ export interface BundleCopyListInstance {
   /**
    * Create a BundleCopyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BundleCopyInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: BundleCopyInstance) => any
+  ): Promise<BundleCopyInstance>;
+  /**
+   * Create a BundleCopyInstance
+   *
    * @param { BundleCopyListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BundleCopyInstance
    */
   create(
-    params?:
-      | BundleCopyListInstanceCreateOptions
-      | ((error: Error | null, item?: BundleCopyInstance) => any),
+    params: BundleCopyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BundleCopyInstance) => any
   ): Promise<BundleCopyInstance>;
 
@@ -115,9 +123,10 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BundleCopyListInstanceEachOptions
-      | ((item: BundleCopyInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BundleCopyListInstanceEachOptions,
     callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -142,9 +151,10 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BundleCopyListInstanceOptions
-      | ((error: Error | null, items: BundleCopyInstance[]) => any),
+    callback?: (error: Error | null, items: BundleCopyInstance[]) => any
+  ): Promise<BundleCopyInstance[]>;
+  list(
+    params: BundleCopyListInstanceOptions,
     callback?: (error: Error | null, items: BundleCopyInstance[]) => any
   ): Promise<BundleCopyInstance[]>;
   /**
@@ -159,9 +169,10 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BundleCopyListInstancePageOptions
-      | ((error: Error | null, items: BundleCopyPage) => any),
+    callback?: (error: Error | null, items: BundleCopyPage) => any
+  ): Promise<BundleCopyPage>;
+  page(
+    params: BundleCopyListInstancePageOptions,
     callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage>;
 

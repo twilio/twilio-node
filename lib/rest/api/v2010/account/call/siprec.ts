@@ -499,7 +499,12 @@ export class SiprecContextImpl implements SiprecContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<SiprecInstance> {
+  update(
+    params:
+      | SiprecContextUpdateOptions
+      | ((error: Error | null, item?: SiprecInstance) => any),
+    callback?: (error: Error | null, item?: SiprecInstance) => any
+  ): Promise<SiprecInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -671,15 +676,23 @@ export interface SiprecListInstance {
   /**
    * Create a SiprecInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SiprecInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: SiprecInstance) => any
+  ): Promise<SiprecInstance>;
+  /**
+   * Create a SiprecInstance
+   *
    * @param { SiprecListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SiprecInstance
    */
   create(
-    params?:
-      | SiprecListInstanceCreateOptions
-      | ((error: Error | null, item?: SiprecInstance) => any),
+    params: SiprecListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
 

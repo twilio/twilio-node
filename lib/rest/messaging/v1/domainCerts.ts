@@ -87,7 +87,9 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Certificate`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -101,7 +103,9 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DomainCertsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -124,7 +128,12 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DomainCertsInstance> {
+  update(
+    params:
+      | DomainCertsContextUpdateOptions
+      | ((error: Error | null, item?: DomainCertsInstance) => any),
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

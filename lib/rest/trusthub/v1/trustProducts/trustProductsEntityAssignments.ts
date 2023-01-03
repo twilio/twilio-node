@@ -135,7 +135,9 @@ export class TrustProductsEntityAssignmentsContextImpl
     this._uri = `/TrustProducts/${trustProductSid}/EntityAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -149,7 +151,12 @@ export class TrustProductsEntityAssignmentsContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TrustProductsEntityAssignmentsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEntityAssignmentsInstance
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -342,12 +349,13 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TrustProductsEntityAssignmentsListInstanceEachOptions
-      | ((
-          item: TrustProductsEntityAssignmentsInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: TrustProductsEntityAssignmentsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TrustProductsEntityAssignmentsListInstanceEachOptions,
     callback?: (
       item: TrustProductsEntityAssignmentsInstance,
       done: (err?: Error) => void
@@ -378,12 +386,13 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TrustProductsEntityAssignmentsListInstanceOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsEntityAssignmentsInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsInstance[]
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsInstance[]>;
+  list(
+    params: TrustProductsEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TrustProductsEntityAssignmentsInstance[]
@@ -401,12 +410,13 @@ export interface TrustProductsEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TrustProductsEntityAssignmentsListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsEntityAssignmentsPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEntityAssignmentsPage
+    ) => any
+  ): Promise<TrustProductsEntityAssignmentsPage>;
+  page(
+    params: TrustProductsEntityAssignmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: TrustProductsEntityAssignmentsPage

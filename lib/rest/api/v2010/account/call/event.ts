@@ -84,9 +84,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EventListInstanceEachOptions
-      | ((item: EventInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EventListInstanceEachOptions,
     callback?: (item: EventInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -111,9 +112,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EventListInstanceOptions
-      | ((error: Error | null, items: EventInstance[]) => any),
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
+  list(
+    params: EventListInstanceOptions,
     callback?: (error: Error | null, items: EventInstance[]) => any
   ): Promise<EventInstance[]>;
   /**
@@ -128,9 +130,10 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EventListInstancePageOptions
-      | ((error: Error | null, items: EventPage) => any),
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
+  page(
+    params: EventListInstancePageOptions,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
 

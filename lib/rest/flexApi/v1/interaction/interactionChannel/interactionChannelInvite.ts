@@ -111,12 +111,13 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InteractionChannelInviteListInstanceEachOptions
-      | ((
-          item: InteractionChannelInviteInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: InteractionChannelInviteInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InteractionChannelInviteListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInviteInstance,
       done: (err?: Error) => void
@@ -144,12 +145,13 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InteractionChannelInviteListInstanceOptions
-      | ((
-          error: Error | null,
-          items: InteractionChannelInviteInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInviteInstance[]
+    ) => any
+  ): Promise<InteractionChannelInviteInstance[]>;
+  list(
+    params: InteractionChannelInviteListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InteractionChannelInviteInstance[]
@@ -167,9 +169,10 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InteractionChannelInviteListInstancePageOptions
-      | ((error: Error | null, items: InteractionChannelInvitePage) => any),
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+  ): Promise<InteractionChannelInvitePage>;
+  page(
+    params: InteractionChannelInviteListInstancePageOptions,
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage>;
 

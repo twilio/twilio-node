@@ -144,7 +144,12 @@ export class PaymentContextImpl implements PaymentContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<PaymentInstance> {
+  update(
+    params:
+      | PaymentContextUpdateOptions
+      | ((error: Error | null, item?: PaymentInstance) => any),
+    callback?: (error: Error | null, item?: PaymentInstance) => any
+  ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

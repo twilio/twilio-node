@@ -192,9 +192,10 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TollFreeListInstanceEachOptions
-      | ((item: TollFreeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TollFreeListInstanceEachOptions,
     callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -219,9 +220,10 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TollFreeListInstanceOptions
-      | ((error: Error | null, items: TollFreeInstance[]) => any),
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+  ): Promise<TollFreeInstance[]>;
+  list(
+    params: TollFreeListInstanceOptions,
     callback?: (error: Error | null, items: TollFreeInstance[]) => any
   ): Promise<TollFreeInstance[]>;
   /**
@@ -236,9 +238,10 @@ export interface TollFreeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TollFreeListInstancePageOptions
-      | ((error: Error | null, items: TollFreePage) => any),
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
+  page(
+    params: TollFreeListInstancePageOptions,
     callback?: (error: Error | null, items: TollFreePage) => any
   ): Promise<TollFreePage>;
 

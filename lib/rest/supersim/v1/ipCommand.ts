@@ -151,7 +151,9 @@ export class IpCommandContextImpl implements IpCommandContext {
     this._uri = `/IpCommands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<IpCommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -355,9 +357,10 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IpCommandListInstanceEachOptions
-      | ((item: IpCommandInstance, done: (err?: Error) => void) => void),
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: IpCommandListInstanceEachOptions,
     callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +385,10 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IpCommandListInstanceOptions
-      | ((error: Error | null, items: IpCommandInstance[]) => any),
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
+  ): Promise<IpCommandInstance[]>;
+  list(
+    params: IpCommandListInstanceOptions,
     callback?: (error: Error | null, items: IpCommandInstance[]) => any
   ): Promise<IpCommandInstance[]>;
   /**
@@ -399,9 +403,10 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IpCommandListInstancePageOptions
-      | ((error: Error | null, items: IpCommandPage) => any),
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
+  page(
+    params: IpCommandListInstancePageOptions,
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
 

@@ -93,7 +93,9 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
     this._uri = `/Accounts/${accountSid}/Calls/FeedbackSummary/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -107,7 +109,9 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FeedbackSummaryInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
+  ): Promise<FeedbackSummaryInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

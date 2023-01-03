@@ -133,15 +133,23 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SessionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  /**
+   * Update a SessionInstance
+   *
    * @param { SessionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
   update(
-    params?:
-      | SessionContextUpdateOptions
-      | ((error: Error | null, item?: SessionInstance) => any),
+    params: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
 
@@ -199,7 +207,9 @@ export class SessionContextImpl implements SessionContext {
     return this._participants;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -213,7 +223,9 @@ export class SessionContextImpl implements SessionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SessionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -237,7 +249,12 @@ export class SessionContextImpl implements SessionContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SessionInstance> {
+  update(
+    params?:
+      | SessionContextUpdateOptions
+      | ((error: Error | null, item?: SessionInstance) => any),
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SessionInstance) => any;
       params = {};
@@ -454,9 +471,7 @@ export class SessionInstance {
    * @returns { Promise } Resolves to processed SessionInstance
    */
   update(
-    params?:
-      | SessionContextUpdateOptions
-      | ((error: Error | null, item?: SessionInstance) => any),
+    params?: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
     return this._proxy.update(params, callback);
@@ -514,15 +529,23 @@ export interface SessionListInstance {
   /**
    * Create a SessionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SessionInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  /**
+   * Create a SessionInstance
+   *
    * @param { SessionListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
   create(
-    params?:
-      | SessionListInstanceCreateOptions
-      | ((error: Error | null, item?: SessionInstance) => any),
+    params: SessionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
 
@@ -542,9 +565,10 @@ export interface SessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SessionListInstanceEachOptions
-      | ((item: SessionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SessionListInstanceEachOptions,
     callback?: (item: SessionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -569,9 +593,10 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SessionListInstanceOptions
-      | ((error: Error | null, items: SessionInstance[]) => any),
+    callback?: (error: Error | null, items: SessionInstance[]) => any
+  ): Promise<SessionInstance[]>;
+  list(
+    params: SessionListInstanceOptions,
     callback?: (error: Error | null, items: SessionInstance[]) => any
   ): Promise<SessionInstance[]>;
   /**
@@ -586,9 +611,10 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SessionListInstancePageOptions
-      | ((error: Error | null, items: SessionPage) => any),
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
+  page(
+    params: SessionListInstancePageOptions,
     callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage>;
 

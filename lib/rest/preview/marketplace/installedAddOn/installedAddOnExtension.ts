@@ -144,7 +144,12 @@ export class InstalledAddOnExtensionContextImpl
     this._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<InstalledAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
+  ): Promise<InstalledAddOnExtensionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -169,8 +174,13 @@ export class InstalledAddOnExtensionContextImpl
   }
 
   update(
-    params: any,
-    callback?: any
+    params:
+      | InstalledAddOnExtensionContextUpdateOptions
+      | ((error: Error | null, item?: InstalledAddOnExtensionInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
   ): Promise<InstalledAddOnExtensionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -377,12 +387,13 @@ export interface InstalledAddOnExtensionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InstalledAddOnExtensionListInstanceEachOptions
-      | ((
-          item: InstalledAddOnExtensionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: InstalledAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InstalledAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: InstalledAddOnExtensionInstance,
       done: (err?: Error) => void
@@ -410,12 +421,13 @@ export interface InstalledAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InstalledAddOnExtensionListInstanceOptions
-      | ((
-          error: Error | null,
-          items: InstalledAddOnExtensionInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InstalledAddOnExtensionInstance[]
+    ) => any
+  ): Promise<InstalledAddOnExtensionInstance[]>;
+  list(
+    params: InstalledAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InstalledAddOnExtensionInstance[]
@@ -433,9 +445,10 @@ export interface InstalledAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InstalledAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, items: InstalledAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
+  ): Promise<InstalledAddOnExtensionPage>;
+  page(
+    params: InstalledAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage>;
 

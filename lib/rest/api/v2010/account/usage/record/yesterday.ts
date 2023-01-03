@@ -355,9 +355,10 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | YesterdayListInstanceEachOptions
-      | ((item: YesterdayInstance, done: (err?: Error) => void) => void),
+    callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: YesterdayListInstanceEachOptions,
     callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | YesterdayListInstanceOptions
-      | ((error: Error | null, items: YesterdayInstance[]) => any),
+    callback?: (error: Error | null, items: YesterdayInstance[]) => any
+  ): Promise<YesterdayInstance[]>;
+  list(
+    params: YesterdayListInstanceOptions,
     callback?: (error: Error | null, items: YesterdayInstance[]) => any
   ): Promise<YesterdayInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface YesterdayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | YesterdayListInstancePageOptions
-      | ((error: Error | null, items: YesterdayPage) => any),
+    callback?: (error: Error | null, items: YesterdayPage) => any
+  ): Promise<YesterdayPage>;
+  page(
+    params: YesterdayListInstancePageOptions,
     callback?: (error: Error | null, items: YesterdayPage) => any
   ): Promise<YesterdayPage>;
 

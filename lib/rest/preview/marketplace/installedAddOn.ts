@@ -124,15 +124,23 @@ export interface InstalledAddOnContext {
   /**
    * Update a InstalledAddOnInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed InstalledAddOnInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+  /**
+   * Update a InstalledAddOnInstance
+   *
    * @param { InstalledAddOnContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
   update(
-    params?:
-      | InstalledAddOnContextUpdateOptions
-      | ((error: Error | null, item?: InstalledAddOnInstance) => any),
+    params: InstalledAddOnContextUpdateOptions,
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance>;
 
@@ -169,7 +177,9 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
     return this._extensions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -183,7 +193,9 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<InstalledAddOnInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -206,7 +218,12 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<InstalledAddOnInstance> {
+  update(
+    params?:
+      | InstalledAddOnContextUpdateOptions
+      | ((error: Error | null, item?: InstalledAddOnInstance) => any),
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -388,9 +405,7 @@ export class InstalledAddOnInstance {
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
   update(
-    params?:
-      | InstalledAddOnContextUpdateOptions
-      | ((error: Error | null, item?: InstalledAddOnInstance) => any),
+    params?: InstalledAddOnContextUpdateOptions,
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     return this._proxy.update(params, callback);
@@ -461,9 +476,13 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InstalledAddOnListInstanceEachOptions
-      | ((item: InstalledAddOnInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: InstalledAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InstalledAddOnListInstanceEachOptions,
     callback?: (
       item: InstalledAddOnInstance,
       done: (err?: Error) => void
@@ -491,9 +510,10 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InstalledAddOnListInstanceOptions
-      | ((error: Error | null, items: InstalledAddOnInstance[]) => any),
+    callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
+  ): Promise<InstalledAddOnInstance[]>;
+  list(
+    params: InstalledAddOnListInstanceOptions,
     callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any
   ): Promise<InstalledAddOnInstance[]>;
   /**
@@ -508,9 +528,10 @@ export interface InstalledAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InstalledAddOnListInstancePageOptions
-      | ((error: Error | null, items: InstalledAddOnPage) => any),
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
+  ): Promise<InstalledAddOnPage>;
+  page(
+    params: InstalledAddOnListInstancePageOptions,
     callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage>;
 

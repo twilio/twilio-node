@@ -129,15 +129,23 @@ export interface OriginationUrlContext {
   /**
    * Update a OriginationUrlInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed OriginationUrlInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance>;
+  /**
+   * Update a OriginationUrlInstance
+   *
    * @param { OriginationUrlContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
   update(
-    params?:
-      | OriginationUrlContextUpdateOptions
-      | ((error: Error | null, item?: OriginationUrlInstance) => any),
+    params: OriginationUrlContextUpdateOptions,
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance>;
 
@@ -170,7 +178,9 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     this._uri = `/Trunks/${trunkSid}/OriginationUrls/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -184,7 +194,9 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<OriginationUrlInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -208,7 +220,12 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<OriginationUrlInstance> {
+  update(
+    params?:
+      | OriginationUrlContextUpdateOptions
+      | ((error: Error | null, item?: OriginationUrlInstance) => any),
+    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+  ): Promise<OriginationUrlInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -405,9 +422,7 @@ export class OriginationUrlInstance {
    * @returns { Promise } Resolves to processed OriginationUrlInstance
    */
   update(
-    params?:
-      | OriginationUrlContextUpdateOptions
-      | ((error: Error | null, item?: OriginationUrlInstance) => any),
+    params?: OriginationUrlContextUpdateOptions,
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     return this._proxy.update(params, callback);
@@ -472,9 +487,13 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | OriginationUrlListInstanceEachOptions
-      | ((item: OriginationUrlInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: OriginationUrlInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: OriginationUrlListInstanceEachOptions,
     callback?: (
       item: OriginationUrlInstance,
       done: (err?: Error) => void
@@ -502,9 +521,10 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | OriginationUrlListInstanceOptions
-      | ((error: Error | null, items: OriginationUrlInstance[]) => any),
+    callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
+  ): Promise<OriginationUrlInstance[]>;
+  list(
+    params: OriginationUrlListInstanceOptions,
     callback?: (error: Error | null, items: OriginationUrlInstance[]) => any
   ): Promise<OriginationUrlInstance[]>;
   /**
@@ -519,9 +539,10 @@ export interface OriginationUrlListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | OriginationUrlListInstancePageOptions
-      | ((error: Error | null, items: OriginationUrlPage) => any),
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
+  ): Promise<OriginationUrlPage>;
+  page(
+    params: OriginationUrlListInstancePageOptions,
     callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage>;
 

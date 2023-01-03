@@ -138,7 +138,9 @@ export class FlowContextImpl implements FlowContext {
     return this._executions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -152,7 +154,9 @@ export class FlowContextImpl implements FlowContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FlowInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -343,9 +347,10 @@ export interface FlowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FlowListInstanceEachOptions
-      | ((item: FlowInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FlowInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FlowListInstanceEachOptions,
     callback?: (item: FlowInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -370,9 +375,10 @@ export interface FlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FlowListInstanceOptions
-      | ((error: Error | null, items: FlowInstance[]) => any),
+    callback?: (error: Error | null, items: FlowInstance[]) => any
+  ): Promise<FlowInstance[]>;
+  list(
+    params: FlowListInstanceOptions,
     callback?: (error: Error | null, items: FlowInstance[]) => any
   ): Promise<FlowInstance[]>;
   /**
@@ -387,9 +393,10 @@ export interface FlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FlowListInstancePageOptions
-      | ((error: Error | null, items: FlowPage) => any),
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
+  page(
+    params: FlowListInstancePageOptions,
     callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage>;
 

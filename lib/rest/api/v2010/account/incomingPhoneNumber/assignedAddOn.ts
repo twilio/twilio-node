@@ -154,7 +154,9 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
     return this._extensions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -168,7 +170,9 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AssignedAddOnInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
+  ): Promise<AssignedAddOnInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -400,9 +404,13 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AssignedAddOnListInstanceEachOptions
-      | ((item: AssignedAddOnInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: AssignedAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AssignedAddOnListInstanceEachOptions,
     callback?: (
       item: AssignedAddOnInstance,
       done: (err?: Error) => void
@@ -430,9 +438,10 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AssignedAddOnListInstanceOptions
-      | ((error: Error | null, items: AssignedAddOnInstance[]) => any),
+    callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
+  ): Promise<AssignedAddOnInstance[]>;
+  list(
+    params: AssignedAddOnListInstanceOptions,
     callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any
   ): Promise<AssignedAddOnInstance[]>;
   /**
@@ -447,9 +456,10 @@ export interface AssignedAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AssignedAddOnListInstancePageOptions
-      | ((error: Error | null, items: AssignedAddOnPage) => any),
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
+  ): Promise<AssignedAddOnPage>;
+  page(
+    params: AssignedAddOnListInstancePageOptions,
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage>;
 

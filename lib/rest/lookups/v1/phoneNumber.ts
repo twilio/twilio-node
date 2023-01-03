@@ -37,15 +37,23 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance>;
+  /**
+   * Fetch a PhoneNumberInstance
+   *
    * @param { PhoneNumberContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   fetch(
-    params?:
-      | PhoneNumberContextFetchOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    params: PhoneNumberContextFetchOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
 
@@ -73,7 +81,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     this._uri = `/PhoneNumbers/${phoneNumber}`;
   }
 
-  fetch(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+  fetch(
+    params?:
+      | PhoneNumberContextFetchOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -215,9 +228,7 @@ export class PhoneNumberInstance {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   fetch(
-    params?:
-      | PhoneNumberContextFetchOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    params?: PhoneNumberContextFetchOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     return this._proxy.fetch(params, callback);

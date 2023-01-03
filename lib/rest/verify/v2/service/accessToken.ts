@@ -76,7 +76,9 @@ export class AccessTokenContextImpl implements AccessTokenContext {
     this._uri = `/Services/${serviceSid}/AccessTokens/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AccessTokenInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
+  ): Promise<AccessTokenInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

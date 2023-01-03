@@ -131,15 +131,23 @@ export interface TaskContext {
   /**
    * Update a TaskInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  /**
+   * Update a TaskInstance
+   *
    * @param { TaskContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params?:
-      | TaskContextUpdateOptions
-      | ((error: Error | null, item?: TaskInstance) => any),
+    params: TaskContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance>;
 
@@ -221,7 +229,9 @@ export class TaskContextImpl implements TaskContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -235,7 +245,9 @@ export class TaskContextImpl implements TaskContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TaskInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -259,7 +271,12 @@ export class TaskContextImpl implements TaskContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TaskInstance> {
+  update(
+    params?:
+      | TaskContextUpdateOptions
+      | ((error: Error | null, item?: TaskInstance) => any),
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: TaskInstance) => any;
       params = {};
@@ -448,9 +465,7 @@ export class TaskInstance {
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params?:
-      | TaskContextUpdateOptions
-      | ((error: Error | null, item?: TaskInstance) => any),
+    params?: TaskContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     return this._proxy.update(params, callback);
@@ -542,9 +557,10 @@ export interface TaskListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TaskListInstanceEachOptions
-      | ((item: TaskInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TaskInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TaskListInstanceEachOptions,
     callback?: (item: TaskInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -569,9 +585,10 @@ export interface TaskListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TaskListInstanceOptions
-      | ((error: Error | null, items: TaskInstance[]) => any),
+    callback?: (error: Error | null, items: TaskInstance[]) => any
+  ): Promise<TaskInstance[]>;
+  list(
+    params: TaskListInstanceOptions,
     callback?: (error: Error | null, items: TaskInstance[]) => any
   ): Promise<TaskInstance[]>;
   /**
@@ -586,9 +603,10 @@ export interface TaskListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TaskListInstancePageOptions
-      | ((error: Error | null, items: TaskPage) => any),
+    callback?: (error: Error | null, items: TaskPage) => any
+  ): Promise<TaskPage>;
+  page(
+    params: TaskListInstancePageOptions,
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage>;
 

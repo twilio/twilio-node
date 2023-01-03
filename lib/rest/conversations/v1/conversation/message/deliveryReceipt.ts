@@ -128,7 +128,9 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
     this._uri = `/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<DeliveryReceiptInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any
+  ): Promise<DeliveryReceiptInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -324,9 +326,13 @@ export interface DeliveryReceiptListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DeliveryReceiptListInstanceEachOptions
-      | ((item: DeliveryReceiptInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: DeliveryReceiptInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: DeliveryReceiptListInstanceEachOptions,
     callback?: (
       item: DeliveryReceiptInstance,
       done: (err?: Error) => void
@@ -354,9 +360,10 @@ export interface DeliveryReceiptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DeliveryReceiptListInstanceOptions
-      | ((error: Error | null, items: DeliveryReceiptInstance[]) => any),
+    callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any
+  ): Promise<DeliveryReceiptInstance[]>;
+  list(
+    params: DeliveryReceiptListInstanceOptions,
     callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any
   ): Promise<DeliveryReceiptInstance[]>;
   /**
@@ -371,9 +378,10 @@ export interface DeliveryReceiptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DeliveryReceiptListInstancePageOptions
-      | ((error: Error | null, items: DeliveryReceiptPage) => any),
+    callback?: (error: Error | null, items: DeliveryReceiptPage) => any
+  ): Promise<DeliveryReceiptPage>;
+  page(
+    params: DeliveryReceiptListInstancePageOptions,
     callback?: (error: Error | null, items: DeliveryReceiptPage) => any
   ): Promise<DeliveryReceiptPage>;
 

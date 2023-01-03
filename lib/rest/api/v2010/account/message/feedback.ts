@@ -33,15 +33,23 @@ export interface FeedbackListInstance {
   /**
    * Create a FeedbackInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FeedbackInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  /**
+   * Create a FeedbackInstance
+   *
    * @param { FeedbackListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   create(
-    params?:
-      | FeedbackListInstanceCreateOptions
-      | ((error: Error | null, item?: FeedbackInstance) => any),
+    params: FeedbackListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
 

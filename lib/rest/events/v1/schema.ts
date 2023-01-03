@@ -66,7 +66,9 @@ export class SchemaContextImpl implements SchemaContext {
     return this._versions;
   }
 
-  fetch(callback?: any): Promise<SchemaInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SchemaInstance) => any
+  ): Promise<SchemaInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

@@ -31,15 +31,23 @@ export interface UserRolesContext {
   /**
    * Fetch a UserRolesInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserRolesInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: UserRolesInstance) => any
+  ): Promise<UserRolesInstance>;
+  /**
+   * Fetch a UserRolesInstance
+   *
    * @param { UserRolesContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserRolesInstance
    */
   fetch(
-    params?:
-      | UserRolesContextFetchOptions
-      | ((error: Error | null, item?: UserRolesInstance) => any),
+    params: UserRolesContextFetchOptions,
     callback?: (error: Error | null, item?: UserRolesInstance) => any
   ): Promise<UserRolesInstance>;
 
@@ -61,7 +69,12 @@ export class UserRolesContextImpl implements UserRolesContext {
     this._uri = `/Insights/UserRoles`;
   }
 
-  fetch(params?: any, callback?: any): Promise<UserRolesInstance> {
+  fetch(
+    params?:
+      | UserRolesContextFetchOptions
+      | ((error: Error | null, item?: UserRolesInstance) => any),
+    callback?: (error: Error | null, item?: UserRolesInstance) => any
+  ): Promise<UserRolesInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -148,9 +161,7 @@ export class UserRolesInstance {
    * @returns { Promise } Resolves to processed UserRolesInstance
    */
   fetch(
-    params?:
-      | UserRolesContextFetchOptions
-      | ((error: Error | null, item?: UserRolesInstance) => any),
+    params?: UserRolesContextFetchOptions,
     callback?: (error: Error | null, item?: UserRolesInstance) => any
   ): Promise<UserRolesInstance> {
     return this._proxy.fetch(params, callback);

@@ -110,7 +110,9 @@ export class EvaluationContextImpl implements EvaluationContext {
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EvaluationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EvaluationInstance) => any
+  ): Promise<EvaluationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -287,9 +289,10 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EvaluationListInstanceEachOptions
-      | ((item: EvaluationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EvaluationListInstanceEachOptions,
     callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -314,9 +317,10 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EvaluationListInstanceOptions
-      | ((error: Error | null, items: EvaluationInstance[]) => any),
+    callback?: (error: Error | null, items: EvaluationInstance[]) => any
+  ): Promise<EvaluationInstance[]>;
+  list(
+    params: EvaluationListInstanceOptions,
     callback?: (error: Error | null, items: EvaluationInstance[]) => any
   ): Promise<EvaluationInstance[]>;
   /**
@@ -331,9 +335,10 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EvaluationListInstancePageOptions
-      | ((error: Error | null, items: EvaluationPage) => any),
+    callback?: (error: Error | null, items: EvaluationPage) => any
+  ): Promise<EvaluationPage>;
+  page(
+    params: EvaluationListInstancePageOptions,
     callback?: (error: Error | null, items: EvaluationPage) => any
   ): Promise<EvaluationPage>;
 

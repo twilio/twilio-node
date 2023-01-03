@@ -145,7 +145,9 @@ export class AuthCallsIpAccessControlListMappingContextImpl
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/IpAccessControlListMappings/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -159,7 +161,12 @@ export class AuthCallsIpAccessControlListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AuthCallsIpAccessControlListMappingInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsIpAccessControlListMappingInstance
+    ) => any
+  ): Promise<AuthCallsIpAccessControlListMappingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -349,12 +356,13 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AuthCallsIpAccessControlListMappingListInstanceEachOptions
-      | ((
-          item: AuthCallsIpAccessControlListMappingInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AuthCallsIpAccessControlListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AuthCallsIpAccessControlListMappingListInstanceEachOptions,
     callback?: (
       item: AuthCallsIpAccessControlListMappingInstance,
       done: (err?: Error) => void
@@ -385,12 +393,13 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AuthCallsIpAccessControlListMappingListInstanceOptions
-      | ((
-          error: Error | null,
-          items: AuthCallsIpAccessControlListMappingInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthCallsIpAccessControlListMappingInstance[]
+    ) => any
+  ): Promise<AuthCallsIpAccessControlListMappingInstance[]>;
+  list(
+    params: AuthCallsIpAccessControlListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AuthCallsIpAccessControlListMappingInstance[]
@@ -408,12 +417,13 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AuthCallsIpAccessControlListMappingListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: AuthCallsIpAccessControlListMappingPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthCallsIpAccessControlListMappingPage
+    ) => any
+  ): Promise<AuthCallsIpAccessControlListMappingPage>;
+  page(
+    params: AuthCallsIpAccessControlListMappingListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: AuthCallsIpAccessControlListMappingPage

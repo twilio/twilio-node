@@ -138,15 +138,23 @@ export interface QueryContext {
   /**
    * Update a QueryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed QueryInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+  /**
+   * Update a QueryInstance
+   *
    * @param { QueryContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
   update(
-    params?:
-      | QueryContextUpdateOptions
-      | ((error: Error | null, item?: QueryInstance) => any),
+    params: QueryContextUpdateOptions,
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
 
@@ -183,7 +191,9 @@ export class QueryContextImpl implements QueryContext {
     this._uri = `/Assistants/${assistantSid}/Queries/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -197,7 +207,9 @@ export class QueryContextImpl implements QueryContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<QueryInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -221,7 +233,12 @@ export class QueryContextImpl implements QueryContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<QueryInstance> {
+  update(
+    params?:
+      | QueryContextUpdateOptions
+      | ((error: Error | null, item?: QueryInstance) => any),
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: QueryInstance) => any;
       params = {};
@@ -420,9 +437,7 @@ export class QueryInstance {
    * @returns { Promise } Resolves to processed QueryInstance
    */
   update(
-    params?:
-      | QueryContextUpdateOptions
-      | ((error: Error | null, item?: QueryInstance) => any),
+    params?: QueryContextUpdateOptions,
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance> {
     return this._proxy.update(params, callback);
@@ -489,9 +504,10 @@ export interface QueryListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | QueryListInstanceEachOptions
-      | ((item: QueryInstance, done: (err?: Error) => void) => void),
+    callback?: (item: QueryInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: QueryListInstanceEachOptions,
     callback?: (item: QueryInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -516,9 +532,10 @@ export interface QueryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | QueryListInstanceOptions
-      | ((error: Error | null, items: QueryInstance[]) => any),
+    callback?: (error: Error | null, items: QueryInstance[]) => any
+  ): Promise<QueryInstance[]>;
+  list(
+    params: QueryListInstanceOptions,
     callback?: (error: Error | null, items: QueryInstance[]) => any
   ): Promise<QueryInstance[]>;
   /**
@@ -533,9 +550,10 @@ export interface QueryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | QueryListInstancePageOptions
-      | ((error: Error | null, items: QueryPage) => any),
+    callback?: (error: Error | null, items: QueryPage) => any
+  ): Promise<QueryPage>;
+  page(
+    params: QueryListInstancePageOptions,
     callback?: (error: Error | null, items: QueryPage) => any
   ): Promise<QueryPage>;
 

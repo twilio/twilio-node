@@ -126,7 +126,12 @@ export class TrustProductsEvaluationsContextImpl
     this._uri = `/TrustProducts/${trustProductSid}/Evaluations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<TrustProductsEvaluationsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsEvaluationsInstance
+    ) => any
+  ): Promise<TrustProductsEvaluationsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -311,12 +316,13 @@ export interface TrustProductsEvaluationsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TrustProductsEvaluationsListInstanceEachOptions
-      | ((
-          item: TrustProductsEvaluationsInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: TrustProductsEvaluationsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TrustProductsEvaluationsListInstanceEachOptions,
     callback?: (
       item: TrustProductsEvaluationsInstance,
       done: (err?: Error) => void
@@ -344,12 +350,13 @@ export interface TrustProductsEvaluationsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TrustProductsEvaluationsListInstanceOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsEvaluationsInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: TrustProductsEvaluationsInstance[]
+    ) => any
+  ): Promise<TrustProductsEvaluationsInstance[]>;
+  list(
+    params: TrustProductsEvaluationsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TrustProductsEvaluationsInstance[]
@@ -367,9 +374,10 @@ export interface TrustProductsEvaluationsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TrustProductsEvaluationsListInstancePageOptions
-      | ((error: Error | null, items: TrustProductsEvaluationsPage) => any),
+    callback?: (error: Error | null, items: TrustProductsEvaluationsPage) => any
+  ): Promise<TrustProductsEvaluationsPage>;
+  page(
+    params: TrustProductsEvaluationsListInstancePageOptions,
     callback?: (error: Error | null, items: TrustProductsEvaluationsPage) => any
   ): Promise<TrustProductsEvaluationsPage>;
 

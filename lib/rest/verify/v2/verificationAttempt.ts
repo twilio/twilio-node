@@ -160,7 +160,9 @@ export class VerificationAttemptContextImpl
     this._uri = `/Attempts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<VerificationAttemptInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+  ): Promise<VerificationAttemptInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -341,12 +343,13 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | VerificationAttemptListInstanceEachOptions
-      | ((
-          item: VerificationAttemptInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: VerificationAttemptInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: VerificationAttemptListInstanceEachOptions,
     callback?: (
       item: VerificationAttemptInstance,
       done: (err?: Error) => void
@@ -374,9 +377,13 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | VerificationAttemptListInstanceOptions
-      | ((error: Error | null, items: VerificationAttemptInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: VerificationAttemptInstance[]
+    ) => any
+  ): Promise<VerificationAttemptInstance[]>;
+  list(
+    params: VerificationAttemptListInstanceOptions,
     callback?: (
       error: Error | null,
       items: VerificationAttemptInstance[]
@@ -394,9 +401,10 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | VerificationAttemptListInstancePageOptions
-      | ((error: Error | null, items: VerificationAttemptPage) => any),
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
+  page(
+    params: VerificationAttemptListInstancePageOptions,
     callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage>;
 

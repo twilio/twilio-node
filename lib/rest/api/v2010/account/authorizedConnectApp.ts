@@ -119,7 +119,9 @@ export class AuthorizedConnectAppContextImpl
     this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
   }
 
-  fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any
+  ): Promise<AuthorizedConnectAppInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -311,12 +313,13 @@ export interface AuthorizedConnectAppListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AuthorizedConnectAppListInstanceEachOptions
-      | ((
-          item: AuthorizedConnectAppInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AuthorizedConnectAppInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AuthorizedConnectAppListInstanceEachOptions,
     callback?: (
       item: AuthorizedConnectAppInstance,
       done: (err?: Error) => void
@@ -344,9 +347,13 @@ export interface AuthorizedConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AuthorizedConnectAppListInstanceOptions
-      | ((error: Error | null, items: AuthorizedConnectAppInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthorizedConnectAppInstance[]
+    ) => any
+  ): Promise<AuthorizedConnectAppInstance[]>;
+  list(
+    params: AuthorizedConnectAppListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AuthorizedConnectAppInstance[]
@@ -364,9 +371,10 @@ export interface AuthorizedConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AuthorizedConnectAppListInstancePageOptions
-      | ((error: Error | null, items: AuthorizedConnectAppPage) => any),
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
+  ): Promise<AuthorizedConnectAppPage>;
+  page(
+    params: AuthorizedConnectAppListInstancePageOptions,
     callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage>;
 

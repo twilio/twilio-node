@@ -157,15 +157,23 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+  /**
+   * Update a CustomerProfilesInstance
+   *
    * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
   update(
-    params?:
-      | CustomerProfilesContextUpdateOptions
-      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
+    params: CustomerProfilesContextUpdateOptions,
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance>;
 
@@ -227,7 +235,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     return this._customerProfilesEvaluations;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -241,7 +251,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CustomerProfilesInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -264,7 +276,12 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<CustomerProfilesInstance> {
+  update(
+    params?:
+      | CustomerProfilesContextUpdateOptions
+      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -457,9 +474,7 @@ export class CustomerProfilesInstance {
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
   update(
-    params?:
-      | CustomerProfilesContextUpdateOptions
-      | ((error: Error | null, item?: CustomerProfilesInstance) => any),
+    params?: CustomerProfilesContextUpdateOptions,
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
     return this._proxy.update(params, callback);
@@ -546,9 +561,13 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CustomerProfilesListInstanceEachOptions
-      | ((item: CustomerProfilesInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: CustomerProfilesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CustomerProfilesListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesInstance,
       done: (err?: Error) => void
@@ -576,9 +595,10 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CustomerProfilesListInstanceOptions
-      | ((error: Error | null, items: CustomerProfilesInstance[]) => any),
+    callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
+  ): Promise<CustomerProfilesInstance[]>;
+  list(
+    params: CustomerProfilesListInstanceOptions,
     callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any
   ): Promise<CustomerProfilesInstance[]>;
   /**
@@ -593,9 +613,10 @@ export interface CustomerProfilesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CustomerProfilesListInstancePageOptions
-      | ((error: Error | null, items: CustomerProfilesPage) => any),
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
+  ): Promise<CustomerProfilesPage>;
+  page(
+    params: CustomerProfilesListInstancePageOptions,
     callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage>;
 

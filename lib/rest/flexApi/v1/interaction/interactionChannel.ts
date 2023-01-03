@@ -180,7 +180,9 @@ export class InteractionChannelContextImpl
     return this._participants;
   }
 
-  fetch(callback?: any): Promise<InteractionChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: InteractionChannelInstance) => any
+  ): Promise<InteractionChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -204,7 +206,12 @@ export class InteractionChannelContextImpl
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<InteractionChannelInstance> {
+  update(
+    params:
+      | InteractionChannelContextUpdateOptions
+      | ((error: Error | null, item?: InteractionChannelInstance) => any),
+    callback?: (error: Error | null, item?: InteractionChannelInstance) => any
+  ): Promise<InteractionChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -415,12 +422,13 @@ export interface InteractionChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InteractionChannelListInstanceEachOptions
-      | ((
-          item: InteractionChannelInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: InteractionChannelInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InteractionChannelListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInstance,
       done: (err?: Error) => void
@@ -448,9 +456,10 @@ export interface InteractionChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InteractionChannelListInstanceOptions
-      | ((error: Error | null, items: InteractionChannelInstance[]) => any),
+    callback?: (error: Error | null, items: InteractionChannelInstance[]) => any
+  ): Promise<InteractionChannelInstance[]>;
+  list(
+    params: InteractionChannelListInstanceOptions,
     callback?: (error: Error | null, items: InteractionChannelInstance[]) => any
   ): Promise<InteractionChannelInstance[]>;
   /**
@@ -465,9 +474,10 @@ export interface InteractionChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InteractionChannelListInstancePageOptions
-      | ((error: Error | null, items: InteractionChannelPage) => any),
+    callback?: (error: Error | null, items: InteractionChannelPage) => any
+  ): Promise<InteractionChannelPage>;
+  page(
+    params: InteractionChannelListInstancePageOptions,
     callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage>;
 

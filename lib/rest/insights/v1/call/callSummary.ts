@@ -54,15 +54,23 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallSummaryInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance>;
+  /**
+   * Fetch a CallSummaryInstance
+   *
    * @param { CallSummaryContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
   fetch(
-    params?:
-      | CallSummaryContextFetchOptions
-      | ((error: Error | null, item?: CallSummaryInstance) => any),
+    params: CallSummaryContextFetchOptions,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance>;
 
@@ -90,7 +98,12 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     this._uri = `/Voice/${callSid}/Summary`;
   }
 
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
+  fetch(
+    params?:
+      | CallSummaryContextFetchOptions
+      | ((error: Error | null, item?: CallSummaryInstance) => any),
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -250,9 +263,7 @@ export class CallSummaryInstance {
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
   fetch(
-    params?:
-      | CallSummaryContextFetchOptions
-      | ((error: Error | null, item?: CallSummaryInstance) => any),
+    params?: CallSummaryContextFetchOptions,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);

@@ -166,7 +166,9 @@ export class CommandContextImpl implements CommandContext {
     this._uri = `/Commands/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -180,7 +182,9 @@ export class CommandContextImpl implements CommandContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CommandInstance) => any
+  ): Promise<CommandInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -383,9 +387,10 @@ export interface CommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CommandListInstanceEachOptions
-      | ((item: CommandInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CommandListInstanceEachOptions,
     callback?: (item: CommandInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -410,9 +415,10 @@ export interface CommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CommandListInstanceOptions
-      | ((error: Error | null, items: CommandInstance[]) => any),
+    callback?: (error: Error | null, items: CommandInstance[]) => any
+  ): Promise<CommandInstance[]>;
+  list(
+    params: CommandListInstanceOptions,
     callback?: (error: Error | null, items: CommandInstance[]) => any
   ): Promise<CommandInstance[]>;
   /**
@@ -427,9 +433,10 @@ export interface CommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CommandListInstancePageOptions
-      | ((error: Error | null, items: CommandPage) => any),
+    callback?: (error: Error | null, items: CommandPage) => any
+  ): Promise<CommandPage>;
+  page(
+    params: CommandListInstancePageOptions,
     callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage>;
 

@@ -54,7 +54,9 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
     this._uri = `/Content/${sid}/ApprovalRequests`;
   }
 
-  fetch(callback?: any): Promise<ApprovalFetchInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
+  ): Promise<ApprovalFetchInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

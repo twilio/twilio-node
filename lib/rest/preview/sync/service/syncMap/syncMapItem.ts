@@ -123,15 +123,23 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SyncMapItemInstance
+   *
    * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
   remove(
-    params?:
-      | SyncMapItemContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params: SyncMapItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -198,7 +206,12 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | SyncMapItemContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
@@ -227,7 +240,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncMapItemInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -252,7 +267,12 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SyncMapItemInstance> {
+  update(
+    params:
+      | SyncMapItemContextUpdateOptions
+      | ((error: Error | null, item?: SyncMapItemInstance) => any),
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -384,9 +404,7 @@ export class SyncMapItemInstance {
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
   remove(
-    params?:
-      | SyncMapItemContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params?: SyncMapItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -478,9 +496,10 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncMapItemListInstanceEachOptions
-      | ((item: SyncMapItemInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SyncMapItemListInstanceEachOptions,
     callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -505,9 +524,10 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncMapItemListInstanceOptions
-      | ((error: Error | null, items: SyncMapItemInstance[]) => any),
+    callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
+  ): Promise<SyncMapItemInstance[]>;
+  list(
+    params: SyncMapItemListInstanceOptions,
     callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
   ): Promise<SyncMapItemInstance[]>;
   /**
@@ -522,9 +542,10 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncMapItemListInstancePageOptions
-      | ((error: Error | null, items: SyncMapItemPage) => any),
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
+  page(
+    params: SyncMapItemListInstancePageOptions,
     callback?: (error: Error | null, items: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage>;
 

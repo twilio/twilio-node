@@ -42,15 +42,23 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance>;
+  /**
+   * Update a StyleSheetInstance
+   *
    * @param { StyleSheetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
   update(
-    params?:
-      | StyleSheetContextUpdateOptions
-      | ((error: Error | null, item?: StyleSheetInstance) => any),
+    params: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
 
@@ -78,7 +86,9 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     this._uri = `/Assistants/${assistantSid}/StyleSheet`;
   }
 
-  fetch(callback?: any): Promise<StyleSheetInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -101,7 +111,12 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+  update(
+    params?:
+      | StyleSheetContextUpdateOptions
+      | ((error: Error | null, item?: StyleSheetInstance) => any),
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -230,9 +245,7 @@ export class StyleSheetInstance {
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
   update(
-    params?:
-      | StyleSheetContextUpdateOptions
-      | ((error: Error | null, item?: StyleSheetInstance) => any),
+    params?: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance> {
     return this._proxy.update(params, callback);

@@ -114,7 +114,9 @@ export class AppContextImpl implements AppContext {
     this._uri = `/Apps/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -128,7 +130,9 @@ export class AppContextImpl implements AppContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AppInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AppInstance) => any
+  ): Promise<AppInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -294,9 +298,10 @@ export interface AppListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AppListInstanceEachOptions
-      | ((item: AppInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AppInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AppListInstanceEachOptions,
     callback?: (item: AppInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -321,9 +326,10 @@ export interface AppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AppListInstanceOptions
-      | ((error: Error | null, items: AppInstance[]) => any),
+    callback?: (error: Error | null, items: AppInstance[]) => any
+  ): Promise<AppInstance[]>;
+  list(
+    params: AppListInstanceOptions,
     callback?: (error: Error | null, items: AppInstance[]) => any
   ): Promise<AppInstance[]>;
   /**
@@ -338,9 +344,10 @@ export interface AppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AppListInstancePageOptions
-      | ((error: Error | null, items: AppPage) => any),
+    callback?: (error: Error | null, items: AppPage) => any
+  ): Promise<AppPage>;
+  page(
+    params: AppListInstancePageOptions,
     callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage>;
 

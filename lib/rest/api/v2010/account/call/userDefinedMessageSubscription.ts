@@ -84,7 +84,9 @@ export class UserDefinedMessageSubscriptionContextImpl
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessageSubscriptions/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,

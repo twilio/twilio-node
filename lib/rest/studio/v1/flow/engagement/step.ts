@@ -135,7 +135,9 @@ export class StepContextImpl implements StepContext {
     return this._stepContext;
   }
 
-  fetch(callback?: any): Promise<StepInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: StepInstance) => any
+  ): Promise<StepInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -348,9 +350,10 @@ export interface StepListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | StepListInstanceEachOptions
-      | ((item: StepInstance, done: (err?: Error) => void) => void),
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: StepListInstanceEachOptions,
     callback?: (item: StepInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -375,9 +378,10 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | StepListInstanceOptions
-      | ((error: Error | null, items: StepInstance[]) => any),
+    callback?: (error: Error | null, items: StepInstance[]) => any
+  ): Promise<StepInstance[]>;
+  list(
+    params: StepListInstanceOptions,
     callback?: (error: Error | null, items: StepInstance[]) => any
   ): Promise<StepInstance[]>;
   /**
@@ -392,9 +396,10 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | StepListInstancePageOptions
-      | ((error: Error | null, items: StepPage) => any),
+    callback?: (error: Error | null, items: StepPage) => any
+  ): Promise<StepPage>;
+  page(
+    params: StepListInstancePageOptions,
     callback?: (error: Error | null, items: StepPage) => any
   ): Promise<StepPage>;
 

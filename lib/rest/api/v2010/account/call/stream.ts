@@ -499,7 +499,12 @@ export class StreamContextImpl implements StreamContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Streams/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<StreamInstance> {
+  update(
+    params:
+      | StreamContextUpdateOptions
+      | ((error: Error | null, item?: StreamInstance) => any),
+    callback?: (error: Error | null, item?: StreamInstance) => any
+  ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

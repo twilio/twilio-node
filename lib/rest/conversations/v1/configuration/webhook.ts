@@ -54,15 +54,23 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebhookInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+  /**
+   * Update a WebhookInstance
+   *
    * @param { WebhookContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params?:
-      | WebhookContextUpdateOptions
-      | ((error: Error | null, item?: WebhookInstance) => any),
+    params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
 
@@ -84,7 +92,9 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Configuration/Webhooks`;
   }
 
-  fetch(callback?: any): Promise<WebhookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -102,7 +112,12 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+  update(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: WebhookInstance) => any;
       params = {};
@@ -235,9 +250,7 @@ export class WebhookInstance {
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params?:
-      | WebhookContextUpdateOptions
-      | ((error: Error | null, item?: WebhookInstance) => any),
+    params?: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);

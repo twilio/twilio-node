@@ -153,7 +153,9 @@ export class BuildContextImpl implements BuildContext {
     return this._buildStatus;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -167,7 +169,9 @@ export class BuildContextImpl implements BuildContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BuildInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BuildInstance) => any
+  ): Promise<BuildInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -368,15 +372,23 @@ export interface BuildListInstance {
   /**
    * Create a BuildInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BuildInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: BuildInstance) => any
+  ): Promise<BuildInstance>;
+  /**
+   * Create a BuildInstance
+   *
    * @param { BuildListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BuildInstance
    */
   create(
-    params?:
-      | BuildListInstanceCreateOptions
-      | ((error: Error | null, item?: BuildInstance) => any),
+    params: BuildListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BuildInstance) => any
   ): Promise<BuildInstance>;
 
@@ -396,9 +408,10 @@ export interface BuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BuildListInstanceEachOptions
-      | ((item: BuildInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BuildListInstanceEachOptions,
     callback?: (item: BuildInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -423,9 +436,10 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BuildListInstanceOptions
-      | ((error: Error | null, items: BuildInstance[]) => any),
+    callback?: (error: Error | null, items: BuildInstance[]) => any
+  ): Promise<BuildInstance[]>;
+  list(
+    params: BuildListInstanceOptions,
     callback?: (error: Error | null, items: BuildInstance[]) => any
   ): Promise<BuildInstance[]>;
   /**
@@ -440,9 +454,10 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BuildListInstancePageOptions
-      | ((error: Error | null, items: BuildPage) => any),
+    callback?: (error: Error | null, items: BuildPage) => any
+  ): Promise<BuildPage>;
+  page(
+    params: BuildListInstancePageOptions,
     callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage>;
 

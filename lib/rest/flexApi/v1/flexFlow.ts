@@ -190,15 +190,23 @@ export interface FlexFlowContext {
   /**
    * Update a FlexFlowInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FlexFlowInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+  /**
+   * Update a FlexFlowInstance
+   *
    * @param { FlexFlowContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
   update(
-    params?:
-      | FlexFlowContextUpdateOptions
-      | ((error: Error | null, item?: FlexFlowInstance) => any),
+    params: FlexFlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance>;
 
@@ -226,7 +234,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     this._uri = `/FlexFlows/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -240,7 +250,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FlexFlowInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -259,7 +271,12 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FlexFlowInstance> {
+  update(
+    params?:
+      | FlexFlowContextUpdateOptions
+      | ((error: Error | null, item?: FlexFlowInstance) => any),
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -483,9 +500,7 @@ export class FlexFlowInstance {
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
   update(
-    params?:
-      | FlexFlowContextUpdateOptions
-      | ((error: Error | null, item?: FlexFlowInstance) => any),
+    params?: FlexFlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     return this._proxy.update(params, callback);
@@ -553,9 +568,10 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FlexFlowListInstanceEachOptions
-      | ((item: FlexFlowInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FlexFlowListInstanceEachOptions,
     callback?: (item: FlexFlowInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -580,9 +596,10 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FlexFlowListInstanceOptions
-      | ((error: Error | null, items: FlexFlowInstance[]) => any),
+    callback?: (error: Error | null, items: FlexFlowInstance[]) => any
+  ): Promise<FlexFlowInstance[]>;
+  list(
+    params: FlexFlowListInstanceOptions,
     callback?: (error: Error | null, items: FlexFlowInstance[]) => any
   ): Promise<FlexFlowInstance[]>;
   /**
@@ -597,9 +614,10 @@ export interface FlexFlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FlexFlowListInstancePageOptions
-      | ((error: Error | null, items: FlexFlowPage) => any),
+    callback?: (error: Error | null, items: FlexFlowPage) => any
+  ): Promise<FlexFlowPage>;
+  page(
+    params: FlexFlowListInstancePageOptions,
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage>;
 

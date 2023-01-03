@@ -121,15 +121,23 @@ export interface SyncMapContext {
   /**
    * Update a SyncMapInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance>;
+  /**
+   * Update a SyncMapInstance
+   *
    * @param { SyncMapContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapInstance
    */
   update(
-    params?:
-      | SyncMapContextUpdateOptions
-      | ((error: Error | null, item?: SyncMapInstance) => any),
+    params: SyncMapContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance>;
 
@@ -187,7 +195,9 @@ export class SyncMapContextImpl implements SyncMapContext {
     return this._syncMapPermissions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -201,7 +211,9 @@ export class SyncMapContextImpl implements SyncMapContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncMapInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -225,7 +237,12 @@ export class SyncMapContextImpl implements SyncMapContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SyncMapInstance> {
+  update(
+    params?:
+      | SyncMapContextUpdateOptions
+      | ((error: Error | null, item?: SyncMapInstance) => any),
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SyncMapInstance) => any;
       params = {};
@@ -415,9 +432,7 @@ export class SyncMapInstance {
    * @returns { Promise } Resolves to processed SyncMapInstance
    */
   update(
-    params?:
-      | SyncMapContextUpdateOptions
-      | ((error: Error | null, item?: SyncMapInstance) => any),
+    params?: SyncMapContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     return this._proxy.update(params, callback);
@@ -470,15 +485,23 @@ export interface SyncMapListInstance {
   /**
    * Create a SyncMapInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance>;
+  /**
+   * Create a SyncMapInstance
+   *
    * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapInstance
    */
   create(
-    params?:
-      | SyncMapListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncMapInstance) => any),
+    params: SyncMapListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance>;
 
@@ -498,9 +521,10 @@ export interface SyncMapListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncMapListInstanceEachOptions
-      | ((item: SyncMapInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SyncMapListInstanceEachOptions,
     callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -525,9 +549,10 @@ export interface SyncMapListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncMapListInstanceOptions
-      | ((error: Error | null, items: SyncMapInstance[]) => any),
+    callback?: (error: Error | null, items: SyncMapInstance[]) => any
+  ): Promise<SyncMapInstance[]>;
+  list(
+    params: SyncMapListInstanceOptions,
     callback?: (error: Error | null, items: SyncMapInstance[]) => any
   ): Promise<SyncMapInstance[]>;
   /**
@@ -542,9 +567,10 @@ export interface SyncMapListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncMapListInstancePageOptions
-      | ((error: Error | null, items: SyncMapPage) => any),
+    callback?: (error: Error | null, items: SyncMapPage) => any
+  ): Promise<SyncMapPage>;
+  page(
+    params: SyncMapListInstancePageOptions,
     callback?: (error: Error | null, items: SyncMapPage) => any
   ): Promise<SyncMapPage>;
 

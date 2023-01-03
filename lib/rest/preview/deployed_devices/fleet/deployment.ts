@@ -114,15 +114,23 @@ export interface DeploymentContext {
   /**
    * Update a DeploymentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeploymentInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance>;
+  /**
+   * Update a DeploymentInstance
+   *
    * @param { DeploymentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   update(
-    params?:
-      | DeploymentContextUpdateOptions
-      | ((error: Error | null, item?: DeploymentInstance) => any),
+    params: DeploymentContextUpdateOptions,
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance>;
 
@@ -159,7 +167,9 @@ export class DeploymentContextImpl implements DeploymentContext {
     this._uri = `/Fleets/${fleetSid}/Deployments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -173,7 +183,9 @@ export class DeploymentContextImpl implements DeploymentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DeploymentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -197,7 +209,12 @@ export class DeploymentContextImpl implements DeploymentContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DeploymentInstance> {
+  update(
+    params?:
+      | DeploymentContextUpdateOptions
+      | ((error: Error | null, item?: DeploymentInstance) => any),
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -373,9 +390,7 @@ export class DeploymentInstance {
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   update(
-    params?:
-      | DeploymentContextUpdateOptions
-      | ((error: Error | null, item?: DeploymentInstance) => any),
+    params?: DeploymentContextUpdateOptions,
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     return this._proxy.update(params, callback);
@@ -411,15 +426,23 @@ export interface DeploymentListInstance {
   /**
    * Create a DeploymentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeploymentInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance>;
+  /**
+   * Create a DeploymentInstance
+   *
    * @param { DeploymentListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   create(
-    params?:
-      | DeploymentListInstanceCreateOptions
-      | ((error: Error | null, item?: DeploymentInstance) => any),
+    params: DeploymentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance>;
 
@@ -439,9 +462,10 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DeploymentListInstanceEachOptions
-      | ((item: DeploymentInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DeploymentListInstanceEachOptions,
     callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -466,9 +490,10 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DeploymentListInstanceOptions
-      | ((error: Error | null, items: DeploymentInstance[]) => any),
+    callback?: (error: Error | null, items: DeploymentInstance[]) => any
+  ): Promise<DeploymentInstance[]>;
+  list(
+    params: DeploymentListInstanceOptions,
     callback?: (error: Error | null, items: DeploymentInstance[]) => any
   ): Promise<DeploymentInstance[]>;
   /**
@@ -483,9 +508,10 @@ export interface DeploymentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DeploymentListInstancePageOptions
-      | ((error: Error | null, items: DeploymentPage) => any),
+    callback?: (error: Error | null, items: DeploymentPage) => any
+  ): Promise<DeploymentPage>;
+  page(
+    params: DeploymentListInstancePageOptions,
     callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage>;
 

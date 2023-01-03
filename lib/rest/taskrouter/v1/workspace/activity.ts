@@ -124,15 +124,23 @@ export interface ActivityContext {
   /**
    * Update a ActivityInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ActivityInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ActivityInstance) => any
+  ): Promise<ActivityInstance>;
+  /**
+   * Update a ActivityInstance
+   *
    * @param { ActivityContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ActivityInstance
    */
   update(
-    params?:
-      | ActivityContextUpdateOptions
-      | ((error: Error | null, item?: ActivityInstance) => any),
+    params: ActivityContextUpdateOptions,
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance>;
 
@@ -165,7 +173,9 @@ export class ActivityContextImpl implements ActivityContext {
     this._uri = `/Workspaces/${workspaceSid}/Activities/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +189,9 @@ export class ActivityContextImpl implements ActivityContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ActivityInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ActivityInstance) => any
+  ): Promise<ActivityInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -203,7 +215,12 @@ export class ActivityContextImpl implements ActivityContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ActivityInstance> {
+  update(
+    params?:
+      | ActivityContextUpdateOptions
+      | ((error: Error | null, item?: ActivityInstance) => any),
+    callback?: (error: Error | null, item?: ActivityInstance) => any
+  ): Promise<ActivityInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -380,9 +397,7 @@ export class ActivityInstance {
    * @returns { Promise } Resolves to processed ActivityInstance
    */
   update(
-    params?:
-      | ActivityContextUpdateOptions
-      | ((error: Error | null, item?: ActivityInstance) => any),
+    params?: ActivityContextUpdateOptions,
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance> {
     return this._proxy.update(params, callback);
@@ -445,9 +460,10 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ActivityListInstanceEachOptions
-      | ((item: ActivityInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ActivityListInstanceEachOptions,
     callback?: (item: ActivityInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -472,9 +488,10 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ActivityListInstanceOptions
-      | ((error: Error | null, items: ActivityInstance[]) => any),
+    callback?: (error: Error | null, items: ActivityInstance[]) => any
+  ): Promise<ActivityInstance[]>;
+  list(
+    params: ActivityListInstanceOptions,
     callback?: (error: Error | null, items: ActivityInstance[]) => any
   ): Promise<ActivityInstance[]>;
   /**
@@ -489,9 +506,10 @@ export interface ActivityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ActivityListInstancePageOptions
-      | ((error: Error | null, items: ActivityPage) => any),
+    callback?: (error: Error | null, items: ActivityPage) => any
+  ): Promise<ActivityPage>;
+  page(
+    params: ActivityListInstancePageOptions,
     callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage>;
 

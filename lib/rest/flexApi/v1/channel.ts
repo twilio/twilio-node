@@ -140,7 +140,9 @@ export class ChannelContextImpl implements ChannelContext {
     this._uri = `/Channels/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -154,7 +156,9 @@ export class ChannelContextImpl implements ChannelContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -341,9 +345,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ChannelListInstanceEachOptions
-      | ((item: ChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ChannelListInstanceEachOptions,
     callback?: (item: ChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -368,9 +373,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ChannelListInstanceOptions
-      | ((error: Error | null, items: ChannelInstance[]) => any),
+    callback?: (error: Error | null, items: ChannelInstance[]) => any
+  ): Promise<ChannelInstance[]>;
+  list(
+    params: ChannelListInstanceOptions,
     callback?: (error: Error | null, items: ChannelInstance[]) => any
   ): Promise<ChannelInstance[]>;
   /**
@@ -385,9 +391,10 @@ export interface ChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ChannelListInstancePageOptions
-      | ((error: Error | null, items: ChannelPage) => any),
+    callback?: (error: Error | null, items: ChannelPage) => any
+  ): Promise<ChannelPage>;
+  page(
+    params: ChannelListInstancePageOptions,
     callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage>;
 

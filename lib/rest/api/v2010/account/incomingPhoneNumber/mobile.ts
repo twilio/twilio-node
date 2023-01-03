@@ -192,9 +192,10 @@ export interface MobileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MobileListInstanceEachOptions
-      | ((item: MobileInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MobileListInstanceEachOptions,
     callback?: (item: MobileInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -219,9 +220,10 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MobileListInstanceOptions
-      | ((error: Error | null, items: MobileInstance[]) => any),
+    callback?: (error: Error | null, items: MobileInstance[]) => any
+  ): Promise<MobileInstance[]>;
+  list(
+    params: MobileListInstanceOptions,
     callback?: (error: Error | null, items: MobileInstance[]) => any
   ): Promise<MobileInstance[]>;
   /**
@@ -236,9 +238,10 @@ export interface MobileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MobileListInstancePageOptions
-      | ((error: Error | null, items: MobilePage) => any),
+    callback?: (error: Error | null, items: MobilePage) => any
+  ): Promise<MobilePage>;
+  page(
+    params: MobileListInstancePageOptions,
     callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage>;
 

@@ -103,7 +103,9 @@ export class PoliciesContextImpl implements PoliciesContext {
     this._uri = `/Policies/${sid}`;
   }
 
-  fetch(callback?: any): Promise<PoliciesInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
+  ): Promise<PoliciesInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -236,9 +238,10 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PoliciesListInstanceEachOptions
-      | ((item: PoliciesInstance, done: (err?: Error) => void) => void),
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: PoliciesListInstanceEachOptions,
     callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -263,9 +266,10 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PoliciesListInstanceOptions
-      | ((error: Error | null, items: PoliciesInstance[]) => any),
+    callback?: (error: Error | null, items: PoliciesInstance[]) => any
+  ): Promise<PoliciesInstance[]>;
+  list(
+    params: PoliciesListInstanceOptions,
     callback?: (error: Error | null, items: PoliciesInstance[]) => any
   ): Promise<PoliciesInstance[]>;
   /**
@@ -280,9 +284,10 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PoliciesListInstancePageOptions
-      | ((error: Error | null, items: PoliciesPage) => any),
+    callback?: (error: Error | null, items: PoliciesPage) => any
+  ): Promise<PoliciesPage>;
+  page(
+    params: PoliciesListInstancePageOptions,
     callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage>;
 

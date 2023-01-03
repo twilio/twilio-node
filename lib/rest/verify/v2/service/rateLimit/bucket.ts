@@ -114,15 +114,23 @@ export interface BucketContext {
   /**
    * Update a BucketInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BucketInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance>;
+  /**
+   * Update a BucketInstance
+   *
    * @param { BucketContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BucketInstance
    */
   update(
-    params?:
-      | BucketContextUpdateOptions
-      | ((error: Error | null, item?: BucketInstance) => any),
+    params: BucketContextUpdateOptions,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance>;
 
@@ -165,7 +173,9 @@ export class BucketContextImpl implements BucketContext {
     this._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +189,9 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BucketInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -204,7 +216,12 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<BucketInstance> {
+  update(
+    params?:
+      | BucketContextUpdateOptions
+      | ((error: Error | null, item?: BucketInstance) => any),
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: BucketInstance) => any;
       params = {};
@@ -384,9 +401,7 @@ export class BucketInstance {
    * @returns { Promise } Resolves to processed BucketInstance
    */
   update(
-    params?:
-      | BucketContextUpdateOptions
-      | ((error: Error | null, item?: BucketInstance) => any),
+    params?: BucketContextUpdateOptions,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance> {
     return this._proxy.update(params, callback);
@@ -449,9 +464,10 @@ export interface BucketListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BucketListInstanceEachOptions
-      | ((item: BucketInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BucketInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BucketListInstanceEachOptions,
     callback?: (item: BucketInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -476,9 +492,10 @@ export interface BucketListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BucketListInstanceOptions
-      | ((error: Error | null, items: BucketInstance[]) => any),
+    callback?: (error: Error | null, items: BucketInstance[]) => any
+  ): Promise<BucketInstance[]>;
+  list(
+    params: BucketListInstanceOptions,
     callback?: (error: Error | null, items: BucketInstance[]) => any
   ): Promise<BucketInstance[]>;
   /**
@@ -493,9 +510,10 @@ export interface BucketListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BucketListInstancePageOptions
-      | ((error: Error | null, items: BucketPage) => any),
+    callback?: (error: Error | null, items: BucketPage) => any
+  ): Promise<BucketPage>;
+  page(
+    params: BucketListInstancePageOptions,
     callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage>;
 

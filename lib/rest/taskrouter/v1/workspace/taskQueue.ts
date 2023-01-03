@@ -164,15 +164,23 @@ export interface TaskQueueContext {
   /**
    * Update a TaskQueueInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+  /**
+   * Update a TaskQueueInstance
+   *
    * @param { TaskQueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
   update(
-    params?:
-      | TaskQueueContextUpdateOptions
-      | ((error: Error | null, item?: TaskQueueInstance) => any),
+    params: TaskQueueContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance>;
 
@@ -242,7 +250,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -256,7 +266,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TaskQueueInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -280,7 +292,12 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TaskQueueInstance> {
+  update(
+    params?:
+      | TaskQueueContextUpdateOptions
+      | ((error: Error | null, item?: TaskQueueInstance) => any),
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -503,9 +520,7 @@ export class TaskQueueInstance {
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
   update(
-    params?:
-      | TaskQueueContextUpdateOptions
-      | ((error: Error | null, item?: TaskQueueInstance) => any),
+    params?: TaskQueueContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     return this._proxy.update(params, callback);
@@ -597,9 +612,10 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TaskQueueListInstanceEachOptions
-      | ((item: TaskQueueInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TaskQueueListInstanceEachOptions,
     callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -624,9 +640,10 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TaskQueueListInstanceOptions
-      | ((error: Error | null, items: TaskQueueInstance[]) => any),
+    callback?: (error: Error | null, items: TaskQueueInstance[]) => any
+  ): Promise<TaskQueueInstance[]>;
+  list(
+    params: TaskQueueListInstanceOptions,
     callback?: (error: Error | null, items: TaskQueueInstance[]) => any
   ): Promise<TaskQueueInstance[]>;
   /**
@@ -641,9 +658,10 @@ export interface TaskQueueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TaskQueueListInstancePageOptions
-      | ((error: Error | null, items: TaskQueuePage) => any),
+    callback?: (error: Error | null, items: TaskQueuePage) => any
+  ): Promise<TaskQueuePage>;
+  page(
+    params: TaskQueueListInstancePageOptions,
     callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage>;
 

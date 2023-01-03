@@ -141,15 +141,23 @@ export interface WorkflowContext {
   /**
    * Update a WorkflowInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance>;
+  /**
+   * Update a WorkflowInstance
+   *
    * @param { WorkflowContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowInstance
    */
   update(
-    params?:
-      | WorkflowContextUpdateOptions
-      | ((error: Error | null, item?: WorkflowInstance) => any),
+    params: WorkflowContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
 
@@ -219,7 +227,9 @@ export class WorkflowContextImpl implements WorkflowContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -233,7 +243,9 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkflowInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -257,7 +269,12 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkflowInstance> {
+  update(
+    params?:
+      | WorkflowContextUpdateOptions
+      | ((error: Error | null, item?: WorkflowInstance) => any),
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -475,9 +492,7 @@ export class WorkflowInstance {
    * @returns { Promise } Resolves to processed WorkflowInstance
    */
   update(
-    params?:
-      | WorkflowContextUpdateOptions
-      | ((error: Error | null, item?: WorkflowInstance) => any),
+    params?: WorkflowContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     return this._proxy.update(params, callback);
@@ -565,9 +580,10 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WorkflowListInstanceEachOptions
-      | ((item: WorkflowInstance, done: (err?: Error) => void) => void),
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: WorkflowListInstanceEachOptions,
     callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -592,9 +608,10 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WorkflowListInstanceOptions
-      | ((error: Error | null, items: WorkflowInstance[]) => any),
+    callback?: (error: Error | null, items: WorkflowInstance[]) => any
+  ): Promise<WorkflowInstance[]>;
+  list(
+    params: WorkflowListInstanceOptions,
     callback?: (error: Error | null, items: WorkflowInstance[]) => any
   ): Promise<WorkflowInstance[]>;
   /**
@@ -609,9 +626,10 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WorkflowListInstancePageOptions
-      | ((error: Error | null, items: WorkflowPage) => any),
+    callback?: (error: Error | null, items: WorkflowPage) => any
+  ): Promise<WorkflowPage>;
+  page(
+    params: WorkflowListInstancePageOptions,
     callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage>;
 

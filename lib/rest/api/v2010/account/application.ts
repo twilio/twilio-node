@@ -172,15 +172,23 @@ export interface ApplicationContext {
   /**
    * Update a ApplicationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ApplicationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance>;
+  /**
+   * Update a ApplicationInstance
+   *
    * @param { ApplicationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   update(
-    params?:
-      | ApplicationContextUpdateOptions
-      | ((error: Error | null, item?: ApplicationInstance) => any),
+    params: ApplicationContextUpdateOptions,
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
 
@@ -213,7 +221,9 @@ export class ApplicationContextImpl implements ApplicationContext {
     this._uri = `/Accounts/${accountSid}/Applications/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -227,7 +237,9 @@ export class ApplicationContextImpl implements ApplicationContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ApplicationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -251,7 +263,12 @@ export class ApplicationContextImpl implements ApplicationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ApplicationInstance> {
+  update(
+    params?:
+      | ApplicationContextUpdateOptions
+      | ((error: Error | null, item?: ApplicationInstance) => any),
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -561,9 +578,7 @@ export class ApplicationInstance {
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   update(
-    params?:
-      | ApplicationContextUpdateOptions
-      | ((error: Error | null, item?: ApplicationInstance) => any),
+    params?: ApplicationContextUpdateOptions,
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     return this._proxy.update(params, callback);
@@ -611,15 +626,23 @@ export interface ApplicationListInstance {
   /**
    * Create a ApplicationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ApplicationInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance>;
+  /**
+   * Create a ApplicationInstance
+   *
    * @param { ApplicationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   create(
-    params?:
-      | ApplicationListInstanceCreateOptions
-      | ((error: Error | null, item?: ApplicationInstance) => any),
+    params: ApplicationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
 
@@ -639,9 +662,10 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ApplicationListInstanceEachOptions
-      | ((item: ApplicationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ApplicationListInstanceEachOptions,
     callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -666,9 +690,10 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ApplicationListInstanceOptions
-      | ((error: Error | null, items: ApplicationInstance[]) => any),
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any
+  ): Promise<ApplicationInstance[]>;
+  list(
+    params: ApplicationListInstanceOptions,
     callback?: (error: Error | null, items: ApplicationInstance[]) => any
   ): Promise<ApplicationInstance[]>;
   /**
@@ -683,9 +708,10 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ApplicationListInstancePageOptions
-      | ((error: Error | null, items: ApplicationPage) => any),
+    callback?: (error: Error | null, items: ApplicationPage) => any
+  ): Promise<ApplicationPage>;
+  page(
+    params: ApplicationListInstancePageOptions,
     callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
 

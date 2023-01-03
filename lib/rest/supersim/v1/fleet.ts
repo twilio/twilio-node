@@ -135,15 +135,23 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FleetInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance>;
+  /**
+   * Update a FleetInstance
+   *
    * @param { FleetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FleetInstance
    */
   update(
-    params?:
-      | FleetContextUpdateOptions
-      | ((error: Error | null, item?: FleetInstance) => any),
+    params: FleetContextUpdateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
 
@@ -171,7 +179,9 @@ export class FleetContextImpl implements FleetContext {
     this._uri = `/Fleets/${sid}`;
   }
 
-  fetch(callback?: any): Promise<FleetInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -190,7 +200,12 @@ export class FleetContextImpl implements FleetContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FleetInstance> {
+  update(
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: FleetInstance) => any),
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: FleetInstance) => any;
       params = {};
@@ -399,9 +414,7 @@ export class FleetInstance {
    * @returns { Promise } Resolves to processed FleetInstance
    */
   update(
-    params?:
-      | FleetContextUpdateOptions
-      | ((error: Error | null, item?: FleetInstance) => any),
+    params?: FleetContextUpdateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
@@ -470,9 +483,10 @@ export interface FleetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FleetListInstanceEachOptions
-      | ((item: FleetInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FleetListInstanceEachOptions,
     callback?: (item: FleetInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -497,9 +511,10 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FleetListInstanceOptions
-      | ((error: Error | null, items: FleetInstance[]) => any),
+    callback?: (error: Error | null, items: FleetInstance[]) => any
+  ): Promise<FleetInstance[]>;
+  list(
+    params: FleetListInstanceOptions,
     callback?: (error: Error | null, items: FleetInstance[]) => any
   ): Promise<FleetInstance[]>;
   /**
@@ -514,9 +529,10 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FleetListInstancePageOptions
-      | ((error: Error | null, items: FleetPage) => any),
+    callback?: (error: Error | null, items: FleetPage) => any
+  ): Promise<FleetPage>;
+  page(
+    params: FleetListInstancePageOptions,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
 

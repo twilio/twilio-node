@@ -114,15 +114,23 @@ export interface AwsContext {
   /**
    * Update a AwsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AwsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AwsInstance) => any
+  ): Promise<AwsInstance>;
+  /**
+   * Update a AwsInstance
+   *
    * @param { AwsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AwsInstance
    */
   update(
-    params?:
-      | AwsContextUpdateOptions
-      | ((error: Error | null, item?: AwsInstance) => any),
+    params: AwsContextUpdateOptions,
     callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance>;
 
@@ -150,7 +158,9 @@ export class AwsContextImpl implements AwsContext {
     this._uri = `/Credentials/AWS/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +174,9 @@ export class AwsContextImpl implements AwsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AwsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AwsInstance) => any
+  ): Promise<AwsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -183,7 +195,12 @@ export class AwsContextImpl implements AwsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AwsInstance> {
+  update(
+    params?:
+      | AwsContextUpdateOptions
+      | ((error: Error | null, item?: AwsInstance) => any),
+    callback?: (error: Error | null, item?: AwsInstance) => any
+  ): Promise<AwsInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: AwsInstance) => any;
       params = {};
@@ -327,9 +344,7 @@ export class AwsInstance {
    * @returns { Promise } Resolves to processed AwsInstance
    */
   update(
-    params?:
-      | AwsContextUpdateOptions
-      | ((error: Error | null, item?: AwsInstance) => any),
+    params?: AwsContextUpdateOptions,
     callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance> {
     return this._proxy.update(params, callback);
@@ -389,9 +404,10 @@ export interface AwsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AwsListInstanceEachOptions
-      | ((item: AwsInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AwsInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AwsListInstanceEachOptions,
     callback?: (item: AwsInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -416,9 +432,10 @@ export interface AwsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AwsListInstanceOptions
-      | ((error: Error | null, items: AwsInstance[]) => any),
+    callback?: (error: Error | null, items: AwsInstance[]) => any
+  ): Promise<AwsInstance[]>;
+  list(
+    params: AwsListInstanceOptions,
     callback?: (error: Error | null, items: AwsInstance[]) => any
   ): Promise<AwsInstance[]>;
   /**
@@ -433,9 +450,10 @@ export interface AwsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AwsListInstancePageOptions
-      | ((error: Error | null, items: AwsPage) => any),
+    callback?: (error: Error | null, items: AwsPage) => any
+  ): Promise<AwsPage>;
+  page(
+    params: AwsListInstancePageOptions,
     callback?: (error: Error | null, items: AwsPage) => any
   ): Promise<AwsPage>;
 

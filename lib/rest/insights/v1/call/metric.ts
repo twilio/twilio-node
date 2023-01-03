@@ -105,9 +105,10 @@ export interface MetricListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MetricListInstanceEachOptions
-      | ((item: MetricInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MetricListInstanceEachOptions,
     callback?: (item: MetricInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -132,9 +133,10 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MetricListInstanceOptions
-      | ((error: Error | null, items: MetricInstance[]) => any),
+    callback?: (error: Error | null, items: MetricInstance[]) => any
+  ): Promise<MetricInstance[]>;
+  list(
+    params: MetricListInstanceOptions,
     callback?: (error: Error | null, items: MetricInstance[]) => any
   ): Promise<MetricInstance[]>;
   /**
@@ -149,9 +151,10 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MetricListInstancePageOptions
-      | ((error: Error | null, items: MetricPage) => any),
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
+  page(
+    params: MetricListInstancePageOptions,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
 

@@ -355,9 +355,10 @@ export interface DailyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DailyListInstanceEachOptions
-      | ((item: DailyInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DailyListInstanceEachOptions,
     callback?: (item: DailyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DailyListInstanceOptions
-      | ((error: Error | null, items: DailyInstance[]) => any),
+    callback?: (error: Error | null, items: DailyInstance[]) => any
+  ): Promise<DailyInstance[]>;
+  list(
+    params: DailyListInstanceOptions,
     callback?: (error: Error | null, items: DailyInstance[]) => any
   ): Promise<DailyInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DailyListInstancePageOptions
-      | ((error: Error | null, items: DailyPage) => any),
+    callback?: (error: Error | null, items: DailyPage) => any
+  ): Promise<DailyPage>;
+  page(
+    params: DailyListInstancePageOptions,
     callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage>;
 

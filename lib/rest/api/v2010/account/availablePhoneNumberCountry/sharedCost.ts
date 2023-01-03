@@ -193,9 +193,10 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SharedCostListInstanceEachOptions
-      | ((item: SharedCostInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SharedCostListInstanceEachOptions,
     callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -220,9 +221,10 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SharedCostListInstanceOptions
-      | ((error: Error | null, items: SharedCostInstance[]) => any),
+    callback?: (error: Error | null, items: SharedCostInstance[]) => any
+  ): Promise<SharedCostInstance[]>;
+  list(
+    params: SharedCostListInstanceOptions,
     callback?: (error: Error | null, items: SharedCostInstance[]) => any
   ): Promise<SharedCostInstance[]>;
   /**
@@ -237,9 +239,10 @@ export interface SharedCostListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SharedCostListInstancePageOptions
-      | ((error: Error | null, items: SharedCostPage) => any),
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage>;
+  page(
+    params: SharedCostListInstancePageOptions,
     callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage>;
 

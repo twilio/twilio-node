@@ -130,7 +130,9 @@ export class CredentialListContextImpl implements CredentialListContext {
     this._uri = `/Trunks/${trunkSid}/CredentialLists/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -144,7 +146,9 @@ export class CredentialListContextImpl implements CredentialListContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CredentialListInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CredentialListInstance) => any
+  ): Promise<CredentialListInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -338,9 +342,13 @@ export interface CredentialListListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CredentialListListInstanceEachOptions
-      | ((item: CredentialListInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: CredentialListInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CredentialListListInstanceEachOptions,
     callback?: (
       item: CredentialListInstance,
       done: (err?: Error) => void
@@ -368,9 +376,10 @@ export interface CredentialListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CredentialListListInstanceOptions
-      | ((error: Error | null, items: CredentialListInstance[]) => any),
+    callback?: (error: Error | null, items: CredentialListInstance[]) => any
+  ): Promise<CredentialListInstance[]>;
+  list(
+    params: CredentialListListInstanceOptions,
     callback?: (error: Error | null, items: CredentialListInstance[]) => any
   ): Promise<CredentialListInstance[]>;
   /**
@@ -385,9 +394,10 @@ export interface CredentialListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CredentialListListInstancePageOptions
-      | ((error: Error | null, items: CredentialListPage) => any),
+    callback?: (error: Error | null, items: CredentialListPage) => any
+  ): Promise<CredentialListPage>;
+  page(
+    params: CredentialListListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialListPage) => any
   ): Promise<CredentialListPage>;
 

@@ -127,7 +127,9 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
     this._uri = `/Services/${serviceSid}/AlphaSenders/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -141,7 +143,9 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AlphaSenderInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+  ): Promise<AlphaSenderInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -342,9 +346,10 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AlphaSenderListInstanceEachOptions
-      | ((item: AlphaSenderInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AlphaSenderListInstanceEachOptions,
     callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -369,9 +374,10 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AlphaSenderListInstanceOptions
-      | ((error: Error | null, items: AlphaSenderInstance[]) => any),
+    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
+  ): Promise<AlphaSenderInstance[]>;
+  list(
+    params: AlphaSenderListInstanceOptions,
     callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
   ): Promise<AlphaSenderInstance[]>;
   /**
@@ -386,9 +392,10 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AlphaSenderListInstancePageOptions
-      | ((error: Error | null, items: AlphaSenderPage) => any),
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
+  ): Promise<AlphaSenderPage>;
+  page(
+    params: AlphaSenderListInstancePageOptions,
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage>;
 

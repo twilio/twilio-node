@@ -156,7 +156,9 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     return this._payloads;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -170,7 +172,9 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AddOnResultInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AddOnResultInstance) => any
+  ): Promise<AddOnResultInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -379,9 +383,10 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AddOnResultListInstanceEachOptions
-      | ((item: AddOnResultInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AddOnResultListInstanceEachOptions,
     callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -406,9 +411,10 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AddOnResultListInstanceOptions
-      | ((error: Error | null, items: AddOnResultInstance[]) => any),
+    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
+  ): Promise<AddOnResultInstance[]>;
+  list(
+    params: AddOnResultListInstanceOptions,
     callback?: (error: Error | null, items: AddOnResultInstance[]) => any
   ): Promise<AddOnResultInstance[]>;
   /**
@@ -423,9 +429,10 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AddOnResultListInstancePageOptions
-      | ((error: Error | null, items: AddOnResultPage) => any),
+    callback?: (error: Error | null, items: AddOnResultPage) => any
+  ): Promise<AddOnResultPage>;
+  page(
+    params: AddOnResultListInstancePageOptions,
     callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
 

@@ -107,15 +107,23 @@ export interface NetworkAccessProfileContext {
   /**
    * Update a NetworkAccessProfileInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance>;
+  /**
+   * Update a NetworkAccessProfileInstance
+   *
    * @param { NetworkAccessProfileContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
    */
   update(
-    params?:
-      | NetworkAccessProfileContextUpdateOptions
-      | ((error: Error | null, item?: NetworkAccessProfileInstance) => any),
+    params: NetworkAccessProfileContextUpdateOptions,
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance>;
 
@@ -157,7 +165,9 @@ export class NetworkAccessProfileContextImpl
     return this._networks;
   }
 
-  fetch(callback?: any): Promise<NetworkAccessProfileInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -180,7 +190,12 @@ export class NetworkAccessProfileContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<NetworkAccessProfileInstance> {
+  update(
+    params?:
+      | NetworkAccessProfileContextUpdateOptions
+      | ((error: Error | null, item?: NetworkAccessProfileInstance) => any),
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -326,9 +341,7 @@ export class NetworkAccessProfileInstance {
    * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
    */
   update(
-    params?:
-      | NetworkAccessProfileContextUpdateOptions
-      | ((error: Error | null, item?: NetworkAccessProfileInstance) => any),
+    params?: NetworkAccessProfileContextUpdateOptions,
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance> {
     return this._proxy.update(params, callback);
@@ -370,15 +383,23 @@ export interface NetworkAccessProfileListInstance {
   /**
    * Create a NetworkAccessProfileInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance>;
+  /**
+   * Create a NetworkAccessProfileInstance
+   *
    * @param { NetworkAccessProfileListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
    */
   create(
-    params?:
-      | NetworkAccessProfileListInstanceCreateOptions
-      | ((error: Error | null, item?: NetworkAccessProfileInstance) => any),
+    params: NetworkAccessProfileListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance>;
 
@@ -398,12 +419,13 @@ export interface NetworkAccessProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | NetworkAccessProfileListInstanceEachOptions
-      | ((
-          item: NetworkAccessProfileInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: NetworkAccessProfileInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: NetworkAccessProfileListInstanceEachOptions,
     callback?: (
       item: NetworkAccessProfileInstance,
       done: (err?: Error) => void
@@ -431,9 +453,13 @@ export interface NetworkAccessProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | NetworkAccessProfileListInstanceOptions
-      | ((error: Error | null, items: NetworkAccessProfileInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: NetworkAccessProfileInstance[]
+    ) => any
+  ): Promise<NetworkAccessProfileInstance[]>;
+  list(
+    params: NetworkAccessProfileListInstanceOptions,
     callback?: (
       error: Error | null,
       items: NetworkAccessProfileInstance[]
@@ -451,9 +477,10 @@ export interface NetworkAccessProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | NetworkAccessProfileListInstancePageOptions
-      | ((error: Error | null, items: NetworkAccessProfilePage) => any),
+    callback?: (error: Error | null, items: NetworkAccessProfilePage) => any
+  ): Promise<NetworkAccessProfilePage>;
+  page(
+    params: NetworkAccessProfileListInstancePageOptions,
     callback?: (error: Error | null, items: NetworkAccessProfilePage) => any
   ): Promise<NetworkAccessProfilePage>;
 

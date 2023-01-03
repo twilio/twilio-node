@@ -117,15 +117,23 @@ export interface FieldTypeContext {
   /**
    * Update a FieldTypeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FieldTypeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+  /**
+   * Update a FieldTypeInstance
+   *
    * @param { FieldTypeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
   update(
-    params?:
-      | FieldTypeContextUpdateOptions
-      | ((error: Error | null, item?: FieldTypeInstance) => any),
+    params: FieldTypeContextUpdateOptions,
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
   ): Promise<FieldTypeInstance>;
 
@@ -171,7 +179,9 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     return this._fieldValues;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -185,7 +195,9 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FieldTypeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -209,7 +221,12 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FieldTypeInstance> {
+  update(
+    params?:
+      | FieldTypeContextUpdateOptions
+      | ((error: Error | null, item?: FieldTypeInstance) => any),
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -391,9 +408,7 @@ export class FieldTypeInstance {
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
   update(
-    params?:
-      | FieldTypeContextUpdateOptions
-      | ((error: Error | null, item?: FieldTypeInstance) => any),
+    params?: FieldTypeContextUpdateOptions,
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
   ): Promise<FieldTypeInstance> {
     return this._proxy.update(params, callback);
@@ -463,9 +478,10 @@ export interface FieldTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FieldTypeListInstanceEachOptions
-      | ((item: FieldTypeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FieldTypeListInstanceEachOptions,
     callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -490,9 +506,10 @@ export interface FieldTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FieldTypeListInstanceOptions
-      | ((error: Error | null, items: FieldTypeInstance[]) => any),
+    callback?: (error: Error | null, items: FieldTypeInstance[]) => any
+  ): Promise<FieldTypeInstance[]>;
+  list(
+    params: FieldTypeListInstanceOptions,
     callback?: (error: Error | null, items: FieldTypeInstance[]) => any
   ): Promise<FieldTypeInstance[]>;
   /**
@@ -507,9 +524,10 @@ export interface FieldTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FieldTypeListInstancePageOptions
-      | ((error: Error | null, items: FieldTypePage) => any),
+    callback?: (error: Error | null, items: FieldTypePage) => any
+  ): Promise<FieldTypePage>;
+  page(
+    params: FieldTypeListInstancePageOptions,
     callback?: (error: Error | null, items: FieldTypePage) => any
   ): Promise<FieldTypePage>;
 

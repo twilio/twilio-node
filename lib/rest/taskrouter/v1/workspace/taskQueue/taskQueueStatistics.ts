@@ -39,15 +39,23 @@ export interface TaskQueueStatisticsContext {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueStatisticsInstance
+   *
    * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueStatisticsContextFetchOptions
-      | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
+    params: TaskQueueStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance>;
 
@@ -86,7 +94,12 @@ export class TaskQueueStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
+  fetch(
+    params?:
+      | TaskQueueStatisticsContextFetchOptions
+      | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -226,9 +239,7 @@ export class TaskQueueStatisticsInstance {
    * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueStatisticsContextFetchOptions
-      | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
+    params?: TaskQueueStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance> {
     return this._proxy.fetch(params, callback);

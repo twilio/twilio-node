@@ -149,7 +149,9 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
     this._uri = `/TrustProducts/${trustProductSid}/ChannelEndpointAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +166,10 @@ export class TrustProductsChannelEndpointAssignmentContextImpl
   }
 
   fetch(
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: TrustProductsChannelEndpointAssignmentInstance
+    ) => any
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
@@ -366,12 +371,13 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TrustProductsChannelEndpointAssignmentListInstanceEachOptions
-      | ((
-          item: TrustProductsChannelEndpointAssignmentInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: TrustProductsChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TrustProductsChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: TrustProductsChannelEndpointAssignmentInstance,
       done: (err?: Error) => void
@@ -402,12 +408,13 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TrustProductsChannelEndpointAssignmentListInstanceOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsChannelEndpointAssignmentInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: TrustProductsChannelEndpointAssignmentInstance[]
+    ) => any
+  ): Promise<TrustProductsChannelEndpointAssignmentInstance[]>;
+  list(
+    params: TrustProductsChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TrustProductsChannelEndpointAssignmentInstance[]
@@ -425,12 +432,13 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TrustProductsChannelEndpointAssignmentListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: TrustProductsChannelEndpointAssignmentPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: TrustProductsChannelEndpointAssignmentPage
+    ) => any
+  ): Promise<TrustProductsChannelEndpointAssignmentPage>;
+  page(
+    params: TrustProductsChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: TrustProductsChannelEndpointAssignmentPage

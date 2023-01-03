@@ -31,15 +31,23 @@ export interface NotificationListInstance {
   /**
    * Create a NotificationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+  /**
+   * Create a NotificationInstance
+   *
    * @param { NotificationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   create(
-    params?:
-      | NotificationListInstanceCreateOptions
-      | ((error: Error | null, item?: NotificationInstance) => any),
+    params: NotificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
 

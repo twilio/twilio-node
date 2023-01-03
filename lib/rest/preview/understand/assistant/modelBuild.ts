@@ -119,15 +119,23 @@ export interface ModelBuildContext {
   /**
    * Update a ModelBuildInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ModelBuildInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance>;
+  /**
+   * Update a ModelBuildInstance
+   *
    * @param { ModelBuildContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ModelBuildInstance
    */
   update(
-    params?:
-      | ModelBuildContextUpdateOptions
-      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    params: ModelBuildContextUpdateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance>;
 
@@ -164,7 +172,9 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     this._uri = `/Assistants/${assistantSid}/ModelBuilds/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -178,7 +188,9 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ModelBuildInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -202,7 +214,12 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ModelBuildInstance> {
+  update(
+    params?:
+      | ModelBuildContextUpdateOptions
+      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -379,9 +396,7 @@ export class ModelBuildInstance {
    * @returns { Promise } Resolves to processed ModelBuildInstance
    */
   update(
-    params?:
-      | ModelBuildContextUpdateOptions
-      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    params?: ModelBuildContextUpdateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
     return this._proxy.update(params, callback);
@@ -419,15 +434,23 @@ export interface ModelBuildListInstance {
   /**
    * Create a ModelBuildInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ModelBuildInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance>;
+  /**
+   * Create a ModelBuildInstance
+   *
    * @param { ModelBuildListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ModelBuildInstance
    */
   create(
-    params?:
-      | ModelBuildListInstanceCreateOptions
-      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    params: ModelBuildListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance>;
 
@@ -447,9 +470,10 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ModelBuildListInstanceEachOptions
-      | ((item: ModelBuildInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ModelBuildListInstanceEachOptions,
     callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -474,9 +498,10 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ModelBuildListInstanceOptions
-      | ((error: Error | null, items: ModelBuildInstance[]) => any),
+    callback?: (error: Error | null, items: ModelBuildInstance[]) => any
+  ): Promise<ModelBuildInstance[]>;
+  list(
+    params: ModelBuildListInstanceOptions,
     callback?: (error: Error | null, items: ModelBuildInstance[]) => any
   ): Promise<ModelBuildInstance[]>;
   /**
@@ -491,9 +516,10 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ModelBuildListInstancePageOptions
-      | ((error: Error | null, items: ModelBuildPage) => any),
+    callback?: (error: Error | null, items: ModelBuildPage) => any
+  ): Promise<ModelBuildPage>;
+  page(
+    params: ModelBuildListInstancePageOptions,
     callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage>;
 

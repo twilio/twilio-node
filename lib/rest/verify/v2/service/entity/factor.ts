@@ -123,15 +123,23 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FactorInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance>;
+  /**
+   * Update a FactorInstance
+   *
    * @param { FactorContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FactorInstance
    */
   update(
-    params?:
-      | FactorContextUpdateOptions
-      | ((error: Error | null, item?: FactorInstance) => any),
+    params: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance>;
 
@@ -174,7 +182,9 @@ export class FactorContextImpl implements FactorContext {
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -188,7 +198,9 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FactorInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -213,7 +225,12 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FactorInstance> {
+  update(
+    params?:
+      | FactorContextUpdateOptions
+      | ((error: Error | null, item?: FactorInstance) => any),
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: FactorInstance) => any;
       params = {};
@@ -428,9 +445,7 @@ export class FactorInstance {
    * @returns { Promise } Resolves to processed FactorInstance
    */
   update(
-    params?:
-      | FactorContextUpdateOptions
-      | ((error: Error | null, item?: FactorInstance) => any),
+    params?: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance> {
     return this._proxy.update(params, callback);
@@ -484,9 +499,10 @@ export interface FactorListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FactorListInstanceEachOptions
-      | ((item: FactorInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FactorListInstanceEachOptions,
     callback?: (item: FactorInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -511,9 +527,10 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FactorListInstanceOptions
-      | ((error: Error | null, items: FactorInstance[]) => any),
+    callback?: (error: Error | null, items: FactorInstance[]) => any
+  ): Promise<FactorInstance[]>;
+  list(
+    params: FactorListInstanceOptions,
     callback?: (error: Error | null, items: FactorInstance[]) => any
   ): Promise<FactorInstance[]>;
   /**
@@ -528,9 +545,10 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FactorListInstancePageOptions
-      | ((error: Error | null, items: FactorPage) => any),
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
+  page(
+    params: FactorListInstancePageOptions,
     callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage>;
 

@@ -165,7 +165,9 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
     return this._brandVettings;
   }
 
-  fetch(callback?: any): Promise<BrandRegistrationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -188,7 +190,9 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
     return operationPromise;
   }
 
-  update(callback?: any): Promise<BrandRegistrationInstance> {
+  update(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.update({
         uri: this._uri,
@@ -465,12 +469,13 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BrandRegistrationListInstanceEachOptions
-      | ((
-          item: BrandRegistrationInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: BrandRegistrationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: BrandRegistrationListInstanceEachOptions,
     callback?: (
       item: BrandRegistrationInstance,
       done: (err?: Error) => void
@@ -498,9 +503,10 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BrandRegistrationListInstanceOptions
-      | ((error: Error | null, items: BrandRegistrationInstance[]) => any),
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
+  ): Promise<BrandRegistrationInstance[]>;
+  list(
+    params: BrandRegistrationListInstanceOptions,
     callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
   ): Promise<BrandRegistrationInstance[]>;
   /**
@@ -515,9 +521,10 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BrandRegistrationListInstancePageOptions
-      | ((error: Error | null, items: BrandRegistrationPage) => any),
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
+  page(
+    params: BrandRegistrationListInstancePageOptions,
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
 

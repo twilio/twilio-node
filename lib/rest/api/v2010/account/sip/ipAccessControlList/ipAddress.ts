@@ -118,15 +118,23 @@ export interface IpAddressContext {
   /**
    * Update a IpAddressInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpAddressInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance>;
+  /**
+   * Update a IpAddressInstance
+   *
    * @param { IpAddressContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IpAddressInstance
    */
   update(
-    params?:
-      | IpAddressContextUpdateOptions
-      | ((error: Error | null, item?: IpAddressInstance) => any),
+    params: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
 
@@ -169,7 +177,9 @@ export class IpAddressContextImpl implements IpAddressContext {
     this._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -183,7 +193,9 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAddressInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -208,7 +220,12 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IpAddressInstance> {
+  update(
+    params?:
+      | IpAddressContextUpdateOptions
+      | ((error: Error | null, item?: IpAddressInstance) => any),
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -399,9 +416,7 @@ export class IpAddressInstance {
    * @returns { Promise } Resolves to processed IpAddressInstance
    */
   update(
-    params?:
-      | IpAddressContextUpdateOptions
-      | ((error: Error | null, item?: IpAddressInstance) => any),
+    params?: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     return this._proxy.update(params, callback);
@@ -464,9 +479,10 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | IpAddressListInstanceEachOptions
-      | ((item: IpAddressInstance, done: (err?: Error) => void) => void),
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: IpAddressListInstanceEachOptions,
     callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -491,9 +507,10 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | IpAddressListInstanceOptions
-      | ((error: Error | null, items: IpAddressInstance[]) => any),
+    callback?: (error: Error | null, items: IpAddressInstance[]) => any
+  ): Promise<IpAddressInstance[]>;
+  list(
+    params: IpAddressListInstanceOptions,
     callback?: (error: Error | null, items: IpAddressInstance[]) => any
   ): Promise<IpAddressInstance[]>;
   /**
@@ -508,9 +525,10 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | IpAddressListInstancePageOptions
-      | ((error: Error | null, items: IpAddressPage) => any),
+    callback?: (error: Error | null, items: IpAddressPage) => any
+  ): Promise<IpAddressPage>;
+  page(
+    params: IpAddressListInstancePageOptions,
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage>;
 

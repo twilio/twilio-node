@@ -139,7 +139,9 @@ export class SmsCommandContextImpl implements SmsCommandContext {
     this._uri = `/SmsCommands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<SmsCommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SmsCommandInstance) => any
+  ): Promise<SmsCommandInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -318,9 +320,10 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SmsCommandListInstanceEachOptions
-      | ((item: SmsCommandInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SmsCommandListInstanceEachOptions,
     callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -345,9 +348,10 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SmsCommandListInstanceOptions
-      | ((error: Error | null, items: SmsCommandInstance[]) => any),
+    callback?: (error: Error | null, items: SmsCommandInstance[]) => any
+  ): Promise<SmsCommandInstance[]>;
+  list(
+    params: SmsCommandListInstanceOptions,
     callback?: (error: Error | null, items: SmsCommandInstance[]) => any
   ): Promise<SmsCommandInstance[]>;
   /**
@@ -362,9 +366,10 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SmsCommandListInstancePageOptions
-      | ((error: Error | null, items: SmsCommandPage) => any),
+    callback?: (error: Error | null, items: SmsCommandPage) => any
+  ): Promise<SmsCommandPage>;
+  page(
+    params: SmsCommandListInstancePageOptions,
     callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage>;
 

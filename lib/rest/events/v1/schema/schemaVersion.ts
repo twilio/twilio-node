@@ -108,7 +108,9 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
     this._uri = `/Schemas/${id}/Versions/${schemaVersion}`;
   }
 
-  fetch(callback?: any): Promise<SchemaVersionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SchemaVersionInstance) => any
+  ): Promise<SchemaVersionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -259,9 +261,13 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SchemaVersionListInstanceEachOptions
-      | ((item: SchemaVersionInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: SchemaVersionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SchemaVersionListInstanceEachOptions,
     callback?: (
       item: SchemaVersionInstance,
       done: (err?: Error) => void
@@ -289,9 +295,10 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SchemaVersionListInstanceOptions
-      | ((error: Error | null, items: SchemaVersionInstance[]) => any),
+    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
+  ): Promise<SchemaVersionInstance[]>;
+  list(
+    params: SchemaVersionListInstanceOptions,
     callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
   ): Promise<SchemaVersionInstance[]>;
   /**
@@ -306,9 +313,10 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SchemaVersionListInstancePageOptions
-      | ((error: Error | null, items: SchemaVersionPage) => any),
+    callback?: (error: Error | null, items: SchemaVersionPage) => any
+  ): Promise<SchemaVersionPage>;
+  page(
+    params: SchemaVersionListInstancePageOptions,
     callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage>;
 

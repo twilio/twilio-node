@@ -114,15 +114,23 @@ export interface VariableContext {
   /**
    * Update a VariableInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VariableInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: VariableInstance) => any
+  ): Promise<VariableInstance>;
+  /**
+   * Update a VariableInstance
+   *
    * @param { VariableContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VariableInstance
    */
   update(
-    params?:
-      | VariableContextUpdateOptions
-      | ((error: Error | null, item?: VariableInstance) => any),
+    params: VariableContextUpdateOptions,
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance>;
 
@@ -165,7 +173,9 @@ export class VariableContextImpl implements VariableContext {
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Variables/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -179,7 +189,9 @@ export class VariableContextImpl implements VariableContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<VariableInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: VariableInstance) => any
+  ): Promise<VariableInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -204,7 +216,12 @@ export class VariableContextImpl implements VariableContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<VariableInstance> {
+  update(
+    params?:
+      | VariableContextUpdateOptions
+      | ((error: Error | null, item?: VariableInstance) => any),
+    callback?: (error: Error | null, item?: VariableInstance) => any
+  ): Promise<VariableInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -387,9 +404,7 @@ export class VariableInstance {
    * @returns { Promise } Resolves to processed VariableInstance
    */
   update(
-    params?:
-      | VariableContextUpdateOptions
-      | ((error: Error | null, item?: VariableInstance) => any),
+    params?: VariableContextUpdateOptions,
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance> {
     return this._proxy.update(params, callback);
@@ -452,9 +467,10 @@ export interface VariableListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | VariableListInstanceEachOptions
-      | ((item: VariableInstance, done: (err?: Error) => void) => void),
+    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: VariableListInstanceEachOptions,
     callback?: (item: VariableInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -479,9 +495,10 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | VariableListInstanceOptions
-      | ((error: Error | null, items: VariableInstance[]) => any),
+    callback?: (error: Error | null, items: VariableInstance[]) => any
+  ): Promise<VariableInstance[]>;
+  list(
+    params: VariableListInstanceOptions,
     callback?: (error: Error | null, items: VariableInstance[]) => any
   ): Promise<VariableInstance[]>;
   /**
@@ -496,9 +513,10 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | VariableListInstancePageOptions
-      | ((error: Error | null, items: VariablePage) => any),
+    callback?: (error: Error | null, items: VariablePage) => any
+  ): Promise<VariablePage>;
+  page(
+    params: VariableListInstancePageOptions,
     callback?: (error: Error | null, items: VariablePage) => any
   ): Promise<VariablePage>;
 

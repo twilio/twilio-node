@@ -98,15 +98,23 @@ export interface UserChannelContext {
   /**
    * Remove a UserChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a UserChannelInstance
+   *
    * @param { UserChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   remove(
-    params?:
-      | UserChannelContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params: UserChannelContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -124,15 +132,23 @@ export interface UserChannelContext {
   /**
    * Update a UserChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance>;
+  /**
+   * Update a UserChannelInstance
+   *
    * @param { UserChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   update(
-    params?:
-      | UserChannelContextUpdateOptions
-      | ((error: Error | null, item?: UserChannelInstance) => any),
+    params: UserChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance>;
 
@@ -175,7 +191,12 @@ export class UserChannelContextImpl implements UserChannelContext {
     this._uri = `/Services/${serviceSid}/Users/${userSid}/Channels/${channelSid}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | UserChannelContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
@@ -204,7 +225,9 @@ export class UserChannelContextImpl implements UserChannelContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UserChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -229,7 +252,12 @@ export class UserChannelContextImpl implements UserChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserChannelInstance> {
+  update(
+    params?:
+      | UserChannelContextUpdateOptions
+      | ((error: Error | null, item?: UserChannelInstance) => any),
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -406,9 +434,7 @@ export class UserChannelInstance {
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   remove(
-    params?:
-      | UserChannelContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params?: UserChannelContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -436,9 +462,7 @@ export class UserChannelInstance {
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   update(
-    params?:
-      | UserChannelContextUpdateOptions
-      | ((error: Error | null, item?: UserChannelInstance) => any),
+    params?: UserChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
     return this._proxy.update(params, callback);
@@ -490,9 +514,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UserChannelListInstanceEachOptions
-      | ((item: UserChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UserChannelListInstanceEachOptions,
     callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -517,9 +542,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UserChannelListInstanceOptions
-      | ((error: Error | null, items: UserChannelInstance[]) => any),
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+  ): Promise<UserChannelInstance[]>;
+  list(
+    params: UserChannelListInstanceOptions,
     callback?: (error: Error | null, items: UserChannelInstance[]) => any
   ): Promise<UserChannelInstance[]>;
   /**
@@ -534,9 +560,10 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UserChannelListInstancePageOptions
-      | ((error: Error | null, items: UserChannelPage) => any),
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
+  page(
+    params: UserChannelListInstancePageOptions,
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage>;
 

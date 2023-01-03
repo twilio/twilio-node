@@ -123,7 +123,9 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
   }
 
-  fetch(callback?: any): Promise<SubscribedTrackInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SubscribedTrackInstance) => any
+  ): Promise<SubscribedTrackInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -312,9 +314,13 @@ export interface SubscribedTrackListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SubscribedTrackListInstanceEachOptions
-      | ((item: SubscribedTrackInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: SubscribedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SubscribedTrackListInstanceEachOptions,
     callback?: (
       item: SubscribedTrackInstance,
       done: (err?: Error) => void
@@ -342,9 +348,10 @@ export interface SubscribedTrackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SubscribedTrackListInstanceOptions
-      | ((error: Error | null, items: SubscribedTrackInstance[]) => any),
+    callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any
+  ): Promise<SubscribedTrackInstance[]>;
+  list(
+    params: SubscribedTrackListInstanceOptions,
     callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any
   ): Promise<SubscribedTrackInstance[]>;
   /**
@@ -359,9 +366,10 @@ export interface SubscribedTrackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SubscribedTrackListInstancePageOptions
-      | ((error: Error | null, items: SubscribedTrackPage) => any),
+    callback?: (error: Error | null, items: SubscribedTrackPage) => any
+  ): Promise<SubscribedTrackPage>;
+  page(
+    params: SubscribedTrackListInstancePageOptions,
     callback?: (error: Error | null, items: SubscribedTrackPage) => any
   ): Promise<SubscribedTrackPage>;
 

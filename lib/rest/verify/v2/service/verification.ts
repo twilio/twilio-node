@@ -120,7 +120,9 @@ export class VerificationContextImpl implements VerificationContext {
     this._uri = `/Services/${serviceSid}/Verifications/${sid}`;
   }
 
-  fetch(callback?: any): Promise<VerificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -144,7 +146,12 @@ export class VerificationContextImpl implements VerificationContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<VerificationInstance> {
+  update(
+    params:
+      | VerificationContextUpdateOptions
+      | ((error: Error | null, item?: VerificationInstance) => any),
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

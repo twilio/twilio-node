@@ -94,15 +94,23 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeviceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DeviceInstance) => any
+  ): Promise<DeviceInstance>;
+  /**
+   * Update a DeviceInstance
+   *
    * @param { DeviceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   update(
-    params?:
-      | DeviceContextUpdateOptions
-      | ((error: Error | null, item?: DeviceInstance) => any),
+    params: DeviceContextUpdateOptions,
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance>;
 
@@ -130,7 +138,9 @@ export class DeviceContextImpl implements DeviceContext {
     this._uri = `/Devices/${sid}`;
   }
 
-  fetch(callback?: any): Promise<DeviceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DeviceInstance) => any
+  ): Promise<DeviceInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -149,7 +159,12 @@ export class DeviceContextImpl implements DeviceContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DeviceInstance> {
+  update(
+    params?:
+      | DeviceContextUpdateOptions
+      | ((error: Error | null, item?: DeviceInstance) => any),
+    callback?: (error: Error | null, item?: DeviceInstance) => any
+  ): Promise<DeviceInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: DeviceInstance) => any;
       params = {};
@@ -302,9 +317,7 @@ export class DeviceInstance {
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   update(
-    params?:
-      | DeviceContextUpdateOptions
-      | ((error: Error | null, item?: DeviceInstance) => any),
+    params?: DeviceContextUpdateOptions,
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     return this._proxy.update(params, callback);
@@ -354,9 +367,10 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DeviceListInstanceEachOptions
-      | ((item: DeviceInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DeviceInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DeviceListInstanceEachOptions,
     callback?: (item: DeviceInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -381,9 +395,10 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DeviceListInstanceOptions
-      | ((error: Error | null, items: DeviceInstance[]) => any),
+    callback?: (error: Error | null, items: DeviceInstance[]) => any
+  ): Promise<DeviceInstance[]>;
+  list(
+    params: DeviceListInstanceOptions,
     callback?: (error: Error | null, items: DeviceInstance[]) => any
   ): Promise<DeviceInstance[]>;
   /**
@@ -398,9 +413,10 @@ export interface DeviceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DeviceListInstancePageOptions
-      | ((error: Error | null, items: DevicePage) => any),
+    callback?: (error: Error | null, items: DevicePage) => any
+  ): Promise<DevicePage>;
+  page(
+    params: DeviceListInstancePageOptions,
     callback?: (error: Error | null, items: DevicePage) => any
   ): Promise<DevicePage>;
 

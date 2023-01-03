@@ -167,15 +167,23 @@ export interface WorkerContext {
   /**
    * Remove a WorkerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a WorkerInstance
+   *
    * @param { WorkerContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   remove(
-    params?:
-      | WorkerContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params: WorkerContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -193,15 +201,23 @@ export interface WorkerContext {
   /**
    * Update a WorkerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance>;
+  /**
+   * Update a WorkerInstance
+   *
    * @param { WorkerContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   update(
-    params?:
-      | WorkerContextUpdateOptions
-      | ((error: Error | null, item?: WorkerInstance) => any),
+    params: WorkerContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
 
@@ -271,7 +287,12 @@ export class WorkerContextImpl implements WorkerContext {
     return this._statistics;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | WorkerContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
@@ -300,7 +321,9 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkerInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -324,7 +347,12 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkerInstance> {
+  update(
+    params?:
+      | WorkerContextUpdateOptions
+      | ((error: Error | null, item?: WorkerInstance) => any),
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: WorkerInstance) => any;
       params = {};
@@ -511,9 +539,7 @@ export class WorkerInstance {
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   remove(
-    params?:
-      | WorkerContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params?: WorkerContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -541,9 +567,7 @@ export class WorkerInstance {
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   update(
-    params?:
-      | WorkerContextUpdateOptions
-      | ((error: Error | null, item?: WorkerInstance) => any),
+    params?: WorkerContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     return this._proxy.update(params, callback);
@@ -635,9 +659,10 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WorkerListInstanceEachOptions
-      | ((item: WorkerInstance, done: (err?: Error) => void) => void),
+    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: WorkerListInstanceEachOptions,
     callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -662,9 +687,10 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WorkerListInstanceOptions
-      | ((error: Error | null, items: WorkerInstance[]) => any),
+    callback?: (error: Error | null, items: WorkerInstance[]) => any
+  ): Promise<WorkerInstance[]>;
+  list(
+    params: WorkerListInstanceOptions,
     callback?: (error: Error | null, items: WorkerInstance[]) => any
   ): Promise<WorkerInstance[]>;
   /**
@@ -679,9 +705,10 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WorkerListInstancePageOptions
-      | ((error: Error | null, items: WorkerPage) => any),
+    callback?: (error: Error | null, items: WorkerPage) => any
+  ): Promise<WorkerPage>;
+  page(
+    params: WorkerListInstancePageOptions,
     callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage>;
 

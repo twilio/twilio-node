@@ -157,7 +157,9 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -171,7 +173,9 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncMapPermissionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
+  ): Promise<SyncMapPermissionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -196,7 +200,12 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SyncMapPermissionInstance> {
+  update(
+    params:
+      | SyncMapPermissionContextUpdateOptions
+      | ((error: Error | null, item?: SyncMapPermissionInstance) => any),
+    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
+  ): Promise<SyncMapPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -435,12 +444,13 @@ export interface SyncMapPermissionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SyncMapPermissionListInstanceEachOptions
-      | ((
-          item: SyncMapPermissionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: SyncMapPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SyncMapPermissionListInstanceEachOptions,
     callback?: (
       item: SyncMapPermissionInstance,
       done: (err?: Error) => void
@@ -468,9 +478,10 @@ export interface SyncMapPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SyncMapPermissionListInstanceOptions
-      | ((error: Error | null, items: SyncMapPermissionInstance[]) => any),
+    callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any
+  ): Promise<SyncMapPermissionInstance[]>;
+  list(
+    params: SyncMapPermissionListInstanceOptions,
     callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any
   ): Promise<SyncMapPermissionInstance[]>;
   /**
@@ -485,9 +496,10 @@ export interface SyncMapPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SyncMapPermissionListInstancePageOptions
-      | ((error: Error | null, items: SyncMapPermissionPage) => any),
+    callback?: (error: Error | null, items: SyncMapPermissionPage) => any
+  ): Promise<SyncMapPermissionPage>;
+  page(
+    params: SyncMapPermissionListInstancePageOptions,
     callback?: (error: Error | null, items: SyncMapPermissionPage) => any
   ): Promise<SyncMapPermissionPage>;
 

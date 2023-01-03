@@ -163,7 +163,9 @@ export class EngagementContextImpl implements EngagementContext {
     return this._steps;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -177,7 +179,9 @@ export class EngagementContextImpl implements EngagementContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EngagementInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EngagementInstance) => any
+  ): Promise<EngagementInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -410,9 +414,10 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EngagementListInstanceEachOptions
-      | ((item: EngagementInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EngagementListInstanceEachOptions,
     callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -437,9 +442,10 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EngagementListInstanceOptions
-      | ((error: Error | null, items: EngagementInstance[]) => any),
+    callback?: (error: Error | null, items: EngagementInstance[]) => any
+  ): Promise<EngagementInstance[]>;
+  list(
+    params: EngagementListInstanceOptions,
     callback?: (error: Error | null, items: EngagementInstance[]) => any
   ): Promise<EngagementInstance[]>;
   /**
@@ -454,9 +460,10 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EngagementListInstancePageOptions
-      | ((error: Error | null, items: EngagementPage) => any),
+    callback?: (error: Error | null, items: EngagementPage) => any
+  ): Promise<EngagementPage>;
+  page(
+    params: EngagementListInstancePageOptions,
     callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage>;
 

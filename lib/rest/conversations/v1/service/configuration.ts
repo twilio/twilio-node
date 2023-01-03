@@ -50,15 +50,23 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Update a ConfigurationInstance
+   *
    * @param { ConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   update(
-    params?:
-      | ConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    params: ConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
@@ -86,7 +94,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     this._uri = `/Services/${chatServiceSid}/Configuration`;
   }
 
-  fetch(callback?: any): Promise<ConfigurationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -109,7 +119,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
+  update(
+    params?:
+      | ConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -269,9 +284,7 @@ export class ConfigurationInstance {
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   update(
-    params?:
-      | ConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    params?: ConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);

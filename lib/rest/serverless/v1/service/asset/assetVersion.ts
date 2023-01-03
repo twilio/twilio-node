@@ -120,7 +120,9 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     this._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AssetVersionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
+  ): Promise<AssetVersionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -295,9 +297,10 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AssetVersionListInstanceEachOptions
-      | ((item: AssetVersionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AssetVersionListInstanceEachOptions,
     callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -322,9 +325,10 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AssetVersionListInstanceOptions
-      | ((error: Error | null, items: AssetVersionInstance[]) => any),
+    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
+  ): Promise<AssetVersionInstance[]>;
+  list(
+    params: AssetVersionListInstanceOptions,
     callback?: (error: Error | null, items: AssetVersionInstance[]) => any
   ): Promise<AssetVersionInstance[]>;
   /**
@@ -339,9 +343,10 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AssetVersionListInstancePageOptions
-      | ((error: Error | null, items: AssetVersionPage) => any),
+    callback?: (error: Error | null, items: AssetVersionPage) => any
+  ): Promise<AssetVersionPage>;
+  page(
+    params: AssetVersionListInstancePageOptions,
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
 

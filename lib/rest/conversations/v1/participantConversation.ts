@@ -101,12 +101,13 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ParticipantConversationListInstanceEachOptions
-      | ((
-          item: ParticipantConversationInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: ParticipantConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ParticipantConversationListInstanceEachOptions,
     callback?: (
       item: ParticipantConversationInstance,
       done: (err?: Error) => void
@@ -134,12 +135,13 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ParticipantConversationListInstanceOptions
-      | ((
-          error: Error | null,
-          items: ParticipantConversationInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: ParticipantConversationInstance[]
+    ) => any
+  ): Promise<ParticipantConversationInstance[]>;
+  list(
+    params: ParticipantConversationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: ParticipantConversationInstance[]
@@ -157,9 +159,10 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ParticipantConversationListInstancePageOptions
-      | ((error: Error | null, items: ParticipantConversationPage) => any),
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
+  page(
+    params: ParticipantConversationListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage>;
 

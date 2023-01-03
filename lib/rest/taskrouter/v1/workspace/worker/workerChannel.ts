@@ -92,15 +92,23 @@ export interface WorkerChannelContext {
   /**
    * Update a WorkerChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance>;
+  /**
+   * Update a WorkerChannelInstance
+   *
    * @param { WorkerChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
   update(
-    params?:
-      | WorkerChannelContextUpdateOptions
-      | ((error: Error | null, item?: WorkerChannelInstance) => any),
+    params: WorkerChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
 
@@ -143,7 +151,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels/${sid}`;
   }
 
-  fetch(callback?: any): Promise<WorkerChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -168,7 +178,12 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
+  update(
+    params?:
+      | WorkerChannelContextUpdateOptions
+      | ((error: Error | null, item?: WorkerChannelInstance) => any),
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -365,9 +380,7 @@ export class WorkerChannelInstance {
    * @returns { Promise } Resolves to processed WorkerChannelInstance
    */
   update(
-    params?:
-      | WorkerChannelContextUpdateOptions
-      | ((error: Error | null, item?: WorkerChannelInstance) => any),
+    params?: WorkerChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     return this._proxy.update(params, callback);
@@ -421,9 +434,13 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WorkerChannelListInstanceEachOptions
-      | ((item: WorkerChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: WorkerChannelInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: WorkerChannelListInstanceEachOptions,
     callback?: (
       item: WorkerChannelInstance,
       done: (err?: Error) => void
@@ -451,9 +468,10 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WorkerChannelListInstanceOptions
-      | ((error: Error | null, items: WorkerChannelInstance[]) => any),
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
+  ): Promise<WorkerChannelInstance[]>;
+  list(
+    params: WorkerChannelListInstanceOptions,
     callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
   ): Promise<WorkerChannelInstance[]>;
   /**
@@ -468,9 +486,10 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WorkerChannelListInstancePageOptions
-      | ((error: Error | null, items: WorkerChannelPage) => any),
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
+  page(
+    params: WorkerChannelListInstancePageOptions,
     callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
 

@@ -118,9 +118,13 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ExportCustomJobListInstanceEachOptions
-      | ((item: ExportCustomJobInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: ExportCustomJobInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ExportCustomJobListInstanceEachOptions,
     callback?: (
       item: ExportCustomJobInstance,
       done: (err?: Error) => void
@@ -148,9 +152,10 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ExportCustomJobListInstanceOptions
-      | ((error: Error | null, items: ExportCustomJobInstance[]) => any),
+    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
+  ): Promise<ExportCustomJobInstance[]>;
+  list(
+    params: ExportCustomJobListInstanceOptions,
     callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
   ): Promise<ExportCustomJobInstance[]>;
   /**
@@ -165,9 +170,10 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ExportCustomJobListInstancePageOptions
-      | ((error: Error | null, items: ExportCustomJobPage) => any),
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
+  ): Promise<ExportCustomJobPage>;
+  page(
+    params: ExportCustomJobListInstancePageOptions,
     callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
 

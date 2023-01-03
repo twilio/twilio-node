@@ -110,7 +110,9 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
     this._uri = `/Flows/${sid}/Revisions/${revision}`;
   }
 
-  fetch(callback?: any): Promise<FlowRevisionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowRevisionInstance) => any
+  ): Promise<FlowRevisionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -310,9 +312,10 @@ export interface FlowRevisionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FlowRevisionListInstanceEachOptions
-      | ((item: FlowRevisionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FlowRevisionListInstanceEachOptions,
     callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -337,9 +340,10 @@ export interface FlowRevisionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FlowRevisionListInstanceOptions
-      | ((error: Error | null, items: FlowRevisionInstance[]) => any),
+    callback?: (error: Error | null, items: FlowRevisionInstance[]) => any
+  ): Promise<FlowRevisionInstance[]>;
+  list(
+    params: FlowRevisionListInstanceOptions,
     callback?: (error: Error | null, items: FlowRevisionInstance[]) => any
   ): Promise<FlowRevisionInstance[]>;
   /**
@@ -354,9 +358,10 @@ export interface FlowRevisionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FlowRevisionListInstancePageOptions
-      | ((error: Error | null, items: FlowRevisionPage) => any),
+    callback?: (error: Error | null, items: FlowRevisionPage) => any
+  ): Promise<FlowRevisionPage>;
+  page(
+    params: FlowRevisionListInstancePageOptions,
     callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage>;
 

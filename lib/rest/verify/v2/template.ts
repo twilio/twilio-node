@@ -90,9 +90,10 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TemplateListInstanceEachOptions
-      | ((item: TemplateInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TemplateListInstanceEachOptions,
     callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -117,9 +118,10 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TemplateListInstanceOptions
-      | ((error: Error | null, items: TemplateInstance[]) => any),
+    callback?: (error: Error | null, items: TemplateInstance[]) => any
+  ): Promise<TemplateInstance[]>;
+  list(
+    params: TemplateListInstanceOptions,
     callback?: (error: Error | null, items: TemplateInstance[]) => any
   ): Promise<TemplateInstance[]>;
   /**
@@ -134,9 +136,10 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TemplateListInstancePageOptions
-      | ((error: Error | null, items: TemplatePage) => any),
+    callback?: (error: Error | null, items: TemplatePage) => any
+  ): Promise<TemplatePage>;
+  page(
+    params: TemplateListInstancePageOptions,
     callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
 

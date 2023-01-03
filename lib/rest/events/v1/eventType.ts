@@ -109,7 +109,9 @@ export class EventTypeContextImpl implements EventTypeContext {
     this._uri = `/Types/${type}`;
   }
 
-  fetch(callback?: any): Promise<EventTypeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EventTypeInstance) => any
+  ): Promise<EventTypeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -264,9 +266,10 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EventTypeListInstanceEachOptions
-      | ((item: EventTypeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EventTypeListInstanceEachOptions,
     callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -291,9 +294,10 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EventTypeListInstanceOptions
-      | ((error: Error | null, items: EventTypeInstance[]) => any),
+    callback?: (error: Error | null, items: EventTypeInstance[]) => any
+  ): Promise<EventTypeInstance[]>;
+  list(
+    params: EventTypeListInstanceOptions,
     callback?: (error: Error | null, items: EventTypeInstance[]) => any
   ): Promise<EventTypeInstance[]>;
   /**
@@ -308,9 +312,10 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EventTypeListInstancePageOptions
-      | ((error: Error | null, items: EventTypePage) => any),
+    callback?: (error: Error | null, items: EventTypePage) => any
+  ): Promise<EventTypePage>;
+  page(
+    params: EventTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage>;
 

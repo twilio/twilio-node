@@ -37,18 +37,26 @@ export interface WorkersCumulativeStatisticsContext {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkersCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance
+   *
    * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkersCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkersCumulativeStatisticsInstance
-        ) => any),
+    params: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance
@@ -82,8 +90,16 @@ export class WorkersCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -268,12 +284,7 @@ export class WorkersCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkersCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkersCumulativeStatisticsInstance
-        ) => any),
+    params?: WorkersCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance

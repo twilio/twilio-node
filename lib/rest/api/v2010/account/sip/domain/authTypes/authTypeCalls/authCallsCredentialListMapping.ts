@@ -145,7 +145,9 @@ export class AuthCallsCredentialListMappingContextImpl
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/CredentialListMappings/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -159,7 +161,12 @@ export class AuthCallsCredentialListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AuthCallsCredentialListMappingInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthCallsCredentialListMappingInstance
+    ) => any
+  ): Promise<AuthCallsCredentialListMappingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -348,12 +355,13 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AuthCallsCredentialListMappingListInstanceEachOptions
-      | ((
-          item: AuthCallsCredentialListMappingInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AuthCallsCredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AuthCallsCredentialListMappingListInstanceEachOptions,
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
       done: (err?: Error) => void
@@ -384,12 +392,13 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AuthCallsCredentialListMappingListInstanceOptions
-      | ((
-          error: Error | null,
-          items: AuthCallsCredentialListMappingInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthCallsCredentialListMappingInstance[]
+    ) => any
+  ): Promise<AuthCallsCredentialListMappingInstance[]>;
+  list(
+    params: AuthCallsCredentialListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AuthCallsCredentialListMappingInstance[]
@@ -407,12 +416,13 @@ export interface AuthCallsCredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AuthCallsCredentialListMappingListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: AuthCallsCredentialListMappingPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthCallsCredentialListMappingPage
+    ) => any
+  ): Promise<AuthCallsCredentialListMappingPage>;
+  page(
+    params: AuthCallsCredentialListMappingListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: AuthCallsCredentialListMappingPage

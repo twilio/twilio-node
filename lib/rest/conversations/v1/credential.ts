@@ -136,15 +136,23 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CredentialInstance) => any
+  ): Promise<CredentialInstance>;
+  /**
+   * Update a CredentialInstance
+   *
    * @param { CredentialContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CredentialInstance
    */
   update(
-    params?:
-      | CredentialContextUpdateOptions
-      | ((error: Error | null, item?: CredentialInstance) => any),
+    params: CredentialContextUpdateOptions,
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance>;
 
@@ -172,7 +180,9 @@ export class CredentialContextImpl implements CredentialContext {
     this._uri = `/Credentials/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -186,7 +196,9 @@ export class CredentialContextImpl implements CredentialContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CredentialInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CredentialInstance) => any
+  ): Promise<CredentialInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -205,7 +217,12 @@ export class CredentialContextImpl implements CredentialContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<CredentialInstance> {
+  update(
+    params?:
+      | CredentialContextUpdateOptions
+      | ((error: Error | null, item?: CredentialInstance) => any),
+    callback?: (error: Error | null, item?: CredentialInstance) => any
+  ): Promise<CredentialInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -375,9 +392,7 @@ export class CredentialInstance {
    * @returns { Promise } Resolves to processed CredentialInstance
    */
   update(
-    params?:
-      | CredentialContextUpdateOptions
-      | ((error: Error | null, item?: CredentialInstance) => any),
+    params?: CredentialContextUpdateOptions,
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     return this._proxy.update(params, callback);
@@ -439,9 +454,10 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CredentialListInstanceEachOptions
-      | ((item: CredentialInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CredentialListInstanceEachOptions,
     callback?: (item: CredentialInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -466,9 +482,10 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CredentialListInstanceOptions
-      | ((error: Error | null, items: CredentialInstance[]) => any),
+    callback?: (error: Error | null, items: CredentialInstance[]) => any
+  ): Promise<CredentialInstance[]>;
+  list(
+    params: CredentialListInstanceOptions,
     callback?: (error: Error | null, items: CredentialInstance[]) => any
   ): Promise<CredentialInstance[]>;
   /**
@@ -483,9 +500,10 @@ export interface CredentialListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CredentialListInstancePageOptions
-      | ((error: Error | null, items: CredentialPage) => any),
+    callback?: (error: Error | null, items: CredentialPage) => any
+  ): Promise<CredentialPage>;
+  page(
+    params: CredentialListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage>;
 

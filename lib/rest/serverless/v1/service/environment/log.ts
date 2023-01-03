@@ -138,7 +138,9 @@ export class LogContextImpl implements LogContext {
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs/${sid}`;
   }
 
-  fetch(callback?: any): Promise<LogInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: LogInstance) => any
+  ): Promise<LogInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -341,9 +343,10 @@ export interface LogListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | LogListInstanceEachOptions
-      | ((item: LogInstance, done: (err?: Error) => void) => void),
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: LogListInstanceEachOptions,
     callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -368,9 +371,10 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | LogListInstanceOptions
-      | ((error: Error | null, items: LogInstance[]) => any),
+    callback?: (error: Error | null, items: LogInstance[]) => any
+  ): Promise<LogInstance[]>;
+  list(
+    params: LogListInstanceOptions,
     callback?: (error: Error | null, items: LogInstance[]) => any
   ): Promise<LogInstance[]>;
   /**
@@ -385,9 +389,10 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | LogListInstancePageOptions
-      | ((error: Error | null, items: LogPage) => any),
+    callback?: (error: Error | null, items: LogPage) => any
+  ): Promise<LogPage>;
+  page(
+    params: LogListInstancePageOptions,
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
 

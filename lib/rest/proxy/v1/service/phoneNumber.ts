@@ -115,15 +115,23 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance>;
+  /**
+   * Update a PhoneNumberInstance
+   *
    * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   update(
-    params?:
-      | PhoneNumberContextUpdateOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    params: PhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
 
@@ -156,7 +164,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     this._uri = `/Services/${serviceSid}/PhoneNumbers/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -170,7 +180,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PhoneNumberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -194,7 +206,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+  update(
+    params?:
+      | PhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -389,9 +406,7 @@ export class PhoneNumberInstance {
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   update(
-    params?:
-      | PhoneNumberContextUpdateOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    params?: PhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     return this._proxy.update(params, callback);
@@ -431,15 +446,23 @@ export interface PhoneNumberListInstance {
   /**
    * Create a PhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance>;
+  /**
+   * Create a PhoneNumberInstance
+   *
    * @param { PhoneNumberListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   create(
-    params?:
-      | PhoneNumberListInstanceCreateOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    params: PhoneNumberListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
 
@@ -459,9 +482,10 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PhoneNumberListInstanceEachOptions
-      | ((item: PhoneNumberInstance, done: (err?: Error) => void) => void),
+    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: PhoneNumberListInstanceEachOptions,
     callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -486,9 +510,10 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PhoneNumberListInstanceOptions
-      | ((error: Error | null, items: PhoneNumberInstance[]) => any),
+    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
+  ): Promise<PhoneNumberInstance[]>;
+  list(
+    params: PhoneNumberListInstanceOptions,
     callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
   ): Promise<PhoneNumberInstance[]>;
   /**
@@ -503,9 +528,10 @@ export interface PhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PhoneNumberListInstancePageOptions
-      | ((error: Error | null, items: PhoneNumberPage) => any),
+    callback?: (error: Error | null, items: PhoneNumberPage) => any
+  ): Promise<PhoneNumberPage>;
+  page(
+    params: PhoneNumberListInstancePageOptions,
     callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage>;
 

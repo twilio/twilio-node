@@ -115,15 +115,23 @@ export interface RateLimitContext {
   /**
    * Update a RateLimitInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RateLimitInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
+  ): Promise<RateLimitInstance>;
+  /**
+   * Update a RateLimitInstance
+   *
    * @param { RateLimitContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RateLimitInstance
    */
   update(
-    params?:
-      | RateLimitContextUpdateOptions
-      | ((error: Error | null, item?: RateLimitInstance) => any),
+    params: RateLimitContextUpdateOptions,
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
 
@@ -169,7 +177,9 @@ export class RateLimitContextImpl implements RateLimitContext {
     return this._buckets;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -183,7 +193,9 @@ export class RateLimitContextImpl implements RateLimitContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RateLimitInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
+  ): Promise<RateLimitInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -207,7 +219,12 @@ export class RateLimitContextImpl implements RateLimitContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<RateLimitInstance> {
+  update(
+    params?:
+      | RateLimitContextUpdateOptions
+      | ((error: Error | null, item?: RateLimitInstance) => any),
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
+  ): Promise<RateLimitInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -387,9 +404,7 @@ export class RateLimitInstance {
    * @returns { Promise } Resolves to processed RateLimitInstance
    */
   update(
-    params?:
-      | RateLimitContextUpdateOptions
-      | ((error: Error | null, item?: RateLimitInstance) => any),
+    params?: RateLimitContextUpdateOptions,
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     return this._proxy.update(params, callback);
@@ -459,9 +474,10 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RateLimitListInstanceEachOptions
-      | ((item: RateLimitInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RateLimitListInstanceEachOptions,
     callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -486,9 +502,10 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RateLimitListInstanceOptions
-      | ((error: Error | null, items: RateLimitInstance[]) => any),
+    callback?: (error: Error | null, items: RateLimitInstance[]) => any
+  ): Promise<RateLimitInstance[]>;
+  list(
+    params: RateLimitListInstanceOptions,
     callback?: (error: Error | null, items: RateLimitInstance[]) => any
   ): Promise<RateLimitInstance[]>;
   /**
@@ -503,9 +520,10 @@ export interface RateLimitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RateLimitListInstancePageOptions
-      | ((error: Error | null, items: RateLimitPage) => any),
+    callback?: (error: Error | null, items: RateLimitPage) => any
+  ): Promise<RateLimitPage>;
+  page(
+    params: RateLimitListInstancePageOptions,
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage>;
 

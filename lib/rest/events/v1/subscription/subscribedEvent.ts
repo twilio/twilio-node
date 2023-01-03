@@ -115,15 +115,23 @@ export interface SubscribedEventContext {
   /**
    * Update a SubscribedEventInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance>;
+  /**
+   * Update a SubscribedEventInstance
+   *
    * @param { SubscribedEventContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscribedEventInstance
    */
   update(
-    params?:
-      | SubscribedEventContextUpdateOptions
-      | ((error: Error | null, item?: SubscribedEventInstance) => any),
+    params: SubscribedEventContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
 
@@ -156,7 +164,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     this._uri = `/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -170,7 +180,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SubscribedEventInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -194,7 +206,12 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SubscribedEventInstance> {
+  update(
+    params?:
+      | SubscribedEventContextUpdateOptions
+      | ((error: Error | null, item?: SubscribedEventInstance) => any),
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -350,9 +367,7 @@ export class SubscribedEventInstance {
    * @returns { Promise } Resolves to processed SubscribedEventInstance
    */
   update(
-    params?:
-      | SubscribedEventContextUpdateOptions
-      | ((error: Error | null, item?: SubscribedEventInstance) => any),
+    params?: SubscribedEventContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     return this._proxy.update(params, callback);
@@ -411,9 +426,13 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SubscribedEventListInstanceEachOptions
-      | ((item: SubscribedEventInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: SubscribedEventInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SubscribedEventListInstanceEachOptions,
     callback?: (
       item: SubscribedEventInstance,
       done: (err?: Error) => void
@@ -441,9 +460,10 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SubscribedEventListInstanceOptions
-      | ((error: Error | null, items: SubscribedEventInstance[]) => any),
+    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
+  ): Promise<SubscribedEventInstance[]>;
+  list(
+    params: SubscribedEventListInstanceOptions,
     callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
   ): Promise<SubscribedEventInstance[]>;
   /**
@@ -458,9 +478,10 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SubscribedEventListInstancePageOptions
-      | ((error: Error | null, items: SubscribedEventPage) => any),
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
+  ): Promise<SubscribedEventPage>;
+  page(
+    params: SubscribedEventListInstancePageOptions,
     callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
 

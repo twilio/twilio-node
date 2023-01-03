@@ -130,7 +130,9 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -144,7 +146,9 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ItemAssignmentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
+  ): Promise<ItemAssignmentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -331,9 +335,13 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ItemAssignmentListInstanceEachOptions
-      | ((item: ItemAssignmentInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: ItemAssignmentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ItemAssignmentListInstanceEachOptions,
     callback?: (
       item: ItemAssignmentInstance,
       done: (err?: Error) => void
@@ -361,9 +369,10 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ItemAssignmentListInstanceOptions
-      | ((error: Error | null, items: ItemAssignmentInstance[]) => any),
+    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
+  ): Promise<ItemAssignmentInstance[]>;
+  list(
+    params: ItemAssignmentListInstanceOptions,
     callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
   ): Promise<ItemAssignmentInstance[]>;
   /**
@@ -378,9 +387,10 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ItemAssignmentListInstancePageOptions
-      | ((error: Error | null, items: ItemAssignmentPage) => any),
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
+  ): Promise<ItemAssignmentPage>;
+  page(
+    params: ItemAssignmentListInstancePageOptions,
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage>;
 

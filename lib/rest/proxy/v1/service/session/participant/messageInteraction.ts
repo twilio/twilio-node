@@ -164,7 +164,9 @@ export class MessageInteractionContextImpl
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<MessageInteractionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
+  ): Promise<MessageInteractionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -412,15 +414,23 @@ export interface MessageInteractionListInstance {
   /**
    * Create a MessageInteractionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInteractionInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
+  ): Promise<MessageInteractionInstance>;
+  /**
+   * Create a MessageInteractionInstance
+   *
    * @param { MessageInteractionListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MessageInteractionInstance
    */
   create(
-    params?:
-      | MessageInteractionListInstanceCreateOptions
-      | ((error: Error | null, item?: MessageInteractionInstance) => any),
+    params: MessageInteractionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance>;
 
@@ -440,12 +450,13 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MessageInteractionListInstanceEachOptions
-      | ((
-          item: MessageInteractionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: MessageInteractionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: MessageInteractionListInstanceEachOptions,
     callback?: (
       item: MessageInteractionInstance,
       done: (err?: Error) => void
@@ -473,9 +484,10 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MessageInteractionListInstanceOptions
-      | ((error: Error | null, items: MessageInteractionInstance[]) => any),
+    callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
+  ): Promise<MessageInteractionInstance[]>;
+  list(
+    params: MessageInteractionListInstanceOptions,
     callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
   ): Promise<MessageInteractionInstance[]>;
   /**
@@ -490,9 +502,10 @@ export interface MessageInteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MessageInteractionListInstancePageOptions
-      | ((error: Error | null, items: MessageInteractionPage) => any),
+    callback?: (error: Error | null, items: MessageInteractionPage) => any
+  ): Promise<MessageInteractionPage>;
+  page(
+    params: MessageInteractionListInstancePageOptions,
     callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage>;
 

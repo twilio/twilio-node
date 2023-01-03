@@ -56,7 +56,9 @@ export class FormContextImpl implements FormContext {
     this._uri = `/Forms/${formType}`;
   }
 
-  fetch(callback?: any): Promise<FormInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FormInstance) => any
+  ): Promise<FormInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

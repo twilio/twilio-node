@@ -48,7 +48,9 @@ export class OauthContextImpl implements OauthContext {
     this._uri = `/certs`;
   }
 
-  fetch(callback?: any): Promise<OauthInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: OauthInstance) => any
+  ): Promise<OauthInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

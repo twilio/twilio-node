@@ -286,15 +286,23 @@ export interface CallContext {
   /**
    * Update a CallInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+  /**
+   * Update a CallInstance
+   *
    * @param { CallContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
   update(
-    params?:
-      | CallContextUpdateOptions
-      | ((error: Error | null, item?: CallInstance) => any),
+    params: CallContextUpdateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
 
@@ -436,7 +444,9 @@ export class CallContextImpl implements CallContext {
     return this._userDefinedMessageSubscriptions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -450,7 +460,9 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CallInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -474,7 +486,12 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<CallInstance> {
+  update(
+    params?:
+      | CallContextUpdateOptions
+      | ((error: Error | null, item?: CallInstance) => any),
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: CallInstance) => any;
       params = {};
@@ -762,9 +779,7 @@ export class CallInstance {
    * @returns { Promise } Resolves to processed CallInstance
    */
   update(
-    params?:
-      | CallContextUpdateOptions
-      | ((error: Error | null, item?: CallInstance) => any),
+    params?: CallContextUpdateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.update(params, callback);
@@ -909,9 +924,10 @@ export interface CallListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CallListInstanceEachOptions
-      | ((item: CallInstance, done: (err?: Error) => void) => void),
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: CallListInstanceEachOptions,
     callback?: (item: CallInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -936,9 +952,10 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CallListInstanceOptions
-      | ((error: Error | null, items: CallInstance[]) => any),
+    callback?: (error: Error | null, items: CallInstance[]) => any
+  ): Promise<CallInstance[]>;
+  list(
+    params: CallListInstanceOptions,
     callback?: (error: Error | null, items: CallInstance[]) => any
   ): Promise<CallInstance[]>;
   /**
@@ -953,9 +970,10 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CallListInstancePageOptions
-      | ((error: Error | null, items: CallPage) => any),
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
+  page(
+    params: CallListInstancePageOptions,
     callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage>;
 

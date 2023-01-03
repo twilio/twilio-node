@@ -41,15 +41,23 @@ export interface VerificationCheckListInstance {
   /**
    * Create a VerificationCheckInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VerificationCheckInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+  ): Promise<VerificationCheckInstance>;
+  /**
+   * Create a VerificationCheckInstance
+   *
    * @param { VerificationCheckListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VerificationCheckInstance
    */
   create(
-    params?:
-      | VerificationCheckListInstanceCreateOptions
-      | ((error: Error | null, item?: VerificationCheckInstance) => any),
+    params: VerificationCheckListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance>;
 

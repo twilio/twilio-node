@@ -63,7 +63,9 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
   }
 
-  fetch(callback?: any): Promise<TaskStatisticsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
+  ): Promise<TaskStatisticsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

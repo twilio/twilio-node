@@ -153,15 +153,23 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SimInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
+  /**
+   * Update a SimInstance
+   *
    * @param { SimContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
   update(
-    params?:
-      | SimContextUpdateOptions
-      | ((error: Error | null, item?: SimInstance) => any),
+    params: SimContextUpdateOptions,
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
 
@@ -197,7 +205,9 @@ export class SimContextImpl implements SimContext {
     return this._usage;
   }
 
-  fetch(callback?: any): Promise<SimInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -216,7 +226,12 @@ export class SimContextImpl implements SimContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SimInstance> {
+  update(
+    params?:
+      | SimContextUpdateOptions
+      | ((error: Error | null, item?: SimInstance) => any),
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SimInstance) => any;
       params = {};
@@ -430,9 +445,7 @@ export class SimInstance {
    * @returns { Promise } Resolves to processed SimInstance
    */
   update(
-    params?:
-      | SimContextUpdateOptions
-      | ((error: Error | null, item?: SimInstance) => any),
+    params?: SimContextUpdateOptions,
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     return this._proxy.update(params, callback);
@@ -502,9 +515,10 @@ export interface SimListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SimListInstanceEachOptions
-      | ((item: SimInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SimListInstanceEachOptions,
     callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -529,9 +543,10 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SimListInstanceOptions
-      | ((error: Error | null, items: SimInstance[]) => any),
+    callback?: (error: Error | null, items: SimInstance[]) => any
+  ): Promise<SimInstance[]>;
+  list(
+    params: SimListInstanceOptions,
     callback?: (error: Error | null, items: SimInstance[]) => any
   ): Promise<SimInstance[]>;
   /**
@@ -546,9 +561,10 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SimListInstancePageOptions
-      | ((error: Error | null, items: SimPage) => any),
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
+  page(
+    params: SimListInstancePageOptions,
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
 

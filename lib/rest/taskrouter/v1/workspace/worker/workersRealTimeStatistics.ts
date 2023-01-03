@@ -31,18 +31,26 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkersRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkersRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkersRealTimeStatisticsInstance
+   *
    * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkersRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkersRealTimeStatisticsInstance
-        ) => any),
+    params: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkersRealTimeStatisticsInstance
@@ -76,8 +84,16 @@ export class WorkersRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkersRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkersRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkersRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -203,12 +219,7 @@ export class WorkersRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkersRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkersRealTimeStatisticsInstance
-        ) => any),
+    params?: WorkersRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkersRealTimeStatisticsInstance

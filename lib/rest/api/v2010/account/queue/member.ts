@@ -141,7 +141,9 @@ export class MemberContextImpl implements MemberContext {
     this._uri = `/Accounts/${accountSid}/Queues/${queueSid}/Members/${callSid}.json`;
   }
 
-  fetch(callback?: any): Promise<MemberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -166,7 +168,12 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<MemberInstance> {
+  update(
+    params:
+      | MemberContextUpdateOptions
+      | ((error: Error | null, item?: MemberInstance) => any),
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -363,9 +370,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MemberListInstanceEachOptions
-      | ((item: MemberInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MemberListInstanceEachOptions,
     callback?: (item: MemberInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -390,9 +398,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MemberListInstanceOptions
-      | ((error: Error | null, items: MemberInstance[]) => any),
+    callback?: (error: Error | null, items: MemberInstance[]) => any
+  ): Promise<MemberInstance[]>;
+  list(
+    params: MemberListInstanceOptions,
     callback?: (error: Error | null, items: MemberInstance[]) => any
   ): Promise<MemberInstance[]>;
   /**
@@ -407,9 +416,10 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MemberListInstancePageOptions
-      | ((error: Error | null, items: MemberPage) => any),
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
+  page(
+    params: MemberListInstancePageOptions,
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage>;
 

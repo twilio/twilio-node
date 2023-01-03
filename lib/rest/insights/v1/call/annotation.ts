@@ -64,15 +64,23 @@ export interface AnnotationContext {
   /**
    * Update a AnnotationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
+  /**
+   * Update a AnnotationInstance
+   *
    * @param { AnnotationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
   update(
-    params?:
-      | AnnotationContextUpdateOptions
-      | ((error: Error | null, item?: AnnotationInstance) => any),
+    params: AnnotationContextUpdateOptions,
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance>;
 
@@ -100,7 +108,9 @@ export class AnnotationContextImpl implements AnnotationContext {
     this._uri = `/Voice/${callSid}/Annotation`;
   }
 
-  fetch(callback?: any): Promise<AnnotationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -123,7 +133,12 @@ export class AnnotationContextImpl implements AnnotationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AnnotationInstance> {
+  update(
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: AnnotationInstance) => any),
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -292,9 +307,7 @@ export class AnnotationInstance {
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
   update(
-    params?:
-      | AnnotationContextUpdateOptions
-      | ((error: Error | null, item?: AnnotationInstance) => any),
+    params?: AnnotationContextUpdateOptions,
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);

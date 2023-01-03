@@ -123,7 +123,9 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/PublishedTracks/${sid}`;
   }
 
-  fetch(callback?: any): Promise<PublishedTrackInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PublishedTrackInstance) => any
+  ): Promise<PublishedTrackInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -305,9 +307,13 @@ export interface PublishedTrackListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | PublishedTrackListInstanceEachOptions
-      | ((item: PublishedTrackInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: PublishedTrackInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: PublishedTrackListInstanceEachOptions,
     callback?: (
       item: PublishedTrackInstance,
       done: (err?: Error) => void
@@ -335,9 +341,10 @@ export interface PublishedTrackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | PublishedTrackListInstanceOptions
-      | ((error: Error | null, items: PublishedTrackInstance[]) => any),
+    callback?: (error: Error | null, items: PublishedTrackInstance[]) => any
+  ): Promise<PublishedTrackInstance[]>;
+  list(
+    params: PublishedTrackListInstanceOptions,
     callback?: (error: Error | null, items: PublishedTrackInstance[]) => any
   ): Promise<PublishedTrackInstance[]>;
   /**
@@ -352,9 +359,10 @@ export interface PublishedTrackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | PublishedTrackListInstancePageOptions
-      | ((error: Error | null, items: PublishedTrackPage) => any),
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
+  ): Promise<PublishedTrackPage>;
+  page(
+    params: PublishedTrackListInstancePageOptions,
     callback?: (error: Error | null, items: PublishedTrackPage) => any
   ): Promise<PublishedTrackPage>;
 

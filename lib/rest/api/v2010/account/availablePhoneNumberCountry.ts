@@ -220,7 +220,12 @@ export class AvailablePhoneNumberCountryContextImpl
     return this._voip;
   }
 
-  fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AvailablePhoneNumberCountryInstance
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -429,12 +434,13 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AvailablePhoneNumberCountryListInstanceEachOptions
-      | ((
-          item: AvailablePhoneNumberCountryInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AvailablePhoneNumberCountryInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AvailablePhoneNumberCountryListInstanceEachOptions,
     callback?: (
       item: AvailablePhoneNumberCountryInstance,
       done: (err?: Error) => void
@@ -465,12 +471,13 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AvailablePhoneNumberCountryListInstanceOptions
-      | ((
-          error: Error | null,
-          items: AvailablePhoneNumberCountryInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryInstance[]
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryInstance[]>;
+  list(
+    params: AvailablePhoneNumberCountryListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AvailablePhoneNumberCountryInstance[]
@@ -488,9 +495,13 @@ export interface AvailablePhoneNumberCountryListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AvailablePhoneNumberCountryListInstancePageOptions
-      | ((error: Error | null, items: AvailablePhoneNumberCountryPage) => any),
+    callback?: (
+      error: Error | null,
+      items: AvailablePhoneNumberCountryPage
+    ) => any
+  ): Promise<AvailablePhoneNumberCountryPage>;
+  page(
+    params: AvailablePhoneNumberCountryListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: AvailablePhoneNumberCountryPage

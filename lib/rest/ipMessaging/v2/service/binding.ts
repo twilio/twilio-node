@@ -133,7 +133,9 @@ export class BindingContextImpl implements BindingContext {
     this._uri = `/Services/${serviceSid}/Bindings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -147,7 +149,9 @@ export class BindingContextImpl implements BindingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BindingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BindingInstance) => any
+  ): Promise<BindingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -327,9 +331,10 @@ export interface BindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BindingListInstanceEachOptions
-      | ((item: BindingInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BindingListInstanceEachOptions,
     callback?: (item: BindingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -354,9 +359,10 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BindingListInstanceOptions
-      | ((error: Error | null, items: BindingInstance[]) => any),
+    callback?: (error: Error | null, items: BindingInstance[]) => any
+  ): Promise<BindingInstance[]>;
+  list(
+    params: BindingListInstanceOptions,
     callback?: (error: Error | null, items: BindingInstance[]) => any
   ): Promise<BindingInstance[]>;
   /**
@@ -371,9 +377,10 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BindingListInstancePageOptions
-      | ((error: Error | null, items: BindingPage) => any),
+    callback?: (error: Error | null, items: BindingPage) => any
+  ): Promise<BindingPage>;
+  page(
+    params: BindingListInstancePageOptions,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
 

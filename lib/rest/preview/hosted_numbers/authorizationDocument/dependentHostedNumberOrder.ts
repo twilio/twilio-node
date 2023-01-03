@@ -131,12 +131,13 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DependentHostedNumberOrderListInstanceEachOptions
-      | ((
-          item: DependentHostedNumberOrderInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: DependentHostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: DependentHostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: DependentHostedNumberOrderInstance,
       done: (err?: Error) => void
@@ -167,12 +168,13 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DependentHostedNumberOrderListInstanceOptions
-      | ((
-          error: Error | null,
-          items: DependentHostedNumberOrderInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderInstance[]
+    ) => any
+  ): Promise<DependentHostedNumberOrderInstance[]>;
+  list(
+    params: DependentHostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
       items: DependentHostedNumberOrderInstance[]
@@ -190,9 +192,13 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DependentHostedNumberOrderListInstancePageOptions
-      | ((error: Error | null, items: DependentHostedNumberOrderPage) => any),
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
+  page(
+    params: DependentHostedNumberOrderListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: DependentHostedNumberOrderPage

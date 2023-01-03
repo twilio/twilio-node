@@ -209,7 +209,9 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     this._uri = `/CompositionHooks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -223,7 +225,9 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CompositionHookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -246,7 +250,12 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<CompositionHookInstance> {
+  update(
+    params:
+      | CompositionHookContextUpdateOptions
+      | ((error: Error | null, item?: CompositionHookInstance) => any),
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -550,9 +559,13 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CompositionHookListInstanceEachOptions
-      | ((item: CompositionHookInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: CompositionHookInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CompositionHookListInstanceEachOptions,
     callback?: (
       item: CompositionHookInstance,
       done: (err?: Error) => void
@@ -580,9 +593,10 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CompositionHookListInstanceOptions
-      | ((error: Error | null, items: CompositionHookInstance[]) => any),
+    callback?: (error: Error | null, items: CompositionHookInstance[]) => any
+  ): Promise<CompositionHookInstance[]>;
+  list(
+    params: CompositionHookListInstanceOptions,
     callback?: (error: Error | null, items: CompositionHookInstance[]) => any
   ): Promise<CompositionHookInstance[]>;
   /**
@@ -597,9 +611,10 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CompositionHookListInstancePageOptions
-      | ((error: Error | null, items: CompositionHookPage) => any),
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
+  page(
+    params: CompositionHookListInstancePageOptions,
     callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage>;
 

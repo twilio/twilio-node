@@ -161,15 +161,23 @@ export interface AddressConfigurationContext {
   /**
    * Update a AddressConfigurationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
+  ): Promise<AddressConfigurationInstance>;
+  /**
+   * Update a AddressConfigurationInstance
+   *
    * @param { AddressConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AddressConfigurationInstance
    */
   update(
-    params?:
-      | AddressConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: AddressConfigurationInstance) => any),
+    params: AddressConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
 
@@ -199,7 +207,9 @@ export class AddressConfigurationContextImpl
     this._uri = `/Configuration/Addresses/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -213,7 +223,9 @@ export class AddressConfigurationContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AddressConfigurationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
+  ): Promise<AddressConfigurationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -236,7 +248,12 @@ export class AddressConfigurationContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AddressConfigurationInstance> {
+  update(
+    params?:
+      | AddressConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: AddressConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
+  ): Promise<AddressConfigurationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -433,9 +450,7 @@ export class AddressConfigurationInstance {
    * @returns { Promise } Resolves to processed AddressConfigurationInstance
    */
   update(
-    params?:
-      | AddressConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: AddressConfigurationInstance) => any),
+    params?: AddressConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     return this._proxy.update(params, callback);
@@ -498,12 +513,13 @@ export interface AddressConfigurationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AddressConfigurationListInstanceEachOptions
-      | ((
-          item: AddressConfigurationInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AddressConfigurationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AddressConfigurationListInstanceEachOptions,
     callback?: (
       item: AddressConfigurationInstance,
       done: (err?: Error) => void
@@ -531,9 +547,13 @@ export interface AddressConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AddressConfigurationListInstanceOptions
-      | ((error: Error | null, items: AddressConfigurationInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: AddressConfigurationInstance[]
+    ) => any
+  ): Promise<AddressConfigurationInstance[]>;
+  list(
+    params: AddressConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AddressConfigurationInstance[]
@@ -551,9 +571,10 @@ export interface AddressConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AddressConfigurationListInstancePageOptions
-      | ((error: Error | null, items: AddressConfigurationPage) => any),
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
+  ): Promise<AddressConfigurationPage>;
+  page(
+    params: AddressConfigurationListInstancePageOptions,
     callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage>;
 

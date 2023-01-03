@@ -135,7 +135,9 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
     return this._stepContext;
   }
 
-  fetch(callback?: any): Promise<ExecutionStepInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
+  ): Promise<ExecutionStepInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -348,9 +350,13 @@ export interface ExecutionStepListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ExecutionStepListInstanceEachOptions
-      | ((item: ExecutionStepInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: ExecutionStepInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ExecutionStepListInstanceEachOptions,
     callback?: (
       item: ExecutionStepInstance,
       done: (err?: Error) => void
@@ -378,9 +384,10 @@ export interface ExecutionStepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ExecutionStepListInstanceOptions
-      | ((error: Error | null, items: ExecutionStepInstance[]) => any),
+    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
+  ): Promise<ExecutionStepInstance[]>;
+  list(
+    params: ExecutionStepListInstanceOptions,
     callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
   ): Promise<ExecutionStepInstance[]>;
   /**
@@ -395,9 +402,10 @@ export interface ExecutionStepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ExecutionStepListInstancePageOptions
-      | ((error: Error | null, items: ExecutionStepPage) => any),
+    callback?: (error: Error | null, items: ExecutionStepPage) => any
+  ): Promise<ExecutionStepPage>;
+  page(
+    params: ExecutionStepListInstancePageOptions,
     callback?: (error: Error | null, items: ExecutionStepPage) => any
   ): Promise<ExecutionStepPage>;
 

@@ -44,18 +44,36 @@ export interface SettingContext {
   /**
    * Fetch a SettingInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  /**
+   * Fetch a SettingInstance
+   *
    * @param { SettingContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
   fetch(
-    params?:
-      | SettingContextFetchOptions
-      | ((error: Error | null, item?: SettingInstance) => any),
+    params: SettingContextFetchOptions,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance>;
 
+  /**
+   * Update a SettingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
    *
@@ -65,9 +83,7 @@ export interface SettingContext {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   update(
-    params?:
-      | SettingContextUpdateOptions
-      | ((error: Error | null, item?: SettingInstance) => any),
+    params: SettingContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance>;
 
@@ -89,7 +105,12 @@ export class SettingContextImpl implements SettingContext {
     this._uri = `/Voice/Settings`;
   }
 
-  fetch(params?: any, callback?: any): Promise<SettingInstance> {
+  fetch(
+    params?:
+      | SettingContextFetchOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SettingInstance) => any;
       params = {};
@@ -123,7 +144,12 @@ export class SettingContextImpl implements SettingContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SettingInstance> {
+  update(
+    params?:
+      | SettingContextUpdateOptions
+      | ((error: Error | null, item?: SettingInstance) => any),
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SettingInstance) => any;
       params = {};
@@ -217,9 +243,7 @@ export class SettingInstance {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   fetch(
-    params?:
-      | SettingContextFetchOptions
-      | ((error: Error | null, item?: SettingInstance) => any),
+    params?: SettingContextFetchOptions,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
     return this._proxy.fetch(params, callback);
@@ -234,9 +258,7 @@ export class SettingInstance {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   update(
-    params?:
-      | SettingContextUpdateOptions
-      | ((error: Error | null, item?: SettingInstance) => any),
+    params?: SettingContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
     return this._proxy.update(params, callback);

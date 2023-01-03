@@ -53,15 +53,23 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+  /**
+   * Update a RecordingInstance
+   *
    * @param { RecordingContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
   update(
-    params?:
-      | RecordingContextUpdateOptions
-      | ((error: Error | null, item?: RecordingInstance) => any),
+    params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
 
@@ -89,7 +97,9 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Trunks/${trunkSid}/Recording`;
   }
 
-  fetch(callback?: any): Promise<RecordingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -112,7 +122,12 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
+  update(
+    params?:
+      | RecordingContextUpdateOptions
+      | ((error: Error | null, item?: RecordingInstance) => any),
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -223,9 +238,7 @@ export class RecordingInstance {
    * @returns { Promise } Resolves to processed RecordingInstance
    */
   update(
-    params?:
-      | RecordingContextUpdateOptions
-      | ((error: Error | null, item?: RecordingInstance) => any),
+    params?: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);

@@ -124,15 +124,23 @@ export interface SampleContext {
   /**
    * Update a SampleInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SampleInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SampleInstance) => any
+  ): Promise<SampleInstance>;
+  /**
+   * Update a SampleInstance
+   *
    * @param { SampleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SampleInstance
    */
   update(
-    params?:
-      | SampleContextUpdateOptions
-      | ((error: Error | null, item?: SampleInstance) => any),
+    params: SampleContextUpdateOptions,
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance>;
 
@@ -175,7 +183,9 @@ export class SampleContextImpl implements SampleContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Samples/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -189,7 +199,9 @@ export class SampleContextImpl implements SampleContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SampleInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SampleInstance) => any
+  ): Promise<SampleInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -214,7 +226,12 @@ export class SampleContextImpl implements SampleContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SampleInstance> {
+  update(
+    params?:
+      | SampleContextUpdateOptions
+      | ((error: Error | null, item?: SampleInstance) => any),
+    callback?: (error: Error | null, item?: SampleInstance) => any
+  ): Promise<SampleInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: SampleInstance) => any;
       params = {};
@@ -400,9 +417,7 @@ export class SampleInstance {
    * @returns { Promise } Resolves to processed SampleInstance
    */
   update(
-    params?:
-      | SampleContextUpdateOptions
-      | ((error: Error | null, item?: SampleInstance) => any),
+    params?: SampleContextUpdateOptions,
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance> {
     return this._proxy.update(params, callback);
@@ -466,9 +481,10 @@ export interface SampleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SampleListInstanceEachOptions
-      | ((item: SampleInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SampleInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SampleListInstanceEachOptions,
     callback?: (item: SampleInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -493,9 +509,10 @@ export interface SampleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SampleListInstanceOptions
-      | ((error: Error | null, items: SampleInstance[]) => any),
+    callback?: (error: Error | null, items: SampleInstance[]) => any
+  ): Promise<SampleInstance[]>;
+  list(
+    params: SampleListInstanceOptions,
     callback?: (error: Error | null, items: SampleInstance[]) => any
   ): Promise<SampleInstance[]>;
   /**
@@ -510,9 +527,10 @@ export interface SampleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SampleListInstancePageOptions
-      | ((error: Error | null, items: SamplePage) => any),
+    callback?: (error: Error | null, items: SamplePage) => any
+  ): Promise<SamplePage>;
+  page(
+    params: SampleListInstancePageOptions,
     callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage>;
 

@@ -159,7 +159,9 @@ export class DocumentPermissionContextImpl
     this._uri = `/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -173,7 +175,9 @@ export class DocumentPermissionContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DocumentPermissionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -198,7 +202,12 @@ export class DocumentPermissionContextImpl
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DocumentPermissionInstance> {
+  update(
+    params:
+      | DocumentPermissionContextUpdateOptions
+      | ((error: Error | null, item?: DocumentPermissionInstance) => any),
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -437,12 +446,13 @@ export interface DocumentPermissionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DocumentPermissionListInstanceEachOptions
-      | ((
-          item: DocumentPermissionInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: DocumentPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: DocumentPermissionListInstanceEachOptions,
     callback?: (
       item: DocumentPermissionInstance,
       done: (err?: Error) => void
@@ -470,9 +480,10 @@ export interface DocumentPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DocumentPermissionListInstanceOptions
-      | ((error: Error | null, items: DocumentPermissionInstance[]) => any),
+    callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
+  ): Promise<DocumentPermissionInstance[]>;
+  list(
+    params: DocumentPermissionListInstanceOptions,
     callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any
   ): Promise<DocumentPermissionInstance[]>;
   /**
@@ -487,9 +498,10 @@ export interface DocumentPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DocumentPermissionListInstancePageOptions
-      | ((error: Error | null, items: DocumentPermissionPage) => any),
+    callback?: (error: Error | null, items: DocumentPermissionPage) => any
+  ): Promise<DocumentPermissionPage>;
+  page(
+    params: DocumentPermissionListInstancePageOptions,
     callback?: (error: Error | null, items: DocumentPermissionPage) => any
   ): Promise<DocumentPermissionPage>;
 

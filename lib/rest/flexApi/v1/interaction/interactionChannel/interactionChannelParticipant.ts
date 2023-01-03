@@ -157,8 +157,16 @@ export class InteractionChannelParticipantContextImpl
   }
 
   update(
-    params: any,
-    callback?: any
+    params:
+      | InteractionChannelParticipantContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: InteractionChannelParticipantInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: InteractionChannelParticipantInstance
+    ) => any
   ): Promise<InteractionChannelParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -348,12 +356,13 @@ export interface InteractionChannelParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InteractionChannelParticipantListInstanceEachOptions
-      | ((
-          item: InteractionChannelParticipantInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: InteractionChannelParticipantInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InteractionChannelParticipantListInstanceEachOptions,
     callback?: (
       item: InteractionChannelParticipantInstance,
       done: (err?: Error) => void
@@ -384,12 +393,13 @@ export interface InteractionChannelParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InteractionChannelParticipantListInstanceOptions
-      | ((
-          error: Error | null,
-          items: InteractionChannelParticipantInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelParticipantInstance[]
+    ) => any
+  ): Promise<InteractionChannelParticipantInstance[]>;
+  list(
+    params: InteractionChannelParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InteractionChannelParticipantInstance[]
@@ -407,12 +417,13 @@ export interface InteractionChannelParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InteractionChannelParticipantListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: InteractionChannelParticipantPage
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelParticipantPage
+    ) => any
+  ): Promise<InteractionChannelParticipantPage>;
+  page(
+    params: InteractionChannelParticipantListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: InteractionChannelParticipantPage

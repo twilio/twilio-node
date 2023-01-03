@@ -171,7 +171,9 @@ export class EntityContextImpl implements EntityContext {
     return this._newFactors;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -185,7 +187,9 @@ export class EntityContextImpl implements EntityContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EntityInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EntityInstance) => any
+  ): Promise<EntityInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -407,9 +411,10 @@ export interface EntityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EntityListInstanceEachOptions
-      | ((item: EntityInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EntityListInstanceEachOptions,
     callback?: (item: EntityInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -434,9 +439,10 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EntityListInstanceOptions
-      | ((error: Error | null, items: EntityInstance[]) => any),
+    callback?: (error: Error | null, items: EntityInstance[]) => any
+  ): Promise<EntityInstance[]>;
+  list(
+    params: EntityListInstanceOptions,
     callback?: (error: Error | null, items: EntityInstance[]) => any
   ): Promise<EntityInstance[]>;
   /**
@@ -451,9 +457,10 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EntityListInstancePageOptions
-      | ((error: Error | null, items: EntityPage) => any),
+    callback?: (error: Error | null, items: EntityPage) => any
+  ): Promise<EntityPage>;
+  page(
+    params: EntityListInstancePageOptions,
     callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage>;
 

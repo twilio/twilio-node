@@ -104,9 +104,10 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UsageRecordListInstanceEachOptions
-      | ((item: UsageRecordInstance, done: (err?: Error) => void) => void),
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UsageRecordListInstanceEachOptions,
     callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -131,9 +132,10 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UsageRecordListInstanceOptions
-      | ((error: Error | null, items: UsageRecordInstance[]) => any),
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+  ): Promise<UsageRecordInstance[]>;
+  list(
+    params: UsageRecordListInstanceOptions,
     callback?: (error: Error | null, items: UsageRecordInstance[]) => any
   ): Promise<UsageRecordInstance[]>;
   /**
@@ -148,9 +150,10 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UsageRecordListInstancePageOptions
-      | ((error: Error | null, items: UsageRecordPage) => any),
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
+  page(
+    params: UsageRecordListInstancePageOptions,
     callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage>;
 

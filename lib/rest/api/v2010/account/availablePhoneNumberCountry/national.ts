@@ -193,9 +193,10 @@ export interface NationalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | NationalListInstanceEachOptions
-      | ((item: NationalInstance, done: (err?: Error) => void) => void),
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: NationalListInstanceEachOptions,
     callback?: (item: NationalInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -220,9 +221,10 @@ export interface NationalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | NationalListInstanceOptions
-      | ((error: Error | null, items: NationalInstance[]) => any),
+    callback?: (error: Error | null, items: NationalInstance[]) => any
+  ): Promise<NationalInstance[]>;
+  list(
+    params: NationalListInstanceOptions,
     callback?: (error: Error | null, items: NationalInstance[]) => any
   ): Promise<NationalInstance[]>;
   /**
@@ -237,9 +239,10 @@ export interface NationalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | NationalListInstancePageOptions
-      | ((error: Error | null, items: NationalPage) => any),
+    callback?: (error: Error | null, items: NationalPage) => any
+  ): Promise<NationalPage>;
+  page(
+    params: NationalListInstancePageOptions,
     callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage>;
 

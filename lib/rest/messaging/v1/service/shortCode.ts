@@ -127,7 +127,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     this._uri = `/Services/${serviceSid}/ShortCodes/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -141,7 +143,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ShortCodeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -349,9 +353,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ShortCodeListInstanceEachOptions
-      | ((item: ShortCodeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ShortCodeListInstanceEachOptions,
     callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -376,9 +381,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ShortCodeListInstanceOptions
-      | ((error: Error | null, items: ShortCodeInstance[]) => any),
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
+  list(
+    params: ShortCodeListInstanceOptions,
     callback?: (error: Error | null, items: ShortCodeInstance[]) => any
   ): Promise<ShortCodeInstance[]>;
   /**
@@ -393,9 +399,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ShortCodeListInstancePageOptions
-      | ((error: Error | null, items: ShortCodePage) => any),
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
+  page(
+    params: ShortCodeListInstancePageOptions,
     callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage>;
 

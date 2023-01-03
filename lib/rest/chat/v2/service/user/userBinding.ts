@@ -137,7 +137,9 @@ export class UserBindingContextImpl implements UserBindingContext {
     this._uri = `/Services/${serviceSid}/Users/${userSid}/Bindings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -151,7 +153,9 @@ export class UserBindingContextImpl implements UserBindingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UserBindingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserBindingInstance) => any
+  ): Promise<UserBindingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -367,9 +371,10 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UserBindingListInstanceEachOptions
-      | ((item: UserBindingInstance, done: (err?: Error) => void) => void),
+    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UserBindingListInstanceEachOptions,
     callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -394,9 +399,10 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UserBindingListInstanceOptions
-      | ((error: Error | null, items: UserBindingInstance[]) => any),
+    callback?: (error: Error | null, items: UserBindingInstance[]) => any
+  ): Promise<UserBindingInstance[]>;
+  list(
+    params: UserBindingListInstanceOptions,
     callback?: (error: Error | null, items: UserBindingInstance[]) => any
   ): Promise<UserBindingInstance[]>;
   /**
@@ -411,9 +417,10 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UserBindingListInstancePageOptions
-      | ((error: Error | null, items: UserBindingPage) => any),
+    callback?: (error: Error | null, items: UserBindingPage) => any
+  ): Promise<UserBindingPage>;
+  page(
+    params: UserBindingListInstancePageOptions,
     callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
 

@@ -51,15 +51,23 @@ export interface SubscribeRulesListInstance {
   /**
    * Update a SubscribeRulesInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+  ): Promise<SubscribeRulesInstance>;
+  /**
+   * Update a SubscribeRulesInstance
+   *
    * @param { SubscribeRulesListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscribeRulesInstance
    */
   update(
-    params?:
-      | SubscribeRulesListInstanceUpdateOptions
-      | ((error: Error | null, item?: SubscribeRulesInstance) => any),
+    params: SubscribeRulesListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance>;
 

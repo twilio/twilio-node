@@ -135,7 +135,9 @@ export class ParticipantContextImpl implements ParticipantContext {
     this._uri = `/Video/Rooms/${roomSid}/Participants/${participantSid}`;
   }
 
-  fetch(callback?: any): Promise<ParticipantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -367,9 +369,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ParticipantListInstanceEachOptions
-      | ((item: ParticipantInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ParticipantListInstanceEachOptions,
     callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -394,9 +397,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ParticipantListInstanceOptions
-      | ((error: Error | null, items: ParticipantInstance[]) => any),
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
+  list(
+    params: ParticipantListInstanceOptions,
     callback?: (error: Error | null, items: ParticipantInstance[]) => any
   ): Promise<ParticipantInstance[]>;
   /**
@@ -411,9 +415,10 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ParticipantPage) => any),
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
+  page(
+    params: ParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
 

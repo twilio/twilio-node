@@ -50,15 +50,23 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  /**
+   * Update a UserInstance
+   *
    * @param { UserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?:
-      | UserContextUpdateOptions
-      | ((error: Error | null, item?: UserInstance) => any),
+    params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
@@ -86,7 +94,9 @@ export class UserContextImpl implements UserContext {
     this._uri = `/Users/${sid}`;
   }
 
-  fetch(callback?: any): Promise<UserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -105,7 +115,12 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserInstance> {
+  update(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: UserInstance) => any;
       params = {};
@@ -241,9 +256,7 @@ export class UserInstance {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?:
-      | UserContextUpdateOptions
-      | ((error: Error | null, item?: UserInstance) => any),
+    params?: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);

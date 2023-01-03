@@ -123,12 +123,13 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TaskQueuesStatisticsListInstanceEachOptions
-      | ((
-          item: TaskQueuesStatisticsInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: TaskQueuesStatisticsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TaskQueuesStatisticsListInstanceEachOptions,
     callback?: (
       item: TaskQueuesStatisticsInstance,
       done: (err?: Error) => void
@@ -156,9 +157,13 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TaskQueuesStatisticsListInstanceOptions
-      | ((error: Error | null, items: TaskQueuesStatisticsInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: TaskQueuesStatisticsInstance[]
+    ) => any
+  ): Promise<TaskQueuesStatisticsInstance[]>;
+  list(
+    params: TaskQueuesStatisticsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TaskQueuesStatisticsInstance[]
@@ -176,9 +181,10 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TaskQueuesStatisticsListInstancePageOptions
-      | ((error: Error | null, items: TaskQueuesStatisticsPage) => any),
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+  ): Promise<TaskQueuesStatisticsPage>;
+  page(
+    params: TaskQueuesStatisticsListInstancePageOptions,
     callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
   ): Promise<TaskQueuesStatisticsPage>;
 

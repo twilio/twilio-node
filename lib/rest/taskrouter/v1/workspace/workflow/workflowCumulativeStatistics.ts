@@ -39,18 +39,26 @@ export interface WorkflowCumulativeStatisticsContext {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkflowCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkflowCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkflowCumulativeStatisticsInstance
+   *
    * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkflowCumulativeStatisticsInstance
-        ) => any),
+    params: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkflowCumulativeStatisticsInstance
@@ -93,8 +101,16 @@ export class WorkflowCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkflowCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkflowCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -348,12 +364,7 @@ export class WorkflowCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkflowCumulativeStatisticsInstance
-        ) => any),
+    params?: WorkflowCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkflowCumulativeStatisticsInstance

@@ -153,15 +153,23 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrunkInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+  /**
+   * Update a TrunkInstance
+   *
    * @param { TrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   update(
-    params?:
-      | TrunkContextUpdateOptions
-      | ((error: Error | null, item?: TrunkInstance) => any),
+    params: TrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
 
@@ -230,7 +238,9 @@ export class TrunkContextImpl implements TrunkContext {
     return this._recordings;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -244,7 +254,9 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TrunkInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -263,7 +275,12 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TrunkInstance> {
+  update(
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: TrunkInstance) => any),
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: TrunkInstance) => any;
       params = {};
@@ -489,9 +506,7 @@ export class TrunkInstance {
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   update(
-    params?:
-      | TrunkContextUpdateOptions
-      | ((error: Error | null, item?: TrunkInstance) => any),
+    params?: TrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
@@ -571,15 +586,23 @@ export interface TrunkListInstance {
   /**
    * Create a TrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrunkInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+  /**
+   * Create a TrunkInstance
+   *
    * @param { TrunkListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   create(
-    params?:
-      | TrunkListInstanceCreateOptions
-      | ((error: Error | null, item?: TrunkInstance) => any),
+    params: TrunkListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
 
@@ -599,9 +622,10 @@ export interface TrunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TrunkListInstanceEachOptions
-      | ((item: TrunkInstance, done: (err?: Error) => void) => void),
+    callback?: (item: TrunkInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: TrunkListInstanceEachOptions,
     callback?: (item: TrunkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -626,9 +650,10 @@ export interface TrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TrunkListInstanceOptions
-      | ((error: Error | null, items: TrunkInstance[]) => any),
+    callback?: (error: Error | null, items: TrunkInstance[]) => any
+  ): Promise<TrunkInstance[]>;
+  list(
+    params: TrunkListInstanceOptions,
     callback?: (error: Error | null, items: TrunkInstance[]) => any
   ): Promise<TrunkInstance[]>;
   /**
@@ -643,9 +668,10 @@ export interface TrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TrunkListInstancePageOptions
-      | ((error: Error | null, items: TrunkPage) => any),
+    callback?: (error: Error | null, items: TrunkPage) => any
+  ): Promise<TrunkPage>;
+  page(
+    params: TrunkListInstancePageOptions,
     callback?: (error: Error | null, items: TrunkPage) => any
   ): Promise<TrunkPage>;
 

@@ -183,7 +183,9 @@ export class TollfreeVerificationContextImpl
     this._uri = `/Tollfree/Verifications/${sid}`;
   }
 
-  fetch(callback?: any): Promise<TollfreeVerificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -520,12 +522,13 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | TollfreeVerificationListInstanceEachOptions
-      | ((
-          item: TollfreeVerificationInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: TollfreeVerificationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: TollfreeVerificationListInstanceEachOptions,
     callback?: (
       item: TollfreeVerificationInstance,
       done: (err?: Error) => void
@@ -553,9 +556,13 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | TollfreeVerificationListInstanceOptions
-      | ((error: Error | null, items: TollfreeVerificationInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: TollfreeVerificationInstance[]
+    ) => any
+  ): Promise<TollfreeVerificationInstance[]>;
+  list(
+    params: TollfreeVerificationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TollfreeVerificationInstance[]
@@ -573,9 +580,10 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | TollfreeVerificationListInstancePageOptions
-      | ((error: Error | null, items: TollfreeVerificationPage) => any),
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+  ): Promise<TollfreeVerificationPage>;
+  page(
+    params: TollfreeVerificationListInstancePageOptions,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
 

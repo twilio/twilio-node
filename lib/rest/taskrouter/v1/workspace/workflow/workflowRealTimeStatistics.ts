@@ -31,18 +31,26 @@ export interface WorkflowRealTimeStatisticsContext {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance
+   *
    * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkflowRealTimeStatisticsInstance
-        ) => any),
+    params: WorkflowRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkflowRealTimeStatisticsInstance
@@ -85,8 +93,16 @@ export class WorkflowRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkflowRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -241,12 +257,7 @@ export class WorkflowRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkflowRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkflowRealTimeStatisticsInstance
-        ) => any),
+    params?: WorkflowRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkflowRealTimeStatisticsInstance

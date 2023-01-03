@@ -223,9 +223,13 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CallSummariesListInstanceEachOptions
-      | ((item: CallSummariesInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: CallSummariesInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CallSummariesListInstanceEachOptions,
     callback?: (
       item: CallSummariesInstance,
       done: (err?: Error) => void
@@ -253,9 +257,10 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CallSummariesListInstanceOptions
-      | ((error: Error | null, items: CallSummariesInstance[]) => any),
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any
+  ): Promise<CallSummariesInstance[]>;
+  list(
+    params: CallSummariesListInstanceOptions,
     callback?: (error: Error | null, items: CallSummariesInstance[]) => any
   ): Promise<CallSummariesInstance[]>;
   /**
@@ -270,9 +275,10 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CallSummariesListInstancePageOptions
-      | ((error: Error | null, items: CallSummariesPage) => any),
+    callback?: (error: Error | null, items: CallSummariesPage) => any
+  ): Promise<CallSummariesPage>;
+  page(
+    params: CallSummariesListInstancePageOptions,
     callback?: (error: Error | null, items: CallSummariesPage) => any
   ): Promise<CallSummariesPage>;
 

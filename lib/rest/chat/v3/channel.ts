@@ -39,15 +39,23 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  /**
+   * Update a ChannelInstance
+   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?:
-      | ChannelContextUpdateOptions
-      | ((error: Error | null, item?: ChannelInstance) => any),
+    params: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
 
@@ -80,7 +88,12 @@ export class ChannelContextImpl implements ChannelContext {
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
   }
 
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
+  update(
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: ChannelInstance) => any;
       params = {};
@@ -262,9 +275,7 @@ export class ChannelInstance {
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?:
-      | ChannelContextUpdateOptions
-      | ((error: Error | null, item?: ChannelInstance) => any),
+    params?: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);

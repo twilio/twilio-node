@@ -86,9 +86,10 @@ export interface SimIpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SimIpAddressListInstanceEachOptions
-      | ((item: SimIpAddressInstance, done: (err?: Error) => void) => void),
+    callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: SimIpAddressListInstanceEachOptions,
     callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -113,9 +114,10 @@ export interface SimIpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SimIpAddressListInstanceOptions
-      | ((error: Error | null, items: SimIpAddressInstance[]) => any),
+    callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
+  ): Promise<SimIpAddressInstance[]>;
+  list(
+    params: SimIpAddressListInstanceOptions,
     callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
   ): Promise<SimIpAddressInstance[]>;
   /**
@@ -130,9 +132,10 @@ export interface SimIpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SimIpAddressListInstancePageOptions
-      | ((error: Error | null, items: SimIpAddressPage) => any),
+    callback?: (error: Error | null, items: SimIpAddressPage) => any
+  ): Promise<SimIpAddressPage>;
+  page(
+    params: SimIpAddressListInstancePageOptions,
     callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage>;
 

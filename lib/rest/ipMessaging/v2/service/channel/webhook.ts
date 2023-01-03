@@ -136,15 +136,23 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebhookInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+  /**
+   * Update a WebhookInstance
+   *
    * @param { WebhookContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params?:
-      | WebhookContextUpdateOptions
-      | ((error: Error | null, item?: WebhookInstance) => any),
+    params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
 
@@ -187,7 +195,9 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Webhooks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -201,7 +211,9 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WebhookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -226,7 +238,12 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+  update(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: WebhookInstance) => any;
       params = {};
@@ -395,9 +412,7 @@ export class WebhookInstance {
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params?:
-      | WebhookContextUpdateOptions
-      | ((error: Error | null, item?: WebhookInstance) => any),
+    params?: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
@@ -460,9 +475,10 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WebhookListInstanceEachOptions
-      | ((item: WebhookInstance, done: (err?: Error) => void) => void),
+    callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: WebhookListInstanceEachOptions,
     callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -487,9 +503,10 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WebhookListInstanceOptions
-      | ((error: Error | null, items: WebhookInstance[]) => any),
+    callback?: (error: Error | null, items: WebhookInstance[]) => any
+  ): Promise<WebhookInstance[]>;
+  list(
+    params: WebhookListInstanceOptions,
     callback?: (error: Error | null, items: WebhookInstance[]) => any
   ): Promise<WebhookInstance[]>;
   /**
@@ -504,9 +521,10 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WebhookListInstancePageOptions
-      | ((error: Error | null, items: WebhookPage) => any),
+    callback?: (error: Error | null, items: WebhookPage) => any
+  ): Promise<WebhookPage>;
+  page(
+    params: WebhookListInstancePageOptions,
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage>;
 

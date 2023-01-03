@@ -149,15 +149,26 @@ export interface AuthorizationDocumentContext {
   /**
    * Update a AuthorizationDocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
+  ): Promise<AuthorizationDocumentInstance>;
+  /**
+   * Update a AuthorizationDocumentInstance
+   *
    * @param { AuthorizationDocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
    */
   update(
-    params?:
-      | AuthorizationDocumentContextUpdateOptions
-      | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
+    params: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance
@@ -199,7 +210,12 @@ export class AuthorizationDocumentContextImpl
     return this._dependentHostedNumberOrders;
   }
 
-  fetch(callback?: any): Promise<AuthorizationDocumentInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
+  ): Promise<AuthorizationDocumentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -222,7 +238,15 @@ export class AuthorizationDocumentContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AuthorizationDocumentInstance> {
+  update(
+    params?:
+      | AuthorizationDocumentContextUpdateOptions
+      | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
+  ): Promise<AuthorizationDocumentInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -390,9 +414,7 @@ export class AuthorizationDocumentInstance {
    * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
    */
   update(
-    params?:
-      | AuthorizationDocumentContextUpdateOptions
-      | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
+    params?: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance
@@ -468,12 +490,13 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AuthorizationDocumentListInstanceEachOptions
-      | ((
-          item: AuthorizationDocumentInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: AuthorizationDocumentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AuthorizationDocumentListInstanceEachOptions,
     callback?: (
       item: AuthorizationDocumentInstance,
       done: (err?: Error) => void
@@ -501,9 +524,13 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AuthorizationDocumentListInstanceOptions
-      | ((error: Error | null, items: AuthorizationDocumentInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: AuthorizationDocumentInstance[]
+    ) => any
+  ): Promise<AuthorizationDocumentInstance[]>;
+  list(
+    params: AuthorizationDocumentListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AuthorizationDocumentInstance[]
@@ -521,9 +548,10 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AuthorizationDocumentListInstancePageOptions
-      | ((error: Error | null, items: AuthorizationDocumentPage) => any),
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
+  ): Promise<AuthorizationDocumentPage>;
+  page(
+    params: AuthorizationDocumentListInstancePageOptions,
     callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
 

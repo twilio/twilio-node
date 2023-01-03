@@ -196,9 +196,13 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MachineToMachineListInstanceEachOptions
-      | ((item: MachineToMachineInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: MachineToMachineListInstanceEachOptions,
     callback?: (
       item: MachineToMachineInstance,
       done: (err?: Error) => void
@@ -226,9 +230,10 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MachineToMachineListInstanceOptions
-      | ((error: Error | null, items: MachineToMachineInstance[]) => any),
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+  ): Promise<MachineToMachineInstance[]>;
+  list(
+    params: MachineToMachineListInstanceOptions,
     callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
   ): Promise<MachineToMachineInstance[]>;
   /**
@@ -243,9 +248,10 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MachineToMachineListInstancePageOptions
-      | ((error: Error | null, items: MachineToMachinePage) => any),
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage>;
+  page(
+    params: MachineToMachineListInstancePageOptions,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
 

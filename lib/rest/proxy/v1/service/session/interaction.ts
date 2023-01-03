@@ -154,7 +154,9 @@ export class InteractionContextImpl implements InteractionContext {
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -168,7 +170,9 @@ export class InteractionContextImpl implements InteractionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<InteractionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -427,9 +431,10 @@ export interface InteractionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | InteractionListInstanceEachOptions
-      | ((item: InteractionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: InteractionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: InteractionListInstanceEachOptions,
     callback?: (item: InteractionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -454,9 +459,10 @@ export interface InteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | InteractionListInstanceOptions
-      | ((error: Error | null, items: InteractionInstance[]) => any),
+    callback?: (error: Error | null, items: InteractionInstance[]) => any
+  ): Promise<InteractionInstance[]>;
+  list(
+    params: InteractionListInstanceOptions,
     callback?: (error: Error | null, items: InteractionInstance[]) => any
   ): Promise<InteractionInstance[]>;
   /**
@@ -471,9 +477,10 @@ export interface InteractionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | InteractionListInstancePageOptions
-      | ((error: Error | null, items: InteractionPage) => any),
+    callback?: (error: Error | null, items: InteractionPage) => any
+  ): Promise<InteractionPage>;
+  page(
+    params: InteractionListInstancePageOptions,
     callback?: (error: Error | null, items: InteractionPage) => any
   ): Promise<InteractionPage>;
 

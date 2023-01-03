@@ -116,15 +116,23 @@ export interface EndUserContext {
   /**
    * Update a EndUserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EndUserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+  /**
+   * Update a EndUserInstance
+   *
    * @param { EndUserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
   update(
-    params?:
-      | EndUserContextUpdateOptions
-      | ((error: Error | null, item?: EndUserInstance) => any),
+    params: EndUserContextUpdateOptions,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
 
@@ -152,7 +160,9 @@ export class EndUserContextImpl implements EndUserContext {
     this._uri = `/EndUsers/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -166,7 +176,9 @@ export class EndUserContextImpl implements EndUserContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EndUserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -185,7 +197,12 @@ export class EndUserContextImpl implements EndUserContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<EndUserInstance> {
+  update(
+    params?:
+      | EndUserContextUpdateOptions
+      | ((error: Error | null, item?: EndUserInstance) => any),
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: EndUserInstance) => any;
       params = {};
@@ -344,9 +361,7 @@ export class EndUserInstance {
    * @returns { Promise } Resolves to processed EndUserInstance
    */
   update(
-    params?:
-      | EndUserContextUpdateOptions
-      | ((error: Error | null, item?: EndUserInstance) => any),
+    params?: EndUserContextUpdateOptions,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     return this._proxy.update(params, callback);
@@ -408,9 +423,10 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | EndUserListInstanceEachOptions
-      | ((item: EndUserInstance, done: (err?: Error) => void) => void),
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: EndUserListInstanceEachOptions,
     callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -435,9 +451,10 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | EndUserListInstanceOptions
-      | ((error: Error | null, items: EndUserInstance[]) => any),
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
+  ): Promise<EndUserInstance[]>;
+  list(
+    params: EndUserListInstanceOptions,
     callback?: (error: Error | null, items: EndUserInstance[]) => any
   ): Promise<EndUserInstance[]>;
   /**
@@ -452,9 +469,10 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | EndUserListInstancePageOptions
-      | ((error: Error | null, items: EndUserPage) => any),
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
+  page(
+    params: EndUserListInstancePageOptions,
     callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
 

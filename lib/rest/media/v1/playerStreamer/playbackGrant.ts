@@ -33,15 +33,23 @@ export interface PlaybackGrantContext {
   /**
    * Create a PlaybackGrantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance>;
+  /**
+   * Create a PlaybackGrantInstance
+   *
    * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PlaybackGrantInstance
    */
   create(
-    params?:
-      | PlaybackGrantContextCreateOptions
-      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
+    params: PlaybackGrantContextCreateOptions,
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance>;
 
@@ -80,7 +88,12 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     this._uri = `/PlayerStreamers/${sid}/PlaybackGrant`;
   }
 
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance> {
+  create(
+    params?:
+      | PlaybackGrantContextCreateOptions
+      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -120,7 +133,9 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PlaybackGrantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -218,9 +233,7 @@ export class PlaybackGrantInstance {
    * @returns { Promise } Resolves to processed PlaybackGrantInstance
    */
   create(
-    params?:
-      | PlaybackGrantContextCreateOptions
-      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
+    params?: PlaybackGrantContextCreateOptions,
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance> {
     return this._proxy.create(params, callback);

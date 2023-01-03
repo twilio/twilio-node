@@ -130,7 +130,9 @@ export class BrandVettingContextImpl implements BrandVettingContext {
     this._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
   }
 
-  fetch(callback?: any): Promise<BrandVettingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BrandVettingInstance) => any
+  ): Promise<BrandVettingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -332,9 +334,10 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BrandVettingListInstanceEachOptions
-      | ((item: BrandVettingInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BrandVettingListInstanceEachOptions,
     callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -359,9 +362,10 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BrandVettingListInstanceOptions
-      | ((error: Error | null, items: BrandVettingInstance[]) => any),
+    callback?: (error: Error | null, items: BrandVettingInstance[]) => any
+  ): Promise<BrandVettingInstance[]>;
+  list(
+    params: BrandVettingListInstanceOptions,
     callback?: (error: Error | null, items: BrandVettingInstance[]) => any
   ): Promise<BrandVettingInstance[]>;
   /**
@@ -376,9 +380,10 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BrandVettingListInstancePageOptions
-      | ((error: Error | null, items: BrandVettingPage) => any),
+    callback?: (error: Error | null, items: BrandVettingPage) => any
+  ): Promise<BrandVettingPage>;
+  page(
+    params: BrandVettingListInstancePageOptions,
     callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage>;
 

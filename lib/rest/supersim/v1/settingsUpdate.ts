@@ -105,9 +105,13 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SettingsUpdateListInstanceEachOptions
-      | ((item: SettingsUpdateInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: SettingsUpdateInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SettingsUpdateListInstanceEachOptions,
     callback?: (
       item: SettingsUpdateInstance,
       done: (err?: Error) => void
@@ -135,9 +139,10 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SettingsUpdateListInstanceOptions
-      | ((error: Error | null, items: SettingsUpdateInstance[]) => any),
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+  ): Promise<SettingsUpdateInstance[]>;
+  list(
+    params: SettingsUpdateListInstanceOptions,
     callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
   ): Promise<SettingsUpdateInstance[]>;
   /**
@@ -152,9 +157,10 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SettingsUpdateListInstancePageOptions
-      | ((error: Error | null, items: SettingsUpdatePage) => any),
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
+  page(
+    params: SettingsUpdateListInstancePageOptions,
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage>;
 

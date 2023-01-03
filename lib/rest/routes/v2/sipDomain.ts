@@ -44,15 +44,23 @@ export interface SipDomainContext {
   /**
    * Update a SipDomainInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SipDomainInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
+  /**
+   * Update a SipDomainInstance
+   *
    * @param { SipDomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
   update(
-    params?:
-      | SipDomainContextUpdateOptions
-      | ((error: Error | null, item?: SipDomainInstance) => any),
+    params: SipDomainContextUpdateOptions,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
 
@@ -80,7 +88,9 @@ export class SipDomainContextImpl implements SipDomainContext {
     this._uri = `/SipDomains/${sipDomain}`;
   }
 
-  fetch(callback?: any): Promise<SipDomainInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -103,7 +113,12 @@ export class SipDomainContextImpl implements SipDomainContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SipDomainInstance> {
+  update(
+    params?:
+      | SipDomainContextUpdateOptions
+      | ((error: Error | null, item?: SipDomainInstance) => any),
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -234,9 +249,7 @@ export class SipDomainInstance {
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
   update(
-    params?:
-      | SipDomainContextUpdateOptions
-      | ((error: Error | null, item?: SipDomainInstance) => any),
+    params?: SipDomainContextUpdateOptions,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);

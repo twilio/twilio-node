@@ -124,15 +124,23 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  /**
+   * Update a MessageInstance
+   *
    * @param { MessageContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params?:
-      | MessageContextUpdateOptions
-      | ((error: Error | null, item?: MessageInstance) => any),
+    params: MessageContextUpdateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
@@ -175,7 +183,9 @@ export class MessageContextImpl implements MessageContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -189,7 +199,9 @@ export class MessageContextImpl implements MessageContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MessageInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -214,7 +226,12 @@ export class MessageContextImpl implements MessageContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<MessageInstance> {
+  update(
+    params?:
+      | MessageContextUpdateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: MessageInstance) => any;
       params = {};
@@ -380,9 +397,7 @@ export class MessageInstance {
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params?:
-      | MessageContextUpdateOptions
-      | ((error: Error | null, item?: MessageInstance) => any),
+    params?: MessageContextUpdateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
@@ -449,9 +464,10 @@ export interface MessageListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MessageListInstanceEachOptions
-      | ((item: MessageInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MessageListInstanceEachOptions,
     callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -476,9 +492,10 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MessageListInstanceOptions
-      | ((error: Error | null, items: MessageInstance[]) => any),
+    callback?: (error: Error | null, items: MessageInstance[]) => any
+  ): Promise<MessageInstance[]>;
+  list(
+    params: MessageListInstanceOptions,
     callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
   /**
@@ -493,9 +510,10 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MessageListInstancePageOptions
-      | ((error: Error | null, items: MessagePage) => any),
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
+  page(
+    params: MessageListInstancePageOptions,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
 

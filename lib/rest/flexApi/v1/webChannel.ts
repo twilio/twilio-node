@@ -124,15 +124,23 @@ export interface WebChannelContext {
   /**
    * Update a WebChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
+  ): Promise<WebChannelInstance>;
+  /**
+   * Update a WebChannelInstance
+   *
    * @param { WebChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebChannelInstance
    */
   update(
-    params?:
-      | WebChannelContextUpdateOptions
-      | ((error: Error | null, item?: WebChannelInstance) => any),
+    params: WebChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance>;
 
@@ -160,7 +168,9 @@ export class WebChannelContextImpl implements WebChannelContext {
     this._uri = `/WebChannels/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -174,7 +184,9 @@ export class WebChannelContextImpl implements WebChannelContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WebChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
+  ): Promise<WebChannelInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -193,7 +205,12 @@ export class WebChannelContextImpl implements WebChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebChannelInstance> {
+  update(
+    params?:
+      | WebChannelContextUpdateOptions
+      | ((error: Error | null, item?: WebChannelInstance) => any),
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
+  ): Promise<WebChannelInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -347,9 +364,7 @@ export class WebChannelInstance {
    * @returns { Promise } Resolves to processed WebChannelInstance
    */
   update(
-    params?:
-      | WebChannelContextUpdateOptions
-      | ((error: Error | null, item?: WebChannelInstance) => any),
+    params?: WebChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     return this._proxy.update(params, callback);
@@ -409,9 +424,10 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | WebChannelListInstanceEachOptions
-      | ((item: WebChannelInstance, done: (err?: Error) => void) => void),
+    callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: WebChannelListInstanceEachOptions,
     callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -436,9 +452,10 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | WebChannelListInstanceOptions
-      | ((error: Error | null, items: WebChannelInstance[]) => any),
+    callback?: (error: Error | null, items: WebChannelInstance[]) => any
+  ): Promise<WebChannelInstance[]>;
+  list(
+    params: WebChannelListInstanceOptions,
     callback?: (error: Error | null, items: WebChannelInstance[]) => any
   ): Promise<WebChannelInstance[]>;
   /**
@@ -453,9 +470,10 @@ export interface WebChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | WebChannelListInstancePageOptions
-      | ((error: Error | null, items: WebChannelPage) => any),
+    callback?: (error: Error | null, items: WebChannelPage) => any
+  ): Promise<WebChannelPage>;
+  page(
+    params: WebChannelListInstancePageOptions,
     callback?: (error: Error | null, items: WebChannelPage) => any
   ): Promise<WebChannelPage>;
 

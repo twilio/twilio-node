@@ -61,7 +61,9 @@ export class SecondaryAuthTokenContextImpl
     this._uri = `/AuthTokens/Secondary`;
   }
 
-  create(callback?: any): Promise<SecondaryAuthTokenInstance> {
+  create(
+    callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
+  ): Promise<SecondaryAuthTokenInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.create({
         uri: this._uri,
@@ -79,7 +81,9 @@ export class SecondaryAuthTokenContextImpl
     return operationPromise;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,

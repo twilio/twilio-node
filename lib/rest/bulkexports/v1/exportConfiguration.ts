@@ -46,15 +46,23 @@ export interface ExportConfigurationContext {
   /**
    * Update a ExportConfigurationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance>;
+  /**
+   * Update a ExportConfigurationInstance
+   *
    * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
   update(
-    params?:
-      | ExportConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
+    params: ExportConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance>;
 
@@ -84,7 +92,9 @@ export class ExportConfigurationContextImpl
     this._uri = `/Exports/${resourceType}/Configuration`;
   }
 
-  fetch(callback?: any): Promise<ExportConfigurationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -107,7 +117,12 @@ export class ExportConfigurationContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+  update(
+    params?:
+      | ExportConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -249,9 +264,7 @@ export class ExportConfigurationInstance {
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
   update(
-    params?:
-      | ExportConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
+    params?: ExportConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);

@@ -139,7 +139,9 @@ export class FieldContextImpl implements FieldContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -153,7 +155,9 @@ export class FieldContextImpl implements FieldContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FieldInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FieldInstance) => any
+  ): Promise<FieldInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -364,9 +368,10 @@ export interface FieldListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | FieldListInstanceEachOptions
-      | ((item: FieldInstance, done: (err?: Error) => void) => void),
+    callback?: (item: FieldInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: FieldListInstanceEachOptions,
     callback?: (item: FieldInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -391,9 +396,10 @@ export interface FieldListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | FieldListInstanceOptions
-      | ((error: Error | null, items: FieldInstance[]) => any),
+    callback?: (error: Error | null, items: FieldInstance[]) => any
+  ): Promise<FieldInstance[]>;
+  list(
+    params: FieldListInstanceOptions,
     callback?: (error: Error | null, items: FieldInstance[]) => any
   ): Promise<FieldInstance[]>;
   /**
@@ -408,9 +414,10 @@ export interface FieldListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | FieldListInstancePageOptions
-      | ((error: Error | null, items: FieldPage) => any),
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
+  page(
+    params: FieldListInstancePageOptions,
     callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage>;
 

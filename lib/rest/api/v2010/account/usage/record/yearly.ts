@@ -355,9 +355,10 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | YearlyListInstanceEachOptions
-      | ((item: YearlyInstance, done: (err?: Error) => void) => void),
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: YearlyListInstanceEachOptions,
     callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -382,9 +383,10 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | YearlyListInstanceOptions
-      | ((error: Error | null, items: YearlyInstance[]) => any),
+    callback?: (error: Error | null, items: YearlyInstance[]) => any
+  ): Promise<YearlyInstance[]>;
+  list(
+    params: YearlyListInstanceOptions,
     callback?: (error: Error | null, items: YearlyInstance[]) => any
   ): Promise<YearlyInstance[]>;
   /**
@@ -399,9 +401,10 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | YearlyListInstancePageOptions
-      | ((error: Error | null, items: YearlyPage) => any),
+    callback?: (error: Error | null, items: YearlyPage) => any
+  ): Promise<YearlyPage>;
+  page(
+    params: YearlyListInstancePageOptions,
     callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage>;
 

@@ -147,7 +147,9 @@ export class MediaContextImpl implements MediaContext {
     this._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Media/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -161,7 +163,9 @@ export class MediaContextImpl implements MediaContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MediaInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MediaInstance) => any
+  ): Promise<MediaInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -345,9 +349,10 @@ export interface MediaListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MediaListInstanceEachOptions
-      | ((item: MediaInstance, done: (err?: Error) => void) => void),
+    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: MediaListInstanceEachOptions,
     callback?: (item: MediaInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -372,9 +377,10 @@ export interface MediaListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MediaListInstanceOptions
-      | ((error: Error | null, items: MediaInstance[]) => any),
+    callback?: (error: Error | null, items: MediaInstance[]) => any
+  ): Promise<MediaInstance[]>;
+  list(
+    params: MediaListInstanceOptions,
     callback?: (error: Error | null, items: MediaInstance[]) => any
   ): Promise<MediaInstance[]>;
   /**
@@ -389,9 +395,10 @@ export interface MediaListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MediaListInstancePageOptions
-      | ((error: Error | null, items: MediaPage) => any),
+    callback?: (error: Error | null, items: MediaPage) => any
+  ): Promise<MediaPage>;
+  page(
+    params: MediaListInstancePageOptions,
     callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage>;
 

@@ -121,7 +121,9 @@ export class NetworkContextImpl implements NetworkContext {
     this._uri = `/Networks/${sid}`;
   }
 
-  fetch(callback?: any): Promise<NetworkInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NetworkInstance) => any
+  ): Promise<NetworkInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -261,9 +263,10 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | NetworkListInstanceEachOptions
-      | ((item: NetworkInstance, done: (err?: Error) => void) => void),
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: NetworkListInstanceEachOptions,
     callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -288,9 +291,10 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | NetworkListInstanceOptions
-      | ((error: Error | null, items: NetworkInstance[]) => any),
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
+  ): Promise<NetworkInstance[]>;
+  list(
+    params: NetworkListInstanceOptions,
     callback?: (error: Error | null, items: NetworkInstance[]) => any
   ): Promise<NetworkInstance[]>;
   /**
@@ -305,9 +309,10 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | NetworkListInstancePageOptions
-      | ((error: Error | null, items: NetworkPage) => any),
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
+  page(
+    params: NetworkListInstancePageOptions,
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
 

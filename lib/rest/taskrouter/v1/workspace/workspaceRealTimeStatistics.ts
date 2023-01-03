@@ -31,18 +31,26 @@ export interface WorkspaceRealTimeStatisticsContext {
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkspaceRealTimeStatisticsInstance
+   *
    * @param { WorkspaceRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkspaceRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkspaceRealTimeStatisticsInstance
-        ) => any),
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkspaceRealTimeStatisticsInstance
@@ -76,8 +84,16 @@ export class WorkspaceRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkspaceRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkspaceRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkspaceRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -235,12 +251,7 @@ export class WorkspaceRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkspaceRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkspaceRealTimeStatisticsInstance
-        ) => any),
+    params?: WorkspaceRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkspaceRealTimeStatisticsInstance

@@ -151,7 +151,9 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
     this._uri = `/Rooms/${roomSid}/Recordings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -165,7 +167,9 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RoomRecordingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RoomRecordingInstance) => any
+  ): Promise<RoomRecordingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -404,9 +408,13 @@ export interface RoomRecordingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RoomRecordingListInstanceEachOptions
-      | ((item: RoomRecordingInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: RoomRecordingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: RoomRecordingListInstanceEachOptions,
     callback?: (
       item: RoomRecordingInstance,
       done: (err?: Error) => void
@@ -434,9 +442,10 @@ export interface RoomRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RoomRecordingListInstanceOptions
-      | ((error: Error | null, items: RoomRecordingInstance[]) => any),
+    callback?: (error: Error | null, items: RoomRecordingInstance[]) => any
+  ): Promise<RoomRecordingInstance[]>;
+  list(
+    params: RoomRecordingListInstanceOptions,
     callback?: (error: Error | null, items: RoomRecordingInstance[]) => any
   ): Promise<RoomRecordingInstance[]>;
   /**
@@ -451,9 +460,10 @@ export interface RoomRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RoomRecordingListInstancePageOptions
-      | ((error: Error | null, items: RoomRecordingPage) => any),
+    callback?: (error: Error | null, items: RoomRecordingPage) => any
+  ): Promise<RoomRecordingPage>;
+  page(
+    params: RoomRecordingListInstancePageOptions,
     callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage>;
 

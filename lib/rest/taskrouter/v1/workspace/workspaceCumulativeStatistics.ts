@@ -39,18 +39,26 @@ export interface WorkspaceCumulativeStatisticsContext {
   /**
    * Fetch a WorkspaceCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkspaceCumulativeStatisticsInstance
+   *
    * @param { WorkspaceCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkspaceCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkspaceCumulativeStatisticsInstance
-        ) => any),
+    params: WorkspaceCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkspaceCumulativeStatisticsInstance
@@ -84,8 +92,16 @@ export class WorkspaceCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkspaceCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkspaceCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -330,12 +346,7 @@ export class WorkspaceCumulativeStatisticsInstance {
    * @returns { Promise } Resolves to processed WorkspaceCumulativeStatisticsInstance
    */
   fetch(
-    params?:
-      | WorkspaceCumulativeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkspaceCumulativeStatisticsInstance
-        ) => any),
+    params?: WorkspaceCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: WorkspaceCumulativeStatisticsInstance

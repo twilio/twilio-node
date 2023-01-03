@@ -158,15 +158,23 @@ export interface ConferenceContext {
   /**
    * Update a ConferenceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConferenceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
+  /**
+   * Update a ConferenceInstance
+   *
    * @param { ConferenceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
   update(
-    params?:
-      | ConferenceContextUpdateOptions
-      | ((error: Error | null, item?: ConferenceInstance) => any),
+    params: ConferenceContextUpdateOptions,
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance>;
 
@@ -224,7 +232,9 @@ export class ConferenceContextImpl implements ConferenceContext {
     return this._recordings;
   }
 
-  fetch(callback?: any): Promise<ConferenceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -248,7 +258,12 @@ export class ConferenceContextImpl implements ConferenceContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ConferenceInstance> {
+  update(
+    params?:
+      | ConferenceContextUpdateOptions
+      | ((error: Error | null, item?: ConferenceInstance) => any),
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -430,9 +445,7 @@ export class ConferenceInstance {
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
   update(
-    params?:
-      | ConferenceContextUpdateOptions
-      | ((error: Error | null, item?: ConferenceInstance) => any),
+    params?: ConferenceContextUpdateOptions,
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
     return this._proxy.update(params, callback);
@@ -499,9 +512,10 @@ export interface ConferenceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ConferenceListInstanceEachOptions
-      | ((item: ConferenceInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ConferenceListInstanceEachOptions,
     callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -526,9 +540,10 @@ export interface ConferenceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ConferenceListInstanceOptions
-      | ((error: Error | null, items: ConferenceInstance[]) => any),
+    callback?: (error: Error | null, items: ConferenceInstance[]) => any
+  ): Promise<ConferenceInstance[]>;
+  list(
+    params: ConferenceListInstanceOptions,
     callback?: (error: Error | null, items: ConferenceInstance[]) => any
   ): Promise<ConferenceInstance[]>;
   /**
@@ -543,9 +558,10 @@ export interface ConferenceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ConferenceListInstancePageOptions
-      | ((error: Error | null, items: ConferencePage) => any),
+    callback?: (error: Error | null, items: ConferencePage) => any
+  ): Promise<ConferencePage>;
+  page(
+    params: ConferenceListInstancePageOptions,
     callback?: (error: Error | null, items: ConferencePage) => any
   ): Promise<ConferencePage>;
 

@@ -140,15 +140,23 @@ export interface ChallengeContext {
   /**
    * Update a ChallengeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChallengeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+  /**
+   * Update a ChallengeInstance
+   *
    * @param { ChallengeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
   update(
-    params?:
-      | ChallengeContextUpdateOptions
-      | ((error: Error | null, item?: ChallengeInstance) => any),
+    params: ChallengeContextUpdateOptions,
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
 
@@ -205,7 +213,9 @@ export class ChallengeContextImpl implements ChallengeContext {
     return this._notifications;
   }
 
-  fetch(callback?: any): Promise<ChallengeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -230,7 +240,12 @@ export class ChallengeContextImpl implements ChallengeContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ChallengeInstance> {
+  update(
+    params?:
+      | ChallengeContextUpdateOptions
+      | ((error: Error | null, item?: ChallengeInstance) => any),
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -447,9 +462,7 @@ export class ChallengeInstance {
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
   update(
-    params?:
-      | ChallengeContextUpdateOptions
-      | ((error: Error | null, item?: ChallengeInstance) => any),
+    params?: ChallengeContextUpdateOptions,
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     return this._proxy.update(params, callback);
@@ -528,9 +541,10 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ChallengeListInstanceEachOptions
-      | ((item: ChallengeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ChallengeListInstanceEachOptions,
     callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -555,9 +569,10 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ChallengeListInstanceOptions
-      | ((error: Error | null, items: ChallengeInstance[]) => any),
+    callback?: (error: Error | null, items: ChallengeInstance[]) => any
+  ): Promise<ChallengeInstance[]>;
+  list(
+    params: ChallengeListInstanceOptions,
     callback?: (error: Error | null, items: ChallengeInstance[]) => any
   ): Promise<ChallengeInstance[]>;
   /**
@@ -572,9 +587,10 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ChallengeListInstancePageOptions
-      | ((error: Error | null, items: ChallengePage) => any),
+    callback?: (error: Error | null, items: ChallengePage) => any
+  ): Promise<ChallengePage>;
+  page(
+    params: ChallengeListInstancePageOptions,
     callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
 

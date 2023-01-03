@@ -77,7 +77,9 @@ export class InteractionContextImpl implements InteractionContext {
     return this._channels;
   }
 
-  fetch(callback?: any): Promise<InteractionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,

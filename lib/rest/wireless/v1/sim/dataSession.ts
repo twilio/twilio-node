@@ -84,9 +84,10 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DataSessionListInstanceEachOptions
-      | ((item: DataSessionInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DataSessionListInstanceEachOptions,
     callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -111,9 +112,10 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DataSessionListInstanceOptions
-      | ((error: Error | null, items: DataSessionInstance[]) => any),
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+  ): Promise<DataSessionInstance[]>;
+  list(
+    params: DataSessionListInstanceOptions,
     callback?: (error: Error | null, items: DataSessionInstance[]) => any
   ): Promise<DataSessionInstance[]>;
   /**
@@ -128,9 +130,10 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DataSessionListInstancePageOptions
-      | ((error: Error | null, items: DataSessionPage) => any),
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
+  page(
+    params: DataSessionListInstancePageOptions,
     callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage>;
 

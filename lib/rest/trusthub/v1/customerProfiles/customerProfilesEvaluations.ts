@@ -126,7 +126,12 @@ export class CustomerProfilesEvaluationsContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/Evaluations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<CustomerProfilesEvaluationsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesEvaluationsInstance
+    ) => any
+  ): Promise<CustomerProfilesEvaluationsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -311,12 +316,13 @@ export interface CustomerProfilesEvaluationsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | CustomerProfilesEvaluationsListInstanceEachOptions
-      | ((
-          item: CustomerProfilesEvaluationsInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: CustomerProfilesEvaluationsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CustomerProfilesEvaluationsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEvaluationsInstance,
       done: (err?: Error) => void
@@ -347,12 +353,13 @@ export interface CustomerProfilesEvaluationsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | CustomerProfilesEvaluationsListInstanceOptions
-      | ((
-          error: Error | null,
-          items: CustomerProfilesEvaluationsInstance[]
-        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEvaluationsInstance[]
+    ) => any
+  ): Promise<CustomerProfilesEvaluationsInstance[]>;
+  list(
+    params: CustomerProfilesEvaluationsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEvaluationsInstance[]
@@ -370,9 +377,13 @@ export interface CustomerProfilesEvaluationsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | CustomerProfilesEvaluationsListInstancePageOptions
-      | ((error: Error | null, items: CustomerProfilesEvaluationsPage) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEvaluationsPage
+    ) => any
+  ): Promise<CustomerProfilesEvaluationsPage>;
+  page(
+    params: CustomerProfilesEvaluationsListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEvaluationsPage

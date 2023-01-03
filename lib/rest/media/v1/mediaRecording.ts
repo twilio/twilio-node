@@ -147,7 +147,9 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     this._uri = `/MediaRecordings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -161,7 +163,9 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MediaRecordingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MediaRecordingInstance) => any
+  ): Promise<MediaRecordingInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -394,9 +398,13 @@ export interface MediaRecordingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MediaRecordingListInstanceEachOptions
-      | ((item: MediaRecordingInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: MediaRecordingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: MediaRecordingListInstanceEachOptions,
     callback?: (
       item: MediaRecordingInstance,
       done: (err?: Error) => void
@@ -424,9 +432,10 @@ export interface MediaRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MediaRecordingListInstanceOptions
-      | ((error: Error | null, items: MediaRecordingInstance[]) => any),
+    callback?: (error: Error | null, items: MediaRecordingInstance[]) => any
+  ): Promise<MediaRecordingInstance[]>;
+  list(
+    params: MediaRecordingListInstanceOptions,
     callback?: (error: Error | null, items: MediaRecordingInstance[]) => any
   ): Promise<MediaRecordingInstance[]>;
   /**
@@ -441,9 +450,10 @@ export interface MediaRecordingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MediaRecordingListInstancePageOptions
-      | ((error: Error | null, items: MediaRecordingPage) => any),
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
+  ): Promise<MediaRecordingPage>;
+  page(
+    params: MediaRecordingListInstancePageOptions,
     callback?: (error: Error | null, items: MediaRecordingPage) => any
   ): Promise<MediaRecordingPage>;
 

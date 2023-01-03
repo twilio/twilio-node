@@ -76,7 +76,9 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     this._uri = `/Flows/${sid}/TestUsers`;
   }
 
-  fetch(callback?: any): Promise<FlowTestUserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -95,7 +97,12 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<FlowTestUserInstance> {
+  update(
+    params:
+      | FlowTestUserContextUpdateOptions
+      | ((error: Error | null, item?: FlowTestUserInstance) => any),
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

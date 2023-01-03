@@ -153,15 +153,23 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  /**
+   * Update a AssistantInstance
+   *
    * @param { AssistantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   update(
-    params?:
-      | AssistantContextUpdateOptions
-      | ((error: Error | null, item?: AssistantInstance) => any),
+    params: AssistantContextUpdateOptions,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
 
@@ -250,7 +258,9 @@ export class AssistantContextImpl implements AssistantContext {
     return this._webhooks;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -264,7 +274,9 @@ export class AssistantContextImpl implements AssistantContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AssistantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -283,7 +295,12 @@ export class AssistantContextImpl implements AssistantContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AssistantInstance> {
+  update(
+    params?:
+      | AssistantContextUpdateOptions
+      | ((error: Error | null, item?: AssistantInstance) => any),
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -497,9 +514,7 @@ export class AssistantInstance {
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   update(
-    params?:
-      | AssistantContextUpdateOptions
-      | ((error: Error | null, item?: AssistantInstance) => any),
+    params?: AssistantContextUpdateOptions,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     return this._proxy.update(params, callback);
@@ -597,15 +612,23 @@ export interface AssistantListInstance {
   /**
    * Create a AssistantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  /**
+   * Create a AssistantInstance
+   *
    * @param { AssistantListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   create(
-    params?:
-      | AssistantListInstanceCreateOptions
-      | ((error: Error | null, item?: AssistantInstance) => any),
+    params: AssistantListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
 
@@ -625,9 +648,10 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AssistantListInstanceEachOptions
-      | ((item: AssistantInstance, done: (err?: Error) => void) => void),
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AssistantListInstanceEachOptions,
     callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -652,9 +676,10 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AssistantListInstanceOptions
-      | ((error: Error | null, items: AssistantInstance[]) => any),
+    callback?: (error: Error | null, items: AssistantInstance[]) => any
+  ): Promise<AssistantInstance[]>;
+  list(
+    params: AssistantListInstanceOptions,
     callback?: (error: Error | null, items: AssistantInstance[]) => any
   ): Promise<AssistantInstance[]>;
   /**
@@ -669,9 +694,10 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AssistantListInstancePageOptions
-      | ((error: Error | null, items: AssistantPage) => any),
+    callback?: (error: Error | null, items: AssistantPage) => any
+  ): Promise<AssistantPage>;
+  page(
+    params: AssistantListInstancePageOptions,
     callback?: (error: Error | null, items: AssistantPage) => any
   ): Promise<AssistantPage>;
 

@@ -108,7 +108,9 @@ export class DayContextImpl implements DayContext {
     this._uri = `/Exports/${resourceType}/Days/${day}`;
   }
 
-  fetch(callback?: any): Promise<DayInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DayInstance) => any
+  ): Promise<DayInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -266,9 +268,10 @@ export interface DayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | DayListInstanceEachOptions
-      | ((item: DayInstance, done: (err?: Error) => void) => void),
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: DayListInstanceEachOptions,
     callback?: (item: DayInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -293,9 +296,10 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | DayListInstanceOptions
-      | ((error: Error | null, items: DayInstance[]) => any),
+    callback?: (error: Error | null, items: DayInstance[]) => any
+  ): Promise<DayInstance[]>;
+  list(
+    params: DayListInstanceOptions,
     callback?: (error: Error | null, items: DayInstance[]) => any
   ): Promise<DayInstance[]>;
   /**
@@ -310,9 +314,10 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | DayListInstancePageOptions
-      | ((error: Error | null, items: DayPage) => any),
+    callback?: (error: Error | null, items: DayPage) => any
+  ): Promise<DayPage>;
+  page(
+    params: DayListInstancePageOptions,
     callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage>;
 

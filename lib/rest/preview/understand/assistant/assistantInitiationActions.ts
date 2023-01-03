@@ -45,18 +45,26 @@ export interface AssistantInitiationActionsContext {
   /**
    * Update a AssistantInitiationActionsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
+  ): Promise<AssistantInitiationActionsInstance>;
+  /**
+   * Update a AssistantInitiationActionsInstance
+   *
    * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
    */
   update(
-    params?:
-      | AssistantInitiationActionsContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: AssistantInitiationActionsInstance
-        ) => any),
+    params: AssistantInitiationActionsContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AssistantInitiationActionsInstance
@@ -89,7 +97,12 @@ export class AssistantInitiationActionsContextImpl
     this._uri = `/Assistants/${assistantSid}/InitiationActions`;
   }
 
-  fetch(callback?: any): Promise<AssistantInitiationActionsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
+  ): Promise<AssistantInitiationActionsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -113,8 +126,16 @@ export class AssistantInitiationActionsContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantInitiationActionsContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: AssistantInitiationActionsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
   ): Promise<AssistantInitiationActionsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -239,12 +260,7 @@ export class AssistantInitiationActionsInstance {
    * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
    */
   update(
-    params?:
-      | AssistantInitiationActionsContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: AssistantInitiationActionsInstance
-        ) => any),
+    params?: AssistantInitiationActionsContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: AssistantInitiationActionsInstance

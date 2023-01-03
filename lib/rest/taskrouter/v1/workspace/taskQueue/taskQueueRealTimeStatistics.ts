@@ -31,18 +31,26 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueRealTimeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
    * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: TaskQueueRealTimeStatisticsInstance
-        ) => any),
+    params: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: TaskQueueRealTimeStatisticsInstance
@@ -85,8 +93,16 @@ export class TaskQueueRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskQueueRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -278,12 +294,7 @@ export class TaskQueueRealTimeStatisticsInstance {
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
-    params?:
-      | TaskQueueRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: TaskQueueRealTimeStatisticsInstance
-        ) => any),
+    params?: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: TaskQueueRealTimeStatisticsInstance

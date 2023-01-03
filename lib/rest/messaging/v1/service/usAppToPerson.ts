@@ -155,7 +155,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     this._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -169,7 +171,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UsAppToPersonInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -482,9 +486,13 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UsAppToPersonListInstanceEachOptions
-      | ((item: UsAppToPersonInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: UsAppToPersonInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: UsAppToPersonListInstanceEachOptions,
     callback?: (
       item: UsAppToPersonInstance,
       done: (err?: Error) => void
@@ -512,9 +520,10 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UsAppToPersonListInstanceOptions
-      | ((error: Error | null, items: UsAppToPersonInstance[]) => any),
+    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
+  ): Promise<UsAppToPersonInstance[]>;
+  list(
+    params: UsAppToPersonListInstanceOptions,
     callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
   ): Promise<UsAppToPersonInstance[]>;
   /**
@@ -529,9 +538,10 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UsAppToPersonListInstancePageOptions
-      | ((error: Error | null, items: UsAppToPersonPage) => any),
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+  ): Promise<UsAppToPersonPage>;
+  page(
+    params: UsAppToPersonListInstancePageOptions,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
 

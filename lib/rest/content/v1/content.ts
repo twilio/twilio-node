@@ -126,7 +126,9 @@ export class ContentContextImpl implements ContentContext {
     return this._approvalFetch;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -140,7 +142,9 @@ export class ContentContextImpl implements ContentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ContentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -335,9 +339,10 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ContentListInstanceEachOptions
-      | ((item: ContentInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ContentListInstanceEachOptions,
     callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -362,9 +367,10 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ContentListInstanceOptions
-      | ((error: Error | null, items: ContentInstance[]) => any),
+    callback?: (error: Error | null, items: ContentInstance[]) => any
+  ): Promise<ContentInstance[]>;
+  list(
+    params: ContentListInstanceOptions,
     callback?: (error: Error | null, items: ContentInstance[]) => any
   ): Promise<ContentInstance[]>;
   /**
@@ -379,9 +385,10 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ContentListInstancePageOptions
-      | ((error: Error | null, items: ContentPage) => any),
+    callback?: (error: Error | null, items: ContentPage) => any
+  ): Promise<ContentPage>;
+  page(
+    params: ContentListInstancePageOptions,
     callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
 

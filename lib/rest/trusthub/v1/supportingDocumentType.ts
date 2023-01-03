@@ -111,7 +111,12 @@ export class SupportingDocumentTypeContextImpl
     this._uri = `/SupportingDocumentTypes/${sid}`;
   }
 
-  fetch(callback?: any): Promise<SupportingDocumentTypeInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: SupportingDocumentTypeInstance
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -262,12 +267,13 @@ export interface SupportingDocumentTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | SupportingDocumentTypeListInstanceEachOptions
-      | ((
-          item: SupportingDocumentTypeInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: SupportingDocumentTypeInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: SupportingDocumentTypeListInstanceEachOptions,
     callback?: (
       item: SupportingDocumentTypeInstance,
       done: (err?: Error) => void
@@ -295,9 +301,13 @@ export interface SupportingDocumentTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | SupportingDocumentTypeListInstanceOptions
-      | ((error: Error | null, items: SupportingDocumentTypeInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: SupportingDocumentTypeInstance[]
+    ) => any
+  ): Promise<SupportingDocumentTypeInstance[]>;
+  list(
+    params: SupportingDocumentTypeListInstanceOptions,
     callback?: (
       error: Error | null,
       items: SupportingDocumentTypeInstance[]
@@ -315,9 +325,10 @@ export interface SupportingDocumentTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | SupportingDocumentTypeListInstancePageOptions
-      | ((error: Error | null, items: SupportingDocumentTypePage) => any),
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+  ): Promise<SupportingDocumentTypePage>;
+  page(
+    params: SupportingDocumentTypeListInstancePageOptions,
     callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
   ): Promise<SupportingDocumentTypePage>;
 

@@ -132,15 +132,26 @@ export interface ConnectionPolicyTargetContext {
   /**
    * Update a ConnectionPolicyTargetInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: ConnectionPolicyTargetInstance
+    ) => any
+  ): Promise<ConnectionPolicyTargetInstance>;
+  /**
+   * Update a ConnectionPolicyTargetInstance
+   *
    * @param { ConnectionPolicyTargetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
    */
   update(
-    params?:
-      | ConnectionPolicyTargetContextUpdateOptions
-      | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
+    params: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: ConnectionPolicyTargetInstance
@@ -182,7 +193,9 @@ export class ConnectionPolicyTargetContextImpl
     this._uri = `/ConnectionPolicies/${connectionPolicySid}/Targets/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -196,7 +209,12 @@ export class ConnectionPolicyTargetContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ConnectionPolicyTargetInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: ConnectionPolicyTargetInstance
+    ) => any
+  ): Promise<ConnectionPolicyTargetInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -221,8 +239,13 @@ export class ConnectionPolicyTargetContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | ConnectionPolicyTargetContextUpdateOptions
+      | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: ConnectionPolicyTargetInstance
+    ) => any
   ): Promise<ConnectionPolicyTargetInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -423,9 +446,7 @@ export class ConnectionPolicyTargetInstance {
    * @returns { Promise } Resolves to processed ConnectionPolicyTargetInstance
    */
   update(
-    params?:
-      | ConnectionPolicyTargetContextUpdateOptions
-      | ((error: Error | null, item?: ConnectionPolicyTargetInstance) => any),
+    params?: ConnectionPolicyTargetContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: ConnectionPolicyTargetInstance
@@ -496,12 +517,13 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ConnectionPolicyTargetListInstanceEachOptions
-      | ((
-          item: ConnectionPolicyTargetInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: ConnectionPolicyTargetInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: ConnectionPolicyTargetListInstanceEachOptions,
     callback?: (
       item: ConnectionPolicyTargetInstance,
       done: (err?: Error) => void
@@ -529,9 +551,13 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ConnectionPolicyTargetListInstanceOptions
-      | ((error: Error | null, items: ConnectionPolicyTargetInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: ConnectionPolicyTargetInstance[]
+    ) => any
+  ): Promise<ConnectionPolicyTargetInstance[]>;
+  list(
+    params: ConnectionPolicyTargetListInstanceOptions,
     callback?: (
       error: Error | null,
       items: ConnectionPolicyTargetInstance[]
@@ -549,9 +575,10 @@ export interface ConnectionPolicyTargetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ConnectionPolicyTargetListInstancePageOptions
-      | ((error: Error | null, items: ConnectionPolicyTargetPage) => any),
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
+  ): Promise<ConnectionPolicyTargetPage>;
+  page(
+    params: ConnectionPolicyTargetListInstancePageOptions,
     callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage>;
 

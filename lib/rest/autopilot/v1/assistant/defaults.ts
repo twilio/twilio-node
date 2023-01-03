@@ -42,15 +42,23 @@ export interface DefaultsContext {
   /**
    * Update a DefaultsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DefaultsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance>;
+  /**
+   * Update a DefaultsInstance
+   *
    * @param { DefaultsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
   update(
-    params?:
-      | DefaultsContextUpdateOptions
-      | ((error: Error | null, item?: DefaultsInstance) => any),
+    params: DefaultsContextUpdateOptions,
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance>;
 
@@ -78,7 +86,9 @@ export class DefaultsContextImpl implements DefaultsContext {
     this._uri = `/Assistants/${assistantSid}/Defaults`;
   }
 
-  fetch(callback?: any): Promise<DefaultsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -101,7 +111,12 @@ export class DefaultsContextImpl implements DefaultsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DefaultsInstance> {
+  update(
+    params?:
+      | DefaultsContextUpdateOptions
+      | ((error: Error | null, item?: DefaultsInstance) => any),
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -230,9 +245,7 @@ export class DefaultsInstance {
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
   update(
-    params?:
-      | DefaultsContextUpdateOptions
-      | ((error: Error | null, item?: DefaultsInstance) => any),
+    params?: DefaultsContextUpdateOptions,
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance> {
     return this._proxy.update(params, callback);

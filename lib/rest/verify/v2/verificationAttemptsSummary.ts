@@ -47,18 +47,26 @@ export interface VerificationAttemptsSummaryContext {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
+  ): Promise<VerificationAttemptsSummaryInstance>;
+  /**
+   * Fetch a VerificationAttemptsSummaryInstance
+   *
    * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
-    params?:
-      | VerificationAttemptsSummaryContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: VerificationAttemptsSummaryInstance
-        ) => any),
+    params: VerificationAttemptsSummaryContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: VerificationAttemptsSummaryInstance
@@ -86,8 +94,16 @@ export class VerificationAttemptsSummaryContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | VerificationAttemptsSummaryContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: VerificationAttemptsSummaryInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
   ): Promise<VerificationAttemptsSummaryInstance> {
     if (typeof params === "function") {
       callback = params as (
@@ -214,12 +230,7 @@ export class VerificationAttemptsSummaryInstance {
    * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
-    params?:
-      | VerificationAttemptsSummaryContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: VerificationAttemptsSummaryInstance
-        ) => any),
+    params?: VerificationAttemptsSummaryContextFetchOptions,
     callback?: (
       error: Error | null,
       item?: VerificationAttemptsSummaryInstance

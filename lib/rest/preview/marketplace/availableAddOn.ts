@@ -118,7 +118,9 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
     return this._extensions;
   }
 
-  fetch(callback?: any): Promise<AvailableAddOnInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
+  ): Promise<AvailableAddOnInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -287,9 +289,13 @@ export interface AvailableAddOnListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | AvailableAddOnListInstanceEachOptions
-      | ((item: AvailableAddOnInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: AvailableAddOnInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: AvailableAddOnListInstanceEachOptions,
     callback?: (
       item: AvailableAddOnInstance,
       done: (err?: Error) => void
@@ -317,9 +323,10 @@ export interface AvailableAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | AvailableAddOnListInstanceOptions
-      | ((error: Error | null, items: AvailableAddOnInstance[]) => any),
+    callback?: (error: Error | null, items: AvailableAddOnInstance[]) => any
+  ): Promise<AvailableAddOnInstance[]>;
+  list(
+    params: AvailableAddOnListInstanceOptions,
     callback?: (error: Error | null, items: AvailableAddOnInstance[]) => any
   ): Promise<AvailableAddOnInstance[]>;
   /**
@@ -334,9 +341,10 @@ export interface AvailableAddOnListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | AvailableAddOnListInstancePageOptions
-      | ((error: Error | null, items: AvailableAddOnPage) => any),
+    callback?: (error: Error | null, items: AvailableAddOnPage) => any
+  ): Promise<AvailableAddOnPage>;
+  page(
+    params: AvailableAddOnListInstancePageOptions,
     callback?: (error: Error | null, items: AvailableAddOnPage) => any
   ): Promise<AvailableAddOnPage>;
 

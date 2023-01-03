@@ -217,15 +217,23 @@ export interface BundleContext {
   /**
    * Update a BundleInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BundleInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+  /**
+   * Update a BundleInstance
+   *
    * @param { BundleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
   update(
-    params?:
-      | BundleContextUpdateOptions
-      | ((error: Error | null, item?: BundleInstance) => any),
+    params: BundleContextUpdateOptions,
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance>;
 
@@ -286,7 +294,9 @@ export class BundleContextImpl implements BundleContext {
     return this._replaceItems;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -300,7 +310,9 @@ export class BundleContextImpl implements BundleContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BundleInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -319,7 +331,12 @@ export class BundleContextImpl implements BundleContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<BundleInstance> {
+  update(
+    params?:
+      | BundleContextUpdateOptions
+      | ((error: Error | null, item?: BundleInstance) => any),
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: BundleInstance) => any;
       params = {};
@@ -500,9 +517,7 @@ export class BundleInstance {
    * @returns { Promise } Resolves to processed BundleInstance
    */
   update(
-    params?:
-      | BundleContextUpdateOptions
-      | ((error: Error | null, item?: BundleInstance) => any),
+    params?: BundleContextUpdateOptions,
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance> {
     return this._proxy.update(params, callback);
@@ -596,9 +611,10 @@ export interface BundleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | BundleListInstanceEachOptions
-      | ((item: BundleInstance, done: (err?: Error) => void) => void),
+    callback?: (item: BundleInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: BundleListInstanceEachOptions,
     callback?: (item: BundleInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -623,9 +639,10 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | BundleListInstanceOptions
-      | ((error: Error | null, items: BundleInstance[]) => any),
+    callback?: (error: Error | null, items: BundleInstance[]) => any
+  ): Promise<BundleInstance[]>;
+  list(
+    params: BundleListInstanceOptions,
     callback?: (error: Error | null, items: BundleInstance[]) => any
   ): Promise<BundleInstance[]>;
   /**
@@ -640,9 +657,10 @@ export interface BundleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | BundleListInstancePageOptions
-      | ((error: Error | null, items: BundlePage) => any),
+    callback?: (error: Error | null, items: BundlePage) => any
+  ): Promise<BundlePage>;
+  page(
+    params: BundleListInstancePageOptions,
     callback?: (error: Error | null, items: BundlePage) => any
   ): Promise<BundlePage>;
 

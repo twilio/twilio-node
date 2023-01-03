@@ -150,7 +150,9 @@ export class RoleContextImpl implements RoleContext {
     this._uri = `/Roles/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -164,7 +166,9 @@ export class RoleContextImpl implements RoleContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RoleInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -183,7 +187,12 @@ export class RoleContextImpl implements RoleContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<RoleInstance> {
+  update(
+    params:
+      | RoleContextUpdateOptions
+      | ((error: Error | null, item?: RoleInstance) => any),
+    callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -405,9 +414,10 @@ export interface RoleListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | RoleListInstanceEachOptions
-      | ((item: RoleInstance, done: (err?: Error) => void) => void),
+    callback?: (item: RoleInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: RoleListInstanceEachOptions,
     callback?: (item: RoleInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -432,9 +442,10 @@ export interface RoleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | RoleListInstanceOptions
-      | ((error: Error | null, items: RoleInstance[]) => any),
+    callback?: (error: Error | null, items: RoleInstance[]) => any
+  ): Promise<RoleInstance[]>;
+  list(
+    params: RoleListInstanceOptions,
     callback?: (error: Error | null, items: RoleInstance[]) => any
   ): Promise<RoleInstance[]>;
   /**
@@ -449,9 +460,10 @@ export interface RoleListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | RoleListInstancePageOptions
-      | ((error: Error | null, items: RolePage) => any),
+    callback?: (error: Error | null, items: RolePage) => any
+  ): Promise<RolePage>;
+  page(
+    params: RoleListInstancePageOptions,
     callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage>;
 

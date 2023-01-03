@@ -116,15 +116,23 @@ export interface OutgoingCallerIdContext {
   /**
    * Update a OutgoingCallerIdInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
+  /**
+   * Update a OutgoingCallerIdInstance
+   *
    * @param { OutgoingCallerIdContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    params?:
-      | OutgoingCallerIdContextUpdateOptions
-      | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
+    params: OutgoingCallerIdContextUpdateOptions,
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
 
@@ -157,7 +165,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     this._uri = `/Accounts/${accountSid}/OutgoingCallerIds/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -171,7 +181,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<OutgoingCallerIdInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -195,7 +207,12 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<OutgoingCallerIdInstance> {
+  update(
+    params?:
+      | OutgoingCallerIdContextUpdateOptions
+      | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -363,9 +380,7 @@ export class OutgoingCallerIdInstance {
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    params?:
-      | OutgoingCallerIdContextUpdateOptions
-      | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
+    params?: OutgoingCallerIdContextUpdateOptions,
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.update(params, callback);
@@ -413,9 +428,13 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | OutgoingCallerIdListInstanceEachOptions
-      | ((item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void),
+    callback?: (
+      item: OutgoingCallerIdInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: OutgoingCallerIdListInstanceEachOptions,
     callback?: (
       item: OutgoingCallerIdInstance,
       done: (err?: Error) => void
@@ -443,9 +462,10 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | OutgoingCallerIdListInstanceOptions
-      | ((error: Error | null, items: OutgoingCallerIdInstance[]) => any),
+    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
+  ): Promise<OutgoingCallerIdInstance[]>;
+  list(
+    params: OutgoingCallerIdListInstanceOptions,
     callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
   ): Promise<OutgoingCallerIdInstance[]>;
   /**
@@ -460,9 +480,10 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | OutgoingCallerIdListInstancePageOptions
-      | ((error: Error | null, items: OutgoingCallerIdPage) => any),
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
+  ): Promise<OutgoingCallerIdPage>;
+  page(
+    params: OutgoingCallerIdListInstancePageOptions,
     callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
 

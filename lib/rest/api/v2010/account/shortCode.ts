@@ -112,15 +112,23 @@ export interface ShortCodeContext {
   /**
    * Update a ShortCodeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ShortCodeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
+  /**
+   * Update a ShortCodeInstance
+   *
    * @param { ShortCodeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
   update(
-    params?:
-      | ShortCodeContextUpdateOptions
-      | ((error: Error | null, item?: ShortCodeInstance) => any),
+    params: ShortCodeContextUpdateOptions,
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance>;
 
@@ -153,7 +161,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     this._uri = `/Accounts/${accountSid}/SMS/ShortCodes/${sid}.json`;
   }
 
-  fetch(callback?: any): Promise<ShortCodeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -177,7 +187,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ShortCodeInstance> {
+  update(
+    params?:
+      | ShortCodeContextUpdateOptions
+      | ((error: Error | null, item?: ShortCodeInstance) => any),
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -386,9 +401,7 @@ export class ShortCodeInstance {
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
   update(
-    params?:
-      | ShortCodeContextUpdateOptions
-      | ((error: Error | null, item?: ShortCodeInstance) => any),
+    params?: ShortCodeContextUpdateOptions,
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     return this._proxy.update(params, callback);
@@ -441,9 +454,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ShortCodeListInstanceEachOptions
-      | ((item: ShortCodeInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ShortCodeListInstanceEachOptions,
     callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -468,9 +482,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ShortCodeListInstanceOptions
-      | ((error: Error | null, items: ShortCodeInstance[]) => any),
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
+  list(
+    params: ShortCodeListInstanceOptions,
     callback?: (error: Error | null, items: ShortCodeInstance[]) => any
   ): Promise<ShortCodeInstance[]>;
   /**
@@ -485,9 +500,10 @@ export interface ShortCodeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ShortCodeListInstancePageOptions
-      | ((error: Error | null, items: ShortCodePage) => any),
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
+  page(
+    params: ShortCodeListInstancePageOptions,
     callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage>;
 

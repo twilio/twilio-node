@@ -181,7 +181,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._users;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -195,7 +197,9 @@ export class ServiceContextImpl implements ServiceContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ServiceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -417,9 +421,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ServiceListInstanceEachOptions
-      | ((item: ServiceInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ServiceListInstanceEachOptions,
     callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -444,9 +449,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ServiceListInstanceOptions
-      | ((error: Error | null, items: ServiceInstance[]) => any),
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
+  list(
+    params: ServiceListInstanceOptions,
     callback?: (error: Error | null, items: ServiceInstance[]) => any
   ): Promise<ServiceInstance[]>;
   /**
@@ -461,9 +467,10 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ServiceListInstancePageOptions
-      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
+  page(
+    params: ServiceListInstancePageOptions,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
 

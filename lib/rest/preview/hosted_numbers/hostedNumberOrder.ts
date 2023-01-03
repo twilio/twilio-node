@@ -207,15 +207,23 @@ export interface HostedNumberOrderContext {
   /**
    * Update a HostedNumberOrderInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+  /**
+   * Update a HostedNumberOrderInstance
+   *
    * @param { HostedNumberOrderContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
   update(
-    params?:
-      | HostedNumberOrderContextUpdateOptions
-      | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
+    params: HostedNumberOrderContextUpdateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
@@ -243,7 +251,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     this._uri = `/HostedNumberOrders/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -257,7 +267,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<HostedNumberOrderInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -280,7 +292,12 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<HostedNumberOrderInstance> {
+  update(
+    params?:
+      | HostedNumberOrderContextUpdateOptions
+      | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -547,9 +564,7 @@ export class HostedNumberOrderInstance {
    * @returns { Promise } Resolves to processed HostedNumberOrderInstance
    */
   update(
-    params?:
-      | HostedNumberOrderContextUpdateOptions
-      | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
+    params?: HostedNumberOrderContextUpdateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     return this._proxy.update(params, callback);
@@ -626,12 +641,13 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | HostedNumberOrderListInstanceEachOptions
-      | ((
-          item: HostedNumberOrderInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: HostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: HostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: HostedNumberOrderInstance,
       done: (err?: Error) => void
@@ -659,9 +675,10 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | HostedNumberOrderListInstanceOptions
-      | ((error: Error | null, items: HostedNumberOrderInstance[]) => any),
+    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
+  ): Promise<HostedNumberOrderInstance[]>;
+  list(
+    params: HostedNumberOrderListInstanceOptions,
     callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
   ): Promise<HostedNumberOrderInstance[]>;
   /**
@@ -676,9 +693,10 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | HostedNumberOrderListInstancePageOptions
-      | ((error: Error | null, items: HostedNumberOrderPage) => any),
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
+  ): Promise<HostedNumberOrderPage>;
+  page(
+    params: HostedNumberOrderListInstancePageOptions,
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
 

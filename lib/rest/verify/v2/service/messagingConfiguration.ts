@@ -162,7 +162,9 @@ export class MessagingConfigurationContextImpl
     this._uri = `/Services/${serviceSid}/MessagingConfigurations/${country}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -176,7 +178,12 @@ export class MessagingConfigurationContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MessagingConfigurationInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -200,7 +207,15 @@ export class MessagingConfigurationContextImpl
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
+  update(
+    params:
+      | MessagingConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: MessagingConfigurationInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -440,12 +455,13 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | MessagingConfigurationListInstanceEachOptions
-      | ((
-          item: MessagingConfigurationInstance,
-          done: (err?: Error) => void
-        ) => void),
+    callback?: (
+      item: MessagingConfigurationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: MessagingConfigurationListInstanceEachOptions,
     callback?: (
       item: MessagingConfigurationInstance,
       done: (err?: Error) => void
@@ -473,9 +489,13 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | MessagingConfigurationListInstanceOptions
-      | ((error: Error | null, items: MessagingConfigurationInstance[]) => any),
+    callback?: (
+      error: Error | null,
+      items: MessagingConfigurationInstance[]
+    ) => any
+  ): Promise<MessagingConfigurationInstance[]>;
+  list(
+    params: MessagingConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: MessagingConfigurationInstance[]
@@ -493,9 +513,10 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | MessagingConfigurationListInstancePageOptions
-      | ((error: Error | null, items: MessagingConfigurationPage) => any),
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
+  page(
+    params: MessagingConfigurationListInstancePageOptions,
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage>;
 

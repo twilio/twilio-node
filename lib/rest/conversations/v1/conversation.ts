@@ -144,15 +144,23 @@ export interface ConversationContext {
   /**
    * Remove a ConversationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a ConversationInstance
+   *
    * @param { ConversationContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   remove(
-    params?:
-      | ConversationContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params: ConversationContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -170,15 +178,23 @@ export interface ConversationContext {
   /**
    * Update a ConversationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConversationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConversationInstance) => any
+  ): Promise<ConversationInstance>;
+  /**
+   * Update a ConversationInstance
+   *
    * @param { ConversationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   update(
-    params?:
-      | ConversationContextUpdateOptions
-      | ((error: Error | null, item?: ConversationInstance) => any),
+    params: ConversationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
@@ -229,7 +245,12 @@ export class ConversationContextImpl implements ConversationContext {
     return this._webhooks;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | ConversationContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
@@ -258,7 +279,9 @@ export class ConversationContextImpl implements ConversationContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ConversationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ConversationInstance) => any
+  ): Promise<ConversationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -277,7 +300,12 @@ export class ConversationContextImpl implements ConversationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ConversationInstance> {
+  update(
+    params?:
+      | ConversationContextUpdateOptions
+      | ((error: Error | null, item?: ConversationInstance) => any),
+    callback?: (error: Error | null, item?: ConversationInstance) => any
+  ): Promise<ConversationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -462,9 +490,7 @@ export class ConversationInstance {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   remove(
-    params?:
-      | ConversationContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
+    params?: ConversationContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -492,9 +518,7 @@ export class ConversationInstance {
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   update(
-    params?:
-      | ConversationContextUpdateOptions
-      | ((error: Error | null, item?: ConversationInstance) => any),
+    params?: ConversationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     return this._proxy.update(params, callback);
@@ -557,15 +581,23 @@ export interface ConversationListInstance {
   /**
    * Create a ConversationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConversationInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ConversationInstance) => any
+  ): Promise<ConversationInstance>;
+  /**
+   * Create a ConversationInstance
+   *
    * @param { ConversationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConversationInstance
    */
   create(
-    params?:
-      | ConversationListInstanceCreateOptions
-      | ((error: Error | null, item?: ConversationInstance) => any),
+    params: ConversationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
@@ -585,9 +617,10 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ConversationListInstanceEachOptions
-      | ((item: ConversationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ConversationListInstanceEachOptions,
     callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -612,9 +645,10 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ConversationListInstanceOptions
-      | ((error: Error | null, items: ConversationInstance[]) => any),
+    callback?: (error: Error | null, items: ConversationInstance[]) => any
+  ): Promise<ConversationInstance[]>;
+  list(
+    params: ConversationListInstanceOptions,
     callback?: (error: Error | null, items: ConversationInstance[]) => any
   ): Promise<ConversationInstance[]>;
   /**
@@ -629,9 +663,10 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ConversationListInstancePageOptions
-      | ((error: Error | null, items: ConversationPage) => any),
+    callback?: (error: Error | null, items: ConversationPage) => any
+  ): Promise<ConversationPage>;
+  page(
+    params: ConversationListInstancePageOptions,
     callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
 

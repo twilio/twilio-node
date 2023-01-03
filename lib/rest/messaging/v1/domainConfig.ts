@@ -82,7 +82,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Config`;
   }
 
-  fetch(callback?: any): Promise<DomainConfigInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -105,7 +107,12 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+  update(
+    params:
+      | DomainConfigContextUpdateOptions
+      | ((error: Error | null, item?: DomainConfigInstance) => any),
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }

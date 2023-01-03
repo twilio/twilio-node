@@ -131,15 +131,23 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  /**
+   * Update a UserInstance
+   *
    * @param { UserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?:
-      | UserContextUpdateOptions
-      | ((error: Error | null, item?: UserInstance) => any),
+    params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
@@ -197,7 +205,9 @@ export class UserContextImpl implements UserContext {
     return this._userChannels;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     let operationVersion = this._version,
       operationPromise = operationVersion.remove({
         uri: this._uri,
@@ -211,7 +221,9 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -235,7 +247,12 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserInstance> {
+  update(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     if (typeof params === "function") {
       callback = params as (error: Error | null, item?: UserInstance) => any;
       params = {};
@@ -449,9 +466,7 @@ export class UserInstance {
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?:
-      | UserContextUpdateOptions
-      | ((error: Error | null, item?: UserInstance) => any),
+    params?: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
@@ -533,9 +548,10 @@ export interface UserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | UserListInstanceEachOptions
-      | ((item: UserInstance, done: (err?: Error) => void) => void),
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UserListInstanceEachOptions,
     callback?: (item: UserInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -560,9 +576,10 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | UserListInstanceOptions
-      | ((error: Error | null, items: UserInstance[]) => any),
+    callback?: (error: Error | null, items: UserInstance[]) => any
+  ): Promise<UserInstance[]>;
+  list(
+    params: UserListInstanceOptions,
     callback?: (error: Error | null, items: UserInstance[]) => any
   ): Promise<UserInstance[]>;
   /**
@@ -577,9 +594,10 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | UserListInstancePageOptions
-      | ((error: Error | null, items: UserPage) => any),
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage>;
+  page(
+    params: UserListInstancePageOptions,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
 

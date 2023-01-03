@@ -223,15 +223,23 @@ export interface ReservationContext {
   /**
    * Update a ReservationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ReservationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ReservationInstance) => any
+  ): Promise<ReservationInstance>;
+  /**
+   * Update a ReservationInstance
+   *
    * @param { ReservationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ReservationInstance
    */
   update(
-    params?:
-      | ReservationContextUpdateOptions
-      | ((error: Error | null, item?: ReservationInstance) => any),
+    params: ReservationContextUpdateOptions,
     callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
 
@@ -274,7 +282,9 @@ export class ReservationContextImpl implements ReservationContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Reservations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<ReservationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ReservationInstance) => any
+  ): Promise<ReservationInstance> {
     let operationVersion = this._version,
       operationPromise = operationVersion.fetch({
         uri: this._uri,
@@ -299,7 +309,12 @@ export class ReservationContextImpl implements ReservationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ReservationInstance> {
+  update(
+    params?:
+      | ReservationContextUpdateOptions
+      | ((error: Error | null, item?: ReservationInstance) => any),
+    callback?: (error: Error | null, item?: ReservationInstance) => any
+  ): Promise<ReservationInstance> {
     if (typeof params === "function") {
       callback = params as (
         error: Error | null,
@@ -592,9 +607,7 @@ export class ReservationInstance {
    * @returns { Promise } Resolves to processed ReservationInstance
    */
   update(
-    params?:
-      | ReservationContextUpdateOptions
-      | ((error: Error | null, item?: ReservationInstance) => any),
+    params?: ReservationContextUpdateOptions,
     callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     return this._proxy.update(params, callback);
@@ -646,9 +659,10 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?:
-      | ReservationListInstanceEachOptions
-      | ((item: ReservationInstance, done: (err?: Error) => void) => void),
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: ReservationListInstanceEachOptions,
     callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
@@ -673,9 +687,10 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?:
-      | ReservationListInstanceOptions
-      | ((error: Error | null, items: ReservationInstance[]) => any),
+    callback?: (error: Error | null, items: ReservationInstance[]) => any
+  ): Promise<ReservationInstance[]>;
+  list(
+    params: ReservationListInstanceOptions,
     callback?: (error: Error | null, items: ReservationInstance[]) => any
   ): Promise<ReservationInstance[]>;
   /**
@@ -690,9 +705,10 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params?:
-      | ReservationListInstancePageOptions
-      | ((error: Error | null, items: ReservationPage) => any),
+    callback?: (error: Error | null, items: ReservationPage) => any
+  ): Promise<ReservationPage>;
+  page(
+    params: ReservationListInstancePageOptions,
     callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage>;
 
