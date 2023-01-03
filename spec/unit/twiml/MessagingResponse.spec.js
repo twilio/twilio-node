@@ -98,4 +98,28 @@ describe("create messaging response TwiML", function () {
       '<?xml version="1.0" encoding="UTF-8"?><Response>before<Child>content</Child>after</Response>'
     );
   });
+
+  it("should contain comment", function () {
+    let actual = new MessagingResponse();
+    actual.comment("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response><!-- Hello World --></Response>'
+    );
+  });
+
+  it("should contain comment before tag", function () {
+    let actual = new MessagingResponse();
+    actual.commentBefore("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><!-- Hello World --><Response/>'
+    );
+  });
+
+  it("should contain comment after tag", function () {
+    let actual = new MessagingResponse();
+    actual.commentAfter("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response/><!-- Hello World -->'
+    );
+  });
 });

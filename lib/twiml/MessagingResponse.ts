@@ -19,6 +19,30 @@ class MessagingResponse extends TwiML {
     this._propertyName = "response";
   }
   /**
+   * Comments in <Response>
+   *
+   * @param comment - XML Comment
+   */
+  comment(comment: string): XMLElement {
+    return this.response.comment(comment);
+  }
+  /**
+   * Comments after <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentAfter(comment: string): XMLElement {
+    return this.response.commentAfter(comment);
+  }
+  /**
+   * Comments before <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentBefore(comment: string): XMLElement {
+    return this.response.commentBefore(comment);
+  }
+  /**
    * <Message> TwiML Verb
    *
    * @function message
