@@ -227,13 +227,28 @@ export class PlaybackGrantInstance {
   /**
    * Create a PlaybackGrantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance>;
+  /**
+   * Create a PlaybackGrantInstance
+   *
    * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PlaybackGrantInstance
    */
   create(
-    params?: PlaybackGrantContextCreateOptions,
+    params: PlaybackGrantContextCreateOptions,
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance>;
+
+  create(
+    params?: any,
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance> {
     return this._proxy.create(params, callback);

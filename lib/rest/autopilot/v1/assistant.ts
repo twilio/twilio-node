@@ -508,13 +508,28 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+  /**
+   * Update a AssistantInstance
+   *
    * @param { AssistantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantInstance
    */
   update(
-    params?: AssistantContextUpdateOptions,
+    params: AssistantContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssistantInstance) => any
+  ): Promise<AssistantInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     return this._proxy.update(params, callback);

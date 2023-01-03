@@ -463,13 +463,28 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SyncMapItemInstance
+   *
    * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
   remove(
-    params?: SyncMapItemContextRemoveOptions,
+    params: SyncMapItemContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -491,13 +506,28 @@ export class SyncMapItemInstance {
   /**
    * Update a SyncMapItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
+  /**
+   * Update a SyncMapItemInstance
+   *
    * @param { SyncMapItemContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapItemInstance
    */
   update(
-    params?: SyncMapItemContextUpdateOptions,
+    params: SyncMapItemContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
     return this._proxy.update(params, callback);

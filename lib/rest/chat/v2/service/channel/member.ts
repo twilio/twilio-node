@@ -473,13 +473,28 @@ export class MemberInstance {
   /**
    * Remove a MemberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a MemberInstance
+   *
    * @param { MemberContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
   remove(
-    params?: MemberContextRemoveOptions,
+    params: MemberContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -501,13 +516,28 @@ export class MemberInstance {
   /**
    * Update a MemberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MemberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  /**
+   * Update a MemberInstance
+   *
    * @param { MemberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
   update(
-    params?: MemberContextUpdateOptions,
+    params: MemberContextUpdateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);

@@ -217,13 +217,28 @@ export class WorkerStatisticsInstance {
   /**
    * Fetch a WorkerStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance>;
+  /**
+   * Fetch a WorkerStatisticsInstance
+   *
    * @param { WorkerStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerStatisticsInstance
    */
   fetch(
-    params?: WorkerStatisticsContextFetchOptions,
+    params: WorkerStatisticsContextFetchOptions,
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance> {
     return this._proxy.fetch(params, callback);

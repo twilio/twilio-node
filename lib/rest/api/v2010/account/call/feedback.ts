@@ -277,13 +277,28 @@ export class FeedbackInstance {
   /**
    * Update a FeedbackInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FeedbackInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+  /**
+   * Update a FeedbackInstance
+   *
    * @param { FeedbackContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FeedbackInstance
    */
   update(
-    params?: FeedbackContextUpdateOptions,
+    params: FeedbackContextUpdateOptions,
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     return this._proxy.update(params, callback);

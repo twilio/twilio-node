@@ -386,13 +386,28 @@ export class UserChannelInstance {
   /**
    * Update a UserChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance>;
+  /**
+   * Update a UserChannelInstance
+   *
    * @param { UserChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   update(
-    params?: UserChannelContextUpdateOptions,
+    params: UserChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
     return this._proxy.update(params, callback);

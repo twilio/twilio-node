@@ -398,13 +398,28 @@ export class CertificateInstance {
   /**
    * Update a CertificateInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CertificateInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+  /**
+   * Update a CertificateInstance
+   *
    * @param { CertificateContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CertificateInstance
    */
   update(
-    params?: CertificateContextUpdateOptions,
+    params: CertificateContextUpdateOptions,
+    callback?: (error: Error | null, item?: CertificateInstance) => any
+  ): Promise<CertificateInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance> {
     return this._proxy.update(params, callback);

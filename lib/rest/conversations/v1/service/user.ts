@@ -448,13 +448,28 @@ export class UserInstance {
   /**
    * Remove a UserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a UserInstance
+   *
    * @param { UserContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
   remove(
-    params?: UserContextRemoveOptions,
+    params: UserContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -476,13 +491,28 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  /**
+   * Update a UserInstance
+   *
    * @param { UserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?: UserContextUpdateOptions,
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);

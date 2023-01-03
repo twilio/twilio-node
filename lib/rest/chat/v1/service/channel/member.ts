@@ -418,13 +418,28 @@ export class MemberInstance {
   /**
    * Update a MemberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MemberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+  /**
+   * Update a MemberInstance
+   *
    * @param { MemberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MemberInstance
    */
   update(
-    params?: MemberContextUpdateOptions,
+    params: MemberContextUpdateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);

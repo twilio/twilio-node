@@ -288,13 +288,34 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueRealTimeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
    * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
-    params?: TaskQueueRealTimeStatisticsContextFetchOptions,
+    params: TaskQueueRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueRealTimeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: TaskQueueRealTimeStatisticsInstance

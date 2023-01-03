@@ -492,6 +492,11 @@ export class CompositionHookInstance {
   update(
     params: CompositionHookContextUpdateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
     return this._proxy.update(params, callback);
   }

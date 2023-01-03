@@ -388,6 +388,11 @@ export class FunctionInstance {
   update(
     params: FunctionContextUpdateOptions,
     callback?: (error: Error | null, item?: FunctionInstance) => any
+  ): Promise<FunctionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance> {
     return this._proxy.update(params, callback);
   }

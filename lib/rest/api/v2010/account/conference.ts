@@ -439,13 +439,28 @@ export class ConferenceInstance {
   /**
    * Update a ConferenceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConferenceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
+  /**
+   * Update a ConferenceInstance
+   *
    * @param { ConferenceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConferenceInstance
    */
   update(
-    params?: ConferenceContextUpdateOptions,
+    params: ConferenceContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConferenceInstance) => any
+  ): Promise<ConferenceInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
     return this._proxy.update(params, callback);

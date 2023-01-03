@@ -429,13 +429,28 @@ export class SyncListInstance {
   /**
    * Update a SyncListInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
+  /**
+   * Update a SyncListInstance
+   *
    * @param { SyncListContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListInstance
    */
   update(
-    params?: SyncListContextUpdateOptions,
+    params: SyncListContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncListInstance) => any
+  ): Promise<SyncListInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     return this._proxy.update(params, callback);

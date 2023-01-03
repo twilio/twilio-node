@@ -361,6 +361,11 @@ export class InteractionChannelInstance {
   update(
     params: InteractionChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: InteractionChannelInstance) => any
+  ): Promise<InteractionChannelInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: InteractionChannelInstance) => any
   ): Promise<InteractionChannelInstance> {
     return this._proxy.update(params, callback);
   }

@@ -208,13 +208,28 @@ export class SettingsInstance {
   /**
    * Update a SettingsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
+  /**
+   * Update a SettingsInstance
+   *
    * @param { SettingsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingsInstance
    */
   update(
-    params?: SettingsContextUpdateOptions,
+    params: SettingsContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);

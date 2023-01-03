@@ -514,13 +514,28 @@ export class TaskQueueInstance {
   /**
    * Update a TaskQueueInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+  /**
+   * Update a TaskQueueInstance
+   *
    * @param { TaskQueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueInstance
    */
   update(
-    params?: TaskQueueContextUpdateOptions,
+    params: TaskQueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+  ): Promise<TaskQueueInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     return this._proxy.update(params, callback);

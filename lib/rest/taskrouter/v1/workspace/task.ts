@@ -565,13 +565,28 @@ export class TaskInstance {
   /**
    * Remove a TaskInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a TaskInstance
+   *
    * @param { TaskContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
   remove(
-    params?: TaskContextRemoveOptions,
+    params: TaskContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -593,13 +608,28 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  /**
+   * Update a TaskInstance
+   *
    * @param { TaskContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params?: TaskContextUpdateOptions,
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     return this._proxy.update(params, callback);

@@ -570,13 +570,28 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  /**
+   * Update a MessageInstance
+   *
    * @param { MessageContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params?: MessageContextUpdateOptions,
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);

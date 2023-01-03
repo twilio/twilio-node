@@ -353,6 +353,11 @@ export class SourceIpMappingInstance {
   update(
     params: SourceIpMappingContextUpdateOptions,
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance> {
     return this._proxy.update(params, callback);
   }

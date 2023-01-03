@@ -301,13 +301,28 @@ export class AnnotationInstance {
   /**
    * Update a AnnotationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
+  /**
+   * Update a AnnotationInstance
+   *
    * @param { AnnotationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
   update(
-    params?: AnnotationContextUpdateOptions,
+    params: AnnotationContextUpdateOptions,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);

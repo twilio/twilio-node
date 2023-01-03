@@ -220,6 +220,11 @@ export class FlowTestUserInstance {
   update(
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance> {
     return this._proxy.update(params, callback);
   }

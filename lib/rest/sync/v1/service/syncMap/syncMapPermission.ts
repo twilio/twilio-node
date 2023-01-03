@@ -397,6 +397,11 @@ export class SyncMapPermissionInstance {
   update(
     params: SyncMapPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
+  ): Promise<SyncMapPermissionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
   ): Promise<SyncMapPermissionInstance> {
     return this._proxy.update(params, callback);
   }

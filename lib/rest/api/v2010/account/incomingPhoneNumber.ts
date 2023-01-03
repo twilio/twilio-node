@@ -748,13 +748,28 @@ export class IncomingPhoneNumberInstance {
   /**
    * Update a IncomingPhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * Update a IncomingPhoneNumberInstance
+   *
    * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
    */
   update(
-    params?: IncomingPhoneNumberContextUpdateOptions,
+    params: IncomingPhoneNumberContextUpdateOptions,
+    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+  ): Promise<IncomingPhoneNumberInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     return this._proxy.update(params, callback);

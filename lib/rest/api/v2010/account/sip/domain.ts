@@ -588,13 +588,28 @@ export class DomainInstance {
   /**
    * Update a DomainInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DomainInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+  /**
+   * Update a DomainInstance
+   *
    * @param { DomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DomainInstance
    */
   update(
-    params?: DomainContextUpdateOptions,
+    params: DomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);

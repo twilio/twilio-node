@@ -455,13 +455,28 @@ export class UserConversationInstance {
   /**
    * Update a UserConversationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserConversationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
+  /**
+   * Update a UserConversationInstance
+   *
    * @param { UserConversationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserConversationInstance
    */
   update(
-    params?: UserConversationContextUpdateOptions,
+    params: UserConversationContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: UserConversationInstance) => any
   ): Promise<UserConversationInstance> {
     return this._proxy.update(params, callback);

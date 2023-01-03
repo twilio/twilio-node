@@ -428,13 +428,28 @@ export class UserChannelInstance {
   /**
    * Remove a UserChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a UserChannelInstance
+   *
    * @param { UserChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   remove(
-    params?: UserChannelContextRemoveOptions,
+    params: UserChannelContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -456,13 +471,28 @@ export class UserChannelInstance {
   /**
    * Update a UserChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance>;
+  /**
+   * Update a UserChannelInstance
+   *
    * @param { UserChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserChannelInstance
    */
   update(
-    params?: UserChannelContextUpdateOptions,
+    params: UserChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserChannelInstance) => any
+  ): Promise<UserChannelInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
     return this._proxy.update(params, callback);

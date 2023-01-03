@@ -385,6 +385,11 @@ export class CredentialListInstance {
   update(
     params: CredentialListContextUpdateOptions,
     callback?: (error: Error | null, item?: CredentialListInstance) => any
+  ): Promise<CredentialListInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
     return this._proxy.update(params, callback);
   }

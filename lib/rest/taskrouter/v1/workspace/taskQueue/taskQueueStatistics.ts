@@ -233,13 +233,28 @@ export class TaskQueueStatisticsInstance {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueStatisticsInstance
+   *
    * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
-    params?: TaskQueueStatisticsContextFetchOptions,
+    params: TaskQueueStatisticsContextFetchOptions,
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance> {
     return this._proxy.fetch(params, callback);

@@ -222,13 +222,28 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance>;
+  /**
+   * Fetch a PhoneNumberInstance
+   *
    * @param { PhoneNumberContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed PhoneNumberInstance
    */
   fetch(
-    params?: PhoneNumberContextFetchOptions,
+    params: PhoneNumberContextFetchOptions,
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     return this._proxy.fetch(params, callback);

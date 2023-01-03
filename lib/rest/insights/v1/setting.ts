@@ -237,18 +237,43 @@ export class SettingInstance {
   /**
    * Fetch a SettingInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+  /**
+   * Fetch a SettingInstance
+   *
    * @param { SettingContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
   fetch(
-    params?: SettingContextFetchOptions,
+    params: SettingContextFetchOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
     return this._proxy.fetch(params, callback);
   }
 
+  /**
+   * Update a SettingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
    *
@@ -258,7 +283,12 @@ export class SettingInstance {
    * @returns { Promise } Resolves to processed SettingInstance
    */
   update(
-    params?: SettingContextUpdateOptions,
+    params: SettingContextUpdateOptions,
+    callback?: (error: Error | null, item?: SettingInstance) => any
+  ): Promise<SettingInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
     return this._proxy.update(params, callback);

@@ -251,13 +251,34 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkflowRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkflowRealTimeStatisticsInstance
+   *
    * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
-    params?: WorkflowRealTimeStatisticsContextFetchOptions,
+    params: WorkflowRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkflowRealTimeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: WorkflowRealTimeStatisticsInstance

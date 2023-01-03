@@ -254,13 +254,34 @@ export class AssistantInitiationActionsInstance {
   /**
    * Update a AssistantInitiationActionsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
+  ): Promise<AssistantInitiationActionsInstance>;
+  /**
+   * Update a AssistantInitiationActionsInstance
+   *
    * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
    */
   update(
-    params?: AssistantInitiationActionsContextUpdateOptions,
+    params: AssistantInitiationActionsContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
+  ): Promise<AssistantInitiationActionsInstance>;
+
+  update(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: AssistantInitiationActionsInstance

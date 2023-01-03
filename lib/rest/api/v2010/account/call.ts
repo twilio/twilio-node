@@ -773,13 +773,28 @@ export class CallInstance {
   /**
    * Update a CallInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+  /**
+   * Update a CallInstance
+   *
    * @param { CallContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CallInstance
    */
   update(
-    params?: CallContextUpdateOptions,
+    params: CallContextUpdateOptions,
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.update(params, callback);

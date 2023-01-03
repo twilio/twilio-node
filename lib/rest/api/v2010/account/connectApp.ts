@@ -421,13 +421,28 @@ export class ConnectAppInstance {
   /**
    * Update a ConnectAppInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConnectAppInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
+  /**
+   * Update a ConnectAppInstance
+   *
    * @param { ConnectAppContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConnectAppInstance
    */
   update(
-    params?: ConnectAppContextUpdateOptions,
+    params: ConnectAppContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
+  ): Promise<ConnectAppInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     return this._proxy.update(params, callback);

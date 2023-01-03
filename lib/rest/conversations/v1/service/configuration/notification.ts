@@ -317,13 +317,28 @@ export class NotificationInstance {
   /**
    * Update a NotificationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NotificationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+  /**
+   * Update a NotificationInstance
+   *
    * @param { NotificationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NotificationInstance
    */
   update(
-    params?: NotificationContextUpdateOptions,
+    params: NotificationContextUpdateOptions,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);

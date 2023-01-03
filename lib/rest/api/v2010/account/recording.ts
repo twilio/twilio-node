@@ -458,13 +458,28 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+  /**
+   * Fetch a RecordingInstance
+   *
    * @param { RecordingContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
   fetch(
-    params?: RecordingContextFetchOptions,
+    params: RecordingContextFetchOptions,
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     return this._proxy.fetch(params, callback);

@@ -388,6 +388,11 @@ export class AssetInstance {
   update(
     params: AssetContextUpdateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
+  ): Promise<AssetInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
     return this._proxy.update(params, callback);
   }

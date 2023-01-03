@@ -570,13 +570,28 @@ export class AccountInstance {
   /**
    * Update a AccountInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AccountInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AccountInstance) => any
+  ): Promise<AccountInstance>;
+  /**
+   * Update a AccountInstance
+   *
    * @param { AccountContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AccountInstance
    */
   update(
-    params?: AccountContextUpdateOptions,
+    params: AccountContextUpdateOptions,
+    callback?: (error: Error | null, item?: AccountInstance) => any
+  ): Promise<AccountInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     return this._proxy.update(params, callback);

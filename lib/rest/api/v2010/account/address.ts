@@ -500,13 +500,28 @@ export class AddressInstance {
   /**
    * Update a AddressInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AddressInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
+  /**
+   * Update a AddressInstance
+   *
    * @param { AddressContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AddressInstance
    */
   update(
-    params?: AddressContextUpdateOptions,
+    params: AddressContextUpdateOptions,
+    callback?: (error: Error | null, item?: AddressInstance) => any
+  ): Promise<AddressInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance> {
     return this._proxy.update(params, callback);

@@ -295,6 +295,11 @@ export class DomainCertsInstance {
   update(
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.update(params, callback);
   }

@@ -374,13 +374,28 @@ export class OutgoingCallerIdInstance {
   /**
    * Update a OutgoingCallerIdInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
+  /**
+   * Update a OutgoingCallerIdInstance
+   *
    * @param { OutgoingCallerIdContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    params?: OutgoingCallerIdContextUpdateOptions,
+    params: OutgoingCallerIdContextUpdateOptions,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
+  ): Promise<OutgoingCallerIdInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.update(params, callback);

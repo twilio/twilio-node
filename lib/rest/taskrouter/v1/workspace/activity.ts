@@ -391,13 +391,28 @@ export class ActivityInstance {
   /**
    * Update a ActivityInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ActivityInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ActivityInstance) => any
+  ): Promise<ActivityInstance>;
+  /**
+   * Update a ActivityInstance
+   *
    * @param { ActivityContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ActivityInstance
    */
   update(
-    params?: ActivityContextUpdateOptions,
+    params: ActivityContextUpdateOptions,
+    callback?: (error: Error | null, item?: ActivityInstance) => any
+  ): Promise<ActivityInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance> {
     return this._proxy.update(params, callback);

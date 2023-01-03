@@ -399,13 +399,28 @@ export class InstalledAddOnInstance {
   /**
    * Update a InstalledAddOnInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed InstalledAddOnInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+  /**
+   * Update a InstalledAddOnInstance
+   *
    * @param { InstalledAddOnContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed InstalledAddOnInstance
    */
   update(
-    params?: InstalledAddOnContextUpdateOptions,
+    params: InstalledAddOnContextUpdateOptions,
+    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+  ): Promise<InstalledAddOnInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     return this._proxy.update(params, callback);

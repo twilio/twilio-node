@@ -523,13 +523,28 @@ export class ChannelInstance {
   /**
    * Remove a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a ChannelInstance
+   *
    * @param { ChannelContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   remove(
-    params?: ChannelContextRemoveOptions,
+    params: ChannelContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -551,13 +566,28 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  /**
+   * Update a ChannelInstance
+   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?: ChannelContextUpdateOptions,
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);

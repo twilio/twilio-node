@@ -257,13 +257,28 @@ export class CallSummaryInstance {
   /**
    * Fetch a CallSummaryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallSummaryInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance>;
+  /**
+   * Fetch a CallSummaryInstance
+   *
    * @param { CallSummaryContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CallSummaryInstance
    */
   fetch(
-    params?: CallSummaryContextFetchOptions,
+    params: CallSummaryContextFetchOptions,
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);

@@ -258,13 +258,28 @@ export class ExportConfigurationInstance {
   /**
    * Update a ExportConfigurationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance>;
+  /**
+   * Update a ExportConfigurationInstance
+   *
    * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
   update(
-    params?: ExportConfigurationContextUpdateOptions,
+    params: ExportConfigurationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);

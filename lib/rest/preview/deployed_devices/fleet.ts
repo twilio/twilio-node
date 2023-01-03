@@ -400,13 +400,28 @@ export class FleetInstance {
   /**
    * Update a FleetInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FleetInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance>;
+  /**
+   * Update a FleetInstance
+   *
    * @param { FleetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FleetInstance
    */
   update(
-    params?: FleetContextUpdateOptions,
+    params: FleetContextUpdateOptions,
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);

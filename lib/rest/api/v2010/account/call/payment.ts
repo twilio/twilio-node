@@ -303,6 +303,11 @@ export class PaymentInstance {
   update(
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
+  ): Promise<PaymentInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance> {
     return this._proxy.update(params, callback);
   }

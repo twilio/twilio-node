@@ -384,13 +384,28 @@ export class ShortCodeInstance {
   /**
    * Update a ShortCodeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ShortCodeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
+  /**
+   * Update a ShortCodeInstance
+   *
    * @param { ShortCodeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ShortCodeInstance
    */
   update(
-    params?: ShortCodeContextUpdateOptions,
+    params: ShortCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     return this._proxy.update(params, callback);

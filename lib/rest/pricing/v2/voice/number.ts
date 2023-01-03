@@ -224,13 +224,28 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NumberInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance>;
+  /**
+   * Fetch a NumberInstance
+   *
    * @param { NumberContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NumberInstance
    */
   fetch(
-    params?: NumberContextFetchOptions,
+    params: NumberContextFetchOptions,
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     return this._proxy.fetch(params, callback);

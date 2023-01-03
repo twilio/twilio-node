@@ -487,13 +487,28 @@ export class ParticipantInstance {
   /**
    * Remove a ParticipantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a ParticipantInstance
+   *
    * @param { ParticipantContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
   remove(
-    params?: ParticipantContextRemoveOptions,
+    params: ParticipantContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -515,13 +530,28 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ParticipantInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  /**
+   * Update a ParticipantInstance
+   *
    * @param { ParticipantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
   update(
-    params?: ParticipantContextUpdateOptions,
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);

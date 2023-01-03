@@ -511,13 +511,28 @@ export class BundleInstance {
   /**
    * Update a BundleInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BundleInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+  /**
+   * Update a BundleInstance
+   *
    * @param { BundleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BundleInstance
    */
   update(
-    params?: BundleContextUpdateOptions,
+    params: BundleContextUpdateOptions,
+    callback?: (error: Error | null, item?: BundleInstance) => any
+  ): Promise<BundleInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance> {
     return this._proxy.update(params, callback);

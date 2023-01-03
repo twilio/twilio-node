@@ -461,6 +461,11 @@ export class RecordingInstance {
   update(
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
   }

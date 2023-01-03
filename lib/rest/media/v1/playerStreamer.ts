@@ -388,6 +388,11 @@ export class PlayerStreamerInstance {
   update(
     params: PlayerStreamerContextUpdateOptions,
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
+  ): Promise<PlayerStreamerInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
   ): Promise<PlayerStreamerInstance> {
     return this._proxy.update(params, callback);
   }

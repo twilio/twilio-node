@@ -429,13 +429,28 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebhookInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+  /**
+   * Update a WebhookInstance
+   *
    * @param { WebhookContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
   update(
-    params?: WebhookContextUpdateOptions,
+    params: WebhookContextUpdateOptions,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);

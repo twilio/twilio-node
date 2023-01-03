@@ -418,13 +418,28 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Fetch a ConfigurationInstance
+   *
    * @param { ConfigurationContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
   fetch(
-    params?: ConfigurationContextFetchOptions,
+    params: ConfigurationContextFetchOptions,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);

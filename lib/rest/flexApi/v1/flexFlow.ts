@@ -494,13 +494,28 @@ export class FlexFlowInstance {
   /**
    * Update a FlexFlowInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FlexFlowInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+  /**
+   * Update a FlexFlowInstance
+   *
    * @param { FlexFlowContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FlexFlowInstance
    */
   update(
-    params?: FlexFlowContextUpdateOptions,
+    params: FlexFlowContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+  ): Promise<FlexFlowInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     return this._proxy.update(params, callback);

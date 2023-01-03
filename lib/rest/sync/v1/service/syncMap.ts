@@ -426,13 +426,28 @@ export class SyncMapInstance {
   /**
    * Update a SyncMapInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance>;
+  /**
+   * Update a SyncMapInstance
+   *
    * @param { SyncMapContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncMapInstance
    */
   update(
-    params?: SyncMapContextUpdateOptions,
+    params: SyncMapContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncMapInstance) => any
+  ): Promise<SyncMapInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     return this._proxy.update(params, callback);

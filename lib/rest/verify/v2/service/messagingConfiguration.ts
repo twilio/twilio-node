@@ -393,6 +393,14 @@ export class MessagingConfigurationInstance {
       error: Error | null,
       item?: MessagingConfigurationInstance
     ) => any
+  ): Promise<MessagingConfigurationInstance>;
+
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
   ): Promise<MessagingConfigurationInstance> {
     return this._proxy.update(params, callback);
   }

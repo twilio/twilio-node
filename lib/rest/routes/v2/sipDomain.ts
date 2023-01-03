@@ -243,13 +243,28 @@ export class SipDomainInstance {
   /**
    * Update a SipDomainInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SipDomainInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
+  /**
+   * Update a SipDomainInstance
+   *
    * @param { SipDomainContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SipDomainInstance
    */
   update(
-    params?: SipDomainContextUpdateOptions,
+    params: SipDomainContextUpdateOptions,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);

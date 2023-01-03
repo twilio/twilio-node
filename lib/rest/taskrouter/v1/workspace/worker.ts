@@ -533,13 +533,28 @@ export class WorkerInstance {
   /**
    * Remove a WorkerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a WorkerInstance
+   *
    * @param { WorkerContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   remove(
-    params?: WorkerContextRemoveOptions,
+    params: WorkerContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -561,13 +576,28 @@ export class WorkerInstance {
   /**
    * Update a WorkerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance>;
+  /**
+   * Update a WorkerInstance
+   *
    * @param { WorkerContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkerInstance
    */
   update(
-    params?: WorkerContextUpdateOptions,
+    params: WorkerContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     return this._proxy.update(params, callback);

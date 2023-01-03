@@ -387,6 +387,11 @@ export class IpAccessControlListInstance {
   update(
     params: IpAccessControlListContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+  ): Promise<IpAccessControlListInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance> {
     return this._proxy.update(params, callback);
   }

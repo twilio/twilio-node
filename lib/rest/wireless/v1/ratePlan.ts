@@ -426,13 +426,28 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RatePlanInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+  /**
+   * Update a RatePlanInstance
+   *
    * @param { RatePlanContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RatePlanInstance
    */
   update(
-    params?: RatePlanContextUpdateOptions,
+    params: RatePlanContextUpdateOptions,
+    callback?: (error: Error | null, item?: RatePlanInstance) => any
+  ): Promise<RatePlanInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     return this._proxy.update(params, callback);

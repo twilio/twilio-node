@@ -236,13 +236,28 @@ export class StyleSheetInstance {
   /**
    * Update a StyleSheetInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance>;
+  /**
+   * Update a StyleSheetInstance
+   *
    * @param { StyleSheetContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
   update(
-    params?: StyleSheetContextUpdateOptions,
+    params: StyleSheetContextUpdateOptions,
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance> {
     return this._proxy.update(params, callback);

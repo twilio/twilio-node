@@ -398,13 +398,28 @@ export class QueueInstance {
   /**
    * Update a QueueInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed QueueInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+  /**
+   * Update a QueueInstance
+   *
    * @param { QueueContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed QueueInstance
    */
   update(
-    params?: QueueContextUpdateOptions,
+    params: QueueContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueueInstance) => any
+  ): Promise<QueueInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance> {
     return this._proxy.update(params, callback);

@@ -403,13 +403,28 @@ export class SyncStreamInstance {
   /**
    * Update a SyncStreamInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncStreamInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance>;
+  /**
+   * Update a SyncStreamInstance
+   *
    * @param { SyncStreamContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncStreamInstance
    */
   update(
-    params?: SyncStreamContextUpdateOptions,
+    params: SyncStreamContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     return this._proxy.update(params, callback);

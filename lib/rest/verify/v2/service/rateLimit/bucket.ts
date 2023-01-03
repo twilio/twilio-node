@@ -395,13 +395,28 @@ export class BucketInstance {
   /**
    * Update a BucketInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BucketInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance>;
+  /**
+   * Update a BucketInstance
+   *
    * @param { BucketContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed BucketInstance
    */
   update(
-    params?: BucketContextUpdateOptions,
+    params: BucketContextUpdateOptions,
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance> {
     return this._proxy.update(params, callback);

@@ -338,13 +338,28 @@ export class KeyInstance {
   /**
    * Update a KeyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed KeyInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+  /**
+   * Update a KeyInstance
+   *
    * @param { KeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed KeyInstance
    */
   update(
-    params?: KeyContextUpdateOptions,
+    params: KeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     return this._proxy.update(params, callback);

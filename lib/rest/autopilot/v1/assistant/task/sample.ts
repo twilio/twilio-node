@@ -414,13 +414,28 @@ export class SampleInstance {
   /**
    * Update a SampleInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SampleInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SampleInstance) => any
+  ): Promise<SampleInstance>;
+  /**
+   * Update a SampleInstance
+   *
    * @param { SampleContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SampleInstance
    */
   update(
-    params?: SampleContextUpdateOptions,
+    params: SampleContextUpdateOptions,
+    callback?: (error: Error | null, item?: SampleInstance) => any
+  ): Promise<SampleInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance> {
     return this._proxy.update(params, callback);

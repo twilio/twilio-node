@@ -329,13 +329,28 @@ export class SigningKeyInstance {
   /**
    * Update a SigningKeyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SigningKeyInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance>;
+  /**
+   * Update a SigningKeyInstance
+   *
    * @param { SigningKeyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SigningKeyInstance
    */
   update(
-    params?: SigningKeyContextUpdateOptions,
+    params: SigningKeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance> {
     return this._proxy.update(params, callback);

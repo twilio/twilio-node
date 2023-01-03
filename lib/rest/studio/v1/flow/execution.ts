@@ -432,6 +432,11 @@ export class ExecutionInstance {
   update(
     params: ExecutionContextUpdateOptions,
     callback?: (error: Error | null, item?: ExecutionInstance) => any
+  ): Promise<ExecutionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
     return this._proxy.update(params, callback);
   }

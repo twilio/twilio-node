@@ -376,6 +376,11 @@ export class DocumentInstance {
   update(
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);
   }

@@ -335,13 +335,28 @@ export class NetworkAccessProfileInstance {
   /**
    * Update a NetworkAccessProfileInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance>;
+  /**
+   * Update a NetworkAccessProfileInstance
+   *
    * @param { NetworkAccessProfileContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed NetworkAccessProfileInstance
    */
   update(
-    params?: NetworkAccessProfileContextUpdateOptions,
+    params: NetworkAccessProfileContextUpdateOptions,
+    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+  ): Promise<NetworkAccessProfileInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance> {
     return this._proxy.update(params, callback);

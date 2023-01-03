@@ -384,13 +384,28 @@ export class DeploymentInstance {
   /**
    * Update a DeploymentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeploymentInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance>;
+  /**
+   * Update a DeploymentInstance
+   *
    * @param { DeploymentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeploymentInstance
    */
   update(
-    params?: DeploymentContextUpdateOptions,
+    params: DeploymentContextUpdateOptions,
+    callback?: (error: Error | null, item?: DeploymentInstance) => any
+  ): Promise<DeploymentInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     return this._proxy.update(params, callback);

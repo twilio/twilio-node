@@ -348,6 +348,11 @@ export class VerificationInstance {
   update(
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
   }

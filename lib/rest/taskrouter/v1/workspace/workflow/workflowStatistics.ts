@@ -233,13 +233,28 @@ export class WorkflowStatisticsInstance {
   /**
    * Fetch a WorkflowStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance>;
+  /**
+   * Fetch a WorkflowStatisticsInstance
+   *
    * @param { WorkflowStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
    */
   fetch(
-    params?: WorkflowStatisticsContextFetchOptions,
+    params: WorkflowStatisticsContextFetchOptions,
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance> {
     return this._proxy.fetch(params, callback);

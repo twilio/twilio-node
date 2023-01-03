@@ -355,13 +355,28 @@ export class EndUserInstance {
   /**
    * Update a EndUserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EndUserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+  /**
+   * Update a EndUserInstance
+   *
    * @param { EndUserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed EndUserInstance
    */
   update(
-    params?: EndUserContextUpdateOptions,
+    params: EndUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     return this._proxy.update(params, callback);

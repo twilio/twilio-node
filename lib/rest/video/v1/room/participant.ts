@@ -429,13 +429,28 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ParticipantInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+  /**
+   * Update a ParticipantInstance
+   *
    * @param { ParticipantContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ParticipantInstance
    */
   update(
-    params?: ParticipantContextUpdateOptions,
+    params: ParticipantContextUpdateOptions,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);

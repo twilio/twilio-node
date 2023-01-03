@@ -410,13 +410,28 @@ export class IpAddressInstance {
   /**
    * Update a IpAddressInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpAddressInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance>;
+  /**
+   * Update a IpAddressInstance
+   *
    * @param { IpAddressContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IpAddressInstance
    */
   update(
-    params?: IpAddressContextUpdateOptions,
+    params: IpAddressContextUpdateOptions,
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     return this._proxy.update(params, callback);

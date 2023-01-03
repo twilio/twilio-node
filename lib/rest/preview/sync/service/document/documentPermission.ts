@@ -399,6 +399,11 @@ export class DocumentPermissionInstance {
   update(
     params: DocumentPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
+  ): Promise<DocumentPermissionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
   ): Promise<DocumentPermissionInstance> {
     return this._proxy.update(params, callback);
   }

@@ -296,6 +296,14 @@ export class InteractionChannelParticipantInstance {
       error: Error | null,
       item?: InteractionChannelParticipantInstance
     ) => any
+  ): Promise<InteractionChannelParticipantInstance>;
+
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: InteractionChannelParticipantInstance
+    ) => any
   ): Promise<InteractionChannelParticipantInstance> {
     return this._proxy.update(params, callback);
   }

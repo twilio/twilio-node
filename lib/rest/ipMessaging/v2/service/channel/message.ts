@@ -444,13 +444,28 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a MessageInstance
+   *
    * @param { MessageContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
   remove(
-    params?: MessageContextRemoveOptions,
+    params: MessageContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -472,13 +487,28 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+  /**
+   * Update a MessageInstance
+   *
    * @param { MessageContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed MessageInstance
    */
   update(
-    params?: MessageContextUpdateOptions,
+    params: MessageContextUpdateOptions,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);

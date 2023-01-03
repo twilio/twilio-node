@@ -486,13 +486,28 @@ export class WorkflowInstance {
   /**
    * Update a WorkflowInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance>;
+  /**
+   * Update a WorkflowInstance
+   *
    * @param { WorkflowContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkflowInstance
    */
   update(
-    params?: WorkflowContextUpdateOptions,
+    params: WorkflowContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     return this._proxy.update(params, callback);

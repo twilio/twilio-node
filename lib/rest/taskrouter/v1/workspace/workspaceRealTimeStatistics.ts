@@ -245,13 +245,34 @@ export class WorkspaceRealTimeStatisticsInstance {
   /**
    * Fetch a WorkspaceRealTimeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceRealTimeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkspaceRealTimeStatisticsInstance
+   *
    * @param { WorkspaceRealTimeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceRealTimeStatisticsInstance
    */
   fetch(
-    params?: WorkspaceRealTimeStatisticsContextFetchOptions,
+    params: WorkspaceRealTimeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceRealTimeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceRealTimeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: WorkspaceRealTimeStatisticsInstance

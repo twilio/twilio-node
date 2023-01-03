@@ -358,13 +358,28 @@ export class WebChannelInstance {
   /**
    * Update a WebChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
+  ): Promise<WebChannelInstance>;
+  /**
+   * Update a WebChannelInstance
+   *
    * @param { WebChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebChannelInstance
    */
   update(
-    params?: WebChannelContextUpdateOptions,
+    params: WebChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: WebChannelInstance) => any
+  ): Promise<WebChannelInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     return this._proxy.update(params, callback);

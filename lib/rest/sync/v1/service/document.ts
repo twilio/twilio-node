@@ -425,13 +425,28 @@ export class DocumentInstance {
   /**
    * Update a DocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DocumentInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance>;
+  /**
+   * Update a DocumentInstance
+   *
    * @param { DocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DocumentInstance
    */
   update(
-    params?: DocumentContextUpdateOptions,
+    params: DocumentContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);

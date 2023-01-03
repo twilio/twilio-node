@@ -392,13 +392,28 @@ export class SupportingDocumentInstance {
   /**
    * Update a SupportingDocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SupportingDocumentInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+  ): Promise<SupportingDocumentInstance>;
+  /**
+   * Update a SupportingDocumentInstance
+   *
    * @param { SupportingDocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SupportingDocumentInstance
    */
   update(
-    params?: SupportingDocumentContextUpdateOptions,
+    params: SupportingDocumentContextUpdateOptions,
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+  ): Promise<SupportingDocumentInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance> {
     return this._proxy.update(params, callback);

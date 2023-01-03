@@ -572,13 +572,28 @@ export class ApplicationInstance {
   /**
    * Update a ApplicationInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ApplicationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance>;
+  /**
+   * Update a ApplicationInstance
+   *
    * @param { ApplicationContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ApplicationInstance
    */
   update(
-    params?: ApplicationContextUpdateOptions,
+    params: ApplicationContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
+  ): Promise<ApplicationInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     return this._proxy.update(params, callback);

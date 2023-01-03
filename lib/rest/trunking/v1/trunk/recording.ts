@@ -232,13 +232,28 @@ export class RecordingInstance {
   /**
    * Update a RecordingInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+  /**
+   * Update a RecordingInstance
+   *
    * @param { RecordingContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
   update(
-    params?: RecordingContextUpdateOptions,
+    params: RecordingContextUpdateOptions,
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);

@@ -399,6 +399,11 @@ export class SyncListPermissionInstance {
   update(
     params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
   ): Promise<SyncListPermissionInstance> {
     return this._proxy.update(params, callback);
   }

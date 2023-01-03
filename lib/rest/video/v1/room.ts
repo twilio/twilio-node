@@ -496,6 +496,11 @@ export class RoomInstance {
   update(
     params: RoomContextUpdateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     return this._proxy.update(params, callback);
   }

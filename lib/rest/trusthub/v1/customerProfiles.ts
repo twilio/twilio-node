@@ -468,13 +468,28 @@ export class CustomerProfilesInstance {
   /**
    * Update a CustomerProfilesInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+  /**
+   * Update a CustomerProfilesInstance
+   *
    * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CustomerProfilesInstance
    */
   update(
-    params?: CustomerProfilesContextUpdateOptions,
+    params: CustomerProfilesContextUpdateOptions,
+    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+  ): Promise<CustomerProfilesInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
     return this._proxy.update(params, callback);

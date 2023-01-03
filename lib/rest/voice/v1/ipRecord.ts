@@ -354,13 +354,28 @@ export class IpRecordInstance {
   /**
    * Update a IpRecordInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpRecordInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance>;
+  /**
+   * Update a IpRecordInstance
+   *
    * @param { IpRecordContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed IpRecordInstance
    */
   update(
-    params?: IpRecordContextUpdateOptions,
+    params: IpRecordContextUpdateOptions,
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     return this._proxy.update(params, callback);

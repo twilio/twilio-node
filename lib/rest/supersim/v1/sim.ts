@@ -376,13 +376,28 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SimInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
+  /**
+   * Update a SimInstance
+   *
    * @param { SimContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SimInstance
    */
   update(
-    params?: SimContextUpdateOptions,
+    params: SimContextUpdateOptions,
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     return this._proxy.update(params, callback);

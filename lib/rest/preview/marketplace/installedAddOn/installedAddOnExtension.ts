@@ -341,6 +341,14 @@ export class InstalledAddOnExtensionInstance {
       error: Error | null,
       item?: InstalledAddOnExtensionInstance
     ) => any
+  ): Promise<InstalledAddOnExtensionInstance>;
+
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
   ): Promise<InstalledAddOnExtensionInstance> {
     return this._proxy.update(params, callback);
   }

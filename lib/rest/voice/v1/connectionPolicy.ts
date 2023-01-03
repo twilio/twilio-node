@@ -371,13 +371,28 @@ export class ConnectionPolicyInstance {
   /**
    * Update a ConnectionPolicyInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
+  ): Promise<ConnectionPolicyInstance>;
+  /**
+   * Update a ConnectionPolicyInstance
+   *
    * @param { ConnectionPolicyContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConnectionPolicyInstance
    */
   update(
-    params?: ConnectionPolicyContextUpdateOptions,
+    params: ConnectionPolicyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
+  ): Promise<ConnectionPolicyInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
   ): Promise<ConnectionPolicyInstance> {
     return this._proxy.update(params, callback);

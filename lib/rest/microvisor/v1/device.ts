@@ -311,13 +311,28 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeviceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DeviceInstance) => any
+  ): Promise<DeviceInstance>;
+  /**
+   * Update a DeviceInstance
+   *
    * @param { DeviceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DeviceInstance
    */
   update(
-    params?: DeviceContextUpdateOptions,
+    params: DeviceContextUpdateOptions,
+    callback?: (error: Error | null, item?: DeviceInstance) => any
+  ): Promise<DeviceInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     return this._proxy.update(params, callback);

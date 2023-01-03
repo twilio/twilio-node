@@ -432,6 +432,11 @@ export class FlowInstance {
   update(
     params: FlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance> {
     return this._proxy.update(params, callback);
   }

@@ -461,13 +461,28 @@ export class SyncListItemInstance {
   /**
    * Remove a SyncListItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SyncListItemInstance
+   *
    * @param { SyncListItemContextRemoveOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   remove(
-    params?: SyncListItemContextRemoveOptions,
+    params: SyncListItemContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
@@ -489,13 +504,28 @@ export class SyncListItemInstance {
   /**
    * Update a SyncListItemInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListItemInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+  ): Promise<SyncListItemInstance>;
+  /**
+   * Update a SyncListItemInstance
+   *
    * @param { SyncListItemContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SyncListItemInstance
    */
   update(
-    params?: SyncListItemContextUpdateOptions,
+    params: SyncListItemContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+  ): Promise<SyncListItemInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     return this._proxy.update(params, callback);

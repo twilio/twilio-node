@@ -278,13 +278,34 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkersCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkersCumulativeStatisticsInstance
+   *
    * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
-    params?: WorkersCumulativeStatisticsContextFetchOptions,
+    params: WorkersCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkersCumulativeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance

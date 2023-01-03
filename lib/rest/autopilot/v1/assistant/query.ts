@@ -440,13 +440,28 @@ export class QueryInstance {
   /**
    * Update a QueryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed QueryInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+  /**
+   * Update a QueryInstance
+   *
    * @param { QueryContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed QueryInstance
    */
   update(
-    params?: QueryContextUpdateOptions,
+    params: QueryContextUpdateOptions,
+    callback?: (error: Error | null, item?: QueryInstance) => any
+  ): Promise<QueryInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance> {
     return this._proxy.update(params, callback);

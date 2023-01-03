@@ -239,13 +239,28 @@ export class DefaultsInstance {
   /**
    * Update a DefaultsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DefaultsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance>;
+  /**
+   * Update a DefaultsInstance
+   *
    * @param { DefaultsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
   update(
-    params?: DefaultsContextUpdateOptions,
+    params: DefaultsContextUpdateOptions,
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance> {
     return this._proxy.update(params, callback);

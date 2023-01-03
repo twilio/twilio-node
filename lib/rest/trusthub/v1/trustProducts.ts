@@ -454,13 +454,28 @@ export class TrustProductsInstance {
   /**
    * Update a TrustProductsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrustProductsInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance>;
+  /**
+   * Update a TrustProductsInstance
+   *
    * @param { TrustProductsContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TrustProductsInstance
    */
   update(
-    params?: TrustProductsContextUpdateOptions,
+    params: TrustProductsContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     return this._proxy.update(params, callback);

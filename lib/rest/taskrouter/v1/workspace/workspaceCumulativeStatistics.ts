@@ -340,13 +340,34 @@ export class WorkspaceCumulativeStatisticsInstance {
   /**
    * Fetch a WorkspaceCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceCumulativeStatisticsInstance>;
+  /**
+   * Fetch a WorkspaceCumulativeStatisticsInstance
+   *
    * @param { WorkspaceCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceCumulativeStatisticsInstance
    */
   fetch(
-    params?: WorkspaceCumulativeStatisticsContextFetchOptions,
+    params: WorkspaceCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
+  ): Promise<WorkspaceCumulativeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: WorkspaceCumulativeStatisticsInstance

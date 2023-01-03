@@ -471,13 +471,28 @@ export class ByocTrunkInstance {
   /**
    * Update a ByocTrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance>;
+  /**
+   * Update a ByocTrunkInstance
+   *
    * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ByocTrunkInstance
    */
   update(
-    params?: ByocTrunkContextUpdateOptions,
+    params: ByocTrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+  ): Promise<ByocTrunkInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     return this._proxy.update(params, callback);

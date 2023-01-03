@@ -353,6 +353,11 @@ export class RoleInstance {
   update(
     params: RoleContextUpdateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
+  ): Promise<RoleInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
     return this._proxy.update(params, callback);
   }

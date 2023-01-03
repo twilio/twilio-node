@@ -357,13 +357,34 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueCumulativeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance
+   *
    * @param { TaskQueueCumulativeStatisticsContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
-    params?: TaskQueueCumulativeStatisticsContextFetchOptions,
+    params: TaskQueueCumulativeStatisticsContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueCumulativeStatisticsInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: TaskQueueCumulativeStatisticsInstance

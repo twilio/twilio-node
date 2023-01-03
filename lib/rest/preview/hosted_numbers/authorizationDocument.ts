@@ -408,13 +408,34 @@ export class AuthorizationDocumentInstance {
   /**
    * Update a AuthorizationDocumentInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
+  ): Promise<AuthorizationDocumentInstance>;
+  /**
+   * Update a AuthorizationDocumentInstance
+   *
    * @param { AuthorizationDocumentContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
    */
   update(
-    params?: AuthorizationDocumentContextUpdateOptions,
+    params: AuthorizationDocumentContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: AuthorizationDocumentInstance
+    ) => any
+  ): Promise<AuthorizationDocumentInstance>;
+
+  update(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance

@@ -707,13 +707,28 @@ export class TriggerInstance {
   /**
    * Update a TriggerInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TriggerInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TriggerInstance) => any
+  ): Promise<TriggerInstance>;
+  /**
+   * Update a TriggerInstance
+   *
    * @param { TriggerContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TriggerInstance
    */
   update(
-    params?: TriggerContextUpdateOptions,
+    params: TriggerContextUpdateOptions,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
+  ): Promise<TriggerInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     return this._proxy.update(params, callback);

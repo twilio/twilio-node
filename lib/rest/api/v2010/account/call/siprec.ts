@@ -643,6 +643,11 @@ export class SiprecInstance {
   update(
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
+  ): Promise<SiprecInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance> {
     return this._proxy.update(params, callback);
   }

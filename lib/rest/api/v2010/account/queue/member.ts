@@ -325,6 +325,11 @@ export class MemberInstance {
   update(
     params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
   }

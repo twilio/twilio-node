@@ -176,13 +176,28 @@ export class GoodDataInstance {
   /**
    * Create a GoodDataInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed GoodDataInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
+  /**
+   * Create a GoodDataInstance
+   *
    * @param { GoodDataContextCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed GoodDataInstance
    */
   create(
-    params?: GoodDataContextCreateOptions,
+    params: GoodDataContextCreateOptions,
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance>;
+
+  create(
+    params?: any,
     callback?: (error: Error | null, item?: GoodDataInstance) => any
   ): Promise<GoodDataInstance> {
     return this._proxy.create(params, callback);

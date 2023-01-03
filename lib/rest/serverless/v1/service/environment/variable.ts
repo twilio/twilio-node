@@ -398,13 +398,28 @@ export class VariableInstance {
   /**
    * Update a VariableInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VariableInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: VariableInstance) => any
+  ): Promise<VariableInstance>;
+  /**
+   * Update a VariableInstance
+   *
    * @param { VariableContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VariableInstance
    */
   update(
-    params?: VariableContextUpdateOptions,
+    params: VariableContextUpdateOptions,
+    callback?: (error: Error | null, item?: VariableInstance) => any
+  ): Promise<VariableInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance> {
     return this._proxy.update(params, callback);

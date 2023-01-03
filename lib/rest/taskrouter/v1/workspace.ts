@@ -540,13 +540,28 @@ export class WorkspaceInstance {
   /**
    * Update a WorkspaceInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkspaceInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+  /**
+   * Update a WorkspaceInstance
+   *
    * @param { WorkspaceContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WorkspaceInstance
    */
   update(
-    params?: WorkspaceContextUpdateOptions,
+    params: WorkspaceContextUpdateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);

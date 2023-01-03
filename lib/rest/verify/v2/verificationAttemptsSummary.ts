@@ -224,13 +224,34 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   */
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
+  ): Promise<VerificationAttemptsSummaryInstance>;
+  /**
+   * Fetch a VerificationAttemptsSummaryInstance
+   *
    * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
-    params?: VerificationAttemptsSummaryContextFetchOptions,
+    params: VerificationAttemptsSummaryContextFetchOptions,
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
+  ): Promise<VerificationAttemptsSummaryInstance>;
+
+  fetch(
+    params?: any,
     callback?: (
       error: Error | null,
       item?: VerificationAttemptsSummaryInstance

@@ -456,13 +456,28 @@ export class ChallengeInstance {
   /**
    * Update a ChallengeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChallengeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+  /**
+   * Update a ChallengeInstance
+   *
    * @param { ChallengeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChallengeInstance
    */
   update(
-    params?: ChallengeContextUpdateOptions,
+    params: ChallengeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
+  ): Promise<ChallengeInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     return this._proxy.update(params, callback);

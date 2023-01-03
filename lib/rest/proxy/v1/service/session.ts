@@ -465,13 +465,28 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SessionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+  /**
+   * Update a SessionInstance
+   *
    * @param { SessionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SessionInstance
    */
   update(
-    params?: SessionContextUpdateOptions,
+    params: SessionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
     return this._proxy.update(params, callback);

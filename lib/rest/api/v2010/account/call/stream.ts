@@ -643,6 +643,11 @@ export class StreamInstance {
   update(
     params: StreamContextUpdateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
+  ): Promise<StreamInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance> {
     return this._proxy.update(params, callback);
   }

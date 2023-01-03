@@ -264,13 +264,28 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrunkInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+  /**
+   * Update a TrunkInstance
+   *
    * @param { TrunkContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TrunkInstance
    */
   update(
-    params?: TrunkContextUpdateOptions,
+    params: TrunkContextUpdateOptions,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);

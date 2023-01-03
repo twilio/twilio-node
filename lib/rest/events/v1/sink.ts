@@ -385,6 +385,11 @@ export class SinkInstance {
   update(
     params: SinkContextUpdateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
+  ): Promise<SinkInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
     return this._proxy.update(params, callback);
   }

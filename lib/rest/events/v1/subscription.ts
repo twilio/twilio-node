@@ -379,13 +379,28 @@ export class SubscriptionInstance {
   /**
    * Update a SubscriptionInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscriptionInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+  /**
+   * Update a SubscriptionInstance
+   *
    * @param { SubscriptionContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscriptionInstance
    */
   update(
-    params?: SubscriptionContextUpdateOptions,
+    params: SubscriptionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+  ): Promise<SubscriptionInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
     return this._proxy.update(params, callback);

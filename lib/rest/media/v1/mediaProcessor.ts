@@ -377,6 +377,11 @@ export class MediaProcessorInstance {
   update(
     params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance> {
     return this._proxy.update(params, callback);
   }

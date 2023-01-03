@@ -383,13 +383,28 @@ export class CredentialInstance {
   /**
    * Update a CredentialInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: CredentialInstance) => any
+  ): Promise<CredentialInstance>;
+  /**
+   * Update a CredentialInstance
+   *
    * @param { CredentialContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed CredentialInstance
    */
   update(
-    params?: CredentialContextUpdateOptions,
+    params: CredentialContextUpdateOptions,
+    callback?: (error: Error | null, item?: CredentialInstance) => any
+  ): Promise<CredentialInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     return this._proxy.update(params, callback);

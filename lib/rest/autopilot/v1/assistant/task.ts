@@ -459,13 +459,28 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+  /**
+   * Update a TaskInstance
+   *
    * @param { TaskContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskInstance
    */
   update(
-    params?: TaskContextUpdateOptions,
+    params: TaskContextUpdateOptions,
+    callback?: (error: Error | null, item?: TaskInstance) => any
+  ): Promise<TaskInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     return this._proxy.update(params, callback);

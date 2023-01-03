@@ -155,13 +155,28 @@ export class UserRolesInstance {
   /**
    * Fetch a UserRolesInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserRolesInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: UserRolesInstance) => any
+  ): Promise<UserRolesInstance>;
+  /**
+   * Fetch a UserRolesInstance
+   *
    * @param { UserRolesContextFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserRolesInstance
    */
   fetch(
-    params?: UserRolesContextFetchOptions,
+    params: UserRolesContextFetchOptions,
+    callback?: (error: Error | null, item?: UserRolesInstance) => any
+  ): Promise<UserRolesInstance>;
+
+  fetch(
+    params?: any,
     callback?: (error: Error | null, item?: UserRolesInstance) => any
   ): Promise<UserRolesInstance> {
     return this._proxy.fetch(params, callback);

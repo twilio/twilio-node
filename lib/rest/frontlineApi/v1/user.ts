@@ -250,13 +250,28 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+  /**
+   * Update a UserInstance
+   *
    * @param { UserContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed UserInstance
    */
   update(
-    params?: UserContextUpdateOptions,
+    params: UserContextUpdateOptions,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);

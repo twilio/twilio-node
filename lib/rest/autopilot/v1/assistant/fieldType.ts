@@ -402,13 +402,28 @@ export class FieldTypeInstance {
   /**
    * Update a FieldTypeInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FieldTypeInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+  /**
+   * Update a FieldTypeInstance
+   *
    * @param { FieldTypeContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FieldTypeInstance
    */
   update(
-    params?: FieldTypeContextUpdateOptions,
+    params: FieldTypeContextUpdateOptions,
+    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+  ): Promise<FieldTypeInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
   ): Promise<FieldTypeInstance> {
     return this._proxy.update(params, callback);

@@ -431,13 +431,28 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ChannelInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+  /**
+   * Update a ChannelInstance
+   *
    * @param { ChannelContextUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ChannelInstance
    */
   update(
-    params?: ChannelContextUpdateOptions,
+    params: ChannelContextUpdateOptions,
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
