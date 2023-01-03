@@ -67,7 +67,7 @@ export interface WebhookOptions {
  * @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
  * @returns {string} - URL with standard port number included
  */
-function buildUrlWithStandardPort(parsedUrl: Url): string {
+function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
   let url = "";
   const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
 
@@ -88,7 +88,7 @@ function buildUrlWithStandardPort(parsedUrl: Url): string {
  server
  @returns {string} - URL with port
  */
-function addPort(parsedUrl: Url): string {
+function addPort(parsedUrl: Url<string>): string {
   if (!parsedUrl.port) {
     return buildUrlWithStandardPort(parsedUrl);
   }
@@ -102,7 +102,7 @@ function addPort(parsedUrl: Url): string {
  server
  @returns {string} - URL without port
  */
-function removePort(parsedUrl: Url): string {
+function removePort(parsedUrl: Url<string>): string {
   parsedUrl.set("port", "");
   return parsedUrl.toString();
 }
