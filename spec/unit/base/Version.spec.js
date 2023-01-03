@@ -1,11 +1,7 @@
-"use strict";
-
 import Version from "../../../lib/base/Version";
 import Holodeck from "../../integration/holodeck";
 import Response from "../../../lib/http/response";
 import Twilio from "../../../lib";
-
-
 
 describe("fetch method", function () {
   it("should not throw an exception on 3xx status code", function (done) {
