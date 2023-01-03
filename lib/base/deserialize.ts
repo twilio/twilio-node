@@ -21,7 +21,7 @@ export interface NumberParser {
  * @param {string} s Date string in YYYY-MM-DD format
  * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601Date(s) {
+export function iso8601Date(s: string) {
   return parseDate(s, "YYYY-MM-DD");
 }
 
@@ -33,7 +33,7 @@ export function iso8601Date(s) {
  * @param {string} s Date string in YYYY-MM-DD[T]HH:mm:ss[Z] format
  * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601DateTime(s) {
+export function iso8601DateTime(s: string) {
   return parseDate(s, "YYYY-MM-DD[T]HH:mm:ss[Z]");
 }
 
@@ -45,7 +45,7 @@ export function iso8601DateTime(s) {
  * @param {string} s Date string in ddd, DD MMM YYYY HH:mm:ss [+0000] format
  * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
  */
-export function rfc2822DateTime(s) {
+export function rfc2822DateTime(s: string) {
   return parseDate(s, "ddd, DD MMM YYYY HH:mm:ss [+0000]");
 }
 
@@ -57,7 +57,7 @@ export function rfc2822DateTime(s) {
  * @param  {string} d Decimal value as string
  * @return {(number|string)} Number, or the original string if the argument is NaN
  */
-export function decimal(d) {
+export function decimal(d: string) {
   return parseNumber(d, parseFloat);
 }
 
@@ -69,7 +69,7 @@ export function decimal(d) {
  * @param  {string} i Integer value as string
  * @return {(number|string)} Number, or the original string if the argument is NaN
  */
-export function integer(i) {
+export function integer(i: string) {
   return parseNumber(i, parseInt);
 }
 
