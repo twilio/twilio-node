@@ -16,7 +16,7 @@ test-docker:
 	docker run twilio/twilio-node npm run ci
 
 docs:
-	npm run jsdoc
+	npm run typedoc
 
 clean:
 	rm -rf node_modules dist
