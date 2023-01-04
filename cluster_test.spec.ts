@@ -10,6 +10,7 @@ const apiKey = process.env.TWILIO_API_KEY;
 const apiSecret = process.env.TWILIO_API_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const testClient = twilio(apiKey, apiSecret, { accountSid });
+const twiml = new twilio.twiml.VoiceResponse();
 
 test("Should send a text", () => {
   return testClient.messages
@@ -73,3 +74,19 @@ test("Should list available numbers", () => {
       expect(tollFree.length).toEqual(2);
     });
 });
+
+test("Should call with twiml string", () => {
+    return testClient.calls.create({
+        twiml: twiml.toString(),
+        to: toNumber,
+        from: fromNumber,
+    }).then(call => expect(call.sid).toBeDefined())
+})
+
+test("Should call with twiml object", () => {
+    return testClient.calls.create({
+        twiml: twiml,
+        to: toNumber,
+        from: fromNumber,
+    }).then(call => expect(call.sid).toBeDefined())
+})
